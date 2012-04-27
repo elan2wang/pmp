@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+   <community>
+      <name>君逸汇</name>
+	  <building>
+	     <name>一号楼</name>
+		 <number>15</number>
+	  </building>
+	  <building>
+	     <name>二号楼</name>
+		 <number>15</number>
+	  </building>
+	  <building>
+	     <name>三号楼</name>
+		 <number>15</number>
+	  </building>
+	  <building>
+	     <name>四号楼</name>
+		 <number>15</number>
+	  </building>
+	  <building>
+	     <name>五号楼</name>
+		 <number>15</number>
+	  </building>
+   </community> 
+   <community>
+      <name>联丰小区</name>
+	  <building>
+	     <name>一号楼</name>
+		 <number>15</number>
+	  </building>
+	  <building>
+	     <name>二号楼</name>
+		 <number>10</number>
+	  </building>
+   </community> 
+</root>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-3-27 12:23:42 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.pmp.vo.TbRole" table="tb_Role" schema="dbo" catalog="db_pmp2">
+        <id name="roleId" type="integer">
+            <column name="Role_ID" />
+            <generator class="identity" />
+        </id>
+        <property name="roleName" type="string">
+            <column name="Role_Name" length="50" />
+        </property>
+        <property name="roleDesc" type="string">
+            <column name="Role_Desc" length="100" />
+        </property>
+        <property name="enabled" type="boolean">
+            <column name="ENABLED" />
+        </property>
+        <property name="issys" type="boolean">
+            <column name="ISSYS" />
+        </property>
+    </class>
+</hibernate-mapping>

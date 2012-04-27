@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xmlns="http://java.sun.com/xml/ns/javaee" 
+         xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" 
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+                             http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" 
+         id="WebApp_ID" 
+         version="3.0">
+  <display-name>PMP</display-name>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <!-- set Spring ContextLoaderListener -->
+  <listener>
+  	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  
+  <context-param>
+  	<param-name>contextConfigLocation</param-name>
+  	<param-value>
+  	  /WEB-INF/applicationContext.xml
+  	  /WEB-INF/applicationContext-admin.xml
+  	  /WEB-INF/applicationContext-security.xml
+  	  /WEB-INF/applicationContext-business.xml
+  	  /WEB-INF/applicationContext-aop.xml
+  	</param-value>
+  </context-param>
+  
+  <!-- set Log4j ConfigListener -->
+  <listener>
+	<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+  </listener>
+  
+  <context-param>
+	<param-name>log4jConfigLocation</param-name>
+	<param-value>/WEB-INF/log4j.properties</param-value>
+  </context-param>
+  
+  <!-- set Spring Security Filter,and this must before struts filter -->
+  <filter>
+    <filter-name>springSecurityFilterChain</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter>
+  
+  <filter-mapping>
+    <filter-name>springSecurityFilterChain</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>   
+ 
+  <!-- set Struts Filter -->
+  <filter>
+  	<filter-name>struts2</filter-name>
+  	<filter-class>
+  		org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter
+  	</filter-class>
+  </filter>
+
+  <filter-mapping>
+  	<filter-name>struts2</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <!-- set the JSTL taglib -->
+  <jsp-config>
+  	<taglib>
+   		<taglib-uri>http://java.sun.com/jstl/core</taglib-uri>
+      	<taglib-location>/WEB-INF/c.tld</taglib-location>
+  	</taglib>
+  	<taglib>
+  		<taglib-uri>http://java.sun.com/jsp/jstl/fmt</taglib-uri>
+  		<taglib-location>/WEB-INF/fmt.tld</taglib-location>
+  	</taglib>
+  	<taglib>
+  		<taglib-uri>http://java.sun.com/jsp/jstl/functions</taglib-uri>
+  		<taglib-location>/WEB-INF/fn.tld</taglib-location>
+  	</taglib>
+  </jsp-config>
+  
+</web-app>

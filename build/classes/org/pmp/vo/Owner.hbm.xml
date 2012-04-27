@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-4-19 19:48:26 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.pmp.vo.Owner" table="tb_Owner" schema="dbo" catalog="db_pmp2">
+        <id name="ownerId" type="integer">
+            <column name="Owner_ID" />
+            <generator class="identity" />
+        </id>
+        <property name="ownerName" type="string">
+            <column name="Owner_Name" length="50" />
+        </property>
+        <property name="gender" type="string">
+            <column name="Gender" length="10" />
+        </property>
+        <property name="nationality" type="string">
+            <column name="Nationality" length="20" />
+        </property>
+        <property name="native_" type="string">
+            <column name="Native" length="50" />
+        </property>
+        <property name="birthday" type="timestamp">
+            <column name="Birthday" length="23" />
+        </property>
+        <property name="ismarried" type="boolean">
+            <column name="ISMARRIED" />
+        </property>
+        <property name="organization" type="string">
+            <column name="Organization" length="100" />
+        </property>
+        <property name="hobby" type="string">
+            <column name="Hobby" length="100" />
+        </property>
+        <property name="identityType" type="string">
+            <column name="Identity_Type" length="20" />
+        </property>
+        <property name="identityCode" type="string">
+            <column name="Identity_Code" length="18" />
+        </property>
+        <property name="homePhone" type="string">
+            <column name="Home_Phone" length="12" />
+        </property>
+        <property name="mobile" type="string">
+            <column name="Mobile" length="12" />
+        </property>
+        <property name="getTime" type="timestamp">
+            <column name="Get_Time" length="23" />
+        </property>
+        <property name="decorateTime" type="timestamp">
+            <column name="Decorate_Time" length="23" />
+        </property>
+        <property name="inTime" type="timestamp">
+            <column name="In_Time" length="23" />
+        </property>
+        <property name="parkNum" type="string">
+            <column name="Park_Num" length="20" />
+        </property>
+        <property name="carNum" type="string">
+            <column name="Car_Num" length="20" />
+        </property>
+        <property name="carType" type="string">
+            <column name="Car_Type" length="100" />
+        </property>
+        <property name="storeroom" type="string">
+            <column name="Storeroom" length="50" />
+        </property>
+        <property name="houseArea" type="integer">
+            <column name="House_Area" />
+        </property>
+        <property name="useStyle" type="string">
+            <column name="Use_Style" length="20" />
+        </property>
+        <property name="otherAddress" type="string">
+            <column name="Other_Address" length="200" />
+        </property>
+        <property name="otherPostcode" type="string">
+            <column name="Other_Postcode" length="20" />
+        </property>
+        <property name="emergencyContact" type="string">
+            <column name="Emergency_Contact" length="50" />
+        </property>
+        <property name="emergencyPhone" type="string">
+            <column name="Emergency_Phone" length="12" />
+        </property>
+        <property name="houseNum" type="string">
+            <column name="House_Num" length="50" />
+        </property>
+        <property name="ownerDesc" type="string">
+            <column name="Owner_Desc" length="500" />
+        </property>
+    </class>
+</hibernate-mapping>

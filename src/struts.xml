@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+  <include file="struts-default.xml" />
+  <constant name="struts.i18n.encoding" value="UTF-8" />
+  
+  <package name="default"  extends="struts-default">
+	<!-- Login Related Actions -->
+	<action name="loadWelcomePage" class="org.pmp.action.admin.LoginAction" method="loadWelcomePage">
+	  <result name="success">/admin_index.jsp</result>
+	</action>
+	
+  </package>
+  
+  <package name="admin"  extends="struts-default" namespace="/admin">
+    <!-- Resource Related Actions begin -->
+    <action name="loadResList" class="org.pmp.action.admin.ResourceAction" method="loadResList">
+		<result name="success">/admin/res_list.jsp</result>
+	</action>
+	
+    <action name="addRes" class="org.pmp.action.admin.ResourceAction" method="addResource">
+	  <result name="success" type="chain">loadResList</result>
+	</action>
+	
+	<action name="getResById" class="org.pmp.action.admin.ResourceAction" method="getResById">
+		<result name="success">/admin/res_edit.jsp</result>
+	</action>
+	
+	<action name="updateRes" class="org.pmp.action.admin.ResourceAction" method="updateRes">
+		<result name="success" type="chain">loadResList</result>
+	</action>
+	
+	<action name="deleteResById" class="org.pmp.action.admin.ResourceAction" method="deleteResById">
+	</action>
+	
+	<!-- authority related actions begin -->
+	<action name="loadAuthList" class="org.pmp.action.admin.AuthorityAction" method="loadAuthList">
+	  <result name="success">/admin/auth_list.jsp</result>
+	</action>
+	
+	<action name="addAuth" class="org.pmp.action.admin.AuthorityAction" method="addAuthority">
+	  <result name="success" type="chain">loadAuthList</result>
+	</action>
+	
+	<action name="updateAuth" class="org.pmp.action.admin.AuthorityAction" method="updateAuth">
+		<result name="success" type="chain">loadAuthList</result>
+	</action>
+	
+	<action name="getAuthById" class="org.pmp.action.admin.AuthorityAction" method="getAuthById">
+		<result name="success">/admin/auth_edit.jsp</result>
+	</action>
+	
+	<action name="deleteAuthById" class="org.pmp.action.admin.AuthorityAction" method="deleteAuthById">
+	</action>
+	
+	<!-- AuthorityResource related actions begin -->
+	<action name="getAuthRes" class="org.pmp.action.admin.AuthorityResourceAction" method="getAuthRes">
+		<result name="success">/admin/auth_res.jsp</result>
+	</action>
+	
+	<action name="edit_auth_res" class="org.pmp.action.admin.AuthorityResourceAction" method="editAuthRes">
+	  <result name="success" type="chain">loadAuthList</result>
+	</action>
+	
+	<!-- role related actions begin -->
+	<action name="loadRoleList" class="org.pmp.action.admin.RoleAction" method="loadRoleList">
+		<result name="success">/admin/role_list.jsp</result>
+	</action>
+	
+	<action name="addRole" class="org.pmp.action.admin.RoleAction" method="addRole">
+	  <result name="success" type="chain">loadRoleList</result>
+	</action>
+	
+	<action name="updateRole" class="org.pmp.action.admin.RoleAction" method="updateRole">
+		<result name="success" type="chain">loadRoleList</result>
+	</action>
+	
+	<action name="getRoleById" class="org.pmp.action.admin.RoleAction" method="getRoleById">
+		<result name="success">/admin/role_edit.jsp</result>
+	</action>
+	
+	<action name="deleteRoleById" class="org.pmp.action.admin.RoleAction" method="deleteRoleById">
+	</action>
+	
+	<!-- RoleAuthority Related Actions begin -->
+	<action name="getRoleAuth" class="org.pmp.action.admin.RoleAuthorityAction" method="getRoleAuth">
+	  <result name="success">/admin/role_auth.jsp</result>
+	</action>
+	
+	<action name="edit_role_auth" class="org.pmp.action.admin.RoleAuthorityAction" method="editRoleAuth">
+	  <result name="success" type="chain">loadRoleList</result>
+	</action>
+	
+	<!-- Group Related Actions Begin -->
+	<action name="loadGroupList" class="org.pmp.action.admin.GroupAction" method="loadGroupList">
+	  <result name="success">/admin/group_list.jsp</result>
+	</action>
+	
+	<action name="addGroup" class="org.pmp.action.admin.GroupAction" method="addGroup">
+	  <result name="success" type="chain">loadGroupList</result>
+	</action>
+	
+	<action name="getGroup" class="org.pmp.action.admin.GroupAction" method="getGroupByID">
+	  <result name="success">/admin/group_edit.jsp</result>
+	</action>
+	
+	<action name="editGroup" class="org.pmp.action.admin.GroupAction" method="editGroup">
+	  <result name="success" type="chain">loadGroupList</result>
+	</action>
+	
+	<action name="deleteGroup" class="org.pmp.action.admin.GroupAction" method="deleteGroup">
+	  <result name="success" type="chain">loadGroupList</result>
+	</action>
+	
+	<action name="select_father_group" class="org.pmp.action.admin.GroupAction" method="loadFatherGroupList">
+	</action>
+	
+	<action name="select_ref_domain" class="org.pmp.action.admin.GroupAction" method="loadRefDomain">
+	</action>
+	
+	<action name="load_role_group_list" class="org.pmp.action.admin.UserAction" method="loadRoleGroupList">
+	</action>
+	
+	<!-- User Related Actions Begin -->
+	<action name="addUser" class="org.pmp.action.admin.UserAction" method="addUser">
+	  <result name="success">/admin/user_list.jsp</result>
+	</action>
+
+	<action name="user_list" class="org.pmp.action.admin.UserAction" method="loadUserList">
+	</action>
+	
+	<action name="get_user" class="org.pmp.action.admin.UserAction" method="getUserById">
+	  <result name="success">/admin/user_edit.jsp</result>
+	</action>
+	
+	<action name="update_user" class="org.pmp.action.admin.UserAction" method="updateUser">
+	  <result name="success">/admin/user_list.jsp</result>
+	</action>
+	
+	<action name="deleteUserById" class="org.pmp.action.admin.UserAction" method="deleteUser">
+	</action>
+	
+	<!-- Module related Actions -->
+	<action name="addModule" class="org.pmp.action.admin.ModuleAction" method="addModule">
+	  <result name="success" type="chain">loadModuleList</result>
+	</action>
+	
+	<action name="deleteModule" class="org.pmp.action.admin.ModuleAction" method="deleteModule">
+	  <result name="success" type="chain">loadModuleList</result>
+	</action>
+	
+	<action name="editModule" class="org.pmp.action.admin.ModuleAction" method="editModule">
+	  <result name="success" type="chain">loadModuleList</result>
+	</action>
+	
+	<action name="loadModuleList" class="org.pmp.action.admin.ModuleAction" method="loadModuleList">
+	  <result name="success">/admin/mod_list.jsp</result>
+	</action>
+	
+	<action name="getModule" class="org.pmp.action.admin.ModuleAction" method="loadModule">
+	  <result name="success">/admin/mod_edit.jsp</result>
+	</action>
+	
+	<!-- RoleModule related Actions -->
+	<action name="getRoleModule" class="org.pmp.action.admin.RoleModuleAction" method="getRoleModule">
+	  <result name="success">/admin/role_mod.jsp</result>
+	</action>
+	
+	<action name="editRoleModule" class="org.pmp.action.admin.RoleModuleAction" method="editRoleModule">
+	  <result name="success" type="chain">loadRoleList</result>
+	</action>
+	
+  </package>
+  
+  <package name="cms" extends="struts-default" namespace="/cms">
+	<!-- SMS_Company related Actions -->
+	<action name="addSMSCompany" class="org.pmp.action.business.SMSCompanyAction" method="addSMSCompany">
+      <result name="success" type="chain">loadSMSCompanyList</result>
+    </action>
+    
+    <action name="getSMSCompany" class="org.pmp.action.business.SMSCompanyAction" method="getSMSCompany">
+      <result name="success">/cms/smsc_edit.jsp</result>
+    </action>
+    
+    <action name="editSMSCompany" class="org.pmp.action.business.SMSCompanyAction" method="editSMSCompany">
+      <result name="success" type="chain">loadSMSCompanyList</result>
+    </action>
+    
+    <action name="deleteSMSCompany" class="org.pmp.action.business.SMSCompanyAction" method="deleteSMSCompany">
+      <result name="success" type="chain">loadSMSCompanyList</result>
+    </action>
+    
+    <action name="loadSMSCompanyList" class="org.pmp.action.business.SMSCompanyAction" method="loadSMSCompanyList">
+      <result name="success">/cms/smsc_list.jsp</result>
+    </action>
+	
+	<!-- company related actions -->
+	<action name="select_company_list" class="org.pmp.action.business.CompanyAction" method="select_company_list">
+	</action>
+	<action name="getCompanyByID" class="org.pmp.action.business.CompanyAction" method="getCompanyByID">
+	  <result name="success">/cms/cmpy_edit.jsp</result>
+	</action>
+	<action name="addCompany" class="org.pmp.action.business.CompanyAction" method="addCompany">
+	  <result name="success">/cms/cmpy_list.jsp</result>
+	</action>
+	<action name="updateCompany" class="org.pmp.action.business.CompanyAction" method="updateCompany">
+	  <result name="success">/cms/cmpy_list.jsp</result>
+	</action>
+	<action name="deleteCompany" class="org.pmp.action.business.CompanyAction" method="deleteCompany">
+	  <result name="success">/cms/cmpy_list.jsp</result>
+	</action>
+	<action name="cmpy_list" class="org.pmp.action.business.CompanyAction" method="loadCompanyList">
+	</action>
+	
+	<action name="companyAction" class="org.pmp.action.business.CompanyAction">
+		<result name="success">/cms/cmpySelect.jsp </result>
+	</action>
+	<action name="building_list" class="org.pmp.action.business.BuildingAction" method="loadBuildingList">
+	</action>
+	<action name="project_list" class="org.pmp.action.business.ProjectAction" method="loadProjectList">
+	</action>
+	<action name="deleteProject" class="org.pmp.action.business.ProjectAction" method="deleteProject">
+	</action>
+	<action name="get_building" class="org.pmp.action.business.BuildingAction" method="getBuildingById">
+		<result name="success">/cms/building_edit.jsp</result>
+	</action>
+	<action name="delete_building" class="org.pmp.action.business.BuildingAction" method="deleteBuilding">
+	</action>
+	<action name="buildingAction" class="org.pmp.action.business.BuildingAction" method="loadBuildingList">
+		<result name="success">/cms/building_list.jsp</result>
+	</action>
+	<action name="getBuildingByProject" class="org.pmp.action.business.BuildingAction" method="getBuildingByProject">
+	</action>
+	<action name="get_project" class="org.pmp.action.business.ProjectAction" method="getProjectById">
+		<result name="success">/cms/project_edit.jsp</result>
+	</action>
+	<action name="getAllProject" class="org.pmp.action.business.ProjectAction" method="getAllProject">
+		<result name="success">/cms/projectSelect.jsp</result>
+	</action>
+	<action name="getProjectByDistrict" class="org.pmp.action.business.ProjectAction" method="getProjectByDistrict">
+	</action>
+	<action name="update_Project" class="org.pmp.action.business.ProjectAction" method="updateProject">
+		<result name="success">/cms/project_list.jsp</result>
+	</action>
+	<action name="projectAction" class="org.pmp.action.business.ProjectAction" method="">
+		<result name="success">/cms/project_list.jsp</result>
+	</action>
+	<action name="house_list" class="org.pmp.action.business.HouseAction" method="loadHouseList">
+	</action>
+	<action name="getHouseByConditions" class="org.pmp.action.business.HouseAction" method="getHouseByProjectOrBuilding">
+	</action>
+	<action name="getHouseById" class="org.pmp.action.business.HouseAction" method="getHouseById">
+		<result name="success">/cms/house_edit.jsp</result>
+	</action>
+	<action name="getAllHouseNum" class="org.pmp.action.business.HouseAction" method="getAllHouseNum"></action>
+	<action name="deleteHouse" class="org.pmp.action.business.HouseAction" method="deleteHouse"></action>
+	<action name="saveOwner" class="org.pmp.action.business.OwnerAction" method="saveOwner">
+		<result name="success">/cms/owner_list.jsp</result>
+	</action>
+	<action name="owner_list" class="org.pmp.action.business.OwnerAction" method="getOwnerList">
+	</action>
+	<action name="delete_owner" class="org.pmp.action.business.OwnerAction" method="deleteOwnerById"></action>
+	<action name="get_owner" class="org.pmp.action.business.OwnerAction" method="getOwnerById">
+		<result name="success">/cms/owner_edit.jsp</result>
+	</action>
+	<action name="updateOwner" class="org.pmp.action.business.OwnerAction" method="updateOwner">
+		<result name="success">/cms/owner_list.jsp</result>
+	</action>
+	<action name="fileUpload" class="org.pmp.action.business.ProjectAction" method="uploadFile">
+		<result name="success">/cms/project_list.jsp</result>
+	</action>
+	<action name="buildingImport" class="org.pmp.action.business.BuildingAction" method="uploadFile">
+		<result name="success">/cms/project_list.jsp</result>
+	</action>
+	<action name="OwnerImport" class="org.pmp.action.business.OwnerAction" method="uploadFile">
+		<result name="success">/cms/project_list.jsp</result>
+		<result name="filetype_error">/cms/upload.jsp</result>
+	</action>
+	
+  </package>
+
+  <package name="fee" extends="struts-default" namespace="/fee">
+    <!-- CondoFeeItem related actions -->
+    <action name="addCondoFeeItem" class="org.pmp.action.business.CondoFeeItemAction" method="addCondoFeeItem">
+      <result name="success" type="chain">loadCondoFeeItemList</result>
+    </action>
+    
+    <action name="loadCondoFeeItemList" class="org.pmp.action.business.CondoFeeItemAction" method="loadCondoFeeItemList">
+      <result name="success">cfi_list.jsp</result>
+    </action>
+    
+    <!-- CondoFee Related actions -->
+    <action name="loadCondoFeeList" class="org.pmp.action.business.CondoFeeAction" method="loadCondoFeeList">
+      <result name="success">/fee/cf_list.jsp</result>
+    </action>
+    
+    <action name="getCondoFee" class="org.pmp.action.business.CondoFeeAction" method="loadCondoFeeInstance">
+      <result name="success">/fee/cf_input.jsp</result>
+    </action>
+    
+    <action name="viewCondoFee" class="org.pmp.action.business.CondoFeeAction" method="loadCondoFeeInstance">
+      <result name="success">/fee/cf_view.jsp</result>
+    </action>
+    
+    <action name="inputCondoFee" class="org.pmp.action.business.CondoFeeAction" method="inputCondoFee">
+      <result name="success">/fee/cf_list.jsp</result>
+    </action>
+    
+    <action name="auditCondoFee" class="org.pmp.action.business.CondoFeeAction" method="auditCondoFee">
+      <result name="success" type="chain">loadCondoFeeList</result>
+    </action>
+    
+    <action name="loadAttrs" class="org.pmp.action.business.CondoFeeAction" method="loadAttributes">
+      <result name="success">cf_attr.jsp</result>
+    </action>
+    
+    <action name="excel" class="org.pmp.action.business.CondoFeeAction" method="excelExport">
+    </action>
+    
+    
+    <!-- TimeParkFee related actions -->
+    <action name="addTimeParkFee" class="org.pmp.action.business.TimeParkFeeAction" method="addTimeParkFee">
+      <result name="success" type="chain">loadTimeParkFeeByProject</result>
+    </action>
+    
+    <action name="tpfImport" class="org.pmp.action.business.TimeParkFeeAction" method="excelImport">
+      <result name="success">tpf_list.jsp</result>
+      <result name="filetype_error">tpf_import.jsp</result>
+    </action>
+    
+    <action name="loadTimeParkFeeByProject" class="org.pmp.action.business.TimeParkFeeAction" method="loadTimeParkFeeByProject">
+    </action>
+    
+  </package>
+</struts>

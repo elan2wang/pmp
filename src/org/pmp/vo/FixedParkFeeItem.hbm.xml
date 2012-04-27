@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-4-19 19:48:26 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.pmp.vo.FixedParkFeeItem" table="tb_FixedParkFeeItem" schema="dbo" catalog="db_pmp2">
+        <id name="fpfiId" type="integer">
+            <column name="FPFI_ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="project" class="org.pmp.vo.Project" fetch="select" lazy="false">
+            <column name="Pro_ID" />
+        </many-to-one>
+        <property name="itemName" type="string">
+            <column name="Item_Name" length="100" />
+        </property>
+        <property name="itemYear" type="integer">
+            <column name="Item_Year" />
+        </property>
+        <property name="itemMonth" type="integer">
+            <column name="Item_Month" />
+        </property>
+        <property name="generateTime" type="timestamp">
+            <column name="Generate_Time" length="23" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,57 @@
+@charset "utf-8";
+/* CSS Document */
+body
+{
+	font-size:12px;
+	padding:0px;
+	margin:0px;
+}
+.grid_top
+{
+	height:30px;
+}
+.grid_top>span
+{
+	margin-left:20px;
+}
+.grid_button
+{
+	background-color:#edf1f6;
+}
+td{
+	text-align:center; vertical-align:middle; line-height:20px; font-size:12px; height:20px;
+}
+tdst{
+	 width:80%;
+	}
+img{ border:0;}
+.footer{ background-color:#EBEBEB; height:30px; border-style:solid; border-width:1px; border-color:#CCCCCC;  border-top-width:0; font-size:12px; font-weight:bold; line-height:30px;}
+.gotopage{float:right; text-align:center; margin-right:5px; padding-top:3px; line-height:22px;}
+
+.nextpre{ display: inline-block; padding-top: 6px; float: left;}
+.nextpre  a{TEXT-DECORATION:none}
+.pageinfo{display: inline-block; float: left;}
+
+#fire .top{}
+#fire .wrap_left{ float:left; width:15%;}
+#fire .wrap_right{ float:left; width:85%;}
+#fire .tree{ margin-left:40px;}
+
+.window_content{
+	margin:10px;
+	
+	}
+	
+.window_content .rowStyle{
+	margin-left:20px;
+	height:30px;
+	line-height:30px;
+	}
+.rowStyle div{
+	margin-left:10px;
+}
+.rowStyle div span:first-child{
+       display:inline-block;
+	   width:80px;
+	   text-align:right;
+}

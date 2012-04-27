@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-3-27 12:23:42 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.pmp.vo.TbAuthority" table="tb_Authority" schema="dbo" catalog="db_pmp2">
+        <id name="authId" type="integer">
+            <column name="Auth_ID" />
+            <generator class="identity" />
+        </id>
+        <property name="authName" type="string">
+            <column name="Auth_Name" length="50" />
+        </property>
+        <property name="authDesc" type="string">
+            <column name="Auth_Desc" length="100" />
+        </property>
+        <property name="enabled" type="boolean">
+            <column name="ENABLED" />
+        </property>
+        <property name="issys" type="boolean">
+            <column name="ISSYS" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,138 @@
+@charset "utf-8";
+/* CSS Document */
+.clear
+{
+	clear:both; 
+	display:block;
+}
+div
+{
+	font-size:12px;
+}
+.index
+{
+	width:100%;
+	margin:auto;
+}
+.index_top
+{
+	background-color:#edf1f6;
+}
+.index_top_block
+{
+	margin-left:20px;
+	margin-top:10px;
+	width:80px;
+}
+.index_top_block1
+{
+	margin-top:10px;
+	width:80px;
+}
+.index_top div p
+{
+	height:20px;
+	text-align:left;
+}
+.index_main
+{
+	height:450px;
+
+}
+.index_main_top
+{	
+    background-image:url(../../Images/TopLine.gif); 
+	background-repeat:repeat-x;
+	background-position:top;
+}
+.index_main_left
+{
+	width:15%;
+	background-color:#edf1f6;
+	float:left;
+	height:100%;
+}
+.index_main_left_top
+{
+	background-color:#6c92ad; 
+	color:#FFF; 
+	font-size:12px;
+	height:25px;
+	line-height:25px;
+	text-align:center;
+	overflow:hidden;/*防止自动换行*/
+}
+.index_main_right
+{
+	height:450px;
+	height:100%;
+	width:85%;
+	float:left;
+}
+.index_footer
+{
+	height:30px;
+	width:100%;
+	background-color:#edf1f6;
+	text-align:center;
+	display:inline-block;
+}
+.LeftMenuItem div
+{
+	padding-left:45px;
+	height:30px;
+	line-height:30px;
+	color:#005590;
+	font-size:12px;
+	cursor:pointer;
+	text-align:left;
+}
+.LMIitem
+{
+	border-right:1px #6c92ad solid;
+	padding-bottom:1px;
+	padding-top:1px;
+	text-align:left;
+}
+.LMIover
+{
+	background-color:#dbe8f2;
+	border-right:1px #6c92ad solid;
+	padding-bottom:1px;
+	padding-top:1px;
+	text-align:left;
+}
+.LMIclick
+{
+	background-color:#FFF;
+	border-right:1px #FFF solid;
+	border-bottom:1px #6c92ad solid;
+	border-top:1px #6c92ad solid;
+	text-align:left;
+}
+#DivMdifPSW{
+	border:1px #FFFFFF solid;
+	position:absolute;
+	z-index:100;
+	bottom:50%;
+	right:50%;
+	margin-bottom:-175px;
+	margin-right:-200px;
+	width:400px;
+	height:350px;
+	background-color:#FFFFFF;
+	/*position:fixed !important;*/
+}
+#DivAbout{
+	border:1px #FFFFFF solid;
+	position:absolute;
+	z-index:100;
+	bottom:50%;
+	right:50%;
+	margin-bottom:-100px;
+	margin-right:-150px;
+	width:300px;
+	height:200px;
+	background-color:#FFFFFF;
+	/*position:fixed !important;*/
+}

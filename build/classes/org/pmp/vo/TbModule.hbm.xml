@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-4-19 19:37:27 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.pmp.vo.TbModule" table="tb_Module" schema="dbo" catalog="db_pmp2">
+        <id name="modId" type="integer">
+            <column name="Mod_ID" />
+            <generator class="identity" />
+        </id>
+        <property name="modName" type="string">
+            <column name="Mod_Name" length="50" />
+        </property>
+        <property name="modLevel" type="integer">
+            <column name="Mod_Level" />
+        </property>
+        <property name="modUrl" type="string">
+            <column name="Mod_Url" length="200" />
+        </property>
+        <property name="enabled" type="boolean">
+            <column name="ENABLED" />
+        </property>
+        <property name="issys" type="boolean">
+            <column name="ISSYS" />
+        </property>
+    </class>
+</hibernate-mapping>

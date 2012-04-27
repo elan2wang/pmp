@@ -1,0 +1,38 @@
+﻿@charset "utf-8";
+/* CSS Document */
+.content_main
+{
+	border-top: #CECECE solid 2px;
+	font-size:12px;
+
+}
+
+.left_main
+{
+	width:29%;
+	height:410px;
+}
+.middle
+{
+	float:left;
+	border-right:#CECECE solid 2px;
+	height:420px;
+	width:0.5%;
+}
+.main_nav
+{
+    background: none repeat scroll 0 0 #E0ECFF;
+	border:1px solid #8DB2E3;
+	height:20px;
+	margin:0;
+	line-height:20px;
+	font-weight: bold;
+	font-size:12px;
+    color:#09C
+}
+.right_main
+{
+	width:70%;
+	height:410px;
+	float:left;
+}

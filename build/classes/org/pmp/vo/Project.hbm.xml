@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-4-19 19:48:26 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.pmp.vo.Project" table="tb_Project" schema="dbo" catalog="db_pmp2">
+        <id name="proId" type="integer">
+            <column name="Pro_ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="company" class="org.pmp.vo.Company" fetch="select" lazy="false">
+            <column name="Com_ID" />
+        </many-to-one>
+        <property name="proName" type="string">
+            <column name="Pro_Name" length="100" />
+        </property>
+        <property name="proDistrict" type="string">
+            <column name="Pro_District" length="50" />
+        </property>
+        <property name="proStreet" type="string">
+            <column name="Pro_Street" length="50" />
+        </property>
+        <property name="proAddress" type="string">
+            <column name="Pro_Address" length="200" />
+        </property>
+        <property name="deliveryTime" type="timestamp">
+            <column name="Delivery_Time" length="23" />
+        </property>
+        <property name="proHouseCount" type="integer">
+            <column name="Pro_HouseCount" />
+        </property>
+        <property name="proDesc" type="string">
+            <column name="Pro_Desc" length="200" />
+        </property>
+        <property name="proType" type="string">
+            <column name="Pro_Type" length="50" />
+        </property>
+        <property name="fireEnabled" type="boolean">
+            <column name="FIRE_ENABLED" />
+        </property>
+        <property name="enabled" type="boolean">
+            <column name="ENABLED" />
+        </property>
+    </class>
+</hibernate-mapping>

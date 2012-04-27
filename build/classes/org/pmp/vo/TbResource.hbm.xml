@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-3-27 12:23:42 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.pmp.vo.TbResource" table="tb_Resource" schema="dbo" catalog="db_pmp2">
+        <id name="resId" type="integer">
+            <column name="Res_ID" />
+            <generator class="identity" />
+        </id>
+        <property name="resName" type="string">
+            <column name="Res_Name" length="50" />
+        </property>
+        <property name="resType" type="string">
+            <column name="Res_Type" length="50" />
+        </property>
+        <property name="resLink" type="string">
+            <column name="Res_Link" length="100" />
+        </property>
+        <property name="resDesc" type="string">
+            <column name="Res_Desc" length="100" />
+        </property>
+        <property name="enabled" type="boolean">
+            <column name="ENABLED" />
+        </property>
+        <property name="issys" type="boolean">
+            <column name="ISSYS" />
+        </property>
+        <property name="modId" type="integer">
+            <column name="Mod_ID" />
+        </property>
+    </class>
+</hibernate-mapping>

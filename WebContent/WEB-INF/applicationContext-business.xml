@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+  
+  <!-- DAO Declare -->
+  <bean id="companyDAO" class="org.pmp.dao.impl.business.CompanyDAO" parent="baseDAO"/>
+  <bean id="projectDAO" class="org.pmp.dao.impl.business.ProjectDAO" parent="baseDAO"/>
+  <bean id="condoFeeItemDAO" class="org.pmp.dao.impl.business.CondoFeeItemDAO" parent="baseDAO"/>
+  <bean id="condoFeeDAO" class="org.pmp.dao.impl.business.CondoFeeDAO" parent="baseDAO"/>
+  <bean id="smsCompanyDAO" class="org.pmp.dao.impl.business.SMSCompanyDAO" parent="baseDAO"/>
+  <bean id="timeParkFeeDAO" class="org.pmp.dao.impl.business.TimeParkFeeDAO" parent="baseDAO"/>
+  <bean id="buildingDAO" class="org.pmp.dao.impl.business.BuildingDAO" parent="baseDAO"/>
+  <bean id="houseDAO" class="org.pmp.dao.impl.business.HouseDAO" parent="baseDAO"/>
+  <bean id="ownerDAO" class="org.pmp.dao.impl.business.OwnerDAO" parent="baseDAO"/>
+  <bean id="houseOwnerDAO" class="org.pmp.dao.impl.business.HouseOwnerDAO" parent="baseDAO"/>
+  <bean id="memberDAO" class="org.pmp.dao.impl.business.MemberDAO" parent="baseDAO"/>
+  
+  <!-- Service Declare -->
+  <bean id="companyService" class="org.pmp.service.impl.business.CompanyService">
+  	<property name="companyDAO" ref="companyDAO" />
+  </bean>
+  
+  <bean id="projectService" class="org.pmp.service.impl.business.ProjectService">
+  	<property name="projectDAO" ref="projectDAO" />
+  </bean>
+  
+  <bean id="buildingService" class="org.pmp.service.impl.business.BuildingService">
+  	<property name="buildingDao" ref="buildingDAO"></property>
+  </bean>
+  
+  <bean id="houseService" class="org.pmp.service.impl.business.HouseService">
+  	<property name="houseDao" ref="houseDAO"></property>
+  </bean>
+  
+  <bean id="ownerService" class="org.pmp.service.impl.business.OwnerService">
+  	<property name="ownerDao" ref="ownerDAO"></property>
+  </bean>
+  
+  <bean id="houseOwnerService" class="org.pmp.service.impl.business.HouseOwnerService">
+  	<property name="houseOwnerDao" ref="houseOwnerDAO"></property>
+  </bean>
+  
+  <bean id="memberService" class="org.pmp.service.impl.business.MemberService">
+  	<property name="memberDao" ref="memberDAO"></property>
+  </bean>
+  
+  <bean id="condoFeeItemService" class="org.pmp.service.impl.business.CondoFeeItemService">
+    <property name="condoFeeItemDAO" ref="condoFeeItemDAO" />
+  </bean>
+  
+  <bean id="condoFeeService" class="org.pmp.service.impl.business.CondoFeeService">
+    <property name="condoFeeDAO" ref="condoFeeDAO" />
+  </bean>
+  
+  <bean id="smsCompanyService" class="org.pmp.service.impl.business.SMSCompanyService">
+    <property name="smsCompanyDAO" ref="smsCompanyDAO" />
+  </bean>
+  
+  <bean id="timeParkFeeService" class="org.pmp.service.impl.business.TimeParkFeeService">
+    <property name="timeParkFeeDAO" ref="timeParkFeeDAO" />
+  </bean>
+  
+  <!-- Action Declare -->
+  <bean id="companyAction" class="org.pmp.action.business.CompanyAction">
+    <property name="companyService" ref="companyService" />
+  </bean>
+  
+  <bean id="projectAction" class="org.pmp.action.business.ProjectAction">
+  	<property name="projectService" ref="projectService"></property>
+  </bean>
+  
+  <bean id="buildingAction" class="org.pmp.action.business.BuildingAction">
+  	<property name="buildingService" ref="buildingService"></property>
+  </bean>
+  
+  <bean id="houseAction" class="org.pmp.action.business.HouseAction">
+  	<property name="houseService" ref="houseService"></property>
+  </bean>
+  
+  <bean id="ownerAction" class="org.pmp.action.business.OwnerAction">
+  	<property name="ownerService" ref="ownerService"></property>
+  	<property name="houseOwnerService" ref="houseOwnerService"></property>
+  	<property name="houseService" ref="houseService"></property>
+  	<property name="memberService" ref="memberService"></property>
+  </bean>
+  
+  <bean id="condoFeeItemAction" class="org.pmp.action.business.CondoFeeItemAction">
+    <property name="condoFeeItemService" ref="condoFeeItemService" />
+  </bean>
+  
+  <bean id="condoFeeAction" class="org.pmp.action.business.CondoFeeAction">
+    <property name="condoFeeService" ref="condoFeeService" />
+    <property name="condoFeeItemService" ref="condoFeeItemService" />
+  </bean>
+  
+  <bean id="smsCompanyAction" class="org.pmp.action.business.SMSCompanyAction">
+    <property name="smsCompanyService" ref="smsCompanyService" />
+    <property name="companyService" ref="companyService" />
+  </bean>
+  
+  <bean id="timeParkFeeAction" class="org.pmp.action.business.TimeParkFeeAction">
+    <property name="timeParkFeeService" ref="timeParkFeeService" />
+  </bean>
+  
+</beans>

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-3-27 12:23:42 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.pmp.vo.TbUser" table="tb_User" schema="dbo" catalog="db_pmp2">
+        <id name="userId" type="integer">
+            <column name="User_ID" />
+            <generator class="identity" />
+        </id>
+        <property name="username" type="string">
+            <column name="Username" length="50" />
+        </property>
+        <property name="password" type="string">
+            <column name="Password" length="50" />
+        </property>
+        <property name="realname" type="string">
+            <column name="Realname" length="50" />
+        </property>
+        <property name="mobile" type="string">
+            <column name="Mobile" length="50" />
+        </property>
+        <property name="identify" type="string">
+            <column name="Identify" length="50" />
+        </property>
+        <property name="position" type="string">
+            <column name="Position" length="50" />
+        </property>
+        <property name="userDesc" type="string">
+            <column name="User_Desc" length="100" />
+        </property>
+        <property name="enabled" type="boolean">
+            <column name="ENABLED" />
+        </property>
+        <property name="issys" type="boolean">
+            <column name="ISSYS" />
+        </property>
+    </class>
+</hibernate-mapping>

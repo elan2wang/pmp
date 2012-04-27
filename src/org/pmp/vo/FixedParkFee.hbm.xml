@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-4-19 19:48:26 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.pmp.vo.FixedParkFee" table="tb_FixedParkFee" schema="dbo" catalog="db_pmp2">
+        <id name="fpfId" type="integer">
+            <column name="FPF_ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="fixedParkFeeItem" class="org.pmp.vo.FixedParkFeeItem" fetch="select" lazy="false">
+            <column name="FPFI_ID" />
+        </many-to-one>
+        <many-to-one name="owner" class="org.pmp.vo.Owner" fetch="select" lazy="false">
+            <column name="Owner_ID" />
+        </many-to-one>
+        <property name="startDate" type="timestamp">
+            <column name="Start_Date" length="23" />
+        </property>
+        <property name="endDate" type="timestamp">
+            <column name="End_Date" length="23" />
+        </property>
+        <property name="fetchDate" type="timestamp">
+            <column name="Fetch_Date" length="23" />
+        </property>
+        <property name="parkFeeRate" type="double">
+            <column name="ParkFee_Rate" precision="53" scale="0" />
+        </property>
+        <property name="oughtMoney" type="double">
+            <column name="Ought_Money" precision="53" scale="0" />
+        </property>
+        <property name="fetchMoney" type="double">
+            <column name="Fetch_Money" precision="53" scale="0" />
+        </property>
+        <property name="fetchTicket" type="string">
+            <column name="Fetch_Ticket" length="50" />
+        </property>
+        <property name="fetchPerson" type="string">
+            <column name="Fetch_Person" length="50" />
+        </property>
+        <property name="recordPerson" type="string">
+            <column name="Record_Person" length="50" />
+        </property>
+        <property name="auditPerson" type="string">
+            <column name="Audit_Person" length="50" />
+        </property>
+        <property name="generateTime" type="timestamp">
+            <column name="Generate_Time" length="23" />
+        </property>
+        <property name="recordTime" type="timestamp">
+            <column name="Record_Time" length="23" />
+        </property>
+        <property name="auditTime" type="timestamp">
+            <column name="Audit_Time" length="23" />
+        </property>
+        <property name="state" type="string">
+            <column name="State" length="50" />
+        </property>
+    </class>
+</hibernate-mapping>

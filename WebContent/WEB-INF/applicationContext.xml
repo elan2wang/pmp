@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+           
+  <!-- outside property files locations declare -->
+  <bean id="propertyConfigurer" 
+    class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="locations">
+      <list>
+        <value>/WEB-INF/jdbc.properties</value>
+        <value>/WEB-INF/hibernate.properties</value>
+      </list>
+    </property>
+  </bean>
+  
+  <!-- dataSource declare using jdbc.properties -->
+  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+    <property name="driverClassName" value="${database.driver}"/>
+    <property name="url" value="${database.url}"/>
+    <property name="username" value="${database.username}"/>
+    <property name="password" value="${database.password}"/>
+  </bean>
+  
+  <!-- sessionFactory declare using hibernate.properties -->
+  <bean id="sessionFactory"
+    class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+    <property name="dataSource" ref="dataSource"/>
+    <property name="hibernateProperties">
+      <props>
+        <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+      </props>
+    </property>
+    <property name="mappingResources">
+      <list>
+        <value>org/pmp/vo/TbAuthority.hbm.xml</value>
+        <value>org/pmp/vo/TbAuthorityResource.hbm.xml</value>
+        <value>org/pmp/vo/TbResource.hbm.xml</value>
+        <value>org/pmp/vo/TbRole.hbm.xml</value>
+        <value>org/pmp/vo/TbRoleAuthority.hbm.xml</value>
+        <value>org/pmp/vo/TbUser.hbm.xml</value>
+        <value>org/pmp/vo/TbGroup.hbm.xml</value>
+        <value>org/pmp/vo/TbUserGroupRole.hbm.xml</value>
+        <value>org/pmp/vo/TbModule.hbm.xml</value>
+        <value>org/pmp/vo/TbRoleModule.hbm.xml</value>
+        <value>org/pmp/vo/Building.hbm.xml</value>
+        <value>org/pmp/vo/Company.hbm.xml</value>
+        <value>org/pmp/vo/House.hbm.xml</value>
+        <value>org/pmp/vo/Member.hbm.xml</value>
+        <value>org/pmp/vo/Owner.hbm.xml</value>
+        <value>org/pmp/vo/Project.hbm.xml</value>
+        <value>org/pmp/vo/CondoFee.hbm.xml</value>
+        <value>org/pmp/vo/CondoFeeItem.hbm.xml</value>
+        <value>org/pmp/vo/HouseOwner.hbm.xml</value>
+        <value>org/pmp/vo/SMSCompany.hbm.xml</value>
+        <value>org/pmp/vo/SMSSend.hbm.xml</value>
+        <value>org/pmp/vo/TimeParkFee.hbm.xml</value>
+        <value>org/pmp/vo/FixedParkFee.hbm.xml</value>
+        <value>org/pmp/vo/FixedParkFeeItem.hbm.xml</value>
+      </list>
+    </property>
+  </bean>
+  
+  <!-- functional class Declare -->
+  <bean id="springContextUtil" class="org.pmp.util.SpringContextUtil" />
+  
+  <!-- BaseDAO Declare -->
+  <bean id="baseDAO" class="org.pmp.dao.admin.BaseDAO">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+  
+</beans>

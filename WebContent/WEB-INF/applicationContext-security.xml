@@ -1,0 +1,66 @@
+<b:beans xmlns="http://www.springframework.org/schema/security"
+  xmlns:b="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans 
+  http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+  http://www.springframework.org/schema/security
+  http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+
+  
+  <!-- Using filters="none" operates by creating an empty filter chain. -->
+  <!-- It isn't possible to apply a filter="none" attribute to the pattern /** -->
+  <!-- since this is used by the name-space filter chain -->
+  <http auto-config="true">
+    <!-- static resource don't need to filter -->
+    <intercept-url pattern="/css/**" filters="none"/>
+    <intercept-url pattern="/images/**" filters="none"/>
+    <intercept-url pattern="/scripts/**" filters="none"/>
+    <intercept-url pattern="/password_forgotten.jsp" filters="none"/>
+    <intercept-url pattern="/login.jsp" filters="none"/>
+    <intercept-url pattern="/loginCheck" filters="none"/>
+    
+    <!-- set the login page and the redirect-URL of successful/failed login -->
+    <form-login login-page="/login.jsp" 
+     authentication-failure-url="/login.jsp?error=true"
+     default-target-url="/loadWelcomePage" always-use-default-target="true"/>
+    
+    <!-- set the redirect-URL of session timeout -->
+    <session-management invalid-session-url="/session_timeout.jsp"/>
+  
+    <!-- add a user-defined filter, and located it before FILTER_SECURITY_INTERCEPTOR -->
+    <!-- this filter is used to manage DataBase information include USER/ROLE/AUTHORITY -->
+    <custom-filter ref="myFilter" before="FILTER_SECURITY_INTERCEPTOR"/>
+    
+  </http>
+  
+  <!-- a self-defined filter which has three properties: -->
+  <!-- authenticationManager/accessDecisionManager/securityMetadataSource -->
+  <b:bean id="myFilter" class="org.pmp.security.MyFilterSecurityInterceptor">
+    <b:property name="authenticationManager"
+      ref="authenticationManager">
+    </b:property>
+    <b:property name="accessDecisionManager"
+      ref="myAccessDecisionManager">
+    </b:property>
+    <b:property name="securityMetadataSource"
+      ref="mySecurityMetadataSource">
+    </b:property>
+  </b:bean>
+  
+  <!-- set alias for authentication-manager -->
+  <authentication-manager alias="authenticationManager">
+    <authentication-provider user-service-ref="MyUserDetailsService">
+    </authentication-provider>
+  </authentication-manager>
+  
+  <!-- define a AccessDecisionManager -->
+  <b:bean id="myAccessDecisionManager" class="org.pmp.security.MyAccessDecisionManager"/>
+ 
+  <!-- resource data define. associate resource with authority -->
+  <!-- which means define what resources can be accessed by a specific role -->
+  <b:bean id="mySecurityMetadataSource" class="org.pmp.security.MyInvocationSecurityMetadataSource">
+    <b:constructor-arg ref="securityService"></b:constructor-arg>
+  </b:bean>
+  
+  
+</b:beans>

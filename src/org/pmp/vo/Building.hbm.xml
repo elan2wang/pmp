@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-4-19 19:48:26 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.pmp.vo.Building" table="tb_Building" schema="dbo" catalog="db_pmp2">
+        <id name="builId" type="integer">
+            <column name="Buil_ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="project" class="org.pmp.vo.Project" fetch="select" lazy="false">
+            <column name="Pro_ID" />
+        </many-to-one>
+        <property name="builNum" type="integer">
+            <column name="Buil_Num" />
+        </property>
+        <property name="builType" type="string">
+            <column name="Buil_Type" length="50" />
+        </property>
+        <property name="floorCount" type="integer">
+            <column name="Floor_Count" />
+        </property>
+        <property name="skipFloor" type="string">
+            <column name="Skip_Floor" length="50" />
+        </property>
+        <property name="housesPer" type="integer">
+            <column name="Houses_Per" />
+        </property>
+        <property name="unitCount" type="integer">
+            <column name="Unit_Count" />
+        </property>
+        <property name="unitTag" type="string">
+            <column name="Unit_Tag" length="20" />
+        </property>
+        <property name="condoFeeRate" type="integer">
+            <column name="CondoFee_Rate" />
+        </property>
+        <property name="builDesc" type="string">
+            <column name="Buil_Desc" length="200" />
+        </property>
+        <property name="enabled" type="boolean">
+            <column name="ENABLED" />
+        </property>
+    </class>
+</hibernate-mapping>

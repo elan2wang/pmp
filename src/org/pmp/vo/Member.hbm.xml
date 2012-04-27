@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-4-19 19:48:26 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.pmp.vo.Member" table="tb_Member" schema="dbo" catalog="db_pmp2">
+        <id name="memId" type="integer">
+            <column name="Mem_ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="owner" class="org.pmp.vo.Owner" fetch="select" lazy="false">
+            <column name="Owner_ID" />
+        </many-to-one>
+        <property name="memName" type="string">
+            <column name="Mem_Name" length="50" />
+        </property>
+        <property name="memRelation" type="string">
+            <column name="Mem_Relation" length="50" />
+        </property>
+        <property name="memIdentity" type="string">
+            <column name="Mem_Identity" length="18" />
+        </property>
+        <property name="memPhone" type="string">
+            <column name="Mem_Phone" length="12" />
+        </property>
+    </class>
+</hibernate-mapping>

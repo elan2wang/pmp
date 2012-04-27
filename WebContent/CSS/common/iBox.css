@@ -1,0 +1,53 @@
+/* CSS Document */
+
+body{
+	margin-top:5px;
+	margin-bottom:5px;
+	margin-left:10px;
+	margin-right:10px;
+	font-size:12px;
+	color:12px;
+}
+.textbox{
+	width:150px;
+	height:14px;
+}
+.selectbox{
+	width:155px;
+}
+.TopNav{
+	border-bottom:1px #6c92ad solid;
+	font-size:12px;
+	color:#005590;
+}
+.ModuleTap{
+	font-size:12px;
+	color:#005590;
+	background-color:#edf1f6;
+	padding-left:1px;
+	padding-right:1px;
+	border-bottom:1px #6c92ad solid;
+}
+.ModuleTapOn{
+	font-size:12px;
+	color:#005590;
+	border-top:1px #6c92ad solid;
+	border-left:1px #6c92ad solid;
+	border-right:1px #6c92ad solid;
+	border-bottom:1px #FFF solid;
+}
+.table1{
+	border-collapse:collapse;
+	border:solid #000;
+	border-width:1px 0 0 1px; /* 设置边框状粗细：上 右 下 左 = 对应：1px 0 0 1px */
+}
+.table1 th{
+	border:solid #000;
+	border-width:0 1px 1px 0;
+	color:#000;
+	font-weight:bolder;
+}
+.table1 td {
+	border:solid #000;
+	border-width:0 1px 1px 0;
+}

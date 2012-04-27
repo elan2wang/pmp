@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-3-27 12:23:42 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.pmp.vo.TbRoleAuthority" table="tb_RoleAuthority" schema="dbo" catalog="db_pmp2">
+        <id name="raId" type="integer">
+            <column name="RA_ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="tbRole" class="org.pmp.vo.TbRole" fetch="select" lazy="false">
+            <column name="Role_ID" />
+        </many-to-one>
+        <many-to-one name="tbAuthority" class="org.pmp.vo.TbAuthority" fetch="select" lazy="false">
+            <column name="Auth_ID" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

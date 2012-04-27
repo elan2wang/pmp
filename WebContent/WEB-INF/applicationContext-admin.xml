@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+  
+  <!-- DAO Declare -->
+  <!-- ======================================================================================= -->
+  <bean id="userDAO" class="org.pmp.dao.impl.admin.UserDAO" parent="baseDAO"/>
+  <bean id="authorityDAO" class="org.pmp.dao.impl.admin.AuthorityDAO" parent="baseDAO"/>
+  <bean id="resourceDAO" class="org.pmp.dao.impl.admin.ResourceDAO" parent="baseDAO"/>
+  <bean id="authorityResourceDAO" class="org.pmp.dao.impl.admin.AuthorityResourceDAO" parent="baseDAO"/>
+  <bean id="roleDAO" class="org.pmp.dao.impl.admin.RoleDAO" parent="baseDAO"/>
+  <bean id="roleAuthorityDAO" class="org.pmp.dao.impl.admin.RoleAuthorityDAO" parent="baseDAO"/>
+  <bean id="groupDAO" class="org.pmp.dao.impl.admin.GroupDAO" parent="baseDAO"/>
+  <bean id="UserDAO" class="org.pmp.dao.impl.admin.UserDAO" parent="baseDAO"/>
+  <bean id="ugrDAO" class="org.pmp.dao.impl.admin.UserGroupRoleDAO" parent="baseDAO"/>
+  <bean id="moduleDAO" class="org.pmp.dao.impl.admin.ModuleDAO" parent="baseDAO"/>
+  <bean id="roleModuleDAO" class="org.pmp.dao.impl.admin.RoleModuleDAO" parent="baseDAO"/>
+  
+  <!-- Service Declare -->
+  <!-- ======================================================================================= -->
+  <bean id="securityService" class="org.pmp.service.impl.admin.SecurityService">
+    <property name="authorityDAO" ref="authorityDAO" />
+    <property name="resourceDAO" ref="resourceDAO" />
+  </bean>
+  
+  <bean id="userService" class="org.pmp.service.impl.admin.UserService">
+    <property name="userDAO" ref="userDAO" />
+  </bean>
+  
+  <bean id="resourceService" class="org.pmp.service.impl.admin.ResourceService">
+    <property name="resourceDAO" ref="resourceDAO" />
+  </bean>
+  
+  <bean id="authorityService" class="org.pmp.service.impl.admin.AuthorityService">
+    <property name="authorityDAO" ref="authorityDAO" />
+  </bean>
+  
+  <bean id="authorityResourceService" class="org.pmp.service.impl.admin.AuthorityResourceService">
+    <property name="authorityResourceDAO" ref="authorityResourceDAO" />
+  </bean>
+  
+  <bean id="roleService" class="org.pmp.service.impl.admin.RoleService">
+    <property name="roleDAO" ref="roleDAO" />
+  </bean>
+  
+  <bean id="roleAuthorityService" class="org.pmp.service.impl.admin.RoleAuthorityService">
+    <property name="roleAuthorityDAO" ref="roleAuthorityDAO" />
+  </bean>
+  
+  <bean id="groupService" class="org.pmp.service.impl.admin.GroupService">
+    <property name="groupDAO" ref="groupDAO" />
+  </bean>
+  
+  <bean id="ugrService" class="org.pmp.service.impl.admin.UserGroupRoleService">
+    <property name="ugrDAO" ref="ugrDAO" />
+  </bean>
+  
+  <bean id="moduleService" class="org.pmp.service.impl.admin.ModuleService">
+    <property name="moduleDAO" ref="moduleDAO" />
+  </bean>
+  
+  <bean id="roleModuleService" class="org.pmp.service.impl.admin.RoleModuleService">
+    <property name="roleModuleDAO" ref="roleModuleDAO" />
+  </bean>
+
+  <!-- Action Declare -->
+  <!-- ======================================================================================= -->
+  <bean id="resourceAction" class="org.pmp.action.admin.ResourceAction">
+    <property name="resourceService" ref="resourceService" />
+  </bean>
+  
+  <bean id="authorityAction" class="org.pmp.action.admin.AuthorityAction">
+    <property name="authorityService" ref="authorityService" />
+  </bean>
+  
+  <bean id="authorityResourceAction" class="org.pmp.action.admin.AuthorityResourceAction">
+    <property name="authorityService" ref="authorityService" />
+    <property name="resourceService" ref="resourceService" />
+    <property name="authorityResourceService" ref="authorityResourceService" />
+  </bean>
+  
+  <bean id="roleAction" class="org.pmp.action.admin.RoleAction">
+    <property name="roleService" ref="roleService" />
+  </bean>
+  
+  <bean id="roleAuthorityAction" class="org.pmp.action.admin.RoleAuthorityAction">
+    <property name="roleService" ref="roleService" />
+    <property name="authorityService" ref="authorityService" />
+    <property name="roleAuthorityService" ref="roleAuthorityService" />
+  </bean>
+  
+  <bean id="groupAction" class="org.pmp.action.admin.GroupAction">
+    <property name="groupService" ref="groupService" />
+    <property name="companyService" ref="companyService" />
+  </bean>
+  
+  <bean id="userAction" class="org.pmp.action.admin.UserAction">
+    <property name="userService" ref="userService" />
+    <property name="roleService" ref="roleService" />
+    <property name="groupService" ref="groupService" />
+    <property name="ugrService" ref="ugrService" />
+  </bean>
+  
+  <bean id="moduleAction" class="org.pmp.action.admin.ModuleAction">
+    <property name="moduleService" ref="moduleService" />
+  </bean>
+  
+  <bean id="roleModuleAction" class="org.pmp.action.admin.RoleModuleAction">
+    <property name="moduleService" ref="moduleService" />
+    <property name="roleService" ref="roleService" />
+    <property name="roleModuleService" ref="roleModuleService" />
+  </bean>
+  
+  <bean id="loginAction" class="org.pmp.action.admin.LoginAction">
+    <property name="moduleService" ref="moduleService" />
+  </bean>
+  
+  <!-- used to encrypt or decrypt password  -->
+  <bean id="passwordEncoder" 
+    class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
+   
+  <bean id="MyUserDetailsService" class="org.pmp.security.MyUserDetailsService"> 
+    <property name="userDAO" ref="userDAO" />
+    <property name="securityService" ref="securityService" />
+  </bean>
+    
+</beans>

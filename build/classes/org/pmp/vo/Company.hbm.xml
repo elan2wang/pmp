@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-4-19 19:48:26 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.pmp.vo.Company" table="tb_Company" schema="dbo" catalog="db_pmp2">
+        <id name="comId" type="integer">
+            <column name="Com_ID" />
+            <generator class="identity" />
+        </id>
+        <property name="comName" type="string">
+            <column name="Com_Name" length="100" />
+        </property>
+        <property name="comLegal" type="string">
+            <column name="Com_Legal" length="50" />
+        </property>
+        <property name="comLicense" type="string">
+            <column name="Com_License" length="50" />
+        </property>
+        <property name="comPhone" type="string">
+            <column name="Com_Phone" length="15" />
+        </property>
+        <property name="comAddress" type="string">
+            <column name="Com_Address" length="200" />
+        </property>
+        <property name="registerTime" type="timestamp">
+            <column name="Register_Time" length="23" />
+        </property>
+        <property name="registerMoney" type="integer">
+            <column name="Register_Money" />
+        </property>
+        <property name="comDesc" type="string">
+            <column name="Com_Desc" length="200" />
+        </property>
+        <property name="enabled" type="boolean">
+            <column name="ENABLED" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-3-27 12:23:42 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.pmp.vo.TbGroup" table="tb_Group" schema="dbo" catalog="db_pmp2">
+        <id name="groupId" type="integer">
+            <column name="Group_ID" />
+            <generator class="identity" />
+        </id>
+        <property name="groupName" type="string">
+            <column name="Group_Name" length="50" />
+        </property>
+        <property name="groupDesc" type="string">
+            <column name="Group_Desc" length="50" />
+        </property>
+        <property name="groupLevel" type="integer">
+            <column name="Group_Level" />
+        </property>
+        <property name="refDomain" type="string">
+            <column name="Ref_Domain" length="50" />
+        </property>
+        <property name="fatherGroupId" type="integer">
+            <column name="Father_GroupID" />
+        </property>
+    </class>
+</hibernate-mapping>
