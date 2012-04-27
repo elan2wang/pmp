@@ -8,11 +8,15 @@
 package org.pmp.action.business;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
@@ -20,6 +24,7 @@ import org.apache.struts2.ServletActionContext;
 import org.pmp.excel.ProjectImport;
 import org.pmp.service.business.IProjectService;
 import org.pmp.util.JsonConvert;
+import org.pmp.util.MyfileUtil;
 import org.pmp.util.Pager;
 import org.pmp.vo.Project;
 
@@ -94,8 +99,28 @@ public class ProjectAction extends ActionSupport {
 	}
 	
 	public String uploadFile(){
-//		List projectList = ProjectImport.projectList(filePath);
-//		projectService.batchSaveProject(projectList);
+	if(!MyfileUtil.validate(refFileFileName,"xls")){
+	    String postfix = MyfileUtil.getPostfix(refFileFileName);
+	    String message = postfix+"类型的文件暂不支持，请选择xls类型文件";
+	    HttpServletRequest request = ServletActionContext.getRequest();
+	    request.setAttribute("message", message);
+	    return "filetype_error";
+	}
+		HttpServletResponse response = ServletActionContext.getResponse();
+		/* set ContentType of MIME response to browser */
+		response.setContentType("application/vnd.ms-excel;charset=gb2312");
+		/* set name of the output file */
+		response.setHeader("Content-Disposition", "attachment;filename=condofeelist.xls");
+		try {
+			InputStream is = new FileInputStream(refFile);
+			List projectList = ProjectImport.projectList(is,response.getOutputStream());
+			projectService.batchSaveProject(projectList);
+		}catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return SUCCESS;
 	}
 	

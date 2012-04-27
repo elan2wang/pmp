@@ -182,7 +182,7 @@ public class OwnerAction extends ActionSupport {
 	}
 	
 	public String uploadFile(){
-		Map map = new HashMap<String, House>();
+	    	Map map = new HashMap<String, House>();
 		if(!MyfileUtil.validate(refFileFileName,"xls")){
 		    String postfix = MyfileUtil.getPostfix(refFileFileName);
 		    String message = postfix+"类型的文件暂不支持，请选择xls类型文件";
@@ -199,6 +199,7 @@ public class OwnerAction extends ActionSupport {
 			e.printStackTrace();
 		}
 		return SUCCESS;
+
 	}
 	/**
 	 * @return the ownerService

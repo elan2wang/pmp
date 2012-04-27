@@ -8,18 +8,22 @@
 package org.pmp.action.business;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.pmp.excel.BuildingImport;
-import org.pmp.excel.ProjectImport;
 import org.pmp.service.business.IBuildingService;
 import org.pmp.util.JsonConvert;
+import org.pmp.util.MyfileUtil;
 import org.pmp.util.Pager;
 import org.pmp.vo.Building;
 import org.pmp.vo.Project;
@@ -155,11 +159,21 @@ public class BuildingAction extends ActionSupport {
 	}
 	
 	public String uploadFile(){
-//		FileUpload upload = new FileUpload(refFile,refFileFileName,refFileContentType);
-//		String filePath = upload.execute();
-//		List buildingList = BuildingImport.buildingList(filePath);
-//		buildingService.batchSaveBuilding(buildingList);
-//		FileDelete.delFile(filePath);
+	    System.out.println("xxx");
+		if(!MyfileUtil.validate(refFileFileName,"xls")){
+		    String postfix = MyfileUtil.getPostfix(refFileFileName);
+		    String message = postfix+"类型的文件暂不支持，请选择xls类型文件";
+		    HttpServletRequest request = ServletActionContext.getRequest();
+		    request.setAttribute("message", message);
+		    return "filetype_error";
+		}
+			try {
+				InputStream is = new FileInputStream(refFile);
+				List buildingList = BuildingImport.buildingList(is);
+				buildingService.batchSaveBuilding(buildingList);
+			}catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
 		return SUCCESS;
 	}
 	

@@ -36,15 +36,14 @@ import org.pmp.vo.Project;
  * @update TODO
  */
 public class BuildingImport {
-	public static List buildingList(String filePath){
+	public static List buildingList(InputStream is){
 		List buildingList = new ArrayList<Building>();
 		InputStream fs = null;
         Workbook workBook = null;
         try {
             // 加载excel文件
-            fs = new FileInputStream(filePath);
             // 得到 workbook
-                workBook = Workbook.getWorkbook(fs);
+                workBook = Workbook.getWorkbook(is);
            } catch (FileNotFoundException e) {
             e.printStackTrace();
            } catch (BiffException e) {
