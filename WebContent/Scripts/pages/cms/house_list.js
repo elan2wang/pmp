@@ -186,7 +186,7 @@ function getSecondInfo()
 			     s.eq(i).remove();
 			  }
 			  $.each( data.Rows , function(commentIndex, comment) {
-                   selector.append('<option value="'+comment['id']+'">'+comment['name']+'</option>');
+                   selector.append('<option value="'+comment['builId']+'">'+comment['builNum']+'</option>');
 			  });
 			  
 	  }

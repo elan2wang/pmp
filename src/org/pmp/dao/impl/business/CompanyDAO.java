@@ -94,8 +94,8 @@ public class CompanyDAO extends BaseDAO implements ICompanyDAO {
     }
 
     public Company getCompanyByName(String companyName) {
-	String hql = "from Company com where com.comNam="+companyName;
-	String debugMsg = "get company by ID,comId="+companyName;
+	String hql = "from Company com where comName='"+companyName+"'";
+	String debugMsg = "get company by companyName,companyName="+companyName;
 	Company company = null;
 	try {
 	    company = (Company)getInstance(hql,debugMsg);

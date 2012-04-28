@@ -12,6 +12,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -89,73 +90,19 @@ public class BuildingAction extends ActionSupport {
 			buildingList = buildingService.loadBuildingListByProject(pager, projectId);
 		}
 		logger.debug("得到的buildingList为"+buildingList.toString());
-		StringBuffer sb = new StringBuffer();
-		sb.append("{\n");
-		sb.append("  "+JsonConvert.toJson("RowsCount")+":"+JsonConvert.toJson(pager.getRowsCount())+",\n");
-		sb.append("  "+JsonConvert.toJson("PageSize")+":"+JsonConvert.toJson(pager.getPageSize())+",\n");
-		sb.append("  "+JsonConvert.toJson("CurrentPage")+":"+JsonConvert.toJson(pager.getCurrentPage())+",\n");
-		sb.append("  "+JsonConvert.toJson("PagesCount")+":"+JsonConvert.toJson(pager.getPagesCount())+",\n");
-		sb.append("  "+JsonConvert.toJson("Rows")+":[\n");
-		Iterator ite = buildingList.iterator();
-		while(ite.hasNext()){
-			sb.append("    {");
-			Building building = (Building)ite.next();
-//			sb.append(JsonConvert.toJson("companyName")+":"+JsonConvert.toJson(building.getProject().getCompany().getComName().toString())+",");
-			sb.append(JsonConvert.toJson("builId")+":"+JsonConvert.toJson(building.getBuilId().toString())+",");
-//			sb.append(JsonConvert.toJson("proName")+":"+JsonConvert.toJson(building.getProject().getProName().toString())+",");
-			sb.append(JsonConvert.toJson("builNum")+":"+JsonConvert.toJson(building.getBuilNum().toString())+",");
-			sb.append(JsonConvert.toJson("builType")+":"+JsonConvert.toJson(building.getBuilType().toString())+",");
-			sb.append(JsonConvert.toJson("floorCount")+":"+JsonConvert.toJson(building.getFloorCount().toString())+",");
-			sb.append(JsonConvert.toJson("skipFloor")+":"+JsonConvert.toJson(building.getSkipFloor().toString())+",");
-			sb.append(JsonConvert.toJson("housesPer")+":"+JsonConvert.toJson(building.getHousesPer().toString())+",");
-			sb.append(JsonConvert.toJson("unitCount")+":"+JsonConvert.toJson(building.getUnitCount().toString())+",");
-//			sb.append(JsonConvert.toJson("unitTag")+":"+JsonConvert.toJson(building.getUnitTag().toString())+",");
-			sb.append(JsonConvert.toJson("builDesc")+":"+JsonConvert.toJson(building.getBuilDesc().toString())+",");
-			sb.append(JsonConvert.toJson("enabled")+":"+JsonConvert.toJson(building.isEnabled())+",");
-			sb.deleteCharAt(sb.length()-1);
-		    sb.append("},\n");
-		}
-		sb.deleteCharAt(sb.length()-2);
-		sb.append("  ]\n}\n");
-		logger.debug("得到的json数据为"+sb.toString());
-		//output the Jason data
-		try {    
-	            HttpServletResponse response = ServletActionContext.getResponse();  
-	            response.setContentType("application/json;charset=UTF-8");
-	            response.setCharacterEncoding("UTF-8");
-	            response.getWriter().println(sb.toString());     
-	        } catch (IOException e) {                     
-	            e.printStackTrace();  
-	        } 
+		
+		String data = JsonConvert.list2Json(pager, buildingList, "org.pmp.vo.Building");
+		JsonConvert.output(data);
 	}
 	
 	public void getBuildingByProject(){
 		Pager pager = new Pager(100,1);
 		List buildingList = buildingService.loadBuildingListByProject(pager, projectId);
-		StringBuffer sb = new StringBuffer();
-		sb.append("{\n");
-		sb.append("  "+JsonConvert.toJson("Rows")+":[\n");
-		Iterator ite = buildingList.iterator();
-		while(ite.hasNext()){
-			sb.append("    {");
-			Building building = (Building)ite.next();
-			sb.append(JsonConvert.toJson("id")+":"+JsonConvert.toJson(building.getBuilId().toString())+",");
-			sb.append(JsonConvert.toJson("name")+":"+JsonConvert.toJson(building.getBuilNum().toString())+",");
-			sb.deleteCharAt(sb.length()-1);
-		    sb.append("},\n");
-		}
-		sb.deleteCharAt(sb.length()-2);
-		sb.append("  ]\n}\n");
-		logger.debug("得到的json数据为"+sb.toString());
-		//output the Jason data
-		try {    
-	            HttpServletResponse response = ServletActionContext.getResponse();  
-	            response.setContentType("application/json;charset=UTF-8");
-	            response.setCharacterEncoding("UTF-8");
-	            response.getWriter().println(sb.toString());     
-	        } catch (IOException e) {                     
-	            e.printStackTrace();  
-	        } 
+		List show = new ArrayList<String>();
+		show.add("builId");
+		show.add("builNum");
+		String data = JsonConvert.list2Json(buildingList, "org.pmp.vo.Building", show);
+		JsonConvert.output(data);
 	}
 	
 	public String uploadFile(){
@@ -167,11 +114,17 @@ public class BuildingAction extends ActionSupport {
 		    request.setAttribute("message", message);
 		    return "filetype_error";
 		}
+		HttpServletResponse response = ServletActionContext.getResponse();
+		response.setContentType("application/vnd.ms-excel;charset=gb2312");
+		response.setHeader("Content-Disposition", "attachment;filename=condofeelist.xls");
 			try {
 				InputStream is = new FileInputStream(refFile);
-				List buildingList = BuildingImport.buildingList(is);
+				List buildingList = BuildingImport.buildingList(is,response.getOutputStream());
 				buildingService.batchSaveBuilding(buildingList);
 			}catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		return SUCCESS;

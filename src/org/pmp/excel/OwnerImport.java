@@ -10,6 +10,7 @@ package org.pmp.excel;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,11 +23,19 @@ import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
+import jxl.write.Label;
+import jxl.write.WritableCellFormat;
+import jxl.write.WritableFont;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+import jxl.write.WriteException;
+import jxl.write.biff.RowsExceededException;
 
 import org.pmp.service.business.IBuildingService;
 import org.pmp.service.business.IHouseService;
 import org.pmp.service.business.IProjectService;
 import org.pmp.util.SpringContextUtil;
+import org.pmp.validate.OwnerValidate;
 import org.pmp.vo.Building;
 import org.pmp.vo.House;
 import org.pmp.vo.Owner;
@@ -38,7 +47,7 @@ import org.pmp.vo.Project;
  * @update TODO
  */
 public class OwnerImport {
-	public static List ownerList(InputStream is,Map map){
+	public static List ownerList(InputStream is,OutputStream os,Map map){
 		List ownerList = new ArrayList<Owner>();
         Workbook workBook = null;
         try {
@@ -55,12 +64,25 @@ public class OwnerImport {
         List list = new ArrayList();
         Project project = null;
         Building building = null;
+        List errorList = new ArrayList<List>();
         for (int j = 1; j < sheet.getRows(); j++) {
              StringBuffer sb = new StringBuffer();
              for (int i = 0; i < sheet.getColumns(); i++) {
              cell = sheet.getCell(i, j);
              String context = cell.getContents();
              list.add(context);
+             }
+             IProjectService projectService = (IProjectService)SpringContextUtil.getBean("projectService");
+             IBuildingService buildingService = (IBuildingService)SpringContextUtil.getBean("buildingService");
+             IHouseService houseService = (IHouseService)SpringContextUtil.getBean("houseService");
+             House house = new House();
+             house = houseService.getHouseByBuildingIdAndHouseNum(building.getBuilId(), (String)list.get(2));
+             project = projectService.getProjectByName((String)list.get(0));
+             building = buildingService.getBuildingByProjectIdAndBuildingNum(project.getProId(), Integer.parseInt((String)list.get(1)));
+             if(house==null||project==null||building==null||!OwnerValidate.dateValidate(list)){
+            	 errorList.add(list);
+            	 list.clear();
+            	 continue;
              }
              Owner owner = new Owner();
              owner.setOwnerName((String)list.get(3));
@@ -96,7 +118,7 @@ public class OwnerImport {
  			} catch (ParseException e) {
  				e.printStackTrace();
  			}
-             owner.setParkNum((String)list.get(18));
+ 			 owner.setParkNum((String)list.get(18));
              owner.setCarNum((String)list.get(19));
              owner.setCarType((String)list.get(20));
              owner.setStoreroom((String)list.get(21));
@@ -109,19 +131,45 @@ public class OwnerImport {
              owner.setHouseNum((String)list.get(2));
              String ownerDes = (String)list.get(0)+","+(String)list.get(1)+","+(String)list.get(2);
              owner.setOwnerDesc(ownerDes);
-             IProjectService projectService = (IProjectService)SpringContextUtil.getBean("projectService");
-             IBuildingService buildingService = (IBuildingService)SpringContextUtil.getBean("buildingService");
-             IHouseService houseService = (IHouseService)SpringContextUtil.getBean("houseService");
-             project = projectService.getProjectByName((String)list.get(0));
-             building = buildingService.getBuildingByProjectIdAndBuildingNum(project.getProId(), Integer.parseInt((String)list.get(1)));
-             House house = new House();
-             house = houseService.getHouseByBuildingIdAndHouseNum(building.getBuilId(), (String)list.get(2));
              house.setHouseArea(Integer.parseInt((String)list.get(22)));
              house.setIsempty(false);
              map.put(ownerDes, house);
              ownerList.add(owner);
              list.clear();
            }
+        WritableWorkbook wwb;
+    	try {
+    		wwb = Workbook.createWorkbook(os);
+    		WritableSheet ws = wwb.createSheet("sheet1", 0);
+    		for(int i = 0; i < sheet.getColumns(); i++){
+    			cell = sheet.getCell(i, 0);
+                String context = cell.getContents();
+                WritableFont wf = new WritableFont(WritableFont.ARIAL,10,WritableFont.BOLD);
+    			WritableCellFormat wcf = new WritableCellFormat(wf);
+    			Label label = new Label(0,i,context,wcf);
+    			ws.addCell(label);
+    		}
+    		for(int i=1;i<=errorList.size();i++){
+    			for(int j=0;j<((List)errorList.get(0)).size();j++){
+    				WritableFont wf = new WritableFont(WritableFont.ARIAL,10,WritableFont.BOLD);
+    				WritableCellFormat wcf = new WritableCellFormat(wf);
+    				Label label = new Label(i,j,(String)((List)errorList.get(i-1)).get(j),wcf);
+    				ws.addCell(label);
+    			}
+    		}
+    		wwb.write();
+    	    wwb.close();
+    		
+    	} catch (IOException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	} catch (RowsExceededException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	} catch (WriteException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
            workBook.close();
 		return ownerList;
 	}

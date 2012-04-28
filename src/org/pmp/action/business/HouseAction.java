@@ -8,6 +8,7 @@
 package org.pmp.action.business;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -167,30 +168,11 @@ public class HouseAction extends ActionSupport {
 		Building building = new Building();
 		building.setBuilId(buildingId);
 		List houseList = houseService.getHouseByBuilding(building);
-		StringBuffer sb = new StringBuffer();
-		sb.append("{\n");
-		sb.append("  "+JsonConvert.toJson("Rows")+":[\n");
-		Iterator ite = houseList.iterator();
-		while(ite.hasNext()){
-			sb.append("    {");
-			House house = (House)ite.next();
-			sb.append(JsonConvert.toJson("houseId")+":"+JsonConvert.toJson(house.getHouseId().toString())+",");
-			sb.append(JsonConvert.toJson("houseNum")+":"+JsonConvert.toJson(house.getHouseNum().toString())+",");
-			sb.deleteCharAt(sb.length()-1);
-		    sb.append("},\n");
-		}
-		sb.deleteCharAt(sb.length()-2);
-		sb.append("  ]\n}\n");
-		logger.debug("得到的json数据为"+sb.toString());
-		//output the Jason data
-		try {    
-	            HttpServletResponse response = ServletActionContext.getResponse();  
-	            response.setContentType("application/json;charset=UTF-8");
-	            response.setCharacterEncoding("UTF-8");
-	            response.getWriter().println(sb.toString());     
-	        } catch (IOException e) {                     
-	            e.printStackTrace();  
-	        }
+		List show = new ArrayList<String>();
+		show.add("houseId");
+		show.add("houseNum");
+		String data = JsonConvert.list2Json(houseList, "org.pmp.vo.House", show);
+		JsonConvert.output(data);
 	}
 	
 	/**

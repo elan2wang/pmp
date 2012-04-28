@@ -16,6 +16,7 @@ import java.lang.reflect.Field;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -106,20 +107,22 @@ public class ProjectAction extends ActionSupport {
 	    request.setAttribute("message", message);
 	    return "filetype_error";
 	}
-		HttpServletResponse response = ServletActionContext.getResponse();
-		/* set ContentType of MIME response to browser */
-		response.setContentType("application/vnd.ms-excel;charset=gb2312");
-		/* set name of the output file */
-		response.setHeader("Content-Disposition", "attachment;filename=condofeelist.xls");
+		boolean isError = false;
+		StringBuffer errorPath = new StringBuffer();
 		try {
 			InputStream is = new FileInputStream(refFile);
-			List projectList = ProjectImport.projectList(is,response.getOutputStream());
+			List projectList = ProjectImport.projectList(is,isError,errorPath);
 			projectService.batchSaveProject(projectList);
+			HttpServletRequest request = ServletActionContext.getRequest();
+		    request.setAttribute("errorPath", errorPath);
 		}catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		if(isError){
+			return ERROR;
 		}
 		return SUCCESS;
 	}
