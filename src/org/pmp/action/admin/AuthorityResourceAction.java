@@ -41,7 +41,6 @@ public class AuthorityResourceAction extends ActionSupport{
     private Integer authID;
     
     private String[] resourceList;
-    //~ Constructor ====================================================================================================
 
     //~ Methods ========================================================================================================
     /**

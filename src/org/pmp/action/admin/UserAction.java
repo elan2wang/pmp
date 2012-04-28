@@ -8,6 +8,7 @@
 package org.pmp.action.admin;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -132,11 +133,11 @@ public class UserAction extends ActionSupport{
     public void loadRoleGroupList(){
 	logger.debug("loadRoleGroupList");
 	Pager pager = new Pager(1000,1);
-	List roles = roleService.getRoleList();
-	List groups = groupService.getGroupList(pager);
+	List<?> roles = roleService.getRoleList();
+	List<?> groups = groupService.getGroupList(pager);
 	
-	Iterator ite1 = groups.iterator();
-	Iterator ite2 = roles.iterator();
+	Iterator<?> ite1 = groups.iterator();
+	Iterator<?> ite2 = roles.iterator();
 	StringBuffer sb = new StringBuffer();
 	if (ite1.hasNext()||ite2.hasNext()){
 	    sb.append("{\n  ");
@@ -162,15 +163,8 @@ public class UserAction extends ActionSupport{
 	    sb.append("  ]\n}"); 
 	}
 	logger.debug(sb.toString());
-	//output the Jason data
-	try {    
-            HttpServletResponse response = ServletActionContext.getResponse();  
-            response.setContentType("application/json;charset=UTF-8");
-            response.setCharacterEncoding("UTF-8");
-            response.getWriter().println(sb.toString());
-        } catch (IOException e) {                     
-            e.printStackTrace();  
-        } 
+	//output the JsonData
+	JsonConvert.output(sb.toString());
     }
     
     /**
@@ -179,40 +173,13 @@ public class UserAction extends ActionSupport{
      */
     public void loadUserList(){
     	Pager pager = new Pager(pageSize, currentPage);
-    	List users =  userService.getUserList(pager);
-    	StringBuffer sb = new StringBuffer();
-		sb.append("{\n");
-		sb.append("  "+JsonConvert.toJson("RowsCount")+":"+JsonConvert.toJson(pager.getRowsCount())+",\n");
-		sb.append("  "+JsonConvert.toJson("PageSize")+":"+JsonConvert.toJson(pager.getPageSize())+",\n");
-		sb.append("  "+JsonConvert.toJson("CurrentPage")+":"+JsonConvert.toJson(pager.getCurrentPage())+",\n");
-		sb.append("  "+JsonConvert.toJson("PagesCount")+":"+JsonConvert.toJson(pager.getPagesCount())+",\n");
-		sb.append("  "+JsonConvert.toJson("Rows")+":[\n");
-		Iterator ite = users.iterator();
-		while(ite.hasNext()){
-			sb.append("    {");
-			TbUser user = (TbUser)ite.next();
-			sb.append(JsonConvert.toJson("userId")+":"+JsonConvert.toJson(user.getUserId().toString())+",");
-			sb.append(JsonConvert.toJson("realname")+":"+JsonConvert.toJson(user.getRealname().toString())+",");
-			sb.append(JsonConvert.toJson("mobile")+":"+JsonConvert.toJson(user.getMobile().toString())+",");
-			sb.append(JsonConvert.toJson("identify")+":"+JsonConvert.toJson(user.getIdentify().toString())+",");
-			sb.append(JsonConvert.toJson("position")+":"+JsonConvert.toJson(user.getPosition().toString())+",");
-			sb.append(JsonConvert.toJson("userDesc")+":"+JsonConvert.toJson(user.getUserDesc().toString())+",");
-			sb.append(JsonConvert.toJson("enabled")+":"+JsonConvert.toJson(user.isEnabled())+",");
-			sb.append(JsonConvert.toJson("issys")+":"+JsonConvert.toJson(user.isIssys())+",");
-			sb.deleteCharAt(sb.length()-1);
-		    sb.append("},\n");
-		}
-		sb.deleteCharAt(sb.length()-2);
-		sb.append("  ]\n}\n");
-		logger.debug("Json data = "+sb.toString());
-		try {    
-	            HttpServletResponse response = ServletActionContext.getResponse();  
-	            response.setContentType("application/json;charset=UTF-8");
-	            response.setCharacterEncoding("UTF-8");
-	            response.getWriter().println(sb.toString());     
-	        } catch (IOException e) {                     
-	            e.printStackTrace();  
-	        } 
+    	List<?> users =  userService.getUserList(pager);
+    	
+    	String[] attrs = {"userId","realname","mobile","identify","position","userDesc","enabled","issys"};
+    	List<String> show = Arrays.asList(attrs);
+    	String data = JsonConvert.list2Json(pager, users, "org.pmp.vo.TbUser",show);
+    	logger.debug(data);
+    	JsonConvert.output(data);
     }
     
     public String getUserById(){
