@@ -7,6 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="../Scripts/common/remove.js"></script>
 <title>给角色分配权限</title>
 </head>
 <body>
@@ -24,10 +25,10 @@
          </div>
       </div>
       <div class="middle">
-      		<div ><input  type="button" onclick="Add();" value="添&nbsp;&nbsp;&nbsp;&nbsp;加" /></div>
-			<div ><input  type="button" onclick="Remove();"  value="移&nbsp;&nbsp;&nbsp;&nbsp;除" /></div>
-			<div ><input  type="button" onclick="AddAll()" value="全部添加"  /></div>
-			<div ><input  type="button" onclick="RemoveAll();" value="全部移除"/></div>
+      		<div ><input  type="button" onclick="Add('#auth_1','#authList');" value="添&nbsp;&nbsp;&nbsp;&nbsp;加" /></div>
+			<div ><input  type="button" onclick="Remove('#auth_1','#authList');"  value="移&nbsp;&nbsp;&nbsp;&nbsp;除" /></div>
+			<div ><input  type="button" onclick="AddAll('#auth_1','#authList')" value="全部添加"  /></div>
+			<div ><input  type="button" onclick="RemoveAll('#auth_1','#authList');" value="全部移除"/></div>
       </div>
       <div class="right">
          <div class="select_tab">已分配权限</div>
@@ -41,8 +42,9 @@
       </div>
       <div style="clear:both"></div>
      <div class="rowStyle">
-           <div style=" margin-left:100px;margin-top:20px"><input type="submit" value="提交" onclick="return  authFormCheck(); "/>
-          <input type="button" value="关闭" onclick="authClose(); "/></div>
+           <div style=" margin-left:100px;margin-top:20px">
+           <input type="submit" value="提交" onclick="return selectAll()"/>
+           </div>
       </div>
 </form>
 </div>

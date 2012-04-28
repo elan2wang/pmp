@@ -18,6 +18,7 @@
 <script type="text/javascript" src="../Scripts/component/easyui/jquery.easyui.min.js" ></script>
 <script type="text/javascript" src="../Scripts/component/flexigrid-1.1/js/flexigrid.js"></script>
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
+<script type="text/javascript" src="../Scripts/common/window.js"></script>
 <script type="text/javascript" src="../Scripts/pages/admin/mod_list.js"></script>
 
 <title>模块管理</title>
@@ -29,17 +30,17 @@
   </ul>
   <div class="content">
     <div class="innercontent">
-      <div class="grid_top"><a href="#" class="easyui-linkbutton" plain="true" onClick="openAddModule()">添加新模块</a></div>
+      <div class="grid_top"><a href="#" class="easyui-linkbutton" plain="true" onClick="openAddWindow(’#newModule‘)">添加新模块</a></div>
       <table id="module_list"><%int i=1;%>
       <tbody id="module_list_data">
         <c:forEach var="module" items="${moduleList }">
         <tr>
           <td><%=i++%></td><td>${module.modName }</td><td>${module.modLevel }</td><td>${module.modUrl }</td><td>${module.enabled }</td><td>${module.issys }</td>
           <td>
-          <a href="#" onclick="openEditModule($(this).next().html())">编辑</a>
+          <a href="#" onclick="openEditWindow('#editModule','getModule?modId='+$(this).next().html())">编辑</a>
           <span style="display:none;width:10px">${module.modId }</span>
           <span style="display:inline-block;width:10px"></span>
-          <a href="#" onclick="deleteRow($(this).parent().parent().parent(),$(this).prev().prev().html())">删除</a>        
+          <a href="#" onclick="deleteRow($(this).parent().parent().parent(),'deleteModule?modId='+$(this).prev().prev().html(),'您将删除该模块，确认删除？')">删除</a>        
           </td>
         </tr>
         </c:forEach>

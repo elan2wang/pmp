@@ -7,6 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="../Scripts/common/remove.js"></script>
 <title>给权限分配资源</title>
 </head>
 <body>
@@ -24,10 +25,10 @@
          </div>
       </div>
       <div class="middle">
-      		<div ><input  type="button" onclick="Add();" value="添&nbsp;&nbsp;&nbsp;&nbsp;加" /></div>
-			<div ><input  type="button" onclick="Remove();"  value="移&nbsp;&nbsp;&nbsp;&nbsp;除" /></div>
-			<div ><input  type="button" onclick="AddAll()" value="全部添加"  /></div>
-			<div ><input  type="button" onclick="RemoveAll();" value="全部移除"/></div>
+      		<div ><input  type="button" onclick="Add('#res_1','#resourceList');" value="添&nbsp;&nbsp;&nbsp;&nbsp;加" /></div>
+			<div ><input  type="button" onclick="Remove('#res_1','#resourceList');"  value="移&nbsp;&nbsp;&nbsp;&nbsp;除" /></div>
+			<div ><input  type="button" onclick="AddAll('#res_1','#resourceList')" value="全部添加"  /></div>
+			<div ><input  type="button" onclick="RemoveAll('#res_1','#resourceList');" value="全部移除"/></div>
       </div>
       <div class="right">
          <div class="select_tab">已分配权限</div>
@@ -41,8 +42,9 @@
       </div>
       <div style="clear:both"></div>
       <div class="rowStyle">
-           <div style=" margin-left:100px;margin-top:20px"><input type="submit" value="提交" onclick="return  resFormCheck(); "/>
-          <input type="button" value="关闭" onclick="resClose(); "/></div>
+           <div style=" margin-left:100px;margin-top:20px">
+           <input type="submit" value="提交" onclick="return selectAll()"/>
+           </div>
       </div>
 </form>
 </div>

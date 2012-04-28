@@ -17,9 +17,9 @@
 <script type="text/javascript" src="../Scripts/component/easyui/jquery.easyui.min.js" ></script>
 <script type="text/javascript" src="../Scripts/component/flexigrid-1.1/js/flexigrid.js"></script>
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
+<script type="text/javascript" src="../Scripts/common/window.js"></script>
+<script type="text/javascript" src="../Scripts/common/select.js"></script>
 <script type="text/javascript" src="../Scripts/pages/admin/user_list.js"></script>
-<script type="text/javascript" src="../Scripts/pages/admin/user_add.js"></script>
-<script type="text/javascript" src="../Scripts/pages/admin/user_edit.js"></script>
 </head>
 
 <body onload="PageDownOrUp(0)">

@@ -38,7 +38,7 @@ public class RoleAuthorityAction extends ActionSupport {
     private IAuthorityService authorityService;
     private IRoleAuthorityService roleAuthorityService;
     
-    private Integer roleID;
+    private Integer roleId;
     
     private String[] authList;
     
@@ -47,12 +47,12 @@ public class RoleAuthorityAction extends ActionSupport {
     //~ Methods ========================================================================================================
     public String editRoleAuth(){
 	if (authList == null){
-	    roleAuthorityService.batchDeleteByRoleID(roleID);
+	    roleAuthorityService.batchDeleteByRoleID(roleId);
 	    return SUCCESS;
 	}
 	else{
 	    List<TbRoleAuthority> list = new ArrayList<TbRoleAuthority>();
-	    TbRole role = roleService.getRoleByID(roleID);
+	    TbRole role = roleService.getRoleByID(roleId);
 	    for(int i=0;i<authList.length;i++){
 	        TbAuthority auth = authorityService.getAuthorityByID(Integer.parseInt(authList[i].trim()));
 		TbRoleAuthority ra = new TbRoleAuthority();
@@ -60,19 +60,19 @@ public class RoleAuthorityAction extends ActionSupport {
 		ra.setTbRole(role);
 		list.add(ra);
 	    }
-            roleAuthorityService.batchEditByRoleID(roleID, list);
+            roleAuthorityService.batchEditByRoleID(roleId, list);
 	    return SUCCESS;
 	}
     }
     
     public String getRoleAuth(){
-	List noneGrantedAuthList = authorityService.getNoneGrantedAuthByRoleID(roleID);
-	List grantedAuthList = authorityService.getAuthoritiesByRoleID(roleID);
+	List noneGrantedAuthList = authorityService.getNoneGrantedAuthByRoleID(roleId);
+	List grantedAuthList = authorityService.getAuthoritiesByRoleID(roleId);
 	
 	HttpServletRequest request = ServletActionContext.getRequest();
 	request.setAttribute("noneGrantedAuthList", noneGrantedAuthList);
 	request.setAttribute("grantedAuthList", grantedAuthList);
-	request.setAttribute("roleId", roleID);
+	request.setAttribute("roleId", roleId);
     	return SUCCESS;
     }
     //~ Getters and Setters ============================================================================================
@@ -93,12 +93,12 @@ public class RoleAuthorityAction extends ActionSupport {
         this.roleAuthorityService = roleAuthorityService;
     }
 
-    public Integer getRoleID() {
-        return roleID;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setRoleID(Integer roleID) {
-        this.roleID = roleID;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 
     public IAuthorityService getAuthorityService() {

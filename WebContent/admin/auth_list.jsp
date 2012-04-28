@@ -20,9 +20,8 @@
 <script type="text/javascript" src="../Scripts/component/easyui/jquery.easyui.min.js" ></script>
 <script type="text/javascript" src="../Scripts/component/flexigrid-1.1/js/flexigrid.js"></script>
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
+<script type="text/javascript" src="../Scripts/common/window.js"></script>
 <script type="text/javascript" src="../Scripts/pages/admin/auth_list.js"></script>
-<script type="text/javascript" src="../Scripts/pages/admin/auth_add.js"></script>
-<script type="text/javascript" src="../Scripts/pages/admin/auth_res.js"></script>
 </head>
 <body onload="">
  <div class="wrap">      
@@ -32,18 +31,18 @@
        <div class="content">
            <div class="innercontent">
              <div class="grid_top">
-             <a href="#" class="easyui-linkbutton" plain="true" onClick="openAddNewAuth()">添加新权限</a>
+             <a href="#" class="easyui-linkbutton" plain="true" onClick="openAddWindow('#newAuth')">添加新权限</a>
               </div>
               <table id="authlist"><%! int i =1; %>
                  <tbody id="auth_data"><c:forEach var="auth" items="${authorityList}">
                  <tr><td><%=i++%></td><td>${auth.authName}</td><td>${auth.authDesc}</td><td>${auth.enabled}</td><td>${auth.issys}</td>
                     <td>
-                       <a href="#" onclick="openEditAuth($(this).next().html())">编辑</a>
+                       <a href="#" onclick="openEditWindow('#editAuth','getAuthById?authId='+$(this).next().html())">编辑</a>
                        <span style="display:none;width:10px">${auth.authId}</span>
                        <span style="display:inline-block;width:10px"></span>
-                       <a href="#" onclick="openAuthRes($(this).prev().prev().html())">分配资源</a>
+                       <a href="#" onclick="openEditWindow('#auth_res','getAuthRes?authID='+$(this).prev().prev().html())">分配资源</a>
                        <span style="display:inline-block;width:10px"></span>
-                       <a href="#" onclick="deleteRow($(this).parent().parent().parent(),$(this).prev().prev().prev().prev().html())">删除</a>
+                       <a href="#" onclick="deleteRow($(this).parent().parent().parent(),'deleteAuthById?authId='+$(this).prev().prev().prev().prev().html(),'您将删除该权限，确认删除?')">删除</a>
                      </td>
                  </tr>
                  </c:forEach>
