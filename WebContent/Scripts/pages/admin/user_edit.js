@@ -7,9 +7,9 @@
  */ 
 
 /**
- * invoked when page onload
+ * invoked when page onLoad
  * 
- * load rolelist and grouplist
+ * load roleList and groupList
  */
 function loadInfo(){
 	$.ajax({

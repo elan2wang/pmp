@@ -7,12 +7,10 @@
  */
 package org.pmp.action.admin;
 
-import java.io.IOException;
-import java.util.Iterator;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 
 import org.apache.log4j.Logger;
@@ -21,7 +19,6 @@ import org.pmp.service.admin.IGroupService;
 import org.pmp.service.business.ICompanyService;
 import org.pmp.util.JsonConvert;
 import org.pmp.util.Pager;
-import org.pmp.vo.Company;
 import org.pmp.vo.TbGroup;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -100,66 +97,31 @@ public class GroupAction extends ActionSupport {
     public void loadFatherGroupList(){
 	logger.debug("进入loadFatherGroupList");
 	Pager pager = new Pager(1000,1);
-	List list = groupService.getGroupListByLevel(pager, group.getGroupLevel()-1);
+	List<?> list = groupService.getGroupListByLevel(pager, group.getGroupLevel()-1);
 	
-	Iterator ite = list.iterator();
-	StringBuffer sb = new StringBuffer();
-	if (ite.hasNext()){
-	    sb.append("{\n  ");
-	    sb.append(JsonConvert.toJson("Rows")+":[\n");
-	    while(ite.hasNext()){
-		TbGroup group = (TbGroup)ite.next();
-		sb.append("    {");
-		sb.append(JsonConvert.toJson("groupId")+":"+JsonConvert.toJson(group.getGroupId())+",");
-		sb.append(JsonConvert.toJson("groupName")+":"+JsonConvert.toJson(group.getGroupName())+"},\n");
-	    }
-	    sb.deleteCharAt(sb.length()-2);
-    	    sb.append("  ]\n}"); 
-	}
-        logger.debug(sb.toString());
+	String[] attrs = {"groupId","groupName"};
+	List<String> show = Arrays.asList(attrs);
+	String data = JsonConvert.list2Json(list, "org.pmp.vo.Group", show);
 	
-	//output the Jason data
-	try {    
-            HttpServletResponse response = ServletActionContext.getResponse();  
-            response.setContentType("application/json;charset=UTF-8");
-            response.setCharacterEncoding("UTF-8");
-            response.getWriter().println(sb.toString());
-        } catch (IOException e) {                     
-            e.printStackTrace();  
-        } 
+        logger.debug(data);
+	//output the JsonData
+	JsonConvert.output(data);
     }
    
     public void loadRefDomain(){
 	logger.debug("进入loadRefDomain");
-	StringBuffer sb = new StringBuffer();
 	if (group.getGroupLevel().equals(2)){
 	    Pager pager = new Pager(1000,1);
-	    List companyList = companyService.loadCompanyList(pager);
+	    List<?> companyList = companyService.loadCompanyList(pager);
 	    logger.debug("companyList.size="+companyList.size());
-	    Iterator ite = companyList.iterator();
-	    if (ite.hasNext()){
-		sb.append("{\n  ");
-		sb.append(JsonConvert.toJson("Rows")+":[\n");
-		while(ite.hasNext()){
-	            Company company = (Company)ite.next();
-		    sb.append("    {");
-		    sb.append(JsonConvert.toJson("comId")+":"+JsonConvert.toJson(company.getComId())+",");
-		    sb.append(JsonConvert.toJson("comName")+":"+JsonConvert.toJson(company.getComName())+"},\n");
-                }
-		sb.deleteCharAt(sb.length()-2);
-	        sb.append("  ]\n}"); 
-            }
-	    logger.debug(sb.toString());
+	    String[] attrs = {"comId","comName"};
+	    List<String> show = Arrays.asList(attrs);
+	    String data = JsonConvert.list2Json(companyList, "org.pmp.vo.Company", show);
+	    logger.debug(data);
+            //output the JsonData
+            JsonConvert.output(data);
 	}
-	//output the Jason data
-	try {
-            HttpServletResponse response = ServletActionContext.getResponse();  
-            response.setContentType("application/json;charset=UTF-8");
-            response.setCharacterEncoding("UTF-8");
-	    response.getWriter().println(sb.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        } 
+	
     }
     
     //~ Getters and Setters ============================================================================================

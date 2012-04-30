@@ -20,38 +20,3 @@ $(function(){
 		height:310
 	});
 });
-
-function openAddModule(){
-    $('#newModule').window('open');
-}
-function closeAddModule(){
-    $('#newModule').window('close');
-}
-
-var windowsOpened = false;
-function openEditModule(id){
-	$('#editModule').window({href:'getModule?modId='+id});
-	if(windowsOpened){
-		$('#editModule').window('refresh');
-	}
-	windowsOpened = true;
-    $('#editModule').window('open');
-}
-function closeEditModule(){
-	$('#editModule').window('close');
-}
-
-function deleteRow(obj,id){
-	if(!confirm("确认删除该模块？"))
-	{
-		return;
-	}
-	$.ajax({
-		  type: "POST",
-		  url: "deleteModule?modId="+id,
-		  dataType: "json",
-		  success : function(data){
-			  obj.hide();
-		  }
-	   });
-}

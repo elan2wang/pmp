@@ -7,6 +7,7 @@
  * this script is used for windows operations
  */ 
 
+
 /* open a window for adding */
 function openAddWindow(id){
 	$(id).window('open');
@@ -30,4 +31,19 @@ function openEditWindow(id,url){
 /* close a opened window */
 function closeWindow(id){
 	$(id).window('close');
+}
+
+/* used when delete a record */
+function deleteRow(obj,url,debugMsg){
+	alert(url);
+	alert(debugMsg);
+	if(!confirm(debugMsg))return;
+	$.ajax({
+		type: "POST",
+		url: url,
+		dataType: "json",
+		success: function(data){
+			obj.hide();
+		}
+	});
 }

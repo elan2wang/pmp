@@ -17,8 +17,8 @@
 <script type="text/javascript" src="../Scripts/component/easyui/jquery.easyui.min.js" ></script>
 <script type="text/javascript" src="../Scripts/component/flexigrid-1.1/js/flexigrid.js"></script>
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
+<script type="text/javascript" src="../Scripts/common/window.js"></script>
 <script type="text/javascript" src="../Scripts/pages/admin/group_list.js"></script>
-<script type="text/javascript" src="../Scripts/pages/admin/group_add.js"></script>
 </head>
 <body>
  <div class="wrap">      
@@ -28,16 +28,16 @@
        <div class="content">
            <div class="innercontent">
              <div class="grid_top">
-             <a href="#" class="easyui-linkbutton" plain="true" onClick="openAddNewGroup()">添加新用户组</a>
+             <a href="#" class="easyui-linkbutton" plain="true" onClick="openAddWindow('#newGroup')">添加新用户组</a>
               </div>
               <table id="grouplist">
-                 <tbody id="group_data">
+                 <tbody id="group_data"><%int i=1;%>
                  <c:forEach var="group" items="${groupList}">
-                 <tr><td></td><td>${group.groupName }</td><td>${group.groupDesc }</td><td>${group.groupLevel }</td><td>${group.refDomain }</td>
+                 <tr><td><%=i++ %></td><td>${group.groupName }</td><td>${group.groupDesc }</td><td>${group.groupLevel }</td><td>${group.refDomain }</td>
                     <td>
-                       <a href="#" onclick="openEditGroup($(this).next().html())">编辑</a>
+                       <a href="#" onclick="openEditWindow('#editGroup','getGroup?groupId='+$(this).next().html())">编辑</a>
                        <span style="display:none;width:10px">${group.groupId }</span><span style="display:inline-block;width:10px"></span>
-                       <a href="#" onclick="deleteRow($(this).parent().parent().parent(),$(this).prev().prev().html())">删除</a>
+                       <a href="#" onclick="deleteRow($(this).parent().parent().parent(),'deleteGroup?groupId='+$(this).prev().prev().html(),'您将删除该用户组，确认删除')">删除</a>
                      </td>
                  </tr>
                  </c:forEach>

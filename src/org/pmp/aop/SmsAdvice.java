@@ -7,8 +7,6 @@
  */
 package org.pmp.aop;
 
-
-import org.apache.axis2.AxisFault;
 import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
 import org.pmp.service.business.ISMSCompanyService;

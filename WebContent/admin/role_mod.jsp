@@ -7,8 +7,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script type="text/javascript" src="../Scripts/pages/admin/role_mod.js"></script>
-<title>Insert title here</title>
+<script type="text/javascript" src="../Scripts/common/remove.js"></script>
+<title>给角色分配模块</title>
 </head>
 <body>
 <div class="window_content">
@@ -25,10 +25,10 @@
          </div>
       </div>
       <div class="middle">
-      		<div ><input  type="button" onclick="Add();" value="添&nbsp;&nbsp;&nbsp;&nbsp;加" /></div>
-			<div ><input  type="button" onclick="Remove();"  value="移&nbsp;&nbsp;&nbsp;&nbsp;除" /></div>
-			<div ><input  type="button" onclick="AddAll()" value="全部添加"  /></div>
-			<div ><input  type="button" onclick="RemoveAll();" value="全部移除"/></div>
+      		<div ><input  type="button" onclick="Add('#mod_1','#moduleList');" value="添&nbsp;&nbsp;&nbsp;&nbsp;加" /></div>
+			<div ><input  type="button" onclick="Remove('#mod_1','#moduleList');"  value="移&nbsp;&nbsp;&nbsp;&nbsp;除" /></div>
+			<div ><input  type="button" onclick="AddAll('#mod_1','#moduleList')" value="全部添加"  /></div>
+			<div ><input  type="button" onclick="RemoveAll('#mod_1','#moduleList');" value="全部移除"/></div>
       </div>
       <div class="right">
          <div class="select_tab">已授权模块</div>
@@ -42,8 +42,9 @@
       </div>
       <div style="clear:both"></div>
       <div class="rowStyle">
-           <div style=" margin-left:100px;margin-top:20px"><input type="submit" value="提交" onclick=""/>
-          <input type="button" value="关闭" onclick="closeRoleMod(); "/></div>
+           <div style=" margin-left:100px;margin-top:20px">
+           <input type="submit" value="提交" onclick="return selectAll('#moduleList')"/>
+           </div>
       </div>
 </form>
 </div>
