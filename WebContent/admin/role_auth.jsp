@@ -43,7 +43,7 @@
       <div style="clear:both"></div>
      <div class="rowStyle">
            <div style=" margin-left:100px;margin-top:20px">
-           <input type="submit" value="提交" onclick="return selectAll()"/>
+           <input type="submit" value="提交" onclick="return selectAll('#authList')"/>
            </div>
       </div>
 </form>

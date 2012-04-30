@@ -25,15 +25,15 @@
          </div>
       </div>
       <div class="middle">
-      		<div ><input  type="button" onclick="Add('#res_1','#resourceList');" value="添&nbsp;&nbsp;&nbsp;&nbsp;加" /></div>
-			<div ><input  type="button" onclick="Remove('#res_1','#resourceList');"  value="移&nbsp;&nbsp;&nbsp;&nbsp;除" /></div>
-			<div ><input  type="button" onclick="AddAll('#res_1','#resourceList')" value="全部添加"  /></div>
-			<div ><input  type="button" onclick="RemoveAll('#res_1','#resourceList');" value="全部移除"/></div>
+      		<div ><input  type="button" onclick="Add('#res_1','#resList');" value="添&nbsp;&nbsp;&nbsp;&nbsp;加" /></div>
+			<div ><input  type="button" onclick="Remove('#res_1','#resList');"  value="移&nbsp;&nbsp;&nbsp;&nbsp;除" /></div>
+			<div ><input  type="button" onclick="AddAll('#res_1','#resList')" value="全部添加"  /></div>
+			<div ><input  type="button" onclick="RemoveAll('#res_1','#resList');" value="全部移除"/></div>
       </div>
       <div class="right">
          <div class="select_tab">已分配权限</div>
          <div class="">
-              <select id="resourceList" name="resourceList" multiple="multiple">
+              <select id="resList" name="resList" multiple="multiple">
                 <c:forEach var="item" items="${grantedResList}">
               		<option title="资源类型：${item.resType}；资源连接：${item.resLink}；资源描述：${item.resDesc}；是否启用：${item.enabled}；issys：${item.issys}；modId：${item.modId}" value="${item.resId}">${item.resName}</option>
 				</c:forEach>
@@ -43,7 +43,7 @@
       <div style="clear:both"></div>
       <div class="rowStyle">
            <div style=" margin-left:100px;margin-top:20px">
-           <input type="submit" value="提交" onclick="return selectAll()"/>
+           <input type="submit" value="提交" onclick="return selectAll(resList)"/>
            </div>
       </div>
 </form>
