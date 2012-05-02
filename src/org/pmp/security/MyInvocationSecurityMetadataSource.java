@@ -35,7 +35,7 @@ public class MyInvocationSecurityMetadataSource implements
 
        //~ Static fields ==================================================================================================	
        private static Map<String,Collection<ConfigAttribute>> resourceMap = null;
-	static Logger logger = Logger.getLogger(MyInvocationSecurityMetadataSource.class.getName ());
+       static Logger logger = Logger.getLogger(MyInvocationSecurityMetadataSource.class.getName ());
 	
        //~ Instance fields ================================================================================================
         private ISecurityService securityService;

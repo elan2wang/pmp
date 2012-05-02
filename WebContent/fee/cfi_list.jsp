@@ -17,8 +17,8 @@
 <script type="text/javascript" src="../Scripts/component/easyui/jquery.easyui.min.js" ></script>
 <script type="text/javascript" src="../Scripts/component/flexigrid-1.1/js/flexigrid.js"></script>
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
+<script type="text/javascript" src="../Scripts/common/window.js"></script>
 <script type="text/javascript" src="../Scripts/pages/fee/cfi_list.js"></script>
-<script type="text/javascript" src="../Scripts/pages/fee/cf_list.js"></script>
 </head>
 <body>
  <div class="wrap">      
@@ -30,7 +30,7 @@
        <div class="content">
            <div class="innercontent">
              <div class="grid_top">
-                <a href="#" class="linkbutton"  onclick="openNewCondoFeeItem()">新建项目</a>
+                <a href="#" class="linkbutton"  onclick="openAddWindow('#newCfi')">新建项目</a>
              	<span>筛选：</span><select id="project.proDistrict" name="project.proDistrict">
                                               <option selected="selected">选择地区</option>
                                               <option>定海区</option>
@@ -73,7 +73,7 @@
                     <iframe name="condoFeeList" id="condoFeeList" frameborder="0" scrolling="auto" width="100%" height="410" style="margin:0px;padding:0px"></iframe>
                  </div>
               </div>
-              <div id="newCondoFeeItem" href="cfi_add.jsp" class="easyui-window"  title="新建物业费项目" iconCls="icon-save" style="width:400px;height:420px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
+              <div id="newCfi" href="cfi_add.jsp" class="easyui-window"  title="新建物业费项目" iconCls="icon-save" style="width:400px;height:420px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
               </div>
 	       </div>
             

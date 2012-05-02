@@ -34,15 +34,8 @@ $(function(){
              ],height:360});
 	  
 	});
-function closeFeeEntry(){
-	$('#FeeEntry').window('close');
-}
 
 function openCondoFeeList(id){
 	document.getElementById("condoFeeList").src="loadCondoFeeList?cfiId="+id;
 	$("#right_main").css("display","block");
-}
-
-function openNewCondoFeeItem(){
-	$('#newCondoFeeItem').window('open');
 }
