@@ -81,7 +81,7 @@ public class CondoFeeAction extends ActionSupport {
 	fee.setFetchTicket(condoFee.getFetchTicket());
 	
 	//物业费记录的其他信息保持不变
-	condoFeeService.editCondoFee(fee);
+	condoFeeService.inputCondoFee(fee);
 	
 	//编辑成功后获取该项目的物业费列表
 	Pager pager = new Pager(10000,1);
@@ -105,7 +105,7 @@ public class CondoFeeAction extends ActionSupport {
 	//设置状态为"已审核"
 	fee.setState("已审核");
 	
-	condoFeeService.editCondoFee(fee);
+	condoFeeService.auditCondoFee(fee);
 	
 	return SUCCESS;
     }

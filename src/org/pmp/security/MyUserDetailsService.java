@@ -16,7 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 public class MyUserDetailsService implements UserDetailsService {
-    	//~ Static Fields ==================================================================================================
+	//~ Static Fields ==================================================================================================
 	static Logger logger = Logger.getLogger(MyUserDetailsService.class.getName ());
 	
 	//~ Fields =========================================================================================================

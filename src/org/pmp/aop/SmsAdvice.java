@@ -39,6 +39,7 @@ public class SmsAdvice {
      * @param  jp  JointPoint
      */
     public void sendMessage(JoinPoint jp) throws Exception{
+	logger.debug("进入sendMessage");
 	/* retrieve Owner instance from JointPoint */
 	Object[] args = jp.getArgs();
 	CondoFee fee = (CondoFee)args[0];
@@ -60,7 +61,8 @@ public class SmsAdvice {
         String extendCode = smsc.getExtendCode();
         String applicationId = smsc.getUsername();
         String password = smsc.getPassword();
-        sms.SendMessage(dest, message, extendCode, applicationId, password);
+        String res = sms.SendMessage(dest, message, extendCode, applicationId, password);
+        logger.debug(res);
     }
     
     //~ Getters and Setters ============================================================================================

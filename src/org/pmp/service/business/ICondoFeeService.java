@@ -28,13 +28,22 @@ public interface ICondoFeeService {
     public CondoFee getCondoFeeByID(Integer cfId);
     
     /**
-     * @Title: editCondoFee
-     * @Description: 修改物业费记录的信息
+     * @Title: inputCondoFee
+     * @Description: 录入物业费缴费信息
      *
      * @param  instance  CondoFee类型，表示物业费记录
      * @return void  无返回值
      */
-    public void editCondoFee(CondoFee instance);
+    public void inputCondoFee(CondoFee instance);
+    
+    /**
+     * @Title: auditCondoFee
+     * @Description: 审核物业费缴费信息
+     *
+     * @param  instance  CondoFee类型，表示物业费记录
+     * @return void  无返回值
+     */
+    public void auditCondoFee(CondoFee instance);
     
     /**
      * @Title: deleteCondoFee

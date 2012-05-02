@@ -32,7 +32,7 @@
   <a href="loadCondoFeeList?cfiId=${condoFeeItem.cfiId }" class="linkbut" id="but_all" onclick="changeState(this);"><span>全部</span></a>
   <a href="loadCondoFeeList?cfiId=${condoFeeItem.cfiId }&type=none" class="linkbut" id="but_no" onclick="changeState(this);">未缴费</a>
   <a href="loadCondoFeeList?cfiId=${condoFeeItem.cfiId }&type=payed" class="linkbut" id="but_yes" onclick="changeState(this);">已缴费</a>
-  <a href="#" class="linkbut" onclick="openInfoWindow('#viewAttrs','loadAttrs')">数据导出</a>
+  <a href="#" class="linkbut" onclick="openEditWindow('#viewAttrs','loadAttrs')">数据导出</a>
 </div>
 <table id="cf_list">
    <tbody id="cf_list_data">
@@ -40,8 +40,8 @@
    <tr>
      <td>1</td><td>${fee.house.houseNum }</td><td>${fee.owner.ownerName }</td><td>${fee.state }</td><td>${fee.oughtMoney }(元)</td><td>${fee.fetchMoney }(元)</td><td><fmt:formatDate value="${fee.fetchDate }" type="both" pattern="yyyy-MM-dd"/></td>
      <td>
-     <c:if test="${fee.state == '新生成' }"><a href="#" onclick="openInfoWindow('#addFee','getCondoFee?cfId='+${fee.cfId })">录入</a></c:if>
-     <c:if test="${fee.state == '已缴费' }"><a href="#" onclick="openInfoWindow('#viewFee','viewCondoFee?cfId='+${fee.cfId})">查看</a></c:if>
+     <c:if test="${fee.state == '新生成' }"><a href="#" onclick="openEditWindow('#addFee','getCondoFee?cfId='+${fee.cfId })">录入</a></c:if>
+     <c:if test="${fee.state == '已缴费' }"><a href="#" onclick="openEditWindow('#viewFee','viewCondoFee?cfId='+${fee.cfId})">查看</a></c:if>
      <span style="display:inline-block;width:10px"></span>
      <c:if test="${fee.issend == true }"><a href="#" onclick="">重发催缴</a></c:if>
      <c:if test="${fee.issend == false }"><a href="#" onclick="">短信催缴</a></c:if>
