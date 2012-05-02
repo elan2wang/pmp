@@ -43,7 +43,6 @@ public class ExceptionHandleFilter implements Filter{
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("/exception.jsp");
             dispatcher.forward(request, response);
 	}
-	
     }
     
     //~ Getters and Setters ============================================================================================
