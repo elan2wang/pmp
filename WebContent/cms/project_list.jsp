@@ -44,8 +44,8 @@
                                               <option>岱山区</option>
                                               <option>嵊泗区</option>
                                       </select>
-                  <input type="text" id="keyWord" name="keyWord" />
-                 <a href="#" class="easyui-linkbutton" plain="true" onclick="searchProject()">搜索</a>
+                 <input type="text" id="keyWord" name="keyWord" />
+		 <a href="#" class="easyui-linkbutton" plain="true" onclick="searchProject()">搜索</a>
                  <input type="hidden" id="searchState" name="searchState" value="0"/>
               </div>
               <table id="projectlist">
