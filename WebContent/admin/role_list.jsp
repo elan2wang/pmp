@@ -26,26 +26,25 @@
 <body>
  <div class="wrap">      
        <ul class="nav">
-          <li id="tab1" class="active"><a href="#">角色管理</a></li>
+          <li id="tab1" class="active"><a href="javascript:void(0)">角色管理</a></li>
        </ul>   
        <div class="content">
            <div class="innercontent">
              <div class="grid_top">
-             <a href="#" class="easyui-linkbutton" plain="true" onClick="openAddWindow('#newRole')">添加新角色</a>
+             <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="openAddWindow('#newRole')">添加新角色</a>
               </div>
-              <table id="rolelist"><%!int i=1; %>
+              <table id="rolelist"><%int i=1; %>
                  <tbody id="role_data"><c:forEach var="role" items="${roleList}">
-                 <tr><td><%=i++%></td><td>${role.roleName}</td><td>${role.roleDesc}</td><td>${role.enabled}</td><td>${role.issys}</td>
-                    <td>
-                       <a href="#" onclick="openEditWindow('#editRole','getRoleById?roleId='+$(this).next().html())">编辑</a>
+                       <tr><td><%=i++%></td><td>${role.roleName}</td><td>${role.enabled}</td><td>${role.issys}</td><td>${role.roleDesc}</td>                    <td>
+                       <a href="javascript:void(0)" onclick="openEditWindow('#editRole','getRoleById?roleId='+$(this).next().html())">编辑</a>
                        <span style="display:none;width:10px">${role.roleId}</span>
                        <span style="display:inline-block;width:10px"></span>
-                       <a href="#" onclick="openEditWindow('#role_auth','getRoleAuth?roleId='+$(this).prev().prev().html())">分配权限</a>
+                       <a href="javascript:void(0)" onclick="openEditWindow('#role_auth','getRoleAuth?roleId='+$(this).prev().prev().html())">分配权限</a>
                        <span style="display:inline-block;width:10px"></span>
-                       <a href="#" onclick="openEditWindow('#role_mod','getRoleModule?roleId='+$(this).prev().prev().prev().prev().html())">分配模块</a>
+                       <a href="javascript:void(0)" onclick="openEditWindow('#role_mod','getRoleModule?roleId='+$(this).prev().prev().prev().prev().html())">分配模块</a>
                        <span style="display:inline-block;width:10px"></span>
                        <!-- 当生成页面时，默认会给每个td内部加上一个<div> -->
-                       <a href="#" onclick="deleteRow($(this).parent().parent().parent(),'deleteRoleById?roleId='+$(this).prev().prev().prev().prev().prev().prev().html(),'您将删除该角色以及与该角色关联的用户，确认删除？')">删除</a>
+                       <a href="javascript:void(0)" onclick="deleteRow($(this).parent().parent().parent(),'deleteRoleById?roleId='+$(this).prev().prev().prev().prev().prev().prev().html(),'您将删除该角色以及与该角色关联的用户，确认删除？')">删除</a>
                      </td>
                  </tr>
                  </c:forEach>

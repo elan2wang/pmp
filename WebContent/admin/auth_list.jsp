@@ -26,23 +26,23 @@
 <body onload="">
  <div class="wrap">      
        <ul class="nav">
-          <li id="tab1" class="active"><a href="#">权限管理</a></li>
+          <li id="tab1" class="active"><a href="javascript:void(0)">权限管理</a></li>
        </ul>   
        <div class="content">
            <div class="innercontent">
              <div class="grid_top">
-             <a href="#" class="easyui-linkbutton" plain="true" onClick="openAddWindow('#newAuth')">添加新权限</a>
+             <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="openAddWindow('#newAuth')">添加新权限</a>
               </div>
-              <table id="authlist"><%! int i =1; %>
+              <table id="authlist"><% int i =1; %>
                  <tbody id="auth_data"><c:forEach var="auth" items="${authorityList}">
-                 <tr><td><%=i++%></td><td>${auth.authName}</td><td>${auth.authDesc}</td><td>${auth.enabled}</td><td>${auth.issys}</td>
+                 <tr><td><%=i++%></td><td>${auth.authName}</td><td>${auth.issys}</td><td>${auth.enabled}</td><td>${auth.authDesc}</td>
                     <td>
-                       <a href="#" onclick="openEditWindow('#editAuth','getAuthById?authId='+$(this).next().html())">编辑</a>
+                       <a href="javascript:void(0)" onclick="openEditWindow('#editAuth','getAuthById?authId='+$(this).next().html())">编辑</a>
                        <span style="display:none;width:10px">${auth.authId}</span>
                        <span style="display:inline-block;width:10px"></span>
-                       <a href="#" onclick="openEditWindow('#auth_res','getAuthRes?authID='+$(this).prev().prev().html())">分配资源</a>
+                       <a href="javascript:void(0)" onclick="openEditWindow('#auth_res','getAuthRes?authID='+$(this).prev().prev().html())">分配资源</a>
                        <span style="display:inline-block;width:10px"></span>
-                       <a href="#" onclick="deleteRow($(this).parent().parent().parent(),'deleteAuthById?authId='+$(this).prev().prev().prev().prev().html(),'您将删除该权限，确认删除?')">删除</a>
+                       <a href="javascript:void(0)" onclick="deleteRow($(this).parent().parent().parent(),'deleteAuthById?authId='+$(this).prev().prev().prev().prev().html(),'您将删除该权限，确认删除?')">删除</a>
                      </td>
                  </tr>
                  </c:forEach>

@@ -10,13 +10,13 @@ $(function(){
 	$('#user_data').html(AddTds(20,5));
 	$('#userlist').flexigrid({
 		colModel: [
-            { display: '序号',  width: 40,  align: 'center' },
-            { display: '真实姓名', width: 200, align: 'center' },
-            { display: '用户描述', width: 200,align: 'center' },
-            { display: '职务', width: 200, align: 'center' },
-            { display: '操作',  width: 120, sortable: true, align: 'center', align: 'center' }
+		             { display: '序号',  width: Width*0.03,  align: 'center' },
+		             { display: '真实姓名', width: Width*0.15, align: 'center' },
+					 { display: '职务', width: Width*0.2, align: 'center' },
+					 { display: '用户描述', width: Width*0.52,align: 'center' },
+		             { display: '操作',  width: Width*0.1, align: 'center' }
 	    ],
-	    height:305
+	    height:Height-30
 	});
 });
 
@@ -24,7 +24,6 @@ function PageDownOrUp(flag){
 	        var nowpage=parseInt(document.getElementById("now_page").innerHTML);
 			var pagerow=parseInt(document.getElementById("page_row").options[document.getElementById("page_row").selectedIndex].text);
 			var gopage=document.getElementById("go_page").value;
-			var totalpage=parseInt(document.getElementById("total_page").innerHTML);
 			var urlstr="";
 			//alert(nowpage+1);
 			initIcon();
@@ -62,18 +61,20 @@ function PageDownOrUp(flag){
 				   }
 				   break;
 			}
-			changeIcon(nowpage,totalpage);
 			urlstr="user_list?currentPage="+nowpage+"&pageSize="+pagerow;
             $.ajax({
 			  type: "POST",
 			  url: urlstr,
 			  dataType: "json",
 			  success : function(data){
+				      $('#now_page').html(data.CurrentPage);
+				      $('#total_page').html(data.PagesCount);
+				      $('#total_record').html(data.RowsCount);
 					  var i=0;
                       $('#user_data').find('tr').hide();
 					  var tableTds=$('#user_data').find('td');
 					  tableTds.find('div').css('text-align','center');
-					  for(i=0;i<pagerow;i++)
+					  for(i=0;i<20;i++)
 					  {$('#user_data').find('tr').eq(i).show();}
 					  i=0;
 					  tableTds.find('div').html("");
@@ -81,14 +82,13 @@ function PageDownOrUp(flag){
 					  $.each(data.Rows, function(commentIndex, comment){
 						tableTds.eq(i++).find('div').html((k++)+"<input type='checkbox' id='checkgroup' name='checkgroup'/>");
 						tableTds.eq(i++).find('div').html(comment['realname']);
-						tableTds.eq(i++).find('div').html(comment['userDesc']);
 						tableTds.eq(i++).find('div').html(comment['position']);
-						var strhtml="<a href=\"#\" onclick=\"openEditWindow('#editUser','get_user?userId='+$(this).next().html())\">编辑</a><span style=\"display:none;width:10px\">"+comment['userId']+"</span><span style='display:none'>"+i+"</span><span style=\"display:inline-block;width:10px\"></span><a href=\"#\" onclick=\"deleteRow($(this).parent().parent().parent(),'deleteUserById?userId='+$(this).prev().prev().prev().html(),'您将删除该用户,确认删除?')\">删除</a>";
+						tableTds.eq(i++).find('div').html(comment['userDesc']);
+						var strhtml="<a href=\"javascript:void(0)\" onclick=\"openEditWindow('#editUser','get_user?userId='+$(this).next().html())\">编辑</a><span style=\"display:none;width:10px\">"+comment['userId']+"</span><span style='display:none'>"+i+"</span><span style=\"display:inline-block;width:10px\"></span><a href=\"javascript:void(0)\" onclick=\"deleteRow($(this).parent().parent().parent(),'deleteUserById?userId='+$(this).prev().prev().prev().html(),'您将删除该用户,确认删除?')\">删除</a>";
 						tableTds.eq(i++).find('div').html(strhtml);
 					  });
-					  $('#now_page').html(data.CurrentPage);
-					  $('#total_page').html(data.PagesCount);
-					  $('#total_record').html(data.RowsCount);
+					  var totalpage=parseInt($("#total_page").html());
+				      changeIcon(nowpage,totalpage);
 					  
 			  }
 			}); 

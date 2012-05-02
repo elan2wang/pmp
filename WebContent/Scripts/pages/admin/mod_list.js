@@ -9,14 +9,14 @@ $(function(){
 	$(".content .innercontent").eq(0).show();
 	$('#module_list').flexigrid({
 		colModel:
-			[{ display:'序号', width:40, align:'center' },
-			 { display:'模块名称', width:80, align:'center' },
-			 { display:'模块级别', width:50, align:'center' },
-			 { display:'模块链接', width:200, align:'center' },
-			 { display:'是否启用', width:50, align:'center' },
-			 { display:'管理模块', width:50, align:'center' },
-			 { display:'操作', width:100, align:'center' }
+			[{ display:'序号', width: Width*0.02, align:'center' },
+			 { display:'模块名称', width: Width*0.15, align:'center' },
+			 { display:'模块级别', width: Width*0.1, align:'center' },
+			 { display:'是否启用', width: Width*0.1, align:'center' },
+			 { display:'管理模块', width: Width*0.1, align:'center' },
+			 { display:'模块链接', width: Width*0.42, align:'center' },
+			 { display:'操作', width: Width*0.1, align:'center' }
 			],
-		height:310
+		height:Height
 	});
 });

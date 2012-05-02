@@ -38,7 +38,7 @@ a{
             </p>
        </div>
        <div style="float:left">
-           <img src="../Images/Logo2.gif" width="340" height="60" />
+           <img src="Images/Logo2.gif" width="340" height="60" />
        </div>
        <div style="float:left" class="index_top_block">
            <p><span>1</span><span>1</span><span>1</span></p>
@@ -51,37 +51,36 @@ a{
        <div class="clear"></div>
    </div><!-- 结束标签 class="index_top"-->
    <div class="clear"></div>
-   <div class="index_main">
-       <div class="index_main_top"><img src="../Images/blank11.gif" width="6" height="6" /></div>
+   <div id="index_main" class="index_main">
+       <div class="index_main_top"><img src="Images/blank11.gif" width="6" height="6" /></div>
        <div class="index_main_left">
           <div class="index_main_left_top">
 		       <script type="text/jscript">
 			     todayDate();
                </script>
           </div>
-          <div style="border-right:1px #6c92ad solid; height::8px"><img src="../../Images/blank11.gif" width="8" height="8" /></div>
+          <div style="border-right:1px #6c92ad solid; height:8px"><img src="Images/blank11.gif" width="8" height="8" /></div>
           <div class="LeftMenuItem" id="mm">
              <c:forEach var="item" items="${moduleList }">
              <div id="m1" class="LMIitem" onmouseover="button(this,'over')" onmouseout="button(this,'out')" onclick="button(this,'onclick','${item.modUrl}')">${item.modName }</div>
              </c:forEach>
+             <div id="m_rest" class="LMIitem" style="height:500px"></div>
           </div>
        </div><!-- 结束标签 class="index_main_left"-->
        <div class="index_main_right">
-          <iframe id="mainFrame" name="mainFrame" frameborder="0" scrolling="auto" onload="iFrameHeight(this)"  style="width:100%; height:450px">
+          <iframe id="mainFrame" name="mainFrame" frameborder="0" scrolling="no"   style="width:100%; height:100%">
           </iframe>
        </div>
    </div><!-- 结束标签 class="index_main"-->
    <div class="clear"></div>
-   <div class="index_main_top"><img src="../Images/blank11.gif" width="6" height="6" /></div>
+   <div class="index_main_top"><img src="Images/blank11.gif" width="6" height="6" /></div>
    <div class="index_footer">
-      <div id="date" style="float:right;display:inline-block;line-height:30px;"> 
-            <script type="text/jscript">
-			     todayDate();
-            </script>
-       </div>
-       <div id="userinfo" style="float:left;display:inline-block;line-height:30px;">用户：张先生  10:56分登录  在线122分钟</div>
-      
+       <div id="userinfo" style="display:inline-block;line-height:30px;text-align:center">版权所有：中国移动公司</div>
    </div>
+   
 </div>
+<script type="text/javascript">
+initSize();
+</script>
 </body>
 </html>

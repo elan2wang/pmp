@@ -29,8 +29,14 @@ color:#09C
     color: #416AA3;
     font-weight: bold;
     outline: medium none;} 
-.content { width:inherit; height:450px; background-color:#FFF; clear:both; border:1px solid #8DB2E3; border-top:hidden }
-.content .innercontent{ display:none;padding:0px;}
+.content { 
+	width:inherit; 
+	height:450px;
+	background-color:#FFF;
+	clear:both;
+	border-top:hidden
+ }
+.content .innercontent{ display:none;}
 .linkbutton
 {
 	color:black;
