@@ -45,12 +45,13 @@ public class ProjectAction extends ActionSupport {
 	private Integer currentPage = 1;
 	private Integer pageSize = 10;
 	private String district;
+	private String keyWord;
 	private List projectList;
+	private String projectName;
 	
 	private File refFile;
 	private String refFileFileName;
 	private String refFileContentType;
-
 
 	public String addProject(){
 			projectService.addProject(project);
@@ -75,11 +76,11 @@ public class ProjectAction extends ActionSupport {
 		logger.debug(data);
 		JsonConvert.output(data);
 	}
+	
 	public void getProjectByDistrict(){
 		logger.debug("进入getProjectByDistrict()");
-		String name = district;
 		Pager pager = new Pager(pageSize,currentPage);
-		List projectList = projectService.getProjectByDistrict("普陀区", pager);
+		List projectList = projectService.getProjectByDistrict(district, pager);
 		logger.debug("list.size="+projectList.size());
 		
 		String data = JsonConvert.list2Json(pager, projectList, "org.pmp.vo.Project");
@@ -107,8 +108,8 @@ public class ProjectAction extends ActionSupport {
 	    request.setAttribute("message", message);
 	    return "filetype_error";
 	}
-		boolean isError = false;
 		StringBuffer errorPath = new StringBuffer();
+		StringBuffer isError = new StringBuffer();
 		try {
 			InputStream is = new FileInputStream(refFile);
 			List projectList = ProjectImport.projectList(is,isError,errorPath);
@@ -118,135 +119,77 @@ public class ProjectAction extends ActionSupport {
 		}catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(isError){
-			return ERROR;
+		if(isError.toString().equals("是")){
+			return ERROR; 
 		}
 		return SUCCESS;
 	}
 	
-	/**
-	 * @param projectService the projectService to set
-	 */
 	public void setProjectService(IProjectService projectService) {
 		this.projectService = projectService;
 	}
 	
-	/**
-	 * @return the currentPage
-	 */
 	public Integer getCurrentPage() {
 		return currentPage;
 	}
 	
-	/**
-	 * @param currentPage the currentPage to set
-	 */
 	public void setCurrentPage(Integer currentPage) {
 		this.currentPage = currentPage;
 	}
-	private String projectName;
-	/**
-	 * @return the project
-	 */
+	
 	public Project getProject() {
 		return project;
 	}
-	/**
-	 * @param project the project to set
-	 */
 	public void setProject(Project project) {
 		this.project = project;
 	}
-	/**
-	 * @return the projectId
-	 */
 	public Integer getProjectId() {
 		return projectId;
 	}
-	/**
-	 * @param projectId the projectId to set
-	 */
 	public void setProjectId(Integer projectId) {
 		this.projectId = projectId;
 	}
-	/**
-	 * @return the projectName
-	 */
 	public String getProjectName() {
 		return projectName;
 	}
-	/**
-	 * @param projectName the projectName to set
-	 */
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
 	}
-	/**
-	 * @return the district
-	 */
 	public String getDistrict() {
 		return district;
 	}
-	/**
-	 * @param district the district to set
-	 */
 	public void setDistrict(String district) {
 		this.district = district;
 	}
-	/**
-	 * @return the projectList
-	 */
 	public List getProjectList() {
 		return projectList;
 	}
-	/**
-	 * @param projectList the projectList to set
-	 */
 	public void setProjectList(List projectList) {
 		this.projectList = projectList;
 	}
 	
-	/**
-	 * @return the refFile
-	 */
 	public File getRefFile() {
 		return refFile;
 	}
 
-	/**
-	 * @param refFile the refFile to set
-	 */
 	public void setRefFile(File refFile) {
 		this.refFile = refFile;
 	}
 
-	/**
-	 * @return the refFileFileName
-	 */
 	public String getRefFileFileName() {
 		return refFileFileName;
 	}
 
-	/**
-	 * @param refFileFileName the refFileFileName to set
-	 */
 	public void setRefFileFileName(String refFileFileName) {
 		this.refFileFileName = refFileFileName;
 	}
 
-	/**
-	 * @return the refFileContentType
-	 */
 	public String getRefFileContentType() {
 		return refFileContentType;
 	}
 
-	/**
-	 * @param refFileContentType the refFileContentType to set
-	 */
 	public void setRefFileContentType(String refFileContentType) {
 		this.refFileContentType = refFileContentType;
 	}
@@ -261,5 +204,13 @@ public class ProjectAction extends ActionSupport {
 
 	public IProjectService getProjectService() {
 	    return projectService;
+	}
+	
+	public String getKeyWord() {
+		return keyWord;
+	}
+
+	public void setKeyWord(String keyWord) {
+		this.keyWord = keyWord;
 	}
 }

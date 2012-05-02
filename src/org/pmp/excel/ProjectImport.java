@@ -46,7 +46,7 @@ import org.pmp.vo.Project;
  * @update TODO
  */
 public class ProjectImport {
-	public static List projectList(InputStream is, boolean isError,StringBuffer errorPath) {
+	public static List projectList(InputStream is, StringBuffer isError,StringBuffer errorPath) {
 		List projectList = new ArrayList<Project>();
 		Workbook workBook = null;
 		try {
@@ -75,7 +75,7 @@ public class ProjectImport {
 			// companyService.getCompanyByName((String)list.get(2));
 			Company company = companyService.getCompanyByName("舟山兴颖物业");
 			if (company == null || !ProjectValidate.dateValidate(list)) {
-				isError = true;
+				isError.append("是");
 				List errorList1 = new ArrayList();
 				errorList1.addAll(list);
 				errorList.add(errorList1);
@@ -112,7 +112,7 @@ public class ProjectImport {
 			projectList.add(project);
 			list.clear();
 		}
-		if (isError) {
+		if (isError.toString().equals("是")) {
 			String path = ServletActionContext.getRequest().getRealPath("/")
 					+ "\\error" + "\\errorProject.xls";
 			WritableWorkbook wwb;
@@ -155,5 +155,4 @@ public class ProjectImport {
 		workBook.close();
 		return projectList;
 	}
-
 }

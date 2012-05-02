@@ -23,13 +23,8 @@ public class OwnerValidate {
 		if(((String)list.get(0)).equals("")){
 			return false;
 		}
-		if(!((String)list.get(1)).equals("")){
-			try{
-				
-			}catch(RuntimeException e){
-				System.out.println(e);
-				return false;
-			}
+		if(((String)list.get(1)).equals("")){
+			return false;
 		}
 		if(((String)list.get(2)).equals("")){
 			return false;
@@ -52,9 +47,10 @@ public class OwnerValidate {
 						e.printStackTrace();
 						return false;
 					}
+		}else{
 			return false;
 		}
-		if(!(((String)list.get(7)).equals("是")||((String)list.get(7)).equals("否"))){
+		if(!(((String)list.get(8)).equals("是")||((String)list.get(8)).equals("否"))){
 			return false;
 		}
 		if(((String)list.get(11)).equals("")){
@@ -87,6 +83,7 @@ public class OwnerValidate {
 					e.printStackTrace();
 					return false;
 				}
+	}else{
 		return false;
 	}
 		if(!((String)list.get(17)).equals("")){
@@ -98,6 +95,7 @@ public class OwnerValidate {
 					e.printStackTrace();
 					return false;
 				}
+	}else{
 		return false;
 	}
 		if(!((String)list.get(22)).equals("")){

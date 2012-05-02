@@ -114,18 +114,22 @@ public class BuildingAction extends ActionSupport {
 		    request.setAttribute("message", message);
 		    return "filetype_error";
 		}
-		HttpServletResponse response = ServletActionContext.getResponse();
-		response.setContentType("application/vnd.ms-excel;charset=gb2312");
-		response.setHeader("Content-Disposition", "attachment;filename=condofeelist.xls");
+		StringBuffer errorPath = new StringBuffer();
+		StringBuffer isError = new StringBuffer();
 			try {
 				InputStream is = new FileInputStream(refFile);
-				List buildingList = BuildingImport.buildingList(is,response.getOutputStream());
+				List buildingList = BuildingImport.buildingList(is,isError,errorPath);
 				buildingService.batchSaveBuilding(buildingList);
+				HttpServletRequest request = ServletActionContext.getRequest();
+			    request.setAttribute("errorPath", errorPath);
 			}catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}
+			if(isError.toString().equals("是")){
+				return ERROR;
 			}
 		return SUCCESS;
 	}

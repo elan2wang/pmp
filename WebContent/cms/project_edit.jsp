@@ -6,7 +6,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>无标题文档</title>
 </head>
-
 <body>
               <div class="window_content">
                    <form id="form" name="form" action="update_Project" method="post">
@@ -51,7 +50,7 @@
                           <div><span >是否启用：</span><span><input id="project.enabled" name="project.enabled" type="radio" value="true"/>启用<input id="project.enabled" type="radio" name="project.enabled" value="false" checked/>不启用</span></div>
                        </div> 
                        <div class="rowStyle">
-                          <div><span style=" display:inline-block; width:60px">备&nbsp;&nbsp;注：</span><span><textarea name="project.proDesc" style="height:40px;" class="textbox" id="project.proDesc"></textarea></span></div>
+                          <div><span style=" display:inline-block; width:60px">备&nbsp;&nbsp;注：</span><span><textarea name="project.proDesc" style="height:40px;" class="textbox" id="project.proDesc" value='<s:property value="project.proDesc"/>'></textarea></span></div>
                        </div>
                       <input type="hidden" name="project.proId" id="project.proId" value='<s:property value="project.proId"/>'/>
                        <div class="rowStyle">
