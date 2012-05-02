@@ -37,7 +37,10 @@ public class CondoFeeService implements ICondoFeeService {
     public CondoFee getCondoFeeByID(Integer cfId) {
 	return condoFeeDAO.getCondoFeeByID(cfId);
     }
-    public void editCondoFee(CondoFee instance) {
+    public void inputCondoFee(CondoFee instance) {
+	condoFeeDAO.updateCondoFee(instance);
+    }
+    public void auditCondoFee(CondoFee instance) {
 	condoFeeDAO.updateCondoFee(instance);
     }
 

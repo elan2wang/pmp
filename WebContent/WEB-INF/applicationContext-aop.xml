@@ -8,5 +8,13 @@
            http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
   
   
+  <bean id="advice" class="org.pmp.aop.SmsAdvice" />  
+  <aop:config >  
+    <aop:aspect ref="advice">  
+       <aop:pointcut id="pointcut" expression="execution(* org.pmp.service.business.ICondoFeeService.inputCondoFee(..))"/>  
+       <aop:after method="sendMessage" pointcut-ref="pointcut"/>
+     </aop:aspect>  
+  </aop:config>  
+  
   
 </beans>

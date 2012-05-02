@@ -49,6 +49,8 @@ public class LoginAction extends ActionSupport{
 	
 	return SUCCESS;
     }
+    
+    
     //~ Getters and Setters ============================================================================================
 
     public IModuleService getModuleService() {
