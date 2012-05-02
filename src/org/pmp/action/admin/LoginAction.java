@@ -39,7 +39,7 @@ public class LoginAction extends ActionSupport{
     public String loadWelcomePage(){
 	TbUser user = SessionHandler.getUser();
 	TbRole role = SessionHandler.getUserRole();
-	List moduleList = moduleService.getModuleListByRoleID(role.getRoleId());
+	List<?> moduleList = moduleService.getModuleListByRoleID(role.getRoleId());
 	
 	HttpServletRequest request = ServletActionContext.getRequest();
 	request.setAttribute("user", user);

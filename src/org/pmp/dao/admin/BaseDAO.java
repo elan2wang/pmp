@@ -111,8 +111,8 @@ public class BaseDAO {
 	try {
 	    Transaction tx = session.beginTransaction();
             Query query = session.createQuery(hql);
-            List list = query.list();
-            obj = list.get(0);
+            List<?> list = query.list();
+            if (list.size()!=0)obj = list.get(0);
             tx.commit();
 	} catch (RuntimeException e){
             logger.error("get instance failed: "+debugMsg, e);

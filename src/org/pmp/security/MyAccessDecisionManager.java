@@ -3,6 +3,7 @@ package org.pmp.security;
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.pmp.vo.TbUser;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
@@ -31,7 +32,8 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
 			}
 			
 		}
-		throw new AccessDeniedException("");	 		  
+		String username = ((TbUser)arg0.getPrincipal()).getUsername();
+		throw new AccessDeniedException("Dear User:"+username+",I'm sorry that you don't have the needed authorities");	 		  
 	}
 
 	public boolean supports(ConfigAttribute arg0) {

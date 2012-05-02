@@ -22,7 +22,9 @@
     <!-- set the login page and the redirect-URL of successful/failed login -->
     <form-login login-page="/login.jsp" 
      authentication-failure-url="/login.jsp?error=true"
-     default-target-url="/loadWelcomePage" always-use-default-target="true"/>
+     default-target-url="/index" always-use-default-target="true"/>
+    
+    <access-denied-handler error-page="/access_denied"/>
     
     <!-- set the redirect-URL of session timeout -->
     <session-management invalid-session-url="/session_timeout.jsp"/>

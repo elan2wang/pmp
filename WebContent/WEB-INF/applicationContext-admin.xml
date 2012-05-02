@@ -117,6 +117,10 @@
     <property name="moduleService" ref="moduleService" />
   </bean>
   
+  <bean id="errorHandleAction" class="org.pmp.action.admin.ErrorHandleAction">
+    <property name="userService" ref="userService" />
+  </bean>
+  
   <!-- used to encrypt or decrypt password  -->
   <bean id="passwordEncoder" 
     class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />

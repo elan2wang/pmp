@@ -6,8 +6,16 @@
   
   <package name="default"  extends="struts-default">
 	<!-- Login Related Actions -->
-	<action name="loadWelcomePage" class="org.pmp.action.admin.LoginAction" method="loadWelcomePage">
+	<action name="index" class="org.pmp.action.admin.LoginAction" method="loadWelcomePage">
 	  <result name="success">/admin_index.jsp</result>
+	</action>
+	
+	<action name="login_fail" class="org.pmp.action.admin.ErrorHandleAction" method="authenticationFailed">
+	  <result name="success">/login.jsp</result>
+	</action>
+	
+	<action name="access_denied" class="org.pmp.action.admin.ErrorHandleAction" method="accessDenied">
+	  <result name="success">/access_denied.jsp</result>
 	</action>
 	
   </package>
