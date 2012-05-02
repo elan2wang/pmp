@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-数据导入有误，请点击下载错误的数据
-<a href="${errorPath}"></a>
+数据导入有误，<a href="${errorPath}">请点击下载</a>错误的数据
 </body>
 </html>
