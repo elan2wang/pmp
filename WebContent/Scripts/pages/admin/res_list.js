@@ -9,15 +9,15 @@ $(function(){
 	});
 	$('#reslist').flexigrid({
 		colModel: [
-            { display: '序号',  width: 40,  align: 'center' },
-            { display: '资源名称', width: 100, align: 'center' },
-            { display: '资源类型', width: 100, align: 'center' },
-            { display: '资源链接', width: 100,align: 'center' },
-            { display: '资源描述', width: 200,align: 'center' },
-            { display: '是否可用', width: 100,align: 'center' },
-            { display: '是否为系统权限', width: 200, align: 'center' },
-            { display: '操作',  width: 220, sortable: true, align: 'center', align: 'center' }
+             { display: '序号',  width: Width*0.02,  align: 'center' },
+             { display: '资源名称', width: Width*0.15, align: 'center' },
+             { display: '资源类型', width: Width*0.1, align: 'center' },
+             { display: '是否为系统权限', width: Width*0.1, align: 'center' },
+             { display: '是否可用', width: Width*0.05,align: 'center' },
+			 { display: '资源链接', width: Width*0.2,align: 'center' },
+			 { display: '资源描述', width: Width*0.25,align: 'center' },
+             { display: '操作',  width: Width*0.1, align: 'center' }
         ],
-        height:305
+        height:Height
 	});
 });

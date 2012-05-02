@@ -1,14 +1,16 @@
 @charset "utf-8";
 /* CSS Document */
-body
-{
-	font-size:12px;
-	padding:0px;
-	margin:0px;
+body{
+	margin-top: 0px;
+	margin-left: 0px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    font-size:12px;
 }
 .grid_top
 {
 	height:30px;
+	line-height:30px;
 }
 .grid_top>span
 {
@@ -28,9 +30,9 @@ img{ border:0;}
 .footer{ background-color:#EBEBEB; height:30px; border-style:solid; border-width:1px; border-color:#CCCCCC;  border-top-width:0; font-size:12px; font-weight:bold; line-height:30px;}
 .gotopage{float:right; text-align:center; margin-right:5px; padding-top:3px; line-height:22px;}
 
-.nextpre{ display: inline-block; padding-top: 6px; float: left;}
+.nextpre{ display: inline-block; height:30px;line-height:30px; float: left;}
 .nextpre  a{TEXT-DECORATION:none}
-.pageinfo{display: inline-block; float: left;}
+.pageinfo{display:inline-block; padding-left:100px;float:left;height:30px;line-height:30px;}
 
 #fire .top{}
 #fire .wrap_left{ float:left; width:15%;}

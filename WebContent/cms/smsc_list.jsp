@@ -25,22 +25,22 @@
 <body>
  <div class="wrap">      
        <ul class="nav">
-          <li id="tab1" class="active"><a href="#">信息机管理</a></li>
+          <li id="tab1" class="active"><a href="javascript:void(0)">信息机管理</a></li>
        </ul>   
        <div class="content">
            <div class="innercontent">
              <div class="grid_top">
-             <a href="#" class="easyui-linkbutton" plain="true" onClick="openAddSMSC()">添加新信息机</a>
+             <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="openAddSMSC()">添加新信息机</a>
               </div>
               <table id="smsclist"><%int i=1;%>
                  <tbody id="smsc_data">
                  <c:forEach var="item" items="${smsCompanyList }">
                  <tr><td><%=i++%></td><td>${item.smscName }</td><td>${item.smsUpUrl }</td><td>${item.smsDownUrl }</td><td>${item.username}</td><td>${item.extendCode}</td><td>${item.company.comName}</td>
                     <td>
-                       <a href="#" onclick="openEditSMSC($(this).next().html())">编辑</a>
+                       <a href="javascript:void(0)" onclick="openEditSMSC($(this).next().html())">编辑</a>
                        <span style="display:none;width:10px">${item.smscId }</span>
                        <span style="display:inline-block;width:10px"></span>
-                       <a href="#" onclick="deleteRow($(this).parent().parent().parent(),$(this).prev().prev().html())">删除</a>
+                       <a href="javascript:void(0)" onclick="deleteRow($(this).parent().parent().parent(),$(this).prev().prev().html())">删除</a>
                      </td>
                  </tr>
                  </c:forEach>

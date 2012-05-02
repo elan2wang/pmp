@@ -7,6 +7,7 @@
  */
 package org.pmp.excel;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,6 +32,7 @@ import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 
+import org.apache.struts2.ServletActionContext;
 import org.pmp.service.business.IBuildingService;
 import org.pmp.service.business.IHouseService;
 import org.pmp.service.business.IProjectService;
@@ -47,7 +49,7 @@ import org.pmp.vo.Project;
  * @update TODO
  */
 public class OwnerImport {
-	public static List ownerList(InputStream is,OutputStream os,Map map){
+	public static List ownerList(InputStream is,Map map,StringBuffer isError,StringBuffer errorPath){
 		List ownerList = new ArrayList<Owner>();
         Workbook workBook = null;
         try {
@@ -72,18 +74,33 @@ public class OwnerImport {
              String context = cell.getContents();
              list.add(context);
              }
-             IProjectService projectService = (IProjectService)SpringContextUtil.getBean("projectService");
-             IBuildingService buildingService = (IBuildingService)SpringContextUtil.getBean("buildingService");
-             IHouseService houseService = (IHouseService)SpringContextUtil.getBean("houseService");
-             House house = new House();
-             house = houseService.getHouseByBuildingIdAndHouseNum(building.getBuilId(), (String)list.get(2));
-             project = projectService.getProjectByName((String)list.get(0));
-             building = buildingService.getBuildingByProjectIdAndBuildingNum(project.getProId(), Integer.parseInt((String)list.get(1)));
-             if(house==null||project==null||building==null||!OwnerValidate.dateValidate(list)){
-            	 errorList.add(list);
+             OwnerValidate.dateValidate(list);
+             if(!OwnerValidate.dateValidate(list)){
+            	 isError.append("是");
+ 				 List errorList1 = new ArrayList();
+ 				 errorList1.addAll(list);
+ 				 errorList.add(errorList1);
             	 list.clear();
             	 continue;
              }
+             House house = new House();
+             try{
+            	 IProjectService projectService = (IProjectService)SpringContextUtil.getBean("projectService");
+            	 IBuildingService buildingService = (IBuildingService)SpringContextUtil.getBean("buildingService");
+            	 IHouseService houseService = (IHouseService)SpringContextUtil.getBean("houseService");
+            	 project = projectService.getProjectByName((String)list.get(0));
+            	 building = buildingService.getBuildingByProjectIdAndBuildingNum(project.getProId(), Integer.parseInt((String)list.get(1)));
+            	 house = houseService.getHouseByBuildingIdAndHouseNum(building.getBuilId(), (String)list.get(2));
+             }catch(RuntimeException e){
+            	 System.out.println(e);
+            	 isError.append("是");
+ 				 List errorList1 = new ArrayList();
+ 				 errorList1.addAll(list);
+ 				 errorList.add(errorList1);
+            	 list.clear();
+            	 continue;
+             }
+             
              Owner owner = new Owner();
              owner.setOwnerName((String)list.get(3));
              owner.setGender((String)list.get(4));
@@ -137,29 +154,35 @@ public class OwnerImport {
              ownerList.add(owner);
              list.clear();
            }
+        if (isError.toString().equals("是")) {
+			String path = ServletActionContext.getRequest().getRealPath("/")
+					+ "\\error" + "\\errorOwner.xls";
         WritableWorkbook wwb;
     	try {
-    		wwb = Workbook.createWorkbook(os);
-    		WritableSheet ws = wwb.createSheet("sheet1", 0);
-    		for(int i = 0; i < sheet.getColumns(); i++){
-    			cell = sheet.getCell(i, 0);
-                String context = cell.getContents();
-                WritableFont wf = new WritableFont(WritableFont.ARIAL,10,WritableFont.BOLD);
-    			WritableCellFormat wcf = new WritableCellFormat(wf);
-    			Label label = new Label(0,i,context,wcf);
-    			ws.addCell(label);
-    		}
-    		for(int i=1;i<=errorList.size();i++){
-    			for(int j=0;j<((List)errorList.get(0)).size();j++){
-    				WritableFont wf = new WritableFont(WritableFont.ARIAL,10,WritableFont.BOLD);
-    				WritableCellFormat wcf = new WritableCellFormat(wf);
-    				Label label = new Label(i,j,(String)((List)errorList.get(i-1)).get(j),wcf);
-    				ws.addCell(label);
-    			}
-    		}
+    		wwb = Workbook.createWorkbook(new File(path));
+			WritableSheet ws = wwb.createSheet("sheet1", 0);
+			for (int i = 0; i < sheet.getColumns(); i++) {
+				cell = sheet.getCell(i, 0);
+				String context = cell.getContents();
+				WritableFont wf = new WritableFont(WritableFont.ARIAL, 10,
+						WritableFont.BOLD);
+				WritableCellFormat wcf = new WritableCellFormat(wf);
+				Label label = new Label(i, 0, context, wcf);
+				ws.addCell(label);
+			}
+			for (int i = 0; i < errorList.size(); i++) {
+				for (int j = 0; j < ((List) errorList.get(0)).size(); j++) {
+					WritableFont wf = new WritableFont(WritableFont.ARIAL,
+							10, WritableFont.BOLD);
+					WritableCellFormat wcf = new WritableCellFormat(wf);
+					Label label = new Label(j, i + 1,
+							(String) ((List) errorList.get(i)).get(j), wcf);
+					ws.addCell(label);
+				}
+			}
     		wwb.write();
     	    wwb.close();
-    		
+    	    errorPath.append(ServletActionContext.getRequest().getContextPath()+"/error/errorOwner.xls");
     	} catch (IOException e) {
     		// TODO Auto-generated catch block
     		e.printStackTrace();
@@ -170,6 +193,7 @@ public class OwnerImport {
     		// TODO Auto-generated catch block
     		e.printStackTrace();
     	}
+        }
            workBook.close();
 		return ownerList;
 	}

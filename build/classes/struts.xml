@@ -280,7 +280,7 @@
 	<action name="buildingImport" class="org.pmp.action.business.BuildingAction" method="uploadFile">
 		<result name="success">/cms/project_list.jsp</result>
 	</action>
-	<action name="OwnerImport" class="org.pmp.action.business.ProjectAction" method="uploadFile">
+	<action name="OwnerImport" class="org.pmp.action.business.OwnerAction" method="uploadFile">
 		<result name="success">/cms/importSuccess.jsp</result>
 		<result name="error">/cms/importError.jsp</result>
 	</action>

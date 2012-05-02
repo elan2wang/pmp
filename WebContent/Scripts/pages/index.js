@@ -1,4 +1,10 @@
 // JavaScript Document
+  function initSize(){
+    	var width=document.documentElement.clientWidth;
+    	var height=document.documentElement.clientHeight;
+    	//alert("width:"+width+"height:"+height);
+    	document.getElementById("index_main").style.height=(height-97)+'px';
+    }
     var itemnow = null;
     function button(obj, action, URL) {
         var buttonArr = document.getElementById("mm").getElementsByTagName("div");

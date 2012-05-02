@@ -126,8 +126,8 @@ function PageDownOrUp(flag){
 //			alert("nowpage="+nowpage);
 			if(document.getElementById("searchState").value=="1"){
 				district=document.getElementById("project.proDistrict").options[document.getElementById("project.proDistrict").selectedIndex].innerHTML;
-				alert(district);
-				urlstr="getProjectByDistrict?currentPage="+nowpage+"&pageSize="+pagerow+"&district="+district;
+				keyWord=document.getElementById("keyWord").value;
+				urlstr="getProjectByDistrict?currentPage="+nowpage+"&pageSize="+pagerow+"&district="+district+"&keyWord="+keyWord;
 			}
 			else{
 			  urlstr="project_list?currentPage="+nowpage+"&pageSize="+pagerow;

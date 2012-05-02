@@ -26,20 +26,19 @@
 <body>
  <div class="wrap">      
        <ul class="nav">
-          <li id="tab1" class="active"><a href="#">资源管理</a></li>
+          <li id="tab1" class="active"><a href="javascript:void(0)">资源管理</a></li>
        </ul>   
        <div class="content">
            <div class="innercontent">
              <div class="grid_top">
-             <a href="#" class="easyui-linkbutton" plain="true" onClick="openAddWindow('#newRes')">添加新资源</a>
+             <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="openAddWindow('#newRes')">添加新资源</a>
               </div>
               <table id="reslist">
-                 <tbody id="res_data"><%! int i =1; %><c:forEach var="res" items="${resList}">
-                 <tr><td><%= i++ %></td><td>${res.resName}</td><td>${res.resType}</td><td>${res.resLink}</td><td>${res.resDesc}</td><td>${res.enabled}</td><td>${res.issys}</td>
-                    <td>
-                       <a href="#" onclick="openEditWindow('#editRes','getResById?resId='+$(this).next().html())">编辑</a>
+                 <tbody id="res_data"><% int i =1; %><c:forEach var="res" items="${resList}">
+                      <tr><td><%= i++ %></td><td>${res.resName}</td><td>${res.resType}</td><td>${res.issys}</td><td>${res.enabled}</td><td>${res.resLink}</td><td>${res.resDesc}</td>                    <td>
+                       <a href="javascript:void(0)" onclick="openEditWindow('#editRes','getResById?resId='+$(this).next().html())">编辑</a>
                        <span style="display:none;width:10px">${res.resId}</span><span style="display:inline-block;width:10px"></span>
-                       <a href="#" onclick="deleteRow($(this).parent().parent().parent(),'deleteResById?resId='+$(this).prev().prev().html()),'您将删除该资源，确认删除'">删除</a>
+                       <a href="javascript:void(0)" onclick="deleteRow($(this).parent().parent().parent(),'deleteResById?resId='+$(this).prev().prev().html()),'您将删除该资源，确认删除'">删除</a>
                      </td>
                  </tr>
                  </c:forEach>

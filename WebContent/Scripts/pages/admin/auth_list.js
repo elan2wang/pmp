@@ -9,13 +9,13 @@ $(function(){
 	});
 	$('#authlist').flexigrid({
 		colModel: [
-            { display: '序号',  width: 40,  align: 'center' },
-            { display: '权限名称', width: 200, align: 'center' },
-            { display: '权限描述', width: 200, align: 'center' },
-            { display: '是否可用', width: 200,align: 'center' },
-            { display: '是否管理权限', width: 200, align: 'center' },
-            { display: '操作',  width: 220, sortable: true, align: 'center', align: 'center' }
+             { display: '序号',  width: Width*0.02,  align: 'center' },
+             { display: '权限名称', width: Width*0.15, align: 'center' },
+			 { display: '是否管理权限', width: Width*0.1, align: 'center' },
+             { display: '是否可用', width: Width*0.1,align: 'center' },
+			 { display: '权限描述', width: Width*0.43, align: 'center' },
+             { display: '操作',  width: Width*0.2, align: 'center' }
 	    ],
-	    height:305
+	    height:Height
 	});
 });
