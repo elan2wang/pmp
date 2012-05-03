@@ -83,6 +83,7 @@ public class ProjectAction extends ActionSupport {
 		List projectList = projectService.getProjectByDistrict(district, pager);
 		logger.debug("list.size="+projectList.size());
 		
+		System.out.println("test");
 		String data = JsonConvert.list2Json(pager, projectList, "org.pmp.vo.Project");
 		logger.debug(data);
 		JsonConvert.output(data);
