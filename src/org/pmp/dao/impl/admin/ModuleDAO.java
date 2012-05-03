@@ -88,7 +88,7 @@ public class ModuleDAO extends BaseDAO implements IModuleDAO {
         List moduleList = null;
 
 	String hql = "select mod from TbModule mod,TbRoleModule rm where mod.modId = rm.tbModule.modId " +
-	             "and rm.tbRole.roleId = "+roleId+" order by mod.modId desc";
+	             "and rm.tbRole.roleId = "+roleId+" order by mod.modOrder desc";
         try {
 	    moduleList = loadListByCondition(hql,pager,debugMsg);
 	} catch (RuntimeException e){
@@ -104,7 +104,7 @@ public class ModuleDAO extends BaseDAO implements IModuleDAO {
         
 	String hql = "select distinct mod from TbModule mod where mod.modId not in " +
 	             "(select rm.tbModule.modId from TbRoleModule rm where rm.tbRole.roleId = "+roleId+") " +
-	             "order by mod.modId desc";
+	             "order by mod.modOrder desc";
         try {
 	    moduleList = loadListByCondition(hql,pager,debugMsg);
 	} catch (RuntimeException e){

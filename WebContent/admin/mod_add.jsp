@@ -11,6 +11,7 @@
 模块名称:<input type="text" name="module.modName"/><br/>
 模块链接:<input type="text" name="module.modUrl"><br/>
 模块级别:<input type="text" name="module.modLevel"><br/>
+模块排序:<input type="text" name="module.modOrder"><br/>
 是否启用:<input type="radio" name="module.enabled" value="true" checked/>是
 <input type="radio" name="module.enabled" value="false"/>否<br/>
 是否管理模块:<input type="radio" name="module.issys" value="true" checked/>是

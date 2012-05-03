@@ -8,8 +8,26 @@
          version="3.0">
   <display-name>PMP</display-name>
   <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>/login.jsp</welcome-file>
   </welcome-file-list>
+  <!-- set error redirect URL 
+  <error-page>
+    <error-code>404</error-code>
+    <location>/error/fof.jsp</location>
+  </error-page>
+  <error-page>
+    <error-code>403</error-code>
+    <location>/error/fot.jsp</location>
+  </error-page>
+  <error-page>
+    <error-code>500</error-code>
+    <location>/error/foo.jsp</location>
+  </error-page>
+  <error-page>
+    <exception-type>java.lang.Throwable</exception-type>
+    <location>/error/exception.jsp</location>
+  </error-page>
+  -->
   
   <!-- set Spring ContextLoaderListener -->
   <listener>

@@ -35,7 +35,7 @@
       <tbody id="module_list_data">
         <c:forEach var="module" items="${moduleList }">
         <tr>
-          <td><%=i++%></td><td>${module.modName }</td><td>${module.modLevel }</td><td>${module.enabled }</td><td>${module.issys }</td><td>${module.modUrl }</td>
+          <td><%=i++%></td><td>${module.modName }</td><td>${module.modLevel }</td><td>${module.modOrder }</td><td>${module.enabled }</td><td>${module.issys }</td><td>${module.modUrl }</td>
           <td>
           <a href="javascript:void(0)" onclick="openEditWindow('#editModule','getModule?modId='+$(this).next().html())">编辑</a>
           <span style="display:none;width:10px">${module.modId }</span>

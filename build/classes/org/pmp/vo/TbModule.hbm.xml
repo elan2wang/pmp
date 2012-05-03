@@ -17,6 +17,9 @@
         <property name="modUrl" type="string">
             <column name="Mod_Url" length="200" />
         </property>
+        <property name="modOrder" type="integer">
+            <column name="Mod_Order"/>
+        </property>
         <property name="enabled" type="boolean">
             <column name="ENABLED" />
         </property>

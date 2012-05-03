@@ -33,11 +33,11 @@ import org.springframework.security.web.util.UrlMatcher;
 public class MyInvocationSecurityMetadataSource implements
 		FilterInvocationSecurityMetadataSource {
 
-       //~ Static fields ==================================================================================================	
-       private static Map<String,Collection<ConfigAttribute>> resourceMap = null;
-       static Logger logger = Logger.getLogger(MyInvocationSecurityMetadataSource.class.getName ());
-	
-       //~ Instance fields ================================================================================================
+        //~ Static fields ==================================================================================================	
+        static Logger logger = Logger.getLogger(MyInvocationSecurityMetadataSource.class.getName ());
+	private static Map<String,Collection<ConfigAttribute>> resourceMap = null;
+       
+        //~ Instance fields ================================================================================================
         private ISecurityService securityService;
 	private UrlMatcher urlMatcher = new AntUrlPathMatcher();
 	
@@ -50,7 +50,15 @@ public class MyInvocationSecurityMetadataSource implements
 		this.securityService = securityService;
 		loadDefinedResource();
 	}
+	
 	//~ Methods ========================================================================================================
+
+	/**
+	 * invoke when the resource and authority mapping changed
+	 */
+	public MyInvocationSecurityMetadataSource getObject(){
+            return new MyInvocationSecurityMetadataSource(this.securityService);
+	}
 	
 	/**
 	 * This method is invoked in default constructor
