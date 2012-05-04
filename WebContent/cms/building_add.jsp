@@ -15,7 +15,14 @@
                           <div><span >楼号：</span><span><input name="building.builNum" type="text" class="textbox" id="building.builNum" /></span></div>
                        </div>
                        <div class="rowStyle">
-                          <div style="float:left"><span >单元数：</span><span><input name="building.unitCount" type="text" class="textbox" id="building.unitCount" /></span></div>
+                          <div><span >单元标识：</span><span><select id="building.unitTag" name="building.unitTag">
+                          	<option selected="selected">请选择单元标识</option>
+                          	<option>数字</option>
+                          	<option>字母</option>
+                          </select></span></div>
+                       </div>
+                       <div class="rowStyle">
+                          <div><span >单元数：</span><span><input name="building.unitCount" type="text" class="textbox" id="building.unitCount" /></span></div>
                        </div>
                        <div class="rowStyle">
                           <div><span >楼层数：</span><span><input name="building.floorCount" type="text" class="textbox" id="building.floorCount" /></span></div>
@@ -43,6 +50,9 @@
                            </div>
                        </div>
                        <div class="rowStyle">
+                          <div><span >物业费标准：</span><span><input name="building.condoFeeRate" type="text" class="textbox" id="building.condoFeeRate" /></span></div>
+                       </div>
+                       <div class="rowStyle">
                           <div>
                             <span >是否启用：</span>
                             <span>
@@ -55,7 +65,7 @@
                           <div><span style="">备&nbsp;&nbsp;注：</span><span><textarea name="building.builDesc" style="height:40px;" class="textbox" id="company.comDesc"></textarea></span></div>
                        </div>
                        <div class="rowStyle">
-                          <div style=" margin-left:100px;margin-top:20px"><input type="submit" value="完成" onclick="return  FormCheck(); "/></div>
+                          <div style=" margin-left:100px;margin-top:20px"><input type="submit" value="完成" onclick="return FormCheck(); "/></div>
                        </div>
                       <div class="clear"></div>
                    </form>

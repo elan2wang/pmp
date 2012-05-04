@@ -90,18 +90,17 @@ public class HouseAction extends ActionSupport {
 		while(ite.hasNext()){
 			sb.append("    {");
 			House house = (House)ite.next();
-			String[] houseInfo = house.getHouseNum().split("-");
-			String houseFloor = houseInfo[2].substring(0, 1);
 			sb.append(JsonConvert.toJson("houseId")+":"+JsonConvert.toJson(house.getHouseId().toString())+",");
-//			sb.append(JsonConvert.toJson("building")+":"+JsonConvert.toJson(house.getBuilding().getBuilNum().toString())+",");
-//			sb.append(JsonConvert.toJson("ownerName")+":"+JsonConvert.toJson(house.getOwner().getOwnerName().toString())+",");
-			sb.append(JsonConvert.toJson("houseUnit")+":"+JsonConvert.toJson(houseInfo[1].toString())+",");
-			sb.append(JsonConvert.toJson("houseFloor")+":"+JsonConvert.toJson(houseFloor)+",");
 			sb.append(JsonConvert.toJson("houseNum")+":"+JsonConvert.toJson(house.getHouseNum().toString())+",");
-//			sb.append(JsonConvert.toJson("houseArea")+":"+JsonConvert.toJson(house.getHouseArea().toString())+",");
-//			sb.append(JsonConvert.toJson("houseDesc")+":"+JsonConvert.toJson(house.getHouseDesc().toString())+",");
-//			sb.append(JsonConvert.toJson("condoFeeRate")+":"+JsonConvert.toJson(house.getCondoFeeRate().toString())+",");
-			sb.append(JsonConvert.toJson("isempty")+":"+JsonConvert.toJson(house.isIsempty())+",");
+			sb.append(JsonConvert.toJson("houseArea")+":"+JsonConvert.toJson(house.getHouseArea().toString())+",");
+			sb.append(JsonConvert.toJson("project")+":"+JsonConvert.toJson(house.getBuilding().getProject().getProName().toString())+",");
+			sb.append(JsonConvert.toJson("company")+":"+JsonConvert.toJson(house.getBuilding().getProject().getCompany().getComName().toString())+",");
+			sb.append(JsonConvert.toJson("condoFeeRate")+":"+JsonConvert.toJson(house.getCondoFeeRate().toString())+",");
+			if(house.isIsempty()){
+				sb.append(JsonConvert.toJson("isempty")+":"+JsonConvert.toJson("是")+",");
+			}else{
+				sb.append(JsonConvert.toJson("isempty")+":"+JsonConvert.toJson("否")+",");
+			}
 			sb.deleteCharAt(sb.length()-1);
 		    sb.append("},\n");
 		}

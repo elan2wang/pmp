@@ -14,6 +14,17 @@
                           <div><span >项目名称：</span><span><input name="project.proName" type="text" class="textbox" id="project.proName" /></span></div>
                        </div>
                        <div class="rowStyle">
+                          <div><span >项目类型：</span>
+                              <span><select id="project.proType" name="project.proType" >
+                              <option selected="selected">选择项目类型</option>
+                              <option>小区</option>
+                              <option>大厦</option>
+                              <option>别墅</option>
+                              </select>
+                              </span>
+                          </div>
+                       </div>
+                       <div class="rowStyle">
                           <div><span >归属物业：</span>
                               <span><s:action name="companyAction!getAllCompany" namespace="/cms" executeResult="true"/>
                               </span>
@@ -49,7 +60,10 @@
                        </div>
                        <div class="rowStyle">
                           <div><span >是否启用：</span><span><input id="project.enabled" name="project.enabled" type="radio" value="true"/>启用<input id="project.enabled" type="radio" name="project.enabled" value="false" checked/>不启用</span></div>
-                       </div> 
+                       </div >
+                       <div class="rowStyle" >
+                          <div><span>启用消控：</span><span><input id="project.fireEnabled" name="project.fireEnabled" type="radio" value="true"/>启用<input id="project.fireEnabled" type="radio" name="project.fireEnabled" value="false" checked/>不启用</span></div>
+                       </div>
                        <div class="rowStyle">
                           <div><span style=" display:inline-block; width:60px">备&nbsp;&nbsp;注：</span><span><textarea name="project.proDesc" style="height:40px;" class="textbox" id="project.proDesc"></textarea></span></div>
                        </div>

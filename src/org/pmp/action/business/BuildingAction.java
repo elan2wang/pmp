@@ -86,7 +86,7 @@ public class BuildingAction extends ActionSupport {
 		List buildingList = null;
 		if(projectId==-1){
 			buildingList = buildingService.loadBuildingList(pager);
-		}else{
+		}else{ 
 			buildingList = buildingService.loadBuildingListByProject(pager, projectId);
 		}
 		logger.debug("得到的buildingList为"+buildingList.toString());
@@ -106,7 +106,6 @@ public class BuildingAction extends ActionSupport {
 	}
 	
 	public String uploadFile(){
-	    System.out.println("xxx");
 		if(!MyfileUtil.validate(refFileFileName,"xls")){
 		    String postfix = MyfileUtil.getPostfix(refFileFileName);
 		    String message = postfix+"类型的文件暂不支持，请选择xls类型文件";

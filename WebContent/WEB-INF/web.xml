@@ -8,7 +8,7 @@
          version="3.0">
   <display-name>PMP</display-name>
   <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>login.jsp</welcome-file>
   </welcome-file-list>
   
   <!-- set Spring ContextLoaderListener -->
