@@ -70,6 +70,6 @@
                       <div class="clear"></div>
                    </form>
              </div>
-             <script type="text/javascript">document.getElementById("thisProjectId").value=parent.document.getElementById("frame.pageId").value;</script>
-</body>
+           <script type="text/javascript">document.getElementById("thisProjectId").value=parent.document.getElementById("frame.pageId").value;</script>
+	</body>
 </html>

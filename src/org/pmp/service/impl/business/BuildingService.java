@@ -126,16 +126,39 @@ public class BuildingService implements IBuildingService {
 		int unit = building.getUnitCount();
 		int floor = building.getFloorCount();
 		int housePer = building.getHousesPer();
-				
+		
 		ArrayList<String> list = new ArrayList<String>();
-		for(int i=1;i<=unit;i++){
-			for(int j=1;j<=floor;j++){
-				for(int k=1;k<=housePer;k++){
-					String houseNum = building.getBuilNum()+"-"+i+"-"+j+k;
-					list.add(houseNum);
+		
+		if(building.getUnitTag().equals("数字")){
+			for(int i=1;i<=unit;i++){
+				for(int j=1;j<=floor;j++){
+					for(int k=1;k<=housePer;k++){
+						if(k<10){
+							String houseNum = building.getBuilNum()+"-"+String.valueOf(i)+"-"+String.valueOf(j)+"0"+String.valueOf(k);
+							list.add(houseNum);
+						}else{
+							String houseNum = building.getBuilNum()+"-"+String.valueOf(i)+"-"+String.valueOf(j)+String.valueOf(k);
+							list.add(houseNum);
+						}
+					}
+				}
+			}
+		}else{
+			for(int i=1;i<=unit;i++){
+				for(int j=1;j<=floor;j++){
+					for(int k=1;k<=housePer;k++){
+						if(k<10){
+							String houseNum = building.getBuilNum()+"-"+String.valueOf((char)(64+i))+"-"+String.valueOf(j)+"0"+String.valueOf(k);
+							list.add(houseNum);
+						}else{
+							String houseNum = building.getBuilNum()+"-"+String.valueOf((char)(64+i))+"-"+String.valueOf(j)+String.valueOf(k);
+							list.add(houseNum);
+						}
+					}
 				}
 			}
 		}
+		
 		buildingDao.saveBuildingHouse(list, building);
 	}
 
