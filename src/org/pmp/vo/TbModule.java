@@ -14,6 +14,7 @@ public class TbModule implements java.io.Serializable {
     private String modName;
     private Integer modLevel;
     private String modUrl;
+    private Integer modOrder;
     private boolean enabled;
     private boolean issys;
 
@@ -25,11 +26,12 @@ public class TbModule implements java.io.Serializable {
     }
 
     public TbModule(Integer modId, String modName, Integer modLevel,
-	    String modUrl, boolean enabled, boolean issys) {
+	    String modUrl, Integer modOrder, boolean enabled, boolean issys) {
 	this.modId = modId;
 	this.modName = modName;
 	this.modLevel = modLevel;
 	this.modUrl = modUrl;
+	this.modOrder = modOrder;
 	this.enabled = enabled;
 	this.issys = issys;
     }
@@ -64,6 +66,14 @@ public class TbModule implements java.io.Serializable {
 
     public void setModUrl(String modUrl) {
 	this.modUrl = modUrl;
+    }
+
+    public Integer getModOrder() {
+        return modOrder;
+    }
+
+    public void setModOrder(Integer modOrder) {
+        this.modOrder = modOrder;
     }
 
     public boolean isEnabled() {

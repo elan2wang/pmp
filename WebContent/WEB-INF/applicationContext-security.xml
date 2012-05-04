@@ -27,7 +27,7 @@
     <access-denied-handler error-page="/access_denied"/>
     
     <!-- set the redirect-URL of session timeout -->
-    <session-management invalid-session-url="/session_timeout.jsp"/>
+    <session-management invalid-session-url="/error/session_timeout.jsp"/>
   
     <!-- add a user-defined filter, and located it before FILTER_SECURITY_INTERCEPTOR -->
     <!-- this filter is used to manage DataBase information include USER/ROLE/AUTHORITY -->

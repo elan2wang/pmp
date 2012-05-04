@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
+import org.pmp.security.SecuritySupport;
 import org.pmp.service.admin.IAuthorityResourceService;
 import org.pmp.service.admin.IAuthorityService;
 import org.pmp.service.admin.IResourceService;
@@ -40,7 +41,7 @@ public class AuthorityResourceAction extends ActionSupport{
     
     private Integer authID;
     
-    private String[] resourceList;
+    private String[] resList;
 
     //~ Methods ========================================================================================================
     /**
@@ -68,24 +69,25 @@ public class AuthorityResourceAction extends ActionSupport{
      *
      */
     public String editAuthRes(){
-	if (resourceList == null){
+	if (resList == null){
 	    authorityResourceService.batchDeleteByAuthID(authID);
-	    return SUCCESS;
 	}
 	else
 	{
 	    List<TbAuthorityResource> list = new ArrayList<TbAuthorityResource>();
 	    TbAuthority auth = authorityService.getAuthorityByID(authID);
-	    for(int i=0;i<resourceList.length;i++){
-		TbResource res = resourceService.getResourceByID(Integer.parseInt(resourceList[i].trim()));
+	    for(int i=0;i<resList.length;i++){
+		TbResource res = resourceService.getResourceByID(Integer.parseInt(resList[i].trim()));
 		TbAuthorityResource ar = new TbAuthorityResource();
 		ar.setTbAuthority(auth);
 		ar.setTbResource(res);
 		list.add(ar);
 	    }
 	    authorityResourceService.batchEditByAuthID(authID, list);
-	    return SUCCESS;
 	}
+	/* after successfully edit the authorityResource, it is essential to reload the SecurityMetadataSource*/
+	SecuritySupport.reloadSecurityMetadataSource();
+	return SUCCESS;
 	
     }
     
@@ -121,12 +123,12 @@ public class AuthorityResourceAction extends ActionSupport{
         this.authorityResourceService = authorityResourceService;
     }
 
-    public String[] getResourceList() {
-        return resourceList;
+    public String[] getResList() {
+        return resList;
     }
 
-    public void setResourceList(String[] resourceList) {
-        this.resourceList = resourceList;
+    public void setResList(String[] resList) {
+        this.resList = resList;
     }
     
 }
