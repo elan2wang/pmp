@@ -258,6 +258,31 @@ public class JsonConvert {
 	return sb.toString();
     }
     
+    public static String list2Json(List<?> list,String beanType,List<String> show,String arrayName){
+	StringBuffer sb = new StringBuffer();
+	sb.append("  "+toJson(arrayName)+":[\n");
+	Iterator<?> ite = list.iterator();
+	while(ite.hasNext()){
+	    Object obj = ite.next();
+	    sb.append("    "+object2Json(obj,beanType,show)+",\n");
+	}
+	sb.deleteCharAt(sb.length()-2);
+	sb.append("  ]\n");
+	return sb.toString();
+    }
+    
+    public static String merge(String[] data){
+	StringBuffer sb = new StringBuffer();
+	sb.append("{\n");
+	for(int i=0;i<data.length;i++){
+	    sb.append(data[i]);
+	    sb.deleteCharAt(sb.length()-1);
+	    sb.append(",\n");
+	}
+	sb.deleteCharAt(sb.length()-2);
+	sb.append("}\n");
+	return sb.toString();
+    }
     public static void output(String data){
 	try {    
             HttpServletResponse response = ServletActionContext.getResponse();  

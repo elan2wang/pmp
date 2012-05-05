@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="../Scripts/pages/admin/group_info.js"></script>
 <title>添加用户组</title>
 </head>
 <body>
@@ -28,16 +29,34 @@
                   </span>
              </div>
          </div>
-         <div class="rowStyle" id="span_fatherGroupId" <c:if test="${group.groupLevel == 1 or group.groupLevel == 2 }">style="display:none"</c:if>>
+         <div class="rowStyle">
              <div><span >父亲用户组:</span>
-                  <span><select name="group.fatherGroupId" id="fatherGroupId" disabled="disabled" onchange="fateherGroupChanged()">
+                  <span><select name="group.fatherGroupId" id="fatherGroupId" onchange="fatherGroupChanged()">
+                        <c:if test="${group.groupLevel == 1 }"><option value=0>根用户组</option></c:if>
+                        <c:if test="${group.groupLevel == 2 }"><option value=0>根用户组</option></c:if>
+                        <c:if test="${group.groupLevel == 3 }">
+                        <c:forEach var="item" items="${groupList }">
+                          <option value="${item.groupId }" <c:if test="${group.fatherGroupId == item.groupId }">selected</c:if> >${item.groupName }</option>
+                        </c:forEach>
+                        </c:if>
                         </select>
                   </span>
              </div>
          </div>
-         <div class="rowStyle" id="span_refDomain" <c:if test="${group.groupLevel == 1 }">style="display:none"</c:if>>
+         <div class="rowStyle">
              <div><span >关联域:</span>      
-                 <span><select name="group.refDomain" id="refDomain" disabled="disabled">
+                 <span><select name="group.refDomain" id="refDomain">
+                       <c:if test="${group.groupLevel == 1 }"><option value="空关联域">空关联域</option></c:if>
+                       <c:if test="${group.groupLevel == 2 }">
+                       <c:forEach var="item" items="${companyList }">
+                         <option value="${item.comName }" <c:if test="${group.refDomain == item.comName }">selected</c:if> >${item.comName }</option>
+                       </c:forEach>
+                       </c:if>
+                       <c:if test="${group.groupLevel == 3 }">
+                       <c:forEach var="item" items="${projectList }">
+                         <option value="${item.proName }" <c:if test="${group.refDomain == item.proName }">selected</c:if> >${item.proName }</option>
+                       </c:forEach>
+                       </c:if>
                        </select>
                  </span>
             </div>

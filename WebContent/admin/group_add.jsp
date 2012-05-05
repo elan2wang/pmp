@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="../Scripts/pages/admin/group_info.js"></script>
 <title>添加用户组</title>
 </head>
 <body>
@@ -24,16 +25,18 @@
                   </span>
              </div>
          </div>
-         <div class="rowStyle" id="span_fatherGroupId" style="display:none">
+         <div class="rowStyle">
              <div><span >父亲用户组:</span>
-                  <span><select name="group.fatherGroupId" id="fatherGroupId" disabled="disabled" onchange="fateherGroupChanged()">
+                  <span><select name="group.fatherGroupId" id="fatherGroupId" disabled="disabled" onchange="fatherGroupChanged()">
+                        <option value=0>根用户组</option>
                         </select>
                   </span>
              </div>
          </div>
-         <div class="rowStyle" id="span_refDomain"  style="display:none">
+         <div class="rowStyle">
              <div><span >关联域:</span>              
                  <span><select name="group.refDomain" id="refDomain" disabled="disabled">
+                       <option value="空关联域">空关联域</option>
                        </select>
                  </span>
             </div>

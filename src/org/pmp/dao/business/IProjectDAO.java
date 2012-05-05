@@ -29,5 +29,6 @@ public interface IProjectDAO {
     public List<?> loadProjectList(Pager pager);
     public List<?> loadEnabledProjectList(Pager pager);
     public List<?> loadDisabledProjectList(Pager pager);
+    public List<?> loadProjectByComID(Pager pager,Integer comId);
     public void batchSaveProject(List<Project> projectList);
 }

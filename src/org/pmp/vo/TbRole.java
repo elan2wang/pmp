@@ -12,6 +12,7 @@ public class TbRole implements java.io.Serializable {
 
     private Integer roleId;
     private String roleName;
+    private Integer roleLevel;
     private String roleDesc;
     private boolean enabled;
     private boolean issys;
@@ -23,10 +24,11 @@ public class TbRole implements java.io.Serializable {
 	this.roleId = roleId;
     }
 
-    public TbRole(Integer roleId, String roleName, String roleDesc,
+    public TbRole(Integer roleId, String roleName, Integer roleLevel, String roleDesc,
 	    boolean enabled, boolean issys) {
 	this.roleId = roleId;
 	this.roleName = roleName;
+	this.roleLevel = roleLevel;
 	this.roleDesc = roleDesc;
 	this.enabled = enabled;
 	this.issys = issys;
@@ -70,6 +72,14 @@ public class TbRole implements java.io.Serializable {
 
     public void setIssys(boolean issys) {
 	this.issys = issys;
+    }
+
+    public Integer getRoleLevel() {
+        return roleLevel;
+    }
+
+    public void setRoleLevel(Integer roleLevel) {
+        this.roleLevel = roleLevel;
     }
 
 }

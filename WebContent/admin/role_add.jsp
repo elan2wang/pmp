@@ -13,6 +13,9 @@
              <div><span >角色名称:</span><span><input type="text" name="role.roleName"/></span></div>
          </div>
          <div class="rowStyle">
+             <div><span >角色层次:</span><span><input type="text" name="role.roleLevel"/></span></div>
+         </div>
+         <div class="rowStyle">
              <div><span >角色描述:</span><span><input type="text" name="role.roleDesc"/></span></div>
          </div>
          <div class="rowStyle">

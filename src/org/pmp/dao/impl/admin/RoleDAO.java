@@ -112,6 +112,7 @@ public class RoleDAO extends BaseDAO implements IRoleDAO{
         session.close();
 	return resourceList;
     }
+    
     //~ Getters and Setters ============================================================================================
 
 }

@@ -14,10 +14,10 @@ function openAddWindow(id){
 }
 
 /* open a window for editing */
-var reload=false;
+var reload2=false;
 function openEditWindow(id,url){
 	$(id).window({href:url});
-	if(reload){
+	if(reload2){
 		/* first open then refresh */
 		/* otherwise the request will send twice */
 		$(id).window('open');
@@ -25,7 +25,7 @@ function openEditWindow(id,url){
 	} else{
 		$(id).window('open');
 	}
-	reload=true;
+	reload2=true;
 }
 
 /* close a opened window */

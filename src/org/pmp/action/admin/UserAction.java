@@ -7,12 +7,10 @@
  */
 package org.pmp.action.admin;
 
-import java.io.IOException;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
@@ -84,19 +82,37 @@ public class UserAction extends ActionSupport{
     	ugrService.deleteUGR_ByUserID(userId);
     }
     
+
+    public String getUserById(){
+    	TbUserGroupRole ugr = ugrService.getUGR_ByUserID(userId);
+    	
+    	List<?> roleList = roleService.getRoleList();
+    	Pager pager = new Pager(1000,1);
+    	Integer level = ugr.getTbRole().getRoleLevel();
+    	List<?> groupList = groupService.getGroupListByLevel(pager, level);
+    	
+    	HttpServletRequest request = ServletActionContext.getRequest();
+    	request.setAttribute("ugr", ugr);
+    	request.setAttribute("roleList", roleList);
+    	request.setAttribute("groupList", groupList);
+    	return SUCCESS;
+    }
+    
     /**
      * @Title: updateUser
      * @Description: 修改用户基本信息，除了用户名和密码
      
      */
     public String updateUser(){
+	logger.debug("aaa");
         TbUser user2 = userService.getUserById(user.getUserId());
     	user.setUsername(user2.getUsername());
     	user.setPassword(user2.getPassword());
     	user.setIssys(user2.isIssys());
     	userService.editUser(user);
     	TbUserGroupRole ugr = ugrService.getUGR_ByUserID(user.getUserId());
-
+        logger.debug("bbb");
+    	
     	TbRole role = roleService.getRoleByID(roleId);
     	TbGroup group = groupService.getGroupByID(groupId);
     	ugr.setTbGroup(group);
@@ -126,45 +142,31 @@ public class UserAction extends ActionSupport{
 	return SUCCESS;
     }
     
+    
+    public void loadRoleList(){
+	logger.debug("loadRoleList");
+	List<?> roleList = roleService.getRoleList();
+	String[] attrs = {"roleId","roleName"};
+	List<String> show = Arrays.asList(attrs);
+	String data = JsonConvert.list2Json(roleList, "org.pmp.vo.TbRole", show);
+	logger.debug(data);
+	JsonConvert.output(data);
+	
+    }
     /**
      * @Title: loadRoleGroupList
      * @Description: 加载添加用户界面的角色下拉列表和用户组下拉列表数据
      */
-    public void loadRoleGroupList(){
+    public void loadGroupList(){
 	logger.debug("loadRoleGroupList");
 	Pager pager = new Pager(1000,1);
-	List<?> roles = roleService.getRoleList();
-	List<?> groups = groupService.getGroupList(pager);
-	
-	Iterator<?> ite1 = groups.iterator();
-	Iterator<?> ite2 = roles.iterator();
-	StringBuffer sb = new StringBuffer();
-	if (ite1.hasNext()||ite2.hasNext()){
-	    sb.append("{\n  ");
-	    //添加用户组信息
-	    sb.append(JsonConvert.toJson("Groups")+":[\n");
-	    while(ite1.hasNext()){
-		TbGroup group = (TbGroup)ite1.next();
-		sb.append("    {");
-		sb.append(JsonConvert.toJson("groupId")+":"+JsonConvert.toJson(group.getGroupId())+",");
-		sb.append(JsonConvert.toJson("groupName")+":"+JsonConvert.toJson(group.getGroupName())+"},\n");
-	    }
-	    sb.deleteCharAt(sb.length()-2);
-    	    sb.append("  ],\n  "); 
-    	    //添加角色信息
-    	    sb.append(JsonConvert.toJson("Roles")+":[\n");
-	    while(ite2.hasNext()){
-		TbRole role = (TbRole)ite2.next();
-		sb.append("    {");
-		sb.append(JsonConvert.toJson("roleId")+":"+JsonConvert.toJson(role.getRoleId())+",");
-		sb.append(JsonConvert.toJson("roleName")+":"+JsonConvert.toJson(role.getRoleName())+"},\n");
-	    }
-	    sb.deleteCharAt(sb.length()-2);
-	    sb.append("  ]\n}"); 
-	}
-	logger.debug(sb.toString());
-	//output the JsonData
-	JsonConvert.output(sb.toString());
+	Integer level = roleService.getRoleByID(roleId).getRoleLevel();
+	List<?> groupList = groupService.getGroupListByLevel(pager, level);
+	String[] attrs = {"groupId","groupName"};
+	List<String> show = Arrays.asList(attrs);
+	String data = JsonConvert.list2Json(groupList, "org.pmp.vo.TbGroup", show);
+	logger.debug(data);
+	JsonConvert.output(data);
     }
     
     /**
@@ -180,11 +182,6 @@ public class UserAction extends ActionSupport{
     	String data = JsonConvert.list2Json(pager, users, "org.pmp.vo.TbUser",show);
     	logger.debug(data);
     	JsonConvert.output(data);
-    }
-    
-    public String getUserById(){
-    	user = userService.getUserById(userId);
-    	return SUCCESS;
     }
     
     //~ Getters and Setters ============================================================================================
@@ -235,6 +232,7 @@ public class UserAction extends ActionSupport{
         this.roleId = roleId;
     }
 
+    
     public Integer getGroupId() {
         return groupId;
     }
@@ -242,7 +240,7 @@ public class UserAction extends ActionSupport{
     public void setGroupId(Integer groupId) {
         this.groupId = groupId;
     }
-    
+
     public Integer getUserId() {
 		return userId;
 	}

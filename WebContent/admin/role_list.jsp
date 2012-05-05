@@ -35,7 +35,7 @@
               </div>
               <table id="rolelist"><%int i=1; %>
                  <tbody id="role_data"><c:forEach var="role" items="${roleList}">
-                       <tr><td><%=i++%></td><td>${role.roleName}</td><td>${role.enabled}</td><td>${role.issys}</td><td>${role.roleDesc}</td>                    <td>
+                       <tr><td><%=i++%></td><td>${role.roleName}</td><td>${role.roleLevel}</td><td>${role.enabled}</td><td>${role.issys}</td><td>${role.roleDesc}</td>                    <td>
                        <a href="javascript:void(0)" onclick="openEditWindow('#editRole','getRoleById?roleId='+$(this).next().html())">编辑</a>
                        <span style="display:none;width:10px">${role.roleId}</span>
                        <span style="display:inline-block;width:10px"></span>
