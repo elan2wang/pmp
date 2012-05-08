@@ -318,11 +318,16 @@ public class JsonConvert {
 	sb.append("  ]\n}");
 	return sb.toString().replaceAll(",}", "}");
     }
+<<<<<<< HEAD
 <<<<<<< .merge_file_a04100
 =======
 
     
 >>>>>>> .merge_file_a04704
+=======
+
+    
+>>>>>>> 781c28d5e9915da32a8fab0216a9239da04ff970
     
     public static void output(String data){
 	try {    

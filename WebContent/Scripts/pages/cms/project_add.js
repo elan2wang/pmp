@@ -1,4 +1,5 @@
 // JavaScript Document
+<<<<<<< HEAD
 <<<<<<< .merge_file_a03020
  	function createXHR()
  	{
@@ -57,6 +58,8 @@
  
 =======
 >>>>>>> .merge_file_a01544
+=======
+>>>>>>> 781c28d5e9915da32a8fab0216a9239da04ff970
  
    function to(page) {
         objP1 = document.getElementById("P1");
@@ -131,4 +134,7 @@
 	}
 =======
 	}
+<<<<<<< HEAD
 >>>>>>> .merge_file_a01544
+=======
+>>>>>>> 781c28d5e9915da32a8fab0216a9239da04ff970
