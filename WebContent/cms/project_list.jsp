@@ -18,8 +18,8 @@
 <script type="text/javascript" src="../Scripts/component/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="../Scripts/component/flexigrid-1.1/js/flexigrid.js"></script>
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
+<script type="text/javascript" src="../Scripts/common/window.js"></script>
 <script type="text/javascript" src="../Scripts/pages/cms/project_list.js"></script>
-<script type="text/javascript" src="../Scripts/pages/cms/project_add.js"></script>
 <script type="text/javascript" src="../Scripts/pages/cms/project_edit.js"></script>
 
 </head>
@@ -35,14 +35,14 @@
            <div class="innercontent">
 
              <div class="grid_top">
-                <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="openAddNewProject()">添加新项目</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="openAddWindow('#newPro')">添加新项目</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="">导入</a>
              	<span>筛选</span>：<select id="project.proDistrict" name="project.proDistrict">
                                               <option selected="selected">选择地区</option>
                                               <option>定海区</option>
                                               <option>普陀区</option>
                                               <option>岱山区</option>
-                                              <option>嵊泗区</option>
+                                              <option>嵊泗区</option>s
                                       </select>
  
                  <input type="text" id="keyWord" name="keyWord" />

@@ -18,6 +18,7 @@
 <script type="text/javascript" src="../Scripts/component/easyui/jquery.easyui.min.js" ></script>
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
 <script type="text/javascript" src="../Scripts/pages/cms/house_list.js"></script>
+<script type="text/javascript" src="../Scripts/pages/cms/project_list.js"></script>
 </head>
 
 <body onload="PageDownOrUp(0)">
@@ -28,12 +29,9 @@
                 <span>当前楼号：</span><span><script>document.write(parent.document.getElementById("frame.builNum").value)</script></span>
                 <span>所属物业：</span><span><script>document.write(parent.document.getElementById("frame.projectName").value)</script></span>
             </div>
-            <div class="top_info grid_top "> 
-                <span>单元号：</span><span><input type="text" id="" name="" style="width:80px"/></span>
-                <span>楼层：</span><span><input type="text" style="width:80px"/></span>
-                <span>房号：</span><span><input type="text" style="width:80px"/></span>
-                <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="openAddNewBuild()">添加</a>
-             </div>
+            <div class="grid_top"> 
+                  <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="openAddNewHouse()">添加新房产</a>
+                </div>
              </div>
               <div id="top_info2" name="top_info2" class="grid_top"  style="display:none;" >
                 <span>筛选</span><s:action name="getAllProject" namespace="/cms" executeResult="true"/>
@@ -78,7 +76,8 @@
                                 <option>20</option>
                            </select></span>
 	          </div>
-	          
+	          <div id="newHouse" class="easyui-window" href="house_add.jsp?" title="添加新房产" iconCls="icon-save" style="width:400px;height:370px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
+          </div>
 	          
 	          <div id="editHouse" class="easyui-window"  title="编辑房屋" iconCls="icon-save" style="width:350px;height:370px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
 	          </div>

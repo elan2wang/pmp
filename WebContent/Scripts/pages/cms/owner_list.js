@@ -28,12 +28,20 @@ function closeAddNewOwner(){
 }
 function openEditOwner(id){
 	alert(id);
+
 	$('#editOwner').window({href:'get_owner?ownerId='+id});
+
 	$('#editOwner').window('open');
+	owner_edit_init();
+
 }
 function closeEditOwner(){
     $('#editOwner').window('close');
 }
+
+
+
+
 function deleteOwner(obj,ownerId){
 	alert("进入删除方法");
 	alert(ownerId);
@@ -134,13 +142,17 @@ function PageDownOrUp(flag){
 }	
 function getSecondInfo()
 {
+	alert("进入getSecondInfo on change 方法");
 	var project = document.getElementById("projectId");
 	var index=project.selectedIndex;
+	alert(index);
 	var projectName = project.options[index].text;
 	alert(projectName);
-	document.getElementById("projectName").value=projectName;
+	//alert(projectName);
+	//document.getElementById("projectName").value=projectName;
 	
 	 var select1Value=document.getElementById("projectId").value;
+	 alert(select1Value);
 	 $.ajax({
 	  type: "POST",
 	  url: "getBuildingByProject?projectId="+select1Value,
@@ -148,11 +160,11 @@ function getSecondInfo()
 	  success : function(data){
 		      var selector=$('#buildingId'); 
 			  var s=selector.find('option');
-			  for(i=1;i<=10;i++){
+			  for(i=1;i<s.length;i++){
 			     s.eq(i).remove();
 			  }
 			  $.each( data.Rows , function(commentIndex, comment) {
-                   selector.append('<option value="'+comment['id']+'">'+comment['name']+'</option>');
+                   selector.append('<option value="'+comment['builId']+'">'+comment['builNum']+'</option>');
 			  });
 			  
 	  }
@@ -168,11 +180,13 @@ function getHouseInfo(){
 }
 
 function getAllHouse(){
+	alert("进入getAllHouse on change 方法");
 	var building = document.getElementById("buildingId");
 	var index=building.selectedIndex;
+	alert(index);
 	var buildingName = building.options[index].text;
 	alert(buildingName);
-	document.getElementById("buildingName").value=buildingName;
+	//document.getElementById("buildingName").value=buildingName;
 	var buildingId = document.getElementById("buildingId").value;
 	alert(buildingId);
 	$.ajax({
@@ -182,7 +196,8 @@ function getAllHouse(){
 		success:function(data){
 			var houseId=$('#houseId');
 			var option = houseId.find('option');
-			for(i=1;i<=10;i++){
+			alert(option.length);
+			for(i=1;i<=option.length;i++){
 				option.eq(i).remove();
 			  }
 			$.each(data.Rows,function(commentIndex,comment){

@@ -18,6 +18,13 @@
                           <div><span >楼号：</span><span><input name="building.builNum" type="text" class="textbox" id="building.builNum" value='<s:property value="building.builNum"/>'/></span></div>
                        </div>
                        <div class="rowStyle">
+                          <div><span >单元标识：</span><span><select id="building.unitTag" name="building.unitTag">
+                          	<option selected="selected">请选择单元标识</option>
+                          	<option>数字</option>
+                          	<option>字母</option>
+                          </select></span></div>
+                       </div>
+                       <div class="rowStyle">
                           <div style="float:left"><span >单元数：</span><span><input name="building.unitCount" type="text" class="textbox" id="building.unitCount" value='<s:property value="building.unitCount"/>' /></span></div>
                        </div>
                        <div class="rowStyle">
@@ -46,6 +53,9 @@
                            </div>
                        </div>
                        <div class="rowStyle">
+                          <div><span >物业费标准：</span><span><input name="building.condoFeeRate" type="text" class="textbox" id="building.condoFeeRate" /></span></div>
+                       </div>
+                       <div class="rowStyle">
                           <div>
                             <span >是否启用：</span>
                             <span>
@@ -53,7 +63,7 @@
                                <input id="project.enabled" type="radio" name="project.enabled" value="false" checked/><label for="project.enabled">不启用</label>
                             </span>
                           </div>
-                       </div> 
+                       </div>
                        <div class="rowStyle">
                           <div><span style="">备&nbsp;&nbsp;注：</span><span><textarea name="building.builDesc" style="height:40px;" class="textbox" id="building.builDesc"><s:property value="building.builDesc"/></textarea></span></div>
                        	<input type="hidden" id="building.builId" name="building.builId" value='<s:property value="building.builId"/>'>

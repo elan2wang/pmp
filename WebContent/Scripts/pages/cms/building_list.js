@@ -162,7 +162,7 @@ function PageDownOrUp(flag){
 						tableTds.eq(j=(i++)).find('div').html(comment['builNum']);
 						
 						if(parent.document.getElementById("frame.pageType").value=="all"){
-							   tableTds.eq(j=(i++)).find('div').html(comment['builNum']);
+							   tableTds.eq(j=(i++)).find('div').html(comment['project']);
 							   tableTds.eq(j=(i++)).find('div').html(comment['builNum']);
 							}
 						

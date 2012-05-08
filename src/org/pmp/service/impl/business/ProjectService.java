@@ -84,7 +84,7 @@ public class ProjectService implements IProjectService {
 	public Project getProjectByID(Integer projectID) {
 		return projectDAO.getProjectByID(projectID);
 	}
-
+	
 	/**
 	 * @Title: getProjectByName
 	 * @Description: TODO

@@ -6,12 +6,12 @@ $(function(){
 	  $('#house_data').html(AddTds(20,8));
 	  $('#houselist').flexigrid({colModel: [
              { display: '序号',  width: 40,  align: 'center' },
-             { display: '当前小区', width: 200, align: 'center' },
-			 { display: '所属物业', width: 200, align: 'center' },
-             { display: '楼号', width: 100,align: 'center' },
-             { display: '单元号', width: 100, align: 'center' },
-			 { display: '楼层', width: 100, align: 'center' },
+             { display: '所属物业', width: 200, align: 'center' },
+			 { display: '当前小区', width: 200, align: 'center' },
              { display: '房号', width: 100,align: 'center' },
+             { display: '房屋面积', width: 100, align: 'center' },
+			 { display: '物业费标准', width: 100, align: 'center' },
+             { display: '是否空置', width: 100,align: 'center' },
              { display: '操作',  width: 200, align: 'center' }
              ],height:305});
 	}
@@ -19,12 +19,13 @@ $(function(){
 	{
 		$('#top_info').css("display","block");
 		$('#top_info2').css("display","none");
-		  $('#house_data').html(AddTds(20,5));
+		  $('#house_data').html(AddTds(20,6));
 		  $('#houselist').flexigrid({colModel: [
 	             { display: '序号',  width: 40,  align: 'center' },
-	             { display: '单元号', width: 200, align: 'center' },
-				 { display: '楼层', width: 200, align: 'center' },
-	             { display: '房号', width: 200,align: 'center' },
+	             { display: '房号', width: 200, align: 'center' },
+				 { display: '房屋面积', width: 200, align: 'center' },
+	             { display: '物业费标准', width: 200,align: 'center' },
+	             { display: '是否空置', width: 200,align: 'center' },
 	             { display: '操作',  width: 200, align: 'center' }
 	             ],height:305});		
 		
@@ -50,6 +51,15 @@ function openEditHouse(id)
 function closeEditHouse(){
     $('#editHouse').window('close');
 }
+
+function openAddNewHouse(){
+	$('#newHouse').window('open');
+}
+function closeAddNewHouse(){
+	$('#newHouse').window('close');
+}
+
+
 function deleteHouse(obj,id){
 	alert("进入删除方法");
 	alert(id);
@@ -150,15 +160,15 @@ function PageDownOrUp(flag){
 				    tableTds.eq(i++).find('div').html((k++)+"<input type='checkbox' id='checkgroup' name='checkgroup' value='"+comment['houseId']+"'/>");
 					if(parent.document.getElementById("frame.housepageType").value=="all")
 					{
-						tableTds.eq(i++).find('div').html(comment['houseUnit']);
-						tableTds.eq(i++).find('div').html(comment['houseUnit']);
-						tableTds.eq(i++).find('div').html(comment['houseUnit']);
+						tableTds.eq(i++).find('div').html(comment['company']);
+						tableTds.eq(i++).find('div').html(comment['project']);
 					}
-					tableTds.eq(i++).find('div').html(comment['houseUnit']);
-					
-					tableTds.eq(i++).find('div').html(comment['houseFloor']);
-					
 					tableTds.eq(i++).find('div').html(comment['houseNum']);
+					tableTds.eq(i++).find('div').html(comment['houseArea']);
+					
+					tableTds.eq(i++).find('div').html(comment['condoFeeRate']);
+					
+					tableTds.eq(i++).find('div').html(comment['isempty']);
 					var strhtml="<a href=\"#\" onclick=\"openEditHouse($(this).next().html());\">编辑</a><span style=\"display:none;width:1px\">"+comment['houseId']+"</span><span style=\"display:inline-block;width:10px\"></span><a href=\"#\" onclick=\"deleteHouse($(this).parent().parent().parent(),$(this).prev().prev().html());\">删除</a>";
 					
 					tableTds.eq(i++).find('div').html(strhtml);

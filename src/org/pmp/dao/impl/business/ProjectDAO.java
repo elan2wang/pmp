@@ -125,6 +125,26 @@ public class ProjectDAO extends BaseDAO implements IProjectDAO {
 		return project;
 	}
 
+	public Project getProjectByOwnerID(Integer ownerID) {
+		logger.debug("ownerID"+ownerID);
+		Session session = getSession();
+		Project project = null;
+		List list = null;
+		logger.debug("begin to get a project by ownerID");
+		try{
+			Transaction tx = session.beginTransaction();
+			Query query = session.createQuery("select pro from Project pro,Building bui,House hou,HouseOwner hoo where pro.proId=bui.proId and bui.Buil_ID=house.Buil_ID and hou.House_ID=hoo.House_ID and hoo.Owner_ID="+ownerID);
+			list = query.list();
+			project = (Project)list.get(0);
+		}catch(RuntimeException e){
+			logger.error("get a project by ownerID failed",e);
+			throw e;
+		}
+		logger.debug("get a project by ownerID success");
+		session.close();
+		return project;
+	}
+	
 	public Project getProjectByName(String projectName) {
 		Session session = getSession();
 		Project project = null;

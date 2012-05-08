@@ -12,6 +12,7 @@ import java.util.Map;
 
 import org.pmp.vo.House;
 import org.pmp.vo.HouseOwner;
+import org.pmp.vo.Owner;
 
 /**
  * @author Jason
@@ -22,6 +23,7 @@ public interface IHouseOwnerService {
     public void saveHouseOwner(HouseOwner houseOwner);
     public void updateHouseOwner(HouseOwner houseOwner);
     public HouseOwner getOwnerByHouse(House house);
+    public HouseOwner getHouseByOwner(Owner owner);
     public void deleteHouseOwner(Integer hoId);
     public void batchAddHouseOwner(List<Integer> ownerIdList,Map map);
 }

@@ -14,6 +14,7 @@ import org.pmp.dao.business.IBuildingDAO;
 import org.pmp.service.business.IBuildingService;
 import org.pmp.util.Pager;
 import org.pmp.vo.Building;
+import org.pmp.vo.Project;
 
 /**
  * @author Jason
@@ -78,7 +79,20 @@ public class BuildingService implements IBuildingService {
 	public Building getBuildingById(Integer buildId) {
 		return buildingDao.getBuildingByID(buildId);
 	}
-
+	
+	/**
+	 * @Title: getBuildingByProject
+	 * @Description: TODO
+	 *
+	 * @param  TODO
+	 * @return TODO
+	 * @throws TODO
+	 */
+	@Override
+	public List getBuildingByProject(Project project)
+	{
+		return buildingDao.getBuildingByPro(project);
+	}
 	/**
 	 * @Title: getAllBuilding
 	 * @Description: TODO
@@ -126,16 +140,39 @@ public class BuildingService implements IBuildingService {
 		int unit = building.getUnitCount();
 		int floor = building.getFloorCount();
 		int housePer = building.getHousesPer();
-				
+		
 		ArrayList<String> list = new ArrayList<String>();
-		for(int i=1;i<=unit;i++){
-			for(int j=1;j<=floor;j++){
-				for(int k=1;k<=housePer;k++){
-					String houseNum = building.getBuilNum()+"-"+i+"-"+j+k;
-					list.add(houseNum);
+		
+		if(building.getUnitTag().equals("数字")){
+			for(int i=1;i<=unit;i++){
+				for(int j=1;j<=floor;j++){
+					for(int k=1;k<=housePer;k++){
+						if(k<10){
+							String houseNum = building.getBuilNum()+"-"+String.valueOf(i)+"-"+String.valueOf(j)+"0"+String.valueOf(k);
+							list.add(houseNum);
+						}else{
+							String houseNum = building.getBuilNum()+"-"+String.valueOf(i)+"-"+String.valueOf(j)+String.valueOf(k);
+							list.add(houseNum);
+						}
+					}
+				}
+			}
+		}else{
+			for(int i=1;i<=unit;i++){
+				for(int j=1;j<=floor;j++){
+					for(int k=1;k<=housePer;k++){
+						if(k<10){
+							String houseNum = building.getBuilNum()+"-"+String.valueOf((char)(64+i))+"-"+String.valueOf(j)+"0"+String.valueOf(k);
+							list.add(houseNum);
+						}else{
+							String houseNum = building.getBuilNum()+"-"+String.valueOf((char)(64+i))+"-"+String.valueOf(j)+String.valueOf(k);
+							list.add(houseNum);
+						}
+					}
 				}
 			}
 		}
+		
 		buildingDao.saveBuildingHouse(list, building);
 	}
 
