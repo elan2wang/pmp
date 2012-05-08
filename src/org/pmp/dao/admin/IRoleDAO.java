@@ -38,4 +38,5 @@ public interface IRoleDAO {
      * @return List  角色的实体列表
      */
     public List getRoleList();
+    
 }

@@ -10,10 +10,6 @@
 	  <result name="success">/admin_index.jsp</result>
 	</action>
 	
-	<action name="login_fail" class="org.pmp.action.admin.ErrorHandleAction" method="authenticationFailed">
-	  <result name="success">/login.jsp</result>
-	</action>
-	
 	<action name="access_denied" class="org.pmp.action.admin.ErrorHandleAction" method="accessDenied">
 	  <result name="success">/error/access_denied.jsp</result>
 	</action>
@@ -24,6 +20,11 @@
     <!-- Resource Related Actions begin -->
     <action name="loadResList" class="org.pmp.action.admin.ResourceAction" method="loadResList">
 		<result name="success">/admin/res_list.jsp</result>
+	</action>
+	
+	<action name="import_res" class="org.pmp.action.admin.ResourceAction" method="importRes">
+	  <result name="success" type="chain">loadResList</result>
+	  <result name="filetype_error">/admin/res_import.jsp</result>
 	</action>
 	
     <action name="addRes" class="org.pmp.action.admin.ResourceAction" method="addResource">
@@ -120,13 +121,16 @@
 	  <result name="success" type="chain">loadGroupList</result>
 	</action>
 	
-	<action name="select_father_group" class="org.pmp.action.admin.GroupAction" method="loadFatherGroupList">
+	<action name="levelChange" class="org.pmp.action.admin.GroupAction" method="levelChange">
 	</action>
 	
-	<action name="select_ref_domain" class="org.pmp.action.admin.GroupAction" method="loadRefDomain">
+	<action name="fatherChange" class="org.pmp.action.admin.GroupAction" method="fatherChange">
 	</action>
 	
-	<action name="load_role_group_list" class="org.pmp.action.admin.UserAction" method="loadRoleGroupList">
+	<action name="load_Role_list" class="org.pmp.action.admin.UserAction" method="loadRoleList">
+	</action>
+	
+	<action name="load_Group_list" class="org.pmp.action.admin.UserAction" method="loadGroupList">
 	</action>
 	
 	<!-- User Related Actions Begin -->
@@ -141,8 +145,9 @@
 	  <result name="success">/admin/user_edit.jsp</result>
 	</action>
 	
-	<action name="update_user" class="org.pmp.action.admin.UserAction" method="updateUser">
+	<action name="updateUser" class="org.pmp.action.admin.UserAction" method="updateUser">
 	  <result name="success">/admin/user_list.jsp</result>
+	  <result name="input">/error/fof.jsp</result>
 	</action>
 	
 	<action name="deleteUserById" class="org.pmp.action.admin.UserAction" method="deleteUser">
@@ -298,6 +303,11 @@
     </action>
     
     <!-- CondoFee Related actions -->
+    
+    <action name="loadCondoFeeList_ByOwner" class="org.pmp.action.business.CondoFeeAction" method="loadCondoFeeList_ByOwner">
+    </action>
+    
+    
     <action name="loadCondoFeeList" class="org.pmp.action.business.CondoFeeAction" method="loadCondoFeeList">
       <result name="success">/fee/cf_list.jsp</result>
     </action>
@@ -339,5 +349,7 @@
     <action name="loadTimeParkFeeByProject" class="org.pmp.action.business.TimeParkFeeAction" method="loadTimeParkFeeByProject">
     </action>
     
+    <action name="houseTree" class="org.pmp.action.business.TreeAction" method="houseTree">
+    </action>
   </package>
 </struts>

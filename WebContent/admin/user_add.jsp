@@ -5,10 +5,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="../Scripts/pages/admin/user_add.js"></script>
 <title>添加新用户</title>
 </head>
-<body onload="">
-<script>loadInfo();</script>
+<body>
+<script>loadRoleList();</script>
 <div class="window_content">
 <form name="form1" id="form1" action="addUser" method="post">
          <div class="rowStyle">
@@ -27,7 +28,7 @@
              <div><span >用户描述:</span><span><input type="text" name="user.userDesc" /></span></div>
          </div>
          <div class="rowStyle">
-             <div><span >选择角色:</span><span><select id="roleId" name="roleId" ></select></span></div>
+             <div><span >选择角色:</span><span><select id="roleId" name="user.roleId" onchange="roleChange()"></select></span></div>
          </div>
          <div class="rowStyle">
              <div><span >选择用户组:</span><span><select id="groupId" name="groupId"></select></span></div>
@@ -41,7 +42,7 @@
              </div>
          </div>
           <div class="rowStyle">
-              <div style=" margin-left:100px;margin-top:20px"><input type="submit" value="提交" onclick="return  addFormCheck(); "/>
+              <div style="margin-left:100px; margin-top:20px"><input type="submit" value="提交" onclick="return  addFormCheck(); "/>
                                  <input type="button" value="关闭" onclick="addClose(); "/></div>
            </div>
          </form>

@@ -22,6 +22,10 @@ import org.pmp.vo.Project;
 public class ProjectService implements IProjectService {
 
 	IProjectDAO projectDAO;
+    
+	public List<?> loadProjectByComID(Pager pager,Integer comId){
+	    return this.projectDAO.loadProjectByComID(pager, comId);
+	}
 	/**
 	 * @param projectDAO the projectDAO to set
 	 */

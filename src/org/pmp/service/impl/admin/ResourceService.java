@@ -30,6 +30,10 @@ public class ResourceService implements IResourceService {
     //~ Constructor ====================================================================================================
 
     //~ Methods ========================================================================================================
+    public void batchAdd(List<TbResource> list){
+	resourceDAO.batchSave(list);
+    }
+    
     public void addResource(TbResource instance){
 	resourceDAO.saveResource(instance);
     }

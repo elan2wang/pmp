@@ -17,6 +17,7 @@ import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.pmp.service.admin.IGroupService;
 import org.pmp.service.business.ICompanyService;
+import org.pmp.service.business.IProjectService;
 import org.pmp.util.JsonConvert;
 import org.pmp.util.Pager;
 import org.pmp.vo.TbGroup;
@@ -35,46 +36,54 @@ public class GroupAction extends ActionSupport {
     //~ Instance Fields ================================================================================================
     private IGroupService groupService;
     private ICompanyService companyService;
+    private IProjectService projectService;
     
     private TbGroup group;
     
     private Integer groupId;
-    
     private Integer currentPage = 1;
     private Integer pageSize = 10;
     
+    private Integer level;
+    private Integer fatherGroup;
     //~ Constructor ====================================================================================================
     
     //~ Methods ========================================================================================================
     public String addGroup(){
-	if(group.getGroupLevel().equals(1)){
-	    group.setFatherGroupId(0);
-	    group.setRefDomain("系统层");
-	}
-	else if(group.getGroupLevel().equals(2)){
-	    group.setFatherGroupId(0);
-	}
 	groupService.addGroup(group);
 	return SUCCESS;
     }
 
     public String getGroupByID(){
 	TbGroup group = groupService.getGroupByID(groupId);
-	
 	HttpServletRequest request = ServletActionContext.getRequest();
+	
+	if (group.getGroupLevel().equals(3)){
+	    Pager pager = new Pager(1000,1);
+	    List<?> groupList = groupService.getGroupListByLevel(pager, 2);
+            logger.debug("groupList.size="+groupList.size());
+            
+	    TbGroup father = groupService.getGroupByID(group.getFatherGroupId());
+	    logger.debug("fatherID="+group.getFatherGroupId());
+	    Integer comId = companyService.getCompanyByName(father.getRefDomain()).getComId();
+	    logger.debug("comID="+comId);
+	    List<?> projectList = projectService.loadProjectByComID(pager, comId);
+	    logger.debug("projectList.size="+projectList.size());
+	    request.setAttribute("groupList", groupList);
+	    request.setAttribute("projectList", projectList);
+	}
+	if (group.getGroupLevel().equals(2)){
+	    Pager pager = new Pager(1000,1);
+	    List<?> companyList = companyService.loadCompanyList(pager);
+	    request.setAttribute("companyList", companyList);
+	}
+	
 	request.setAttribute("group", group);
 	
 	return SUCCESS;
     }
     
     public String editGroup(){
-	if(group.getGroupLevel().equals(1)){
-	    group.setFatherGroupId(0);
-	    group.setRefDomain("系统层");
-	}
-	else if(group.getGroupLevel().equals(2)){
-	    group.setFatherGroupId(0);
-	}
 	groupService.editGroup(group);
 	return SUCCESS;
     }
@@ -94,23 +103,9 @@ public class GroupAction extends ActionSupport {
 	return SUCCESS;
     }
     
-    public void loadFatherGroupList(){
-	logger.debug("进入loadFatherGroupList");
-	Pager pager = new Pager(1000,1);
-	List<?> list = groupService.getGroupListByLevel(pager, group.getGroupLevel()-1);
-	
-	String[] attrs = {"groupId","groupName"};
-	List<String> show = Arrays.asList(attrs);
-	String data = JsonConvert.list2Json(list, "org.pmp.vo.Group", show);
-	
-        logger.debug(data);
-	//output the JsonData
-	JsonConvert.output(data);
-    }
-   
-    public void loadRefDomain(){
-	logger.debug("进入loadRefDomain");
-	if (group.getGroupLevel().equals(2)){
+    public void levelChange(){
+	logger.debug("进入levelChange");
+	if (level.equals(2)){
 	    Pager pager = new Pager(1000,1);
 	    List<?> companyList = companyService.loadCompanyList(pager);
 	    logger.debug("companyList.size="+companyList.size());
@@ -120,8 +115,33 @@ public class GroupAction extends ActionSupport {
 	    logger.debug(data);
             //output the JsonData
             JsonConvert.output(data);
+	} else if(level.equals(3)){
+            Pager pager = new Pager(1000,1);
+            List<?> groupList = groupService.getGroupListByLevel(pager, level-1);
+            Integer comId = companyService.getCompanyByName(((TbGroup)groupList.get(0)).getRefDomain()).getComId();
+            List<?> proList = projectService.loadProjectByComID(pager, comId);
+            String[] attrs1 = {"groupId","groupName"};
+            String[] attrs2 = {"proId","proName"};
+            List<String> show1 = Arrays.asList(attrs1);
+            List<String> show2 = Arrays.asList(attrs2);
+            
+            String data1 = JsonConvert.list2Json(groupList, "org.pmp.vo.TbGroup", show1, "group");
+            String data2 = JsonConvert.list2Json(proList, "org.pmp.vo.Project", show2, "project");
+            String[] data = {data1,data2}; 
+            JsonConvert.output(JsonConvert.merge(data));
 	}
-	
+    }
+   
+    public void fatherChange(){
+	Pager pager = new Pager(1000,1);
+	String comName = ((TbGroup)groupService.getGroupByID(fatherGroup)).getRefDomain();
+	Integer comId = companyService.getCompanyByName(comName).getComId();
+	List<?> proList = projectService.loadProjectByComID(pager, comId);
+        String[] attrs = {"proId","proName"};
+        List<String> show = Arrays.asList(attrs);
+        String data = JsonConvert.list2Json(proList, "org.pmp.vo.Project", show);
+        logger.debug(data);
+        JsonConvert.output(data);
     }
     
     //~ Getters and Setters ============================================================================================
@@ -169,4 +189,29 @@ public class GroupAction extends ActionSupport {
     public void setGroupId(Integer groupId) {
         this.groupId = groupId;
     }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
+    public IProjectService getProjectService() {
+        return projectService;
+    }
+
+    public void setProjectService(IProjectService projectService) {
+        this.projectService = projectService;
+    }
+
+    public Integer getFatherGroup() {
+        return fatherGroup;
+    }
+
+    public void setFatherGroup(Integer fatherGroup) {
+        this.fatherGroup = fatherGroup;
+    }
+
 }

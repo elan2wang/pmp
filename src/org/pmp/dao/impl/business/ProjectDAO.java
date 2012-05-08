@@ -29,6 +29,21 @@ public class ProjectDAO extends BaseDAO implements IProjectDAO {
 
 	static Logger logger = Logger.getLogger(ProjectDAO.class.getName());
 	
+    /** 
+     * @author Elan
+     * Created On : 2012-5-3 下午02:46:32
+     */
+    public List<?> loadProjectByComID(Pager pager,Integer comId){
+	String debugMsg = "load project by company,comId="+comId;
+        String sql = "from Project where company.comId="+comId;
+        List<?> list = null;
+        try {
+            list = loadListByCondition(sql,pager,debugMsg);
+        } catch(RuntimeException e){
+            throw e;
+        }
+        return list;
+    }
 	public void saveProject(Project project) {
 		Session session = getSession();
 		try{

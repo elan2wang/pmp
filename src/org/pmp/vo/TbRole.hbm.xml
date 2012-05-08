@@ -11,6 +11,9 @@
         <property name="roleName" type="string">
             <column name="Role_Name" length="50" />
         </property>
+        <property name="roleLevel" type="integer">
+            <column name="Role_Level" />
+        </property>
         <property name="roleDesc" type="string">
             <column name="Role_Desc" length="100" />
         </property>

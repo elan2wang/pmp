@@ -32,7 +32,7 @@
            <div class="innercontent">
              <div class="grid_top">
              <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="openAddWindow('#newRes')">添加新资源</a>
-              </div>
+              <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="openAddWindow('#importRes')">导入资源</a></div>
               <table id="reslist">
                  <tbody id="res_data"><% int i =1; %><c:forEach var="res" items="${resList}">
                       <tr><td><%= i++ %></td><td>${res.resName}</td><td>${res.resType}</td><td>${res.issys}</td><td>${res.enabled}</td><td>${res.resLink}</td><td>${res.resDesc}</td>                    <td>
@@ -50,6 +50,8 @@
        <div id="newRes" class="easyui-window" href="res_add.jsp" title="添加新资源" iconCls="icon-save" style="width:350px;height:270px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
        </div>
         <div id="editRes" class="easyui-window"  title="编辑资源" iconCls="icon-save" style="width:350px;height:270px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
+       </div>
+       <div id="importRes" href="res_import.jsp" class="easyui-window"  title="导入资源" iconCls="icon-save" style="width:350px;height:270px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
        </div>
     </div>
 </body>

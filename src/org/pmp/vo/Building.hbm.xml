@@ -11,8 +11,8 @@
         <many-to-one name="project" class="org.pmp.vo.Project" fetch="select" lazy="false">
             <column name="Pro_ID" />
         </many-to-one>
-        <property name="builNum" type="integer">
-            <column name="Buil_Num" />
+        <property name="builNum" type="string">
+            <column name="Buil_Num" length="50" />
         </property>
         <property name="builType" type="string">
             <column name="Buil_Type" length="50" />
@@ -32,8 +32,8 @@
         <property name="unitTag" type="string">
             <column name="Unit_Tag" length="20" />
         </property>
-        <property name="condoFeeRate" type="integer">
-            <column name="CondoFee_Rate" />
+        <property name="condoFeeRate" type="double">
+            <column name="CondoFee_Rate"  precision="53" scale="0" />
         </property>
         <property name="builDesc" type="string">
             <column name="Buil_Desc" length="200" />

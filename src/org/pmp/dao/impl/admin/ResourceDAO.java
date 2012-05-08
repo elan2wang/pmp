@@ -7,16 +7,20 @@
  */
 package org.pmp.dao.impl.admin;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.jdbc.Work;
 import org.pmp.dao.admin.BaseDAO;
 import org.pmp.dao.admin.IResourceDAO;
 import org.pmp.vo.TbResource;
-
 /**
  * @author Elan
  * @version 1.0
@@ -27,6 +31,46 @@ public class ResourceDAO extends BaseDAO implements IResourceDAO {
     static Logger logger = Logger.getLogger(ResourceDAO.class.getName ());
 
     //~ Methods ========================================================================================================
+    
+    public void batchSave(final List<TbResource> list){
+	logger.debug("begin to batch save TbResource");
+	final String hql = "insert into tb_Resource(Res_Name,Res_Type,Res_Link,Res_Desc,ENABLED,ISSYS,Mod_ID) " +
+                           "values(?,?,?,?,?,?,?)";
+	Session session = getSession();
+	Transaction tx = session.beginTransaction();
+	try {
+	    Work work = new Work(){
+		public void execute(Connection connection) throws SQLException{
+		    PreparedStatement stmt = connection.prepareStatement(hql);
+		    Iterator<TbResource> ite = list.iterator();
+		    while(ite.hasNext()){
+			TbResource res = ite.next();
+			logger.debug(res.getResName()+" "+res.getResType()+" "+res.getResLink()+" " +res.getResDesc()+" " +res.isEnabled()+" "+res.isIssys()+" "+res.getModId());
+			stmt.setString(1, res.getResName());
+			stmt.setString(2, res.getResType());
+			stmt.setString(3, res.getResLink());
+			stmt.setString(4, res.getResDesc());
+			if (res.isEnabled()) stmt.setInt(5, 1);
+			else stmt.setInt(5, 0);
+			if (res.isIssys()) stmt.setInt(6, 1);
+			else stmt.setInt(6, 0);
+			stmt.setInt(7, res.getModId());
+			stmt.executeUpdate();
+		    }
+		}
+	    };
+	    session.doWork(work);
+	} catch (RuntimeException e){
+	    tx.rollback();
+	    logger.error(e.getStackTrace());
+	    throw e;
+	} finally{
+            tx.commit();
+	    session.close();
+	}
+	
+    }
+    
     public void saveResource(TbResource instance){
 	Session session = getSession();
         logger.debug("begin to save a resource.");

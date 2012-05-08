@@ -31,7 +31,7 @@ public class Owner implements java.io.Serializable {
     private String carNum;
     private String carType;
     private String storeroom;
-    private Integer houseArea;
+    private Double houseArea;
     private String useStyle;
     private String otherAddress;
     private String otherPostcode;
@@ -53,7 +53,7 @@ public class Owner implements java.io.Serializable {
 	    String identityType, String identityCode, String homePhone,
 	    String mobile, Date getTime, Date decorateTime, Date inTime,
 	    String parkNum, String carNum, String carType, String storeroom,
-	    Integer houseArea, String useStyle, String otherAddress,
+	    Double houseArea, String useStyle, String otherAddress,
 	    String otherPostcode, String emergencyContact,
 	    String emergencyPhone, String houseNum, String ownerDesc) {
 	this.ownerId = ownerId;
@@ -246,11 +246,11 @@ public class Owner implements java.io.Serializable {
 	this.storeroom = storeroom;
     }
 
-    public Integer getHouseArea() {
+    public Double getHouseArea() {
 	return this.houseArea;
     }
 
-    public void setHouseArea(Integer houseArea) {
+    public void setHouseArea(Double houseArea) {
 	this.houseArea = houseArea;
     }
 

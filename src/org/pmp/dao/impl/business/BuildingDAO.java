@@ -337,7 +337,7 @@ public class BuildingDAO extends BaseDAO implements IBuildingDAO {
 					"Floor_Count,Skip_Floor,Houses_Per,Unit_Count,Unit_Tag,Buil_Desc,ENABLED," +
 					"CondoFee_Rate) values(?,?,?,?,?,?,?,?,?,?,?)");
 			for (Building building : buildingList) {
-				stmt.setInt(1, building.getBuilNum());
+				stmt.setString(1, building.getBuilNum());
 				stmt.setInt(2, building.getProject().getProId());
 				stmt.setString(3, building.getBuilType());
 				stmt.setInt(4, building.getFloorCount());
@@ -347,7 +347,7 @@ public class BuildingDAO extends BaseDAO implements IBuildingDAO {
 				stmt.setString(8, building.getUnitTag());
 				stmt.setString(9, building.getBuilDesc());
 				stmt.setBoolean(10, building.isEnabled());
-				stmt.setInt(11, building.getCondoFeeRate());
+				stmt.setDouble(11, building.getCondoFeeRate());
 				stmt.executeUpdate();
 			}
 			tx.commit();

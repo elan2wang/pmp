@@ -1,5 +1,5 @@
 // JavaScript Document
- <!--
+ 
    function to(page) {
         objP1 = document.getElementById("P1");
         objP2 = document.getElementById("P2");
@@ -41,4 +41,3 @@
 		document.getElementById("form").submit();
 		window.parent.closeAddNewProject();
 	}
--->

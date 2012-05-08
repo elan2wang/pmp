@@ -11,33 +11,39 @@
  * 
  * load rolelist and grouplist
  */
-function loadInfo(){
+function loadRoleList(){
+	alert("aaa");
 	$.ajax({
 		type: "POST",
-		url: "load_role_group_list",
+		url: "load_Role_list",
 		dataType: "json",
 		success: function(data){
 			var roleSelector = $("#roleId");
-			var groupSelector = $("#groupId");
 			roleSelector.find('option').remove();
-			groupSelector.find('option').remove();
 			//roleSelector加载option选项
-			$.each( data.Roles,function(commentIndex, comment){
+			$.each( data.Rows,function(commentIndex, comment){
 				roleSelector.append("<option value=\""+comment['roleId']+"\">"+comment['roleName']+"</option>");
 			});
-			//groupSelector加载option选项
-			$.each( data.Groups,function(commentIndex, comment){
-				groupSelector.append("<option value=\""+comment['groupId']+"\">"+comment['groupName']+"</option>");
-			});
-			
 		}
 			
 	});
 }
-function addFormCheck(){
-    document.getElementById("form1").submit();
-	window.parent.closeAddNewUser();
-}
-function addClose(){
-    window.parent.closeAddNewUser();
+
+function roleChange(){
+	var roleId = document.getElementById('roleId').value;
+	
+	$.ajax({
+		type: "POST",
+		url: "load_Group_list?roleId="+roleId,
+		dataType: "json",
+		success: function(data){
+			var groupSelector = $("#groupId");
+			groupSelector.find('option').remove();
+			//roleSelector加载option选项
+			$.each( data.Rows,function(commentIndex, comment){
+				groupSelector.append("<option value=\""+comment['groupId']+"\">"+comment['groupName']+"</option>");
+			});
+		}
+			
+	});
 }

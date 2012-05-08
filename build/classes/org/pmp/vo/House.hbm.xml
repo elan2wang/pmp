@@ -14,14 +14,14 @@
         <property name="houseNum" type="string">
             <column name="House_Num" length="50" />
         </property>
-        <property name="houseArea" type="integer">
-            <column name="House_Area" />
+        <property name="houseArea" type="double">
+            <column name="House_Area" precision="53" scale="0" />
         </property>
         <property name="houseDesc" type="string">
             <column name="House_Desc" length="200" />
         </property>
-        <property name="condoFeeRate" type="integer">
-            <column name="CondoFee_Rate" />
+        <property name="condoFeeRate" type="double">
+            <column name="CondoFee_Rate" precision="53" scale="0" />
         </property>
         <property name="cycleMonth" type="integer">
             <column name="Cycle_Month" />

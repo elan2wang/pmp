@@ -8,6 +8,7 @@
 package org.pmp.service.business;
 
 import java.util.List;
+import java.util.Map;
 
 import org.pmp.util.Pager;
 import org.pmp.vo.CondoFee;
@@ -67,5 +68,6 @@ public interface ICondoFeeService {
     public List loadPayedCondoFeeList(Integer cfiId,Pager pager);
     
     public List loadNonePayedCondoFeeList(Integer cfiId,Pager pager);
-    
+    public List<CondoFee> loadCondoFeeList_ByOwner(Integer ownerId,Map<String,Object>params,String order,Pager pager);
+
 }

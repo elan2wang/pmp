@@ -104,4 +104,10 @@
     <property name="timeParkFeeService" ref="timeParkFeeService" />
   </bean>
   
+  <bean id="treeAction" class="org.pmp.action.business.TreeAction">
+    <property name="projectService" ref="projectService" />
+    <property name="buildingService" ref="buildingService" />
+    <property name="houseService" ref="houseService" />
+  </bean>
+  
 </beans>
