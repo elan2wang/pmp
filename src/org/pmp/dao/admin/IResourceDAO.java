@@ -21,6 +21,7 @@ public interface IResourceDAO {
     public void updateResource(TbResource instance);
     public void deleteResource(Integer resID);
     
+    public void batchSave(final List<TbResource> list);
     /**
      * @Title: getResourceByID
      * @Description: 根据资源的ID获取资源实体对象

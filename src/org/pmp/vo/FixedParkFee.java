@@ -15,9 +15,9 @@ public class FixedParkFee implements java.io.Serializable {
     private Date startDate;
     private Date endDate;
     private Date fetchDate;
-    private double parkFeeRate;
-    private double oughtMoney;
-    private double fetchMoney;
+    private Double parkFeeRate;
+    private Double oughtMoney;
+    private Double fetchMoney;
     private String fetchTicket;
     private String fetchPerson;
     private String recordPerson;
@@ -36,7 +36,7 @@ public class FixedParkFee implements java.io.Serializable {
 
     public FixedParkFee(Integer fpfId, FixedParkFeeItem fixedParkFeeItem,
 	    Owner owner, Date startDate, Date endDate, Date fetchDate,
-	    double parkFeeRate, double oughtMoney, double fetchMoney,
+	    Double parkFeeRate, Double oughtMoney, Double fetchMoney,
 	    String fetchTicket, String fetchPerson, String recordPerson,
 	    String auditPerson, Date generateTime, Date recordTime,
 	    Date auditTime, String state) {
@@ -107,27 +107,27 @@ public class FixedParkFee implements java.io.Serializable {
 	this.fetchDate = fetchDate;
     }
 
-    public double getParkFeeRate() {
+    public Double getParkFeeRate() {
 	return this.parkFeeRate;
     }
 
-    public void setParkFeeRate(double parkFeeRate) {
+    public void setParkFeeRate(Double parkFeeRate) {
 	this.parkFeeRate = parkFeeRate;
     }
 
-    public double getOughtMoney() {
+    public Double getOughtMoney() {
 	return this.oughtMoney;
     }
 
-    public void setOughtMoney(double oughtMoney) {
+    public void setOughtMoney(Double oughtMoney) {
 	this.oughtMoney = oughtMoney;
     }
 
-    public double getFetchMoney() {
+    public Double getFetchMoney() {
 	return this.fetchMoney;
     }
 
-    public void setFetchMoney(double fetchMoney) {
+    public void setFetchMoney(Double fetchMoney) {
 	this.fetchMoney = fetchMoney;
     }
 

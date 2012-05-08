@@ -152,7 +152,7 @@ public class HouseOwnerDAO extends BaseDAO implements IHouseOwnerDAO {
 				house = (House)map.get(owner.getOwnerDesc());
 				stmt1.setInt(1,house.getHouseId());
 				stmt1.setInt(2,owner.getOwnerId());
-				stmt2.setInt(1,house.getHouseArea());
+				stmt2.setDouble(1,house.getHouseArea());
 				stmt2.setBoolean(2,false);
 				stmt2.setInt(3, house.getHouseId());
 				stmt1.executeUpdate();

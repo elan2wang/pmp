@@ -41,6 +41,7 @@
   	  /WEB-INF/applicationContext-admin.xml
   	  /WEB-INF/applicationContext-security.xml
   	  /WEB-INF/applicationContext-business.xml
+  	  /WEB-INF/applicationContext-jms.xml
   	  /WEB-INF/applicationContext-aop.xml
   	</param-value>
   </context-param>

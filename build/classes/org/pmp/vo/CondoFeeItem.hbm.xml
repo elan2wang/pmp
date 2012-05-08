@@ -11,17 +11,17 @@
         <many-to-one name="project" class="org.pmp.vo.Project" fetch="select" lazy="false">
             <column name="Pro_ID" />
         </many-to-one>
-        <property name="itemName" type="string">
-            <column name="Item_Name" length="100" />
-        </property>
         <property name="itemYear" type="integer">
             <column name="Item_Year" />
         </property>
-        <property name="itemMonth" type="integer">
-            <column name="Item_Month" />
+        <property name="itemMonth" type="string">
+            <column name="Item_Month" length="50" />
         </property>
         <property name="generateTime" type="timestamp">
             <column name="Generate_Time" length="23" />
+        </property>
+        <property name="generatePerson" type="string">
+            <column name="Generate_Person" length="50" />
         </property>
     </class>
 </hibernate-mapping>

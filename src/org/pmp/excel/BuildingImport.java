@@ -93,7 +93,7 @@ public class BuildingImport {
             	 continue;
              }
              Building building = new Building();
-             building.setBuilNum(Integer.parseInt((String)list.get(0)));
+             building.setBuilNum((String)list.get(0));
              building.setProject(project);
              building.setBuilType((String)list.get(2));
              building.setFloorCount(Integer.parseInt((String)list.get(3)));
@@ -107,7 +107,7 @@ public class BuildingImport {
             	 enabled = true;
              }
              building.setEnabled(enabled);
-             building.setCondoFeeRate(Integer.parseInt((String)list.get(10)));
+             building.setCondoFeeRate(Double.parseDouble((String)list.get(10)));
              buildingList.add(building);
              list.clear();
            }

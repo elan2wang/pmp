@@ -8,14 +8,13 @@
 package org.pmp.dao.impl.business;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.pmp.dao.admin.BaseDAO;
 import org.pmp.dao.business.ICondoFeeDAO;
 import org.pmp.util.Pager;
+import org.pmp.util.ParamsToString;
 import org.pmp.vo.CondoFee;
 
 /**
@@ -99,4 +98,129 @@ public class CondoFeeDAO extends BaseDAO implements ICondoFeeDAO {
 	}
 	return condoFeeList;
     }
+    
+    
+    /**
+     * @see org.pmp.dao.business.ICondoFeeDAO#loadCondoFeeList_ByIds(java.util.List)
+     */
+    @Override
+    public List<CondoFee> loadCondoFeeList_ByIds(List<Integer> ids) {
+	List<CondoFee> list = null;
+	String debugMsg = "load CondoFee list whose ID is in the list";
+	String hql = "from CondoFee where cfId in (:ids)";
+	try {
+	    list = (List<CondoFee>) loadList(hql,ids,debugMsg);
+	} catch (RuntimeException e){
+	    throw e;
+	}
+	
+	return list;
+    }
+    
+    
+    /**
+     * @see org.pmp.dao.business.ICondoFeeDAO#loadCondoFeeList_ByOwner(java.lang.Integer, java.util.Map, java.lang.String, org.pmp.util.Pager)
+     */
+    @Override
+    public List<CondoFee> loadCondoFeeList_ByOwner(Integer ownerId,
+	    Map<String, Object> params, String order, Pager pager) {
+	List<CondoFee> list = null;
+	String debugMsg = "load CondoFee list by owner, ownerId="+ownerId;
+	StringBuilder hql = new StringBuilder();
+	hql.append("from CondoFee where owner.ownerId ="+ownerId);
+	hql.append(ParamsToString.toString(params));
+	if (order==null){
+	    hql.append(" order by cfId desc");
+	} else {
+	    hql.append(" "+order);
+	}
+	logger.debug(hql);
+	try {
+	    list = (List<CondoFee>) loadListByCondition(hql.toString(),pager,debugMsg);
+	} catch (RuntimeException e){
+	    throw e;
+	}
+	
+	return list;
+    }
+
+    /**
+     * @see org.pmp.dao.business.ICondoFeeDAO#loadCondoFeeList_ByCFI(java.lang.Integer, java.util.Map, java.lang.String, org.pmp.util.Pager)
+     */
+    @Override
+    public List<CondoFee> loadCondoFeeList_ByCFI(Integer cfiId,
+	    Map<String, Object> params, String order, Pager pager) {
+	List<CondoFee> list = null;
+	String debugMsg = "load CondoFee list by condoFeeItem, cfiId="+cfiId;
+	StringBuilder hql = new StringBuilder();
+	hql.append("from CondoFee where condoFeeItem.cfiId ="+cfiId);
+	hql.append(ParamsToString.toString(params));
+	if (order==null){
+	    hql.append(" order by cfId desc");
+	} else {
+	    hql.append(" "+order);
+	}
+	logger.debug(hql);
+	try {
+	    list = (List<CondoFee>) loadListByCondition(hql.toString(),pager,debugMsg);
+	} catch (RuntimeException e){
+	    throw e;
+	}
+	
+	return list;
+    }
+
+    /**
+     * @see org.pmp.dao.business.ICondoFeeDAO#loadCondoFeeList_ByYear(java.lang.Integer, java.util.Map, java.lang.String, org.pmp.util.Pager)
+     */
+    @Override
+    public List<CondoFee> loadCondoFeeList_ByYear(Integer year,
+	    Map<String, Object> params, String order, Pager pager) {
+	List<CondoFee> list = null;
+	String debugMsg = "load CondoFee list by year, year="+year;
+	StringBuilder hql = new StringBuilder();
+	hql.append("from CondoFee where cfYear="+year);
+	hql.append(ParamsToString.toString(params));
+	if (order==null){
+	    hql.append(" order by cfId desc");
+	} else {
+	    hql.append(" "+order);
+	}
+	logger.debug(hql);
+	try {
+	    list = (List<CondoFee>) loadListByCondition(hql.toString(),pager,debugMsg);
+	} catch (RuntimeException e){
+	    throw e;
+	}
+	
+	return list;
+    }
+
+    /**
+     * @see org.pmp.dao.business.ICondoFeeDAO#loadCondoFeeList_ByMonth(java.lang.Integer, java.lang.Integer, java.util.Map, java.lang.String, org.pmp.util.Pager)
+     */
+    @Override
+    public List<CondoFee> loadCondoFeeList_ByMonth(Integer year, Integer month,
+	    Map<String, Object> params, String order, Pager pager) {
+	List<CondoFee> list = null;
+	String debugMsg = "load CondoFee list by year and month, year="+year+" month="+month;
+	StringBuilder hql = new StringBuilder();
+	hql.append("from CondoFee where cfYear="+year+" and cfMonth="+month);
+	hql.append(ParamsToString.toString(params));
+	if (order==null){
+	    hql.append(" order by cfId desc");
+	} else {
+	    hql.append(" "+order);
+	}
+	logger.debug(hql);
+	try {
+	    list = (List<CondoFee>) loadListByCondition(hql.toString(),pager,debugMsg);
+	} catch (RuntimeException e){
+	    throw e;
+	}
+	
+	return list;
+    }
+
+    
 }

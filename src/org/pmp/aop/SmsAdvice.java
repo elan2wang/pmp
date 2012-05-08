@@ -50,9 +50,7 @@ public class SmsAdvice {
         /* set the message to send */
         StringBuffer msg = new StringBuffer();
         msg.append("尊敬的业主:"+owner.getOwnerName()+",您好！");
-        msg.append("感谢您缴纳"+fee.getStartDate().toString().substring(0, 10)+"至");
-        msg.append(fee.getEndDate().toString().substring(0, 10)+"的物业费，总计：");
-        msg.append(fee.getFetchMoney()+"元");
+        msg.append("感谢您缴纳物业费");
         String message = msg.toString();
 	/* retrieve SessionHandler to get SMS_Company instance */
         SMSCompany smsc = SessionHandler.getSMSCompany();

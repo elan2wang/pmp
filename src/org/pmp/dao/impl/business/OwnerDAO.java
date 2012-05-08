@@ -360,7 +360,7 @@ public class OwnerDAO extends BaseDAO implements IOwnerDAO {
 				stmt.setString(17, owner.getCarNum());
 				stmt.setString(18, owner.getCarType());
 				stmt.setString(19, owner.getStoreroom());
-				stmt.setInt(20, owner.getHouseArea());
+				stmt.setDouble(20, owner.getHouseArea());
 				stmt.setString(21, owner.getUseStyle());
 				stmt.setString(22, owner.getOtherAddress());
 				stmt.setString(23, owner.getOtherPostcode());

@@ -7,10 +7,21 @@
  */
 package org.pmp.action.admin;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
+import org.pmp.excel.ProjectImport;
+import org.pmp.excel.ResourceImport;
 import org.pmp.service.admin.IResourceService;
+import org.pmp.util.MyfileUtil;
 import org.pmp.vo.TbResource;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -28,14 +39,34 @@ public class ResourceAction extends ActionSupport {
     private TbResource resource;
     private String enabled = "true";
     private String issys = "false";
-    private List resList;
+    private List<?> resList;
     private Integer resId;
+    
+    private File resFile;
+    private String resFileFileName;
+    private String resFileContentType;
+    
     //~ Constructor ====================================================================================================
-
-
-	
-
-	//~ Methods ========================================================================================================
+    
+    //~ Methods ========================================================================================================
+    public String importRes(){
+	if(!MyfileUtil.validate(resFileFileName,"xls")){
+	    String postfix = MyfileUtil.getPostfix(resFileFileName);
+	    String message = postfix+"类型的文件暂不支持，请选择xls类型文件";
+	    HttpServletRequest request = ServletActionContext.getRequest();
+	    request.setAttribute("message", message);
+	    return "filetype_error";
+	}
+	try{
+	    InputStream is = new FileInputStream(resFile);
+	    List<TbResource> list = ResourceImport.getResourceList(is);
+	    resourceService.batchAdd(list);
+	} catch (FileNotFoundException e) {
+		e.printStackTrace();
+	}
+	return SUCCESS;
+    }
+    
     public String addResource(){
 	if (enabled.equals("true"))
 	    resource.setEnabled(true);
@@ -103,11 +134,11 @@ public class ResourceAction extends ActionSupport {
         this.issys = issys;
     }
 
-    public List getResList() {
+    public List<?> getResList() {
 		return resList;
 	}
 
-	public void setResList(List resList) {
+	public void setResList(List<?> resList) {
 		this.resList = resList;
 	}
 	
@@ -118,4 +149,29 @@ public class ResourceAction extends ActionSupport {
 	public void setResId(Integer resId) {
 		this.resId = resId;
 	}
+
+	public File getResFile() {
+	    return resFile;
+	}
+
+	public void setResFile(File resFile) {
+	    this.resFile = resFile;
+	}
+
+	public String getResFileFileName() {
+	    return resFileFileName;
+	}
+
+	public void setResFileFileName(String resFileFileName) {
+	    this.resFileFileName = resFileFileName;
+	}
+
+	public String getResFileContentType() {
+	    return resFileContentType;
+	}
+
+	public void setResFileContentType(String resFileContentType) {
+	    this.resFileContentType = resFileContentType;
+	}
+
 }

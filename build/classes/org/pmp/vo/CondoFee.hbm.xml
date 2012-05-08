@@ -17,23 +17,23 @@
         <many-to-one name="owner" class="org.pmp.vo.Owner" fetch="select" lazy="false">
             <column name="Owner_ID" />
         </many-to-one>
-        <property name="startDate" type="timestamp">
-            <column name="Start_Date" length="23" />
+        <property name="cfYear" type="integer">
+            <column name="CF_Year" />
         </property>
-        <property name="endDate" type="timestamp">
-            <column name="End_Date" length="23" />
+        <property name="cfMonth" type="integer">
+            <column name="CF_Month" />
         </property>
         <property name="fetchDate" type="timestamp">
             <column name="Fetch_Date" length="23" />
         </property>
-        <property name="condoFeeRate" type="integer">
-            <column name="CondoFee_Rate" />
+        <property name="condoFeeRate" type="double">
+            <column name="CondoFee_Rate" precision="53" scale="0"/>
         </property>
-        <property name="oughtMoney" type="integer">
-            <column name="Ought_Money" />
+        <property name="oughtMoney" type="double">
+            <column name="Ought_Money" precision="53" scale="0"/>
         </property>
-        <property name="fetchMoney" type="integer">
-            <column name="Fetch_Money" />
+        <property name="fetchMoney" type="double">
+            <column name="Fetch_Money" precision="53" scale="0" />
         </property>
         <property name="fetchTicket" type="string">
             <column name="Fetch_Ticket" length="50" />

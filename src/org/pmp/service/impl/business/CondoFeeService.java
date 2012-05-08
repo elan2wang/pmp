@@ -8,6 +8,7 @@
 package org.pmp.service.impl.business;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.pmp.dao.business.ICondoFeeDAO;
@@ -54,6 +55,12 @@ public class CondoFeeService implements ICondoFeeService {
     
     public List<?> loadNonePayedCondoFeeList(Integer cfiId,Pager pager){
 	return condoFeeDAO.loadNonePayedCondoFeeList(cfiId, pager);
+    }
+    
+    @Override
+    public List<CondoFee> loadCondoFeeList_ByOwner(Integer ownerId,Map<String,Object>params,String order,Pager pager)
+    {
+	return condoFeeDAO.loadCondoFeeList_ByOwner(ownerId, params, order, pager);
     }
     
     //~ Getters and Setters ============================================================================================

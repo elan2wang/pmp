@@ -69,11 +69,11 @@ public class JsonConvert {
     }
 
     static String boolean2Json(Boolean bool) {
-        return string2Json(bool.toString());
+        return bool.toString();
     }
     
     static String number2Json(Number number) {
-        return string2Json(number.toString());
+        return number.toString();
     }
     
     static String date2Json(Date date) {
@@ -101,8 +101,11 @@ public class JsonConvert {
             return string2Json(((org.pmp.vo.Company)o).getComName());
         if (o instanceof org.pmp.vo.House)
             return string2Json(((org.pmp.vo.House)o).getHouseNum());
-        if (o instanceof org.pmp.vo.CondoFeeItem)
-            return string2Json(((org.pmp.vo.CondoFeeItem)o).getItemName());
+        if (o instanceof org.pmp.vo.CondoFeeItem){
+            org.pmp.vo.CondoFeeItem obj = (org.pmp.vo.CondoFeeItem)o;
+            return string2Json(obj.getItemYear()+"年"+obj.getItemMonth()+"月"+obj.getProject().getProName()+"物业费项目");
+        }
+            
 	if (o instanceof org.pmp.vo.FixedParkFeeItem)
 	    return string2Json(((org.pmp.vo.FixedParkFeeItem)o).getItemName());
 	
@@ -283,6 +286,36 @@ public class JsonConvert {
 	sb.append("}\n");
 	return sb.toString();
     }
+
+    public static String toJsonTreeNode(Integer id, Integer pid, String name, String url, String title, 
+	    String target, String icon, String iconOpen, Boolean open ){
+	StringBuffer sb = new StringBuffer();
+	sb.append("{");
+	sb.append(toJson("id")+":"+toJson(id)+",");
+	sb.append(toJson("pid")+":"+toJson(pid)+",");
+	sb.append(toJson("name")+":"+toJson(name)+",");
+	sb.append(toJson("url")+":"+toJson(url)+",");
+	sb.append(toJson("title")+":"+toJson(title)+",");
+	sb.append(toJson("target")+":"+toJson(target)+",");
+	sb.append(toJson("icon")+":"+toJson(icon)+",");
+	sb.append(toJson("iconOpen")+":"+toJson(iconOpen)+",");
+	sb.append(toJson("open")+":"+toJson(open)+",");
+	sb.append("}");
+	
+	return sb.toString();
+    }
+    
+    public static String toJsonTree(List<String> nodes){
+	StringBuffer sb = new StringBuffer();
+	sb.append("{\n  "+toJson("Nodes")+":[\n");
+	for (int i=0;i<nodes.size();i++){
+	    sb.append("    "+nodes.get(i)+",\n");
+	}
+	sb.deleteCharAt(sb.length()-2);
+	sb.append("  ]\n}");
+	return sb.toString().replaceAll(",}", "}");
+    }
+    
     public static void output(String data){
 	try {    
             HttpServletResponse response = ServletActionContext.getResponse();  

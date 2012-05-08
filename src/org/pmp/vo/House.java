@@ -11,9 +11,9 @@ public class House implements java.io.Serializable {
     private Integer houseId;
     private Building building;
     private String houseNum;
-    private Integer houseArea;
+    private Double houseArea;
     private String houseDesc;
-    private Integer condoFeeRate;
+    private Double condoFeeRate;
     private Integer cycleMonth;
     private boolean isempty;
 
@@ -25,7 +25,7 @@ public class House implements java.io.Serializable {
     }
 
     public House(Integer houseId, Building building, String houseNum,
-	    Integer houseArea, String houseDesc, Integer condoFeeRate,
+	    Double houseArea, String houseDesc, Double condoFeeRate,
 	    Integer cycleMonth, boolean isempty) {
 	this.houseId = houseId;
 	this.building = building;
@@ -61,11 +61,11 @@ public class House implements java.io.Serializable {
 	this.houseNum = houseNum;
     }
 
-    public Integer getHouseArea() {
+    public Double getHouseArea() {
 	return this.houseArea;
     }
 
-    public void setHouseArea(Integer houseArea) {
+    public void setHouseArea(Double houseArea) {
 	this.houseArea = houseArea;
     }
 
@@ -77,11 +77,11 @@ public class House implements java.io.Serializable {
 	this.houseDesc = houseDesc;
     }
 
-    public Integer getCondoFeeRate() {
+    public Double getCondoFeeRate() {
 	return this.condoFeeRate;
     }
 
-    public void setCondoFeeRate(Integer condoFeeRate) {
+    public void setCondoFeeRate(Double condoFeeRate) {
 	this.condoFeeRate = condoFeeRate;
     }
 

@@ -13,12 +13,12 @@ public class CondoFee implements java.io.Serializable {
     private CondoFeeItem condoFeeItem;
     private House house;
     private Owner owner;
-    private Date startDate;
-    private Date endDate;
+    private Integer cfYear;
+    private Integer cfMonth;
     private Date fetchDate;
-    private Integer condoFeeRate;
-    private Integer oughtMoney;
-    private Integer fetchMoney;
+    private Double condoFeeRate;
+    private Double oughtMoney;
+    private Double fetchMoney;
     private String fetchTicket;
     private String fetchPerson;
     private String recordPerson;
@@ -37,8 +37,8 @@ public class CondoFee implements java.io.Serializable {
     }
 
     public CondoFee(Integer cfId, CondoFeeItem condoFeeItem, House house,
-	    Owner owner, Date startDate, Date endDate, Date fetchDate,
-	    Integer condoFeeRate, Integer oughtMoney, Integer fetchMoney,
+	    Owner owner, Integer cfYear, Integer cfMonth, Date fetchDate,
+	    Double condoFeeRate, Double oughtMoney, Double fetchMoney,
 	    String fetchTicket, String fetchPerson, String recordPerson,
 	    String auditPerson, String state, Date generateTime,
 	    Date inputTime, Date auditTime, Boolean issend) {
@@ -46,8 +46,8 @@ public class CondoFee implements java.io.Serializable {
 	this.condoFeeItem = condoFeeItem;
 	this.house = house;
 	this.owner = owner;
-	this.startDate = startDate;
-	this.endDate = endDate;
+	this.cfYear = cfYear;
+	this.cfMonth = cfMonth;
 	this.fetchDate = fetchDate;
 	this.condoFeeRate = condoFeeRate;
 	this.oughtMoney = oughtMoney;
@@ -95,52 +95,12 @@ public class CondoFee implements java.io.Serializable {
 	this.owner = owner;
     }
 
-    public Date getStartDate() {
-	return this.startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-	this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-	return this.endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-	this.endDate = endDate;
-    }
-
     public Date getFetchDate() {
 	return this.fetchDate;
     }
 
     public void setFetchDate(Date fetchDate) {
 	this.fetchDate = fetchDate;
-    }
-
-    public Integer getCondoFeeRate() {
-	return this.condoFeeRate;
-    }
-
-    public void setCondoFeeRate(Integer condoFeeRate) {
-	this.condoFeeRate = condoFeeRate;
-    }
-
-    public Integer getOughtMoney() {
-	return this.oughtMoney;
-    }
-
-    public void setOughtMoney(Integer oughtMoney) {
-	this.oughtMoney = oughtMoney;
-    }
-
-    public Integer getFetchMoney() {
-	return this.fetchMoney;
-    }
-
-    public void setFetchMoney(Integer fetchMoney) {
-	this.fetchMoney = fetchMoney;
     }
 
     public String getFetchTicket() {
@@ -157,6 +117,46 @@ public class CondoFee implements java.io.Serializable {
 
     public void setFetchPerson(String fetchPerson) {
 	this.fetchPerson = fetchPerson;
+    }
+
+    public Integer getCfYear() {
+        return cfYear;
+    }
+
+    public void setCfYear(Integer cfYear) {
+        this.cfYear = cfYear;
+    }
+
+    public Integer getCfMonth() {
+        return cfMonth;
+    }
+
+    public void setCfMonth(Integer cfMonth) {
+        this.cfMonth = cfMonth;
+    }
+
+    public Double getCondoFeeRate() {
+        return condoFeeRate;
+    }
+
+    public void setCondoFeeRate(Double condoFeeRate) {
+        this.condoFeeRate = condoFeeRate;
+    }
+
+    public Double getOughtMoney() {
+        return oughtMoney;
+    }
+
+    public void setOughtMoney(Double oughtMoney) {
+        this.oughtMoney = oughtMoney;
+    }
+
+    public Double getFetchMoney() {
+        return fetchMoney;
+    }
+
+    public void setFetchMoney(Double fetchMoney) {
+        this.fetchMoney = fetchMoney;
     }
 
     public String getRecordPerson() {

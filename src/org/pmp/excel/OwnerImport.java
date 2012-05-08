@@ -139,7 +139,7 @@ public class OwnerImport {
              owner.setCarNum((String)list.get(19));
              owner.setCarType((String)list.get(20));
              owner.setStoreroom((String)list.get(21));
-             owner.setHouseArea(Integer.parseInt((String)list.get(22)));
+             owner.setHouseArea(Double.parseDouble((String)list.get(22)));
              owner.setUseStyle((String)list.get(23));
              owner.setOtherAddress((String)list.get(24));
              owner.setOtherPostcode((String)list.get(25));
@@ -148,7 +148,7 @@ public class OwnerImport {
              owner.setHouseNum((String)list.get(2));
              String ownerDes = (String)list.get(0)+","+(String)list.get(1)+","+(String)list.get(2);
              owner.setOwnerDesc(ownerDes);
-             house.setHouseArea(Integer.parseInt((String)list.get(22)));
+             house.setHouseArea(Double.parseDouble((String)list.get(22)));
              house.setIsempty(false);
              map.put(ownerDes, house);
              ownerList.add(owner);

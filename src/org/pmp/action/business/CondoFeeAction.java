@@ -21,8 +21,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.pmp.excel.ExportUtil;
+import org.pmp.jms.JmsPublisher;
 import org.pmp.service.business.ICondoFeeItemService;
 import org.pmp.service.business.ICondoFeeService;
+import org.pmp.util.JsonConvert;
 import org.pmp.util.Pager;
 import org.pmp.vo.CondoFee;
 import org.pmp.vo.CondoFeeItem;
@@ -35,7 +37,7 @@ import com.opensymphony.xwork2.ActionSupport;
  * @update TODO
  */
 public class CondoFeeAction extends ActionSupport {
-    private static final long serialVersionUID = 1666719075964517155L;
+
     //~ Static Fields ==================================================================================================
     static Logger logger = Logger.getLogger(CondoFeeAction.class.getName());
     //~ Instance Fields ================================================================================================
@@ -48,8 +50,11 @@ public class CondoFeeAction extends ActionSupport {
     private Integer cfId;
     private String type = "all";
     
+    private Integer ownerId;
+    private String state;
+    
     /* the element order of this array should be in line with the CondoFee */
-    private String[] attrStr = {"物业费项目名称","房号","业主姓名","开始日期","结束日期",
+    private final String[] attrStr = {"物业费项目名称","房号","业主姓名","开始日期","结束日期",
 	    "收费日期","收费标准","应收金额","实收金额","收费票据","收费人员","录入人员",
             "审核人员","状态","生成时间","录入时间","审核时间","短信已发"};
     
@@ -58,6 +63,18 @@ public class CondoFeeAction extends ActionSupport {
     //~ Constructor ====================================================================================================
 
     //~ Methods ========================================================================================================
+    public void loadCondoFeeList_ByOwner(){
+	Map<String,Object> params = new HashMap<String,Object>();
+	params.put("state", state);
+	String order = null;
+	Pager pager = new Pager(1000,1);
+	List<?> list= condoFeeService.loadCondoFeeList_ByOwner(ownerId, params, order, pager);
+        String data = JsonConvert.list2Json(list, "org.pmp.vo.CondoFee");   
+        logger.debug(data);
+        String ids = "1";
+        JmsPublisher.sendMessgae(ids);
+    }
+    
     public String loadCondoFeeInstance(){
 	CondoFee condoFee = condoFeeService.getCondoFeeByID(cfId);
 	
@@ -277,4 +294,21 @@ public class CondoFeeAction extends ActionSupport {
     public void setShowAttrs(String[] showAttrs) {
         this.showAttrs = showAttrs;
     }
+
+    public Integer getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Integer ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
 }

@@ -20,6 +20,7 @@ public interface IResourceService {
     public void addResource(TbResource instance);
     public void editResource(TbResource instance);
     public void deleteResource(Integer resID);
+    public void batchAdd(List<TbResource> list);
     
     /**
      * @Title: getResourceByID

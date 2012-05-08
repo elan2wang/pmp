@@ -22,6 +22,11 @@
 		<result name="success">/admin/res_list.jsp</result>
 	</action>
 	
+	<action name="import_res" class="org.pmp.action.admin.ResourceAction" method="importRes">
+	  <result name="success" type="chain">loadResList</result>
+	  <result name="filetype_error">/admin/res_import.jsp</result>
+	</action>
+	
     <action name="addRes" class="org.pmp.action.admin.ResourceAction" method="addResource">
 	  <result name="success" type="chain">loadResList</result>
 	</action>
@@ -298,6 +303,11 @@
     </action>
     
     <!-- CondoFee Related actions -->
+    
+    <action name="loadCondoFeeList_ByOwner" class="org.pmp.action.business.CondoFeeAction" method="loadCondoFeeList_ByOwner">
+    </action>
+    
+    
     <action name="loadCondoFeeList" class="org.pmp.action.business.CondoFeeAction" method="loadCondoFeeList">
       <result name="success">/fee/cf_list.jsp</result>
     </action>
@@ -339,5 +349,7 @@
     <action name="loadTimeParkFeeByProject" class="org.pmp.action.business.TimeParkFeeAction" method="loadTimeParkFeeByProject">
     </action>
     
+    <action name="houseTree" class="org.pmp.action.business.TreeAction" method="houseTree">
+    </action>
   </package>
 </struts>

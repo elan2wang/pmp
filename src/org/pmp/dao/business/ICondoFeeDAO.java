@@ -8,6 +8,7 @@
 package org.pmp.dao.business;
 
 import java.util.List;
+import java.util.Map;
 
 import org.pmp.util.Pager;
 import org.pmp.vo.CondoFee;
@@ -58,5 +59,85 @@ public interface ICondoFeeDAO {
     public List<?> loadPayedCondoFeeList(Integer cfiId,Pager pager);
     
     public List<?> loadNonePayedCondoFeeList(Integer cfiId,Pager pager);
+   
+    
+    /**
+     * @Title: loadCondoFeeList_ByIds
+     * @Description: 获取指定编号的物业费记录列表
+     *
+     * @param  ids  List<Integer> 物业费编号列表
+     * @return List<CondoFee>  返回物业费记录实体列表
+     * @throws RuntimeException
+     */
+    public List<CondoFee> loadCondoFeeList_ByIds(List<Integer> ids);
+    
+    
+    /**
+     * @Title: loadCondoFeeList_ByOwner
+     * @Description: 根据业主编号获取物业费缴费记录
+     *
+     * @param  ownerId  Integer  该参数用户设置检索的主条件
+     * @param  params  Map<String,Object>  该参数用户设置检索的条件，
+     *         key  String类型,表示CondoFee的属性名称,
+     *         value  Object类型,表示CondoFee的属性值
+     * @param  order  String  表示排序方式,当order==null时,采用默认的主键降序,order示例："order by cfYear desc"
+     * @param  pager  Pager类型,表示分页信息
+     * 
+     * @return List<CondoFee>  返回CondoFee的实体对象列表
+     * @throws RuntimeException
+     */
+    public List<CondoFee> loadCondoFeeList_ByOwner(Integer ownerId,Map<String,Object>params,String order,Pager pager);
+    
+    
+    /**
+     * @Title: loadCondoFeeList_ByCFI
+     * @Description: 根据物业费创建时的项目编号获取物业费缴费记录
+     *
+     * @param  cfiId  Integer  物业费项目编号,该参数用户设置检索的主条件
+     * @param  params  Map<String,Object>  该参数用户设置检索的条件，
+     *         key  String类型,表示CondoFee的属性名称,
+     *         value  Object类型,表示CondoFee的属性值
+     * @param  order  String  表示排序方式,当order==null时,采用默认的主键降序,order示例："order by cfYear desc"
+     * @param  pager  Pager类型,表示分页信息
+     * 
+     * @return List<CondoFee>  返回CondoFee的实体列表
+     * @throws RuntimeException
+     */
+    public List<CondoFee> loadCondoFeeList_ByCFI(Integer cfiId,Map<String,Object>params,String order,Pager pager);
+    
+    
+    /**
+     * @Title: loadCondoFeeList_ByYear
+     * @Description: 根据缴费年份来获取物业费缴费记录
+     *
+     * @param  year  Integer类型,表示物业费缴费年份,该参数用户设置检索的主条件
+     * @param  params  Map<String,Object>  该参数用户设置检索的条件，
+     *         key  String类型,表示CondoFee的属性名称,
+     *         value  Object类型,表示CondoFee的属性值
+     * @param  order  String  表示排序方式,当order==null时,采用默认的主键降序,order示例："order by cfYear desc"
+     * @param  pager  Pager类型,表示分页信息
+     * 
+     * @return List<CondoFee>  返回CondoFee的实体列表
+     * @throws RuntimeException
+     */
+    public List<CondoFee> loadCondoFeeList_ByYear(Integer year,Map<String,Object>params,String order,Pager pager);
+    
+    
+    /**
+     * @Title: loadCondoFeeList_ByMonth
+     * @Description: 根据物业费缴费的年份和月份获取物业费缴费记录
+     *
+     * @param  year  Integer类型,表示物业费缴费年份,该参数用户设置检索的主条件
+     * @param  month  Integer类型,表示物业费缴费月份,该参数用户设置检索的主条件
+     * @param  params  Map<String,Object>  该参数用户设置检索的条件，
+     *         key  String类型,表示CondoFee的属性名称,
+     *         value  Object类型,表示CondoFee的属性值
+     * @param  order  String  表示排序方式,当order==null时,采用默认的主键降序,order示例："order by cfYear desc"
+     * @param  pager  Pager类型,表示分页信息
+     * 
+     * @return List<CondoFee>  返回CondoFee的实体列表
+     * @throws RuntimeException
+     */
+    public List<CondoFee> loadCondoFeeList_ByMonth(Integer year,Integer month,Map<String,Object>params,String order,Pager pager);
     
 }

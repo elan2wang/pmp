@@ -65,8 +65,8 @@
         <property name="storeroom" type="string">
             <column name="Storeroom" length="50" />
         </property>
-        <property name="houseArea" type="integer">
-            <column name="House_Area" />
+        <property name="houseArea" type="double">
+            <column name="House_Area" precision="53" scale="0"/>
         </property>
         <property name="useStyle" type="string">
             <column name="Use_Style" length="20" />
