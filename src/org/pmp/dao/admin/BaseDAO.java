@@ -7,6 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.jdbc.Work;
 import org.pmp.util.Pager;
 
 public class BaseDAO {
@@ -25,6 +26,31 @@ public class BaseDAO {
     public Session getSession(){
         Session session = sessionFactory.openSession();
         return session;
+    }
+    
+    /**
+     * @Title: executeProcedure
+     * @Description: execute procedure with parameter work and return void
+     *
+     * @param  work org.hibernate.jdbc.Work;
+     * @return void
+     * @throws RuntimeException
+     */
+    public void executeProcedure(Work work){
+	Session session = getSession();
+	Transaction tx = null;
+	try {
+            tx = session.beginTransaction();
+            session.doWork(work);
+	} catch (RuntimeException e){
+	    tx.rollback();
+	    session.close();
+	    logger.debug(e.getMessage());
+	    throw e;
+	} finally {
+	    tx.commit();
+	    session.close();
+	}
     }
     
     /**

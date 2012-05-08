@@ -27,4 +27,11 @@ public interface IOwnerService {
     public List loadOwnerList(Pager pager);
     public List loadOwnerByCondition(Integer projectId,Integer buildingId,String keyWord,Pager pager);
     public List batchSaveOwner(List<Owner> ownerList);
+    
+    /**
+     * @author Elan
+     */
+    public List<?> loadOwnerList_ByProject(Integer proId,Pager pager);
+    
+    public List<?> loadOwnerList_ByBuilding(Integer builId,Pager pager);
 }

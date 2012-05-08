@@ -8,6 +8,7 @@
 package org.pmp.dao.impl.business;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
@@ -16,6 +17,7 @@ import org.hibernate.Transaction;
 import org.pmp.dao.admin.BaseDAO;
 import org.pmp.dao.business.IHouseDAO;
 import org.pmp.util.Pager;
+import org.pmp.util.ParamsToString;
 import org.pmp.vo.Building;
 import org.pmp.vo.House;
 import org.pmp.vo.Owner;
@@ -27,6 +29,9 @@ import org.pmp.vo.Owner;
  */
 public class HouseDAO extends BaseDAO implements IHouseDAO {
 	Logger logger = Logger.getLogger(HouseDAO.class.getName());
+
+	
+    
 	/**
 	 * @Title: saveHouse
 	 * @Description: TODO
@@ -388,4 +393,6 @@ public class HouseDAO extends BaseDAO implements IHouseDAO {
 		}
 		return house;
 	}
+
+	
 }
