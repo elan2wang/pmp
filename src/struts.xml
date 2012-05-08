@@ -275,10 +275,15 @@
 	<action name="delete_owner" class="org.pmp.action.business.OwnerAction" method="deleteOwnerById"></action>
 	<action name="get_owner" class="org.pmp.action.business.OwnerAction" method="getOwnerById">
 		<result name="success">/cms/owner_edit.jsp</result>
-	</action>
+	</action>	
 	<action name="updateOwner" class="org.pmp.action.business.OwnerAction" method="updateOwner">
 		<result name="success">/cms/owner_list.jsp</result>
 	</action>
+	
+	<action name="getProjectAndBuildingAndHouseByOwnerID" class="org.pmp.action.business.OwnerAction" method="getProjectAndBuildingAndHouseByOwnerID">
+		<result name="success">/cms/owner_edit.jsp</result>
+	</action>
+	
 	<action name="fileUpload" class="org.pmp.action.business.ProjectAction" method="uploadFile">
 		<result name="success">/cms/project_list.jsp</result>
 	</action>

@@ -1,5 +1,5 @@
 // JavaScript Document
-
+<!--
 	function FormCheck(){
 		objfc1=document.getElementById("project.proName");
 		objfc2=document.getElementById("project.proAddress");
@@ -22,3 +22,4 @@
 		document.getElementById("form").submit();
 		window.parent.closeEditProject();
 	}
+-->

@@ -3,6 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<script type="text/javascript" src="../Scripts/pages/cms/project_add.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>无标题文档</title>
 </head>
@@ -32,9 +33,9 @@
                        </div>
                        <div class="rowStyle">
                           <div><span >所属地区：</span>
-                               <span><select id="project.proDistrict" name="project.proDistrict">
+                               <span><select id="proDistrict" name="project.proDistrict" onchange="getStreets()">
                                               <option selected="selected">选择地区</option>
-                                              <option>定海区</option>
+                                              <option>定海区</option>                                            
                                               <option>普陀区</option>
                                               <option>岱山区</option>
                                               <option>嵊泗区</option>

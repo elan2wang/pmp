@@ -51,6 +51,10 @@ function openAddNewProject(){
 function closeAddNewProject(){
 			$('#newPro').window('close');
 		}
+
+
+
+
 function openEditProject(id){
 	$('#editPro').window({href:'get_project?projectId='+id});
 	$('#editPro').window('open');

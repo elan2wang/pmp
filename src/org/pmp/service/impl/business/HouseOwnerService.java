@@ -14,6 +14,7 @@ import org.pmp.dao.impl.business.HouseOwnerDAO;
 import org.pmp.service.business.IHouseOwnerService;
 import org.pmp.vo.House;
 import org.pmp.vo.HouseOwner;
+import org.pmp.vo.Owner;
 
 /**
  * @author Jason
@@ -63,7 +64,21 @@ public class HouseOwnerService implements IHouseOwnerService {
 	public HouseOwner getOwnerByHouse(House house) {
 		return houseOwnerDao.getOwnerByHouse(house);
 	}
-
+	
+	/**
+	 * @Title: getHouseByOwner
+	 * @Description: TODO
+	 *
+	 * @param  TODO
+	 * @return TODO
+	 * @throws TODO
+	 */
+	@Override
+	public HouseOwner getHouseByOwner(Owner owner)
+	{
+		return houseOwnerDao.getHouseByOwner(owner);
+	}
+	
 	/**
 	 * @Title: deleteHouseOwner
 	 * @Description: TODO

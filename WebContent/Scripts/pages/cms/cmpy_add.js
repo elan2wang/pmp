@@ -1,5 +1,5 @@
 // JavaScript Document
-
+<!--
     //公共函数
     function removeChildren(parent) {
         while (parent.firstChild) {
@@ -130,3 +130,4 @@ function newFormCheck(){
 		document.getElementById("form").submit();
 		window.parent.closeAddNewCmpy();
 }
+-->

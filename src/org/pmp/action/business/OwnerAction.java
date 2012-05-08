@@ -24,17 +24,21 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.pmp.excel.OwnerImport;
+import org.pmp.service.business.IBuildingService;
 import org.pmp.service.business.IHouseOwnerService;
 import org.pmp.service.business.IHouseService;
 import org.pmp.service.business.IMemberService;
 import org.pmp.service.business.IOwnerService;
+import org.pmp.service.business.IProjectService;
 import org.pmp.util.JsonConvert;
 import org.pmp.util.MyfileUtil;
 import org.pmp.util.Pager;
+import org.pmp.vo.Building;
 import org.pmp.vo.House;
 import org.pmp.vo.HouseOwner;
 import org.pmp.vo.Member;
 import org.pmp.vo.Owner;
+import org.pmp.vo.Project;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -60,6 +64,9 @@ public class OwnerAction extends ActionSupport {
 
 	private String projectName;
 	private String buildingName;
+	
+
+	private Integer buildingNum;
 	private Integer currentPage;
 	private Integer pageSize;
 	private Integer ownerId;
@@ -144,11 +151,27 @@ public class OwnerAction extends ActionSupport {
 	
 	public String getOwnerById(){
 		owner = ownerService.getOwnerById(ownerId);
+		getProjectAndBuildingAndHouseByOwnerID();
 		Owner owner = new Owner();
 		owner.setOwnerId(ownerId);
 		List memberList = memberService.getMemberByOwner(owner);
 		HttpServletRequest request = ServletActionContext.getRequest();
 		request.setAttribute("memberList", memberList);
+		return SUCCESS;
+	}
+	public String getProjectAndBuildingAndHouseByOwnerID()
+	{
+		HouseOwner ho = houseOwnerService.getHouseByOwner(owner);
+		House hou = ho.getHouse();
+		Building bui = hou.getBuilding();
+		Project pro = bui.getProject();		
+		HttpServletRequest request = ServletActionContext.getRequest();
+		request.setAttribute("hou", hou);
+		request.setAttribute("bui", bui);
+		request.setAttribute("pro", pro);
+		System.out.println(hou.getHouseNum());
+		System.out.println(bui.getBuilNum());
+		System.out.println(pro.getProName());
 		return SUCCESS;
 	}
 	
@@ -222,6 +245,8 @@ public class OwnerAction extends ActionSupport {
 	public void setOwnerService(IOwnerService ownerService) {
 		this.ownerService = ownerService;
 	}
+	
+	
 	/**
 	 * @return the houseOwnerService
 	 */
@@ -467,6 +492,20 @@ public class OwnerAction extends ActionSupport {
 	 */
 	public void setOldHouse(String oldHouse) {
 		this.oldHouse = oldHouse;
+	}
+	
+	/**
+	 * @return the buildingNum
+	 */
+	public Integer getBuildingNum() {
+		return buildingNum;
+	}
+
+	/**
+	 * @param buildingNum the buildingNum to set
+	 */
+	public void setBuildingNum(Integer buildingNum) {
+		this.buildingNum = buildingNum;
 	}
 	
 	/**

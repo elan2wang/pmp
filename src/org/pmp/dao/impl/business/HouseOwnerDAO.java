@@ -103,7 +103,33 @@ public class HouseOwnerDAO extends BaseDAO implements IHouseOwnerDAO {
 		session.close();
 		return houseOwner;
 	}
-
+	
+	/**
+	 * @Title: getHouseByOwner
+	 * @Description: TODO
+	 *
+	 * @param  TODO
+	 * @return TODO
+	 * @throws TODO
+	 */
+	@Override
+	public HouseOwner getHouseByOwner(Owner owner)
+	{
+		Session session = getSession();
+		List list = null;
+		HouseOwner houseOwner = null;
+		try{
+			Query query = session.createQuery("from HouseOwner where owner.ownerId="+owner.getOwnerId());
+//			Query query = session.createQuery("from HouseOwner where house.houseId=53");
+			list = query.list();
+			houseOwner = (HouseOwner)list.get(0);
+		}catch(RuntimeException e){
+			session.close();
+			throw e;
+		}
+		session.close();
+		return houseOwner;
+	}
 	/**
 	 * @Title: deleteHouseOwner
 	 * @Description: TODO

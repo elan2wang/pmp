@@ -9,8 +9,10 @@ package org.pmp.service.business;
 
 import java.util.List;
 
+
 import org.pmp.util.Pager;
 import org.pmp.vo.Building;
+import org.pmp.vo.Project;
 
 /**
  * @author Jason
@@ -22,6 +24,7 @@ public interface IBuildingService {
     public void updateBuilding(Building building);
     public void deleteBuilding(Integer builId);
     public Building getBuildingById(Integer buildId);
+	public List getBuildingByProject(Project project);
     public List getAllBuilding();
     public List loadBuildingList(Pager pager);
     public List loadBuildingListByProject(Pager pager,Integer projectId);

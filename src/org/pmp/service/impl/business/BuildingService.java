@@ -14,6 +14,7 @@ import org.pmp.dao.business.IBuildingDAO;
 import org.pmp.service.business.IBuildingService;
 import org.pmp.util.Pager;
 import org.pmp.vo.Building;
+import org.pmp.vo.Project;
 
 /**
  * @author Jason
@@ -78,7 +79,20 @@ public class BuildingService implements IBuildingService {
 	public Building getBuildingById(Integer buildId) {
 		return buildingDao.getBuildingByID(buildId);
 	}
-
+	
+	/**
+	 * @Title: getBuildingByProject
+	 * @Description: TODO
+	 *
+	 * @param  TODO
+	 * @return TODO
+	 * @throws TODO
+	 */
+	@Override
+	public List getBuildingByProject(Project project)
+	{
+		return buildingDao.getBuildingByPro(project);
+	}
 	/**
 	 * @Title: getAllBuilding
 	 * @Description: TODO

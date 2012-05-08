@@ -51,6 +51,15 @@ function openEditHouse(id)
 function closeEditHouse(){
     $('#editHouse').window('close');
 }
+
+function openAddNewHouse(){
+	$('#newHouse').window('open');
+}
+function closeAddNewHouse(){
+	$('#newHouse').window('close');
+}
+
+
 function deleteHouse(obj,id){
 	alert("进入删除方法");
 	alert(id);

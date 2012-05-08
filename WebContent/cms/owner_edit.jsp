@@ -32,10 +32,15 @@
             <td align="center" valign="middle"><table border="0" align="center" cellpadding="0" cellspacing="0" class="table1">
               <tr>
               	<input type="hidden" name="owner.ownerId" id="owner.ownerId" value="${owner.ownerId}"/>
+              	<input type="hidden" name="gender" id="gender" value="${owner.gender}"/>
+              	<input type="hidden" name="nationality" id="nationality" value="${owner.nationality}"/>
+              	<input type="hidden" name="ismarried" id="ismarried" value="${owner.ismarried}"/>
+              	<input type="hidden" name="identityType" id="identityType" value="${owner.identityType}"/>
+              	
                  <td width="70" height="30" align="center" valign="middle">姓名：</td>
                 <td width="220" colspan="2" align="left" valign="middle"><input name="owner.ownerName" type="text" class="textbox" id="owner.ownerName" value="${owner.ownerName}"/></td>
                 <td width="70" align="center" valign="middle">性别：</td>
-                <td width="220" align="left" valign="middle"><select name="owner.gender" class="selectbox" id="owner.gender" >
+                <td width="220" align="left" valign="middle"><select name="owner.gender" class="selectbox" id="select_gender" >
                   <option value="null" selected="selected">－－请选择－－</option>
                   <option value="男">男</option>
                   <option value="女">女</option>
@@ -45,62 +50,62 @@
                 <td height="30" align="center" valign="middle">民族：</td>
                 <td colspan="2" align="left" valign="middle"><select name="owner.nationality" class="selectbox" id="owner.nationality" >
                 <option selected="selected" value="0">－－请选择－－</option>
-                <option value="1">汉族</option>
-                <option value="2">蒙古族</option>
-                <option value="3">彝族</option>
-                <option value="4">侗族</option>
-                <option value="5">哈萨克族</option>
-                <option value="6">畲族</option>
-                <option value="7">纳西族</option>
-                <option value="8">仫佬族</option>
-                <option value="9">仡佬族</option>
-                <option value="10">怒族</option>
-                <option value="11">保安族</option>
-                <option value="12">鄂伦春族</option>
-                <option value="13">回族</option>
-                <option value="14">壮族</option>
-                <option value="15">瑶族</option>
-                <option value="16">傣族</option>
-                <option value="17">高山族</option>
-                <option value="18">景颇族</option>
-                <option value="19">羌族</option>
-                <option value="20">锡伯族</option>
-                <option value="21">乌孜别克族</option>
-                <option value="22">裕固族</option>
-                <option value="23">赫哲族</option>
-                <option value="24">藏族</option>
-                <option value="25">布依族</option>
-                <option value="26">白族</option>
-                <option value="27">黎族</option>
-                <option value="28">拉祜族</option>
-                <option value="29">柯尔克孜族</option>
-                <option value="30">布朗族</option>
-                <option value="31">阿昌族</option>
-                <option value="32">俄罗斯族</option>
-                <option value="33">京族</option>
-                <option value="34">门巴族</option>
-                <option value="35">维吾尔族</option>
-                <option value="36">朝鲜族</option>
-                <option value="37">土家族</option>
-                <option value="38">傈僳族</option>
-                <option value="39">水族</option>
-                <option value="40">土族</option>
-                <option value="41">撒拉族</option>
-                <option value="42">普米族</option>
-                <option value="43">鄂温克族</option>
-                <option value="44">塔塔尔族</option>
-                <option value="45">珞巴族</option>
-                <option value="46">苗族</option>
-                <option value="47">满族</option>
-                <option value="48">哈尼族</option>
-                <option value="49">佤族</option>
-                <option value="50">东乡族</option>
-                <option value="51">达斡尔族</option>
-                <option value="52">毛南族</option>
-                <option value="53">塔吉克族</option>
-                <option value="54">德昂族</option>
-                <option value="55">独龙族</option>
-                <option value="56">基诺族</option>
+                <option value="汉族">汉族</option>
+                <option value="蒙古族">蒙古族</option>
+                <option value="彝族">彝族</option>
+                <option value="侗族">侗族</option>
+                <option value="哈萨克族">哈萨克族</option>
+                <option value="畲族">畲族</option>
+                <option value="纳西族">纳西族</option>
+                <option value="仫佬族">仫佬族</option>
+                <option value="仡佬族">仡佬族</option>
+                <option value="怒族">怒族</option>
+                <option value="保安族">保安族</option>
+                <option value="鄂伦春族">鄂伦春族</option>
+                <option value="回族">回族</option>
+                <option value="壮族">壮族</option>
+                <option value="瑶族">瑶族</option>
+                <option value="傣族">傣族</option>
+                <option value="高山族">高山族</option>
+                <option value="景颇族">景颇族</option>
+                <option value="羌族">羌族</option>
+                <option value="锡伯族">锡伯族</option>
+                <option value="乌孜别克族">乌孜别克族</option>
+                <option value="裕固族">裕固族</option>
+                <option value="赫哲族">赫哲族</option>
+                <option value="藏族">藏族</option>
+                <option value="布依族">布依族</option>
+                <option value="白族">白族</option>
+                <option value="黎族">黎族</option>
+                <option value="拉祜族">拉祜族</option>
+                <option value="柯尔克孜族">柯尔克孜族</option>
+                <option value="布朗族">布朗族</option>
+                <option value="阿昌族">阿昌族</option>
+                <option value="俄罗斯族">俄罗斯族</option>
+                <option value="京族">京族</option>
+                <option value="门巴族">门巴族</option>
+                <option value="维吾尔族">维吾尔族</option>
+                <option value="朝鲜族">朝鲜族</option>
+                <option value="土家族">土家族</option>
+                <option value="傈僳族">傈僳族</option>
+                <option value="水族">水族</option>
+                <option value="土族">土族</option>
+                <option value="撒拉族">撒拉族</option>
+                <option value="普米族">普米族</option>
+                <option value="鄂温克族">鄂温克族</option>
+                <option value="塔塔尔族">塔塔尔族</option>
+                <option value="珞巴族">珞巴族</option>
+                <option value="苗族">苗族</option>
+                <option value="满族">满族</option>
+                <option value="哈尼族">哈尼族</option>
+                <option value="佤族">佤族</option>
+                <option value="东乡族">东乡族</option>
+                <option value="达斡尔族">达斡尔族</option>
+                <option value="毛南族">毛南族</option>
+                <option value="塔吉克族">塔吉克族</option>
+                <option value="德昂族">德昂族</option>
+                <option value="独龙族">独龙族</option>
+                <option value="基诺族">基诺族</option>
                 </select></td>
                 <td align="center" valign="middle">籍贯：</td>
                 <td width="220" align="left" valign="middle"><input name="owner.native_" type="text" class="textbox" id="owner.native_" value="${owner.native_}"/></td>
@@ -111,8 +116,8 @@
                 <td align="center" valign="middle">婚姻状况：</td>
                 <td align="left" valign="middle"><select name="owner.ismarried" class="selectbox" id="owner.ismarried" >
                   <option value="null" selected="selected">－－请选择－－</option>
-                  <option value="1">已婚</option>
-                  <option value="0">未婚</option>
+                  <option value="true">已婚</option>
+                  <option value="false">未婚</option>
                 </select></td>
               </tr>
               <tr>
@@ -165,23 +170,27 @@
                 <td align="center" valign="middle"></td>
                 <td align="left" valign="middle"></td>
               </tr>
+          
               <tr>
+              	
                 <td height="30" align="center" valign="middle">所在小区：</td>
-                <td colspan="2" align="left" valign="middle"><s:action name="getAllProject" namespace="/cms" executeResult="true"/><input type="hidden" id="projectName" name="projectName" value=""/></td>
+                <td colspan="2" align="left" valign="middle">
+              	 	 <s:action name="getAllProject" namespace="/cms" executeResult="true"/>               	 	 
+               	 	 <input type="hidden" id="proId" name="proId" value="${requestScope.pro.proId}"/>
+                </td>
                 <td align="center" valign="middle">楼宇号：</td>
                 <td align="left" valign="middle"><select id="buildingId" name="buildingId" onchange="getAllHouse()">
                                               <option selected="selected">选择楼宇</option>
-                                      </select><input type="hidden" id="buildingName" name="buildingName" value=""/></td></td>
+                                      </select> <input type="hidden" name="builId" id="builId" value="${requestScope.bui.builId}"/></td></td>
               </tr></td>
               </tr>
               <tr>
                 <td height="30" align="center" valign="middle">房号：</td>
                 <td colspan="2" align="left" valign="middle">
                 	<select id="houseId" name="houseId" onchange="getHouseInfo()">
-                		<option selected="selected">选择楼宇</option>
+                		<option selected="selected">选择房号</option>
                 	</select>
-                	<input type="hidden" name="oldHouse" id="oldHouse" value="${owner.houseNum}"/>
-                	<input type="hidden" name="houseNum" id="houseNum" value=""/>
+                	<input type="hidden" name="houseId2" id="houseId2" value="${requestScope.hou.houseId}"/>
                 </td>
                 <td align="center" valign="middle"></td>
                 <td align="left" valign="middle"></td>
@@ -262,7 +271,7 @@
      
      <input type="submit" name="Submit" id="Submit" value="完　成"   />
       
-     <input type="button" name="button" id="button" value="关 闭" onclick="closeAddNewOwner()"/>
+     <input type="button" name="button" id="button" value="关 闭" onclick="closeEditOwner()"/>
                 </td>
           </tr>
         </table>

@@ -18,12 +18,12 @@
 <script type="text/javascript" src="../Scripts/component/easyui/jquery.easyui.min.js" ></script>
 <script type="text/javascript" src="../Scripts/component/flexigrid-1.1/js/flexigrid.js"></script>
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
+<script type="text/javascript" src="../Scripts/pages/cms/owner_list.js"></script>
 <script type="text/javascript" src="../Scripts/pages/cms/owner_add.js"></script>
 <script type="text/javascript" src="../Scripts/pages/cms/owner_edit.js"></script>
-<script type="text/javascript" src="../Scripts/pages/cms/owner_list.js"></script>
+
 
 </head>
-
 <body onload="">
    <div class="wrap">   
        <ul class="nav">
