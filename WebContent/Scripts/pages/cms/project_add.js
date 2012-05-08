@@ -1,4 +1,5 @@
 // JavaScript Document
+<<<<<<< .merge_file_a03020
  	function createXHR()
  	{
  		//非IE浏览器创建XmlHttpRequest对象
@@ -54,6 +55,8 @@
 		}		
 	}
  
+=======
+>>>>>>> .merge_file_a01544
  
    function to(page) {
         objP1 = document.getElementById("P1");
@@ -124,4 +127,8 @@
 		}
 		document.getElementById("form").submit();
 		window.parent.closeAddNewProject();
+<<<<<<< .merge_file_a03020
 	}
+=======
+	}
+>>>>>>> .merge_file_a01544

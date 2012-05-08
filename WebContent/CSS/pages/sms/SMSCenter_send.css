@@ -1,0 +1,121 @@
+.SMS_main 
+{
+	margin:0;
+	width:500px;
+	padding:10px 0 0 60px;
+	float:left;
+}
+.SMS_main > span
+{
+	margin-left:5px;
+}
+.SMS_main .row1
+{
+	margin:5px 0 5px 0;
+}
+
+.SMS_main .row2
+{
+	margin:5px 0 5px 0;
+	height:80px;
+	line-height:80px;
+}
+.SMS_main .row3
+{
+	margin:5px 0 5px 0;
+}
+.SMS_main .row4
+{
+	margin:5px 0 5px 0;
+	height:120px;
+	line-height:120px;
+}
+.SMS_main .row5
+{
+	margin:5px 0 5px 0;
+}
+.SMS_main .row1 span:first-child
+{
+	display:inline-block;
+	width:80px;
+	text-align:center;
+}
+.SMS_main .row1 span:first-child + span
+{
+	display:inline-block;
+	width:200px;
+	margin-left:5px;
+}
+.SMS_main .row2 span:first-child
+{
+	vertical-align:top;
+	padding:0;
+	margin:0;
+	display:inline-block;
+	width:80px;
+	height:80px;
+	line-height:80px;
+	text-align:center;
+}
+.SMS_main .row2 span:first-child + span
+{
+	display:inline-block;
+	width:400px;
+	height:80px;
+}
+.SMS_main .row2 span:first-child + span select
+{
+	display:inline-block;
+	width:inherit;
+	height:inherit;
+}
+.SMS_main .row3 .row3_1
+{
+	display:inline-block;
+	width:80px;
+	text-align:center;
+}
+.SMS_main .row3 .row3_5
+{
+	display:inline-block;
+	width:auto;
+	text-align:center;
+}
+.SMS_main .row4 span:first-child
+{
+	vertical-align:top;
+	display:inline-block;
+	width:80px;
+	text-align:center;
+}
+.SMS_main .row4 span:first-child +span
+{
+	display:inline-block;
+	width:400px;
+	height:80px;
+}
+.SMS_main .row5 .row5_1
+{
+	display:inline-block;
+	width:80px;
+}
+.SMS_main .row5 .row5_3
+{
+	margin-left:220px;
+	display:inline-block;
+	text-align:center;
+}
+.SMS_Count{
+	padding:0 5px 0 5px;
+    display:inline-block;
+	font-weight:bold;
+	font-size:16px;
+	height:20px;
+	line-height:20px;
+	text-align:center;
+}
+.SMS_Recv
+{
+	width:550px;
+	float:left;
+}

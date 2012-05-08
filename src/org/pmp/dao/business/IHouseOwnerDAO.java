@@ -26,4 +26,5 @@ public interface IHouseOwnerDAO {
     public HouseOwner getHouseByOwner(Owner owner);
     public void deleteHouseOwner(Integer hoId);
     public void batchAddHouseOwner(List<Integer> ownerIdList,Map<?,?> map);
+    
 }

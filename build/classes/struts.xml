@@ -122,6 +122,7 @@
 	</action>
 	
 	<action name="levelChange" class="org.pmp.action.admin.GroupAction" method="levelChange">
+<<<<<<< .merge_file_a06032
 	</action>
 	
 	<action name="fatherChange" class="org.pmp.action.admin.GroupAction" method="fatherChange">
@@ -130,6 +131,16 @@
 	<action name="load_Role_list" class="org.pmp.action.admin.UserAction" method="loadRoleList">
 	</action>
 	
+=======
+	</action>
+	
+	<action name="fatherChange" class="org.pmp.action.admin.GroupAction" method="fatherChange">
+	</action>
+	
+	<action name="load_Role_list" class="org.pmp.action.admin.UserAction" method="loadRoleList">
+	</action>
+	
+>>>>>>> .merge_file_a05164
 	<action name="load_Group_list" class="org.pmp.action.admin.UserAction" method="loadGroupList">
 	</action>
 	

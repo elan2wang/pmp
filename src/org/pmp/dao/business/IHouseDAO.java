@@ -8,6 +8,7 @@
 package org.pmp.dao.business;
 
 import java.util.List;
+import java.util.Map;
 
 import org.pmp.util.Pager;
 import org.pmp.vo.Building;
@@ -33,4 +34,6 @@ public interface IHouseDAO {
     public List<?> loadEnabledHouseList(Pager pager);
     public List<?> loadDisabledHouseList(Pager pager);
     public House getHouseByBuildingIdAndHouseNum(Integer buildingId,String houseNum);
+    
+    
 }
