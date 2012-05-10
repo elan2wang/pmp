@@ -71,15 +71,31 @@ public class CondoFeeAction extends ActionSupport {
 	List<?> list= condoFeeService.loadCondoFeeList_ByOwner(ownerId, params, order, pager);
         String data = JsonConvert.list2Json(list, "org.pmp.vo.CondoFee");   
         logger.debug(data);
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> a95eeeb2b3e02abe6366158d5e4d9caaf6381304
 <<<<<<< .merge_file_a04748
         String ids = "1";
         JmsPublisher.sendMessgae(ids);
 =======
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 781c28d5e9915da32a8fab0216a9239da04ff970
+>>>>>>> a95eeeb2b3e02abe6366158d5e4d9caaf6381304
         
         
         //String ids = "1";
         //JmsPublisher.sendMessgae(ids);
+<<<<<<< HEAD
 >>>>>>> .merge_file_a05832
+=======
+<<<<<<< HEAD
+>>>>>>> .merge_file_a05832
+=======
+>>>>>>> 781c28d5e9915da32a8fab0216a9239da04ff970
+>>>>>>> a95eeeb2b3e02abe6366158d5e4d9caaf6381304
     }
     
     public String loadCondoFeeInstance(){

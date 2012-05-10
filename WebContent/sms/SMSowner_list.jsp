@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<<<<<<< HEAD
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+=======
+>>>>>>> a95eeeb2b3e02abe6366158d5e4d9caaf6381304
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -21,6 +24,7 @@
                   <select>
                      <option>----公司----</option>
                   </select>
+<<<<<<< HEAD
                    <s:action name="getProjectBySessionHander" namespace="/cms" executeResult="true"/>
                    <!--  
                   <select>
@@ -31,6 +35,15 @@
                      <option>-楼号-</option>
                   </select>
                   <select id="houseId">
+=======
+                  <select>
+                     <option>---小区---</option>
+                  </select>
+                  <select>
+                     <option>-楼号-</option>
+                  </select>
+                  <select>
+>>>>>>> a95eeeb2b3e02abe6366158d5e4d9caaf6381304
                      <option>-单元号-</option>
                   </select>
                   <a href="#" class="linkbutton" onclick="selectAll()">全选</a>
@@ -40,6 +53,7 @@
 
               <table id="SMSuserlist">
                 <tbody id="SMSuser_data">
+<<<<<<< HEAD
                
 					 <!--  <tr>
 					 	<td><input type="checkbox" id="checkgroup" name="checkgroup" value="13568821380" onclick="selectAll()"/></td><td></td><td></td><td></td><td></td><td></td>
@@ -47,6 +61,14 @@
 				
                  
                 
+=======
+                  <tr><td><input type="checkbox" id="checkgroup" name="checkgroup" value="13568821380" onclick="selectAll()"/></td><td></td><td></td><td></td><td></td><td></td>
+                  </tr>
+                  <tr><td><input type="checkbox" id="checkgroup" name="checkgroup" value="13568821380"/></td><td></td><td></td><td></td><td></td><td></td>
+                  </tr>
+                  <tr><td><input type="checkbox" id="checkgroup" name="checkgroup" value="13568821380"/></td><td></td><td></td><td></td><td></td><td></td>
+                  </tr>
+>>>>>>> a95eeeb2b3e02abe6366158d5e4d9caaf6381304
                 </tbody>
               </table>
               <div class="">

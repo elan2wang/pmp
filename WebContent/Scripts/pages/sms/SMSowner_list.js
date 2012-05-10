@@ -1,4 +1,5 @@
 $(function(){
+<<<<<<< HEAD
 	var project = document.getElementById("projectId");
 	project.options[1].selected = true;//将第一个小区设为默认的
 	project.onchange();
@@ -6,11 +7,19 @@ $(function(){
 	  url: 'load_owner_list?proId='+1,
 	  dataType: 'json',
 	  colModel: [
+=======
+  $('#SMSuserlist').flexigrid({
+	  url: 'load_owner_list',
+	  dataType: 'json',
+	  colModel: [
+         { display: '序号', name:'num', width: 20,  sortable:true, align: 'center' },
+>>>>>>> a95eeeb2b3e02abe6366158d5e4d9caaf6381304
          { display: '业主', name:'owner', width: 50, sortable:true, align: 'center' },
 		 { display: '电话', name:'phone', width: 100, sortable:true, align: 'center' },
 		 { display: '小区', name:'project', width: 100, sortable:true, align: 'center' },
          { display: '房号', name:'houseNum', width: 100, sortable:true, align: 'center' }
          ],
+<<<<<<< HEAD
          searchitems : [
 			       		{display: '业主', name : 'owner', isdefault: true}
 			       		],
@@ -185,6 +194,13 @@ function buildingChanged()
 		    operationWidth:Width*0.1
 	  });
 }
+=======
+      height:305
+  });
+});
+
+
+>>>>>>> a95eeeb2b3e02abe6366158d5e4d9caaf6381304
 function selectAll(){
 	$('input[type="checkbox"]').attr("checked",true);
 }

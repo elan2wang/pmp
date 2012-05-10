@@ -122,6 +122,8 @@
 	</action>
 	
 	<action name="levelChange" class="org.pmp.action.admin.GroupAction" method="levelChange">
+<<<<<<< HEAD
+<<<<<<< .merge_file_a06032
 	</action>
 	
 	<action name="fatherChange" class="org.pmp.action.admin.GroupAction" method="fatherChange">
@@ -130,6 +132,10 @@
 	<action name="load_Role_list" class="org.pmp.action.admin.UserAction" method="loadRoleList">
 	</action>
 	
+<<<<<<< HEAD
+=======
+=======
+	</action>
 	
 	<action name="fatherChange" class="org.pmp.action.admin.GroupAction" method="fatherChange">
 	</action>
@@ -137,6 +143,21 @@
 	<action name="load_Role_list" class="org.pmp.action.admin.UserAction" method="loadRoleList">
 	</action>
 	
+>>>>>>> .merge_file_a05164
+=======
+	</action>
+>>>>>>> a95eeeb2b3e02abe6366158d5e4d9caaf6381304
+	
+	<action name="fatherChange" class="org.pmp.action.admin.GroupAction" method="fatherChange">
+	</action>
+	
+	<action name="load_Role_list" class="org.pmp.action.admin.UserAction" method="loadRoleList">
+	</action>
+	
+<<<<<<< HEAD
+=======
+>>>>>>> 781c28d5e9915da32a8fab0216a9239da04ff970
+>>>>>>> a95eeeb2b3e02abe6366158d5e4d9caaf6381304
 	<action name="load_Group_list" class="org.pmp.action.admin.UserAction" method="loadGroupList">
 	</action>
 	
