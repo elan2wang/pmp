@@ -130,6 +130,13 @@
 	<action name="load_Role_list" class="org.pmp.action.admin.UserAction" method="loadRoleList">
 	</action>
 	
+	
+	<action name="fatherChange" class="org.pmp.action.admin.GroupAction" method="fatherChange">
+	</action>
+	
+	<action name="load_Role_list" class="org.pmp.action.admin.UserAction" method="loadRoleList">
+	</action>
+	
 	<action name="load_Group_list" class="org.pmp.action.admin.UserAction" method="loadGroupList">
 	</action>
 	
@@ -206,7 +213,8 @@
     <action name="loadSMSCompanyList" class="org.pmp.action.business.SMSCompanyAction" method="loadSMSCompanyList">
       <result name="success">/cms/smsc_list.jsp</result>
     </action>
-	
+    
+    
 	<!-- company related actions -->
 	<action name="select_company_list" class="org.pmp.action.business.CompanyAction" method="select_company_list">
 	</action>
@@ -250,6 +258,10 @@
 	<action name="getAllProject" class="org.pmp.action.business.ProjectAction" method="getAllProject">
 		<result name="success">/cms/projectSelect.jsp</result>
 	</action>
+	<action name="getProjectBySessionHander" class="org.pmp.action.business.ProjectAction" method="getProjectBySessionHander">
+		<result name="success">/cms/projectSelect2.jsp</result>
+	</action>
+	
 	<action name="getProjectByDistrict" class="org.pmp.action.business.ProjectAction" method="getProjectByDistrict">
 	</action>
 	<action name="update_Project" class="org.pmp.action.business.ProjectAction" method="updateProject">
@@ -278,10 +290,6 @@
 	</action>	
 	<action name="updateOwner" class="org.pmp.action.business.OwnerAction" method="updateOwner">
 		<result name="success">/cms/owner_list.jsp</result>
-	</action>
-	
-	<action name="getProjectAndBuildingAndHouseByOwnerID" class="org.pmp.action.business.OwnerAction" method="getProjectAndBuildingAndHouseByOwnerID">
-		<result name="success">/cms/owner_edit.jsp</result>
 	</action>
 	
 	<action name="fileUpload" class="org.pmp.action.business.ProjectAction" method="uploadFile">
@@ -357,4 +365,10 @@
     <action name="houseTree" class="org.pmp.action.business.TreeAction" method="houseTree">
     </action>
   </package>
+  
+    <package name="sms" extends="struts-default" namespace="/sms">
+    	<!-- SMS_Owner related Actions -->
+		<action name="load_owner_list" class="org.pmp.action.business.SmsAction" method="load_owner_list">
+   	 	</action>
+    </package>
 </struts>

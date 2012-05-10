@@ -30,4 +30,11 @@ public interface IOwnerDAO {
     public List<?> getOwnerByKeyWorld(String keyWorld);
     public List<?> loadOwnerList(Pager pager);
     public List<Integer> batchSaveOwner(List<Owner> ownerList);
+    
+    /**
+     * @author Elan
+     */
+    public List<?> loadOwnerList_ByProject(Integer proId,Pager pager);
+    
+    public List<?> loadOwnerList_ByBuilding(Integer builId,Pager pager);
 }

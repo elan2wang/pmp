@@ -23,6 +23,16 @@ public class OwnerService implements IOwnerService {
 	
 	private IOwnerDAO ownerDao;
 
+    /**
+     * @author Elan
+     */
+    public List<?> loadOwnerList_ByProject(Integer proId,Pager pager){
+	return ownerDao.loadOwnerList_ByProject(proId, pager);
+    }
+    
+    public List<?> loadOwnerList_ByBuilding(Integer builId,Pager pager){
+	return ownerDao.loadOwnerList_ByBuilding(builId, pager);
+    }
 
 	/**
 	 * @Title: addOwner

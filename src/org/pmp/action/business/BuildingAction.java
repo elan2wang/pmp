@@ -98,11 +98,18 @@ public class BuildingAction extends ActionSupport {
 	public void getBuildingByProject(){
 		Pager pager = new Pager(100,1);
 		List buildingList = buildingService.loadBuildingListByProject(pager, projectId);
-		List show = new ArrayList<String>();
-		show.add("builId");
-		show.add("builNum");
-		String data = JsonConvert.list2Json(buildingList, "org.pmp.vo.Building", show);
-		JsonConvert.output(data);
+		if(buildingList!=null && buildingList.size()!=0)
+		{
+			List show = new ArrayList<String>();
+			show.add("builId");
+			show.add("builNum");
+			String data = JsonConvert.list2Json(buildingList, "org.pmp.vo.Building", show);
+			JsonConvert.output(data);
+		}
+		else
+		{
+			System.out.println("data is null");
+		}
 	}
 	
 	public String uploadFile(){

@@ -7,9 +7,11 @@
  */
 package org.pmp.dao.impl.business;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.jdbc.Work;
 import org.pmp.dao.admin.BaseDAO;
 import org.pmp.dao.business.IOwnerDAO;
 import org.pmp.util.Pager;
@@ -32,6 +35,43 @@ import org.pmp.vo.Project;
  */
 public class OwnerDAO extends BaseDAO implements IOwnerDAO {
 	Logger logger = Logger.getLogger(OwnerDAO.class.getName());
+    
+    /**
+     * @author Elan
+     */
+    public List<?> loadOwnerList_ByProject(Integer proId,Pager pager){
+        List<?> list = null;
+        String debugMsg = "load Owner List by project,proId="+proId;
+        String hql = "from Owner where ownerId in (select owner.ownerId " +
+                     "from HouseOwner where house.houseId in (select houseId from House " + 
+                     "where building.builId in (select builId from Building where project.proId="+proId +
+                     "))) order by ownerId desc";
+        try {
+            list = loadListByCondition(hql,pager,debugMsg);
+        } catch (RuntimeException e){
+            throw e;
+        }
+        return list;
+    }
+    
+    /**
+     * @author Elan
+     */
+    public List<?> loadOwnerList_ByBuilding(Integer builId,Pager pager){
+	List<?> list = null;
+        String debugMsg = "load Owner List by building,builId="+builId;
+        String hql = "from Owner where ownerId in (select owner.ownerId " +
+                     "from HouseOwner where house.houseId in (select houseId from House " + 
+                     "where building.builId=" + builId + ")) order by ownerId desc";
+                     
+        try {
+            list = loadListByCondition(hql,pager,debugMsg);
+        } catch (RuntimeException e){
+            throw e;
+        }
+        return list;
+    }
+	
 	/**
 	 * @Title: saveOwner
 	 * @Description: TODO

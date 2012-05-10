@@ -30,9 +30,15 @@ function openEditOwner(id){
 	alert(id);
 
 	$('#editOwner').window({href:'get_owner?ownerId='+id});
-
+//	$('#editOwner').window
 	$('#editOwner').window('open');
-	owner_edit_init();
+//	alert("style.display  null");
+//	var editjsp=document.getElementById("editOwner");
+//	editjsp.style.display = 'none';
+//	owner_edit_init();
+	//alert("style.display  not null");
+//	editjsp.style.display = '';
+	//$('#editOwner').html().style.display = '';
 
 }
 function closeEditOwner(){
@@ -140,32 +146,47 @@ function PageDownOrUp(flag){
 	  }
 	}); 
 }	
-function getSecondInfo()
+function getSecondInfo(builId,houseId)
 {
-	alert("进入getSecondInfo on change 方法");
 	var project = document.getElementById("projectId");
 	var index=project.selectedIndex;
-	alert(index);
 	var projectName = project.options[index].text;
-	alert(projectName);
-	//alert(projectName);
-	//document.getElementById("projectName").value=projectName;
 	
 	 var select1Value=document.getElementById("projectId").value;
-	 alert(select1Value);
 	 $.ajax({
 	  type: "POST",
 	  url: "getBuildingByProject?projectId="+select1Value,
 	  dataType: "json",
 	  success : function(data){
+		  		
 		      var selector=$('#buildingId'); 
+		      var house=$('#houseId'); 
 			  var s=selector.find('option');
+			  var s_house=house.find('option');
 			  for(i=1;i<s.length;i++){
 			     s.eq(i).remove();
 			  }
-			  $.each( data.Rows , function(commentIndex, comment) {
-                   selector.append('<option value="'+comment['builId']+'">'+comment['builNum']+'</option>');
-			  });
+			  for(i=1;i<s_house.length;i++){
+				  s_house.eq(i).remove();
+			  }
+			  if(data)
+		  	  {
+				  var succ;
+				  $.each( data.Rows , function(commentIndex, comment) {
+					  if(builId && builId==comment['builId'])
+					  {
+						  selector.append('<option selected="selected" value="'+comment['builId']+'">'+comment['builNum']+'</option>');
+						  succ = true;
+					  }
+					  else
+						  {
+						  selector.append('<option value="'+comment['builId']+'">'+comment['builNum']+'</option>');
+						  }
+				  });
+				  if(succ && houseId)
+					  getAllHouse(houseId);
+		  	  }
+			 
 			  
 	  }
 	});
@@ -179,16 +200,11 @@ function getHouseInfo(){
 	document.getElementById("houseNum").value=houseNum;
 }
 
-function getAllHouse(){
-	alert("进入getAllHouse on change 方法");
+function getAllHouse(houseid){
 	var building = document.getElementById("buildingId");
 	var index=building.selectedIndex;
-	alert(index);
 	var buildingName = building.options[index].text;
-	alert(buildingName);
-	//document.getElementById("buildingName").value=buildingName;
 	var buildingId = document.getElementById("buildingId").value;
-	alert(buildingId);
 	$.ajax({
 		type: "POST",
 		url: "getAllHouseNum?buildingId="+buildingId,
@@ -196,13 +212,22 @@ function getAllHouse(){
 		success:function(data){
 			var houseId=$('#houseId');
 			var option = houseId.find('option');
-			alert(option.length);
 			for(i=1;i<=option.length;i++){
 				option.eq(i).remove();
 			  }
-			$.each(data.Rows,function(commentIndex,comment){
-				houseId.append('<option value="'+comment['houseId']+'">'+comment['houseNum']+'</option>');
-			});
+			if(data)
+		  	{			
+				$.each(data.Rows,function(commentIndex,comment){
+						 if(houseid && houseid==comment['houseId'])
+						 {
+							  houseId.append('<option selected="selected" value="'+comment['houseId']+'">'+comment['houseNum']+'</option>');
+						  }
+						  else
+						  {
+							  houseId.append('<option value="'+comment['houseId']+'">'+comment['houseNum']+'</option>');
+						  }
+				 });
+		  	}
 		}
 	});
 }

@@ -20,6 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 
+import com.google.gson.Gson;
+
 /**
  * @author Elan
  * @version 1.0
@@ -113,6 +115,7 @@ public class JsonConvert {
         throw new RuntimeException("Unsupported type: " + o.getClass().getName());
     }
 
+    
     static String object2Json(Object obj,String beanType){
 	StringBuffer sb = new StringBuffer();
 	sb.append("{");

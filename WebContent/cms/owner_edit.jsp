@@ -6,6 +6,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<script type="text/javascript" src="../Scripts/pages/cms/owner_edit.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>无标题文档</title>
 </head>
@@ -36,6 +37,10 @@
               	<input type="hidden" name="nationality" id="nationality" value="${owner.nationality}"/>
               	<input type="hidden" name="ismarried" id="ismarried" value="${owner.ismarried}"/>
               	<input type="hidden" name="identityType" id="identityType" value="${owner.identityType}"/>
+              	<input type="hidden" id="proId" name="proId" value="${requestScope.pro.proId}"/>
+              	<input type="hidden" name="builId" id="builId" value="${requestScope.bui.builId}"/>
+              	<input type="hidden" name="houseId2" id="houseId2" value="${requestScope.hou.houseId}"/>
+              	<input type="hidden" name="objName" id="objName" value="${requestScope.objName}"/>
               	
                  <td width="70" height="30" align="center" valign="middle">姓名：</td>
                 <td width="220" colspan="2" align="left" valign="middle"><input name="owner.ownerName" type="text" class="textbox" id="owner.ownerName" value="${owner.ownerName}"/></td>
@@ -175,22 +180,20 @@
               	
                 <td height="30" align="center" valign="middle">所在小区：</td>
                 <td colspan="2" align="left" valign="middle">
-              	 	 <s:action name="getAllProject" namespace="/cms" executeResult="true"/>               	 	 
-               	 	 <input type="hidden" id="proId" name="proId" value="${requestScope.pro.proId}"/>
+              	 	 <s:action name="getAllProject" namespace="/cms" executeResult="true"/>               	 	                	 	
                 </td>
                 <td align="center" valign="middle">楼宇号：</td>
                 <td align="left" valign="middle"><select id="buildingId" name="buildingId" onchange="getAllHouse()">
-                                              <option selected="selected">选择楼宇</option>
-                                      </select> <input type="hidden" name="builId" id="builId" value="${requestScope.bui.builId}"/></td></td>
+                                              <option value="0" value="0" selected="selected">选择楼宇</option>
+                                      </select> </td></td>
               </tr></td>
               </tr>
               <tr>
                 <td height="30" align="center" valign="middle">房号：</td>
                 <td colspan="2" align="left" valign="middle">
                 	<select id="houseId" name="houseId" onchange="getHouseInfo()">
-                		<option selected="selected">选择房号</option>
+                		<option value="0" selected="selected">选择房号</option>
                 	</select>
-                	<input type="hidden" name="houseId2" id="houseId2" value="${requestScope.hou.houseId}"/>
                 </td>
                 <td align="center" valign="middle"></td>
                 <td align="left" valign="middle"></td>
@@ -282,4 +285,10 @@
   </table>
 </form>
 </body>
+<script type="text/javascript">
+if (document.readyState=="complete")  
+{ 
+	owner_edit_init();
+}
+</script>
 </html>

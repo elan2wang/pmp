@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -27,6 +28,7 @@ import org.pmp.service.business.IProjectService;
 import org.pmp.util.JsonConvert;
 import org.pmp.util.MyfileUtil;
 import org.pmp.util.Pager;
+import org.pmp.util.SessionHandler;
 import org.pmp.vo.Project;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -87,6 +89,25 @@ public class ProjectAction extends ActionSupport {
 		String data = JsonConvert.list2Json(pager, projectList, "org.pmp.vo.Project");
 		logger.debug(data);
 		JsonConvert.output(data);
+	}
+	
+	public String getProjectBySessionHander(){
+		logger.debug("进入getProjectBySessionHander");
+		Object obj = SessionHandler.getUserRefDomain();
+		String objName = obj.getClass().getName();
+		// = null;
+		projectList = new ArrayList<Project>();
+		//如果是小区管理员，则只显示本小区内的业主
+		if(objName.equals("org.pmp.vo.Project"))
+		{
+			Project pro = (Project)obj;
+			projectList.add(pro);
+		}
+		else if(objName.equals("org.pmp.vo.Company"))
+		{
+			projectList = projectService.getAllProject();
+		}
+		return SUCCESS;
 	}
 	
 	public String getAllProject(){

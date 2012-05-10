@@ -20,7 +20,7 @@
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
 <script type="text/javascript" src="../Scripts/pages/cms/owner_list.js"></script>
 <script type="text/javascript" src="../Scripts/pages/cms/owner_add.js"></script>
-<script type="text/javascript" src="../Scripts/pages/cms/owner_edit.js"></script>
+
 
 
 </head>

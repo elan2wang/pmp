@@ -33,6 +33,7 @@ import org.pmp.service.business.IProjectService;
 import org.pmp.util.JsonConvert;
 import org.pmp.util.MyfileUtil;
 import org.pmp.util.Pager;
+import org.pmp.util.SessionHandler;
 import org.pmp.vo.Building;
 import org.pmp.vo.House;
 import org.pmp.vo.HouseOwner;
@@ -151,27 +152,28 @@ public class OwnerAction extends ActionSupport {
 	
 	public String getOwnerById(){
 		owner = ownerService.getOwnerById(ownerId);
-		getProjectAndBuildingAndHouseByOwnerID();
+	//	getProjectAndBuildingAndHouseByOwnerID();
 		Owner owner = new Owner();
 		owner.setOwnerId(ownerId);
 		List memberList = memberService.getMemberByOwner(owner);
 		HttpServletRequest request = ServletActionContext.getRequest();
 		request.setAttribute("memberList", memberList);
-		return SUCCESS;
-	}
-	public String getProjectAndBuildingAndHouseByOwnerID()
-	{
+		
+		
+		Object obj = SessionHandler.getUserRefDomain();
+		String objName = obj.getClass().getName();
 		HouseOwner ho = houseOwnerService.getHouseByOwner(owner);
 		House hou = ho.getHouse();
 		Building bui = hou.getBuilding();
 		Project pro = bui.getProject();		
-		HttpServletRequest request = ServletActionContext.getRequest();
 		request.setAttribute("hou", hou);
 		request.setAttribute("bui", bui);
 		request.setAttribute("pro", pro);
+		request.setAttribute("objName",objName);
 		System.out.println(hou.getHouseNum());
 		System.out.println(bui.getBuilNum());
 		System.out.println(pro.getProName());
+		
 		return SUCCESS;
 	}
 	

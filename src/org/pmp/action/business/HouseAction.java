@@ -163,15 +163,25 @@ public class HouseAction extends ActionSupport {
 	        }
 	}
 	
+	/**
+	 * @return void
+	 */
 	public void getAllHouseNum(){
 		Building building = new Building();
 		building.setBuilId(buildingId);
 		List houseList = houseService.getHouseByBuilding(building);
-		List show = new ArrayList<String>();
-		show.add("houseId");
-		show.add("houseNum");
-		String data = JsonConvert.list2Json(houseList, "org.pmp.vo.House", show);
-		JsonConvert.output(data);
+		if(houseList!=null && houseList.size()!=0)
+		{
+			List show = new ArrayList<String>();
+			show.add("houseId");
+			show.add("houseNum");
+			String data = JsonConvert.list2Json(houseList, "org.pmp.vo.House", show);
+			JsonConvert.output(data);
+		}
+		else
+		{
+			System.out.println("data is null");
+		}
 	}
 	
 	/**
