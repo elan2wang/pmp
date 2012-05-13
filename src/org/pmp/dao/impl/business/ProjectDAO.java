@@ -106,11 +106,10 @@ public class ProjectDAO extends BaseDAO implements IProjectDAO {
 	}
 
 	public Project getProjectByID(Integer projectID) {
-		logger.debug("projectID"+projectID);
+		logger.debug("get project by ID,proId="+projectID);
 		Session session = getSession();
 		Project project = null;
 		List list = null;
-		logger.debug("begin to get a project by ID");
 		try{
 			Transaction tx = session.beginTransaction();
 			Query query = session.createQuery("from Project pro where pro.proId="+projectID);

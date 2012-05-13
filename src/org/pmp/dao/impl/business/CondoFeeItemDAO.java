@@ -39,33 +39,30 @@ public class CondoFeeItemDAO extends BaseDAO implements ICondoFeeItemDAO{
 	}
     }
 
-    public List loadCondoFeeItemListBy_ProID(Pager pager,Integer proId) {
-	String debugMsg = "load condoFeeItem list";
-	String hql = "select cfi from CondoFeeItem cfi where cfi.project.proId="+proId+
-	             " order by cfi.cfiId desc";
-	List cfiList = null;
+    public void deleteCondoFeeItem(Integer cfiId){
+	String debugMsg = "delete condoFeeItem,cfiId="+cfiId;
+	String hql = "delete from CondoFeeItem where cfiId="+cfiId;
 	try {
-	    cfiList = loadListByCondition(hql, pager, debugMsg);
+	    deleteInstance(hql,debugMsg);
 	} catch (RuntimeException e){
 	    throw e;
 	}
-	return cfiList;
     }
     
-    public List loadCondoFeeItemListBy_ComID(Pager pager,Integer comId) {
-	String debugMsg = "load condoFeeItem list";
-	String hql = "select cfi from CondoFeeItem cfi where cfi.project.proId in" +
-	             "(select pro.proId from Project pro where pro.Company.comId="+comId+")" +
-	             "order by cfi.cfiId desc";
-	List cfiList = null;
+    public List<?> getCondoFeeYear(){
+	String debugMsg = "get all years from CondoFee";
+	String hql = "select distinct itemYear from CondoFeeItem order by itemYear desc";
+        Pager pager = new Pager(100,1);
+	List<?> list = null;
 	try {
-	    cfiList = loadListByCondition(hql, pager, debugMsg);
+	    list = loadListByCondition(hql,pager,debugMsg);
 	} catch (RuntimeException e){
+	    logger.error("failed to get all years from CondoFee");
 	    throw e;
 	}
-	return cfiList;
+	return list;
     }
-
+    
     public CondoFeeItem getCondoFeeItemByID(Integer cfiId){
 	String debugMsg = "get condoFeeItem by ID,cfiId="+cfiId;
 	String hql = "from CondoFeeItem where cfiId="+cfiId;
@@ -78,6 +75,18 @@ public class CondoFeeItemDAO extends BaseDAO implements ICondoFeeItemDAO{
 	return condoFeeItem;
     }
     
-    //~ Getters and Setters ============================================================================================
+    public List loadCondoFeeItemListBy_ComID(Pager pager,Integer comId) {
+	String debugMsg = "load condoFeeItem list";
+	String hql = "select cfi from CondoFeeItem cfi where cfi.project.proId in" +
+	             "(select pro.proId from Project pro where pro.company.comId="+comId+")" +
+	             "order by cfi.cfiId desc";
+	List cfiList = null;
+	try {
+	    cfiList = loadListByCondition(hql, pager, debugMsg);
+	} catch (RuntimeException e){
+	    throw e;
+	}
+	return cfiList;
+    }
 
 }

@@ -38,6 +38,9 @@
         <property name="fetchTicket" type="string">
             <column name="Fetch_Ticket" length="50" />
         </property>
+        <property name="generatePerson" type="string">
+            <column name="Generate_Person" length="50" />
+        </property>
         <property name="fetchPerson" type="string">
             <column name="Fetch_Person" length="50" />
         </property>
@@ -61,6 +64,9 @@
         </property>
         <property name="issend" type="boolean">
             <column name="ISSEND" />
+        </property>
+        <property name="comment" type="string">
+            <column name="Comment" length="200" />
         </property>
     </class>
 </hibernate-mapping>

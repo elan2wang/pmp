@@ -10,6 +10,7 @@ package org.pmp.service.impl.business;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.pmp.dao.business.ICondoFeeDAO;
 import org.pmp.dao.business.ICondoFeeItemDAO;
 import org.pmp.service.business.ICondoFeeItemService;
 import org.pmp.util.Pager;
@@ -26,24 +27,31 @@ public class CondoFeeItemService implements ICondoFeeItemService{
     static Logger logger = Logger.getLogger(CondoFeeItemService.class.getName());
     //~ Instance Fields ================================================================================================
     private ICondoFeeItemDAO condoFeeItemDAO;
-    //~ Constructor ====================================================================================================
-
+    private ICondoFeeDAO condoFeeDAO;
+    
     //~ Methods ========================================================================================================
     public void addCondoFeeItem(CondoFeeItem instance){
 	condoFeeItemDAO.saveCondoFeeItem(instance);
+	logger.debug(instance.getCfiId());
+	condoFeeDAO.generateCondoFee(instance.getCfiId());
     }
     
-    public List<?> loadCondoFeeItemListBy_ProID(Pager pager,Integer proId){
-	return condoFeeItemDAO.loadCondoFeeItemListBy_ProID(pager,proId);
+    public void deleteCondoFeeItem(Integer cfiId){
+	condoFeeItemDAO.deleteCondoFeeItem(cfiId);
+    }
+    
+    public List<?> getCondoFeeYear(){
+	return condoFeeItemDAO.getCondoFeeYear();
+    }
+    
+    public CondoFeeItem getCondoFeeItemByID(Integer cfiId){
+	return condoFeeItemDAO.getCondoFeeItemByID(cfiId);
     }
     
     public List<?> loadCondoFeeItemListBy_ComID(Pager pager,Integer comId){
 	return condoFeeItemDAO.loadCondoFeeItemListBy_ComID(pager, comId);
     }
     
-    public CondoFeeItem getCondoFeeItemByID(Integer cfiId){
-	return condoFeeItemDAO.getCondoFeeItemByID(cfiId);
-    }
     //~ Getters and Setters ============================================================================================
 
     public ICondoFeeItemDAO getCondoFeeItemDAO() {
@@ -52,6 +60,14 @@ public class CondoFeeItemService implements ICondoFeeItemService{
 
     public void setCondoFeeItemDAO(ICondoFeeItemDAO condoFeeItemDAO) {
         this.condoFeeItemDAO = condoFeeItemDAO;
+    }
+
+    public ICondoFeeDAO getCondoFeeDAO() {
+        return condoFeeDAO;
+    }
+
+    public void setCondoFeeDAO(ICondoFeeDAO condoFeeDAO) {
+        this.condoFeeDAO = condoFeeDAO;
     }
 
 }

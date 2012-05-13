@@ -15,6 +15,7 @@ import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.List;
 
+import jxl.Cell;
 import jxl.Workbook;
 import jxl.write.Label;
 import jxl.write.WritableCell;
@@ -22,6 +23,8 @@ import jxl.write.WritableCellFormat;
 import jxl.write.WritableFont;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
+import jxl.write.WriteException;
+import jxl.write.biff.RowsExceededException;
 
 import org.apache.log4j.Logger;
 
@@ -136,4 +139,23 @@ public class ExportUtil {
 	    e.printStackTrace();
 	}
     }
+
+    /**
+     * @Title: writeHead
+     * @Description: set the head line of excel sheet 
+     */
+    public static void writeHead(WritableSheet ws,String[] header){
+        for (int i=0;i<header.length;i++){
+            WritableFont wf = new WritableFont(WritableFont.ARIAL,10,WritableFont.BOLD);
+            WritableCellFormat wcf = new WritableCellFormat(wf);
+            Label label = new Label(i,0,header[i],wcf);
+            try {
+		ws.addCell(label);
+	    } catch (WriteException e) {
+		e.printStackTrace();
+		logger.error("write sheet head failed");
+	    }
+        }
+    }
+   
 }

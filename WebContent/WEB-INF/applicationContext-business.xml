@@ -48,6 +48,7 @@
   
   <bean id="condoFeeItemService" class="org.pmp.service.impl.business.CondoFeeItemService">
     <property name="condoFeeItemDAO" ref="condoFeeItemDAO" />
+    <property name="condoFeeDAO" ref="condoFeeDAO" />
   </bean>
   
   <bean id="condoFeeService" class="org.pmp.service.impl.business.CondoFeeService">
@@ -68,29 +69,37 @@
   </bean>
   
   <bean id="projectAction" class="org.pmp.action.business.ProjectAction">
-  	<property name="projectService" ref="projectService"></property>
+  	<property name="projectService" ref="projectService" />
   </bean>
   
   <bean id="buildingAction" class="org.pmp.action.business.BuildingAction">
-  	<property name="buildingService" ref="buildingService"></property>
+  	<property name="buildingService" ref="buildingService" />
   </bean>
   
   <bean id="houseAction" class="org.pmp.action.business.HouseAction">
-  	<property name="houseService" ref="houseService"></property>
+  	<property name="houseService" ref="houseService" />
   </bean>
   
   <bean id="ownerAction" class="org.pmp.action.business.OwnerAction">
-  	<property name="ownerService" ref="ownerService"></property>
-  	<property name="houseOwnerService" ref="houseOwnerService"></property>
-  	<property name="houseService" ref="houseService"></property>
-  	<property name="memberService" ref="memberService"></property>
+  	<property name="ownerService" ref="ownerService" />
+  	<property name="houseOwnerService" ref="houseOwnerService" />
+  	<property name="houseService" ref="houseService" />
+  	<property name="memberService" ref="memberService" />
   </bean>
   
   <bean id="condoFeeItemAction" class="org.pmp.action.business.CondoFeeItemAction">
     <property name="condoFeeItemService" ref="condoFeeItemService" />
+    <property name="projectService" ref="projectService" />
+    <property name="buildingService" ref="buildingService" />
+    <property name="houseService" ref="houseService" />
   </bean>
   
   <bean id="condoFeeAction" class="org.pmp.action.business.CondoFeeAction">
+    <property name="condoFeeService" ref="condoFeeService" />
+    <property name="condoFeeItemService" ref="condoFeeItemService" />
+  </bean>
+  
+  <bean id="condoFeeAction2" class="org.pmp.action.business.CondoFeeAction2">
     <property name="condoFeeService" ref="condoFeeService" />
     <property name="condoFeeItemService" ref="condoFeeItemService" />
   </bean>

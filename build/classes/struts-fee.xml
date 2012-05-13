@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+  <constant name="struts.i18n.encoding" value="UTF-8" />
+  
+  <package name="fee" extends="struts-default" namespace="/fee">
+    <action name="houseTree" class="org.pmp.action.business.TreeAction" method="houseTree" />
+
+    <action name="monthTree" class="org.pmp.action.business.TreeAction" method="monthTree" />
+
+    <action name="cf_item_preview" class="org.pmp.action.business.CondoFeeItemAction" method="previewItemInfo" />
+    
+    <action name="cf_item_add" class="org.pmp.action.business.CondoFeeItemAction" method="addCondoFeeItem">
+      <result name="success" type="chain">cf_item_list</result>
+    </action>
+    
+    <action name="cf_item_list" class="org.pmp.action.business.CondoFeeItemAction" method="loadItemList">
+      <result name="success">/fee/cf_item_list.jsp</result>
+    </action>
+    
+    <!-- CondoFee Related actions -->
+    <action name="loadCondoFeeList_ByCFI" class="org.pmp.action.business.CondoFeeAction2" method="loadCondoFeeList_ByCFI">
+      <result name="success">/fee/cf_list_by_item.jsp</result>
+    </action>
+    
+    <action name="loadCondoFeeList_ByHouse" class="org.pmp.action.business.CondoFeeAction2" method="loadCondoFeeList_ByHouse">
+      <result name="success">/fee/cf_list_by_house.jsp</result>
+    </action>
+    
+    <action name="loadCondoFeeList_ByCompany" class="org.pmp.action.business.CondoFeeAction2" method="loadCondoFeeList_ByCompany">
+      <result name="success">/fee/cf_list_by_month.jsp</result>
+    </action>
+    
+    <action name="loadCondoFeeList_ByProject" class="org.pmp.action.business.CondoFeeAction2" method="loadCondoFeeList_ByProject">
+      <result name="success">/fee/cf_list_by_month.jsp</result>
+    </action>
+    
+    <action name="exportNewCondoFee" class="org.pmp.action.business.CondoFeeAction2" method="exportNewCondoFee" />
+    
+    <action name="importNewCondoFee" class="org.pmp.action.business.CondoFeeAction2" method="importNewCondoFee">
+      <result name="success" type="chain">cf_item_list</result>
+      <result name="conent_error">/fee/cf_import.jsp</result>
+      <result name="filetype_error">/fee/cf_import.jsp</result>
+    </action>
+    
+    <action name="selectCondoFee" class="org.pmp.action.business.CondoFeeAction2" method="selectCondoFee">
+      <result name="record">/fee/cf_input.jsp</result>
+      <result name="edit">/fee/cf_edit.jsp</result>
+      <result name="audit">/fee/cf_audit.jsp</result>
+      <result name="success" type="chain">loadCondoFeeList_ByHouse</result>
+    </action>
+    
+    <action name="cf_edit" class="org.pmp.action.business.CondoFeeAction2" method="cfEdit">
+      <result name="success" type="chain">loadCondoFeeList_ByHouse</result>
+    </action>
+    
+    <action name="cf_input" class="org.pmp.action.business.CondoFeeAction2" method="cfInput">
+      <result name="success" type="chain">loadCondoFeeList_ByHouse</result>
+    </action>
+    
+    <action name="cf_audit" class="org.pmp.action.business.CondoFeeAction2" method="cfAudit">
+      <result name="success" type="chain">loadCondoFeeList_ByHouse</result>
+    </action>
+    
+    
+    <!-- old actions  -->
+    <!-- ============================================================= -->
+    <action name="loadCondoFeeList" class="org.pmp.action.business.CondoFeeAction" method="loadCondoFeeList">
+      <result name="success">/fee/cf_list.jsp</result>
+    </action>
+   
+    <action name="getCondoFee" class="org.pmp.action.business.CondoFeeAction" method="loadCondoFeeInstance">
+      <result name="success">/fee/cf_input.jsp</result>
+    </action>
+    
+    <action name="viewCondoFee" class="org.pmp.action.business.CondoFeeAction" method="loadCondoFeeInstance">
+      <result name="success">/fee/cf_view.jsp</result>
+    </action>
+    
+    <action name="inputCondoFee" class="org.pmp.action.business.CondoFeeAction" method="inputCondoFee">
+      <result name="success">/fee/cf_list.jsp</result>
+    </action>
+    
+    <action name="auditCondoFee" class="org.pmp.action.business.CondoFeeAction" method="auditCondoFee">
+      <result name="success" type="chain">loadCondoFeeList</result>
+    </action>
+    
+    <action name="loadAttrs" class="org.pmp.action.business.CondoFeeAction" method="loadAttributes">
+      <result name="success">cf_attr.jsp</result>
+    </action>
+    
+    <action name="excel" class="org.pmp.action.business.CondoFeeAction" method="excelExport">
+    </action>
+    
+    
+    <!-- TimeParkFee related actions -->
+    <action name="addTimeParkFee" class="org.pmp.action.business.TimeParkFeeAction" method="addTimeParkFee">
+      <result name="success" type="chain">loadTimeParkFeeByProject</result>
+    </action>
+    
+    <action name="tpfImport" class="org.pmp.action.business.TimeParkFeeAction" method="excelImport">
+      <result name="success">tpf_list.jsp</result>
+      <result name="filetype_error">tpf_import.jsp</result>
+    </action>
+    
+    <action name="loadTimeParkFeeByProject" class="org.pmp.action.business.TimeParkFeeAction" method="loadTimeParkFeeByProject">
+    </action>
+    
+    
+    
+  </package>
+</struts>
+

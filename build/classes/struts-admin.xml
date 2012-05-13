@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+  <constant name="struts.i18n.encoding" value="UTF-8" />
+  
+  <package name="admin"  extends="struts-default" namespace="/admin">
+    <!-- Resource Related Actions begin -->
+    <action name="loadResList" class="org.pmp.action.admin.ResourceAction" method="loadResList">
+		<result name="success">/admin/res_list.jsp</result>
+	</action>
+	
+	<action name="import_res" class="org.pmp.action.admin.ResourceAction" method="importRes">
+	  <result name="success" type="chain">loadResList</result>
+	  <result name="filetype_error">/admin/res_import.jsp</result>
+	</action>
+	
+    <action name="addRes" class="org.pmp.action.admin.ResourceAction" method="addResource">
+	  <result name="success" type="chain">loadResList</result>
+	</action>
+	
+	<action name="getResById" class="org.pmp.action.admin.ResourceAction" method="getResById">
+		<result name="success">/admin/res_edit.jsp</result>
+	</action>
+	
+	<action name="updateRes" class="org.pmp.action.admin.ResourceAction" method="updateRes">
+		<result name="success" type="chain">loadResList</result>
+	</action>
+	
+	<action name="deleteResById" class="org.pmp.action.admin.ResourceAction" method="deleteResById">
+	</action>
+	
+	<!-- authority related actions begin -->
+	<action name="loadAuthList" class="org.pmp.action.admin.AuthorityAction" method="loadAuthList">
+	  <result name="success">/admin/auth_list.jsp</result>
+	</action>
+	
+	<action name="addAuth" class="org.pmp.action.admin.AuthorityAction" method="addAuthority">
+	  <result name="success" type="chain">loadAuthList</result>
+	</action>
+	
+	<action name="updateAuth" class="org.pmp.action.admin.AuthorityAction" method="updateAuth">
+		<result name="success" type="chain">loadAuthList</result>
+	</action>
+	
+	<action name="getAuthById" class="org.pmp.action.admin.AuthorityAction" method="getAuthById">
+		<result name="success">/admin/auth_edit.jsp</result>
+	</action>
+	
+	<action name="deleteAuthById" class="org.pmp.action.admin.AuthorityAction" method="deleteAuthById">
+	</action>
+	
+	<!-- AuthorityResource related actions begin -->
+	<action name="getAuthRes" class="org.pmp.action.admin.AuthorityResourceAction" method="getAuthRes">
+		<result name="success">/admin/auth_res.jsp</result>
+	</action>
+	
+	<action name="edit_auth_res" class="org.pmp.action.admin.AuthorityResourceAction" method="editAuthRes">
+	  <result name="success" type="chain">loadAuthList</result>
+	</action>
+	
+	<!-- role related actions begin -->
+	<action name="loadRoleList" class="org.pmp.action.admin.RoleAction" method="loadRoleList">
+		<result name="success">/admin/role_list.jsp</result>
+	</action>
+	
+	<action name="addRole" class="org.pmp.action.admin.RoleAction" method="addRole">
+	  <result name="success" type="chain">loadRoleList</result>
+	</action>
+	
+	<action name="updateRole" class="org.pmp.action.admin.RoleAction" method="updateRole">
+		<result name="success" type="chain">loadRoleList</result>
+	</action>
+	
+	<action name="getRoleById" class="org.pmp.action.admin.RoleAction" method="getRoleById">
+		<result name="success">/admin/role_edit.jsp</result>
+	</action>
+	
+	<action name="deleteRoleById" class="org.pmp.action.admin.RoleAction" method="deleteRoleById">
+	</action>
+	
+	<!-- RoleAuthority Related Actions begin -->
+	<action name="getRoleAuth" class="org.pmp.action.admin.RoleAuthorityAction" method="getRoleAuth">
+	  <result name="success">/admin/role_auth.jsp</result>
+	</action>
+	
+	<action name="edit_role_auth" class="org.pmp.action.admin.RoleAuthorityAction" method="editRoleAuth">
+	  <result name="success" type="chain">loadRoleList</result>
+	</action>
+	
+	<!-- Group Related Actions Begin -->
+	<action name="loadGroupList" class="org.pmp.action.admin.GroupAction" method="loadGroupList">
+	  <result name="success">/admin/group_list.jsp</result>
+	</action>
+	
+	<action name="addGroup" class="org.pmp.action.admin.GroupAction" method="addGroup">
+	  <result name="success" type="chain">loadGroupList</result>
+	</action>
+	
+	<action name="getGroup" class="org.pmp.action.admin.GroupAction" method="getGroupByID">
+	  <result name="success">/admin/group_edit.jsp</result>
+	</action>
+	
+	<action name="editGroup" class="org.pmp.action.admin.GroupAction" method="editGroup">
+	  <result name="success" type="chain">loadGroupList</result>
+	</action>
+	
+	<action name="deleteGroup" class="org.pmp.action.admin.GroupAction" method="deleteGroup">
+	  <result name="success" type="chain">loadGroupList</result>
+	</action>
+	
+	<action name="levelChange" class="org.pmp.action.admin.GroupAction" method="levelChange">
+	</action>
+	
+	<action name="fatherChange" class="org.pmp.action.admin.GroupAction" method="fatherChange">
+	</action>
+	
+	<action name="load_Role_list" class="org.pmp.action.admin.UserAction" method="loadRoleList">
+	</action>
+	
+	<action name="fatherChange" class="org.pmp.action.admin.GroupAction" method="fatherChange">
+	</action>
+	
+	<action name="load_Role_list" class="org.pmp.action.admin.UserAction" method="loadRoleList">
+	</action>
+	
+	<action name="fatherChange" class="org.pmp.action.admin.GroupAction" method="fatherChange">
+	</action>
+	
+	<action name="load_Role_list" class="org.pmp.action.admin.UserAction" method="loadRoleList">
+	</action>
+	
+	<action name="load_Group_list" class="org.pmp.action.admin.UserAction" method="loadGroupList">
+	</action>
+	
+	<!-- User Related Actions Begin -->
+	<action name="addUser" class="org.pmp.action.admin.UserAction" method="addUser">
+	  <result name="success">/admin/user_list.jsp</result>
+	</action>
+
+	<action name="user_list" class="org.pmp.action.admin.UserAction" method="loadUserList">
+	</action>
+	
+	<action name="get_user" class="org.pmp.action.admin.UserAction" method="getUserById">
+	  <result name="success">/admin/user_edit.jsp</result>
+	</action>
+	
+	<action name="updateUser" class="org.pmp.action.admin.UserAction" method="updateUser">
+	  <result name="success">/admin/user_list.jsp</result>
+	  <result name="input">/error/fof.jsp</result>
+	</action>
+	
+	<action name="deleteUserById" class="org.pmp.action.admin.UserAction" method="deleteUser">
+	</action>
+	
+	<!-- Module related Actions -->
+	<action name="addModule" class="org.pmp.action.admin.ModuleAction" method="addModule">
+	  <result name="success" type="chain">loadModuleList</result>
+	</action>
+	
+	<action name="deleteModule" class="org.pmp.action.admin.ModuleAction" method="deleteModule">
+	  <result name="success" type="chain">loadModuleList</result>
+	</action>
+	
+	<action name="editModule" class="org.pmp.action.admin.ModuleAction" method="editModule">
+	  <result name="success" type="chain">loadModuleList</result>
+	</action>
+	
+	<action name="loadModuleList" class="org.pmp.action.admin.ModuleAction" method="loadModuleList">
+	  <result name="success">/admin/mod_list.jsp</result>
+	</action>
+	
+	<action name="getModule" class="org.pmp.action.admin.ModuleAction" method="loadModule">
+	  <result name="success">/admin/mod_edit.jsp</result>
+	</action>
+	
+	<!-- RoleModule related Actions -->
+	<action name="getRoleModule" class="org.pmp.action.admin.RoleModuleAction" method="getRoleModule">
+	  <result name="success">/admin/role_mod.jsp</result>
+	</action>
+	
+	<action name="editRoleModule" class="org.pmp.action.admin.RoleModuleAction" method="editRoleModule">
+	  <result name="success" type="chain">loadRoleList</result>
+	</action>
+	
+  </package>
+
+</struts>
+  

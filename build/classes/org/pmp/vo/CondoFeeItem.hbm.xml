@@ -11,6 +11,9 @@
         <many-to-one name="project" class="org.pmp.vo.Project" fetch="select" lazy="false">
             <column name="Pro_ID" />
         </many-to-one>
+        <property name="itemName" type="string">
+            <column name="Item_Name" length="200" />
+        </property>
         <property name="itemYear" type="integer">
             <column name="Item_Year" />
         </property>

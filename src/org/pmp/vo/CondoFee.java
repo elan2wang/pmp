@@ -20,6 +20,7 @@ public class CondoFee implements java.io.Serializable {
     private Double oughtMoney;
     private Double fetchMoney;
     private String fetchTicket;
+    private String generatePerson;
     private String fetchPerson;
     private String recordPerson;
     private String auditPerson;
@@ -28,6 +29,7 @@ public class CondoFee implements java.io.Serializable {
     private Date inputTime;
     private Date auditTime;
     private Boolean issend;
+    private String comment;
 
     public CondoFee() {
     }
@@ -39,9 +41,9 @@ public class CondoFee implements java.io.Serializable {
     public CondoFee(Integer cfId, CondoFeeItem condoFeeItem, House house,
 	    Owner owner, Integer cfYear, Integer cfMonth, Date fetchDate,
 	    Double condoFeeRate, Double oughtMoney, Double fetchMoney,
-	    String fetchTicket, String fetchPerson, String recordPerson,
+	    String fetchTicket, String generatePerson, String fetchPerson, String recordPerson,
 	    String auditPerson, String state, Date generateTime,
-	    Date inputTime, Date auditTime, Boolean issend) {
+	    Date inputTime, Date auditTime, Boolean issend,String comment) {
 	this.cfId = cfId;
 	this.condoFeeItem = condoFeeItem;
 	this.house = house;
@@ -53,6 +55,7 @@ public class CondoFee implements java.io.Serializable {
 	this.oughtMoney = oughtMoney;
 	this.fetchMoney = fetchMoney;
 	this.fetchTicket = fetchTicket;
+	this.generatePerson = generatePerson;
 	this.fetchPerson = fetchPerson;
 	this.recordPerson = recordPerson;
 	this.auditPerson = auditPerson;
@@ -61,6 +64,7 @@ public class CondoFee implements java.io.Serializable {
 	this.inputTime = inputTime;
 	this.auditTime = auditTime;
 	this.issend = issend;
+        this.comment = comment;
     }
 
     public Integer getCfId() {
@@ -109,6 +113,14 @@ public class CondoFee implements java.io.Serializable {
 
     public void setFetchTicket(String fetchTicket) {
 	this.fetchTicket = fetchTicket;
+    }
+
+    public String getGeneratePerson() {
+        return generatePerson;
+    }
+
+    public void setGeneratePerson(String generatePerson) {
+        this.generatePerson = generatePerson;
     }
 
     public String getFetchPerson() {
@@ -213,6 +225,14 @@ public class CondoFee implements java.io.Serializable {
 
     public void setAuditTime(Date auditTime) {
 	this.auditTime = auditTime;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
 }

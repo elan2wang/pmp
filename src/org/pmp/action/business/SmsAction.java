@@ -12,10 +12,7 @@
  */
 package org.pmp.action.business;
 
-<<<<<<< HEAD
 import java.util.ArrayList;
-=======
->>>>>>> a95eeeb2b3e02abe6366158d5e4d9caaf6381304
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -24,13 +21,10 @@ import org.pmp.service.business.IOwnerService;
 import org.pmp.service.business.IProjectService;
 import org.pmp.util.JsonConvert;
 import org.pmp.util.Pager;
-<<<<<<< HEAD
 import org.pmp.util.SessionHandler;
 import org.pmp.vo.Company;
 import org.pmp.vo.Owner;
 import org.pmp.vo.Project;
-=======
->>>>>>> a95eeeb2b3e02abe6366158d5e4d9caaf6381304
 
 /**
  * @author Elan
@@ -51,7 +45,6 @@ public class SmsAction {
     
     //~ Methods ========================================================================================================
     public void load_owner_list(){
-<<<<<<< HEAD
 		List<?> list = null;
 		Pager pager = new Pager(10000,1);
 		if (proId!=null && builId!=null){
@@ -70,22 +63,7 @@ public class SmsAction {
 		else
 		{
 			System.out.println("list is null");
-		}		
-=======
-	List<?> list = null;
-	Pager pager = new Pager(10000,1);
-	if (proId==null && builId==null){
-	    list = ownerService.loadOwnerList(pager);
-	} else if (proId!=null && builId==null){
-	    list = ownerService.loadOwnerList_ByProject(proId, pager);
-	} else {
-	    list = ownerService.loadOwnerList_ByBuilding(builId, pager);
-	}
-	
-	String data = JsonConvert.list2Json(list, "org.pmp.vo.Owner");
-	logger.debug(data);
-	JsonConvert.output(data);
->>>>>>> a95eeeb2b3e02abe6366158d5e4d9caaf6381304
+		}
     }
     //~ Getters and Setters ============================================================================================
 

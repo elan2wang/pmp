@@ -29,14 +29,14 @@ public class BaseDAO {
     }
     
     /**
-     * @Title: executeProcedure
-     * @Description: execute procedure with parameter work and return void
+     * @Title: executeWork
+     * @Description: execute work and return void
      *
      * @param  work org.hibernate.jdbc.Work;
      * @return void
      * @throws RuntimeException
      */
-    public void executeProcedure(Work work){
+    public void executeWork(Work work){
 	Session session = getSession();
 	Transaction tx = null;
 	try {
