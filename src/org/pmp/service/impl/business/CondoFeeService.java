@@ -31,6 +31,18 @@ public class CondoFeeService implements ICondoFeeService {
     //~ Constructor ====================================================================================================
 
     //~ Methods ========================================================================================================
+    
+    public void batchSetOughtMoney(List<CondoFee> list){
+	condoFeeDAO.batchSetOughtMoney(list);
+    }
+    
+    public void batchInput(List<CondoFee> list){
+	condoFeeDAO.batchInput(list);
+    }
+    
+    public void batchAudit(final List<CondoFee> list){
+	condoFeeDAO.batchAudit(list);
+    }
     public List<?> loadCondoFeeListBy_cfiId(Integer cfiId, Pager pager) {
 	return condoFeeDAO.loadCondoFeeListBy_cfiId(cfiId, pager);
     }
@@ -58,11 +70,49 @@ public class CondoFeeService implements ICondoFeeService {
     }
     
     @Override
-    public List<CondoFee> loadCondoFeeList_ByOwner(Integer ownerId,Map<String,Object>params,String order,Pager pager)
+    public List<CondoFee> loadCondoFeeList_ByHouse(Integer houseId,Map<String,Object>params,String order,Pager pager)
     {
-	return condoFeeDAO.loadCondoFeeList_ByOwner(ownerId, params, order, pager);
+	return condoFeeDAO.loadCondoFeeList_ByHouse(houseId, params, order, pager);
     }
     
+    /**
+     * @see org.pmp.service.business.ICondoFeeService#loadCondoFeeList_ByIds(java.util.List)
+     */
+    @Override
+    public List<CondoFee> loadCondoFeeList_ByIds(List<Integer> ids) {
+	return condoFeeDAO.loadCondoFeeList_ByIds(ids);
+    }
+
+    /**
+     * @see org.pmp.service.business.ICondoFeeService#loadCondoFeeList_ByCFI(java.lang.Integer, java.util.Map, java.lang.String, org.pmp.util.Pager)
+     */
+    @Override
+    public List<CondoFee> loadCondoFeeList_ByCFI(Integer cfiId,
+	    Map<String, Object> params, String order, Pager pager) {
+	return condoFeeDAO.loadCondoFeeList_ByCFI(cfiId, params, order, pager);
+    }
+
+    /**
+     * @see org.pmp.service.business.ICondoFeeService#loadCondoFeeList_ByCompany(java.lang.Integer, java.util.Map, java.lang.String, org.pmp.util.Pager)
+     */
+    @Override
+    public List<CondoFee> loadCondoFeeList_ByCompany(Integer comId,
+	    Map<String, Object> params, String order, Pager pager) {
+	return condoFeeDAO.loadCondoFeeList_ByCompany(comId, params, order, pager);
+    }
+
+    /**
+     * @see org.pmp.service.business.ICondoFeeService#loadCondoFeeList_ByProject(java.lang.Integer, java.util.Map, java.lang.String, org.pmp.util.Pager)
+     */
+    @Override
+    public List<CondoFee> loadCondoFeeList_ByProject(Integer proId,
+	    Map<String, Object> params, String order, Pager pager) {
+	return condoFeeDAO.loadCondoFeeList_ByProject(proId, params, order, pager);
+    }
+
+    
+    
+
     //~ Getters and Setters ============================================================================================
 
     public ICondoFeeDAO getCondoFeeDAO() {

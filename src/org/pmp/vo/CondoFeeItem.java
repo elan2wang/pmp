@@ -10,6 +10,7 @@ import java.util.Date;
 public class CondoFeeItem implements java.io.Serializable {
     
     private Integer cfiId;
+    private String itemName;
     private Project project;
     private Integer itemYear;
     private String itemMonth;
@@ -23,9 +24,11 @@ public class CondoFeeItem implements java.io.Serializable {
 	this.cfiId = cfiId;
     }
 
-    public CondoFeeItem(Integer cfiId, Integer itemYear,
+    public CondoFeeItem(Integer cfiId, String itemName,Project project,Integer itemYear,
 	    String itemMonth, Date generateTime, String generatePerson) {
 	this.cfiId = cfiId;
+	this.itemName = itemName;
+	this.project = project;
 	this.itemYear = itemYear;
 	this.itemMonth = itemMonth;
 	this.generateTime = generateTime;
@@ -46,6 +49,14 @@ public class CondoFeeItem implements java.io.Serializable {
 
     public void setProject(Project project) {
         this.project = project;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 
     public Integer getItemYear() {

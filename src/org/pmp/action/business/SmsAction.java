@@ -13,7 +13,6 @@
 package org.pmp.action.business;
 
 import java.util.ArrayList;
-
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -26,7 +25,8 @@ import org.pmp.util.Pager;
 import org.pmp.vo.Owner;
 import org.pmp.vo.Project;
 import org.pmp.vo.TbUser;
-
+import org.pmp.util.SessionHandler;
+import org.pmp.vo.Company;
 
 /**
  * @author Elan
@@ -114,7 +114,7 @@ public class SmsAction {
 		else
 		{
 			System.out.println("list is null");
-		}		
+		}	
     }
     
     

@@ -19,10 +19,10 @@ import org.pmp.vo.CondoFeeItem;
  */
 public interface ICondoFeeItemService {
     public void addCondoFeeItem(CondoFeeItem instance);
+    public void deleteCondoFeeItem(Integer cfiId);
     
-    public List loadCondoFeeItemListBy_ProID(Pager pager,Integer proId);
-    
-    public List loadCondoFeeItemListBy_ComID(Pager pager,Integer comId);
+    public List<?> getCondoFeeYear();
     
     public CondoFeeItem getCondoFeeItemByID(Integer cfiId);
+    public List<?> loadCondoFeeItemListBy_ComID(Pager pager,Integer comId);
 }

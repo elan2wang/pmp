@@ -7,11 +7,13 @@
  */
 package org.pmp.util;
 
+import java.io.File;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
 
 /**
  * @author Elan
@@ -57,5 +59,19 @@ public class MyfileUtil {
 	return sb.toString();
     }
     
-    
+    public static void createDir(String path){
+	try {
+	    String dirPath = ServletActionContext.getServletContext().getRealPath(path);
+	    File dirFile = new File(dirPath);
+	    Boolean isExist = dirFile.exists();
+	    if (isExist){
+		logger.debug("this dir already exist");
+	    } else {
+		dirFile.mkdir();
+	    }
+	} catch (Exception err){
+	    logger.error("create dir failed");
+	    err.printStackTrace();
+	}
+    }
 }
