@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,19 +11,27 @@
 <link href="../CSS/common/tab.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="../Scripts/component/flexigrid-1.1/css/flexigrid.pack.css" />
 <script type="text/javascript" src="../Scripts/jquery-1.7.1.js" ></script>
-<script type="text/javascript" src="../Scripts/component/flexigrid-1.1/js/flexigrid-2.js"></script>
+<script type="text/javascript" src="../Scripts/component/flexigrid-1.1/js/flexigrid.js"></script>
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
 <script type="text/javascript" src="../Scripts/pages/sms/SMSuser_list.js"></script>
 </head>
-<body>
+<body onload="init()">
 <div class="wrap">
               <div class="grid_top"> 
                   <select>
                      <option>-----公司-----</option>
                   </select>
-                  <select>
-                     <option>----小区----</option>
-                  </select>
+                   
+                  <s:action name="getProjectBySessionHander" namespace="/cms"  executeResult="true">
+                 	 <s:param name="chooseJspPage">2</s:param>
+                 	 </s:action>
+                 	  <!-- 
+                 <select id="projectId" name="projectId" onchange="ProjectChanged()">
+						<option value="0" selected="selected">--小区--</option>
+						<c:forEach var="project" items="${projectList}">
+							<option value="${project.proId}">${project.proName}</option>
+						</c:forEach>
+				 </select> -->
                   <select>
                      <option>----职位----</option>
                   </select>

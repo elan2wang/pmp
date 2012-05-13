@@ -1,10 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<<<<<<< HEAD
+
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-=======
->>>>>>> a95eeeb2b3e02abe6366158d5e4d9caaf6381304
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,37 +13,36 @@
 <link href="../CSS/common/tab.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="../Scripts/component/flexigrid-1.1/css/flexigrid.pack.css" />
 <script type="text/javascript" src="../Scripts/jquery-1.7.1.js" ></script>
-<script type="text/javascript" src="../Scripts/component/flexigrid-1.1/js/flexigrid-2.js"></script>
+<script type="text/javascript" src="../Scripts/component/flexigrid-1.1/js/flexigrid.js"></script>
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
 <script type="text/javascript" src="../Scripts/pages/sms/SMSowner_list.js"></script>
 </head>
-<body>
+<body onload="init()">
 <div class="wrap">
             <div class="grid_top"> 
                   <select>
                      <option>----公司----</option>
                   </select>
-<<<<<<< HEAD
-                   <s:action name="getProjectBySessionHander" namespace="/cms" executeResult="true"/>
+
+                   
                    <!--  
                   <select>
-                     <option>---小区---</option>
+                     <option value="0">---小区---</option>
                   </select>
                    --> 
+                 
+
+                  
+                  <s:action name="getProjectBySessionHander" namespace="/cms" executeResult="true"/>
+                  <!--  
+                  <input type="hidden" name="proId" id="proId" value="${proId}"/>
+                  -->
                   <select id="buildingId" onchange="buildingChanged()">
-                     <option>-楼号-</option>
-                  </select>
-                  <select id="houseId">
-=======
-                  <select>
-                     <option>---小区---</option>
+                     <option value="0">-楼号-</option>
                   </select>
                   <select>
-                     <option>-楼号-</option>
-                  </select>
-                  <select>
->>>>>>> a95eeeb2b3e02abe6366158d5e4d9caaf6381304
-                     <option>-单元号-</option>
+
+                     <option value="0">-单元号-</option>
                   </select>
                   <a href="#" class="linkbutton" onclick="selectAll()">全选</a>
                   <a href="#" class="linkbutton" onclick="selectOpposite()">反选</a>
@@ -53,7 +51,7 @@
 
               <table id="SMSuserlist">
                 <tbody id="SMSuser_data">
-<<<<<<< HEAD
+
                
 					 <!--  <tr>
 					 	<td><input type="checkbox" id="checkgroup" name="checkgroup" value="13568821380" onclick="selectAll()"/></td><td></td><td></td><td></td><td></td><td></td>
@@ -61,14 +59,14 @@
 				
                  
                 
-=======
+
                   <tr><td><input type="checkbox" id="checkgroup" name="checkgroup" value="13568821380" onclick="selectAll()"/></td><td></td><td></td><td></td><td></td><td></td>
                   </tr>
                   <tr><td><input type="checkbox" id="checkgroup" name="checkgroup" value="13568821380"/></td><td></td><td></td><td></td><td></td><td></td>
                   </tr>
                   <tr><td><input type="checkbox" id="checkgroup" name="checkgroup" value="13568821380"/></td><td></td><td></td><td></td><td></td><td></td>
                   </tr>
->>>>>>> a95eeeb2b3e02abe6366158d5e4d9caaf6381304
+
                 </tbody>
               </table>
               <div class="">
@@ -77,3 +75,5 @@
               </div>
               
 </div>
+</body>
+</html>

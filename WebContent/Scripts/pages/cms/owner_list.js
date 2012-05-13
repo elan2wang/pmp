@@ -30,15 +30,7 @@ function openEditOwner(id){
 	alert(id);
 
 	$('#editOwner').window({href:'get_owner?ownerId='+id});
-//	$('#editOwner').window
 	$('#editOwner').window('open');
-//	alert("style.display  null");
-//	var editjsp=document.getElementById("editOwner");
-//	editjsp.style.display = 'none';
-//	owner_edit_init();
-	//alert("style.display  not null");
-//	editjsp.style.display = '';
-	//$('#editOwner').html().style.display = '';
 
 }
 function closeEditOwner(){
@@ -146,7 +138,7 @@ function PageDownOrUp(flag){
 	  }
 	}); 
 }	
-function getSecondInfo(builId,houseId)
+function ProjectChanged(builId,houseId)
 {
 	var project = document.getElementById("projectId");
 	var index=project.selectedIndex;

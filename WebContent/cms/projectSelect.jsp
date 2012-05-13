@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<select id="projectId" name="projectId" onchange="getSecondInfo()">
+<select id="projectId" name="projectId" onchange="ProjectChanged()">
 <option value="0" selected="selected">请选择小区</option>
 <c:forEach var="project" items="${projectList}">
 	<option value="${project.proId}">${project.proName}</option>

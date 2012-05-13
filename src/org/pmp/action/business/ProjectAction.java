@@ -44,17 +44,16 @@ public class ProjectAction extends ActionSupport {
 	private IProjectService projectService;
 	private Project project;
 	private Integer projectId;
-	private Integer currentPage = 1;
-	private Integer pageSize = 10;
+	private Integer page = 1;
+	private Integer rp = 10;
 	private String district;
 	private String keyWord;
 	private List projectList;
 	private String projectName;
-	
 	private File refFile;
 	private String refFileFileName;
 	private String refFileContentType;
-
+	
 	public String addProject(){
 			projectService.addProject(project);
 		return SUCCESS;
@@ -70,18 +69,19 @@ public class ProjectAction extends ActionSupport {
 	}
 	
 	public void loadProjectList(){
-		Pager pager = new Pager(pageSize,currentPage);
+		Pager pager = new Pager(rp,page);
 		List projectList = projectService.loadProjectList(pager);
 		logger.debug("list.size="+projectList.size());
 		
-		String data = JsonConvert.list2Json(pager, projectList, "org.pmp.vo.Project");
+		String data = JsonConvert.list2FlexJson(pager, projectList, "org.pmp.vo.Project");
+		System.out.println(data);
 		logger.debug(data);
 		JsonConvert.output(data);
 	}
 	
 	public void getProjectByDistrict(){
 		logger.debug("进入getProjectByDistrict()");
-		Pager pager = new Pager(pageSize,currentPage);
+		Pager pager = new Pager(rp,page);
 		List projectList = projectService.getProjectByDistrict(district, pager);
 		logger.debug("list.size="+projectList.size());
 		
@@ -106,7 +106,8 @@ public class ProjectAction extends ActionSupport {
 		else if(objName.equals("org.pmp.vo.Company"))
 		{
 			projectList = projectService.getAllProject();
-		}
+		}		
+		
 		return SUCCESS;
 	}
 	
@@ -153,12 +154,12 @@ public class ProjectAction extends ActionSupport {
 		this.projectService = projectService;
 	}
 	
-	public Integer getCurrentPage() {
-		return currentPage;
+	public Integer getPage() {
+		return page;
 	}
 	
-	public void setCurrentPage(Integer currentPage) {
-		this.currentPage = currentPage;
+	public void setPage(Integer page) {
+		this.page = page;
 	}
 	
 	public Project getProject() {
@@ -216,12 +217,12 @@ public class ProjectAction extends ActionSupport {
 		this.refFileContentType = refFileContentType;
 	}
 
-	public Integer getPageSize() {
-	    return pageSize;
+	public Integer getRp() {
+	    return rp;
 	}
 
-	public void setPageSize(Integer pageSize) {
-	    this.pageSize = pageSize;
+	public void setRp(Integer rp) {
+	    this.rp = rp;
 	}
 
 	public IProjectService getProjectService() {

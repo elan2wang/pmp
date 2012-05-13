@@ -91,6 +91,22 @@ public class UserDAO extends BaseDAO implements IUserDAO {
 	}
 	return list;
     }
+    
+    public List loadUserList_ByProject(Pager pager,Integer proId)
+    {
+    //	String proName = 
+    	List list = null;
+    	String hql = "select ugr.tbUser from TbUserGroupRole ugr,Project p,TbGroup  tg where p.proName = tg.refDomain and tg.groupId = ugr.tbGroup and p.proId = "+proId.toString();
+    	String debugMsg = "loadUserList_ByProject proId="+proId.toString();
+    	try{
+    	    list = loadListByCondition(hql,pager,debugMsg);
+    	} catch (RuntimeException e){
+    	    throw e;
+    	}
+    	return list;
+    }
+    
+    
 	@Override
 	public TbUser getUserById(Integer userID) {
 		String hql = "from TbUser where userId="+userID;

@@ -12,25 +12,21 @@
  */
 package org.pmp.action.business;
 
-<<<<<<< HEAD
 import java.util.ArrayList;
-=======
->>>>>>> a95eeeb2b3e02abe6366158d5e4d9caaf6381304
+
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.pmp.service.admin.IUserService;
 import org.pmp.service.business.IBuildingService;
 import org.pmp.service.business.IOwnerService;
 import org.pmp.service.business.IProjectService;
 import org.pmp.util.JsonConvert;
 import org.pmp.util.Pager;
-<<<<<<< HEAD
-import org.pmp.util.SessionHandler;
-import org.pmp.vo.Company;
 import org.pmp.vo.Owner;
 import org.pmp.vo.Project;
-=======
->>>>>>> a95eeeb2b3e02abe6366158d5e4d9caaf6381304
+import org.pmp.vo.TbUser;
+
 
 /**
  * @author Elan
@@ -43,27 +39,42 @@ public class SmsAction {
     private static Logger logger = Logger.getLogger(SmsAction.class.getName());
     //~ Instance Fields ================================================================================================
     private IOwnerService ownerService;
+	private IUserService userService;
     private IProjectService projectService;
     private IBuildingService buildingService;
-
     private Integer proId;
     private Integer builId;
     
     //~ Methods ========================================================================================================
     public void load_owner_list(){
-<<<<<<< HEAD
 		List<?> list = null;
 		Pager pager = new Pager(10000,1);
+		System.out.println(proId);
+
+		System.out.println(builId);
 		if (proId!=null && builId!=null){
+		//	Project pro = projectService.getProjectByID(proId);
 			list = ownerService.loadOwnerList_ByBuilding(builId, pager);
 		} else if (proId!=null && builId==null){
+		//	Project pro = projectService.getProjectByID(proId);
 			list = ownerService.loadOwnerList_ByProject(proId, pager);
 		} else {
 			list = new ArrayList<Owner>();;
+			
 		}
 		if(list!=null && list.size()!=0)
 		{
-			String data = JsonConvert.list2Json(list, "org.pmp.vo.Owner");
+			Pager page = new Pager(1000,1);
+			page.setRowsCount(list.size());
+			List show = new ArrayList<String>();
+			show.add("ownerName");
+			show.add("mobile");
+			show.add("parkNum");
+			show.add("houseNum");
+			//show.add("ownerName");
+			//ownerId mobile houseNum
+			String data = JsonConvert.list2FlexJson(page, list, "org.pmp.vo.Owner", show);
+			System.out.println(data);
 			logger.debug(data);
 			JsonConvert.output(data);
 		}
@@ -71,22 +82,42 @@ public class SmsAction {
 		{
 			System.out.println("list is null");
 		}		
-=======
-	List<?> list = null;
-	Pager pager = new Pager(10000,1);
-	if (proId==null && builId==null){
-	    list = ownerService.loadOwnerList(pager);
-	} else if (proId!=null && builId==null){
-	    list = ownerService.loadOwnerList_ByProject(proId, pager);
-	} else {
-	    list = ownerService.loadOwnerList_ByBuilding(builId, pager);
-	}
-	
-	String data = JsonConvert.list2Json(list, "org.pmp.vo.Owner");
-	logger.debug(data);
-	JsonConvert.output(data);
->>>>>>> a95eeeb2b3e02abe6366158d5e4d9caaf6381304
     }
+    
+    public void load_user_list(){
+		List<?> list = null;
+		Pager pager = new Pager(10000,1);
+		System.out.println(proId);
+		if (proId!=null){
+		//	Project pro = projectService.getProjectByID(proId);
+			list = userService.loadUserList_ByProject(pager, proId);
+		} else {
+			list = new ArrayList<TbUser>();	
+		}
+		if(list!=null && list.size()!=0)
+		{
+			Pager page = new Pager(1000,1);
+			page.setRowsCount(list.size());
+			List show = new ArrayList<String>();
+			show.add("username");
+			show.add("password");
+			show.add("realname");
+			show.add("mobile");
+			show.add("identify");
+			show.add("userDesc");			
+			//ownerId mobile houseNum
+			String data = JsonConvert.list2FlexJson(page, list, "org.pmp.vo.TbUser", show);
+			System.out.println(data);
+			logger.debug(data);
+			JsonConvert.output(data);
+		}
+		else
+		{
+			System.out.println("list is null");
+		}		
+    }
+    
+    
     //~ Getters and Setters ============================================================================================
 
     public IOwnerService getOwnerService() {
@@ -112,6 +143,20 @@ public class SmsAction {
     public void setBuildingService(IBuildingService buildingService) {
         this.buildingService = buildingService;
     }
+    
+    /**
+	 * @return the userService
+	 */
+	public IUserService getUserService() {
+		return userService;
+	}
+
+	/**
+	 * @param userService the userService to set
+	 */
+	public void setUserService(IUserService userService) {
+		this.userService = userService;
+	}
 
     public Integer getProId() {
         return proId;

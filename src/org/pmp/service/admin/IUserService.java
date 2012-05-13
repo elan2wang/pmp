@@ -60,4 +60,14 @@ public interface IUserService {
      * @return List  保存该用户组的所有用户
      */
     public List getUserListByGroup(Pager pager,Integer groupID);
+    
+    /**
+     * @Title: loadUserList_ByProject
+     * @Description: 根据小区ID得到权限为管理该小区的用户列表
+     *
+     *@param  pager  Pager类型，表示分页对象
+     * @param  proId  Integer类型，表示项目（小区）编号
+     * @return List  保存该小区的所有用户
+     */
+    public List loadUserList_ByProject(Pager pager,Integer proId);
 }

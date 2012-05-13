@@ -106,22 +106,8 @@ public class ProjectDAO extends BaseDAO implements IProjectDAO {
 	}
 
 	public Project getProjectByID(Integer projectID) {
-		logger.debug("projectID"+projectID);
-		Session session = getSession();
-		Project project = null;
-		List list = null;
-		logger.debug("begin to get a project by ID");
-		try{
-			Transaction tx = session.beginTransaction();
-			Query query = session.createQuery("from Project pro where pro.proId="+projectID);
-			list = query.list();
-			project = (Project)list.get(0);
-		}catch(RuntimeException e){
-			logger.error("get a project by ID failed",e);
-			throw e;
-		}
-		logger.debug("get a project by ID success");
-		session.close();
+		String hql = "from Project pro where pro.proId="+projectID;
+		Project project = (Project)getInstance(hql,"get a Project By ID");
 		return project;
 	}
 

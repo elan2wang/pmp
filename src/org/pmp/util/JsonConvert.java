@@ -155,6 +155,73 @@ public class JsonConvert {
 	return sb.toString();
     }
     
+    static String object2FlexJson(Object obj,String beanType){
+    	StringBuffer sb = new StringBuffer();
+    	sb.append("{");
+    	String getter = null;
+    	String fieldType = null;
+    	String fieldName = null;
+    	try {
+    	    Class<?> cls = Class.forName(beanType);
+    	    Field[] fields = cls.getDeclaredFields();
+    	    
+    	  //找到属性名包含Id的主键
+    	    boolean idtrue=false;
+    	    for(Field field : fields){
+        		/* generate the getter method of the field */
+        		fieldType = field.getType().toString();
+        		fieldName = field.getName();
+        		if (fieldName.contains("Id"))
+        		{        		
+        			/* if the field is in show list then append to StringBuffer */
+        			if (fieldType.equals("boolean")){
+        				getter = "is" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
+        			} else {
+        				getter = "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
+        			}
+        			Method getterMethod = cls.getMethod(getter, new Class[] {});
+        			Object value = getterMethod.invoke(obj, new Object[] {});
+        			sb.append(toJson("id")+":\""+toJson(value)+"\",");//增加"id":"idValue"
+        			idtrue=true;
+        		}
+        	}
+    	    //判断是否找到了包含Id的主键属性
+    	    if(!idtrue)
+    	    {
+    	    	logger.error(" class not a fieldname contains \'Id\'");
+    	    }
+    	    sb.append(toJson("cell")+":"+"{");//增加"id":"idValue"
+    	    
+    	    for(Field field : fields){
+    		/* generate the getter method of the field */
+    		fieldType = field.getType().toString();
+    		fieldName = field.getName();
+    		if (fieldType.equals("boolean")){
+    		    getter = "is" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
+    		} else {
+    		    getter = "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
+    		}
+    		Method getterMethod = cls.getMethod(getter, new Class[] {});
+    		Object value = getterMethod.invoke(obj, new Object[] {});
+    		sb.append(toJson(fieldName)+":"+toJson(value)+",");
+    	    }
+    	    sb.setCharAt(sb.length()-1, '}');
+    	    
+    	} catch (ClassNotFoundException e) {
+    	    logger.error(beanType+" class not found",e);
+    	} catch (NoSuchMethodException e) {
+    	    logger.error(getter+" method not found",e);
+    	} catch (IllegalArgumentException e) {
+    	    logger.error(getter+" IllegalArgumentException",e);
+    	} catch (IllegalAccessException e) {
+    	    logger.error(getter+" IllegalAccessException",e);
+    	} catch (InvocationTargetException e) {
+    	    logger.error(getter+" IllegalAccessException",e);
+    	}
+    	
+    	return sb.toString();
+        }
+    
     static String object2Json(Object obj,String beanType,List<String> show){
 	StringBuffer sb = new StringBuffer();
 	sb.append("{");
@@ -195,8 +262,82 @@ public class JsonConvert {
 	    logger.error(getter+" IllegalAccessException",e);
 	}
 	
+	
 	return sb.toString();
     }
+    //返回{"id":"1","cell":{"realname":"aw","position":"qteacher","userDesc":"userDesc"}   
+    //主键的判断：fieledname中含有”Id”的fieledname为主键属性
+    static String object2FlexJson(Object obj,String beanType,List<String> show){
+    	StringBuffer sb = new StringBuffer();
+    	sb.append("{");
+    	String getter = null;
+    	String fieldType = null;
+    	String fieldName = null;
+    	try {
+    	    Class<?> cls = Class.forName(beanType);
+    	    
+    	    Field[] fields = cls.getDeclaredFields();
+    	    //找到属性名包含Id的主键
+    	    boolean idtrue=false;
+    	    for(Field field : fields){
+        		/* generate the getter method of the field */
+        		fieldType = field.getType().toString();
+        		fieldName = field.getName();
+        		if (fieldName.contains("Id"))
+        		{        		
+        			/* if the field is in show list then append to StringBuffer */
+        			if (fieldType.equals("boolean")){
+        				getter = "is" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
+        			} else {
+        				getter = "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
+        			}
+        			Method getterMethod = cls.getMethod(getter, new Class[] {});
+        			Object value = getterMethod.invoke(obj, new Object[] {});
+        			sb.append(toJson("id")+":\""+toJson(value)+"\",");//增加"id":"idValue"
+        			idtrue=true;
+        		}
+        	}
+    	    //判断是否找到了包含Id的主键属性
+    	    if(!idtrue)
+    	    {
+    	    	logger.error(" class not a fieldname contains \'Id\'");
+    	    }
+    	    sb.append(toJson("cell")+":"+"{");//增加"id":"idValue"
+    	    for(Field field2 : fields){
+    	    	/* generate the getter method of the field */
+    	    	fieldType = field2.getType().toString();
+    	    	fieldName = field2.getName();
+    	    	/* if the field is not in show list then continue */
+    	    	if (!show.contains(fieldName))continue;
+    		
+    	    	/* if the field is in show list then append to StringBuffer */
+    	    	if (fieldType.equals("boolean")){
+    	    		getter = "is" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
+    	    	} else {
+    	    		getter = "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
+    	    	}
+    	    	Method getterMethod = cls.getMethod(getter, new Class[] {});
+    	    	Object value = getterMethod.invoke(obj, new Object[] {});
+    	    	sb.append(toJson(fieldName)+":"+toJson(value)+",");
+    	    }
+    	    sb.setCharAt(sb.length()-1, '}');
+    	    
+    	} catch (ClassNotFoundException e) {
+    	    logger.error(beanType+" class not found",e);
+    	} catch (NoSuchMethodException e) {
+    	    logger.error(getter+" method not found",e);
+    	} catch (IllegalArgumentException e) {
+    	    logger.error(getter+" IllegalArgumentException",e);
+    	} catch (IllegalAccessException e) {
+    	    logger.error(getter+" IllegalAccessException",e);
+    	} catch (InvocationTargetException e) {
+    	    logger.error(getter+" IllegalAccessException",e);
+    	}
+    	
+    	
+    	return sb.toString();
+    }
+    
     
     public static String list2Json(List<?> list,String beanType){
 	StringBuffer sb = new StringBuffer();
@@ -231,6 +372,26 @@ public class JsonConvert {
 	return sb.toString();
     }
     
+    
+    public static String list2FlexJson(Pager pager,List<?> list,String beanType){
+    	StringBuffer sb = new StringBuffer();
+    	sb.append("{\n");
+    	sb.append("  "+toJson("page")+":\""+toJson(pager.getCurrentPage())+"\",\n");
+    	sb.append("  "+toJson("total")+":"+toJson(pager.getRowsCount())+",\n");
+    	sb.append("  "+toJson("rows")+":[\n");
+    	
+    	Iterator<?> ite = list.iterator();
+    	while(ite.hasNext()){
+    	    Object obj = ite.next();
+    	    sb.append("    "+object2FlexJson(obj,beanType)+"},\n");
+    	}
+    	sb.deleteCharAt(sb.length()-2);
+    	sb.append("  ]\n}\n");
+    	
+    	return sb.toString();
+        }
+    
+    
     public static String list2Json(List<?> list,String beanType,List<String> show){
 	StringBuffer sb = new StringBuffer();
 	sb.append("{\n  "+toJson("Rows")+":[\n");
@@ -243,7 +404,8 @@ public class JsonConvert {
 	sb.append("  ]\n}\n");
 	return sb.toString();
     }
-    
+        
+
     public static String list2Json(Pager pager,List<?> list,String beanType,List<String> show){
 	StringBuffer sb = new StringBuffer();
 	sb.append("{\n");
@@ -263,6 +425,24 @@ public class JsonConvert {
 	
 	return sb.toString();
     }
+    
+    public static String list2FlexJson(Pager pager,List<?> list,String beanType,List<String> show){
+    	StringBuffer sb = new StringBuffer();
+    	sb.append("{\n");
+    	sb.append("  "+toJson("page")+":\""+toJson(pager.getCurrentPage())+"\",\n");
+    	sb.append("  "+toJson("total")+":"+toJson(pager.getRowsCount())+",\n");
+    	sb.append("  "+toJson("rows")+":[\n");
+    	
+    	Iterator<?> ite = list.iterator();
+    	while(ite.hasNext()){
+    	    Object obj = ite.next();
+    	    sb.append("    "+object2FlexJson(obj,beanType,show)+"},\n");
+    	}
+    	sb.deleteCharAt(sb.length()-2);
+    	sb.append("  ]\n}\n");
+    	
+    	return sb.toString();
+        }
     
     public static String list2Json(List<?> list,String beanType,List<String> show,String arrayName){
 	StringBuffer sb = new StringBuffer();
@@ -318,16 +498,6 @@ public class JsonConvert {
 	sb.append("  ]\n}");
 	return sb.toString().replaceAll(",}", "}");
     }
-<<<<<<< HEAD
-<<<<<<< .merge_file_a04100
-=======
-
-    
->>>>>>> .merge_file_a04704
-=======
-
-    
->>>>>>> 781c28d5e9915da32a8fab0216a9239da04ff970
     
     public static void output(String data){
 	try {    

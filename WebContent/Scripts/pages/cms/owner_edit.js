@@ -35,7 +35,7 @@ function owner_edit_init() {
 	 	UpdateSelectedItem(select_ismarried,ismarried);
 	 	UpdateSelectedItem(select_identityType,identityType);
 	  	UpdateSelectedItem(select_projectId,proName);	  	
-	  	getSecondInfo(builId,houseId);
+	  	ProjectChanged(builId,houseId);
 }
 
 

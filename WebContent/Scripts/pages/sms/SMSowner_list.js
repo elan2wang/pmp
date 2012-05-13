@@ -1,45 +1,10 @@
-$(function(){
-<<<<<<< HEAD
+function init()
+{
+	alert("ready");
 	var project = document.getElementById("projectId");
 	project.options[1].selected = true;//将第一个小区设为默认的
 	project.onchange();
-  $('#SMSuserlist').flexigrid({
-	  url: 'load_owner_list?proId='+1,
-	  dataType: 'json',
-	  colModel: [
-=======
-  $('#SMSuserlist').flexigrid({
-	  url: 'load_owner_list',
-	  dataType: 'json',
-	  colModel: [
-         { display: '序号', name:'num', width: 20,  sortable:true, align: 'center' },
->>>>>>> a95eeeb2b3e02abe6366158d5e4d9caaf6381304
-         { display: '业主', name:'owner', width: 50, sortable:true, align: 'center' },
-		 { display: '电话', name:'phone', width: 100, sortable:true, align: 'center' },
-		 { display: '小区', name:'project', width: 100, sortable:true, align: 'center' },
-         { display: '房号', name:'houseNum', width: 100, sortable:true, align: 'center' }
-         ],
-<<<<<<< HEAD
-         searchitems : [
-			       		{display: '业主', name : 'owner', isdefault: true}
-			       		],
-         buttons : [
-			       	{name: 'Add', bclass: 'add', onpress : action},
-			       	{name: 'Delete', bclass: 'delete', onpress : action},
-			       	{separator: true}
-		],
-      usepager: true,
-		useRp: true,
-		rp: 15,
-		showTableToggleBtn: true,
-		width: "auto",
-		height: "auto",
-		showcheckbox:true,
-		operation:true,
-		operationcontent:'<a href="javascript:void(0)">修改</a>',
-	    operationWidth:Width*0.1
-  });
-});
+}
 function test(com, grid) {
 	if (com == 'Delete') {
 		//confirm('Delete ' + $('.trSelected', grid).length + ' items?');
@@ -64,15 +29,81 @@ function test(com, grid) {
 	}
 }
 
+function flexGrid(url)
+{
+	alert("url:"+url);
+	var option={
+			  url: url,
+			  dataType: 'json',
+			  colModel: [
+		         { display: '业主', name:'ownerName', width: 50, sortable:true, align: 'center' },
+				 { display: '电话', name:'mobile', width: 100, sortable:true, align: 'center' },
+				 { display: '小区', name:'parkNum', width: 100, sortable:true, align: 'center' },
+		         { display: '房号', name:'houseNum', width: 100, sortable:true, align: 'center' }
+		         ],
+		         searchitems : [
+					       		{display: '业主', name : 'ownerName', isdefault: true}
+					       		],
+		         buttons : [
+					       	{name: 'Add', bclass: 'add', onpress : test},
+					       	{name: 'Delete', bclass: 'delete', onpress : test},
+					       	{separator: true}
+				],
+		      usepager: true,
+				useRp: true,
+				rp: 15,
+				showTableToggleBtn: true,
+				width: "auto",
+				height: "auto",
+				nomsg: '找不到符合条件的业主信息！', 
+				showcheckbox:true,
+				operation:true,
+				operationcontent:'<a href="javascript:void(0)">修改</a>',
+			    operationWidth:Width*0.1	
+	};
+	alert(option.url);
+	alert(option);
+	option.url=url;
+	 $("#SMSuserlist").flexigrid(option);
+     $("#SMSuserlist").flexOptions(option).flexReload();  
+//	$("#SMSuserlist").flexOptions(option).flexReload(); 
+//	 $('#SMSuserlist').flexigrid({
+//		  url: url,
+//		  dataType: 'json',
+//		  colModel: [
+//	         { display: '业主', name:'owner', width: 50, sortable:true, align: 'center' },
+//			 { display: '电话', name:'phone', width: 100, sortable:true, align: 'center' },
+//			 { display: '小区', name:'project', width: 100, sortable:true, align: 'center' },
+//	         { display: '房号', name:'houseNum', width: 100, sortable:true, align: 'center' }
+//	         ],
+//	         searchitems : [
+//				       		{display: '业主', name : 'owner', isdefault: true}
+//				       		],
+//	         buttons : [
+//				       	{name: 'Add', bclass: 'add', onpress : test},
+//				       	{name: 'Delete', bclass: 'delete', onpress : test},
+//				       	{separator: true}
+//			],
+//	      usepager: true,
+//			useRp: true,
+//			rp: 15,
+//			showTableToggleBtn: true,
+//			width: "auto",
+//			height: "auto",
+//			nomsg: '找不到符合条件的业主信息！', 
+//			showcheckbox:true,
+//			operation:true,
+//			operationcontent:'<a href="javascript:void(0)">修改</a>',
+//		    operationWidth:Width*0.1
+//	  });
+}
 //选择小区的onchange事件触发函数
 function ProjectChanged()
 {
-	
-	var project = document.getElementById("projectId");
-	var index=project.selectedIndex;
-	var projectName = project.options[index].text;
-	
+	alert("in ProjectChanged");
+	var project = document.getElementById("projectId");	
 	 var select1Value=document.getElementById("projectId").value;
+	 alert("select1Value:"+select1Value);
 	 $.ajax({
 	  type: "POST",
 	  url: "getBuildingByProject?projectId="+select1Value,
@@ -99,61 +130,8 @@ function ProjectChanged()
 			  
 	  }
 	});
-	 
-	 $('#SMSuserlist').flexigrid({
-		  url: 'load_owner_list?proId='+select1Value,
-		  dataType: 'json',
-		  colModel: [
-	         { display: '业主', name:'owner', width: 50, sortable:true, align: 'center' },
-			 { display: '电话', name:'phone', width: 100, sortable:true, align: 'center' },
-			 { display: '小区', name:'project', width: 100, sortable:true, align: 'center' },
-	         { display: '房号', name:'houseNum', width: 100, sortable:true, align: 'center' }
-	         ],
-	         searchitems : [
-				       		{display: '业主', name : 'owner', isdefault: true}
-				       		],
-	         buttons : [
-				       	{name: 'Add', bclass: 'add', onpress : action},
-				       	{name: 'Delete', bclass: 'delete', onpress : action},
-				       	{separator: true}
-			],
-	      usepager: true,
-			useRp: true,
-			rp: 15,
-			showTableToggleBtn: true,
-			width: "auto",
-			height: "auto",
-			showcheckbox:true,
-			operation:true,
-			operationcontent:'<a href="javascript:void(0)">修改</a>',
-		    operationWidth:Width*0.1
-	  });
-//	 $.ajax({
-//		  type: "POST",
-//		  url: "load_owner_list?proId="+select1Value,
-//		  dataType: "json",
-//		  success : function(data){
-//			  		
-//			      var selector=$('#buildingId'); 
-//			      var house=$('#houseId'); 
-//				  var s=selector.find('option');
-//				  var s_house=house.find('option');
-//				  for(i=1;i<s.length;i++){
-//				     s.eq(i).remove();
-//				  }
-//				  for(i=1;i<s_house.length;i++){
-//					  s_house.eq(i).remove();
-//				  }
-//				  if(data)
-//			  	  {
-//					  $.each( data.Rows , function(commentIndex, comment) {				
-//							 selector.append('<option value="'+comment['builId']+'">'+comment['builNum']+'</option>');
-//					  });
-//			  	  }
-//				 
-//				  
-//		  }
-//		});
+	 var url='load_owner_list?proId='+select1Value;
+	 flexGrid(url);
 	 
 }
 
@@ -161,46 +139,15 @@ function ProjectChanged()
 //选择楼号的onchange事件触发函数
 function buildingChanged()
 {
+	alert("in buildingChanged");
 	var building = document.getElementById("buildingId");
-	var index=building.selectedIndex;
-	var buildingName = building.options[index].text;
-	var buildingId = document.getElementById("buildingId").value;
-	$('#SMSuserlist').flexigrid({
-		  url: 'load_owner_list?builId='+buildingId,
-		  dataType: 'json',
-		  colModel: [
-	         { display: '业主', name:'owner', width: 50, sortable:true, align: 'center' },
-			 { display: '电话', name:'phone', width: 100, sortable:true, align: 'center' },
-			 { display: '小区', name:'project', width: 100, sortable:true, align: 'center' },
-	         { display: '房号', name:'houseNum', width: 100, sortable:true, align: 'center' }
-	         ],
-	         searchitems : [
-				       		{display: '业主', name : 'owner', isdefault: true}
-				       		],
-	         buttons : [
-				       	{name: 'Add', bclass: 'add', onpress : action},
-				       	{name: 'Delete', bclass: 'delete', onpress : action},
-				       	{separator: true}
-			],
-	      usepager: true,
-			useRp: true,
-			rp: 15,
-			showTableToggleBtn: true,
-			width: "auto",
-			height: "auto",
-			showcheckbox:true,
-			operation:true,
-			operationcontent:'<a href="javascript:void(0)">修改</a>',
-		    operationWidth:Width*0.1
-	  });
+	var project = document.getElementById("projectId");	
+	 var proId=project.value;
+	var buildingId = building.value;
+	alert(buildingId);
+	var url='load_owner_list?builId='+buildingId+'&proId='+proId;
+	 flexGrid(url);
 }
-=======
-      height:305
-  });
-});
-
-
->>>>>>> a95eeeb2b3e02abe6366158d5e4d9caaf6381304
 function selectAll(){
 	$('input[type="checkbox"]').attr("checked",true);
 }

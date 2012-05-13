@@ -55,7 +55,10 @@ public class UserService implements IUserService {
     public List getUserListByGroup(Pager pager, Integer groupID) {
 	return userDAO.getUserListByGroup(pager, groupID);
     }
-    
+    public List loadUserList_ByProject(Pager pager,Integer proId)
+    {
+    	return userDAO.loadUserList_ByProject(pager,proId);
+    }
     @Override
 	public TbUser getUserById(Integer userId) {
 		return userDAO.getUserById(userId);

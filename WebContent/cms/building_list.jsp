@@ -14,7 +14,7 @@
 <link href="../Scripts/component/easyui/themes/icon.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="../Scripts/jquery-1.7.1.js" ></script>
-<script type="text/javascript" src="../Scripts/component/flexigrid-1.1/js/flexigrid.js"></script>
+<script type="text/javascript" src="../Scripts/component/flexigrid-1.1/js/flexigrid-new.js"></script>
 <script type="text/javascript" src="../Scripts/component/easyui/jquery.easyui.min.js" ></script>
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
 <script type="text/javascript" src="../Scripts/pages/cms/building_list.js"></script>
@@ -73,7 +73,7 @@
                <div id="newBuild" class="easyui-window" href="building_add.jsp" title="添加新楼宇" iconCls="icon-save" style="width:350px;height:370px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
 	          </div>
               <div id="editBuild" class="easyui-window" title="编辑楼宇" iconCls="icon-save" style="width:350px;height:370px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
-                  <iframe id="mainFrame" name="mainFrame" frameborder="0" scrolling="auto" width="100%" height="100%" src="building_editBuild.jsp">
+                  <iframe id="mainFrame" name="mainFrame" frameborder="0" scrolling="auto" width="100%" height="100%" src="building_edit.jsp">
                   </iframe>
 	          </div>
   </div>
