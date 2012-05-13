@@ -12,7 +12,6 @@
  */
 package org.pmp.excel;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -20,16 +19,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jxl.Cell;
-import jxl.CellType;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.WorkbookSettings;
 import jxl.read.biff.BiffException;
-import jxl.write.WritableCell;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
-import jxl.write.biff.RowsExceededException;
 
 import org.apache.log4j.Logger;
 import org.pmp.service.business.ICondoFeeService;

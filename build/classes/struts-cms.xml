@@ -70,7 +70,7 @@
 		<result name="success">/cms/projectSelect.jsp</result>
 	</action>
 	<action name="getProjectBySessionHander" class="org.pmp.action.business.ProjectAction" method="getProjectBySessionHander">
-		<result name="success">/cms/projectSelect2.jsp</result>
+		<result name="success">/cms/projectSelect.jsp</result>
 	</action>
 	
 	<action name="getProjectByDistrict" class="org.pmp.action.business.ProjectAction" method="getProjectByDistrict">

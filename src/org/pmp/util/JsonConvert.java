@@ -265,6 +265,7 @@ public class JsonConvert {
 	
 	return sb.toString();
     }
+    
     //返回{"id":"1","cell":{"realname":"aw","position":"qteacher","userDesc":"userDesc"}   
     //主键的判断：fieledname中含有”Id”的fieledname为主键属性
     static String object2FlexJson(Object obj,String beanType,List<String> show){

@@ -47,8 +47,8 @@ $(function(){
      		 useRp: true,
      		 rp: 15,
      		 operation:true,
-			operationcontent:'<a href="javascript:void(0)" onclick="openEditProject($(this).parent().parent().parent())">编辑</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#\" onclick=\"selectBuildTab($(this).parent().parent().parent(),$(this).parent().parent().parent(),$(this).parent().parent().parent())\">楼宇设置</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#\" onclick=\"deleteProject($(this).parent().parent().parent(),$(this).prev().prev().prev().prev().html());\">删除</a>',
-			operationWidth: Width*0.22});
+			 operationcontent:'<a href="javascript:void(0)" onclick="openEditProject($(this).parent().parent().parent())">编辑</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#\" onclick=\"selectBuildTab($(this).parent().parent().parent(),$(this).parent().parent().parent(),$(this).parent().parent().parent())\">楼宇设置</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#\" onclick=\"deleteProject($(this).parent().parent().parent(),$(this).prev().prev().prev().prev().html());\">删除</a>',
+			 operationWidth: Width*0.22});
 	//  document.getElementById("searchState").value="0";//搜索状态值  初始化
 	 // PageDownOrUp(0);
 
