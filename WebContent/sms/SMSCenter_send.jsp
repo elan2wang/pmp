@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link href="../CSS/common/common.css" rel="stylesheet" type="text/css" />
-<link href="../CSS/common/tab.css" rel="stylesheet" type="text/css" />
+<link href="../CSS/common/fee_tab.css" rel="stylesheet" type="text/css" />
 <link href="../CSS/pages/sms/SMSCenter_send.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="../Scripts/jquery-1.7.1.js" ></script>
 <script type="text/javascript" src="../Scripts/pages/sms/SMSCenter_send.js"></script>

@@ -1,5 +1,5 @@
 $(function(){
-	alert("aaa");
+	$(".content .innercontent").eq(0).show();
     $('#smsHistory').flexigrid({
     	url:"loadHistory",
     	dataType:"json",
