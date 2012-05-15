@@ -4,36 +4,33 @@
   <constant name="struts.i18n.encoding" value="UTF-8" />
   
   <package name="fee" extends="struts-default" namespace="/fee">
+    
+    <!-- tree related actions -->
     <action name="houseTree" class="org.pmp.action.business.TreeAction" method="houseTree" />
 
     <action name="monthTree" class="org.pmp.action.business.TreeAction" method="monthTree" />
-
+    
+    <action name="itemTree" class="org.pmp.action.business.TreeAction" method="condoFeeItemTree" />
+    <!-- tree related actions end ================================================================== -->
+    
+    <!-- CondoFee item related actions -->
     <action name="cf_item_preview" class="org.pmp.action.business.CondoFeeItemAction" method="previewItemInfo" />
     
     <action name="cf_item_add" class="org.pmp.action.business.CondoFeeItemAction" method="addCondoFeeItem">
-      <result name="success" type="chain">cf_item_list</result>
+      <result name="success" type="redirect">/fee/cf_item_list.jsp</result>
     </action>
     
-    <action name="cf_item_list" class="org.pmp.action.business.CondoFeeItemAction" method="loadItemList">
-      <result name="success">/fee/cf_item_list.jsp</result>
-    </action>
+    <action name="cf_item_delete" class="org.pmp.action.business.CondoFeeItemAction" method="deleteCondoFeeItem" />
+    <!-- condoFee related actions =============================================================================== -->
     
     <!-- CondoFee Related actions -->
-    <action name="loadCondoFeeList_ByCFI" class="org.pmp.action.business.CondoFeeAction2" method="loadCondoFeeList_ByCFI">
-      <result name="success">/fee/cf_list_by_item.jsp</result>
-    </action>
+    <action name="loadCondoFeeList_ByCFI" class="org.pmp.action.business.CondoFeeAction2" method="loadCondoFeeList_ByCFI" />
     
-    <action name="loadCondoFeeList_ByHouse" class="org.pmp.action.business.CondoFeeAction2" method="loadCondoFeeList_ByHouse">
-      <result name="success">/fee/cf_list_by_house.jsp</result>
-    </action>
+    <action name="loadCondoFeeList_ByHouse" class="org.pmp.action.business.CondoFeeAction2" method="loadCondoFeeList_ByHouse" />
     
-    <action name="loadCondoFeeList_ByCompany" class="org.pmp.action.business.CondoFeeAction2" method="loadCondoFeeList_ByCompany">
-      <result name="success">/fee/cf_list_by_month.jsp</result>
-    </action>
+    <action name="loadCondoFeeList_ByCompany" class="org.pmp.action.business.CondoFeeAction2" method="loadCondoFeeList_ByCompany" />
     
-    <action name="loadCondoFeeList_ByProject" class="org.pmp.action.business.CondoFeeAction2" method="loadCondoFeeList_ByProject">
-      <result name="success">/fee/cf_list_by_month.jsp</result>
-    </action>
+    <action name="loadCondoFeeList_ByProject" class="org.pmp.action.business.CondoFeeAction2" method="loadCondoFeeList_ByProject" />
     
     <action name="exportNewCondoFee" class="org.pmp.action.business.CondoFeeAction2" method="exportNewCondoFee" />
     
@@ -55,12 +52,20 @@
     </action>
     
     <action name="cf_input" class="org.pmp.action.business.CondoFeeAction2" method="cfInput">
-      <result name="success" type="chain">loadCondoFeeList_ByHouse</result>
+      <result name="success">cf_house_list.jsp</result>
     </action>
     
     <action name="cf_audit" class="org.pmp.action.business.CondoFeeAction2" method="cfAudit">
       <result name="success" type="chain">loadCondoFeeList_ByHouse</result>
     </action>
+    <!-- CondoFee Related actions ======================================================================== -->
+    
+    <!-- page tag triggered actions -->
+    <action name="select_project" class="org.pmp.action.business.PageTriggerAction" method="select_project" >
+      <result name="success">/fee/pro_options.jsp</result>
+    </action>
+    
+    <!-- page tag triggered actions ====================================================================== -->
     
     
     <!-- old actions  -->

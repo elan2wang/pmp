@@ -45,8 +45,6 @@ a{
            <p >当前小区：</p>
        </div>
        <div style="float:left" class="index_top_block1">
-           <p >[ <a href="" target="iMdifPSW">修改密码</a> ]</p>
-           <p>[ <a href="">切换</a> ]</p>
        </div>
        <div class="clear"></div>
    </div><!-- 结束标签 class="index_top"-->

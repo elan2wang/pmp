@@ -25,4 +25,5 @@ public interface ICondoFeeItemService {
     
     public CondoFeeItem getCondoFeeItemByID(Integer cfiId);
     public List<?> loadCondoFeeItemListBy_ComID(Pager pager,Integer comId);
+    public List<?> loadCondoFeeItemListBy_ProID(Pager pager,Integer proId);
 }

@@ -17,8 +17,8 @@
         <property name="smssReceiver" type="string">
             <column name="SMSS_Receiver" />
         </property>
-        <property name="smssState" type="boolean">
-            <column name="SMSS_State" />
+        <property name="smssState" type="string">
+            <column name="SMSS_State" length="50" />
         </property>
         <property name="smssTime" type="timestamp">
             <column name="SMSS_Time" length="23" />

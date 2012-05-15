@@ -57,6 +57,9 @@ public class CondoFeeItemAction extends ActionSupport {
     /* used by the action cf_item_add */
     private String[] itemMonth;
     
+    /* used when deleteCondoFeeItem */
+    private Integer cfiId;
+    
     //~ Methods ========================================================================================================
     public void previewItemInfo(){
 	StringBuffer sb = new StringBuffer();
@@ -96,8 +99,8 @@ public class CondoFeeItemAction extends ActionSupport {
 	condoFeeItem.setProject(project);
 	
 	/* set itemName by merge the proName,itemYear,itemMonth */
-	condoFeeItem.setItemName(project.getProName()+condoFeeItem.getItemYear()+"年"
-		+months+"月物业费项目");
+	condoFeeItem.setItemName(condoFeeItem.getItemYear()+"年"
+		+months+"月物业费清单");
 	
 	/* save condoFeeItem instance */
 	/* the method addCondoFeeItem of condoFeeItemService did two things: */
@@ -108,14 +111,9 @@ public class CondoFeeItemAction extends ActionSupport {
 	return SUCCESS;
     }
     
-    public String loadItemList(){
-	Company company = (Company)SessionHandler.getUserRefDomain();
-	Pager pager = new Pager(10000,1);
-	List<?> list = condoFeeItemService.loadCondoFeeItemListBy_ComID(pager, company.getComId());
-	
-	HttpServletRequest request = ServletActionContext.getRequest();
-	request.setAttribute("cfiList", list);
-	return SUCCESS;
+    public void deleteCondoFeeItem(){
+	logger.debug("begin to delete");
+	condoFeeItemService.deleteCondoFeeItem(cfiId);
     }
     
     //~ Getters and Setters ============================================================================================
@@ -190,5 +188,13 @@ public class CondoFeeItemAction extends ActionSupport {
 
     public void setMonths(String months) {
         this.months = months;
+    }
+
+    public Integer getCfiId() {
+        return cfiId;
+    }
+
+    public void setCfiId(Integer cfiId) {
+        this.cfiId = cfiId;
     }
 }

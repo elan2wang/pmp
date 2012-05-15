@@ -16,7 +16,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
 import org.pmp.service.business.IBuildingService;
 import org.pmp.service.business.ICondoFeeItemService;
 import org.pmp.service.business.ICondoFeeService;
@@ -27,6 +30,7 @@ import org.pmp.util.Pager;
 import org.pmp.util.SessionHandler;
 import org.pmp.vo.Building;
 import org.pmp.vo.Company;
+import org.pmp.vo.CondoFeeItem;
 import org.pmp.vo.House;
 import org.pmp.vo.Project;
 
@@ -80,7 +84,7 @@ public class TreeAction extends ActionSupport{
 		while(ite2.hasNext()){
 		    House house = ite2.next();
 		    
-		    nodes.add(JsonConvert.toJsonTreeNode(index++, pid2, house.getHouseNum(), "loadCondoFeeList_ByHouse?houseId="+house.getHouseId(),
+		    nodes.add(JsonConvert.toJsonTreeNode(index++, pid2, house.getHouseNum(), "cf_list_by_house.jsp?houseId="+house.getHouseId(),
 			    "", "condoFeeList", "../Images/dtree/house.jpg", "../Images/dtree/house.jpg", false));
 		}
             }
@@ -110,12 +114,47 @@ public class TreeAction extends ActionSupport{
 	    while(month-- > 1){
 		StringBuilder url = new StringBuilder();
 		if (obj instanceof Project){
-		    url.append("loadCondoFeeList_ByProject?proId="+((Project)obj).getProId());
+		    url.append("cf_list_by_month.jsp?proId="+((Project)obj).getProId());
 		} else if (obj instanceof Company){
-		    url.append("loadCondoFeeList_ByCompany?comId="+((Company)obj).getComId());
+		    url.append("cf_list_by_month.jsp?comId="+((Company)obj).getComId());
 		}
 		nodes.add(JsonConvert.toJsonTreeNode(index++, pid, month+"月份清单", 
 			url.append("&year="+year+"&month="+month).toString(),"", "condoFeeList", "", "", false));
+	    }
+	}
+	String data = JsonConvert.toJsonTree(nodes);
+	logger.debug(data);
+	JsonConvert.output(data);
+    }
+    
+    public void condoFeeItemTree(){
+	List<String> nodes = new ArrayList<String>();
+	Company company = (Company)SessionHandler.getUserRefDomain();
+	Pager pager = new Pager(10000,1);
+	List<?> list = condoFeeItemService.loadCondoFeeItemListBy_ComID(pager, company.getComId());
+	List<Project> proList = new ArrayList<Project>();
+	Iterator<?> ite = list.iterator();
+	while(ite.hasNext()){
+	    Project pro = ((CondoFeeItem)ite.next()).getProject();
+	    if(!proList.contains(pro)){
+		proList.add(pro);
+	    }
+	}
+	logger.debug("proList.size="+proList.size());
+        Integer index = 1;
+	Iterator<Project> ite2 = proList.iterator();
+	while(ite2.hasNext()){
+	    Project pro = ite2.next();
+	    /* add the first level node project */
+	    nodes.add(JsonConvert.toJsonTreeNode(index++, 0, pro.getProName(), "",
+		    "", "", "../Images/dtree/pro.jpg", "../Images/dtree/pro.jpg", false));
+	    List<?> cfiList = condoFeeItemService.loadCondoFeeItemListBy_ProID(pager, pro.getProId());
+	    Iterator<?> ite3 = cfiList.iterator();
+	    Integer pid = index-1;
+	    while(ite3.hasNext()){
+		CondoFeeItem cfi = (CondoFeeItem)ite3.next();
+		nodes.add(JsonConvert.toJsonTreeNode(index++, pid, cfi.getItemName(), "cf_list_by_item.jsp?cfiId="+cfi.getCfiId(),
+			    "", "condoFeeList", "", "", false));
 	    }
 	}
 	String data = JsonConvert.toJsonTree(nodes);

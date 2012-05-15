@@ -17,6 +17,13 @@ public class TbRole implements java.io.Serializable {
     private boolean enabled;
     private boolean issys;
 
+    public String toString(){
+	StringBuilder sb = new StringBuilder();
+	sb.append("[ "+roleId+","+roleName+","+roleLevel);
+	sb.append(","+roleDesc+","+enabled+","+issys+" ]");
+	return sb.toString();
+    }
+    
     public TbRole() {
     }
 

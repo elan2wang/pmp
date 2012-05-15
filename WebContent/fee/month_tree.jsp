@@ -7,14 +7,12 @@
 <link href="../Scripts/component/dtree/dtree.css" type="text/css" rel="StyleSheet"/>
 <script type="text/javascript" src="../Scripts/jquery-1.7.1.js" ></script>
 <script src="../Scripts/component/dtree/dtree.js"  type="text/javascript" ></script>
-<script src="../Scripts/pages/fee/month_tree.js"  type="text/javascript" ></script>
+<script src="../Scripts/pages/fee/load_tree.js"  type="text/javascript" ></script>
 <title>Insert title here</title>
 </head>
-<body onload="load_data()">
-<h2>时间树</h2>
-
+<body onload="load_data('monthTree')">
 <div class="dtree">
-	<p><a href="javascript: d.openAll();">open all</a> | <a href="javascript: d.closeAll();">close all</a></p>
+	<p><a href="javascript: d.openAll();">全部展开</a> | <a href="javascript: d.closeAll();">全部关闭</a></p>
 </div>
 <div id="tree"></div>
 

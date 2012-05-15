@@ -1,15 +1,46 @@
+
 $(function(){
+	var comId = getQueryString("comId");
+	var proId = getQueryString("proId");
+	var year = getQueryString("year");
+	var month = getQueryString("month");
+	var url;
+	if (comId==null){
+		url="loadCondoFeeList_ByProject?proId="+proId+"&year="+year+"&month="+month;
+	} else {
+		url="loadCondoFeeList_ByCompany?comId="+comId+"&year="+year+"&month="+month;
+	}
 	$('#cf_list').flexigrid({
+		url:url,
+		dataType:"json",
         colModel:[
-            { display: '序号',  width: 30,  align: 'center' },
-            { display: '小区',  width: 100,  align: 'center' },
-            { display: '房号', width: 50, align: 'center' },
-            { display: '业主',  width: 60,  align: 'center' },
-            { display: '状态', width: 50, align: 'center' },
-            { display: '应收金额', width: 60, align: 'center' },
-            { display: '实收金额',  width: 60, align: 'center' },
-            { display: '录入时间',  width: 60, align: 'center' }
+            { display: '房号', name: 'house', width: Width*0.1, sortable:true, align: 'center' },
+            { display: '业主', name: 'owner', width: Width*0.15, sortable:true, align: 'center' },
+            { display: '状态', name: 'state', width: Width*0.1, sortable:true, align: 'center' },
+            { display: '应收金额', name: 'oughtMoney', width: Width*0.1, sortable:true, align: 'center' },
+            { display: '实收金额', name: 'fetchMoney', width: Width*0.1, sortable:true, align: 'center' },
+            { display: '录入时间', name: 'inputTime', width: Width*0.2, sortable:true, align: 'center' },
         ],
-        height:360
+        buttons:[
+            { name: '数据导出', bclass: 'add', onpress: dataImport },
+			{ separator: true },
+			{ name: '数据导入', bclass:'delete', onpress: dataExport }
+		],
+        height:Height,
+        showcheckbox:true,
+        nomsg: '没有符合条件的物业费记录',
+        usepager:true,
+        useRp:true,
+        rp: 15,
+		showTableToggleBtn: true
 	});
 });
+
+function dataImport(){
+	
+}
+
+function dataExport(){
+	
+}
+

@@ -32,7 +32,7 @@
                           <div>
                             <span>房屋状态：</span>
                             <span>
-                               <input id="house.isempty" name="house.isempty" type="radio" value="true" checked/><label for="project.enabled">空置</label>
+                               <input id="house.isempty" name="house.isempty" type="radio" value="true" checked="checked"/><label for="project.enabled">空置</label>
                                <input id="house.isempty" type="radio" name="house.isempty" value="false"/><label for="project.enabled">入住</label>
                             </span>
                           </div>

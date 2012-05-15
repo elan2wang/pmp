@@ -17,7 +17,7 @@ import org.pmp.vo.SMSCompany;
  * @version 1.0
  * @update TODO
  */
-public interface ISMSCompanyDAO {
+public interface ISmsCompanyDAO {
     public void saveSMSCompany(SMSCompany instance);
     
     public void updateSMSCompany(SMSCompany instance);

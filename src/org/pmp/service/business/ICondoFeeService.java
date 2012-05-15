@@ -21,7 +21,7 @@ import org.pmp.vo.CondoFee;
 public interface ICondoFeeService {
     public void batchSetOughtMoney(List<CondoFee> list);
     public void batchInput(List<CondoFee> list);
-    public void batchAudit(final List<CondoFee> list);
+    public void batchAudit(List<CondoFee> list);
     
     /**
      * @Title: getCondoFeeByID

@@ -172,4 +172,4 @@ function receiverListID_onclick() {
 }
 function submit(){
 	document.getElementById('button6').submit();
-	}
+}

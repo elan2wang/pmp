@@ -23,29 +23,37 @@ import org.pmp.service.business.IProjectService;
 import org.pmp.util.JsonConvert;
 import org.pmp.util.Pager;
 import org.pmp.vo.Owner;
-import org.pmp.vo.Project;
 import org.pmp.vo.TbUser;
-import org.pmp.util.SessionHandler;
-import org.pmp.vo.Company;
+
+import com.opensymphony.xwork2.ActionSupport;
 
 /**
  * @author Elan
  * @version 1.0
  * @update TODO
  */
-public class SmsAction {
+public class SmsAction extends ActionSupport{
 
     //~ Static Fields ==================================================================================================
     private static Logger logger = Logger.getLogger(SmsAction.class.getName());
     //~ Instance Fields ================================================================================================
     private IOwnerService ownerService;
-	private IUserService userService;
+    private IUserService userService;
     private IProjectService projectService;
     private IBuildingService buildingService;
+    
+    /* used when load_owner_list */
     private Integer proId;
     private Integer builId;
     
+    /* used when smsSend */
+    
     //~ Methods ========================================================================================================
+    public String smsSend(){
+	
+	return SUCCESS;
+    }
+    
     public void load_owner_list(){
 		List<?> list = null;
 		Pager pager = new Pager(10000,1);
@@ -144,19 +152,13 @@ public class SmsAction {
         this.buildingService = buildingService;
     }
     
-    /**
-	 * @return the userService
-	 */
-	public IUserService getUserService() {
-		return userService;
-	}
+    public IUserService getUserService() {
+        return userService;
+    }
 
-	/**
-	 * @param userService the userService to set
-	 */
-	public void setUserService(IUserService userService) {
-		this.userService = userService;
-	}
+    public void setUserService(IUserService userService) {
+        this.userService = userService;
+    }
 
     public Integer getProId() {
         return proId;

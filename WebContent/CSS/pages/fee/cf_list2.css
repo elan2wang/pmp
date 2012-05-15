@@ -1,0 +1,29 @@
+.content_main
+{
+   font-size:12px;
+   margin:5px 5px 0 5px;
+}
+.content_main .left_main
+{
+	border:1px solid lightblue;
+	width:25%;
+	height:540px;
+	overflow-y:scroll;
+	float:left;
+	padding-left:15px;
+}
+.content_main .middle
+{
+	width:0.5%;
+	height:540px;
+	float:left;
+	margin:0px;
+}
+.content_main .right_main
+{
+	border:1px solid lightblue;
+	width:72%;
+	height:540px;
+	float:left;
+	margin:0px;
+}

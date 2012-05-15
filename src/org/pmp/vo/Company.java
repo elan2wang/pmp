@@ -20,6 +20,14 @@ public class Company implements java.io.Serializable {
     private String comDesc;
     private boolean enabled;
 
+    public String toString(){
+	StringBuilder sb = new StringBuilder();
+	sb.append("[comId]:"+comId+"[comName]:"+comName+"[comLegal]:"+comLegal+"[comLicense]:"+comLicense);
+	sb.append("[comPhone]:"+comPhone+"[comAddress]:"+comAddress+"[registerTime]:"+registerTime.toString());
+	sb.append("[regsterMoney]:"+registerMoney+"[comDesc]:"+comDesc+"[enabled]:"+enabled);
+	return sb.toString();
+    }
+    
     public Company() {
     }
 

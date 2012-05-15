@@ -23,5 +23,5 @@ public interface IMemberService {
     public void deleteMember(Integer memId);
     public Member getMemberByID(Integer memId);
     public Member getMemberByName(String memName);
-    public List getMemberByOwner(Owner owner);
+    public List<?> getMemberByOwner(Owner owner);
 }

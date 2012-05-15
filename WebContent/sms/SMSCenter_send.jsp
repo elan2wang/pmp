@@ -37,7 +37,7 @@
                   </div>
                   <div class="row4">
                        <span>短信内容:</span>
-                       <span><textarea name="text" id="text" cols="45" rows="5"  maxlength="140" onkeyup="textCount();"></textarea></td>
+                       <span><textarea name="smsSend.smssContent" id="text" cols="45" rows="5"  maxlength="140" onkeyup="textCount();"></textarea></td>
                        </span>
                   </div>
                   <div class="row5">
@@ -51,7 +51,7 @@
                       </span>
                   </div>
                </div>
-               <input type="hidden" name="realReceiverList" id="realReceiverList" />
+               <input type="hidden" name="smsSend.smssReceiver" id="realReceiverList" />
                <div class="SMS_Recv">
                     <iframe id="SMSlist_Frame" name="SMSlist_Frame" frameborder="0" scrolling="auto" width="100%" height="440"  >
                     </iframe>

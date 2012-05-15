@@ -23,10 +23,10 @@ public interface IOwnerService {
     public void editOwner(Owner owner);
     public void deleteOwner(Integer ownerId);
     public Owner getOwnerById(Integer ownerId);
-    public List getAllOwner();
-    public List loadOwnerList(Pager pager);
-    public List loadOwnerByCondition(Integer projectId,Integer buildingId,String keyWord,Pager pager);
-    public List batchSaveOwner(List<Owner> ownerList);
+    public List<?> getAllOwner();
+    public List<?> loadOwnerList(Pager pager);
+    public List<?> loadOwnerByCondition(Integer projectId,Integer buildingId,String keyWord,Pager pager);
+    public List<?> batchSaveOwner(List<Owner> ownerList);
     
     /**
      * @author Elan

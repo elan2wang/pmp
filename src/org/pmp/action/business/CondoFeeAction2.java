@@ -18,6 +18,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +33,7 @@ import org.pmp.excel.NewCondoFeeExport;
 import org.pmp.excel.NewCondoFeeImport;
 import org.pmp.service.business.ICondoFeeItemService;
 import org.pmp.service.business.ICondoFeeService;
+import org.pmp.util.JsonConvert;
 import org.pmp.util.MyfileUtil;
 import org.pmp.util.Pager;
 import org.pmp.util.SessionHandler;
@@ -72,11 +74,12 @@ public class CondoFeeAction2 extends ActionSupport{
     private Integer comId;
     private Integer proId;
     
-    /* used when selectCondoFee or cfInput or cfEdit or cfAudit */
+    /* used when cfInput or cfEdit or cfAudit */
     private Integer[] ids;
     
     /* used when selectCondoFee */
     private String action;
+    private String idStr;
     
     /* used when cfInput */
     private Double[] fetchMoney;
@@ -88,31 +91,35 @@ public class CondoFeeAction2 extends ActionSupport{
     private String[] state;
     
     //~ Methods ========================================================================================================
-    public String loadCondoFeeList_ByCFI(){
+    public void loadCondoFeeList_ByCFI(){
 	Pager pager = new Pager(1000,1);
 	Map<String,Object> params = new HashMap<String,Object>();
 	String order = "order by house asc, cfMonth desc";
 	List<?> cfList = condoFeeService.loadCondoFeeList_ByCFI(cfiId, params, order, pager);
 	
-	HttpServletRequest request = ServletActionContext.getRequest();
-	request.setAttribute("cfList", cfList);
+	String[] attrs = {"house","owner","cfYear","cfMonth","state","oughtMoney"};
+	List<String> show = Arrays.asList(attrs);
+	String data = JsonConvert.list2FlexJson(pager, cfList, "org.pmp.vo.CondoFee", show);
 	
-	return SUCCESS;
+	logger.debug(data);
+	JsonConvert.output(data);
     }
     
-    public String loadCondoFeeList_ByHouse(){
+    public void loadCondoFeeList_ByHouse(){
 	Map<String,Object> params = new HashMap<String,Object>();
 	String order = "order by cfYear desc,cfMonth desc";
 	Pager pager = new Pager(1000,1);
 	List<?> cfList= condoFeeService.loadCondoFeeList_ByHouse(houseId, params, order, pager);
 	
-	HttpServletRequest request = ServletActionContext.getRequest();
-	request.setAttribute("cfList", cfList);
+	String[] attrs = {"cfYear","cfMonth","state","oughtMoney","fetchMoney","inputTime"};
+	List<String> show = Arrays.asList(attrs);
+	String data = JsonConvert.list2FlexJson(pager, cfList, "org.pmp.vo.CondoFee", show);
 	
-	return SUCCESS;
+	logger.debug(data);
+	JsonConvert.output(data);
     }
     
-    public String loadCondoFeeList_ByCompany(){
+    public void loadCondoFeeList_ByCompany(){
 	Map<String,Object> params = new HashMap<String,Object>();
 	if(year!=null)params.put("cfYear", year);
 	if(month!=null)params.put("cfMonth", month);
@@ -120,13 +127,15 @@ public class CondoFeeAction2 extends ActionSupport{
 	Pager pager = new Pager(10000,1);
 	List<?> cfList = condoFeeService.loadCondoFeeList_ByCompany(comId, params, order, pager);
 	
-	HttpServletRequest request = ServletActionContext.getRequest();
-	request.setAttribute("cfList", cfList);
+	String[] attrs = {"house","owner","state","oughtMoney","fetchMoney","inputTime"};
+	List<String> show = Arrays.asList(attrs);
+	String data = JsonConvert.list2FlexJson(pager, cfList, "org.pmp.vo.CondoFee", show);
 	
-	return SUCCESS;
+	logger.debug(data);
+	JsonConvert.output(data);
     }
     
-    public String loadCondoFeeList_ByProject(){
+    public void loadCondoFeeList_ByProject(){
 	Map<String,Object> params = new HashMap<String,Object>();
 	if(year!=null)params.put("cfYear", year);
 	if(month!=null)params.put("cfMonth", month);
@@ -134,10 +143,12 @@ public class CondoFeeAction2 extends ActionSupport{
 	Pager pager = new Pager(10000,1);
 	List<?> cfList = condoFeeService.loadCondoFeeList_ByProject(proId, params, order, pager);
 	
-	HttpServletRequest request = ServletActionContext.getRequest();
-	request.setAttribute("cfList", cfList);
+	String[] attrs = {"house","owner","state","oughtMoney","fetchMoney","inputTime"};
+	List<String> show = Arrays.asList(attrs);
+	String data = JsonConvert.list2FlexJson(pager, cfList, "org.pmp.vo.CondoFee", show);
 	
-	return SUCCESS;
+	logger.debug(data);
+	JsonConvert.output(data);
     }
     
     public void exportNewCondoFee(){
@@ -196,19 +207,11 @@ public class CondoFeeAction2 extends ActionSupport{
 
     public String selectCondoFee(){
 	List<CondoFee> cfList = new ArrayList<CondoFee>();
-	/* ------------ test begin -----------------------------*/
-	int[] idss = {97,98,99,100};
-	for (int i=0;i<idss.length;i++){
-	    CondoFee cf = condoFeeService.getCondoFeeByID(idss[i]);
+	String[] checkedID = idStr.split(",");
+	for (int i=0;i<checkedID.length;i++){
+	    CondoFee cf = condoFeeService.getCondoFeeByID(Integer.parseInt(checkedID[i]));
 	    cfList.add(cf);
 	}
-	/* ------------ test end -----------------------------*/
-	/*
-	for (int i=0;i<ids.length;i++){
-	    CondoFee cf = condoFeeService.getCondoFeeByID(ids[i]);
-	    cfList.add(cf);
-	}
-	*/
 	logger.debug("cfList.size="+cfList.size());
 	
 	HttpServletRequest request = ServletActionContext.getRequest();
@@ -395,6 +398,14 @@ public class CondoFeeAction2 extends ActionSupport{
 
     public void setAction(String action) {
         this.action = action;
+    }
+
+    public String getIdStr() {
+        return idStr;
+    }
+
+    public void setIdStr(String idStr) {
+        this.idStr = idStr;
     }
 
 }

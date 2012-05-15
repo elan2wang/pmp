@@ -7,8 +7,16 @@
     <!-- SMS_Owner related Actions -->
 	<action name="load_owner_list" class="org.pmp.action.business.SmsAction" method="load_owner_list">
    	</action>
+   	
    	<action name="load_user_list" class="org.pmp.action.business.SmsAction" method="load_user_list">
    	</action>
+   	
+   	<action name="addSmsSend" class="org.pmp.action.business.SmsSendAction" method="addSmsSend">
+   	  <result name="success">/sms/SMSCenter_send.jsp</result>
+   	</action>
+   	
+   	<action name="loadHistory" class="org.pmp.action.business.SmsSendAction" method="loadHistory" />
+  
   </package>
 
 </struts>

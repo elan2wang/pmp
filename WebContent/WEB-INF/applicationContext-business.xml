@@ -9,13 +9,14 @@
   <bean id="projectDAO" class="org.pmp.dao.impl.business.ProjectDAO" parent="baseDAO"/>
   <bean id="condoFeeItemDAO" class="org.pmp.dao.impl.business.CondoFeeItemDAO" parent="baseDAO"/>
   <bean id="condoFeeDAO" class="org.pmp.dao.impl.business.CondoFeeDAO" parent="baseDAO"/>
-  <bean id="smsCompanyDAO" class="org.pmp.dao.impl.business.SMSCompanyDAO" parent="baseDAO"/>
+  <bean id="smsCompanyDAO" class="org.pmp.dao.impl.business.SmsCompanyDAO" parent="baseDAO"/>
   <bean id="timeParkFeeDAO" class="org.pmp.dao.impl.business.TimeParkFeeDAO" parent="baseDAO"/>
   <bean id="buildingDAO" class="org.pmp.dao.impl.business.BuildingDAO" parent="baseDAO"/>
   <bean id="houseDAO" class="org.pmp.dao.impl.business.HouseDAO" parent="baseDAO"/>
   <bean id="ownerDAO" class="org.pmp.dao.impl.business.OwnerDAO" parent="baseDAO"/>
   <bean id="houseOwnerDAO" class="org.pmp.dao.impl.business.HouseOwnerDAO" parent="baseDAO"/>
   <bean id="memberDAO" class="org.pmp.dao.impl.business.MemberDAO" parent="baseDAO"/>
+  <bean id="smsSendDAO" class="org.pmp.dao.impl.business.SmsSendDAO" parent="baseDAO"/>
   
   <!-- Service Declare -->
   <bean id="companyService" class="org.pmp.service.impl.business.CompanyService">
@@ -61,6 +62,10 @@
   
   <bean id="timeParkFeeService" class="org.pmp.service.impl.business.TimeParkFeeService">
     <property name="timeParkFeeDAO" ref="timeParkFeeDAO" />
+  </bean>
+  
+  <bean id="smsSendService" class="org.pmp.service.impl.business.SmsSendService">
+    <property name="smsSendDAO" ref="smsSendDAO" />
   </bean>
   
   <!-- Action Declare -->
@@ -117,6 +122,14 @@
     <property name="projectService" ref="projectService" />
     <property name="buildingService" ref="buildingService" />
     <property name="houseService" ref="houseService" />
+  </bean>
+  
+  <bean id="pageTriggerAction" class="org.pmp.action.business.PageTriggerAction">
+    <property name="projectService" ref="projectService" />
+  </bean>
+  
+  <bean id="smsSendAction" class="org.pmp.action.business.SmsSendAction">
+    <property name="smsSendService" ref="smsSendService" />
   </bean>
   
 </beans>
