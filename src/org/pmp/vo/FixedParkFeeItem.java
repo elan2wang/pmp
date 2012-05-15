@@ -18,6 +18,12 @@ public class FixedParkFeeItem implements java.io.Serializable {
     private Integer itemMonth;
     private Date generateTime;
 
+    public String toString(){
+    	StringBuffer sb=new StringBuffer();
+    	sb.append("[ "+fpfiId+","+project+","+itemName+","+itemYear+","+generateTime+" ]");
+    	return sb.toString();
+    }
+    
     public FixedParkFeeItem() {
     }
 

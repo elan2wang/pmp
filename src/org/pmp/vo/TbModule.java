@@ -18,6 +18,13 @@ public class TbModule implements java.io.Serializable {
     private boolean enabled;
     private boolean issys;
 
+    public String toString(){
+    	StringBuffer sb=new StringBuffer();
+    	sb.append("[ "+modId+","+modName+","+modLevel+","+modUrl+","+modOrder+","+enabled+","+issys);
+    	sb.append(" ]");
+    	return sb.toString();
+    }
+    
     public TbModule() {
     }
 

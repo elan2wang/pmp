@@ -17,6 +17,12 @@ public class CondoFeeItem implements java.io.Serializable {
     private Date generateTime;
     private String generatePerson;
 
+    public String toString(){
+    	StringBuffer sb=new StringBuffer();
+    	sb.append("[ "+cfiId+","+itemName+","+project+","+itemYear+","+itemMonth+","+generateTime+","+generatePerson+" ]");
+    	return sb.toString();
+    }
+    
     public CondoFeeItem() {
     }
 

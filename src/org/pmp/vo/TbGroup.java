@@ -17,6 +17,13 @@ public class TbGroup implements java.io.Serializable {
     private String refDomain;
     private Integer fatherGroupId;
 
+    public String toString(){
+    	StringBuffer sb=new StringBuffer();
+    	sb.append("[ "+groupId+","+groupName+","+groupDesc+","+groupLevel+","+refDomain+","+fatherGroupId);
+    	sb.append(" ]");
+    	return sb.toString();
+    }
+    
     public TbGroup() {
     }
 

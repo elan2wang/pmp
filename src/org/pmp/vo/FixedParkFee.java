@@ -27,6 +27,14 @@ public class FixedParkFee implements java.io.Serializable {
     private Date auditTime;
     private String state;
 
+    public String toString(){
+    	StringBuffer sb=new StringBuffer();
+    	sb.append("[ "+fpfId+","+fixedParkFeeItem+","+owner+","+startDate+","+endDate+","+fetchDate+","+parkFeeRate);
+    	sb.append(","+oughtMoney+","+fetchMoney+","+fetchTicket+","+fetchPerson+","+recordPerson+","+auditPerson+","+generateTime);
+    	sb.append(","+recordTime+","+auditTime+","+state+" ]");
+    	return sb.toString();
+    }
+    
     public FixedParkFee() {
     }
 

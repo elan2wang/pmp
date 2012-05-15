@@ -17,6 +17,13 @@ public class SMSSend implements java.io.Serializable {
     private Date smssTime;
     private String smssPerson;
 
+    public String toString(){
+    	StringBuffer sb=new StringBuffer();
+    	sb.append("[ "+smssId+","+SMSCompany+","+smssContent+","+smssReceiver+","+smssState+","+smssTime+","+smssPerson);
+    	sb.append(" ]");
+    	return sb.toString();
+    }
+    
     public SMSSend() {
     }
 

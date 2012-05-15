@@ -16,6 +16,13 @@ public class TbAuthority implements java.io.Serializable {
     private boolean enabled;
     private boolean issys;
 
+    public String toString(){
+    	StringBuffer sb=new StringBuffer();
+    	sb.append("[ "+authId+","+authName+","+authDesc+","+enabled+","+issys);
+    	sb.append(" ]");
+    	return sb.toString();
+    }
+    
     public TbAuthority() {
     }
 

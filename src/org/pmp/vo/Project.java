@@ -24,6 +24,14 @@ public class Project implements java.io.Serializable {
     private boolean fireEnabled;
     private boolean enabled;
 
+    public String toString(){
+    	StringBuffer sb=new StringBuffer();
+    	sb.append("[ "+proId+","+company+","+proName+","+proDistrict+","+proStreet+","+proAddress);
+    	sb.append(","+deliveryTime+","+proHouseCount+","+proDesc+","+proType+","+fireEnabled+","+enabled);
+    	sb.append(" ]");
+    	return sb.toString();
+    }
+    
     public Project() {
     }
 

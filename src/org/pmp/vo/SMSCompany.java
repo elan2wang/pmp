@@ -19,6 +19,14 @@ public class SMSCompany implements java.io.Serializable {
     private String password;
     private String extendCode;
 
+    public String toString(){
+    	StringBuffer sb=new StringBuffer();
+    	sb.append("[ "+smscId+","+company+","+smscName+","+smsUpUrl+","+smsDownUrl+","+username);
+    	sb.append(","+password+","+extendCode);
+    	sb.append(" ]");
+    	return sb.toString();
+    }
+    
     public SMSCompany() {
     }
 

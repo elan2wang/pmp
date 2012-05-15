@@ -12,6 +12,13 @@ public class TbUserGroupRole implements java.io.Serializable {
     private TbRole tbRole;
     private TbGroup tbGroup;
 
+    public String toString(){
+    	StringBuffer sb=new StringBuffer();
+    	sb.append("[ "+ugrId+","+tbUser+","+tbRole+","+tbGroup);
+    	sb.append(" ]");
+    	return sb.toString();
+    }
+    
     public TbUserGroupRole() {
     }
 
