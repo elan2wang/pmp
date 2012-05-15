@@ -23,6 +23,14 @@ public class TimeParkFee implements java.io.Serializable {
     private Date auditTime;
     private String state;
 
+    public String toString(){
+    	StringBuffer sb=new StringBuffer();
+    	sb.append("[ "+tpfId+","+project+","+carNum+","+parkDate+","+parkTime+","+parkFeeRate);
+    	sb.append(","+fetchMoney+","+fetchPerson+","+recordPerson+","+recordTime+","+auditPerson+","+auditTime+","+state);
+    	sb.append(" ]");
+    	return sb.toString();
+    }
+    
     public TimeParkFee() {
     }
 

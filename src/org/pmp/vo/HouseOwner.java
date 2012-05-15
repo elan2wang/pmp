@@ -11,6 +11,12 @@ public class HouseOwner implements java.io.Serializable {
     private House house;
     private Owner owner;
 
+    public String toString(){
+    	StringBuilder sb = new StringBuilder();
+    	sb.append("[ "+hoId+","+house+","+owner+","+owner+" ]");
+        return sb.toString();
+    } 
+    
     public HouseOwner() {
     }
 

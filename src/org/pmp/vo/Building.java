@@ -22,12 +22,11 @@ public class Building implements java.io.Serializable {
     private boolean enabled;
 
     public String toString(){
-	StringBuilder sb = new StringBuilder();
-	sb.append("[buildId]:"+builId+"[project]:"+project.getProName()+"[buildNum]:"+builNum);
-	sb.append("[builType]:"+builType+"[floorCount]:"+floorCount+"[skipFloor]:"+skipFloor);
-	sb.append("[housesPer]:"+housesPer+"[unitCount]:"+unitCount+"[unitTag]:"+unitTag);
-	sb.append("[condoFeeRate]:"+condoFeeRate+"[builDesc]:"+builDesc+"[enabled]:"+enabled);
-	return sb.toString();
+    	StringBuffer sb=new StringBuffer();
+    	sb.append("[ "+builId+","+project+","+builNum+","+builType+","+floorCount+","+skipFloor);
+    	sb.append(","+housesPer+","+unitCount+","+unitTag+","+condoFeeRate+","+builDesc+","+enabled);
+    	sb.append(" ]");
+    	return sb.toString();
     }
     
     public Building() {

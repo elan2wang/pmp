@@ -21,11 +21,11 @@ public class Company implements java.io.Serializable {
     private boolean enabled;
 
     public String toString(){
-	StringBuilder sb = new StringBuilder();
-	sb.append("[comId]:"+comId+"[comName]:"+comName+"[comLegal]:"+comLegal+"[comLicense]:"+comLicense);
-	sb.append("[comPhone]:"+comPhone+"[comAddress]:"+comAddress+"[registerTime]:"+registerTime.toString());
-	sb.append("[regsterMoney]:"+registerMoney+"[comDesc]:"+comDesc+"[enabled]:"+enabled);
-	return sb.toString();
+    	StringBuffer sb=new StringBuffer();
+    	sb.append("[ "+comId+","+comName+","+comLegal+","+comLicense+","+comPhone+","+comAddress);
+    	sb.append(","+registerTime+","+registerMoney+","+comDesc+","+enabled);
+    	sb.append(" ]");
+    	return sb.toString();
     }
     
     public Company() {

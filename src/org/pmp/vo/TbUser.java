@@ -35,7 +35,7 @@ public class TbUser implements MyUserDetails,java.io.Serializable {
     private  boolean accountNonExpired;
     private  boolean accountNonLocked;
     private  boolean credentialsNonExpired;
-
+      
     //~ Constructor ====================================================================================================
     public TbUser() {
     }
