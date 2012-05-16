@@ -57,3 +57,22 @@ img{ border:0;}
 	   width:80px;
 	   text-align:right;
 }
+.flexigrid div.fbutton .add {
+	background: url(../../Images/buttons/add.png) no-repeat center left;
+}
+
+.flexigrid div.fbutton .delete {
+	background: url(../../Images/buttons/close.png) no-repeat center left;
+}
+.flexigrid div.fbutton .export {
+	background: url(../../Images/buttons/excel.png) no-repeat center left;
+}
+.flexigrid div.fbutton .import {
+	background: url(../../Images/buttons/excel.png) no-repeat center left;
+}
+.flexigrid div.fbutton .edit {
+	background: url(../../Images/buttons/edit.png) no-repeat center left;
+}
+.flexigrid div.fbutton .check {
+	background: url(../../Images/buttons/check.png) no-repeat center left;
+}

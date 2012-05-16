@@ -29,7 +29,8 @@ $(function(){
 		    { display: '月份', name: 'cfMonth', isDefault:false },
 		    { display: '状态', name: 'state', isDefault:true },
 		],
-		height:Height*0.98,
+		showSearch:true,
+		height:Height*0.88,
         showcheckbox:true,
         nomsg: '没有符合条件的物业费记录',
         usepager:true,
@@ -40,7 +41,16 @@ $(function(){
 });
 
 function cfInput(){
-	openEditWindow('#cfInput','selectCondoFee?action=record&idStr=101,102,103');
+	var rowid,idString="";
+	$("#cf_list td input[checked=checked]").each(function(){
+		rowid=$(this).parent().parent().parent().attr("id");
+		rowid=rowid.substr(3);
+		idString+=rowid+",";
+	});
+	//alert(idString.length);
+	idString=idString.substring(0,idString.length-1);
+	//alert(idString);
+	openEditWindow('#cfInput','selectCondoFee?action=record&idStr='+idString);
 }
 
 function smsInform(){

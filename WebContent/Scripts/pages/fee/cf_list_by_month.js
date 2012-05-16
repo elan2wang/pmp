@@ -31,6 +31,7 @@ $(function(){
  		    { display: '状态', name: 'state', isDefault:true },
  		    { display: '录入时间', name: 'inputTime', isDefault:false }
 		],
+		showSearch:true,
         height:Height*0.98,
         showcheckbox:true,
         nomsg: '没有符合条件的物业费记录',

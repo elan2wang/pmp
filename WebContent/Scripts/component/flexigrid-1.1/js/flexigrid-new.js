@@ -18,6 +18,7 @@
 			operation:false,
 			operationcontent:'',
 			operationWidth: 22,
+			showSearch:false,
 			minwidth: 30, //min width of columns
 			minheight: 80, //min height of columns
 			resizable: true, //allow table resizing
@@ -343,6 +344,7 @@
 				//build new body
 				var tbody = document.createElement('tbody');
 				if (p.dataType == 'json') {
+					$('.ftitle', g.mDiv).html("datepage:"+data.total);
 					$.each(data.rows, function (i, row) {
 						var tr = document.createElement('tr');
 						if (i % 2 && p.striped) {
@@ -792,6 +794,12 @@
 		if (!p.usepager) {
 			g.pDiv.style.display = 'none';
 		}
+		//add by Chrussy
+		if(p.showSearch){
+		  g.sDiv.style.display = 'block';
+		}
+		
+		//end
 		g.hTable = document.createElement('table');
 		g.gDiv.className = 'flexigrid';
 		if (p.width != 'auto') {
@@ -1148,7 +1156,10 @@
 		// add title
 		if (p.title) {
 			g.mDiv.className = 'mDiv';
-			g.mDiv.innerHTML = '<div class="ftitle">' + p.title + '</div>';
+			//g.mDiv.innerHTML = '<div class="ftitle">' + p.title + '</div>';
+			//change by Chrussy
+			g.mDiv.innerHTML = '<div class="ftitle"></div>';
+			//end
 			$(g.gDiv).prepend(g.mDiv);
 			if (p.showTableToggleBtn) {
 				$(g.mDiv).append('<div class="ptogtitle" title="Minimize/Maximize Table"><span></span></div>');

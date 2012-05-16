@@ -13,7 +13,7 @@
 <link href="../Scripts/component/easyui/themes/icon.css" rel="stylesheet" type="text/css" />
 <link href="../CSS/common/common.css" rel="stylesheet" type="text/css" />
 <link href="../CSS/common/fee_tab.css" rel="stylesheet" type="text/css" />
-<link href="../CSS/common/cf_list2.css" rel="stylesheet" type="text/css" />
+<link href="../CSS/pages/fee/cf_list2.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="../Scripts/jquery-1.7.1.js" ></script>
 <script type="text/javascript" src="../Scripts/component/easyui/jquery.easyui.min.js" ></script>
@@ -35,14 +35,14 @@
     <div class="innercontent">
       <div class="content_main">
         <form name="form1" action="cf_item_add" method="POST">
-		<br/><fieldset>
-		  <legend style="font-size:14px">第一步：选择物业项目</legend>
+		<br/><fieldset class="add_fieldset">
+		  <legend class="add_legend">第一步：选择物业项目</legend>
 		  <select id="ProId" name="ProId">
 		    <s:action name="select_project" executeResult="true" namespace="/fee" />
 		  </select>
 		</fieldset>
-		<br/><fieldset>
-		  <legend style="font-size:14px">第二步：选择时间</legend>
+		<br/><fieldset class="add_fieldset">
+		  <legend class="add_legend">第二步：选择时间</legend>
 		  <select id="itemYear" name="condoFeeItem.itemYear">
 		    <option value="2012">2014年</option>
 		    <option value="2011">2013年</option>
@@ -51,19 +51,21 @@
 		    <option value="2011">2010年</option>
 		  </select><br />
 		  <c:forEach var="month" begin="1" end="12" step="1">
-		    <input type="checkbox" name="itemMonth" value="${month }" /><span style="font-size:12px;">${month }月</span>
+		    <input type="checkbox" name="itemMonth" value="${month }" /><span style="display:inline-block;font-size:12px;width:80px">${month }月</span>
 		    <c:if test="${month%6 == 0 }"><br /></c:if>
 		  </c:forEach>
 		  <input type="button" value="全选" onclick="checkAll('itemMonth')" /><input type="button" value="反选" onclick="reverseCheck('itemMonth')" />
 		  <input type="button" value="全不选" onclick="checkNone('itemMonth')" />
 		</fieldset><br/>
-		<fieldset>
-		  <legend style="font-size:14px">第三步：预览信息</legend>
+		<fieldset class="add_fieldset">
+		  <legend class="add_legend">第三步：预览信息</legend>
 		  <input type="button" value="预览创建信息" onclick="preview()" /><br/>
 		  <textarea name="display" id="display" disabled="disabled" rows="2" cols="120" style="font-size:14px;"></textarea><br/>
 		</fieldset>
+		<div style="padding-left:20px">
 		<input type="submit" value="确认创建" disabled="disabled" />
 		<input type="button" value="取消创建" onclick="" /><br/>
+		</div>
 		</form>
       </div>
     </div>
