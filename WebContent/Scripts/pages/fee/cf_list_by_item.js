@@ -15,18 +15,19 @@ $(function(){
             { display: '录入人员', name: 'recordPerson', width: Width*0.1, sortable:true, align: 'center' },
             { display: '备注', name: 'comment', width: Width*0.2, sortable:true, align: 'center' }
         ],
+        title:'表格',
         buttons:[
-			{ name: '数据导入', bclass:'delete', onpress: cfImport },
+			{ name: '数据导入', bclass:'import', onpress: cfImport },
 			{ separator: true },
-			{ name: '数据修改', bclass: 'add', onpress: cfEdit },
+			{ name: '数据修改', bclass: 'edit', onpress: cfEdit },
 			{ separator: true },
-			{ name: '数据导出', bclass:'delete', onpress: cfExport },
+			{ name: '数据导出', bclass:'export', onpress: cfExport },
 			{ separator: true },
 			{ name: '删除条目', bclass:'delete', onpress: deleteList },
 			{ separator: true },
 			{ name: '删除项目', bclass:'delete', onpress: deleteItem },
 			{ separator: true },
-			{ name: '缴费审核', bclass:'delete', onpress: cfAudit }
+			{ name: '缴费审核', bclass:'check', onpress: cfAudit }
 		],
 		searchitems:[
 		    { display: '房号', name: 'house', isDefault:false },
@@ -37,6 +38,7 @@ $(function(){
 		    { display: '录入时间', name: 'inputTime', isDefault:false },
 		    { display: '录入人员', name: 'recordPerson', isDefault:true },
 		],
+		showSearch:true,
 		height:Height*0.95,
         showcheckbox:true,
         nomsg: '没有符合条件的物业费记录',
