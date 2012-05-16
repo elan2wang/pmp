@@ -24,9 +24,14 @@ $(function(){
         buttons:[
             { name: '数据导出', bclass: 'add', onpress: dataImport },
 			{ separator: true },
-			{ name: '数据导入', bclass:'delete', onpress: dataExport }
 		],
-        height:Height,
+		searchitems:[
+ 		    { display: '房号', name: 'house', isDefault:false },
+ 		    { display: '业主', name: 'owner', isDefault:false },
+ 		    { display: '状态', name: 'state', isDefault:true },
+ 		    { display: '录入时间', name: 'inputTime', isDefault:false }
+		],
+        height:Height*0.98,
         showcheckbox:true,
         nomsg: '没有符合条件的物业费记录',
         usepager:true,

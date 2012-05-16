@@ -440,7 +440,7 @@ public class JsonConvert {
     	    Object obj = ite.next();
     	    sb.append("    "+object2FlexJson(obj,beanType,show)+"},\n");
     	}
-    	sb.deleteCharAt(sb.length()-2);
+    	if(list.size()!=0)if(list.size()!=0)sb.deleteCharAt(sb.length()-2);
     	sb.append("  ]\n}\n");
     	
     	return sb.toString();

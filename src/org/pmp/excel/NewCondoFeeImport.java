@@ -72,7 +72,7 @@ public class NewCondoFeeImport {
 	            hasError = true;
 	        } else {
 	            ICondoFeeService condoFeeService = (ICondoFeeService)SpringContextUtil.getBean("condoFeeService");
-	            CondoFee item = condoFeeService.getCondoFeeByID(Integer.parseInt(list.get(0).trim()));
+	            CondoFee item = condoFeeService.getCondoFee_ById(Integer.parseInt(list.get(0).trim()));
 	            if (item != null){
 	        	item.setOughtMoney(Double.parseDouble(list.get(6)));
                         cfList.add(item);

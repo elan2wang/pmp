@@ -21,6 +21,7 @@
     </action>
     
     <action name="cf_item_delete" class="org.pmp.action.business.CondoFeeItemAction" method="deleteCondoFeeItem" />
+    
     <!-- condoFee related actions =============================================================================== -->
     
     <!-- CondoFee Related actions -->
@@ -32,13 +33,9 @@
     
     <action name="loadCondoFeeList_ByProject" class="org.pmp.action.business.CondoFeeAction2" method="loadCondoFeeList_ByProject" />
     
-    <action name="exportNewCondoFee" class="org.pmp.action.business.CondoFeeAction2" method="exportNewCondoFee" />
+    <action name="new_cf_export" class="org.pmp.action.business.CondoFeeAction2" method="exportNewCondoFee" />
     
-    <action name="importNewCondoFee" class="org.pmp.action.business.CondoFeeAction2" method="importNewCondoFee">
-      <result name="success" type="chain">cf_item_list</result>
-      <result name="conent_error">/fee/cf_import.jsp</result>
-      <result name="filetype_error">/fee/cf_import.jsp</result>
-    </action>
+    <action name="new_cf_import" class="org.pmp.action.business.CondoFeeAction2" method="importNewCondoFee" />
     
     <action name="selectCondoFee" class="org.pmp.action.business.CondoFeeAction2" method="selectCondoFee">
       <result name="record">/fee/cf_input.jsp</result>
@@ -47,17 +44,16 @@
       <result name="success" type="chain">loadCondoFeeList_ByHouse</result>
     </action>
     
-    <action name="cf_edit" class="org.pmp.action.business.CondoFeeAction2" method="cfEdit">
-      <result name="success" type="chain">loadCondoFeeList_ByHouse</result>
-    </action>
+    <action name="cf_edit" class="org.pmp.action.business.CondoFeeAction2" method="cfEdit" />
     
-    <action name="cf_input" class="org.pmp.action.business.CondoFeeAction2" method="cfInput">
-      <result name="success">cf_house_list.jsp</result>
-    </action>
+    <action name="cf_input" class="org.pmp.action.business.CondoFeeAction2" method="cfInput" />
     
-    <action name="cf_audit" class="org.pmp.action.business.CondoFeeAction2" method="cfAudit">
-      <result name="success" type="chain">loadCondoFeeList_ByHouse</result>
-    </action>
+    <action name="cf_audit" class="org.pmp.action.business.CondoFeeAction2" method="cfAudit" />
+    
+    <action name="cf_delete" class="org.pmp.action.business.CondoFeeAction2" method="cfDelete" />
+    
+    <action name="pre_check" class="org.pmp.action.business.CondoFeeAction2" method="preCheck" />
+    
     <!-- CondoFee Related actions ======================================================================== -->
     
     <!-- page tag triggered actions -->

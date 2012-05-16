@@ -14,15 +14,7 @@
 <script type="text/javascript" src="../Scripts/pages/sms/SMSCenter_sended.js"></script>
 </head>
 <body>
-<div class="wrap">
-  <div class="content">
-    <div class="innercontent">
-      <div class="content_main">
-      <table id="smsHistory">
-      </table>
-      </div>
-    </div>
-  </div>
-</div>
+<table id="smsHistory">
+</table>
 </body>
 </html>

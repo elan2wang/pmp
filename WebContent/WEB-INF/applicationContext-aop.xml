@@ -11,12 +11,17 @@
   <bean id="advice" class="org.pmp.aop.SmsAdvice" />
   <bean id="logAdvice" class="org.pmp.log.UserBehaviorTrackLogger" />
   
+  <!-- SMS related AOP configuration -->
   <aop:config>  
     <aop:aspect ref="advice">  
        <aop:pointcut id="smsPointcut" expression="execution(* org.pmp.service.business.ICondoFeeService.inputCondoFee(..))"/>  
        <aop:after method="sendMessage" pointcut-ref="smsPointcut"/>
      </aop:aspect>
-     <aop:aspect ref="logAdvice">  
+  </aop:config>
+
+  <!-- Log related AOP configuration -->
+  <aop:config>
+    <aop:aspect ref="logAdvice">  
        <aop:pointcut id="loginPointcut" expression="execution(* org.pmp.service.admin.IModuleService.getModuleListByRoleID(..))"/>  
        <aop:pointcut id="addPointcut" expression="execution(* org.pmp.service..*.add*(..))"/>  
        <aop:pointcut id="savePointcut" expression="execution(* org.pmp.service..*.save*(..))"/>  
@@ -32,5 +37,4 @@
        <aop:after method="deleteBehaviorTrack" pointcut-ref="deletePointcut"/>
      </aop:aspect>
   </aop:config>
-
 </beans>

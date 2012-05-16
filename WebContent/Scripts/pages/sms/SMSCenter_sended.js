@@ -11,7 +11,7 @@ $(function(){
             { display: '消息内容', name:'smssContent', width: Width*0.3, align: 'center' },
             { display: '接收人', name:'smssReceiver', width: Width*0.4, align: 'center' },
         ],
-        height:350,
+        height:Height,
         showcheckbox:true,
         nomsg: '没有符合条件的短信记录',
         usepager:true,

@@ -99,11 +99,6 @@
     <property name="houseService" ref="houseService" />
   </bean>
   
-  <bean id="condoFeeAction" class="org.pmp.action.business.CondoFeeAction">
-    <property name="condoFeeService" ref="condoFeeService" />
-    <property name="condoFeeItemService" ref="condoFeeItemService" />
-  </bean>
-  
   <bean id="condoFeeAction2" class="org.pmp.action.business.CondoFeeAction2">
     <property name="condoFeeService" ref="condoFeeService" />
     <property name="condoFeeItemService" ref="condoFeeItemService" />

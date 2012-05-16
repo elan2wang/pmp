@@ -16,7 +16,12 @@ $(function(){
 			{ separator: true },
 			{ name: '短信催缴', bclass:'delete', onpress: smsInform }
 		],
-		height:Height,
+		searchitems:[
+		    { display: '年份', name: 'cfYear', isDefault:false },
+		    { display: '月份', name: 'cfMonth', isDefault:false },
+		    { display: '状态', name: 'state', isDefault:true },
+		],
+		height:Height*0.98,
         showcheckbox:true,
         nomsg: '没有符合条件的物业费记录',
         usepager:true,

@@ -10,7 +10,8 @@
   <!-- Using filters="none" operates by creating an empty filter chain. -->
   <!-- It isn't possible to apply a filter="none" attribute to the pattern /** -->
   <!-- since this is used by the name-space filter chain -->
-  <http auto-config="true">
+  <!-- only use-expression="true" has been set that can access use Spring El (eg:hasRole('ROLE_USER'))  -->
+  <http auto-config="true" use-expressions="true">
     <!-- static resource don't need to filter -->
     <intercept-url pattern="/css/**" filters="none"/>
     <intercept-url pattern="/images/**" filters="none"/>
