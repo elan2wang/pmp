@@ -90,18 +90,7 @@
 	</action>
 	<action name="getAllHouseNum" class="org.pmp.action.business.HouseAction" method="getAllHouseNum"></action>
 	<action name="deleteHouse" class="org.pmp.action.business.HouseAction" method="deleteHouse"></action>
-	<action name="saveOwner" class="org.pmp.action.business.OwnerAction" method="saveOwner">
-		<result name="success">/cms/owner_list.jsp</result>
-	</action>
-	<action name="owner_list" class="org.pmp.action.business.OwnerAction" method="getOwnerList">
-	</action>
-	<action name="delete_owner" class="org.pmp.action.business.OwnerAction" method="deleteOwnerById"></action>
-	<action name="get_owner" class="org.pmp.action.business.OwnerAction" method="getOwnerById">
-		<result name="success">/cms/owner_edit.jsp</result>
-	</action>	
-	<action name="updateOwner" class="org.pmp.action.business.OwnerAction" method="updateOwner">
-		<result name="success">/cms/owner_list.jsp</result>
-	</action>
+	
 	
 	<action name="fileUpload" class="org.pmp.action.business.ProjectAction" method="uploadFile">
 		<result name="success">/cms/project_list.jsp</result>
@@ -109,11 +98,18 @@
 	<action name="buildingImport" class="org.pmp.action.business.BuildingAction" method="uploadFile">
 		<result name="success">/cms/project_list.jsp</result>
 	</action>
-	<action name="OwnerImport" class="org.pmp.action.business.OwnerAction" method="uploadFile">
-		<result name="success">/cms/importSuccess.jsp</result>
-		<result name="filetype_error">/cms/importError.jsp</result>
-	</action>
 	
+	<!-- owner related actions -->
+	<action name="loadOwnerList_ByPro" class="org.pmp.action.business.OwnerAction" method="loadOwnerList_ByPro" />
+    
+    <action name="saveOwner" class="org.pmp.action.business.OwnerAction" method="saveOwner" />
+    
+    <action name="updateOwner" class="org.pmp.action.business.OwnerAction" method="updateOwner" />
+    
+    <action name="getOwner" class="org.pmp.action.business.OwnerAction" method="getOwnerInfo">
+      <result name="success">/cms/owner_edit.jsp</result>
+    </action>
+    
   </package>
 
 </struts>

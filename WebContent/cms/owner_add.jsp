@@ -4,6 +4,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="../CSS/common/common.css" rel="stylesheet" type="text/css" />
+<link href="../CSS/common/tab.css" rel="stylesheet" type="text/css" />
+<link href="../CSS/common/iBox.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="../Scripts/jquery-1.7.1.js" ></script>
+<script type="text/javascript" src="../Scripts/common/common.js"></script>
+<script type="text/javascript" src="../Scripts/pages/cms/owner_add1.js"></script>
 <title>无标题文档</title>
 </head>
 
@@ -163,18 +170,22 @@
               </tr>
               <tr>
                 <td height="30" align="center" valign="middle">所在小区：</td>
-                <td colspan="2" align="left" valign="middle"><s:action name="getAllProject" namespace="/cms" executeResult="true"/><input type="hidden" id="projectName" name="projectName" value=""/></td>
+                <td colspan="2" align="left" valign="middle">
+                <s:action name="getAllProject" namespace="/cms" executeResult="true"/>
+                <input type="hidden" id="projectName" name="projectName" value=""/>
+                </td>
                 <td align="center" valign="middle">楼宇号：</td>
-                <td align="left" valign="middle"><select id="buildingId" name="buildingId" onchange="getAllHouse()">
-                                              <option selected="selected">选择楼宇</option>
-                                      </select><input type="hidden" id="buildingName" name="buildingName" value=""/></td></td>
-              </tr></td>
+                <td align="left" valign="middle">
+                  <select id="buildingId" name="buildingId" onchange="getAllHouse()">
+                    <option selected="selected">选择楼宇</option>
+                  </select><input type="hidden" id="buildingNum" name="buildingNum" value=""/>
+                </td>
               </tr>
               <tr>
                 <td height="30" align="center" valign="middle">房号：</td>
                 <td colspan="2" align="left" valign="middle">
                 	<select id="houseId" name="houseId" onchange="getHouseInfo()">
-                		<option selected="selected">选择楼宇</option>
+                		<option selected="selected">选择房号</option>
                 	</select>
                 	<input type="hidden" name="houseNum" id="houseNum" value=""/>
                 </td>
@@ -183,8 +194,7 @@
               </tr>
               <tr>
                 <td height="30" align="center" valign="middle">房屋面积：</td>
-                <td align="left" valign="middle"><input name="owner.houseArea" type="text" class="textbox" id="owner.houseArea" style="width:60px" />
-                  平方米</td>
+                <td align="left" valign="middle"><input name="owner.houseArea" type="text" class="textbox" id="owner.houseArea" style="width:60px" />平方米</td>
                 <td width="70" align="center" valign="middle">使用状况：</td>
                 <td colspan="2" align="left" valign="middle"><table border="0" cellpadding="0" cellspacing="0" class="pinfen">
                   <tr>
@@ -202,8 +212,9 @@
             </table></td>
           </tr>
           <tr>
-            <td height="30" align="center" valign="bottom"><input type="button" name="Prev" id="Prev" value="上一步" onclick="to('P1');" disabled="disabled" />
-　  <input type="button" name="toP2" id="toP2" value="下一步" onclick="FormCheck();" /></td>
+            <td height="30" align="center" valign="bottom">
+            <input type="button" name="Prev" id="Prev" value="上一步" onclick="to('P1');" disabled="disabled" />
+　                           <input type="button" name="toP2" id="toP2" value="下一步" onclick="FormCheck();" /></td>
           </tr>
         </table>
       </div>
@@ -274,12 +285,9 @@
           </tr>
           <tr>
             <td height="30" align="center" valign="bottom"><input type="button" name="ToP1" id="ToP1" value="上一步" onclick="to('P1');" />
-              
-     
-     <input type="submit" name="Submit" id="Submit" value="完　成"   />
-      
-     <input type="button" name="button" id="button" value="关 闭" onclick="closeAddNewOwner()"/>
-                </td>
+            <input type="submit" name="Submit" id="Submit" value="完　成"   />
+            <input type="button" name="button" id="button" value="关 闭" onclick="closeAddNewOwner()"/>
+            </td>
           </tr>
         </table>
       </div>

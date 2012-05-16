@@ -1,3 +1,11 @@
+/**
+ * author: Elan Wang
+ * email： shohokh@gmail.com
+ * create:   2012-5-14
+ * 
+ * this script is used by the cf_list_by_item.jsp.jsp
+ */ 
+
 $(function(){
 	var houseId = getQueryString("houseId");
 	$('#cf_list').flexigrid({

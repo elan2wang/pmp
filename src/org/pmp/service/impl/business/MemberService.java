@@ -1,113 +1,80 @@
 /**
- * Author            : Jason
- * Created On        : 2012-4-17 下午01:35:03
+ * Author            : Elan
+ * Created On        : 2012-5-16 下午05:31:58
  * 
  * Copyright 2012.  All rights reserved. 
+ *
+ * Revision History
+ * 
+ *    Date       Modifier       Comments
+ * ----------    -------------  --------------------------------------------
  * 
  */
 package org.pmp.service.impl.business;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.pmp.dao.business.IMemberDAO;
 import org.pmp.service.business.IMemberService;
 import org.pmp.vo.Member;
 import org.pmp.vo.Owner;
 
 /**
- * @author Jason
+ * @author Elan
  * @version 1.0
  * @update TODO
  */
 public class MemberService implements IMemberService {
-	private IMemberDAO memberDao;
 
-	/**
-	 * @Title: batchSaveMember
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public void batchSaveMember(List<Member> memberList, Integer ownerId) {
-		memberDao.batchSaveMember(memberList, ownerId);
+    //~ Static Fields ==================================================================================================
+    private static Logger logger = Logger.getLogger(MemberService.class.getName());
 
-	}
+    //~ Instance Fields ================================================================================================
+    private IMemberDAO memberDAO;
+    
+    //~ Methods ========================================================================================================
 
-	/**
-	 * @Title: batchUpdateMember
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public void batchUpdateMember(List<Member> memberList, Integer ownerId) {
-		memberDao.batchUpdateMember(memberList, ownerId);
+    /**
+     * @see org.pmp.service.business.IMemberService#batchSave(java.util.List)
+     */
+    @Override
+    public void batchSave(List<Member> list) {
+	memberDAO.batchSave(list);
+    }
 
-	}
+    /**
+     * @see org.pmp.service.business.IMemberService#batchUpdate(java.util.List)
+     */
+    @Override
+    public void batchUpdate(List<Member> list) {
+	memberDAO.batchUpdate(list);
+    }
 
-	/**
-	 * @Title: deleteMember
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public void deleteMember(Integer memId) {
-		memberDao.deleteMember(memId);
+    /**
+     * @see org.pmp.service.business.IMemberService#deleteMember_ByOwner(org.pmp.vo.Owner)
+     */
+    @Override
+    public void deleteMember_ByOwner(Owner instance) {
+	memberDAO.deleteMember_ByOwner(instance);
+    }
 
-	}
+    /**
+     * @see org.pmp.service.business.IMemberService#loadMemberList_ByOwner(java.lang.Integer)
+     */
+    @Override
+    public List<?> loadMemberList_ByOwner(Integer ownerId) {
+	return memberDAO.loadMemberList_ByOwner(ownerId);
+    }
 
-	/**
-	 * @Title: getMemberByID
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public Member getMemberByID(Integer memId) {
-		return memberDao.getMemberByID(memId);
-	}
+    public IMemberDAO getMemberDAO() {
+        return memberDAO;
+    }
 
-	/**
-	 * @Title: getMemberByName
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public Member getMemberByName(String memName) {
-		return memberDao.getMemberByName(memName);
-	}
+    public void setMemberDAO(IMemberDAO memberDAO) {
+        this.memberDAO = memberDAO;
+    }
 
-	/**
-	 * @Title: getMemberByOwner
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public List getMemberByOwner(Owner owner) {
-		return memberDao.getMemberByOwner(owner);
-	}
-	
-	/**
-	 * @param memberDao the memberDao to set
-	 */
-	public void setMemberDao(IMemberDAO memberDao) {
-		this.memberDao = memberDao;
-	}
+    //~ Getters and Setters ============================================================================================
 
 }
