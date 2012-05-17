@@ -6,17 +6,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link href="../CSS/common/common.css" rel="stylesheet" type="text/css" />
-<link href="../CSS/common/tab.css" rel="stylesheet" type="text/css" />
-<link href="../CSS/common/iBox.css" rel="stylesheet" type="text/css" />
 
-<script type="text/javascript" src="../Scripts/component/My97DatePicker/WdatePicker.js"></script>
-<script type="text/javascript" src="../Scripts/jquery-1.7.1.js" ></script>
-<script type="text/javascript" src="../Scripts/common/common.js"></script>
-<script type="text/javascript" src="../Scripts/pages/cms/owner_add.js"></script>
-<script type="text/javascript" src="../Scripts/pages/cms/owner_edit.js"></script>
 <title>无标题文档</title>
 </head>
 

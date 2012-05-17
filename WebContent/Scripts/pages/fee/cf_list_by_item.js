@@ -39,7 +39,7 @@ $(function(){
 		    { display: '录入人员', name: 'recordPerson', isdefault:true }
 		],
 		showSearch:true,
-		height:Height*0.95,
+		height:Height*0.82,
         showcheckbox:true,
         nomsg: '没有符合条件的物业费记录',
         usepager:true,

@@ -13,6 +13,13 @@
 {
 	margin:5px 0 5px 0;
 }
+.phoneinput
+{
+	border-left: medium none;
+	border-right: medium none;
+    border-top: medium none; 
+	border-bottom: 1px solid lightblue;
+}
 
 .SMS_main .row2
 {
@@ -43,8 +50,8 @@
 .SMS_main .row1 span:first-child + span
 {
 	display:inline-block;
-	width:200px;
-	margin-left:5px;
+	width:180px;
+	margin-left:2px;
 }
 .SMS_main .row2 span:first-child
 {
@@ -62,6 +69,15 @@
 	display:inline-block;
 	width:400px;
 	height:80px;
+	border:1px solid lightblue;
+	overflow:hidden;
+}
+.phonelist
+{
+	display:inline-block;
+	width:420px;
+	height:110px;
+	margin:-1px -1px -1px -1px;
 }
 .SMS_main .row2 span:first-child + span select
 {
@@ -93,6 +109,13 @@
 	display:inline-block;
 	width:400px;
 	height:80px;
+}
+.msgTextarea
+{
+	display:inline-block;
+	width:400px;
+	height:80px;
+	border:1px solid lightblue;
 }
 .SMS_main .row5 .row5_1
 {

@@ -36,10 +36,12 @@
                      <option>----职位----</option>
                   </select>
                   <span style="display:inline-block;width:10px;"></span>
-                  <a href="#" class="linkbutton" onclick="selectAll()">全选</a>
-                  <a href="#" class="linkbutton" onclick="selectOpposite()">反选</a>
-                  <a href="#" class="linkbutton" onclick="selectNone()">全不选</a>
+                  <a href="javascript:void(0)" class="linkbutton" onclick="selectAll()">全选</a>
+                  <a href="javascript:void(0)" class="linkbutton" onclick="selectOpposite()">反选</a>
+                  <a href="javascript:void(0)" class="linkbutton" onclick="selectNone()">全不选</a>
               </div>
+              <table id="SMSuserlist"></table>
+              <!--  
               <table id="SMSuserlist">
                 <tbody id="SMSuser_data">
                   <tr><td><input type="checkbox" id="checkgroup" name="checkgroup" value="13568821380" onclick="selectAll()"/></td><td></td><td></td><td></td><td></td><td></td>
@@ -49,10 +51,10 @@
                   <tr><td><input type="checkbox" id="checkgroup" name="checkgroup" value="13568821380"/></td><td></td><td></td><td></td><td></td><td></td>
                   </tr>
                 </tbody>
-              </table>
+              </table>-->
               <div class="">
-                 <a href="#" class="linkbutton" onclick="submitForm()">确认提交</a>
-                 <a href="#" class="linkbutton" onclick="closeFrame()">取消</a>
+                 <a href="javascript:void(0)" class="linkbutton" onclick="submitForm()">确认提交</a>
+                 <a href="javascript:void(0)" class="linkbutton" onclick="closeFrame()">取消</a>
               </div>
 </div>
 </body>

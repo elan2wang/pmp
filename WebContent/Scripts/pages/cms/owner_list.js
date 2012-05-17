@@ -7,6 +7,7 @@
  */ 
 
 $(function(){
+	$(".content .innercontent").eq(0).show();
 	var editURL = "getOwner?ownerId=";
 	var editWindow = "#ownerEdit";
 	
@@ -45,7 +46,7 @@ $(function(){
 });
 
 function ownerAdd(){
-	openAddWindow('#ownerAdd');
+	$('#ownerAdd').window('open');
 }
 
 function ownerImport(){

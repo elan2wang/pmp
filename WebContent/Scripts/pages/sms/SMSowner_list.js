@@ -64,8 +64,8 @@ function flexGrid(url)
 	alert(option.url);
 	alert(option);
 	option.url=url;
-	 $("#SMSuserlist").flexigrid(option);
-     $("#SMSuserlist").flexOptions(option).flexReload();  
+	 $("#SMSownerlist").flexigrid(option);
+     $("#SMSownerlist").flexOptions(option).flexReload();  
 //	$("#SMSuserlist").flexOptions(option).flexReload(); 
 //	 $('#SMSuserlist').flexigrid({
 //		  url: url,

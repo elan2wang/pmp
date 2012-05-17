@@ -33,7 +33,7 @@ $(function(){
  		    { display: '录入时间', name: 'inputTime', isDefault:false}
 		],
 		showSearch:true,
-        height:Height*0.98,
+        height:Height*0.88,
         showcheckbox:true,
         nomsg: '没有符合条件的物业费记录',
         usepager:true,

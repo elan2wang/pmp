@@ -2,12 +2,13 @@
 {
    font-size:12px;
    margin:10px 10px 0 10px;
+   height:500px;
 
 }
 .content_main .left_main
 {
 	border:1px solid lightblue;
-	width:15%;
+	width:20%;
 	text-align:center;
 	align:center;
 	height:500px;
@@ -24,7 +25,7 @@
 .content_main .right_main
 {
 	border:1px solid lightblue;
-	width:83%;
+	width:78%;
 	height:500px;
 	float:left;
 	margin:0px;

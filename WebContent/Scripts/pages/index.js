@@ -1,9 +1,35 @@
 // JavaScript Document
+function getElementsByClassName(className){
+	var elems = (document.body).getElementsByTagName("*");
+	var result=[];
+	for (i=0; j=elems[i]; i++){
+	   if ((" "+j.className+" ").indexOf(" "+className+" ")!=-1){
+	        result.push(j);
+	   }
+	}
+	return result;
+} 
   function initSize(){
+	    var nv=navigator;
     	var width=document.documentElement.clientWidth;
     	var height=document.documentElement.clientHeight;
     	//alert("width:"+width+"height:"+height);
-    	document.getElementById("index_main").style.height=(height-97)+'px';
+    	var contentobj=document.getElementById("index_main");
+    	if(nv.userAgent.indexOf("MSIE")>=1)
+    	{
+    		contentobj.style.height=(height-97)+'px';
+    	}
+    	else if(nv.userAgent.indexOf("Firefox")>=1)
+    	{
+    		contentobj.style.height=(height-102)+'px';
+    	}
+    	else
+    	{
+    		contentobj.style.height=(height-97)+'px';
+    	}
+    	var list=getElementsByClassName("LMIitem");
+    	var Height=parseInt(contentobj.style.height)-30*parseInt(list.length);
+    	document.getElementById("blanks").style.height=Height+'px';
     }
     var itemnow = null;
     function button(obj, action, URL) {

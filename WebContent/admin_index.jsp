@@ -62,7 +62,8 @@ a{
              <c:forEach var="item" items="${moduleList }">
              <div id="m1" class="LMIitem" onmouseover="button(this,'over')" onmouseout="button(this,'out')" onclick="button(this,'onclick','${item.modUrl}')">${item.modName }</div>
              </c:forEach>
-             <div id="m_rest" class="LMIitem" style="height:500px"></div>
+             <div id="blanks" name="blanks" style="border-right:1px #6c92ad solid;">&nbsp;</div>
+             
           </div>
        </div><!-- 结束标签 class="index_main_left"-->
        <div class="index_main_right">
@@ -71,8 +72,9 @@ a{
        </div>
    </div><!-- 结束标签 class="index_main"-->
    <div class="clear"></div>
-   <div class="index_main_top"><img src="Images/blank11.gif" width="6" height="6" /></div>
+   
    <div class="index_footer">
+       <div class="index_main_top"><img src="Images/blank11.gif" width="6" height="6" /></div>
        <div id="userinfo" style="display:inline-block;line-height:30px;text-align:center">版权所有：中国移动公司</div>
    </div>
    

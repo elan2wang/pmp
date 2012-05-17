@@ -48,14 +48,15 @@
                   <a href="#" class="linkbutton" onclick="selectOpposite()">反选</a>
                   <a href="#" class="linkbutton" onclick="selectNone()">全不选</a>
               </div>
-
-              <table id="SMSuserlist">
+               <table id="SMSownerlist">
+               </table>
+              <!--<table id="SMSuserlist">
                 <tbody id="SMSuser_data">
 
                
-					 <!--  <tr>
+					   <tr>
 					 	<td><input type="checkbox" id="checkgroup" name="checkgroup" value="13568821380" onclick="selectAll()"/></td><td></td><td></td><td></td><td></td><td></td>
-                 	 </tr>-->
+                 	 </tr>
 				
                  
                 
@@ -68,7 +69,7 @@
                   </tr>
 
                 </tbody>
-              </table>
+              </table>-->
               <div class="">
                  <a href="#" class="linkbutton" onclick="submitForm()">确认提交</a>
                  <a href="#" class="linkbutton" onclick="closeFrame()">取消</a>

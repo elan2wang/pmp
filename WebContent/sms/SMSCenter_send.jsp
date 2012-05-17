@@ -15,34 +15,35 @@
 <body>
 <div class="wrap">      
 	   <ul class="nav">
-          <li id="tab1" class="active"><a href="#">发送短信</a></li>
-          <li id="tab2"><a href="#">已发信息</a></li>
+          <li id="tab1" class="active"><a href="javascript:void(0)">发送短信</a></li>
+          <li id="tab2"><a href="javascript:void(0)">已发信息</a></li>
        </ul>   
        <div class="content">
            <div class="innercontent">
                <div class="SMS_main">
                   <div class="row1"><span>接收人号码:</span>
-                  <span><input name="receiverNumber" type="text" id="receiverNumber" onFocus="this.select()" /></span>
-                  <span><a href="#" class="linkbutton" name="buttonAddReceiver" id="buttonAddReceiver"  onclick="addReceiver();" >加入接收列表</a></span>
-                  <span><a href="#" class="linkbutton" name="button2" id="button2" onclick="FindReceiver();">查找接收人</a></span>
+                    
+                  <span><input name="receiverNumber" type="text" id="receiverNumber" onFocus="this.select()" class="phoneinput"/> </span>
+                  <span><a href="javascript:void(0)" class="linkbutton" name="buttonAddReceiver" id="buttonAddReceiver"  onclick="addReceiver();" >加入接收列表</a></span>
+                  <span><a href="javascript:void(0)" class="linkbutton" name="button2" id="button2" onclick="FindReceiver();">查找接收人</a></span>
                   </div>
                   <div class="row2"><span >接收人列表:</span>
-                        <span><select  name="receiverList" size="1" multiple="multiple" id="receiverList" onclick="return receiverListID_onclick()"></select></span>
+                        <span><select class="phonelist" name="receiverList" size="1" multiple="multiple" id="receiverList" onclick="return receiverListID_onclick()"></select></span>
                   </div>
                   <div class="row3"><span class="row3_1"></span>
-                       <span><a href="#" class="linkbutton" name="button3" id="button3" onclick="removeReceiver();" >删除接收人</a></span>
-                       <span><a href="#" class="linkbutton" name="button4" id="button4"  onclick="removeAllReceiver();">清空接收列表</a></span>
-                       <span><a href="#" class="linkbutton" name="button5" id="button5" onclick="deleteText();" >清空短信内容</a></span>
+                       <span><a href="javascript:void(0)" class="linkbutton" name="button3" id="button3" onclick="removeReceiver();" >删除接收人</a></span>
+                       <span><a href="javascript:void(0)" class="linkbutton" name="button4" id="button4"  onclick="removeAllReceiver();">清空接收列表</a></span>
+                       <span><a href="javascript:void(0)" class="linkbutton" name="button5" id="button5" onclick="deleteText();" >清空短信内容</a></span>
                        <span style="margin-left:40px;">共<span name="recevierCount" class="SMS_Count" id="recevierCount">0</span>人</span> 
                   </div>
                   <div class="row4">
                        <span>短信内容:</span>
-                       <span><textarea name="smsSend.smssContent" id="text" cols="45" rows="5"  maxlength="140" onkeyup="textCount();"></textarea></td>
+                       <span><textarea class="msgTextarea" name="smsSend.smssContent" id="text"  maxlength="140" onkeyup="textCount();" height="100px"></textarea></td>
                        </span>
                   </div>
                   <div class="row5">
                         <span class="row5_1"></span>
-                       <span><a href="#" class="linkbutton" name="button6" id="button6"  onclick="formcheck();receiverListTransfer();" >发送</a></span>
+                       <span><a href="javascript:void(0)" class="linkbutton" name="button6" id="button6"  onclick="formcheck();receiverListTransfer();" >发送</a></span>
                        <span class="row5_3">
                           <span style="display:none" name="currentWords" class="SMS_Count" id="currentWords" >0</span>
                           <span style="display:none" name="totalMsg"  class="SMS_Count" id="totalMsg" >1</span>还可输入

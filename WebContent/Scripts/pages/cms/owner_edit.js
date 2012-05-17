@@ -5,7 +5,7 @@
 
 $(function(){
  	//alert("in init method");
-<<<<<<< HEAD
+//<<<<<<< HEAD
 	  	//获取有下拉框的id
 	  	var select_gender = document.getElementById("select_gender");
 	  	var select_nationality = document.getElementById("owner.nationality"); 
@@ -38,7 +38,7 @@ $(function(){
 	  	UpdateSelectedItem(select_projectId,proName);	  	
 	  	ProjectChanged(builId,houseId);
 });
-=======
+//=======
   	//获取有下拉框的id
   	var select_gender = document.getElementById("select_gender");
   	var select_nationality = document.getElementById("owner.nationality"); 
@@ -69,8 +69,8 @@ $(function(){
   	UpdateSelectedItem(select_projectId,proName);
   	UpdateSelectedItem(select_projectId,proName);	 
   	projectChanged(builId,houseId);
-}
->>>>>>> 68dee3d6c5fab48cbd37f17a8b41516c0989b527
+
+//>>>>>>> 68dee3d6c5fab48cbd37f17a8b41516c0989b527
 
 
 function UpdateSelectedItem(objSelect, objItemValue) {   
