@@ -92,7 +92,7 @@ public class OwnerDAO2 extends BaseDAO implements IOwnerDAO2 {
      */
     @Override
     public Owner getOwner_ById(Integer ownerId) {
-	String hql = "from Onwer where ownerId="+ownerId;
+	String hql = "from Owner where ownerId="+ownerId;
 	String debugMsg = "get owner by id,ownerId="+ownerId;
 	Owner owner = null;
 	try {

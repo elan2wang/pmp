@@ -32,7 +32,10 @@ function to(page) {
         objTab1.className = "ModuleTapOn";
     }
 }
-function ProjectChanged(builId,houseId)
+
+/* when method defined in owner_add.js whose name is 'owner_edit_init' */
+/* invoke this method,it will contain parameters, otherwise there is no parameters */
+function projectChanged(builId,houseId)
 {
 	 var projectId=document.getElementById("projectId").value;
 	 $.ajax({
@@ -40,49 +43,41 @@ function ProjectChanged(builId,houseId)
 	  url: "getBuildingByProject?projectId="+projectId,
 	  dataType: "json",
 	  success : function(data){
-		  		
-		      var selector=$('#buildingId'); 
-		      var house=$('#houseId'); 
-			  var s=selector.find('option');
-			  var s_house=house.find('option');
-			  for(var i=1;i<s.length;i++){
-			     s.eq(i).remove();
-			  }
-			  for(var j=1;j<s_house.length;j++){
-				  s_house.eq(j).remove();
-			  }
-			  if(data)
-		  	  {
-				  var succ;
-				  $.each( data.Rows , function(commentIndex, comment) {
-					  if(builId && builId==comment['builId'])
-					  {
-						  selector.append('<option selected="selected" value="'+comment['builId']+'">'+comment['builNum']+'</option>');
-						  succ = true;
-					  }
-					  else
-						  {
-						  selector.append('<option value="'+comment['builId']+'">'+comment['builNum']+'</option>');
-						  }
-				  });
-				  if(succ && houseId)
-					  getAllHouse(houseId);
-		  	  }
-			 
-			  
+	      var selector=$('#buildingId'); 
+	      var house=$('#houseId'); 
+		  var s=selector.find('option');
+		  var s_house=house.find('option');
+		  for(var i=1;i<s.length;i++){
+		     s.eq(i).remove();
+		  }
+		  for(var j=1;j<s_house.length;j++){
+			  s_house.eq(j).remove();
+		  }
+		  if(data)
+	  	  {
+		      var succ = false;
+			  $.each( data.Rows , function(commentIndex, comment) {
+				  if(builId && builId==comment['builId'])
+				  {
+					  selector.append('<option selected="selected" value="'+comment['builId']+'">'+comment['builNum']+'</option>');
+					  succ = true;
+				  }
+				  else
+				  {
+					  selector.append('<option value="'+comment['builId']+'">'+comment['builNum']+'</option>');
+				  }
+			  });
+			  if(succ && houseId){
+				  buildingChanged(houseId);
+		      }
+	  	  }
 	  }
 	});
 }
-function getHouseInfo(){
 
-	var house = document.getElementById("houseId");
-	var index=house.selectedIndex;
-	var houseNum = house.options[index].text;
-	alert(houseNum);
-	document.getElementById("houseNum").value=houseNum;
-}
-
-function getAllHouse(houseid){
+/* when method defined in owner_add.js whose name is 'owner_edit_init' */
+/* invoke this method,it will contain parameters, otherwise there is no parameters */
+function buildingChanged(houseid){
 	var buildingId = document.getElementById("buildingId").value;
 	$.ajax({
 		type: "POST",
@@ -97,14 +92,14 @@ function getAllHouse(houseid){
 			if(data)
 		  	{			
 				$.each(data.Rows,function(commentIndex,comment){
-						 if(houseid && houseid==comment['houseId'])
-						 {
-							  houseId.append('<option selected="selected" value="'+comment['houseId']+'">'+comment['houseNum']+'</option>');
-						  }
-						  else
-						  {
-							  houseId.append('<option value="'+comment['houseId']+'">'+comment['houseNum']+'</option>');
-						  }
+					 if(houseid && houseid==comment['houseId'])
+					 {
+					     houseId.append('<option selected="selected" value="'+comment['houseId']+'">'+comment['houseNum']+'</option>');
+					 }
+					 else
+					 {
+				         houseId.append('<option value="'+comment['houseId']+'">'+comment['houseNum']+'</option>');
+					 }
 				 });
 		  	}
 		}
@@ -112,5 +107,12 @@ function getAllHouse(houseid){
 }
 
 function FormCheck(){
+	/* set hidden input projectName */
+	document.getElementById("projectName").value = document.getElementById("projectId").options[document.getElementById("projectId").selectedIndex].text;
+	/* set hidden input buildingNum */
+	document.getElementById("buildingNum").value = document.getElementById("buildingId").options[document.getElementById("buildingId").selectedIndex].text;
+	/* set hidden input houseNum */
+	document.getElementById("houseNum").value = document.getElementById("houseId").options[document.getElementById("houseId").selectedIndex].text;
+	
 	to('P2');
 }

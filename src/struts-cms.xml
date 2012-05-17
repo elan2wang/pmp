@@ -102,14 +102,22 @@
 	<!-- owner related actions -->
 	<action name="loadOwnerList_ByPro" class="org.pmp.action.business.OwnerAction" method="loadOwnerList_ByPro" />
     
-    <action name="saveOwner" class="org.pmp.action.business.OwnerAction" method="saveOwner" />
+    <action name="addOwner" class="org.pmp.action.business.OwnerAction" method="addOwner">
+      <result name="success" type="redirect">/cms/owner_list.jsp</result>
+    </action>
     
-    <action name="updateOwner" class="org.pmp.action.business.OwnerAction" method="updateOwner" />
+    <action name="editOwner" class="org.pmp.action.business.OwnerAction" method="editOwner">
+      <result name="success" type="redirect">/cms/owner_list.jsp</result>
+    </action>
     
     <action name="getOwner" class="org.pmp.action.business.OwnerAction" method="getOwnerInfo">
       <result name="success">/cms/owner_edit.jsp</result>
     </action>
     
+    <!-- s:action tag related actions  -->
+    <action name="load_owner_list_banner" class="org.pmp.action.business.PageTriggerAction" method="select_project">
+      <result name="success">/fee/pro_options.jsp</result>
+    </action>
   </package>
 
 </struts>

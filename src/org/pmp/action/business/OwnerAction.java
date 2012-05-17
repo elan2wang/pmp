@@ -26,10 +26,12 @@ import org.pmp.service.business.IHouseOwnerService;
 import org.pmp.service.business.IHouseService;
 import org.pmp.service.business.IMemberService;
 import org.pmp.service.business.IOwnerService;
+import org.pmp.service.business.IProjectService;
 import org.pmp.util.JsonConvert;
 import org.pmp.util.Pager;
 import org.pmp.util.SessionHandler;
 import org.pmp.vo.Building;
+import org.pmp.vo.Company;
 import org.pmp.vo.House;
 import org.pmp.vo.HouseOwner;
 import org.pmp.vo.Member;
@@ -51,6 +53,7 @@ public class OwnerAction extends ActionSupport{
     private IOwnerService ownerService;
     private IMemberService memberService;
     private IHouseOwnerService houseOwnerService;
+    private IProjectService projectService;
     
     /* used when saveOwner or editOwner */
     private Owner owner;
@@ -63,9 +66,6 @@ public class OwnerAction extends ActionSupport{
     private String houseNum;
     private Integer houseId;
     
-    /* used when loadOwnerList_ByPro */
-    private Integer proId;
-
     /* used when getOwnerInfo */
     private Integer ownerId;
     
@@ -79,7 +79,7 @@ public class OwnerAction extends ActionSupport{
     /* =========FlexiGrid post parameters======= */
     
     //~ Methods ========================================================================================================
-    public void addOwner(){
+    public String addOwner(){
 	/* set owner description */
 	String ownerDesc=projectName+","+buildingNum+","+houseNum;
 	owner.setOwnerDesc(ownerDesc);
@@ -88,6 +88,7 @@ public class OwnerAction extends ActionSupport{
 	/* set owner's membership list */
 	List<Member> list = new ArrayList<Member>();
 	for (int i=0; i<memberName.length; i++){
+	    if(memberName[i].equals("") || memberName[i] == null)continue;
 	    Member mem = new Member();
 	    mem.setMemName(memberName[i]);
 	    mem.setMemRelation(memberRelation[i]);
@@ -98,9 +99,10 @@ public class OwnerAction extends ActionSupport{
 	/* invoke ownerService.addOwner to save owner */
 	/* also update related house info, and save houseOwner instance */
 	ownerService.addOwner(owner, list, houseId);
+	return SUCCESS;
     }
     
-    public void editOwner(){
+    public String editOwner(){
 	/* set owner description */
 	String ownerDesc=projectName+","+buildingNum+","+houseNum;
 	owner.setOwnerDesc(ownerDesc);
@@ -109,6 +111,7 @@ public class OwnerAction extends ActionSupport{
 	/* set owner's membership list */
 	List<Member> list = new ArrayList<Member>();
 	for (int i=0; i<memberName.length; i++){
+	    if(memberName[i].equals("") || memberName[i] == null)continue;
 	    Member mem = new Member();
 	    mem.setMemName(memberName[i]);
 	    mem.setMemRelation(memberRelation[i]);
@@ -117,6 +120,11 @@ public class OwnerAction extends ActionSupport{
 	    list.add(mem);
 	}
 	ownerService.editOwner(owner, list, houseId);
+	return SUCCESS;
+    }
+    
+    public void deleteOwner(){
+	
     }
     
     public String getOwnerInfo(){
@@ -131,10 +139,11 @@ public class OwnerAction extends ActionSupport{
 	Project pro = bui.getProject();		
 	
 	HttpServletRequest request = ServletActionContext.getRequest();
+	request.setAttribute("owner", owner);
 	request.setAttribute("memberList", list);
-	request.setAttribute("hou", hou);
-	request.setAttribute("bui", bui);
-	request.setAttribute("pro", pro);
+	request.setAttribute("house", hou);
+	request.setAttribute("building", bui);
+	request.setAttribute("project", pro);
 	request.setAttribute("objName",objName);
 	
 	return SUCCESS;
@@ -153,8 +162,18 @@ public class OwnerAction extends ActionSupport{
 	} else{
 	    order = "order by ownerId desc";
 	}
+	
+	/* retrieve user's refDomain and set proId */
+	List<Project> proList = new ArrayList<Project>();
+	Object obj = SessionHandler.getUserRefDomain();
+	if (obj instanceof Project){
+	    proList.add((Project)obj);
+	}
+	if (obj instanceof Company){
+	    proList = (List<Project>) projectService.loadProjectByComID(new Pager(1000,1), ((Company)obj).getComId());
+	}
 	/* invoke service to get list */
-	List<?> cfList = ownerService.loadOwnerList_ByPro(proId, params, order, pager);
+	List<?> cfList = ownerService.loadOwnerList_ByPro(proList.get(0).getProId(), params, order, pager);
 	
 	String[] attrs = {"ownerName","gender","mobile","houseNum","houseArea","organization"};
 	List<String> show = Arrays.asList(attrs);
@@ -172,14 +191,6 @@ public class OwnerAction extends ActionSupport{
 
     public void setOwnerService(IOwnerService ownerService) {
         this.ownerService = ownerService;
-    }
-
-    public Integer getProId() {
-        return proId;
-    }
-
-    public void setProId(Integer proId) {
-        this.proId = proId;
     }
 
     public Integer getPage() {
@@ -236,6 +247,14 @@ public class OwnerAction extends ActionSupport{
 
     public void setMemberService(IMemberService memberService) {
         this.memberService = memberService;
+    }
+
+    public IProjectService getProjectService() {
+        return projectService;
+    }
+
+    public void setProjectService(IProjectService projectService) {
+        this.projectService = projectService;
     }
 
     public Owner getOwner() {
