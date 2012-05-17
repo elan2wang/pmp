@@ -285,10 +285,4 @@
   </table>
 </form>
 </body>
-<script type="text/javascript">
-if (document.readyState=="complete")  
-{ 
-	owner_edit_init();
-}
-</script>
 </html>

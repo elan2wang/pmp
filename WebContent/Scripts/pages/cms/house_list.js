@@ -1,52 +1,55 @@
 ﻿// JavaScript Document
 $(function(){
+	var builid;
+	var projectid;
+	if(parent.document.getElementById("frame.pageType").value=="all"){	
+		projectid = 0;
+	}
+	else
+		projectid = parseInt(parent.document.getElementById("frame.pageId").value);
 	if(parent.document.getElementById("frame.housepageType").value=="all"){
+		builid = 0;
+		
 		$('#top_info').css("display","none");
 		$('#top_info2').css("display","block");
-	  $('#house_data').html(AddTds(20,8));
-	  $('#houselist').flexigrid({colModel: [
-             { display: '序号',  width: 40,  align: 'center' },
-             { display: '所属物业', width: 200, align: 'center' },
-			 { display: '当前小区', width: 200, align: 'center' },
-             { display: '房号', width: 100,align: 'center' },
-             { display: '房屋面积', width: 100, align: 'center' },
-			 { display: '物业费标准', width: 100, align: 'center' },
-             { display: '是否空置', width: 100,align: 'center' },
-             { display: '操作',  width: 200, align: 'center' }
-             ],height:305});
+	    $('#house_data').html(AddTds(20,8));
 	}
 	else
 	{
+		builid = parseInt(parent.document.getElementById("frame.housepageId").value);		
 		$('#top_info').css("display","block");
 		$('#top_info2').css("display","none");
-		  $('#house_data').html(AddTds(20,6));
-		  $('#houselist').flexigrid({colModel: [
-	             { display: '序号',  width: 40,  align: 'center' },
-	             { display: '房号', width: 200, align: 'center' },
-				 { display: '房屋面积', width: 200, align: 'center' },
-	             { display: '物业费标准', width: 200,align: 'center' },
-	             { display: '是否空置', width: 200,align: 'center' },
-	             { display: '操作',  width: 200, align: 'center' }
-	             ],height:305});		
-		
+		$('#house_data').html(AddTds(20,6));
 	}
 
+	    $('#houselist').flexigrid({
+	    	     url:"house_listBySessionHandler?buildingId="+builid+"&projectId="+projectid,
+			     dataType:"json",
+			  	 colModel: [
+	             { display: '房号', name:'houseNum',width: 200, align: 'center' },
+				 { display: '房屋面积',name:'houseArea', width: 200, align: 'center' },
+	             { display: '物业费标准', name:'condoFeeRate',width: 200,align: 'center' },
+	             { display: '是否空置',name:'isempty', width: 200,align: 'center' }
+	             ],height:305,
+	             showcheckbox:true,
+	             usepager: true,
+	     		 useRp: true,
+	     		 rp: 15,
+	     		 operation:true,
+	     		operationcontent:'<a href="javascript:void(0)" onclick="openEditHouse($(this).parent().parent().parent())">编辑</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#\" onclick=\"deleteHouse($(this).parent().parent().parent(),$(this).prev().prev().prev().prev().html());\">删除</a>',
+				 operationWidth: Width*0.22
+	             });		
+
 });
-function searchHouse(){
-	document.getElementById("searchState").value="1";
-	PageDownOrUp(0);
-}
-function openEditHouse(id)
+//function searchHouse(){
+//	document.getElementById("searchState").value="1";
+//	PageDownOrUp(0);
+//}
+function openEditHouse(obj)
 {
-	alert(id);
-    $win=$('#editHouse').window({
-        top:10,   
-        left:($(window).width() - 450) * 0.5,
-        href:'getHouseById?houseId='+id
-	 });
-	//alert(id);
-	//$('#editHouse').window('open');
-  $win.window('open');
+	var id=parseInt(obj.attr("id").substr(3));	
+	var url = 'getHouseById?houseId='+id;
+	openEditWindow("#editHouse",url);
 }
 function closeEditHouse(){
     $('#editHouse').window('close');
@@ -80,107 +83,60 @@ function deleteHouse(obj,id){
 	
 }
 function PageDownOrUp(flag){
-	        var nowpage=parseInt(document.getElementById("now_page").innerHTML);
-			var pagerow=parseInt(document.getElementById("page_row").options[document.getElementById("page_row").selectedIndex].text);
-			var gopage=document.getElementById("go_page").value;
-			var totalpage=parseInt(document.getElementById("total_page").innerHTML);
-			if(parent.document.getElementById("frame.housepageType").value=="all"){
-		        housepageid=-1;
-		    }
-		    else{
-			    pageid=parseInt(parent.document.getElementById("frame.housepageId").value);
-		    }
+//			if(parent.document.getElementById("frame.housepageType").value=="all"){
+//		        housepageid=-1;
+//		    }
+//		    else{
+//			    pageid=parseInt(parent.document.getElementById("frame.housepageId").value);
+//		    }
+//
+//			var urlstr="";
 
-			var urlstr="";
-			//alert(nowpage+1);
-			initIcon();
-			switch(flag)
-			{
-				case 0://默认值
-				   nowpage=1;
-				   pagerow=10;
-				   break;
-				case 1:
-				   nowpage=1;
-				   break;
-				case 2:
-				   nowpage--;
-				   break;
-				case 3:
-				   nowpage++;
-				   break;
-				case 4:
-				   nowpage=totalpage;
-				   break;
-				case 5:
-				   break;
-				case 6:	
-				   if(gopage==""){
-			          alert("跳转页面不能为空！");
-				      return;
-				   }
-				   if(isNaN(parseInt(gopage))){
-					   return;
-				   }
-				   if(parseInt(gopage)>totalpage){
-			          alert("跳转页面大于总页面数！");
-				      return;
-				   }
-				   break;
-			}
-			changeIcon(nowpage,totalpage);
-			if(document.getElementById("searchState").value=="1"){
-				projectId=document.getElementById("projectId").value;
-				buildingId=document.getElementById("buildingId").value;
-				alert("projectId"+projectId);
-				alert("buildingId"+buildingId);
-				urlstr="getHouseByConditions?buildingId="+buildingId+"&projectId="+projectId+"&currentPage="+nowpage+"&pageSize="+pagerow;
-				alert(urlstr);
-			}
-			else{
-			  urlstr="house_list?currentPage="+nowpage+"&pageSize="+pagerow;
-			  }
-			//urlstr="house_list?currentPage="+nowpage+"&pageSize="+pagerow;
-            $.ajax({
-			  type: "POST",
-			  url: urlstr,
-			  dataType: "json",
-			  success : function(data){
-				  var i=0;
-                  $('#house_data').find('tr').hide();
-                  var tableTds=$('#house_data').find('td');
-                  tableTds.find('div').css('text-align','center');
-				  for(i=0;i<pagerow;i++)
-				  {$('#house_data').find('tr').eq(i).show();}
-				  i=0;
-				  tableTds.find('div').html("");
-				  var k=1;	//记录序号
-				  $.each( data.Rows  , function(commentIndex, comment) {
-												
-				    tableTds.eq(i++).find('div').html((k++)+"<input type='checkbox' id='checkgroup' name='checkgroup' value='"+comment['houseId']+"'/>");
-					if(parent.document.getElementById("frame.housepageType").value=="all")
-					{
-						tableTds.eq(i++).find('div').html(comment['company']);
-						tableTds.eq(i++).find('div').html(comment['project']);
-					}
-					tableTds.eq(i++).find('div').html(comment['houseNum']);
-					tableTds.eq(i++).find('div').html(comment['houseArea']);
-					
-					tableTds.eq(i++).find('div').html(comment['condoFeeRate']);
-					
-					tableTds.eq(i++).find('div').html(comment['isempty']);
-					var strhtml="<a href=\"#\" onclick=\"openEditHouse($(this).next().html());\">编辑</a><span style=\"display:none;width:1px\">"+comment['houseId']+"</span><span style=\"display:inline-block;width:10px\"></span><a href=\"#\" onclick=\"deleteHouse($(this).parent().parent().parent(),$(this).prev().prev().html());\">删除</a>";
-					
-					tableTds.eq(i++).find('div').html(strhtml);
-
-					  });
-					  $('#now_page').html(data.currentPage);
-					  $('#total_page').html(data.pagesCount);
-					  $('#total_record').html(data.rowsCount);
-					  selectNone();
-					  
-			  }
-			}); 
+//				projectId=document.getElementById("projectId").value;
+//				buildingId=document.getElementById("buildingId").value;
+//				alert("projectId"+projectId);
+//				alert("buildingId"+buildingId);
+//				urlstr="getHouseByConditions?buildingId="+buildingId+"&projectId="+projectId+"&currentPage="+nowpage+"&pageSize="+pagerow;
+//				alert(urlstr);
+//			}
+//			  urlstr="house_list?currentPage="+nowpage+"&pageSize="+pagerow;
+//            $.ajax({
+//			  type: "POST",
+//			  url: urlstr,
+//			  dataType: "json",
+//			  success : function(data){
+//				  var i=0;
+//                  $('#house_data').find('tr').hide();
+//                  var tableTds=$('#house_data').find('td');
+//                  tableTds.find('div').css('text-align','center');
+//				  for(i=0;i<pagerow;i++)
+//				  {$('#house_data').find('tr').eq(i).show();}
+//				  i=0;
+//				  tableTds.find('div').html("");
+//				  var k=1;	//记录序号
+//				  $.each( data.Rows  , function(commentIndex, comment) {
+//												
+//				    tableTds.eq(i++).find('div').html((k++)+"<input type='checkbox' id='checkgroup' name='checkgroup' value='"+comment['houseId']+"'/>");
+//					if(parent.document.getElementById("frame.housepageType").value=="all")
+//					{
+//						tableTds.eq(i++).find('div').html(comment['company']);
+//						tableTds.eq(i++).find('div').html(comment['project']);
+//					}
+//					tableTds.eq(i++).find('div').html(comment['houseNum']);
+//					tableTds.eq(i++).find('div').html(comment['houseArea']);
+//					
+//					tableTds.eq(i++).find('div').html(comment['condoFeeRate']);
+//					
+//					tableTds.eq(i++).find('div').html(comment['isempty']);
+//					var strhtml="<a href=\"#\" onclick=\"openEditHouse($(this).next().html());\">编辑</a><span style=\"display:none;width:1px\">"+comment['houseId']+"</span><span style=\"display:inline-block;width:10px\"></span><a href=\"#\" onclick=\"deleteHouse($(this).parent().parent().parent(),$(this).prev().prev().html());\">删除</a>";
+//					
+//					tableTds.eq(i++).find('div').html(strhtml);
+//
+//					  });
+//					  $('#now_page').html(data.currentPage);
+//					  $('#total_page').html(data.pagesCount);
+//					  $('#total_record').html(data.rowsCount);
+//					  selectNone();
         }	
 function getSecondInfo()
 {

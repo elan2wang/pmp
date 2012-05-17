@@ -8,8 +8,10 @@
 package org.pmp.dao.business;
 
 import java.util.List;
+import java.util.Map;
 
 import org.pmp.util.Pager;
+import org.pmp.vo.Building;
 import org.pmp.vo.Company;
 
 /**
@@ -23,7 +25,5 @@ public interface ICompanyDAO {
     public void deleteCompany(Integer companyID);
     public Company getCompanyByID(Integer companyID);
     public Company getCompanyByName(String companyName);
-    public List<?> loadCompanyList(Pager pager);
-    public List<?> loadEnabledCompanyList(Pager pager);
-    public List<?> loadDisabledCompanyList(Pager pager);
+    public List<Company> loadBuildingList_ByChinaMobile(Map<String,Object>params,String order,Pager pager);
 }

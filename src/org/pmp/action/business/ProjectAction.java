@@ -14,8 +14,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +31,7 @@ import org.pmp.util.JsonConvert;
 import org.pmp.util.MyfileUtil;
 import org.pmp.util.Pager;
 import org.pmp.util.SessionHandler;
+import org.pmp.vo.Company;
 import org.pmp.vo.Project;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -45,7 +48,7 @@ public class ProjectAction extends ActionSupport {
 	private Project project;
 	private Integer projectId;
 	private Integer page = 1;
-	private Integer rp = 10;
+	private Integer rp = 15;
 	private String district;
 	private String keyWord;
 	private List projectList;
@@ -68,28 +71,40 @@ public class ProjectAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
-	public void loadProjectList(){
-		Pager pager = new Pager(rp,page);
-		List projectList = projectService.loadProjectList(pager);
-		logger.debug("list.size="+projectList.size());
-		
-		String data = JsonConvert.list2FlexJson(pager, projectList, "org.pmp.vo.Project");
-		System.out.println(data);
-		logger.debug(data);
-		JsonConvert.output(data);
+	public void loadProjectListBySessionHandler(){
+		logger.debug("进入getProjectBySessionHander");
+		Object obj = SessionHandler.getUserRefDomain();
+		projectList = new ArrayList<Project>();
+		//如果是小区管理员，则只显示本小区内的项目
+		if(obj instanceof Project)
+		{
+			Project pro = (Project)obj;
+			System.out.println(pro.getProName());
+			projectList.add(pro);
+		}
+		else if(obj instanceof Company)
+		{
+			Company com = (Company)obj;
+			Pager pager = new Pager(10000,1);
+			Map<String,Object> params = new HashMap<String,Object>();
+			String order = "order by proId asc";
+			projectList = projectService.loadProjectList_ByCompany(com.getComId(), params, order, pager);
+		}	
+		if(projectList!=null&&projectList.size()!=0)
+		{
+			Pager pager = new Pager(rp,page);
+			pager.setRowsCount(projectList.size());
+			String data = JsonConvert.list2FlexJson(pager, projectList, "org.pmp.vo.Project");
+			System.out.println(data);
+			logger.debug(data);
+			JsonConvert.output(data);
+		}
+		else
+		{
+			System.out.println("projectList is null");
+		}
 	}
 	
-	public void getProjectByDistrict(){
-		logger.debug("进入getProjectByDistrict()");
-		Pager pager = new Pager(rp,page);
-		List projectList = projectService.getProjectByDistrict(district, pager);
-		logger.debug("list.size="+projectList.size());
-		
-		System.out.println("test");
-		String data = JsonConvert.list2Json(pager, projectList, "org.pmp.vo.Project");
-		logger.debug(data);
-		JsonConvert.output(data);
-	}
 	
 	public String getProjectBySessionHander(){
 		logger.debug("进入getProjectBySessionHander");
@@ -105,14 +120,13 @@ public class ProjectAction extends ActionSupport {
 		}
 		else if(objName.equals("org.pmp.vo.Company"))
 		{
-			projectList = projectService.getAllProject();
+			Company com = (Company)obj;
+			Pager pager = new Pager(10000,1);
+			Map<String,Object> params = new HashMap<String,Object>();
+			String order = "order by proId asc";
+			projectList = projectService.loadProjectList_ByCompany(com.getComId(), params, order, pager);
 		}		
 		
-		return SUCCESS;
-	}
-	
-	public String getAllProject(){
-		projectList = projectService.getAllProject();
 		return SUCCESS;
 	}
 	

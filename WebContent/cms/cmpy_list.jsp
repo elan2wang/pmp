@@ -14,7 +14,7 @@
 <script type="text/javascript" src="../Scripts/jquery-1.7.1.js" ></script>
 <script type="text/javascript" src="../Scripts/component/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="../Scripts/component/easyui/jquery.easyui.min.js" ></script>
-<script type="text/javascript" src="../Scripts/component/flexigrid-1.1/js/flexigrid.js"></script>
+<script type="text/javascript" src="../Scripts/component/flexigrid-1.1/js/flexigrid-new.js"></script>
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
 <script type="text/javascript" src="../Scripts/common/window.js"></script>
 <script type="text/javascript" src="../Scripts/pages/cms/cmpy_list.js"></script>
@@ -37,36 +37,9 @@
                   <a href="javascript:void(0)" class="easyui-linkbutton" plain="true">搜索</a>
               </div>
               <table id="cmpylist">
-                 <tbody id="cmpy_data">
-                 </tbody>
+
               </table>
-              <div class="footer">
-	                <span class="gotopage">
-                        <a  href="javascript:void(0);" title="跳转" onclick="PageDownOrUp(6)">
-                            <img src="../Images/gotopage.gif" />
-                        </a>
-                    </span>
-	                <span class="gotopage">转到：<input id="go_page" name="go_page" type="text" size="4" height="12"/></span> 
-	                <span  class="nextpre">&nbsp;&nbsp;
-                        <a href="javascript:void(0);" id="first_page" name="first_page"   title="第一页" onclick=""><img src="../Images/first1.gif"/>
-                        </a>
-                        <a href="javascript:void(0);" id="pre_page" name="pre_page"  title="上一页" onclick=""><img src="../Images/pre1.gif"/>
-                        </a>
-                        <a href="javascript:void(0);" id="next_page" name="next_page"  title="下一页" onclick=""><img src="../Images/next1.gif"/>
-                        </a>
-                        <a href="javascript:void(0);" id="last_page" name="last_page"   title="最后一页" onclick=""><img src="../Images/last1.gif"/>
-                        </a>
-                    </span>
-	                <span class="pageinfo">现在是第
-                           <span id="now_page" name="now_page">1</span>页，一共有
-                           <span id="total_page" name="total_page"></span>页共
-                           <span id="total_record" name="total_record"></span>条记录
-                           每页显示</span><span><select id="page_row" name="page_row" onchange="PageDownOrUp(5)">
-                                <option selected="selected">10</option>
-                                <option>15</option>
-                                <option>20</option>
-                           </select></span>
-	          </div>
+            
               <div id="newCmpy" class="easyui-window" href="cmpy_add.jsp" title="添加新公司" iconCls="icon-save" style="width:350px;height:370px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
   	          </div>
               <div id="editCmpy" class="easyui-window" title="编辑公司信息" iconCls="icon-save" style="width:350px;height:370px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">

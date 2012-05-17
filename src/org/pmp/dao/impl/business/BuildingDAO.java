@@ -10,6 +10,7 @@ package org.pmp.dao.impl.business;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
@@ -18,6 +19,7 @@ import org.hibernate.Transaction;
 import org.pmp.dao.admin.BaseDAO;
 import org.pmp.dao.business.IBuildingDAO;
 import org.pmp.util.Pager;
+import org.pmp.util.ParamsToString;
 import org.pmp.vo.Building;
 import org.pmp.vo.Project;
 
@@ -148,123 +150,70 @@ public class BuildingDAO extends BaseDAO implements IBuildingDAO {
 	    }
 
 	
+
+
 	/**
-	 * @Title: getBuildingByProID
-	 * @Description: ͨ��proID����Building
+	 * @Title: loadBuildingList_ByCompany
+	 * @Description: TODO
 	 *
-	 * @param  Integer proID
-	 * @return List<Building>
+	 * @param  TODO
+	 * @return TODO
 	 * @throws TODO
 	 */
-	public List getBuildingByPro(Project project) {
-		
-		Session session = getSession();
-		List list = null;
-		logger.debug("begin to get building by project");
-		try{
-			Transaction tx = session.beginTransaction();
-			Query query = session.createQuery("from Building bul where bul.project = "+project);
-			list = query.list();
-		}catch(RuntimeException e){
-			logger.error("get building by project error",e);
-			throw e;
+	@Override
+	public List<Building> loadBuildingList_ByCompany(Integer comId,Map<String,Object>params,String order,Pager pager)
+	{
+		List<Building> list = null;
+		String debugMsg = "load building list by company, comId="+comId;
+		StringBuilder hql = new StringBuilder();
+		hql.append("from Building where project in (from Project where company.comId="+comId+")");
+		hql.append(ParamsToString.toString(params));
+		if (order==null){
+		    hql.append(" order by builId desc");
+		} else {
+		    hql.append(" "+order);
 		}
-		logger.debug("get building by project is success");
-		session.close();
-		return list;
-	}
-
-	
-	/**
-	 * @Title: getBuildingByBuilType
-	 * @Description: ��ݽ������Ͳ鿴
-	 *
-	 * @param  String builType
-	 * @return List<Building>
-	 * @throws TODO
-	 */
-	public List getBuildingByBuilType(String builType) {
-		Session session = getSession();
-		List list = null;
-		logger.debug("begin to get building by builType");
-		try{
-			Transaction tx = session.beginTransaction();
-			Query query = session.createQuery("from Building bul where bul.builType like '%"+builType+"%'");
-			list = query.list();
-		}catch(RuntimeException e){
-			logger.error("get building by builType is failed");
-			throw e;
-		}
-		logger.debug("get building by builType is success");
-		session.close();
-		return list;
-	}
-
-	
-	public List loadBuildingList(Pager pager) {
-		List list = null;
-		String sql = "from Building bul";
-		logger.debug("begin to invoke loadBuildingListByCondition()");
-		try{
-		    list = loadBuildingListByCondition(sql,pager);
-		} catch (RuntimeException e){
-		    logger.error("load all Building list successfully");
-		    throw e;
-		}
-		logger.debug("load all Building list successfully");
-		return list;
-	    }
-
-	public List loadEnabledBuildingList(Pager pager) {
-		List list = null;
-		String sql = "from Building bul where bul.enable = true";
-		logger.debug("begin to invoke loadBuildingListByCondition()");
-		try{
-		    list = loadBuildingListByCondition(sql,pager);
-		} catch (RuntimeException e){
-		    logger.error("load Enabled Building list failed");
-		    throw e;
-		}
-		logger.debug("load all Enabled Building list successfully");
-		return list;
-	    }
-
-	public List loadDisabledBuildingList(Pager pager) {
-		List list = null;
-		String sql = "from Building bul where bul.enabled = false";
-		logger.debug("begin to invoke loadBuildingListByCondition()");
-		try{
-		    list = loadBuildingListByCondition(sql,pager);
-		} catch (RuntimeException e){
-		    logger.error("load Disabled Building list failed");
-		    throw e;
-		}
-		logger.debug("load all Disabled Building list successfully");
-		return list;
-	    }
-	private List loadBuildingListByCondition(String sql,Pager pager) {
-		Session session = getSession();
-		Integer startRow = (pager.getCurrentPage()-1)*pager.getPageSize();
-		List list1 = null;
-		List list2 = null;
-		logger.debug("begin to get building list.");
+		logger.debug(hql);
 		try {
-		    Transaction tx = session.beginTransaction();
-		    Query query = session.createQuery(sql);
-		    list1 = query.list();
-		    pager.setRowsCount(list1.size());
-		    query.setFirstResult(startRow);
-		    query.setMaxResults(pager.getPageSize());
-		    list2 = query.list();
-		    tx.commit();
+		    list = (List<Building>) loadListByCondition(hql.toString(),pager,debugMsg);
 		} catch (RuntimeException e){
-		    logger.error("get building list failed.", e);
 		    throw e;
 		}
-		logger.debug("get building list successfully.");
-		session.close();
-		return list2;
-	    }
+		
+		return list;
+	}
+	
+	/**
+	 * @Title: loadBuildingList_ByProject
+	 * @Description: TODO
+	 *
+	 * @param  TODO
+	 * @return TODO
+	 * @throws TODO
+	 */
+	@Override
+    public List<Building> loadBuildingList_ByProject(Integer proId,Map<String,Object>params,String order,Pager pager)
+    {
+				List<Building> list = null;
+				String debugMsg = "load building list by project, proId="+proId;
+				StringBuilder hql = new StringBuilder();
+				hql.append("from Building where project.proId="+proId);
+				hql.append(ParamsToString.toString(params));
+				if (order==null){
+				    hql.append(" order by builId desc");
+				} else {
+				    hql.append(" "+order);
+				}
+				logger.debug(hql);
+				try {
+				    list = (List<Building>) loadListByCondition(hql.toString(),pager,debugMsg);
+				} catch (RuntimeException e){
+				    throw e;
+				}
+				
+				return list;
+    }
+
 
 
 	/**
@@ -295,28 +244,7 @@ public class BuildingDAO extends BaseDAO implements IBuildingDAO {
 	}
 
 
-	/**
-	 * @Title: loadBuildingListByProject
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public List loadBuildingListByProject(Pager pager, Integer projectId) {
-		List list = null;
-		String sql = "from Building bul where bul.project.proId="+projectId;
-		logger.debug("begin to invoke loadBuildingListByCondition()");
-		try{
-		    list = loadBuildingListByCondition(sql,pager);
-		} catch (RuntimeException e){
-		    logger.error("load all Building list successfully");
-		    throw e;
-		}
-		logger.debug("load all Building list successfully");
-		return list;
-	}
+
 
 
 	/**

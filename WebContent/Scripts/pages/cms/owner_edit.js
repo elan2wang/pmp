@@ -3,7 +3,7 @@
  */
 
 
-function owner_edit_init() {
+$(function(){
  	//alert("in init method");
 	  	//获取有下拉框的id
 	  	var select_gender = document.getElementById("select_gender");
@@ -36,7 +36,7 @@ function owner_edit_init() {
 	 	UpdateSelectedItem(select_identityType,identityType);
 	  	UpdateSelectedItem(select_projectId,proName);	  	
 	  	ProjectChanged(builId,houseId);
-}
+});
 
 
 function UpdateSelectedItem(objSelect, objItemValue) {   

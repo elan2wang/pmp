@@ -15,7 +15,7 @@
               <div class="window_content">
                    <form id="form" name="form" action="buildingAction!updateBuilding.action" method="post">
                        <div class="rowStyle">
-                          <div><span >楼号：</span><span><input name="building.builNum" type="text" class="textbox" id="building.builNum" value='<s:property value="building.builNum"/>'/></span></div>
+                          <div><span >楼号：</span><span><input name="building.builNum" type="text" class="textbox" id="building.builNum" value='${building.builNum}'/></span></div>
                        </div>
                        <div class="rowStyle">
                           <div><span >单元标识：</span><span><select id="building.unitTag" name="building.unitTag">
@@ -25,21 +25,21 @@
                           </select></span></div>
                        </div>
                        <div class="rowStyle">
-                          <div style="float:left"><span >单元数：</span><span><input name="building.unitCount" type="text" class="textbox" id="building.unitCount" value='<s:property value="building.unitCount"/>' /></span></div>
+                          <div style="float:left"><span >单元数：</span><span><input name="building.unitCount" type="text" class="textbox" id="building.unitCount" value='${building.unitCount}' /></span></div>
                        </div>
                        <div class="rowStyle">
-                          <div><span >楼层数：</span><span><input name="building.floorCount" type="text" class="textbox" id="building.floorCount" value='<s:property value="building.floorCount"/>'/></span></div>
+                          <div><span >楼层数：</span><span><input name="building.floorCount" type="text" class="textbox" id="building.floorCount" value='${building.floorCount}'/></span></div>
                        </div>
                        <div class="rowStyle">
-                          <div><span>单元层户数：</span><span><input name="building.housesPer" type="text" class="textbox" id="building.housesPer" value='<s:property value="building.housesPer"/>'/></span></div>
+                          <div><span>单元层户数：</span><span><input name="building.housesPer" type="text" class="textbox" id="building.housesPer" value='${building.housesPer}'/></span></div>
                        </div>
                        <div class="rowStyle">
-                          <div><span >跳过楼层数：</span><span><input name="building.skipFloor" type="text" class="textbox" id="building.skipFloor" value='<s:property value="building.skipFloor"/>'/></span></div>
+                          <div><span >跳过楼层数：</span><span><input name="building.skipFloor" type="text" class="textbox" id="building.skipFloor" value='${building.skipFloor}'/></span></div>
                        </div>
                        <div class="rowStyle">
                           <div><span >楼宇类型：</span>
                                <span><select id="building.builType" name="building.builType">
-                                              <option selected="selected"><s:property value="building.builType"/></option>
+                                              <option selected="selected" value='${building.builType}'>${building.builType}</option>
                                               <option>多层（普通）</option>
                                               <option>多层（电梯）</option>
                                               <option>小高层</option>
@@ -53,14 +53,15 @@
                            </div>
                        </div>
                        <div class="rowStyle">
-                          <div><span >物业费标准：</span><span><input name="building.condoFeeRate" type="text" class="textbox" id="building.condoFeeRate" /></span></div>
+                          <div><span >物业费标准：</span><span><input name="building.condoFeeRate" type="text" class="textbox" id="building.condoFeeRate" value='${building.condoFeeRate}'/></span></div>
                        </div>
                        <div class="rowStyle">
                           <div>
                             <span >是否启用：</span>
                             <span>
-                               <input id="project.enabled" name="project.enabled" type="radio" value="true"/><label for="project.enabled">启用</label>
-                               <input id="project.enabled" type="radio" name="project.enabled" value="false" checked/><label for="project.enabled">不启用</label>
+                             	<input type="hidden" name="project.enabled" id="project.enabled" value='${project.enabled}'/>
+                               <input id="isenabled" name="project.enabled" type="radio" value="true"/><label for="project.enabled">启用</label>
+                               <input id="notenabled" type="radio" name="project.enabled" value="false" checked/><label for="project.enabled">不启用</label>
                             </span>
                           </div>
                        </div>

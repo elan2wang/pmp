@@ -8,9 +8,11 @@
 package org.pmp.dao.business;
 
 import java.util.List;
+import java.util.Map;
 
 import org.pmp.util.Pager;
 import org.pmp.vo.Building;
+import org.pmp.vo.CondoFee;
 import org.pmp.vo.Project;
 
 /**
@@ -24,12 +26,9 @@ public interface IBuildingDAO {
     public void deleteBuilding(Integer buildingID);
     public Building getBuildingByID(Integer buildingID);
     public Building getBuildingByBuilNum(Integer bulNum);
-    public List<?> getBuildingByPro(Project project);
-    public List<?> getBuildingByBuilType(String builType);
-    public List<?> loadBuildingList(Pager pager);
-    public List<?> loadEnabledBuildingList(Pager pager);
-    public List<?> loadDisabledBuildingList(Pager pager);
-    public List<?> loadBuildingListByProject(Pager pager,Integer projectId);
+    public List<Building> loadBuildingList_ByCompany(Integer comId,Map<String,Object>params,String order,Pager pager);
+    
+    public List<Building> loadBuildingList_ByProject(Integer proId,Map<String,Object>params,String order,Pager pager);
     public void saveBuildingHouse(List<String> houseNum,Building building);
     public void batchSaveBuilding(List<Building> buildingList);
     public Building getBuildingByProjectIdAndBuildingNum(Integer projectId,Integer buildingNum);

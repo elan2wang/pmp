@@ -1,4 +1,60 @@
 // JavaScript Document
+$(function()
+{
+  	//获取有下拉框的id
+  	var proType = document.getElementById("project.proType");
+  	var procompany = document.getElementById("project.company"); 
+  	var proDistrict = document.getElementById("proDistrict");
+  	
+  //获取隐藏域中的值，即服务器传来的owner的属性值
+  	
+  	var isornotenabled = document.getElementById("project.enabled").value;
+  	var isornotfireEnabled = document.getElementById("project.fireEnabled").value;
+  	var type = document.getElementById("proType").value;
+  	var company = document.getElementById("project.company.comId").value; 
+  	var district = document.getElementById("District").value;
+  	var street = document.getElementById("proStreet").value;
+  	
+  	//设置启用与消防的启用
+  	if(isornotenabled==document.getElementById("isenabled").value)
+	{
+		document.getElementById("isenabled").checked = true;
+	}
+	else if(isornotenabled==document.getElementById("notenabled").value)
+	{
+		document.getElementById("notenabled").checked = true;
+	}
+	
+	if(isornotfireEnabled==document.getElementById("isfireEnabled").value)
+	{
+		document.getElementById("isfireEnabled").checked = true;
+	}
+	else if(isornotfireEnabled==document.getElementById("notfireEnabled").value)
+	{
+		document.getElementById("notfireEnabled").checked = true;
+	}
+  	
+	
+    UpdateSelectedItem(proType,type);
+  	UpdateSelectedItem(procompany,company);
+  	//将归属物业select设置为不可选
+  	procompany.onfocus = function(){  
+  		procompany.blur();  
+	};
+ 	UpdateSelectedItem(proDistrict,district);
+ 	getStreets(street);		
+});
+
+function UpdateSelectedItem(objSelect, objItemValue) {   
+    for (var i = 0; i < objSelect.options.length; i++) {
+        if (objSelect.options[i].value == objItemValue) {  
+       	 objSelect.options[i].selected = true; 
+            break;       
+        }       
+    } 
+}   
+
+
 
 	function FormCheck(){
 		objfc1=document.getElementById("project.proName");
