@@ -11,7 +11,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.pmp.dao.business.ISmsCompanyDAO;
-import org.pmp.service.business.ISMSCompanyService;
+import org.pmp.service.business.ISmsCompanyService;
 import org.pmp.util.Pager;
 import org.pmp.vo.SMSCompany;
 
@@ -20,10 +20,10 @@ import org.pmp.vo.SMSCompany;
  * @version 1.0
  * @update TODO
  */
-public class SMSCompanyService implements ISMSCompanyService{
+public class SmsCompanyService implements ISmsCompanyService{
 
     //~ Static Fields ==================================================================================================
-    static Logger logger = Logger.getLogger(SMSCompanyService.class.getName());
+    static Logger logger = Logger.getLogger(SmsCompanyService.class.getName());
     //~ Instance Fields ================================================================================================
     private ISmsCompanyDAO smsCompanyDAO;
     //~ Constructor ====================================================================================================

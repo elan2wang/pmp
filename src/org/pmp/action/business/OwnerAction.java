@@ -12,6 +12,11 @@
  */
 package org.pmp.action.business;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -22,16 +27,20 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
+import org.pmp.excel.NewCondoFeeImport;
+import org.pmp.excel.OwnerImport2;
 import org.pmp.service.business.IHouseOwnerService;
 import org.pmp.service.business.IHouseService;
 import org.pmp.service.business.IMemberService;
 import org.pmp.service.business.IOwnerService;
 import org.pmp.service.business.IProjectService;
 import org.pmp.util.JsonConvert;
+import org.pmp.util.MyfileUtil;
 import org.pmp.util.Pager;
 import org.pmp.util.SessionHandler;
 import org.pmp.vo.Building;
 import org.pmp.vo.Company;
+import org.pmp.vo.CondoFee;
 import org.pmp.vo.House;
 import org.pmp.vo.HouseOwner;
 import org.pmp.vo.Member;
@@ -68,6 +77,11 @@ public class OwnerAction extends ActionSupport{
     
     /* used when getOwnerInfo */
     private Integer ownerId;
+    
+    /* used when import owner data */
+    private File ownerFile;
+    private String ownerFileFileName;
+    private String ownerFileContentType;
     
     /* =========FlexiGrid post parameters======= */
     private Integer page=1;
@@ -170,7 +184,7 @@ public class OwnerAction extends ActionSupport{
 	    proList.add((Project)obj);
 	}
 	if (obj instanceof Company){
-	    proList = (List<Project>) projectService.loadProject_ByCom(new Pager(1000,1), ((Company)obj).getComId());
+	    proList = (List<Project>) projectService.loadProjectList_ByCompany(((Company)obj).getComId(), new HashMap<String,Object>(), "", new Pager(1000,1));
 	}
 	/* invoke service to get list */
 	List<?> cfList = ownerService.loadOwnerList_ByPro(proList.get(0).getProId(), params, order, pager);
@@ -183,8 +197,50 @@ public class OwnerAction extends ActionSupport{
 	JsonConvert.output(data);
 	
     }
+    
+    public void importOwner() throws Exception{
+	HttpServletRequest request = ServletActionContext.getRequest();
+        String message = null;
+	if(!MyfileUtil.validate(ownerFileFileName,"xls")){
+	    logger.debug("文件格式不对");
+	    String postfix = MyfileUtil.getPostfix(ownerFileFileName);
+	    message = postfix+"类型的文件暂不支持，请选择xls类型文件";
+	    request.setAttribute("message", message);
+	    JsonConvert.output("{\"error\":\"filetype_error\",\"msg\":"+JsonConvert.toJson(message)+"}");
+	    return;
+	}
+	/* create the dir to store error data */
+	MyfileUtil.createDir("error_data");
+	/* create the error data file in this dir */
+	String fileName = MyfileUtil.createFilename();
+	String fullName = ServletActionContext.getServletContext().getRealPath("error_data")+"\\"+fileName+".xls";
+	String downLoad = ServletActionContext.getServletContext().getContextPath()+"/error_data/"+fileName+".xls";
+	OutputStream os = new FileOutputStream(fullName);
+	
+	/* import data from the upload file and store in the cfList */
+	List<Owner> ownerList = new ArrayList<Owner>();
+	Map<String,House> map = new HashMap<String,House>();
+	Boolean hasError = OwnerImport2.execute(new FileInputStream(ownerFile), os, ownerList, map);
+	/* close OutputStream */
+	os.flush();os.close();
+	
+	/* call the method batchSetOughtMoney to update the condoFee*/
+	ownerService.batchSave(ownerList,map);
+	
+	/* if there are some mistakes of the file */
+	if (hasError){
+	    message = "记录有错误,正确数据已导入，请下载错误数据<a href=\""+downLoad+"\">下载</a>";
+	    JsonConvert.output("{\"error\":\"record_error\",\"msg\":"+JsonConvert.toJson(message)+"}");
+	    return;
+	}
+	
+	/* data import success */
+	message = "数据导入成功";
+	JsonConvert.output("{\"error\":\"\",\"msg\":"+JsonConvert.toJson(message)+"}");
+	return;
+    }
+    
     //~ Getters and Setters ============================================================================================
-
     public IOwnerService getOwnerService() {
         return ownerService;
     }
@@ -343,6 +399,30 @@ public class OwnerAction extends ActionSupport{
 
     public void setHouseOwnerService(IHouseOwnerService houseOwnerService) {
         this.houseOwnerService = houseOwnerService;
+    }
+
+    public File getOwnerFile() {
+        return ownerFile;
+    }
+
+    public void setOwnerFile(File ownerFile) {
+        this.ownerFile = ownerFile;
+    }
+
+    public String getOwnerFileFileName() {
+        return ownerFileFileName;
+    }
+
+    public void setOwnerFileFileName(String ownerFileFileName) {
+        this.ownerFileFileName = ownerFileFileName;
+    }
+
+    public String getOwnerFileContentType() {
+        return ownerFileContentType;
+    }
+
+    public void setOwnerFileContentType(String ownerFileContentType) {
+        this.ownerFileContentType = ownerFileContentType;
     }
 
 }

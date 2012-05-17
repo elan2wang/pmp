@@ -8,6 +8,7 @@
 package org.pmp.action.business;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -65,7 +66,7 @@ public class CondoFeeItemAction extends ActionSupport {
 	StringBuffer sb = new StringBuffer();
 	Project project = projectService.getProjectByID(proId);
 	Pager pager = new Pager(1000,1);
-	List<Building> builList = buildingService.loadBuildingListByProject(pager, proId);
+	List<Building> builList = buildingService.loadBuildingList_ByProject(proId, new HashMap<String,Object>(), "", pager);
 	
 	/* set the response string */
 	sb.append("小区名称："+project.getProName()+"    楼宇数量："+builList.size()+"幢"+"    时间："
@@ -75,7 +76,7 @@ public class CondoFeeItemAction extends ActionSupport {
 	Iterator<Building> ite = builList.iterator();
 	while(ite.hasNext()){
 	    Building building = (Building)ite.next();
-	    List<House> houseList = houseService.getHouseByBuilding(building);
+	    List<House> houseList = houseService.loadHouseList_ByBuilding(building.getBuilId(), new HashMap<String,Object>(), "", pager);
 	    houseCount += houseList.size();
 	}
 	sb.append("业主数量："+houseCount+"    生成物业费记录数目："+houseCount*months.length());

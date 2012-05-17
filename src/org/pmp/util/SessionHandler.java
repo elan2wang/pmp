@@ -12,7 +12,7 @@ import org.pmp.service.admin.IUserGroupRoleService;
 import org.pmp.service.admin.IUserService;
 import org.pmp.service.business.ICompanyService;
 import org.pmp.service.business.IProjectService;
-import org.pmp.service.business.ISMSCompanyService;
+import org.pmp.service.business.ISmsCompanyService;
 import org.pmp.vo.Company;
 import org.pmp.vo.Project;
 import org.pmp.vo.SMSCompany;
@@ -88,7 +88,7 @@ public class SessionHandler {
     
     public static SMSCompany getSMSCompany(){
 	SMSCompany smsc = null;
-        ISMSCompanyService smscService = (ISMSCompanyService)SpringContextUtil.getBean("smsCompanyService");
+        ISmsCompanyService smscService = (ISmsCompanyService)SpringContextUtil.getBean("smsCompanyService");
 	if (getUserRefDomain().getClass().getName().equals("org.pmp.vo.Company")){
 	    smsc = smscService.getSMSCompanyByComID(((Company)getUserRefDomain()).getComId());
 	}

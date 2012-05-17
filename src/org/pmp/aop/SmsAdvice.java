@@ -9,7 +9,7 @@ package org.pmp.aop;
 
 import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
-import org.pmp.service.business.ISMSCompanyService;
+import org.pmp.service.business.ISmsCompanyService;
 import org.pmp.util.SessionHandler;
 import org.pmp.vo.CondoFee;
 import org.pmp.vo.Owner;
@@ -26,8 +26,6 @@ public class SmsAdvice {
 
     //~ Static Fields ==================================================================================================
     static Logger logger = Logger.getLogger(SmsAdvice.class.getName());
-    //~ Instance Fields ================================================================================================
-    private ISMSCompanyService smsCompanyService;
 
     //~ Methods ========================================================================================================
     
@@ -62,15 +60,4 @@ public class SmsAdvice {
         String res = sms.SendMessage(dest, message, extendCode, applicationId, password);
         logger.debug(res);
     }
-    
-    //~ Getters and Setters ============================================================================================
-
-    public ISMSCompanyService getSmsCompanyService() {
-        return smsCompanyService;
-    }
-
-    public void setSmsCompanyService(ISMSCompanyService smsCompanyService) {
-        this.smsCompanyService = smsCompanyService;
-    }
-
 }
