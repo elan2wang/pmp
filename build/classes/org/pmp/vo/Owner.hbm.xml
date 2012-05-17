@@ -12,10 +12,10 @@
             <column name="Owner_Name" length="50" />
         </property>
         <property name="gender" type="string">
-            <column name="Gender" length="10" />
+            <column name="Gender" length="50" />
         </property>
         <property name="nationality" type="string">
-            <column name="Nationality" length="20" />
+            <column name="Nationality" length="50" />
         </property>
         <property name="native_" type="string">
             <column name="Native" length="50" />
@@ -33,16 +33,16 @@
             <column name="Hobby" length="100" />
         </property>
         <property name="identityType" type="string">
-            <column name="Identity_Type" length="20" />
+            <column name="Identity_Type" length="50" />
         </property>
         <property name="identityCode" type="string">
-            <column name="Identity_Code" length="18" />
+            <column name="Identity_Code" length="50" />
         </property>
         <property name="homePhone" type="string">
-            <column name="Home_Phone" length="12" />
+            <column name="Home_Phone" length="50" />
         </property>
         <property name="mobile" type="string">
-            <column name="Mobile" length="12" />
+            <column name="Mobile" length="50" />
         </property>
         <property name="getTime" type="timestamp">
             <column name="Get_Time" length="23" />
@@ -54,10 +54,10 @@
             <column name="In_Time" length="23" />
         </property>
         <property name="parkNum" type="string">
-            <column name="Park_Num" length="20" />
+            <column name="Park_Num" length="50" />
         </property>
         <property name="carNum" type="string">
-            <column name="Car_Num" length="20" />
+            <column name="Car_Num" length="50" />
         </property>
         <property name="carType" type="string">
             <column name="Car_Type" length="100" />
@@ -69,19 +69,19 @@
             <column name="House_Area" precision="53" scale="0"/>
         </property>
         <property name="useStyle" type="string">
-            <column name="Use_Style" length="20" />
+            <column name="Use_Style" length="50" />
         </property>
         <property name="otherAddress" type="string">
             <column name="Other_Address" length="200" />
         </property>
         <property name="otherPostcode" type="string">
-            <column name="Other_Postcode" length="20" />
+            <column name="Other_Postcode" length="50" />
         </property>
         <property name="emergencyContact" type="string">
             <column name="Emergency_Contact" length="50" />
         </property>
         <property name="emergencyPhone" type="string">
-            <column name="Emergency_Phone" length="12" />
+            <column name="Emergency_Phone" length="50" />
         </property>
         <property name="houseNum" type="string">
             <column name="House_Num" length="50" />

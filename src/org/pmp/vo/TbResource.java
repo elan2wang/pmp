@@ -19,6 +19,14 @@ public class TbResource implements java.io.Serializable {
     private boolean issys;
     private Integer modId;
 
+    public String toString(){
+    	StringBuffer sb=new StringBuffer();
+    	sb.append("[ "+resId+","+resName+","+resType+","+resLink+","+resDesc+","+enabled);
+    	sb.append(","+issys+","+modId);
+    	sb.append(" ]");
+    	return sb.toString();
+    }
+    
     public TbResource() {
     }
 

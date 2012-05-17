@@ -113,17 +113,12 @@ public class BuildingAction extends ActionSupport {
 		else{ 
 			buildingList = buildingService.loadBuildingList_ByProject(projectId, params, order, pager2);
 		}
-		if(buildingList!=null && buildingList.size()!=0)
-		{
-			logger.debug("得到的buildingList为"+buildingList.toString());
-			pager.setRowsCount(buildingList.size());
-			String data = JsonConvert.list2FlexJson(pager, buildingList, "org.pmp.vo.Building");
-			System.out.println(data);
-			logger.debug(data);
-			JsonConvert.output(data);
-		}
-		else
-			System.out.println("buildingList is null");
+		logger.debug("得到的buildingList为"+buildingList.toString());
+		pager.setRowsCount(buildingList.size());
+		String data = JsonConvert.list2FlexJson(pager, buildingList, "org.pmp.vo.Building");
+		System.out.println(data);
+		logger.debug(data);
+		JsonConvert.output(data);
 	}
 	
 //	public void getBuildingByProject(){

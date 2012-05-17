@@ -11,6 +11,13 @@ public class TbRoleAuthority implements java.io.Serializable {
     private TbRole tbRole;
     private TbAuthority tbAuthority;
 
+    public String toString(){
+    	StringBuffer sb=new StringBuffer();
+    	sb.append("[ "+raId+","+tbRole+","+tbAuthority);
+    	sb.append(" ]");
+    	return sb.toString();
+    }
+    
     public TbRoleAuthority() {
     }
 

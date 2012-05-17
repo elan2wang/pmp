@@ -16,21 +16,15 @@
 <script type="text/javascript" src="../Scripts/jquery-1.7.1.js" ></script>
 <script type="text/javascript" src="../Scripts/component/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="../Scripts/component/easyui/jquery.easyui.min.js" ></script>
-<script type="text/javascript" src="../Scripts/component/flexigrid-1.1/js/flexigrid.js"></script>
+<script type="text/javascript" src="../Scripts/component/flexigrid-1.1/js/flexigrid-new.js"></script>
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
 <script type="text/javascript" src="../Scripts/common/window.js"></script>
 <script type="text/javascript" src="../Scripts/pages/fee/cf_list_by_house.js"></script>
 </head>
 <body>
 <table id="cf_list">
-   <tbody id="cf_list_data">
-   <c:forEach var="fee" items="${cfList }" varStatus="status">
-   <tr>
-     <td>${status.count }</td><td>${fee.cfYear }-${fee.cfMonth }</td><td>${fee.state }</td><td>${fee.oughtMoney }</td><td>${fee.fetchMoney }</td><td>${fee.fetchDate }</td>
-     <td><a href="get_cf">修改</a></td>
-   </tr>
-   </c:forEach>
-   </tbody>
 </table>
+<!-- pop up windows -->
+<div id="cfInput" class="easyui-window" title="物业费录入" iconCls="icon-save" style="width:500px;height:350px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
 </body>
 </html>

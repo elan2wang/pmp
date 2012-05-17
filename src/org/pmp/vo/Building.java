@@ -21,6 +21,14 @@ public class Building implements java.io.Serializable {
     private String builDesc;
     private boolean enabled;
 
+    public String toString(){
+    	StringBuffer sb=new StringBuffer();
+    	sb.append("[ "+builId+","+project+","+builNum+","+builType+","+floorCount+","+skipFloor);
+    	sb.append(","+housesPer+","+unitCount+","+unitTag+","+condoFeeRate+","+builDesc+","+enabled);
+    	sb.append(" ]");
+    	return sb.toString();
+    }
+    
     public Building() {
     }
 

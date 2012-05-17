@@ -11,6 +11,13 @@ public class TbRoleModule implements java.io.Serializable {
     private TbModule tbModule;
     private TbRole tbRole;
 
+    public String toString(){
+    	StringBuffer sb=new StringBuffer();
+    	sb.append("[ "+rmId+","+tbModule+","+tbRole);
+    	sb.append(" ]");
+    	return sb.toString();
+    }
+    
     public TbRoleModule() {
     }
 

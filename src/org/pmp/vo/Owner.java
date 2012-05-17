@@ -39,7 +39,18 @@ public class Owner implements java.io.Serializable {
     private String emergencyPhone;
     private String houseNum;
     private String ownerDesc;
-
+    
+    public String toString(){
+    	StringBuffer sb=new StringBuffer();
+    	sb.append("[ "+ownerId+","+ownerName+","+gender+","+nationality+","+native_+","+birthday);
+    	sb.append(","+ismarried+","+organization+","+hobby+","+identityType+","+identityCode+","+homePhone);
+    	sb.append(","+mobile+","+getTime+","+decorateTime+","+inTime+","+parkNum+","+carNum);
+    	sb.append(","+carType+","+storeroom+","+houseArea+","+useStyle+","+otherAddress+","+otherPostcode);
+    	sb.append(","+emergencyContact+","+emergencyPhone+","+houseNum+","+ownerDesc);
+    	sb.append(" ]");
+    	return sb.toString();
+    }
+    
     public Owner() {
     }
 

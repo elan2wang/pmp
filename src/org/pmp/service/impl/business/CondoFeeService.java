@@ -43,31 +43,18 @@ public class CondoFeeService implements ICondoFeeService {
     public void batchAudit(final List<CondoFee> list){
 	condoFeeDAO.batchAudit(list);
     }
-    public List<?> loadCondoFeeListBy_cfiId(Integer cfiId, Pager pager) {
-	return condoFeeDAO.loadCondoFeeListBy_cfiId(cfiId, pager);
+    public void batchDelete(List<CondoFee> list) {
+	condoFeeDAO.batchDelete(list);
     }
     
-    public CondoFee getCondoFeeByID(Integer cfId) {
-	return condoFeeDAO.getCondoFeeByID(cfId);
-    }
-    public void inputCondoFee(CondoFee instance) {
-	condoFeeDAO.updateCondoFee(instance);
-    }
-    public void auditCondoFee(CondoFee instance) {
-	condoFeeDAO.updateCondoFee(instance);
+    /**
+     * @see org.pmp.service.business.ICondoFeeService#getCondoFee_ById(java.lang.Integer)
+     */
+    @Override
+    public CondoFee getCondoFee_ById(Integer cfId) {
+	return this.condoFeeDAO.getCondoFee_ById(cfId);
     }
 
-    public void deleteCondoFee(Integer cfId) {
-	condoFeeDAO.deleteCondoFee(cfId);
-    }
-
-    public List<?> loadPayedCondoFeeList(Integer cfiId,Pager pager){
-	return condoFeeDAO.loadPayedCondoFeeList(cfiId, pager);
-    }
-    
-    public List<?> loadNonePayedCondoFeeList(Integer cfiId,Pager pager){
-	return condoFeeDAO.loadNonePayedCondoFeeList(cfiId, pager);
-    }
     
     @Override
     public List<CondoFee> loadCondoFeeList_ByHouse(Integer houseId,Map<String,Object>params,String order,Pager pager)
@@ -109,9 +96,6 @@ public class CondoFeeService implements ICondoFeeService {
 	    Map<String, Object> params, String order, Pager pager) {
 	return condoFeeDAO.loadCondoFeeList_ByProject(proId, params, order, pager);
     }
-
-    
-    
 
     //~ Getters and Setters ============================================================================================
 

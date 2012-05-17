@@ -14,6 +14,12 @@ public class Member implements java.io.Serializable {
     private String memIdentity;
     private String memPhone;
 
+    public String toString(){
+    	StringBuffer sb=new StringBuffer();
+    	sb.append("[ "+memId+","+owner+","+memName+","+memRelation+","+memIdentity+","+memPhone+" ]");
+    	return sb.toString();
+    }
+    
     public Member() {
     }
 

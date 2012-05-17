@@ -12,24 +12,23 @@
 <body>
 <div class="window_content">
 <form name="form1" id="form1" action="cf_edit" method="post">
-<table cellpadding="0" cellspacing="0" border="0" style="bottom-border:1px,dash">
+<table cellpadding="2px" cellspacing="2px" border="0" style="bottom-border:1px,dash">
 <tr>
-  <td>序号</td><td>小区</td><td>房号</td><td>业主</td><td>时间</td><td>应收金额</td>
+  <th style="width:30px;">序号</th>
+  <th style="width:40px;">房号</th><th style="width:40px;">业主</th>
+  <th style="width:60px;">时间</th><th style="width:80px;">应收金额(元)</th>
 </tr>
 <c:forEach var="item" items="${cfList }" varStatus="status">
 <tr class="item">
-  <td style="width:20px;"><input type="checkbox" name="ids" value="${item.cfId }" checked="checked">${status.count }</td>
-  <td>${item.house.building.project.proName }</td>
+  <td><input type="checkbox" name="ids" value="${item.cfId }" checked="checked">${status.count }</td>
   <td>${item.house.houseNum }</td>
   <td>${item.owner.ownerName }</td>
-  <td style="width:80px;">${item.cfYear }-${item.cfMonth }</td>
-  <td style="width:200px;"><input type="text" name="oughtMoney" value="${item.oughtMoney }"/>元</td>
+  <td>${item.cfYear }-${item.cfMonth }</td>
+  <td><input type="text" name="oughtMoney" size="6" value="${item.oughtMoney }"/></td>
 </tr>
 </c:forEach>
-<tr>
-  <td><input type="submit" value="提交" /></td><td><input type="button" value="取消" /></td>
-</tr>
 </table>
+<input type="submit" value="提交" />&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="取消" />
 </form>
 </div>   
 </body>

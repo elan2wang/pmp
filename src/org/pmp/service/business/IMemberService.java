@@ -1,8 +1,13 @@
 /**
- * Author            : Jason
- * Created On        : 2012-4-17 下午01:33:31
+ * Author            : Elan
+ * Created On        : 2012-5-16 下午05:31:12
  * 
  * Copyright 2012.  All rights reserved. 
+ *
+ * Revision History
+ * 
+ *    Date       Modifier       Comments
+ * ----------    -------------  --------------------------------------------
  * 
  */
 package org.pmp.service.business;
@@ -13,15 +18,15 @@ import org.pmp.vo.Member;
 import org.pmp.vo.Owner;
 
 /**
- * @author Jason
+ * @author Elan
  * @version 1.0
  * @update TODO
  */
 public interface IMemberService {
-    public void batchSaveMember(List<Member> memberList,Integer ownerId);
-    public void batchUpdateMember(List<Member> memberList,Integer ownerId);
-    public void deleteMember(Integer memId);
-    public Member getMemberByID(Integer memId);
-    public Member getMemberByName(String memName);
-    public List getMemberByOwner(Owner owner);
+    public void batchSave(List<Member> list);
+    public void batchUpdate(List<Member> list);
+    
+    public void deleteMember_ByOwner(Owner instance);
+    
+    public List<?> loadMemberList_ByOwner(Integer ownerId);
 }

@@ -16,24 +16,19 @@
 <script type="text/javascript" src="../Scripts/jquery-1.7.1.js" ></script>
 <script type="text/javascript" src="../Scripts/component/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="../Scripts/component/easyui/jquery.easyui.min.js" ></script>
-<script type="text/javascript" src="../Scripts/component/flexigrid-1.1/js/flexigrid.js"></script>
+<script type="text/javascript" src="../Scripts/component/flexigrid-1.1/js/flexigrid-new.js"></script>
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
 <script type="text/javascript" src="../Scripts/common/window.js"></script>
 <script type="text/javascript" src="../Scripts/pages/fee/cf_list_by_item.js"></script>
 </head>
 <body>
 <table id="cf_list">
-   <tbody id="cf_list_data">
-   <c:forEach var="fee" items="${cfList }" varStatus="status">
-   <tr>
-     <td>${status.count }</td><td>${fee.house.houseNum }</td><td>${fee.owner.ownerName }</td><td>${fee.cfYear }-${fee.cfMonth }</td><td>${fee.state }</td><td><c:if test="${fee.oughtMoney == null }">未设置</c:if><c:if test="${fee.oughtMoney != null }">${fee.oughtMoney }</c:if></td>
-     <td><a href="get_cf">修改</a></td>
-   </tr>
-   </c:forEach>
-   </tbody>
 </table>
-<div class="" style="height:50px;line-height:50px">
-  <a href="#" class="linkbutton" onclick="openEditWindow('#viewAttrs','loadAttrs')">数据导出</a>
-</div>
+
+<!-- pop up windows -->
+<div id="cfEdit" class="easyui-window" title="物业费修改" iconCls="icon-save" style="width:350px;height:370px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
+<div id="cfImport" href="cf_import.jsp" class="easyui-window" title="物业费导入" iconCls="icon-save" style="width:350px;height:200px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
+<div id="cfAudit" class="easyui-window" title="物业费审核" iconCls="icon-save" style="width:600px;height:370px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
+
 </body>
 </html>

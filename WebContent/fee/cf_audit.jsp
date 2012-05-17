@@ -12,28 +12,29 @@
 <body>
 <div class="window_content">
 <form name="form1" id="form1" action="cf_audit" method="post">
-<table cellpadding="0" cellspacing="0" border="0" style="bottom-border:1px,dash">
+<table cellpadding="2px" cellspacing="2px" border="0">
 <tr>
-  <td>序号</td><td>小区</td><td>房号</td><td>业主</td><td>时间</td><td>应收金额</td><td>实收金额</td><td>录入人员</td><td>录入时间</td>
+  <th style="width:30px;">序号</th>
+  <th style="width:40px;">房号</th><th style="width:40px;">业主</th>
+  <th style="width:60px;">时间</th><th style="width:80px;">应收金额(元)</th>
+  <th style="width:80px;">实收金额(元)</th><th style="width:60px;">录入人员</th>
+  <th style="width:60px;">录入时间</th><th style="width:60px;">审核结果</th>
 </tr>
 <c:forEach var="item" items="${cfList }" varStatus="status">
 <tr class="item">
-  <td style="width:20px;"><input type="checkbox" name="ids" value="${item.cfId }" checked="checked">${status.count }</td>
-  <td style="width:100px;">${item.house.building.project.proName }</td>
-  <td style="width:60px;">${item.house.houseNum }</td>
-  <td style="width:60px;">${item.owner.ownerName }</td>
-  <td style="width:80px;">${item.cfYear }-${item.cfMonth }</td>
-  <td style="width:80px;">${item.oughtMoney }(元)</td>
-  <td style="width:80px;">${item.fetchMoney }(元)</td>
-  <td style="width:80px;">${item.recordPerson }</td>
-  <td style="width:100px;"><fmt:formatDate value="${item.inputTime }" type="both" pattern="yyyy-MM-dd"/></td>
-  <td style="width:80px;"><select name="state"><option value="pass" selected="selected">通过</option><option value="denied">有误</option></select></td>
+  <td><input type="checkbox" name="ids" value="${item.cfId }" checked="checked">${status.count }</td>
+  <td>${item.house.houseNum }</td>
+  <td>${item.owner.ownerName }</td>
+  <td>${item.cfYear }-${item.cfMonth }</td>
+  <td>${item.oughtMoney }</td>
+  <td>${item.fetchMoney }</td>
+  <td>${item.recordPerson }</td>
+  <td><fmt:formatDate value="${item.inputTime }" type="both" pattern="yyyy-MM-dd"/></td>
+  <td><select name="state"><option value="pass">通过</option><option value="denied" selected="selected">有误</option></select></td>
 </tr>
 </c:forEach>
-<tr>
-  <td><input type="submit" value="确认" /></td><td><input type="button" value="取消" /></td>
-</tr>
 </table>
+<input type="submit" value="确认" />&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="取消" />
 </form>
 </div>   
 </body>

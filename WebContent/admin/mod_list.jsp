@@ -30,7 +30,7 @@
   </ul>
   <div class="content">
     <div class="innercontent">
-      <div class="grid_top"><a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="openAddWindow(’#newModule‘)">添加新模块</a></div>
+      <div class="grid_top"><a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="openAddWindow('#newModule')">添加新模块</a></div>
       <table id="module_list"><%int i=1;%>
       <tbody id="module_list_data">
         <c:forEach var="module" items="${moduleList }">

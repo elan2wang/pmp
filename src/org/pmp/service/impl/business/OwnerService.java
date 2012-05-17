@@ -1,153 +1,161 @@
 /**
- * Author            : Jason
- * Created On        : 2012-4-9 下午04:33:43
+ * Author            : Elan
+ * Created On        : 2012-5-16 下午01:22:09
  * 
  * Copyright 2012.  All rights reserved. 
+ *
+ * Revision History
+ * 
+ *    Date       Modifier       Comments
+ * ----------    -------------  --------------------------------------------
  * 
  */
 package org.pmp.service.impl.business;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
-import org.pmp.dao.business.IOwnerDAO;
+import org.apache.log4j.Logger;
+import org.pmp.dao.business.IHouseDAO;
+import org.pmp.dao.business.IHouseOwnerDAO;
+import org.pmp.dao.business.IMemberDAO;
+import org.pmp.dao.business.IOwnerDAO2;
 import org.pmp.service.business.IOwnerService;
 import org.pmp.util.Pager;
+import org.pmp.vo.HouseOwner;
+import org.pmp.vo.Member;
 import org.pmp.vo.Owner;
 
 /**
- * @author Jason
+ * @author Elan
  * @version 1.0
  * @update TODO
  */
 public class OwnerService implements IOwnerService {
-	
-	private IOwnerDAO ownerDao;
+
+    //~ Static Fields ==================================================================================================
+    private static Logger logger = Logger.getLogger(OwnerService.class.getName());
+
+    //~ Instance Fields ================================================================================================
+    private IOwnerDAO2 ownerDAO;
+    private IMemberDAO memberDAO;
+    private IHouseOwnerDAO houseOwnerDAO;
+    private IHouseDAO houseDAO;
+
+    //~ Methods ========================================================================================================
 
     /**
-     * @author Elan
+     * @see org.pmp.service.business.IOwnerService#addOwner(org.pmp.vo.Owner, java.util.List, java.lang.Integer)
      */
-    public List<?> loadOwnerList_ByProject(Integer proId,Pager pager){
-	return ownerDao.loadOwnerList_ByProject(proId, pager);
-    }
-    
-    public List<?> loadOwnerList_ByBuilding(Integer builId,Pager pager){
-	return ownerDao.loadOwnerList_ByBuilding(builId, pager);
-    }
-
-	/**
-	 * @Title: addOwner
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public void addOwner(Owner owner) {
-		ownerDao.saveOwner(owner);
-
-	}
-
-	/**
-	 * @Title: editCompany
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public void editOwner(Owner owner) {
-		ownerDao.updateOwner(owner);
-
-	}
-
-	/**
-	 * @Title: deleteCompany
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public void deleteOwner(Integer ownerId) {
-		ownerDao.deleteOwner(ownerId);
-
-	}
-
-	/**
-	 * @Title: getOwnerById
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public Owner getOwnerById(Integer ownerId) {
-		return ownerDao.getOwnerByID(ownerId);
-	}
-
-	/**
-	 * @Title: getAllCompany
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public List getAllOwner() {
-		return null;
-	}
-
-	/**
-	 * @Title: loadOwnerList
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public List loadOwnerList(Pager pager) {
-		return ownerDao.loadOwnerList(pager);
-	}
-
-	/**
-	 * @Title: loadOwnerByCondition
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public List loadOwnerByCondition(Integer projectId, Integer buildingId,
-			String keyWord, Pager pager) {
-		return null;
-	}
-
-	/**
-	 * @param ownerDao the ownerDao to set
-	 */
-	public void setOwnerDao(IOwnerDAO ownerDao) {
-		this.ownerDao = ownerDao;
-	}
-
-	/**
-	 * @Title: batchSaveOwner
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public List batchSaveOwner(List<Owner> ownerList) {
-		return ownerDao.batchSaveOwner(ownerList);
-	}
-
+    @Override
+    public void addOwner(Owner instance, List<Member> list, Integer houseId) {
+	/* save owner instance */
+	ownerDAO.saveOwner(instance);
 	
+	/* set property owner to member instance */
+	Iterator<Member> ite = list.iterator();
+	while(ite.hasNext()){
+	    ite.next().setOwner(instance);
+	}
+	memberDAO.batchSave(list);
+	
+	/* set houseOwner instance */
+	HouseOwner ho = new HouseOwner();
+	ho.setOwner(instance);
+	ho.setHouse(houseDAO.getHouseByID(houseId));
+	/* save houseOwner instance */
+	houseOwnerDAO.addHouseOwner(ho);
+	
+    }
+
+    /**
+     * @see org.pmp.service.business.IOwnerService#editOwner(org.pmp.vo.Owner, java.util.List, java.lang.Integer)
+     */
+    @Override
+    public void editOwner(Owner instance, List<Member> list, Integer houseId) {
+	/* update owner info */
+	ownerDAO.updateOwner(instance);
+	
+	/* set property owner to member instance */
+	Iterator<Member> ite = list.iterator();
+	while(ite.hasNext()){
+	    ite.next().setOwner(instance);
+	}
+	memberDAO.batchUpdate(list);
+	
+	/* set houseOwner instance */
+	HouseOwner ho = houseOwnerDAO.getHouseByOwner(instance);
+	ho.setHouse(houseDAO.getHouseByID(houseId));
+	/* save houseOwner instance */
+	houseOwnerDAO.updateHouseOwner(ho);
+    }
+
+    /**
+     * @see org.pmp.service.business.IOwnerService#batchDelete(java.util.List)
+     */
+    @Override
+    public void batchDelete(List<Owner> list) {
+	ownerDAO.batchDelete(list);
+    }
+
+    /**
+     * @see org.pmp.service.business.IOwnerService#getOwner_ById(java.lang.Integer)
+     */
+    @Override
+    public Owner getOwner_ById(Integer ownerId) {
+	return ownerDAO.getOwner_ById(ownerId);
+    }
+
+    /**
+     * @see org.pmp.service.business.IOwnerService#loadOwnerList_ByPro(java.lang.Integer, java.util.Map, java.lang.String, org.pmp.util.Pager)
+     */
+    @Override
+    public List<?> loadOwnerList_ByPro(Integer proId,
+	    Map<String, Object> params, String order, Pager pager) {
+	return ownerDAO.loadOwnerList_ByPro(proId, params, order, pager);
+    }
+
+    /**
+     * @see org.pmp.service.business.IOwnerService#loadOwnerList_ByCom(java.lang.Integer, java.util.Map, java.lang.String, org.pmp.util.Pager)
+     */
+    @Override
+    public List<?> loadOwnerList_ByCom(Integer comId,
+	    Map<String, Object> params, String order, Pager pager) {
+	return ownerDAO.loadOwnerList_ByCom(comId, params, order, pager);
+    }
+    //~ Getters and Setters ============================================================================================
+
+    public IOwnerDAO2 getOwnerDAO() {
+        return ownerDAO;
+    }
+
+    public void setOwnerDAO(IOwnerDAO2 ownerDAO) {
+        this.ownerDAO = ownerDAO;
+    }
+
+    public IMemberDAO getMemberDAO() {
+        return memberDAO;
+    }
+
+    public void setMemberDAO(IMemberDAO memberDAO) {
+        this.memberDAO = memberDAO;
+    }
+
+    public IHouseOwnerDAO getHouseOwnerDAO() {
+        return houseOwnerDAO;
+    }
+
+    public void setHouseOwnerDAO(IHouseOwnerDAO houseOwnerDAO) {
+        this.houseOwnerDAO = houseOwnerDAO;
+    }
+
+    public IHouseDAO getHouseDAO() {
+        return houseDAO;
+    }
+
+    public void setHouseDAO(IHouseDAO houseDAO) {
+        this.houseDAO = houseDAO;
+    }
+
 }

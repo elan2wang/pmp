@@ -31,6 +31,15 @@ public class CondoFee implements java.io.Serializable {
     private Boolean issend;
     private String comment;
 
+    public String toString(){
+    	StringBuilder sb = new StringBuilder();
+    	sb.append("[ "+cfId+","+condoFeeItem+","+house+","+owner+","+cfYear+","+cfMonth+","+fetchDate+","+condoFeeRate);
+    	sb.append(","+oughtMoney+","+fetchTicket+","+generatePerson+","+fetchPerson+","+recordPerson+","+auditPerson);
+    	sb.append(","+state+","+generateTime+","+inputTime+","+auditTime+","+issend+","+comment+" ]");
+        return sb.toString();
+    } 
+    
+    
     public CondoFee() {
     }
 

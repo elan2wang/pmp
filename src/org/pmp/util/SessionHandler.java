@@ -36,6 +36,7 @@ public class SessionHandler {
     //~ Methods ========================================================================================================
     public static TbUser getUser(){
 	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	if (authentication == null)return null;
 	String principal = authentication.getPrincipal().toString();
 	String [] aa = principal.split(";");
 	String bb = null;

@@ -4,12 +4,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="../Scripts/component/AjaxFileUploader/ajaxfileupload.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="../Scripts/jquery-1.7.1.js" ></script>
+<script type="text/javascript" src="../Scripts/component/AjaxFileUploader/ajaxfileupload.js"></script>
+<script type="text/javascript" src="../Scripts/pages/fee/cf_import.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
-<% if(request.getAttribute("message")!=null){ %><span style="color:red">${message }</span><%} %>
-<form name="form1" action="importNewCondoFee" method="post" enctype="multipart/form-data">
-<input type="file" name="cfFile" /><input type="submit" value="导入">
-</form>
+<div style="align:center">
+<br/>
+<h2>请选择上传的文件</h2>
+<input type="file" id="cfFile" id="cfFile" size="25" name="cfFile" /><input type="button" value="导入" onclick="new_cf_import()">
+<br><img src='../Images/loading.gif' id='loading' style='display:none'><br>
+<div id="msg" style="color:red;font-size:13px;text-aligan:center"></div>
+</div>
 </body>
 </html>

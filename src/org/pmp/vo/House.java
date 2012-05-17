@@ -17,6 +17,12 @@ public class House implements java.io.Serializable {
     private Integer cycleMonth;
     private boolean isempty;
 
+    public String toString(){
+       StringBuffer sb=new StringBuffer();
+       sb.append("[ "+houseId+","+building+","+houseNum+","+houseArea+","+houseDesc+","+condoFeeRate+","+cycleMonth+","+isempty+" ]");
+       return sb.toString();
+    }
+    
     public House() {
     }
 

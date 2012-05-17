@@ -109,9 +109,10 @@ public class JsonConvert {
             org.pmp.vo.CondoFeeItem obj = (org.pmp.vo.CondoFeeItem)o;
             return string2Json(obj.getItemYear()+"年"+obj.getItemMonth()+"月"+obj.getProject().getProName()+"物业费项目");
         }
-            
 	if (o instanceof org.pmp.vo.FixedParkFeeItem)
 	    return string2Json(((org.pmp.vo.FixedParkFeeItem)o).getItemName());
+	if (o instanceof org.pmp.vo.SMSCompany)
+	    return string2Json(((org.pmp.vo.SMSCompany)o).getCompany().getComName());
 	
 	/* if none of the above is matched,then throw an exception*/
         throw new RuntimeException("Unsupported type: " + o.getClass().getName());
@@ -259,6 +260,7 @@ public class JsonConvert {
 	return sb.toString();
     }
     
+
     
     //找到属性名包含Id的主键的Field
     static Field getIdField(Field[] fields)
@@ -295,6 +297,7 @@ public class JsonConvert {
     	}
 	   
     }
+
     //返回{"id":"1","cell":{"realname":"aw","position":"qteacher","userDesc":"userDesc"}   
     //主键的判断：fieledname中含有”Id”的fieledname为主键属性
     static String object2FlexJson(Object obj,String beanType,List<String> show){
@@ -369,7 +372,7 @@ public class JsonConvert {
 	    Object obj = ite.next();
 	    sb.append("    "+object2Json(obj,beanType)+",\n");
 	}
-	sb.deleteCharAt(sb.length()-2);
+	if(list.size()!=0)sb.deleteCharAt(sb.length()-2);
 	sb.append("  ]\n}\n");
 	return sb.toString();
     }
@@ -388,7 +391,7 @@ public class JsonConvert {
 	    Object obj = ite.next();
 	    sb.append("    "+object2Json(obj,beanType)+",\n");
 	}
-	sb.deleteCharAt(sb.length()-2);
+	if(list.size()!=0)sb.deleteCharAt(sb.length()-2);
 	sb.append("  ]\n}\n");
 	
 	return sb.toString();
@@ -407,7 +410,7 @@ public class JsonConvert {
     	    Object obj = ite.next();
     	    sb.append("    "+object2FlexJson(obj,beanType)+"},\n");
     	}
-    	sb.deleteCharAt(sb.length()-2);
+    	if(list.size()!=0)sb.deleteCharAt(sb.length()-2);
     	sb.append("  ]\n}\n");
     	
     	return sb.toString();
@@ -422,7 +425,7 @@ public class JsonConvert {
 	    Object obj = ite.next();
 	    sb.append("    "+object2Json(obj,beanType,show)+",\n");
 	}
-	sb.deleteCharAt(sb.length()-2);
+	if(list.size()!=0)sb.deleteCharAt(sb.length()-2);
 	sb.append("  ]\n}\n");
 	return sb.toString();
     }
@@ -442,7 +445,7 @@ public class JsonConvert {
 	    Object obj = ite.next();
 	    sb.append("    "+object2Json(obj,beanType,show)+",\n");
 	}
-	sb.deleteCharAt(sb.length()-2);
+	if(list.size()!=0)sb.deleteCharAt(sb.length()-2);
 	sb.append("  ]\n}\n");
 	
 	return sb.toString();
@@ -460,7 +463,7 @@ public class JsonConvert {
     	    Object obj = ite.next();
     	    sb.append("    "+object2FlexJson(obj,beanType,show)+"},\n");
     	}
-    	sb.deleteCharAt(sb.length()-2);
+    	if(list.size()!=0)sb.deleteCharAt(sb.length()-2);
     	sb.append("  ]\n}\n");
     	
     	return sb.toString();
@@ -474,7 +477,7 @@ public class JsonConvert {
 	    Object obj = ite.next();
 	    sb.append("    "+object2Json(obj,beanType,show)+",\n");
 	}
-	sb.deleteCharAt(sb.length()-2);
+	if(list.size()!=0)sb.deleteCharAt(sb.length()-2);
 	sb.append("  ]\n");
 	return sb.toString();
     }

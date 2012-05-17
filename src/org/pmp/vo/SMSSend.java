@@ -13,10 +13,17 @@ public class SMSSend implements java.io.Serializable {
     private SMSCompany SMSCompany;
     private String smssContent;
     private String smssReceiver;
-    private boolean smssState;
+    private String smssState;
     private Date smssTime;
     private String smssPerson;
 
+    public String toString(){
+    	StringBuffer sb=new StringBuffer();
+    	sb.append("[ "+smssId+","+SMSCompany+","+smssContent+","+smssReceiver+","+smssState+","+smssTime+","+smssPerson);
+    	sb.append(" ]");
+    	return sb.toString();
+    }
+    
     public SMSSend() {
     }
 
@@ -25,7 +32,7 @@ public class SMSSend implements java.io.Serializable {
     }
 
     public SMSSend(Integer smssId, SMSCompany SMSCompany,
-	    String smssContent, String smssReceiver, boolean smssState,
+	    String smssContent, String smssReceiver, String smssState,
 	    Date smssTime, String smssPerson) {
 	this.smssId = smssId;
 	this.SMSCompany = SMSCompany;
@@ -68,12 +75,12 @@ public class SMSSend implements java.io.Serializable {
 	this.smssReceiver = smssReceiver;
     }
 
-    public boolean isSmssState() {
-	return this.smssState;
+    public String getSmssState() {
+        return smssState;
     }
 
-    public void setSmssState(boolean smssState) {
-	this.smssState = smssState;
+    public void setSmssState(String smssState) {
+        this.smssState = smssState;
     }
 
     public Date getSmssTime() {

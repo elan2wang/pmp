@@ -1,225 +1,53 @@
-// JavaScript Document
+/**
+ * author: Elan Wang
+ * email： shohokh@gmail.com
+ * create:   2012-5-10
+ * 
+ * this script is used by the owner_list.jsp
+ */ 
+
 $(function(){
-	$(".content .innercontent").eq(0).show();
-
-	$("#tab1").click(function(){
-			$(".nav li").removeClass("active");	
-			$(this).addClass('active');
-			$(".content .innercontent").hide().eq(0).show();
-			return false;
-		});
-	  $('#project_data').html(AddTds(20,5));
-	  $('#projectlist').flexigrid({colModel: [
-             { display: '序号',  width: 40,  align: 'center' },
-             { display: '姓名', width: 200, align: 'center' },
-			 { display: '联系方式', width: 200, align: 'center' },
-             { display: '地址', width: 200,align: 'center' },
-             { display: '操作',  width: 200, align: 'center' }
-             ],height:305}
-	  );
-	  PageDownOrUp(0);
-	});
-function openAddNewOwner(){
-
-	$('#newOwner').window('open');
-}
-function closeAddNewOwner(){
-	$('#newOwner').window('close');
-}
-function openEditOwner(id){
-	alert(id);
-
-	$('#editOwner').window({href:'get_owner?ownerId='+id});
-	$('#editOwner').window('open');
-
-}
-function closeEditOwner(){
-    $('#editOwner').window('close');
-}
-
-
-
-
-function deleteOwner(obj,ownerId){
-	alert("进入删除方法");
-	alert(ownerId);
-	if(!confirm("您将删除与该业主有关的所有信息,确定删除吗?"))
-	{
-		return;
-	}
-	$.ajax({
-		  type: "POST",
-		  url: 'delete_owner?ownerId='+ownerId,
-		  dataType: "json",
-		  success : function(data){
-//			  if((data.success).equals("")){
-			  obj.hide();
-//			  }
-		  }
-	   });
-}
-function PageDownOrUp(flag){
-//    alert(flag);
-    var nowpage=parseInt(document.getElementById("now_page").innerHTML);
-	var pagerow=parseInt(document.getElementById("page_row").options[document.getElementById("page_row").selectedIndex].text);
-	var gopage=document.getElementById("go_page").value;
-	var totalpage=parseInt(document.getElementById("total_page").innerHTML);
-	var urlstr="";
-	initIcon();
-	switch(flag)
-	{
-		case 0://默认值
-		   nowpage=1;
-		   pagerow=10;
-		   break;
-		case 1:
-		   nowpage=1;
-		   break;
-		case 2:
-		   nowpage--;
-		   break;
-		case 3:
-		   nowpage++;
-		   break;
-		case 4:
-		   nowpage=totalpage;
-		   break;
-		case 5:
-		   break;
-		case 6:	
-		   if(gopage==""){
-	          alert("跳转页面不能为空！");
-		      return;
-		   }
-		   if(isNaN(parseInt(gopage))){
-			   return;
-		   }
-		   if(parseInt(gopage)>totalpage){
-	          alert("跳转页面大于总页面数！");
-		      return;
-		   }
-		   break;
-	}
-	changeIcon(nowpage,totalpage);
-//	alert("nowpage="+nowpage);
-	urlstr="owner_list?currentPage="+nowpage+"&pageSize="+pagerow;
-    $.ajax({
-	  type: "POST",
-	  url: urlstr,
-	  dataType: "json",
-	  success : function(data){
-			  var i=0;
-              $('#project_data').find('tr').hide();
-              var tableTds=$('#project_data').find('td');
-              tableTds.find('div').css('text-align','center');
-			  for(i=0;i<pagerow;i++)
-			  {$('#project_data').find('tr').eq(i).show();}
-			  i=0;
-			  tableTds.find('div').html("");
-			  var k=1;	//记录序号
-			  $.each( data.Rows  , function(commentIndex, comment) {
-											
-				tableTds.eq(i++).find('div').html(k++);
-				tableTds.eq(i++).find('div').html(comment['ownerName']);
-				tableTds.eq(i++).find('div').html(comment['mobile']);
-				tableTds.eq(i++).find('div').html(comment["ownerDesc"]);
-				eval("var a"+i+"="+comment['ownerId']+";");
-				
-				var strhtml="<a href=\"#\" onclick=\"openEditOwner($(this).next().html());\">编辑</a>" +
-						"<span style=\"display:none;width:10px\">"+comment['ownerId']+"</span>" +
-								"<span style=\"display:inline-block;width:10px\"></span>" +
-								"<a href=\"#\" onclick=\"deleteOwner($(this).parent().parent().parent(),$(this).prev().prev().html())\">删除</a>";
-				tableTds.eq(i++).find('div').html(strhtml);
-			  });
-			  $('#now_page').html(data.currentPage);
-			  $('#total_page').html(data.pagesCount);
-			  $('#total_record').html(data.rowsCount);
-			  
-	  }
-	}); 
-}	
-function ProjectChanged(builId,houseId)
-{
-	var project = document.getElementById("projectId");
-	var index=project.selectedIndex;
-	var projectName = project.options[index].text;
+	var editURL = "getOwner?ownerId=";
+	var editWindow = "#ownerEdit";
 	
-	 var select1Value=document.getElementById("projectId").value;
-	 $.ajax({
-	  type: "POST",
-	  url: "getBuildingByProject?projectId="+select1Value,
-	  dataType: "json",
-	  success : function(data){
-		  		
-		      var selector=$('#buildingId'); 
-		      var house=$('#houseId'); 
-			  var s=selector.find('option');
-			  var s_house=house.find('option');
-			  for(i=1;i<s.length;i++){
-			     s.eq(i).remove();
-			  }
-			  for(i=1;i<s_house.length;i++){
-				  s_house.eq(i).remove();
-			  }
-			  if(data)
-		  	  {
-				  var succ;
-				  $.each( data.Rows , function(commentIndex, comment) {
-					  if(builId && builId==comment['builId'])
-					  {
-						  selector.append('<option selected="selected" value="'+comment['builId']+'">'+comment['builNum']+'</option>');
-						  succ = true;
-					  }
-					  else
-						  {
-						  selector.append('<option value="'+comment['builId']+'">'+comment['builNum']+'</option>');
-						  }
-				  });
-				  if(succ && houseId)
-					  getAllHouse(houseId);
-		  	  }
-			 
-			  
-	  }
-	});
-}
-function getHouseInfo(){
-
-	var house = document.getElementById("houseId");
-	var index=house.selectedIndex;
-	var houseNum = house.options[index].text;
-	alert(houseNum);
-	document.getElementById("houseNum").value=houseNum;
-}
-
-function getAllHouse(houseid){
-	var building = document.getElementById("buildingId");
-	var index=building.selectedIndex;
-	var buildingName = building.options[index].text;
-	var buildingId = document.getElementById("buildingId").value;
-	$.ajax({
-		type: "POST",
-		url: "getAllHouseNum?buildingId="+buildingId,
+	$('#owner_list').flexigrid({
+		url:"loadOwnerList_ByPro",
 		dataType:"json",
-		success:function(data){
-			var houseId=$('#houseId');
-			var option = houseId.find('option');
-			for(i=1;i<=option.length;i++){
-				option.eq(i).remove();
-			  }
-			if(data)
-		  	{			
-				$.each(data.Rows,function(commentIndex,comment){
-						 if(houseid && houseid==comment['houseId'])
-						 {
-							  houseId.append('<option selected="selected" value="'+comment['houseId']+'">'+comment['houseNum']+'</option>');
-						  }
-						  else
-						  {
-							  houseId.append('<option value="'+comment['houseId']+'">'+comment['houseNum']+'</option>');
-						  }
-				 });
-		  	}
-		}
+        colModel:[
+            { display: '姓名', name: 'ownerName', width: Width*0.1, sortable:true, align: 'center' },
+            { display: '性别', name: 'gender', width: Width*0.1, sortable:true, align: 'center' },
+            { display: '联系电话', name: 'mobile', width: Width*0.1, sortable:true, align: 'center' },
+            { display: '房号', name: 'houseNum', width: Width*0.1, sortable:true, align: 'center' },
+            { display: '房屋面积', name: 'houseArea', width: Width*0.1, sortable:true, align: 'center' },
+            { display: '工作单位', name: 'organization', width: Width*0.25, sortable:true, align: 'center' }
+        ],
+        buttons:[
+            { name: '添加业主', bclass: 'add', onpress: ownerAdd },
+            { separator: true },
+            { name: '<sec:authorize access="hasRole(\'ROLE_COMPANY_MANAGER\')">业主信息导入</sec:authorize>', bclass:'import', onpress: ownerImport }
+		],
+		searchitems:[
+		    { display: '姓名', name: 'ownerName', isDefault:false },
+		    { display: '联系电话', name: 'mobile', isDefault:false },
+		    { display: '房号', name: 'houseNum', isDefault:true },
+		],
+		height:Height*0.98,
+        showcheckbox:true,
+        nomsg: '没有符合条件的业主记录',
+        usepager:true,
+        useRp:true,
+        rp: 15,
+		showTableToggleBtn: true,
+		operation:true,
+		operationcontent:'<a href="javascript:void(0)" onclick="openEditWindow(\''+editWindow+'\',\''+editURL+'\'+$(this).parent().parent().parent().attr(\'id\').substr(3))">编辑</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#\" onclick=\"selectBuildTab($(this).parent().parent().parent(),$(this).parent().parent().parent(),$(this).parent().parent().parent())\">删除</a>',
+		operationWidth: Width*0.15
 	});
+});
+
+function ownerAdd(){
+	openAddWindow('#ownerAdd');
+}
+
+function ownerImport(){
+	openAddWindow('#ownerImport');
 }

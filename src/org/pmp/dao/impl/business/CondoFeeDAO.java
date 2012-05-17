@@ -70,7 +70,7 @@ public class CondoFeeDAO extends BaseDAO implements ICondoFeeDAO {
 	logger.debug("list.size="+list.size());
 	Work work = new Work(){
 	    public void execute(Connection connection)throws SQLException{
-		String sql = "update tb_CondoFee set Fetch_Money=?,Record_Person=?,Input_Time=?,State=? where CF_ID=?";
+		String sql = "update tb_CondoFee set Fetch_Money=?,Record_Person=?,Input_Time=?,State=?,Comment=? where CF_ID=?";
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		for (int i=0;i<list.size();i++){
 		    stmt.setDouble(1, list.get(i).getOughtMoney());
@@ -78,7 +78,8 @@ public class CondoFeeDAO extends BaseDAO implements ICondoFeeDAO {
 		    java.sql.Date inputTime=new java.sql.Date(list.get(i).getInputTime().getTime());
 		    stmt.setDate(3, inputTime);
 		    stmt.setString(4, list.get(i).getState());
-		    stmt.setInt(5, list.get(i).getCfId());
+		    stmt.setString(5, list.get(i).getComment());
+		    stmt.setInt(6, list.get(i).getCfId());
 		    stmt.executeUpdate();
 		}
 	    }
@@ -88,7 +89,7 @@ public class CondoFeeDAO extends BaseDAO implements ICondoFeeDAO {
     }
     
     public void batchAudit(final List<CondoFee> list){
-	logger.debug("begin to batch audit");
+	logger.debug("begin to batch audit CondoFee");
 	logger.debug("list.size="+list.size());
 	Work work = new Work(){
 	    public void execute(Connection connection)throws SQLException{
@@ -105,10 +106,27 @@ public class CondoFeeDAO extends BaseDAO implements ICondoFeeDAO {
 	    }
 	};
 	executeWork(work);
-	logger.debug("successfully batch audit");
+	logger.debug("successfully batch audit CondoFee");
+    }
+
+    public void batchDelete(final List<CondoFee> list){
+	logger.debug("begin to batch delete CondoFee");
+	logger.debug("list.size="+list.size());
+	Work work = new Work(){
+	    public void execute(Connection connection)throws SQLException{
+		String sql = "delete tb_CondoFee where CF_ID=?";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		for (int i=0;i<list.size();i++){
+		    stmt.setInt(1, list.get(i).getCfId());
+		    stmt.executeUpdate();
+		}
+	    }
+	};
+	executeWork(work);
+	logger.debug("successfully batch delete CondoFee");
     }
     
-    public CondoFee getCondoFeeByID(Integer cfId){
+    public CondoFee getCondoFee_ById(Integer cfId){
 	String debugMsg = "get CondoFee by Id ,cfId="+cfId;
 	String hql = "from CondoFee where cfId="+cfId;
 	CondoFee instance = null;
@@ -119,62 +137,6 @@ public class CondoFeeDAO extends BaseDAO implements ICondoFeeDAO {
 	}
 	return instance;
     }
-    
-    public void updateCondoFee(CondoFee instance){
-	String debugMsg = "update condoFee, cfId="+instance.getCfId();
-	try{
-	    updateInstance(instance, debugMsg);
-	} catch(RuntimeException e){
-	    throw e;
-	}
-    }
-    
-    public void deleteCondoFee(Integer cfId){
-	String debugMsg = "delete condoFee, cfId="+cfId;
-	String hql = "delete CondoFee where cfId="+cfId;
-	try {
-	    deleteInstance(hql,debugMsg);
-	} catch(RuntimeException e){
-	    throw e;
-	}
-    }
-    
-    public List loadCondoFeeListBy_cfiId(Integer cfiId,Pager pager) {
-	String debugMsg = "load condoFee list by CondoFeeItem ID,cfiId="+cfiId;
-	String hql = "select cf from CondoFee cf where cf.condoFeeItem.cfiId="+cfiId;
-	List condoFeeList = null;
-	try {
-	    condoFeeList = loadListByCondition(hql,pager,debugMsg);
-	} catch (RuntimeException e){
-	    throw e;
-	}
-	return condoFeeList;
-    }
-
-    public List loadPayedCondoFeeList(Integer cfiId,Pager pager){
-	String debugMsg = "load Payed condoFee list by CondoFeeItem ID,cfiId="+cfiId;
-	String hql = "select cf from CondoFee cf where cf.condoFeeItem.cfiId="+cfiId+" and cf.state='已缴费'";
-	List condoFeeList = null;
-	try {
-	    condoFeeList = loadListByCondition(hql,pager,debugMsg);
-	} catch (RuntimeException e){
-	    throw e;
-	}
-	return condoFeeList;
-    }
-    
-    public List loadNonePayedCondoFeeList(Integer cfiId,Pager pager){
-	String debugMsg = "load none Payed condoFee list by CondoFeeItem ID,cfiId="+cfiId;
-	String hql = "select cf from CondoFee cf where cf.condoFeeItem.cfiId="+cfiId+" and cf.state='新生成'";
-	List condoFeeList = null;
-	try {
-	    condoFeeList = loadListByCondition(hql,pager,debugMsg);
-	} catch (RuntimeException e){
-	    throw e;
-	}
-	return condoFeeList;
-    }
-    
     
     /**
      * @see org.pmp.dao.business.ICondoFeeDAO#loadCondoFeeList_ByIds(java.util.List)

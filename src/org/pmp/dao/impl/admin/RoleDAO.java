@@ -33,64 +33,42 @@ public class RoleDAO extends BaseDAO implements IRoleDAO{
 
     //~ Methods ========================================================================================================
     public void saveRole(TbRole instance){
-	Session session = getSession();
-        logger.debug("begin to save a role.");
+	String debugMsg = "save role instance";
         try {
-            Transaction tx = session.beginTransaction();
-            session.save(instance);
-            tx.commit();
+            saveInstance(instance,debugMsg);
         } catch (RuntimeException e){
-            logger.error("save a role failed",e);
-            session.close();
             throw e;
         }
-        logger.debug("save a role successfully.");
-        session.close();
     }
     
     public void updateRole(TbRole instance){
-    	Session session = getSession();
-        logger.debug("update role.");
+    	String debugMsg = "update role,roleId="+instance.getRoleId();
         try {
-            Transaction tx = session.beginTransaction();
-            session.update(instance);
-            tx.commit();
+            updateInstance(instance,debugMsg);
         } catch (RuntimeException e){
-            logger.error("update a role failed",e);
-            session.close();
             throw e;
         }
-        logger.debug("update a role successfully.");
-        session.close();
     }
     
     public void deleteRole(Integer roleID){
     	String hql = "delete TbRole where roleId="+roleID;
     	String debugMsg = "deleteRole";
     	try{
-    		deleteInstance(hql, debugMsg);
+    	    deleteInstance(hql, debugMsg);
     	}catch(RuntimeException e){
-    		throw e;
+    	    throw e;
     	}
     }
     
     public TbRole getRoleByID(Integer roleID){
-	Session session = getSession();
+	String hql = "from TbRole role where role.roleId="+roleID;
+	String debugMsg = "get role instance by id,roleId="+roleID;
 	TbRole role = null;
-	logger.debug("begin to get role entity.");
 	try {
-	    Transaction tx = session.beginTransaction();
-            Query query = session.createQuery("from TbRole role where role.roleId = ?");
-            query.setParameter(0, roleID);
-            role = (TbRole)query.list().get(0);
-            tx.commit();
+	    role = (TbRole)getInstance(hql,debugMsg);
 	} catch (RuntimeException e){
-            logger.error("get role entity failed.",e);
-            session.close();
             throw e;
 	}
-	logger.debug("get role entity successfully.");
-        session.close();
 	return role;
     }
     

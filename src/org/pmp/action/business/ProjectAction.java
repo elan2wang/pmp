@@ -90,19 +90,12 @@ public class ProjectAction extends ActionSupport {
 			String order = "order by proId asc";
 			projectList = projectService.loadProjectList_ByCompany(com.getComId(), params, order, pager);
 		}	
-		if(projectList!=null&&projectList.size()!=0)
-		{
-			Pager pager = new Pager(rp,page);
-			pager.setRowsCount(projectList.size());
-			String data = JsonConvert.list2FlexJson(pager, projectList, "org.pmp.vo.Project");
-			System.out.println(data);
-			logger.debug(data);
-			JsonConvert.output(data);
-		}
-		else
-		{
-			System.out.println("projectList is null");
-		}
+		Pager pager = new Pager(rp,page);
+		pager.setRowsCount(projectList.size());
+		String data = JsonConvert.list2FlexJson(pager, projectList, "org.pmp.vo.Project");
+		System.out.println(data);
+		logger.debug(data);
+		JsonConvert.output(data);
 	}
 	
 	

@@ -13,7 +13,7 @@
 <body>
 <div class="window_content">
 <form name="form3" id="form3" action="edit_role_auth" method="post">
-	<input type="hidden" name="roleID" id="roleID" value="${roleID}"/>
+	<input type="hidden" name="roleId" id="roleId" value="${roleId}"/>
       <div class="left">
          <div class="select_tab">未分配权限</div>
          <div class="">

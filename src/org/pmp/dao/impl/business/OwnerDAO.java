@@ -36,6 +36,7 @@ import org.pmp.vo.Project;
 public class OwnerDAO extends BaseDAO implements IOwnerDAO {
 	Logger logger = Logger.getLogger(OwnerDAO.class.getName());
     
+	
     /**
      * @author Elan
      */

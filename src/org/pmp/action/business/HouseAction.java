@@ -112,19 +112,12 @@ public class HouseAction extends ActionSupport {
 		}
 		else if(buildingId!=0)
 			houseList = houseService.loadHouseList_ByBuilding(buildingId, params, order, pager2);
-		if(houseList!=null && houseList.size()!=0)
-		{
-			logger.debug("得到的houseList为"+houseList.toString());
-			pager.setRowsCount(houseList.size());
-			String data = JsonConvert.list2FlexJson(pager, houseList, "org.pmp.vo.House");
-			System.out.println(data);
-			logger.debug(data);
-			JsonConvert.output(data);
-		}
-		else
-			System.out.println("houseList is null");
-		
-		
+		logger.debug("得到的houseList为"+houseList.toString());
+		pager.setRowsCount(houseList.size());
+		String data = JsonConvert.list2FlexJson(pager, houseList, "org.pmp.vo.House");
+		System.out.println(data);
+		logger.debug(data);
+		JsonConvert.output(data);
 	
 	}
 	

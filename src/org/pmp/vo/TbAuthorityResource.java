@@ -11,6 +11,13 @@ public class TbAuthorityResource implements java.io.Serializable {
     private TbAuthority tbAuthority;
     private TbResource tbResource;
 
+    public String toString(){
+    	StringBuffer sb=new StringBuffer();
+    	sb.append("[ "+arId+","+tbAuthority+","+tbResource);
+    	sb.append(" ]");
+    	return sb.toString();
+    }
+    
     public TbAuthorityResource() {
     }
 

@@ -12,20 +12,26 @@
 <body>
 <div class="window_content">
 <form name="form1" id="form1" action="cf_input" method="post">
-<table cellpadding="0" cellspacing="0" border="0" style="bottom-border:1px,dash">
-<tr>
-  <td>序号</td><td>时间</td><td>应收金额</td><td>收费金额</td>
-</tr>
-<c:forEach var="item" items="${cfList }" varStatus="status">
-<tr class="item">
-  <td style="width:20px;"><input type="checkbox" name="ids" value="${item.cfId }" checked="checked">${status.count }</td><td style="width:80px;">${item.cfYear }-${item.cfMonth }</td><td style="width:80px;">${item.oughtMoney }</td>
-  <td style="width:200px;"><input type="text" name="fetchMoney" />元</td>
-</tr>
-</c:forEach>
-<tr>
-  <td><input type="submit" value="提交" /></td><td><input type="button" value="取消" /></td>
-</tr>
-</table>
+	<table cellpadding="2px" cellspacing="2px" border="0">
+	<tr style="height:25px">
+	  <th style="width:30px;">序号</th>
+	  <th style="width:100px;">时间</th>
+	  <th style="width:80px;">应收金额</th>
+	  <th style="width:100px;">收费金额</th>
+	  <th style="width:150px;">备注</th>
+	</tr>
+	<c:forEach var="item" items="${cfList }" varStatus="status">
+	<tr class="item">
+	  <td><input type="checkbox" name="ids" value="${item.cfId }" checked="checked">${status.count }</td>
+	  <td>${item.cfYear }-${item.cfMonth }</td>
+	  <td>${item.oughtMoney }</td>
+	  <td><input type="text" name="fetchMoney" size="6"/>元</td>
+	  <td><input type="text" name="comment" size="15" /></td>
+	</tr>
+	</c:forEach>
+	</table>
+	<hr />
+    <input type="submit" value="提交" />&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="取消" />
 </form>
 </div>   
 </body>

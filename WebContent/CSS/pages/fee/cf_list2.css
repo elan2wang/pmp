@@ -1,0 +1,43 @@
+.content_main
+{
+   font-size:12px;
+   margin:10px 10px 0 10px;
+
+}
+.content_main .left_main
+{
+	border:1px solid lightblue;
+	width:15%;
+	text-align:center;
+	align:center;
+	height:500px;
+	overflow-y:scroll;
+	float:left;
+}
+.content_main .middle
+{
+	width:0.5%;
+	height:500px;
+	float:left;
+	margin:0px;
+}
+.content_main .right_main
+{
+	border:1px solid lightblue;
+	width:83%;
+	height:500px;
+	float:left;
+	margin:0px;
+}
+
+.add_fieldset
+{
+    border-color:lightblue;
+    margin-left:0px;
+    padding-left:20px;
+}
+.add_legend
+{
+	font-size:14px;
+	font-color:lightblue;
+}

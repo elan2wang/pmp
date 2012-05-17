@@ -52,6 +52,9 @@ public class CondoFeeItemService implements ICondoFeeItemService{
 	return condoFeeItemDAO.loadCondoFeeItemListBy_ComID(pager, comId);
     }
     
+    public List<?> loadCondoFeeItemListBy_ProID(Pager pager,Integer proId){
+	return condoFeeItemDAO.loadCondoFeeItemListBy_ProID(pager, proId);
+    }
     //~ Getters and Setters ============================================================================================
 
     public ICondoFeeItemDAO getCondoFeeItemDAO() {
