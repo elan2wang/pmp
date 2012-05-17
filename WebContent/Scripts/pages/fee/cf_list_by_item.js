@@ -30,13 +30,13 @@ $(function(){
 			{ name: '缴费审核', bclass:'check', onpress: cfAudit }
 		],
 		searchitems:[
-		    { display: '房号', name: 'house', isDefault:false },
-		    { display: '业主', name: 'owner', isDefault:false },
-		    { display: '年份', name: 'cfYear', isDefault:false },
-		    { display: '月份', name: 'cfMonth', isDefault:false },
-		    { display: '状态', name: 'state', isDefault:false },
-		    { display: '录入时间', name: 'inputTime', isDefault:false },
-		    { display: '录入人员', name: 'recordPerson', isDefault:true },
+		    { display: '房号', name: 'house', isdefault:false },
+		    { display: '业主', name: 'owner', isdefault:false },
+		    { display: '年份', name: 'cfYear', isdefault:false },
+		    { display: '月份', name: 'cfMonth', isdefault:false },
+		    { display: '状态', name: 'state', isdefault:false },
+		    { display: '录入时间', name: 'inputTime', isdefault:false },
+		    { display: '录入人员', name: 'recordPerson', isdefault:true }
 		],
 		showSearch:true,
 		height:Height*0.95,

@@ -25,9 +25,9 @@ $(function(){
 			{ name: '短信催缴', bclass:'delete', onpress: smsInform }
 		],
 		searchitems:[
-		    { display: '年份', name: 'cfYear', isDefault:false },
-		    { display: '月份', name: 'cfMonth', isDefault:false },
-		    { display: '状态', name: 'state', isDefault:true },
+		    { display: '年份', name : 'cfYear' },
+		    { display: '月份', name : 'cfMonth' },
+		    { display: '状态', name : 'state', isdefault : true }
 		],
 		showSearch:true,
 		height:Height*0.88,
