@@ -27,9 +27,11 @@ public interface IOwnerDAO2 {
     public void saveOwner(Owner instance);
     public void updateOwner(Owner instance);
     public void batchDelete(List<Owner> list);
+    public List<Integer> batchSave(List<Owner> list);
     
     public Owner getOwner_ById(Integer ownerId);
     
+    public List<?> loadOwnerList_ByBuil(Integer builId,Map<String,Object> params,String order,Pager pager);
     public List<?> loadOwnerList_ByPro(Integer proId,Map<String,Object> params,String order,Pager pager);
     public List<?> loadOwnerList_ByCom(Integer comId,Map<String,Object> params,String order,Pager pager);
     

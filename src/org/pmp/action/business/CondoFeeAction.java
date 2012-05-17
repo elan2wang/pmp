@@ -46,11 +46,11 @@ import com.opensymphony.xwork2.ActionSupport;
  * @version 1.0
  * @update TODO
  */
-public class CondoFeeAction2 extends ActionSupport{
+public class CondoFeeAction extends ActionSupport{
     
     //~ Static Fields ==================================================================================================
     private static final long serialVersionUID = -7036535552079642151L;
-    private static Logger logger = Logger.getLogger(CondoFeeAction2.class.getName());
+    private static Logger logger = Logger.getLogger(CondoFeeAction.class.getName());
     
     //~ Instance Fields ================================================================================================
     private ICondoFeeService condoFeeService;

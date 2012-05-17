@@ -23,6 +23,7 @@ import org.pmp.dao.business.IMemberDAO;
 import org.pmp.dao.business.IOwnerDAO2;
 import org.pmp.service.business.IOwnerService;
 import org.pmp.util.Pager;
+import org.pmp.vo.House;
 import org.pmp.vo.HouseOwner;
 import org.pmp.vo.Member;
 import org.pmp.vo.Owner;
@@ -60,6 +61,12 @@ public class OwnerService implements IOwnerService {
 	}
 	memberDAO.batchSave(list);
 	
+	/* update house info */
+	House house = houseDAO.getHouseByID(houseId);
+	house.setHouseArea(instance.getHouseArea());
+	house.setIsempty(false);
+	houseDAO.updateHouse(house);
+	
 	/* set houseOwner instance */
 	HouseOwner ho = new HouseOwner();
 	ho.setOwner(instance);
@@ -84,11 +91,31 @@ public class OwnerService implements IOwnerService {
 	}
 	memberDAO.batchUpdate(list);
 	
+	/* update house info */
+	House house = houseDAO.getHouseByID(houseId);
+	house.setHouseArea(instance.getHouseArea());
+	house.setIsempty(false);
+	houseDAO.updateHouse(house);
+	
 	/* set houseOwner instance */
 	HouseOwner ho = houseOwnerDAO.getHouseByOwner(instance);
 	ho.setHouse(houseDAO.getHouseByID(houseId));
 	/* save houseOwner instance */
 	houseOwnerDAO.updateHouseOwner(ho);
+    }
+
+    /**
+     * @see org.pmp.service.business.IOwnerService#batchSave(java.util.List,java.util.Map)
+     */
+    @Override
+    public void batchSave(List<Owner> list,Map<String,House> map) {
+	ownerDAO.batchSave(list);
+	for(Owner owner : list){
+	    House house = map.get(owner.getOwnerName());
+	    logger.debug("house.houseNum="+house.getHouseNum()+"  house.houseDesc="+house.getHouseDesc());
+	    logger.debug("owner.ownerId="+owner.getOwnerId());
+	}
+	
     }
 
     /**
@@ -105,6 +132,16 @@ public class OwnerService implements IOwnerService {
     @Override
     public Owner getOwner_ById(Integer ownerId) {
 	return ownerDAO.getOwner_ById(ownerId);
+    }
+    
+
+    /**
+     * @see org.pmp.service.business.IOwnerService#loadOwnerList_ByBuil(java.lang.Integer, java.util.Map, java.lang.String, org.pmp.util.Pager)
+     */
+    @Override
+    public List<?> loadOwnerList_ByBuil(Integer builId,
+	    Map<String, Object> params, String order, Pager pager) {
+	return ownerDAO.loadOwnerList_ByBuil(builId, params, order, pager);
     }
 
     /**
