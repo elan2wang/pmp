@@ -29,7 +29,7 @@ $(function(){
      
 	 // $('#project_data').html(AddTds(20,10));
 	  $('#projectlist').flexigrid({
-		     url:"project_list",
+		     url:"project_listBySessionHandler",
 		     dataType:"json",
 		     colModel: [
              { display: '项目名称',name:'proName', width: Width*0.22, align: 'center' },
@@ -47,10 +47,15 @@ $(function(){
      		 useRp: true,
      		 rp: 15,
      		 operation:true,
+<<<<<<< HEAD
+			operationcontent:'<a href="javascript:void(0)" onclick="openEditProject($(this).parent().parent().parent())">编辑</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#\" onclick=\"selectBuildTab($(this).parent().parent().parent(),$(this).parent().parent().parent(),$(this).parent().parent().parent())\">楼宇设置</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#\" onclick=\"deleteProject($(this).parent().parent().parent(),$(this).parent().parent().parent());\">删除</a>',
+			operationWidth: Width*0.22});
+=======
 			 operationcontent:'<a href="javascript:void(0)" onclick="openEditProject($(this).parent().parent().parent())">编辑</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#\" onclick=\"selectBuildTab($(this).parent().parent().parent(),$(this).parent().parent().parent(),$(this).parent().parent().parent())\">楼宇设置</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#\" onclick=\"deleteProject($(this).parent().parent().parent(),$(this).prev().prev().prev().prev().html());\">删除</a>',
 			 operationWidth: Width*0.22});
 	//  document.getElementById("searchState").value="0";//搜索状态值  初始化
 	 // PageDownOrUp(0);
+>>>>>>> 68dee3d6c5fab48cbd37f17a8b41516c0989b527
 
 	});
 function openAddNewProject(){
@@ -65,16 +70,15 @@ function closeAddNewProject(){
 
 
 function openEditProject(obj){
-	//alert(obj.attr("id").substr(3));
 	var id=parseInt(obj.attr("id").substr(3));
-	//alert("fad");
-	$('#editPro').window({href:'get_project?projectId='+id});
-	$('#editPro').window('open');
+	var url = 'get_project?projectId='+id;
+	openEditWindow("#editPro",url);
 		}
 function closeEditProject(){
 	        $('#editPro').window('close');
 	    }
-function deleteProject(obj,id){
+function deleteProject(obj,objid){
+	var id = parseInt(objid.attr("id").substr(3));
 	alert("进入删除方法");
 	alert(id);
 	if(!confirm("您将删除该项目有关的楼宇及房屋所有的信息,确定删除吗?"))
@@ -96,11 +100,7 @@ function deleteProject(obj,id){
 function selectBuildTab(objproject,objcompany,objid){
 	var project = objproject.find('td').eq(1).find('div').html();
 	var company = objcompany.find('td').eq(3).find('div').html();
-	alert("project:"+project);
-	alert("company:"+company);
 	var id=parseInt(objid.attr("id").substr(3));
-	alert("id:"+id);
-	        alert(id);
 	        document.getElementById("frame.pageType").value="one";
 	        document.getElementById("frame.pageId").value=id;
 	        document.getElementById("frame.projectName").value=project;
@@ -112,12 +112,52 @@ function selectBuildTab(objproject,objcompany,objid){
 
         }
 
-function selectHouseTab(buildNum,id){
+function selectHouseTab(builidObj){
+	alert("in selectHouseTab");
+
+	var id = parseInt(builidObj.attr("id").substr(3));	
+	alert("buidlid:"+id);
 			document.getElementById("frame.housepageType").value="one";
-			document.getElementById("frame.builNum").value=buildNum;
+			//document.getElementById("frame.builNum").value=buildNum;
 			document.getElementById("frame.housepageId").value=id;
 			document.getElementById("houseFrame").src="house_list.jsp";
 			$(".nav li").removeClass("active");
 			$("#tab3").addClass('active');
 			$(".content .innercontent").hide().eq(2).show();
 		}
+function getStreets(street)
+{	
+		var objppd=document.getElementById("proDistrict");
+		var area;
+		for(var i=0;i <objppd.options.length;i++){
+			if(objppd.options[i].selected)
+			{
+				area=objppd.options[i].text.replace(/^\s*/, "").replace(/\s*$/,"");
+				break;
+		    } 
+		}
+		var ppS=document.getElementById("project.proStreet");
+		ppS.innerHTML="";
+		if(!street)
+			ppS.add(new Option("请选择街道","请选择街道"));
+			$.ajax({
+				type: "GET",
+				url: "../xmls/areas.xml",
+				dataType: 'xml',
+				success : function(xml){
+					$(xml).find("area").each(function() {
+						var name=$(this).children("name").text(); 
+						if(name==area)
+						{
+						  $(this).find("street").each(function()
+								  {							  		
+									  var streetName = $(this).text();	
+									  ppS.add(new Option(streetName,streetName));
+								  }
+						   );
+					  }					
+				  });
+					UpdateSelectedItem(ppS,street);
+				}
+			});
+}

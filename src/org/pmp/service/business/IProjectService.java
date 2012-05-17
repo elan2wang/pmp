@@ -8,6 +8,7 @@
 package org.pmp.service.business;
 
 import java.util.List;
+import java.util.Map;
 
 import org.pmp.util.Pager;
 import org.pmp.vo.Project;
@@ -23,11 +24,6 @@ public interface IProjectService {
     public void deleteProject(Integer projectID);
     public Project getProjectByID(Integer projectID);
     public Project getProjectByName(String projectName);
-    public List<?> getAllProject();
-    public List<?> getProjectByDistrict(String district,Pager pager);
-    public List<?> loadProjectList(Pager pager);
-    public List<?> loadEnabledProjectList(Pager pager);
-    public List<?> loadDisabledProjectList(Pager pager);
-    public List<?> loadProjectByComID(Pager pager,Integer comId);
+    public List<Project> loadProjectList_ByCompany(Integer comId,Map<String,Object>params,String order,Pager pager);
     public void batchSaveProject(List<Project> projectList);
 }

@@ -8,6 +8,7 @@
 package org.pmp.dao.business;
 
 import java.util.List;
+import java.util.Map;
 
 import org.pmp.util.Pager;
 import org.pmp.vo.Building;
@@ -25,13 +26,9 @@ public interface IHouseDAO {
     public void deleteHouse(Integer houseID);
     public House getHouseByID(Integer houseId);
     public House getHouseByHouseNum(String houseNum);
-    public List<?> getHouseByBuilding(Building building);
-    public List<?> getHouseByOwner(Owner owner);
-    public List<?> getHouseByIsempty(Boolean isempty);
-    public List<?> getHouseByProjectOrBuilding(Integer projectId,Integer buildingId,Pager pager);
-    public List<?> loadHouseList(Pager pager);
-    public List<?> loadEnabledHouseList(Pager pager);
-    public List<?> loadDisabledHouseList(Pager pager);
+    public List<House> loadHouseList_ByCompany(Integer comId,Map<String,Object>params,String order,Pager pager);   
+    public List<House> loadHouseList_ByProject(Integer proId,Map<String,Object>params,String order,Pager pager);
+    public List<House> loadHouseList_ByBuilding(Integer builId,Map<String,Object>params,String order,Pager pager);
     public House getHouseByBuildingIdAndHouseNum(Integer buildingId,String houseNum);
     
     

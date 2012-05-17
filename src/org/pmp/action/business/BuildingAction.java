@@ -13,8 +13,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,7 +28,9 @@ import org.pmp.service.business.IBuildingService;
 import org.pmp.util.JsonConvert;
 import org.pmp.util.MyfileUtil;
 import org.pmp.util.Pager;
+import org.pmp.util.SessionHandler;
 import org.pmp.vo.Building;
+import org.pmp.vo.Company;
 import org.pmp.vo.Project;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -48,8 +52,10 @@ public class BuildingAction extends ActionSupport {
 	private Building building;
 	private IBuildingService buildingService;
 	private List list;
-	private Integer currentPage;
-	private Integer pageSize;
+	private Integer page;
+	
+
+	private Integer rp;
 	
 	private File refFile;
 	private String refFileFileName;
@@ -80,37 +86,57 @@ public class BuildingAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
-	public void loadBuildingList(){
-		logger.debug("进入loadBuildingList方法");
-		Pager pager = new Pager(pageSize,currentPage);
+	public void loadBuildingListBySessionHandler(){		
+		logger.debug("进入loadBuildingListBySessionHandler方法");
 		List buildingList = null;
-		if(projectId==-1){
-			buildingList = buildingService.loadBuildingList(pager);
-		}else{ 
-			buildingList = buildingService.loadBuildingListByProject(pager, projectId);
+		buildingList = new ArrayList<Building>();
+		Object obj = SessionHandler.getUserRefDomain();
+		//如果是小区管理员，则只显示本小区内的楼宇
+		
+		Pager pager = new Pager(rp,page);
+		Pager pager2 = new Pager(10000,1);
+		Map<String,Object> params = new HashMap<String,Object>();
+		String order = "order by builId asc";
+		if(projectId==0){		
+			if(obj instanceof Project)
+			{
+				Project pro = (Project)obj;
+				System.out.println(pro.getProName());
+				buildingList = buildingService.loadBuildingList_ByProject(pro.getProId(), params, order, pager2);
+			}
+			else if(obj instanceof Company)
+			{
+				Company com = (Company)obj;
+				buildingList = buildingService.loadBuildingList_ByCompany(com.getComId(), params, order, pager2);
+			}
+		}
+		else{ 
+			buildingList = buildingService.loadBuildingList_ByProject(projectId, params, order, pager2);
 		}
 		logger.debug("得到的buildingList为"+buildingList.toString());
-		
-		String data = JsonConvert.list2Json(pager, buildingList, "org.pmp.vo.Building");
+		pager.setRowsCount(buildingList.size());
+		String data = JsonConvert.list2FlexJson(pager, buildingList, "org.pmp.vo.Building");
+		System.out.println(data);
+		logger.debug(data);
 		JsonConvert.output(data);
 	}
 	
-	public void getBuildingByProject(){
-		Pager pager = new Pager(100,1);
-		List buildingList = buildingService.loadBuildingListByProject(pager, projectId);
-		if(buildingList!=null && buildingList.size()!=0)
-		{
-			List show = new ArrayList<String>();
-			show.add("builId");
-			show.add("builNum");
-			String data = JsonConvert.list2Json(buildingList, "org.pmp.vo.Building", show);
-			JsonConvert.output(data);
-		}
-		else
-		{
-			System.out.println("data is null");
-		}
-	}
+//	public void getBuildingByProject(){
+//		Pager pager = new Pager(100,1);
+//		List buildingList = buildingService.loadBuildingListByProject(pager, projectId);
+//		if(buildingList!=null && buildingList.size()!=0)
+//		{
+//			List show = new ArrayList<String>();
+//			show.add("builId");
+//			show.add("builNum");
+//			String data = JsonConvert.list2Json(buildingList, "org.pmp.vo.Building", show);
+//			JsonConvert.output(data);
+//		}
+//		else
+//		{
+//			System.out.println("data is null");
+//		}
+//	}
 	
 	public String uploadFile(){
 		if(!MyfileUtil.validate(refFileFileName,"xls")){
@@ -213,29 +239,39 @@ public class BuildingAction extends ActionSupport {
 	/**
 	 * @return the currentPage
 	 */
-	public Integer getCurrentPage() {
-		return currentPage;
+	/**
+	 * @return the page
+	 */
+	public Integer getPage() {
+		return page;
 	}
 
 	/**
-	 * @param currentPage the currentPage to set
+	 * @param page the page to set
 	 */
-	public void setCurrentPage(Integer currentPage) {
-		this.currentPage = currentPage;
+	public void setPage(Integer page) {
+		this.page = page;
 	}
 
 	/**
-	 * @return the pageSize
+	 * @return the rp
 	 */
-	public Integer getPageSize() {
-		return pageSize;
+	public Integer getRp() {
+		return rp;
 	}
 
 	/**
-	 * @param pageSize the pageSize to set
+	 * @param rp the rp to set
 	 */
-	public void setPageSize(Integer pageSize) {
-		this.pageSize = pageSize;
+	public void setRp(Integer rp) {
+		this.rp = rp;
+	}
+
+	/**
+	 * @return the projectId
+	 */
+	public Integer getProjectId() {
+		return projectId;
 	}
 	/**
 	 * @param projectId the projectId to set

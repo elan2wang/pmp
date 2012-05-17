@@ -47,10 +47,10 @@
 	<action name="companyAction" class="org.pmp.action.business.CompanyAction">
 		<result name="success">/cms/cmpySelect.jsp </result>
 	</action>
-	<action name="building_list" class="org.pmp.action.business.BuildingAction" method="loadBuildingList">
+	<action name="building_listBySessionHandler" class="org.pmp.action.business.BuildingAction" method="loadBuildingListBySessionHandler">
 	</action>
-	<action name="project_list" class="org.pmp.action.business.ProjectAction" method="loadProjectList">
-	</action>
+	<action name="project_listBySessionHandler" class="org.pmp.action.business.ProjectAction" method="loadProjectListBySessionHandler">
+	</action>	
 	<action name="deleteProject" class="org.pmp.action.business.ProjectAction" method="deleteProject">
 	</action>
 	<action name="get_building" class="org.pmp.action.business.BuildingAction" method="getBuildingById">
@@ -58,50 +58,31 @@
 	</action>
 	<action name="delete_building" class="org.pmp.action.business.BuildingAction" method="deleteBuilding">
 	</action>
-	<action name="buildingAction" class="org.pmp.action.business.BuildingAction" method="loadBuildingList">
-		<result name="success">/cms/building_list.jsp</result>
-	</action>
 	<action name="getBuildingByProject" class="org.pmp.action.business.BuildingAction" method="getBuildingByProject">
 	</action>
 	<action name="get_project" class="org.pmp.action.business.ProjectAction" method="getProjectById">
 		<result name="success">/cms/project_edit.jsp</result>
 	</action>
-	<action name="getAllProject" class="org.pmp.action.business.ProjectAction" method="getAllProject">
-		<result name="success">/cms/projectSelect.jsp</result>
-	</action>
+
 	<action name="getProjectBySessionHander" class="org.pmp.action.business.ProjectAction" method="getProjectBySessionHander">
 		<result name="success">/cms/projectSelect.jsp</result>
 	</action>
 	
-	<action name="getProjectByDistrict" class="org.pmp.action.business.ProjectAction" method="getProjectByDistrict">
-	</action>
 	<action name="update_Project" class="org.pmp.action.business.ProjectAction" method="updateProject">
 		<result name="success">/cms/project_list.jsp</result>
 	</action>
 	<action name="projectAction" class="org.pmp.action.business.ProjectAction" method="">
 		<result name="success">/cms/project_list.jsp</result>
 	</action>
-	<action name="house_list" class="org.pmp.action.business.HouseAction" method="loadHouseList">
+	<action name="house_listBySessionHandler" class="org.pmp.action.business.HouseAction" method="loadHouseListBySessionHandler">
 	</action>
-	<action name="getHouseByConditions" class="org.pmp.action.business.HouseAction" method="getHouseByProjectOrBuilding">
-	</action>
+
 	<action name="getHouseById" class="org.pmp.action.business.HouseAction" method="getHouseById">
 		<result name="success">/cms/house_edit.jsp</result>
 	</action>
-	<action name="getAllHouseNum" class="org.pmp.action.business.HouseAction" method="getAllHouseNum"></action>
+
 	<action name="deleteHouse" class="org.pmp.action.business.HouseAction" method="deleteHouse"></action>
-	<action name="saveOwner" class="org.pmp.action.business.OwnerAction" method="saveOwner">
-		<result name="success">/cms/owner_list.jsp</result>
-	</action>
-	<action name="owner_list" class="org.pmp.action.business.OwnerAction" method="getOwnerList">
-	</action>
-	<action name="delete_owner" class="org.pmp.action.business.OwnerAction" method="deleteOwnerById"></action>
-	<action name="get_owner" class="org.pmp.action.business.OwnerAction" method="getOwnerById">
-		<result name="success">/cms/owner_edit.jsp</result>
-	</action>	
-	<action name="updateOwner" class="org.pmp.action.business.OwnerAction" method="updateOwner">
-		<result name="success">/cms/owner_list.jsp</result>
-	</action>
+	
 	
 	<action name="fileUpload" class="org.pmp.action.business.ProjectAction" method="uploadFile">
 		<result name="success">/cms/project_list.jsp</result>
@@ -109,11 +90,26 @@
 	<action name="buildingImport" class="org.pmp.action.business.BuildingAction" method="uploadFile">
 		<result name="success">/cms/project_list.jsp</result>
 	</action>
-	<action name="OwnerImport" class="org.pmp.action.business.OwnerAction" method="uploadFile">
-		<result name="success">/cms/importSuccess.jsp</result>
-		<result name="filetype_error">/cms/importError.jsp</result>
-	</action>
 	
+	<!-- owner related actions -->
+	<action name="loadOwnerList_ByPro" class="org.pmp.action.business.OwnerAction" method="loadOwnerList_ByPro" />
+    
+    <action name="addOwner" class="org.pmp.action.business.OwnerAction" method="addOwner">
+      <result name="success" type="redirect">/cms/owner_list.jsp</result>
+    </action>
+    
+    <action name="editOwner" class="org.pmp.action.business.OwnerAction" method="editOwner">
+      <result name="success" type="redirect">/cms/owner_list.jsp</result>
+    </action>
+    
+    <action name="getOwner" class="org.pmp.action.business.OwnerAction" method="getOwnerInfo">
+      <result name="success">/cms/owner_edit.jsp</result>
+    </action>
+    
+    <!-- s:action tag related actions  -->
+    <action name="load_owner_list_banner" class="org.pmp.action.business.PageTriggerAction" method="select_project">
+      <result name="success">/fee/pro_options.jsp</result>
+    </action>
   </package>
 
 </struts>

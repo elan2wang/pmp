@@ -8,6 +8,7 @@
 package org.pmp.service.business;
 
 import java.util.List;
+import java.util.Map;
 
 
 import org.pmp.util.Pager;
@@ -24,10 +25,9 @@ public interface IBuildingService {
     public void updateBuilding(Building building);
     public void deleteBuilding(Integer builId);
     public Building getBuildingById(Integer buildId);
-	public List getBuildingByProject(Project project);
-    public List getAllBuilding();
-    public List loadBuildingList(Pager pager);
-    public List loadBuildingListByProject(Pager pager,Integer projectId);
+    public List<Building> loadBuildingList_ByCompany(Integer comId,Map<String,Object>params,String order,Pager pager);
+    
+    public List<Building> loadBuildingList_ByProject(Integer proId,Map<String,Object>params,String order,Pager pager);
     public void batchSaveBuilding(List<Building> buildingList);
     public Building getBuildingByProjectIdAndBuildingNum(Integer projectId,Integer buildingNum);
 }

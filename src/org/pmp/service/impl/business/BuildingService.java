@@ -9,6 +9,7 @@ package org.pmp.service.impl.business;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.pmp.dao.business.IBuildingDAO;
 import org.pmp.service.business.IBuildingService;
@@ -37,99 +38,6 @@ public class BuildingService implements IBuildingService {
 	public void saveBuilding(Building building) {
 		buildingDao.saveBuilding(building);
 		saveBuildingHouse(building);
-	}
-
-	/**
-	 * @Title: updateBuilding
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public void updateBuilding(Building building) {
-		buildingDao.updateBuilding(building);
-
-	}
-
-	/**
-	 * @Title: deleteBuilding
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public void deleteBuilding(Integer builId) {
-		buildingDao.deleteBuilding(builId);
-
-	}
-
-	/**
-	 * @Title: getBuildingById
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public Building getBuildingById(Integer buildId) {
-		return buildingDao.getBuildingByID(buildId);
-	}
-	
-	/**
-	 * @Title: getBuildingByProject
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public List getBuildingByProject(Project project)
-	{
-		return buildingDao.getBuildingByPro(project);
-	}
-	/**
-	 * @Title: getAllBuilding
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public List getAllBuilding() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	 * @Title: loadProjectList
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public List loadBuildingList(Pager pager) {
-		return buildingDao.loadBuildingList(pager);
-	}
-	/**
-	 * @Title: loadBuildingListByProject
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public List loadBuildingListByProject(Pager pager, Integer projectId) {
-		return buildingDao.loadBuildingListByProject(pager, projectId);
 	}
 	public void saveBuildingHouse(Building building){
 //		private Integer builId;
@@ -175,7 +83,77 @@ public class BuildingService implements IBuildingService {
 		
 		buildingDao.saveBuildingHouse(list, building);
 	}
+	/**
+	 * @Title: updateBuilding
+	 * @Description: TODO
+	 *
+	 * @param  TODO
+	 * @return TODO
+	 * @throws TODO
+	 */
+	@Override
+	public void updateBuilding(Building building) {
+		buildingDao.updateBuilding(building);
 
+	}
+
+	/**
+	 * @Title: deleteBuilding
+	 * @Description: TODO
+	 *
+	 * @param  TODO
+	 * @return TODO
+	 * @throws TODO
+	 */
+	@Override
+	public void deleteBuilding(Integer builId) {
+		buildingDao.deleteBuilding(builId);
+
+	}
+
+	/**
+	 * @Title: getBuildingById
+	 * @Description: TODO
+	 *
+	 * @param  TODO
+	 * @return TODO
+	 * @throws TODO
+	 */
+	@Override
+	public Building getBuildingById(Integer buildId) {
+		return buildingDao.getBuildingByID(buildId);
+	}
+	
+	
+	/**
+	 * @Title: loadBuildingList_ByCompany
+	 * @Description: TODO
+	 *
+	 * @param  TODO
+	 * @return TODO
+	 * @throws TODO
+	 */
+	@Override
+	public List<Building> loadBuildingList_ByCompany(Integer comId,Map<String,Object>params,String order,Pager pager)
+	{
+		return buildingDao.loadBuildingList_ByCompany(comId, params, order, pager);
+	}
+	
+	/**
+	 * @Title: loadBuildingList_ByProject
+	 * @Description: TODO
+	 *
+	 * @param  TODO
+	 * @return TODO
+	 * @throws TODO
+	 */
+	@Override
+	public List<Building> loadBuildingList_ByProject(Integer proId,Map<String,Object>params,String order,Pager pager)
+	{
+		return buildingDao.loadBuildingList_ByProject(proId, params, order, pager);
+	}
+	
+	
 	/**
 	 * @param buildingDao the buildingDao to set
 	 */

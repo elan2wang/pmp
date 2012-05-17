@@ -8,6 +8,7 @@
 package org.pmp.service.impl.business;
 
 import java.util.List;
+import java.util.Map;
 
 import org.pmp.dao.business.IProjectDAO;
 import org.pmp.service.business.IProjectService;
@@ -23,9 +24,6 @@ public class ProjectService implements IProjectService {
 
 	IProjectDAO projectDAO;
     
-	public List<?> loadProjectByComID(Pager pager,Integer comId){
-	    return this.projectDAO.loadProjectByComID(pager, comId);
-	}
 	/**
 	 * @param projectDAO the projectDAO to set
 	 */
@@ -97,9 +95,8 @@ public class ProjectService implements IProjectService {
 	public Project getProjectByName(String projectName) {
 		return projectDAO.getProjectByName(projectName);
 	}
-
 	/**
-	 * @Title: loadProjectList
+	 * @Title: loadProjectList_ByCompany
 	 * @Description: TODO
 	 *
 	 * @param  TODO
@@ -107,62 +104,10 @@ public class ProjectService implements IProjectService {
 	 * @throws TODO
 	 */
 	@Override
-	public List loadProjectList(Pager pager) {
-		return projectDAO.loadProjectList(pager);
+	public List<Project> loadProjectList_ByCompany(Integer comId,Map<String,Object>params,String order,Pager pager)
+	{
+		return projectDAO.loadProjectList_ByCompany(comId, params, order, pager);
 	}
-
-	/**
-	 * @Title: loadEnabledProjectList
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public List loadEnabledProjectList(Pager pager) {
-		return projectDAO.loadEnabledProjectList(pager);
-	}
-
-	/**
-	 * @Title: loadDisabledProjectList
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public List loadDisabledProjectList(Pager pager) {
-		return projectDAO.loadDisabledProjectList(pager);
-	}
-
-	/**
-	 * @Title: getProjectByDistrict
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public List getProjectByDistrict(String district,Pager pager) {
-		return projectDAO.getProjectByDistrict(district,pager);
-	}
-
-	/**
-	 * @Title: getAllProject
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public List getAllProject() {
-		return projectDAO.getAllProject();
-	}
-
 	/**
 	 * @Title: batchSaveProject
 	 * @Description: TODO

@@ -1,8 +1,13 @@
 /**
- * Author            : Jason
- * Created On        : 2012-4-9 下午04:14:09
+ * Author            : Elan
+ * Created On        : 2012-5-16 下午01:20:30
  * 
  * Copyright 2012.  All rights reserved. 
+ *
+ * Revision History
+ * 
+ *    Date       Modifier       Comments
+ * ----------    -------------  --------------------------------------------
  * 
  */
 package org.pmp.service.business;
@@ -11,27 +16,22 @@ import java.util.List;
 import java.util.Map;
 
 import org.pmp.util.Pager;
+import org.pmp.vo.Member;
 import org.pmp.vo.Owner;
 
 /**
- * @author Jason
+ * @author Elan
  * @version 1.0
  * @update TODO
  */
 public interface IOwnerService {
-    public void addOwner(Owner owner);
-    public void editOwner(Owner owner);
-    public void deleteOwner(Integer ownerId);
-    public Owner getOwnerById(Integer ownerId);
-    public List<?> getAllOwner();
-    public List<?> loadOwnerList(Pager pager);
-    public List<?> loadOwnerByCondition(Integer projectId,Integer buildingId,String keyWord,Pager pager);
-    public List<?> batchSaveOwner(List<Owner> ownerList);
+    public void addOwner(Owner instance,List<Member> list,Integer houseId);
+    public void editOwner(Owner instance,List<Member> list,Integer houseId);
+    public void batchDelete(List<Owner> list);
     
-    /**
-     * @author Elan
-     */
-    public List<?> loadOwnerList_ByProject(Integer proId,Pager pager);
+    public Owner getOwner_ById(Integer ownerId);
     
-    public List<?> loadOwnerList_ByBuilding(Integer builId,Pager pager);
+    public List<?> loadOwnerList_ByPro(Integer proId,Map<String,Object> params,String order,Pager pager);
+    public List<?> loadOwnerList_ByCom(Integer comId,Map<String,Object> params,String order,Pager pager);
+    
 }

@@ -8,6 +8,7 @@
 package org.pmp.service.business;
 
 import java.util.List;
+import java.util.Map;
 
 import org.pmp.util.Pager;
 import org.pmp.vo.Building;
@@ -24,8 +25,8 @@ public interface IHouseService {
     public void updateHouse(House house);
     public House getHouseByHouseNum(String houseNum);
     public House getHouseById(Integer houseId);
-    public List getHouseByBuilding(Building building);
-    public List loadHouseList(Pager pager);
-    public List getHouseByProjectOrBuilding(Integer projectId,Integer buildingId,Pager pager);
+    public List<House> loadHouseList_ByCompany(Integer comId,Map<String,Object>params,String order,Pager pager);   
+    public List<House> loadHouseList_ByProject(Integer proId,Map<String,Object>params,String order,Pager pager);
+    public List<House> loadHouseList_ByBuilding(Integer builId,Map<String,Object>params,String order,Pager pager);
     public House getHouseByBuildingIdAndHouseNum(Integer buildingId,String houseNum);
 }

@@ -6,10 +6,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="../CSS/common/iBox.css" rel="stylesheet" type="text/css" />
 <title>Insert title here</title>
 </head>
 <body>
-<select id="projectId" name="projectId" onchange="ProjectChanged()">
+<select id="projectId" name="projectId"  class="selectbox" onchange="projectChanged()">
 <option value="0" selected="selected">请选择小区</option>
 <c:forEach var="project" items="${projectList}">
 	<option value="${project.proId}">${project.proName}</option>

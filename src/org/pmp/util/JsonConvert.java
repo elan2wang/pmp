@@ -101,6 +101,8 @@ public class JsonConvert {
             return string2Json(((org.pmp.vo.Project)o).getProName());
         if (o instanceof org.pmp.vo.Company)
             return string2Json(((org.pmp.vo.Company)o).getComName());
+        if (o instanceof org.pmp.vo.Building)
+            return string2Json(((org.pmp.vo.Building)o).getBuilNum());
         if (o instanceof org.pmp.vo.House)
             return string2Json(((org.pmp.vo.House)o).getHouseNum());
         if (o instanceof org.pmp.vo.CondoFeeItem){
@@ -166,45 +168,36 @@ public class JsonConvert {
     	    Class<?> cls = Class.forName(beanType);
     	    Field[] fields = cls.getDeclaredFields();
     	    
-    	  //找到属性名包含Id的主键
-    	    boolean idtrue=false;
-    	    for(Field field : fields){
-        		/* generate the getter method of the field */
-        		fieldType = field.getType().toString();
-        		fieldName = field.getName();
-        		if (fieldName.contains("Id"))
-        		{        		
-        			/* if the field is in show list then append to StringBuffer */
-        			if (fieldType.equals("boolean")){
-        				getter = "is" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
-        			} else {
-        				getter = "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
-        			}
-        			Method getterMethod = cls.getMethod(getter, new Class[] {});
-        			Object value = getterMethod.invoke(obj, new Object[] {});
-        			sb.append(toJson("id")+":\""+toJson(value)+"\",");//增加"id":"idValue"
-        			idtrue=true;
-        		}
-        	}
-    	    //判断是否找到了包含Id的主键属性
-    	    if(!idtrue)
+    	    //找到属性名包含Id的主键的Field
+    	    Field Id_Field = getIdField(fields);
+    	    if(Id_Field!=null)
     	    {
-    	    	logger.error(" class not a fieldname contains \'Id\'");
+    	    	fieldType = Id_Field.getType().toString();
+    	    	fieldName = Id_Field.getName();
+    	    	/* if the field is in show list then append to StringBuffer */
+    	    	if (fieldType.equals("boolean")){
+    	    		getter = "is" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
+    	    	} else {
+    	    		getter = "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
+    	    	}
+    	    	Method getterMethod = cls.getMethod(getter, new Class[] {});
+    	    	Object value = getterMethod.invoke(obj, new Object[] {});
+    	    	sb.append(toJson("id")+":\""+toJson(value)+"\",");//增加"id":"idValue"
     	    }
     	    sb.append(toJson("cell")+":"+"{");//增加"id":"idValue"
     	    
     	    for(Field field : fields){
-    		/* generate the getter method of the field */
-    		fieldType = field.getType().toString();
-    		fieldName = field.getName();
-    		if (fieldType.equals("boolean")){
-    		    getter = "is" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
-    		} else {
-    		    getter = "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
-    		}
-    		Method getterMethod = cls.getMethod(getter, new Class[] {});
-    		Object value = getterMethod.invoke(obj, new Object[] {});
-    		sb.append(toJson(fieldName)+":"+toJson(value)+",");
+    	    	/* generate the getter method of the field */
+    	    	fieldType = field.getType().toString();
+    	    	fieldName = field.getName();
+    	    	if (fieldType.equals("boolean")){
+    	    		getter = "is" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
+    	    	} else {
+    	    		getter = "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
+    	    	}
+    	    	Method getterMethod = cls.getMethod(getter, new Class[] {});
+    	    	Object value = getterMethod.invoke(obj, new Object[] {});
+    	    	sb.append(toJson(fieldName)+":"+toJson(value)+",");
     	    }
     	    sb.setCharAt(sb.length()-1, '}');
     	    
@@ -267,6 +260,44 @@ public class JsonConvert {
 	return sb.toString();
     }
     
+
+    
+    //找到属性名包含Id的主键的Field
+    static Field getIdField(Field[] fields)
+    {
+    	String getter = null;
+    	String fieldType = null;
+    	String fieldName = null;
+    	boolean idtrue=false;
+    	Field Id=null;
+    	try {
+    		for(Field field : fields){
+    			/* generate the getter method of the field */
+    			fieldType = field.getType().toString();
+    			fieldName = field.getName();
+    			if (fieldName.contains("Id"))
+    			{ 
+    				Id = field;
+    				idtrue=true;
+    				break; 				
+    			}    			
+    		}
+    		 //判断是否找到了包含Id的主键属性
+		    if(!idtrue)
+		    {
+		    	logger.error(" class not a fieldname contains \'Id\'");
+		    }
+		    return Id;
+    	}
+    	catch(Exception e)
+    	{
+    		logger.error(" error:",e);
+    		return Id;
+    		
+    	}
+	   
+    }
+
     //返回{"id":"1","cell":{"realname":"aw","position":"qteacher","userDesc":"userDesc"}   
     //主键的判断：fieledname中含有”Id”的fieledname为主键属性
     static String object2FlexJson(Object obj,String beanType,List<String> show){
@@ -279,32 +310,23 @@ public class JsonConvert {
     	    Class<?> cls = Class.forName(beanType);
     	    
     	    Field[] fields = cls.getDeclaredFields();
-    	    //找到属性名包含Id的主键
-    	    boolean idtrue=false;
-    	    for(Field field : fields){
-        		/* generate the getter method of the field */
-        		fieldType = field.getType().toString();
-        		fieldName = field.getName();
-        		if (fieldName.contains("Id"))
-        		{        		
-        			/* if the field is in show list then append to StringBuffer */
-        			if (fieldType.equals("boolean")){
-        				getter = "is" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
-        			} else {
-        				getter = "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
-        			}
-        			Method getterMethod = cls.getMethod(getter, new Class[] {});
-        			Object value = getterMethod.invoke(obj, new Object[] {});
-        			sb.append(toJson("id")+":\""+toJson(value)+"\",");//增加"id":"idValue"
-        			idtrue=true;
-        		}
-        	}
-    	    //判断是否找到了包含Id的主键属性
-    	    if(!idtrue)
+    	    //找到属性名包含Id的主键的Field
+    	    Field Id_Field = getIdField(fields);
+    	    if(Id_Field!=null)
     	    {
-    	    	logger.error(" class not a fieldname contains \'Id\'");
+    	    	fieldType = Id_Field.getType().toString();
+    	    	fieldName = Id_Field.getName();
+    	    	/* if the field is in show list then append to StringBuffer */
+    	    	if (fieldType.equals("boolean")){
+    	    		getter = "is" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
+    	    	} else {
+    	    		getter = "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
+    	    	}
+    	    	Method getterMethod = cls.getMethod(getter, new Class[] {});
+    	    	Object value = getterMethod.invoke(obj, new Object[] {});
+    	    	sb.append(toJson("id")+":\""+toJson(value)+"\",");//增加"id":"idValue"
     	    }
-    	    sb.append(toJson("cell")+":"+"{");//增加"id":"idValue"
+    	    sb.append(toJson("cell")+":"+"{");//增加"cell"
     	    for(Field field2 : fields){
     	    	/* generate the getter method of the field */
     	    	fieldType = field2.getType().toString();
@@ -312,7 +334,8 @@ public class JsonConvert {
     	    	/* if the field is not in show list then continue */
     	    	if (!show.contains(fieldName))continue;
     		
-    	    	/* if the field is in show list then append to StringBuffer */
+    	    	/* if the field is in show list then append to StringBuffer 
+    	    	 * 如果fieldType不是基本的包装类，而是比如Building这样的class时*/
     	    	if (fieldType.equals("boolean")){
     	    		getter = "is" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
     	    	} else {
@@ -349,7 +372,7 @@ public class JsonConvert {
 	    Object obj = ite.next();
 	    sb.append("    "+object2Json(obj,beanType)+",\n");
 	}
-	sb.deleteCharAt(sb.length()-2);
+	if(list.size()!=0)sb.deleteCharAt(sb.length()-2);
 	sb.append("  ]\n}\n");
 	return sb.toString();
     }
@@ -368,7 +391,7 @@ public class JsonConvert {
 	    Object obj = ite.next();
 	    sb.append("    "+object2Json(obj,beanType)+",\n");
 	}
-	sb.deleteCharAt(sb.length()-2);
+	if(list.size()!=0)sb.deleteCharAt(sb.length()-2);
 	sb.append("  ]\n}\n");
 	
 	return sb.toString();
@@ -387,7 +410,7 @@ public class JsonConvert {
     	    Object obj = ite.next();
     	    sb.append("    "+object2FlexJson(obj,beanType)+"},\n");
     	}
-    	sb.deleteCharAt(sb.length()-2);
+    	if(list.size()!=0)sb.deleteCharAt(sb.length()-2);
     	sb.append("  ]\n}\n");
     	
     	return sb.toString();
@@ -402,7 +425,7 @@ public class JsonConvert {
 	    Object obj = ite.next();
 	    sb.append("    "+object2Json(obj,beanType,show)+",\n");
 	}
-	sb.deleteCharAt(sb.length()-2);
+	if(list.size()!=0)sb.deleteCharAt(sb.length()-2);
 	sb.append("  ]\n}\n");
 	return sb.toString();
     }
@@ -422,7 +445,7 @@ public class JsonConvert {
 	    Object obj = ite.next();
 	    sb.append("    "+object2Json(obj,beanType,show)+",\n");
 	}
-	sb.deleteCharAt(sb.length()-2);
+	if(list.size()!=0)sb.deleteCharAt(sb.length()-2);
 	sb.append("  ]\n}\n");
 	
 	return sb.toString();
@@ -440,7 +463,7 @@ public class JsonConvert {
     	    Object obj = ite.next();
     	    sb.append("    "+object2FlexJson(obj,beanType,show)+"},\n");
     	}
-    	if(list.size()!=0)if(list.size()!=0)sb.deleteCharAt(sb.length()-2);
+    	if(list.size()!=0)sb.deleteCharAt(sb.length()-2);
     	sb.append("  ]\n}\n");
     	
     	return sb.toString();
@@ -454,7 +477,7 @@ public class JsonConvert {
 	    Object obj = ite.next();
 	    sb.append("    "+object2Json(obj,beanType,show)+",\n");
 	}
-	sb.deleteCharAt(sb.length()-2);
+	if(list.size()!=0)sb.deleteCharAt(sb.length()-2);
 	sb.append("  ]\n");
 	return sb.toString();
     }

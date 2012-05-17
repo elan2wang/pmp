@@ -8,6 +8,7 @@
 package org.pmp.dao.impl.business;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
@@ -16,6 +17,8 @@ import org.hibernate.Transaction;
 import org.pmp.dao.admin.BaseDAO;
 import org.pmp.dao.business.ICompanyDAO;
 import org.pmp.util.Pager;
+import org.pmp.util.ParamsToString;
+import org.pmp.vo.Building;
 import org.pmp.vo.Company;
 
 
@@ -104,70 +107,34 @@ public class CompanyDAO extends BaseDAO implements ICompanyDAO {
 	}
 	return company;
     }
-   
-    public List loadCompanyList(Pager pager) {
-	List list = null;
-	String sql = "from Company com";
-	logger.debug("begin to invoke loadCompanyListByCondition()");
-	try{
-	    list = loadCompanyListByCondition(sql,pager);
-	} catch (RuntimeException e){
-	    logger.error("load all company list failed");
-	    throw e;
+	/**
+	 * @Title: loadBuildingList_ByChinaMobile
+	 * @Description: TODO
+	 *
+	 * @param  TODO
+	 * @return TODO
+	 * @throws TODO
+	 */
+	@Override
+	public List<Company> loadBuildingList_ByChinaMobile(Map<String,Object>params,String order,Pager pager)
+	{
+		List<Company> list = null;
+		String debugMsg = "load company list by chinamobile";
+		StringBuilder hql = new StringBuilder();
+		hql.append("from Company");
+		hql.append(ParamsToString.toString(params));
+		if (order==null){
+		    hql.append(" order by comId desc");
+		} else {
+		    hql.append(" "+order);
+		}
+		logger.debug(hql);
+		try {
+		    list = (List<Company>) loadListByCondition(hql.toString(),pager,debugMsg);
+		} catch (RuntimeException e){
+		    throw e;
+		}
+		
+		return list;
 	}
-	logger.debug("load all company list successfully");
-	return list;
-    }
-
-    public List loadEnabledCompanyList(Pager pager) {
-	List list = null;
-	String sql = "from Company com where com.enabled = true";
-	logger.debug("begin to invoke loadCompanyListByCondition()");
-	try{
-	    list = loadCompanyListByCondition(sql,pager);
-	} catch (RuntimeException e){
-	    logger.error("load Enabled company list failed");
-	    throw e;
-	}
-	logger.debug("load all Enabled company list successfully");
-	return list;
-    }
-
-    public List loadDisabledCompanyList(Pager pager) {
-	List list = null;
-	String sql = "from Company com where com.enabled = false";
-	logger.debug("begin to invoke loadCompanyListByCondition()");
-	try{
-	    list = loadCompanyListByCondition(sql,pager);
-	} catch (RuntimeException e){
-	    logger.error("load Disabled company list failed");
-	    throw e;
-	}
-	logger.debug("load all Disabled company list successfully");
-	return list;
-    }
-
-    private List loadCompanyListByCondition(String sql,Pager pager) {
-	Session session = getSession();
-	Integer startRow = (pager.getCurrentPage()-1)*pager.getPageSize();
-	List list1 = null;
-	List list2 = null;
-	logger.debug("begin to get company list.");
-	try {
-	    Transaction tx = session.beginTransaction();
-	    Query query = session.createQuery(sql);
-	    list1 = query.list();
-	    pager.setRowsCount(list1.size());
-	    query.setFirstResult(startRow);
-	    query.setMaxResults(pager.getPageSize());
-	    list2 = query.list();
-	    tx.commit();
-	} catch (RuntimeException e){
-	    logger.error("get company list failed.", e);
-	    throw e;
-	}
-	logger.debug("get company list successfully.");
-	session.close();
-	return list2;
-    }
 }

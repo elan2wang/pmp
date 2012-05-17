@@ -19,6 +19,7 @@ import org.pmp.dao.business.IHouseDAO;
 import org.pmp.util.Pager;
 import org.pmp.util.ParamsToString;
 import org.pmp.vo.Building;
+import org.pmp.vo.CondoFee;
 import org.pmp.vo.House;
 import org.pmp.vo.Owner;
 
@@ -170,179 +171,9 @@ public class HouseDAO extends BaseDAO implements IHouseDAO {
 		return house;
 	}
 
-	/**
-	 * @Title: getHouseByBuilding
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public List getHouseByBuilding(Building building) {
-		Session session = getSession();
-		List list = null;
-		logger.debug("begin to get House by Building");
-		try{
-			Transaction tx = session.beginTransaction();
-			Query query = session.createQuery("from House where building.builId = "+building.getBuilId());
-			list = query.list();
-		}catch(RuntimeException e){
-			logger.error("get House by building error",e);
-			throw e;
-		}
-		logger.debug("get House by building is success");
-		session.close();
-		return list;
-	}
-
-	/**
-	 * @Title: getHouseByOwner
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public List getHouseByOwner(Owner owner) {
-		Session session = getSession();
-		List list = null;
-		logger.debug("begin to get House by Owner");
-		try{
-			Transaction tx = session.beginTransaction();
-			Query query = session.createQuery("from House where House.owner = "+owner);
-			list = query.list();
-		}catch(RuntimeException e){
-			logger.error("get House by Owner error",e);
-			throw e;
-		}
-		logger.debug("get House by Owner is success");
-		session.close();
-		return list;
-	}
-
-	/**
-	 * @Title: getHouseByIsempty
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public List getHouseByIsempty(Boolean isempty) {
-		Session session = getSession();
-		List list = null;
-		logger.debug("begin to get House by isempty");
-		try{
-			Transaction tx = session.beginTransaction();
-			Query query = session.createQuery("from House where House.isempty = "+isempty);
-			list = query.list();
-		}catch(RuntimeException e){
-			logger.error("get House by isempty error",e);
-			throw e;
-		}
-		logger.debug("get House by isempty is success");
-		session.close();
-		return list;
-	}
-
-	/**
-	 * @Title: loadBuildingList
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public List loadHouseList(Pager pager) {
-		List list = null;
-		String sql = "from House";
-		logger.debug("begin to invoke loadHouseListByCondition()");
-		try{
-		    list = loadHouseListByCondition(sql,pager);
-		} catch (RuntimeException e){
-		    logger.error("load all House list successfully");
-		    throw e;
-		}
-		logger.debug("load all House list successfully");
-		return list;
-	    }
-
-	/**
-	 * @Title: loadEnabledBuildingList
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public List loadEnabledHouseList(Pager pager) {
-		List list = null;
-		String sql = "from House where House.isempty = true";
-		logger.debug("begin to invoke loadHouseListByCondition()");
-		try{
-		    list = loadHouseListByCondition(sql,pager);
-		} catch (RuntimeException e){
-		    logger.error("load empty House list failed");
-		    throw e;
-		}
-		logger.debug("load all empty House list successfully");
-		return list;
-	    }
-
-	/**
-	 * @Title: loadDisabledBuildingList
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public List loadDisabledHouseList(Pager pager) {
-		List list = null;
-		String sql = "from House bul where House.isempty = false";
-		logger.debug("begin to invoke loadHouseListByCondition()");
-		try{
-		    list = loadHouseListByCondition(sql,pager);
-		} catch (RuntimeException e){
-		    logger.error("load noEmpty House list failed");
-		    throw e;
-		}
-		logger.debug("load all noEmpty House list successfully");
-		return list;
-	    }
 	
-	private List loadHouseListByCondition(String sql,Pager pager) {
-		Session session = getSession();
-		Integer startRow = (pager.getCurrentPage()-1)*pager.getPageSize();
-		List list1 = null;
-		List list2 = null;
-		logger.debug("begin to get House list.");
-		try {
-		    Transaction tx = session.beginTransaction();
-		    Query query = session.createQuery(sql);
-		    list1 = query.list();
-		    pager.setRowsCount(list1.size());
-		    query.setFirstResult(startRow);
-		    query.setMaxResults(pager.getPageSize());
-		    list2 = query.list();
-		    tx.commit();
-		} catch (RuntimeException e){
-		    logger.error("get House list failed.", e);
-		    throw e;
-		}
-		logger.debug("get House list successfully.");
-		session.close();
-		return list2;
-	    }
-
 	/**
-	 * @Title: getHouseByProjectOrBuilding
+	 * @Title: loadHouseList_ByCompany
 	 * @Description: TODO
 	 *
 	 * @param  TODO
@@ -350,28 +181,93 @@ public class HouseDAO extends BaseDAO implements IHouseDAO {
 	 * @throws TODO
 	 */
 	@Override
-	public List getHouseByProjectOrBuilding(Integer projectId,Integer buildingId,Pager pager) {
-		List list = null;
-		String sql = null;
-		if(buildingId == 0){
-			sql = "from House where House.building.project.proId="+projectId;
+	   public List<House> loadHouseList_ByCompany(Integer comId,Map<String,Object>params,String order,Pager pager)
+	   {
+		List<House> list = null;
+		String debugMsg = "load house list by company, comId="+comId;
+		StringBuilder hql = new StringBuilder();
+		hql.append("from House where building in " +
+			   "(from Building where project in (from Project where company.comId="+comId+"))");
+		hql.append(ParamsToString.toString(params));
+		if (order==null){
+		    hql.append(" order by houseId desc");
+		} else {
+		    hql.append(" "+order);
 		}
-		else{
-			sql = "from House where House.building.project.proId="+projectId+" and House.building.builId="+buildingId;
-		}
-		logger.debug("begin to invoke loadHouseListByCondition()");
-		try{
-		    list = loadHouseListByCondition(sql,pager);
+		logger.debug(hql);
+		try {
+		    list = (List<House>) loadListByCondition(hql.toString(),pager,debugMsg);
 		} catch (RuntimeException e){
-		    logger.error("load empty House list failed");
 		    throw e;
 		}
-		logger.debug("load all empty House list successfully");
+		
 		return list;
+	   }
+	
+	/**
+	 * @Title: loadHouseList_ByProject
+	 * @Description: TODO
+	 *
+	 * @param  TODO
+	 * @return TODO
+	 * @throws TODO
+	 */
+	@Override
+	public List<House> loadHouseList_ByProject(Integer proId,Map<String,Object>params,String order,Pager pager)
+	{
+				List<House> list = null;
+				String debugMsg = "load house list by project, proId="+proId;
+				StringBuilder hql = new StringBuilder();
+				hql.append("from House where building in " +
+					   "(from Building where project.proId="+proId+")");
+				hql.append(ParamsToString.toString(params));
+				if (order==null){
+				    hql.append(" order by houseId desc");
+				} else {
+				    hql.append(" "+order);
+				}
+				logger.debug(hql);
+				try {
+				    list = (List<House>) loadListByCondition(hql.toString(),pager,debugMsg);
+				} catch (RuntimeException e){
+				    throw e;
+				}
+				
+				return list;	
 	}
-//	select * from tb_House where Buil_ID in (select Buil_ID from tb_Building where Pro_ID=6);
 
 	/**
+	 * @Title: loadHouseList_ByBuilding
+	 * @Description: TODO
+	 *
+	 * @param  TODO
+	 * @return TODO
+	 * @throws TODO
+	 */
+    public List<House> loadHouseList_ByBuilding(Integer builId,Map<String,Object>params,String order,Pager pager)
+    {
+		List<House> list = null;
+		String debugMsg = "load house list by building, builId="+builId;
+		StringBuilder hql = new StringBuilder();
+		hql.append("from House where building.builId="+builId);
+		hql.append(ParamsToString.toString(params));
+		if (order==null){
+		    hql.append(" order by houseId desc");
+		} else {
+		    hql.append(" "+order);
+		}
+		logger.debug(hql);
+		try {
+		    list = (List<House>) loadListByCondition(hql.toString(),pager,debugMsg);
+		} catch (RuntimeException e){
+		    throw e;
+		}
+		
+		return list;	
+    }
+    
+    
+    /**
 	 * @Title: getHouseByBuildingNumAndHouseNum
 	 * @Description: TODO
 	 *

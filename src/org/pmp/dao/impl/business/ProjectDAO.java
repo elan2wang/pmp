@@ -10,6 +10,7 @@ package org.pmp.dao.impl.business;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
@@ -18,6 +19,8 @@ import org.hibernate.Transaction;
 import org.pmp.dao.admin.BaseDAO;
 import org.pmp.dao.business.IProjectDAO;
 import org.pmp.util.Pager;
+import org.pmp.util.ParamsToString;
+import org.pmp.vo.CondoFee;
 import org.pmp.vo.Project;
 
 /**
@@ -33,17 +36,17 @@ public class ProjectDAO extends BaseDAO implements IProjectDAO {
      * @author Elan
      * Created On : 2012-5-3 下午02:46:32
      */
-    public List<?> loadProjectByComID(Pager pager,Integer comId){
-	String debugMsg = "load project by company,comId="+comId;
-        String sql = "from Project where company.comId="+comId;
-        List<?> list = null;
-        try {
-            list = loadListByCondition(sql,pager,debugMsg);
-        } catch(RuntimeException e){
-            throw e;
-        }
-        return list;
-    }
+//    public List<?> loadProjectByComID(Pager pager,Integer comId){
+//	String debugMsg = "load project by company,comId="+comId;
+//        String sql = "from Project where company.comId="+comId;
+//        List<?> list = null;
+//        try {
+//            list = loadListByCondition(sql,pager,debugMsg);
+//        } catch(RuntimeException e){
+//            throw e;
+//        }
+//        return list;
+//    }
 	public void saveProject(Project project) {
 		Session session = getSession();
 		try{
@@ -110,26 +113,6 @@ public class ProjectDAO extends BaseDAO implements IProjectDAO {
 		Project project = (Project)getInstance(hql,"get a Project By ID");
 		return project;
 	}
-
-	public Project getProjectByOwnerID(Integer ownerID) {
-		logger.debug("ownerID"+ownerID);
-		Session session = getSession();
-		Project project = null;
-		List list = null;
-		logger.debug("begin to get a project by ownerID");
-		try{
-			Transaction tx = session.beginTransaction();
-			Query query = session.createQuery("select pro from Project pro,Building bui,House hou,HouseOwner hoo where pro.proId=bui.proId and bui.Buil_ID=house.Buil_ID and hou.House_ID=hoo.House_ID and hoo.Owner_ID="+ownerID);
-			list = query.list();
-			project = (Project)list.get(0);
-		}catch(RuntimeException e){
-			logger.error("get a project by ownerID failed",e);
-			throw e;
-		}
-		logger.debug("get a project by ownerID success");
-		session.close();
-		return project;
-	}
 	
 	public Project getProjectByName(String projectName) {
 		Session session = getSession();
@@ -149,128 +132,36 @@ public class ProjectDAO extends BaseDAO implements IProjectDAO {
 		session.close();
 		return project;
 	}
-
-	public List getProjectByDistrict(String district,Pager pager) {
-		List list = null;
-		String sql = "from Project where proDistrict='"+district+"'";
-		logger.debug("begin to getProjectByDistrict()");
-		try{
-			list = loadProjectListByCondition(sql, pager);
-		}catch(RuntimeException e){
-			logger.error("getProjectByDistrict() is error"+e);
-			throw e;
-		}
-		logger.debug("getProjectByDistrict() is success");
-		return list;
-	}
-	
-	public List loadProjectList(Pager pager) {
-		List list = null;
-		String sql = "from Project pro";
-//		String sql = "select * from tb_Project Order By ModifyTime Desc";
-		logger.debug("begin to invoke loadProjectListByCondition()");
-		try{
-			list = loadProjectListByCondition(sql,pager);
-		}catch(RuntimeException e){
-			logger.error("load all company list failed");
-			throw e;
-		}
-		logger.debug("load all company list successfully");
-		return list;
-	}
-	
-	public List vagueProject(String key) {
-		Session session = getSession();
-		List list = null;
-		logger.debug("begin to get project by keyword");
-		try{
-			Transaction tx = session.beginTransaction();
-			Query query = session.createQuery("from Project pro where pro.proName like '%"+key+"%'");
-			list = query.list();
-		}catch(RuntimeException e){
-			logger.error("get project by keyworld is failed");
-			throw e;
-		}
-		logger.debug("get project by keyworld is success");
-		session.close();
-		return list;
-	}
-
-
-	public List loadEnabledProjectList(Pager pager) {
-		List list = null;
-		String sql = "from Project pro where pro.enabled = true";
-		logger.debug("begin to invoke loadProjectListByCondition()");
-		try{
-		    list = loadProjectListByCondition(sql,pager);
-		} catch (RuntimeException e){
-		    logger.error("load Enabled project list failed");
-		    throw e;
-		}
-		logger.debug("load all Enabled project list successfully");
-		return list;
-	}
-
-	public List loadDisabledProjectList(Pager pager) {
-		List list = null;
-		String sql = "from Project pro where pro.enabled = false";
-		logger.debug("begin to invoke loadProjectListByCondition()");
-		try{
-		    list = loadProjectListByCondition(sql,pager);
-		} catch (RuntimeException e){
-		    logger.error("load Disabled project list failed");
-		    throw e;
-		}
-		logger.debug("load all Disabled project list successfully");
-		return list;
-	}
-
-	private List loadProjectListByCondition(String sql,Pager pager){
-		Session session = getSession();
-		Integer startRow = (pager.getCurrentPage()-1)*pager.getPageSize();
-		List list1 = null;
-		List list2 = null;
-		logger.debug("begin to get project list");
-		try{
-			Transaction tx = session.beginTransaction();
-			Query query = session.createQuery(sql);
-			list1 = query.list();
-			pager.setRowsCount(list1.size());
-			query.setFirstResult(startRow);
-			query.setMaxResults(pager.getPageSize());
-			list2 = query.list();
-			tx.commit();
-		}catch (RuntimeException e){ 
-		    logger.error("get project list failed.", e);
-		    throw e;
-		}
-		logger.debug("get project list successfully.");
-		session.close();
-		return list2;
-	    }
-
-
-
 	/**
-	 * @Title: getAllProject
+	 * @Title: loadProjectList_ByCompany
 	 * @Description: TODO
 	 *
 	 * @param  TODO
 	 * @return TODO
 	 * @throws TODO
 	 */
-	@Override
-	public List getAllProject() {
-		List list = null;
-		Session session = getSession();
-		String sql="from Project";
-		Query query = session.createQuery(sql);
-		list = query.list();
-		return list;
-	}
-
-
-
+	 public List<Project> loadProjectList_ByCompany(Integer comId,Map<String,Object>params,String order,Pager pager)
+	 {
+		 List<Project> list = null;
+			String debugMsg = "load project list by company, comId="+comId;
+			StringBuilder hql = new StringBuilder();
+			hql.append("from Project where company.comId="+comId);
+			hql.append(ParamsToString.toString(params));
+			if (order==null){
+			    hql.append(" order by proId desc");
+			} else {
+			    hql.append(" "+order);
+			}
+			logger.debug(hql);
+			try {
+			    list = (List<Project>) loadListByCondition(hql.toString(),pager,debugMsg);
+			} catch (RuntimeException e){
+			    throw e;
+			}
+			
+			return list;
+	 }
+	 
 	/**
 	 * @Title: batchSaveProject
 	 * @Description: TODO

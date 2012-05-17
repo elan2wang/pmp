@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<area>
+		<name>定海区</name>
+		<street>定海街道1</street>
+		<street>定海街道2</street>
+		<street>定海街道3</street>
+		<street>定海街道4</street>
+	</area>
+	<area>
+		<name>普陀区</name>
+		<street>普陀街道1</street>
+		<street>普陀街道2</street>
+		<street>普陀街道3</street>
+		<street>普陀街道4</street>
+	</area>
+	<area>
+		<name>岱山区</name>
+		<street>岱山区街道1</street>
+		<street>岱山区街道2</street>
+		<street>岱山区街道3</street>
+		<street>岱山区街道4</street>
+	</area>
+	<area>
+		<name>嵊泗区</name>
+		<street>嵊泗区街道1</street>
+		<street>嵊泗区街道2</street>
+		<street>嵊泗区街道3</street>
+		<street>嵊泗区街道4</street>
+	</area>
+</root>

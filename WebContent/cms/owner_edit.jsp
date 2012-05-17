@@ -6,14 +6,23 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<script type="text/javascript" src="../Scripts/pages/cms/owner_edit.js"></script>
+
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="../CSS/common/common.css" rel="stylesheet" type="text/css" />
+<link href="../CSS/common/tab.css" rel="stylesheet" type="text/css" />
+<link href="../CSS/common/iBox.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="../Scripts/component/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="../Scripts/jquery-1.7.1.js" ></script>
+<script type="text/javascript" src="../Scripts/common/common.js"></script>
+<script type="text/javascript" src="../Scripts/pages/cms/owner_add.js"></script>
+<script type="text/javascript" src="../Scripts/pages/cms/owner_edit.js"></script>
 <title>无标题文档</title>
 </head>
 
 <body>
 
-<form id="form1" name="form1" action="updateOwner" method="post">
+<form id="form1" name="form1" action="editOwner" method="post">
   <table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>
       <td height="25"><table width="100%" border="0" cellpadding="0" cellspacing="0">
@@ -30,30 +39,33 @@
       <div id="P1">
         <table width="100%" border="0" cellspacing="0" cellpadding="0">
           <tr>
-            <td align="center" valign="middle"><table border="0" align="center" cellpadding="0" cellspacing="0" class="table1">
-              <tr>
-              	<input type="hidden" name="owner.ownerId" id="owner.ownerId" value="${owner.ownerId}"/>
+            <td align="center" valign="middle"><table border="0" align="center" cellpadding="2" cellspacing="2" class="table1">
+              <tr style="display:none">
+                <td colspan="4">
+                <input type="hidden" name="owner.ownerId" id="owner.ownerId" value="${owner.ownerId}"/>
               	<input type="hidden" name="gender" id="gender" value="${owner.gender}"/>
               	<input type="hidden" name="nationality" id="nationality" value="${owner.nationality}"/>
               	<input type="hidden" name="ismarried" id="ismarried" value="${owner.ismarried}"/>
               	<input type="hidden" name="identityType" id="identityType" value="${owner.identityType}"/>
-              	<input type="hidden" id="proId" name="proId" value="${requestScope.pro.proId}"/>
-              	<input type="hidden" name="builId" id="builId" value="${requestScope.bui.builId}"/>
-              	<input type="hidden" name="houseId2" id="houseId2" value="${requestScope.hou.houseId}"/>
-              	<input type="hidden" name="objName" id="objName" value="${requestScope.objName}"/>
-              	
-                 <td width="70" height="30" align="center" valign="middle">姓名：</td>
-                <td width="220" colspan="2" align="left" valign="middle"><input name="owner.ownerName" type="text" class="textbox" id="owner.ownerName" value="${owner.ownerName}"/></td>
-                <td width="70" align="center" valign="middle">性别：</td>
-                <td width="220" align="left" valign="middle"><select name="owner.gender" class="selectbox" id="select_gender" >
+              	<input type="hidden" id="proId" name="proId" value="${project.proId}"/>
+              	<input type="hidden" name="builId" id="builId" value="${building.builId}"/>
+              	<input type="hidden" name="houseId2" id="houseId2" value="${house.houseId}"/>
+              	<input type="hidden" name="objName" id="objName" value="${objName}"/>
+                </td>
+              </tr>
+              <tr>
+                <td width="70" height="30" align="center" valign="middle">姓&nbsp;&nbsp;&nbsp;&nbsp;名：</td>
+                <td width="180" align="left" valign="middle"><input name="owner.ownerName" type="text" class="textbox" id="owner.ownerName" value="${owner.ownerName}"/></td>
+                <td width="70" align="center" valign="middle">性&nbsp;&nbsp;&nbsp;&nbsp;别：</td>
+                <td width="180" align="left" valign="middle"><select name="owner.gender" class="selectbox" id="select_gender" >
                   <option value="null" selected="selected">－－请选择－－</option>
                   <option value="男">男</option>
                   <option value="女">女</option>
                 </select></td>
               </tr>
               <tr>
-                <td height="30" align="center" valign="middle">民族：</td>
-                <td colspan="2" align="left" valign="middle"><select name="owner.nationality" class="selectbox" id="owner.nationality" >
+                <td height="30" align="center" valign="middle">民&nbsp;&nbsp;&nbsp;&nbsp;族：</td>
+                <td align="left" valign="middle"><select name="owner.nationality" class="selectbox" id="owner.nationality" >
                 <option selected="selected" value="0">－－请选择－－</option>
                 <option value="汉族">汉族</option>
                 <option value="蒙古族">蒙古族</option>
@@ -112,12 +124,12 @@
                 <option value="独龙族">独龙族</option>
                 <option value="基诺族">基诺族</option>
                 </select></td>
-                <td align="center" valign="middle">籍贯：</td>
+                <td align="center" valign="middle">籍&nbsp;&nbsp;&nbsp;&nbsp;贯：</td>
                 <td width="220" align="left" valign="middle"><input name="owner.native_" type="text" class="textbox" id="owner.native_" value="${owner.native_}"/></td>
               </tr>
               <tr>
                 <td height="30" align="center" valign="middle">出生年月：</td>
-                <td colspan="2" align="center" valign="middle"><input name="owner.birthday" type="text" class="textbox" id="owner.birthday" readonly="readonly"  style="cursor:pointer;" onFocus="WdatePicker()" value="<fmt:formatDate value="${owner.birthday}" type="both" pattern="yyyy-MM-dd"/>"/></td>
+                <td align="center" valign="middle"><input name="owner.birthday" type="text" class="textbox" id="owner.birthday" readonly="readonly"  style="cursor:pointer;" onFocus="WdatePicker()" value="<fmt:formatDate value="${owner.birthday}" type="both" pattern="yyyy-MM-dd"/>"/></td>
                 <td align="center" valign="middle">婚姻状况：</td>
                 <td align="left" valign="middle"><select name="owner.ismarried" class="selectbox" id="owner.ismarried" >
                   <option value="null" selected="selected">－－请选择－－</option>
@@ -127,13 +139,13 @@
               </tr>
               <tr>
                 <td height="30" align="center" valign="middle">工作单位：</td>
-                <td colspan="2" align="left" valign="middle"><input name="owner.organization" type="text" class="textbox" id="owner.organization" value="${owner.organization}"/></td>
+                <td align="left" valign="middle"><input name="owner.organization" type="text" class="textbox" id="owner.organization" value="${owner.organization}"/></td>
                 <td align="center" valign="middle">个人爱好：</td>
                 <td align="left" valign="middle"><input name="owner.hobby" type="text" class="textbox" id="owner.hobby"  value="${owner.hobby}"/></td>
               </tr>
               <tr>
                 <td height="30" align="center" valign="middle">证件类型：</td>
-                <td colspan="2" align="left" valign="middle"><select name="owner.identityType" class="selectbox" id="owner.identityType" >
+                <td align="left" valign="middle"><select name="owner.identityType" class="selectbox" id="owner.identityType" >
                   <option value="null" selected="selected">－－请选择－－</option>
                   <option value="身份证">身份证</option>
                   <option value="户口本">户口本</option>
@@ -147,137 +159,129 @@
               </tr>
               <tr>
                 <td height="30" align="center" valign="middle">家庭电话：</td>
-                <td colspan="2" align="left" valign="middle"><input name="owner.homePhone" type="text" class="textbox" id="owner.homePhone" value="${owner.homePhone}"/></td>
+                <td align="left" valign="middle"><input name="owner.homePhone" type="text" class="textbox" id="owner.homePhone" value="${owner.homePhone}"/></td>
                 <td align="center" valign="middle">手机号码：</td>
                 <td align="left" valign="middle"><input name="owner.mobile" type="text" class="textbox" id="owner.mobile"  value="${owner.mobile}"/></td>
               </tr>
               <tr>
                 <td height="30" align="center" valign="middle">领房时间：</td>
-                <td colspan="2" align="left" valign="middle"><input name="owner.getTime" type="text" value="${owner.getTime}" class="textbox" id="owner.getTime" readonly="readonly"  style="cursor:pointer;" onFocus="WdatePicker()" /></td>
+                <td align="left" valign="middle"><input name="owner.getTime" type="text" value="<fmt:formatDate value="${owner.getTime }" type="both" pattern="yyyy-MM-dd"/>" class="textbox" id="owner.getTime" readonly="readonly"  style="cursor:pointer;" onFocus="WdatePicker()" /></td>
                 <td align="center" valign="middle">装修时间：</td>
-                <td align="left" valign="middle"><input name="owner.decorateTime" type="text" value="${owner.decorateTime}" class="textbox" id="owner.decorateTime" readonly="readonly"  style="cursor:pointer;" onFocus="WdatePicker()" /></td>
+                <td align="left" valign="middle"><input name="owner.decorateTime" type="text" value="<fmt:formatDate value="${owner.decorateTime }" type="both" pattern="yyyy-MM-dd"/>" class="textbox" id="owner.decorateTime" readonly="readonly"  style="cursor:pointer;" onFocus="WdatePicker()" /></td>
               </tr>
               <tr>
                 <td height="30" align="center" valign="middle">入住时间：</td>
-                <td colspan="2" align="left" valign="middle"><input name="owner.inTime" value="${owner.inTime}" type="text" class="textbox" id="owner.inTime" readonly="readonly"  style="cursor:pointer;" onFocus="WdatePicker()" /></td>
+                <td align="left" valign="middle"><input name="owner.inTime" value="<fmt:formatDate value="${owner.inTime }" type="both" pattern="yyyy-MM-dd"/>" type="text" class="textbox" id="owner.inTime" readonly="readonly"  style="cursor:pointer;" onFocus="WdatePicker()" /></td>
                 <td align="center" valign="middle">车位库号：</td>
                 <td align="left" valign="middle"><input name="owner.parkNum" type="text" class="textbox" id="owner.parkNum" value="${owner.parkNum}"/></td>
               </tr>
               <tr>
                 <td height="30" align="center" valign="middle">车牌号码：</td>
-                <td colspan="2" align="left" valign="middle"><input name="owner.carNum" type="text" class="textbox" id="owner.carNum"  value="${owner.carNum}"/></td>
-                <td align="center" valign="middle">车型号：</td>
+                <td align="left" valign="middle"><input name="owner.carNum" type="text" class="textbox" id="owner.carNum"  value="${owner.carNum}"/></td>
+                <td align="center" valign="middle">车&nbsp;型&nbsp;号：</td>
                 <td align="left" valign="middle"><input name="owner.carType" type="text" class="textbox" id="owner.carType" value="${owner.carType}"/></td>
               </tr>
               <tr>
-                <td height="30" align="center" valign="middle">储藏室号：</td>
-                <td colspan="2" align="left" valign="middle"><input name="owner.storeroom" type="text" class="textbox" id="owner.storeroom" value="${owner.storeroom}"/></td>
-                <td align="center" valign="middle"></td>
-                <td align="left" valign="middle"></td>
-              </tr>
-          
-              <tr>
-              	
                 <td height="30" align="center" valign="middle">所在小区：</td>
-                <td colspan="2" align="left" valign="middle">
-              	 	 <s:action name="getAllProject" namespace="/cms" executeResult="true"/>               	 	                	 	
+                <td align="left" valign="middle">
+              	<s:action name="getAllProject" namespace="/cms" executeResult="true"/>     
+              	<input type="hidden" id="projectName" name="projectName" value=""/>          	 	                	 	
                 </td>
-                <td align="center" valign="middle">楼宇号：</td>
-                <td align="left" valign="middle"><select id="buildingId" name="buildingId" onchange="getAllHouse()">
-                                              <option value="0" value="0" selected="selected">选择楼宇</option>
-                                      </select> </td></td>
-              </tr></td>
+                <td align="center" valign="middle">楼&nbsp;宇&nbsp;号：</td>
+                <td align="left" valign="middle">
+                <select id="buildingId" name="buildingId" class="selectbox" onchange="buildingChanged()">
+                  <option value="0" value="0" selected="selected">选择楼宇</option>
+                </select>
+                <input type="hidden" id="buildingNum" name="buildingNum" value=""/>
+                </td>
               </tr>
               <tr>
-                <td height="30" align="center" valign="middle">房号：</td>
-                <td colspan="2" align="left" valign="middle">
-                	<select id="houseId" name="houseId" onchange="getHouseInfo()">
+                <td height="30" align="center" valign="middle">房&nbsp;&nbsp;&nbsp;&nbsp;号：</td>
+                <td align="left" valign="middle">
+                	<select id="houseId" name="houseId" class="selectbox">
                 		<option value="0" selected="selected">选择房号</option>
                 	</select>
+                	<input type="hidden" name="houseNum" id="houseNum" value=""/>
                 </td>
-                <td align="center" valign="middle"></td>
-                <td align="left" valign="middle"></td>
+                <td height="30" align="center" valign="middle">房屋面积：</td>
+                <td align="left" valign="middle"><input name="owner.houseArea" type="text" class="textbox" id="owner.houseArea" value="${owner.houseArea}" style="width:110px" />平方米</td>
               </tr>
               <tr>
-                <td height="30" align="center" valign="middle">房屋面积：</td>
-                <td align="left" valign="middle"><input name="owner.houseArea" type="text" class="textbox" id="owner.houseArea" value="${owner.houseArea}" style="width:60px" />
-                  平方米</td>
+                <td height="30" align="center" valign="middle">储藏室号：</td>
+                <td align="left" valign="middle"><input name="owner.storeroom" type="text" class="textbox" id="owner.storeroom" value="${owner.storeroom}"/></td>
                 <td width="70" align="center" valign="middle">使用状况：</td>
-                <td colspan="2" align="left" valign="middle"><table border="0" cellpadding="0" cellspacing="0" class="pinfen">
-                  <tr>
-                    <td align="center" valign="middle"><input type="radio" name="owner.useStyle" id="radio" value="常住" ${(owner.useStyle=='常住')?'checked' : ''} /></td>
-                    <td width="40" align="left" valign="middle">常住</td>
-                    <td align="center" valign="middle"><input type="radio" name="owner.useStyle" id="radio2" value="租住" ${(owner.useStyle=='租住')?'checked' : ''} /></td>
-                    <td width="40" align="left" valign="middle">租住</td>
-                    <td align="center" valign="middle"><input type="radio" name="owner.useStyle" id="radio3" value="暂住" ${(owner.useStyle=='暂住')?'checked' : ''} /></td>
-                    <td width="40" align="left" valign="middle">暂住</td>
-                    <td align="center" valign="middle"><input type="radio" name="owner.useStyle" id="radio4" value="Other"  /></td>
-                    <td align="center" valign="middle"><input name="OtherText" type="text" class="textbox" id="OtherText" style="width:80px;" value="其它情况"  onfocus="this.value='';" onblur="if(this.value==''){this.value='其它情况'};" /></td>
-                  </tr>
-                </table></td>
+                <td align="left" valign="middle">
+                  <input type="radio" name="owner.useStyle" id="radio" value="常住" <c:if test="${owner.useStyle=='常住' }">checked="checked"</c:if> />常住
+                  <input type="radio" name="owner.useStyle" id="radio2" value="租住" <c:if test="${owner.useStyle=='租住' }">checked="checked"</c:if> />租住
+                  <input type="radio" name="owner.useStyle" id="radio3" value="暂住" <c:if test="${owner.useStyle=='暂住' }">checked="checked"</c:if> />暂住
+                  <input type="radio" name="owner.useStyle" id="radio3" value="其他" <c:if test="${owner.useStyle=='其他' }">checked="checked"</c:if> />其他
+                </td>
               </tr>
             </table></td>
           </tr>
           <tr>
-            <td height="30" align="center" valign="bottom"><input type="button" name="Prev" id="Prev" value="上一步" onclick="to('P1');" disabled="disabled" />
-　  <input type="button" name="toP2" id="toP2" value="下一步" onclick="FormCheck();" /></td>
+            <td height="30" align="center" valign="bottom">
+            <input type="button" name="Prev" id="Prev" value="上一步" onclick="to('P1');" disabled="disabled" />
+　                           <input type="button" name="toP2" id="toP2" value="下一步" onclick="FormCheck();" />
+            </td>
           </tr>
         </table>
       </div>
       <div id="P2" style="display:none;">
       <table width="100%" border="0" cellspacing="0" cellpadding="0">
           <tr>
-            <td align="center" valign="middle"><table border="0" align="center" cellpadding="0" cellspacing="0" class="table1">
+            <td align="center" valign="middle">
+              <table border="0" align="center" cellpadding="2" cellspacing="2" class="table1">
               <tr>
-                <td height="30" colspan="6" align="center" valign="middle">家庭成员</td>
+                <td height="30" colspan="4" align="center" valign="middle">家庭成员</td>
                 </tr>
               <tr>
                 <td width="100" height="30" align="center" valign="middle">姓名</td>
-                <td width="70" align="center" valign="middle">关系</td>
+                <td width="100" align="center" valign="middle">关系</td>
+                <td width="160" align="center" valign="middle">联系电话</td>
                 <td width="220" align="center" valign="middle">身份证及其它有效证件编号</td>
-                <td width="200" colspan="2" align="center" valign="middle">联系电话</td>
               </tr>
-              <c:forEach var="member" items="${memberList}">
+              <c:forEach var="item" items="${memberList }">
               <tr>
-              <input type="hidden" name="memberId" id="memberId" value="${member.memId}"/>
-               <td height="30" align="center" valign="middle"><input name="memberName" type="text" class="textbox" id="memberName" value="${member.memName}" style="width:80px;"  /></td>
-                <td align="center" valign="middle"><input name="memberRelation" type="text" class="textbox" id="memberRelation" value="${member.memRelation}" style="width:50px;"  /></td>
-                <td align="center" valign="middle"><input name="cardNum" type="text" class="textbox" id="cardNum" value="${member.memIdentity}" style="width:200px;"   /></td>
-                <td colspan="2" align="center" valign="middle"><input name="phoneNum" type="text" class="textbox" id="phoneNum" value="${member.memPhone}" style="width:180px;"  /></td>
+                <td height="30" align="center" valign="middle"><input name="memberName" type="text" id="memberName" size="12" value="${item.memName }" /></td>
+                <td align="center" valign="middle"><input name="memberRelation" type="text" id="memberRelation" size="12" value="${item.memRelation }" /></td>
+                <td align="center" valign="middle"><input name="cardNum" type="text" id="cardNum" size="18" value="${item.memIdentity }" /></td>
+                <td align="center" valign="middle"><input name="phoneNum" type="text" id="phoneNum" size="25" value="${item.memPhone }" /></td>
+              </tr>
+              </c:forEach>
+              <c:forEach begin="${memberList.size()+1 }" end="5" step="1">
+              <tr>
+                <td height="30" align="center" valign="middle"><input name="memberName" type="text" id="memberName" size="12" /></td>
+                <td align="center" valign="middle"><input name="memberRelation" type="text" id="memberRelation" size="12" /></td>
+                <td align="center" valign="middle"><input name="cardNum" type="text" id="cardNum" size="18" /></td>
+                <td align="center" valign="middle"><input name="phoneNum" type="text" id="phoneNum" size="25" /></td>
               </tr>
               </c:forEach>
               <tr>
-                <td height="30" colspan="2" align="center" valign="middle">其它地址：</td>
-                <td height="30" align="center" valign="middle"><input name="owner.otherAddress" type="text" class="textbox" id="owner.otherAddress" value="${owner.otherAddress}" style="width:200px;"   /></td>
-                <td width="70" height="30" align="center" valign="middle">邮政编码：</td>
-                <td align="center" valign="middle"><input name="owner.otherPostcode" type="text" class="textbox" id="owner.otherPostcode" value="${owner.otherPostcode}" style="width:80px;"  /></td>
+                <td height="30" colspan="4" align="left" valign="middle">&nbsp;</td>
               </tr>
               <tr>
-                <td height="30" colspan="2" align="center" valign="middle">紧急联系人：</td>
-                <td height="30" align="center" valign="middle"><input name="owner.emergencyContact" type="text" class="textbox" id="owner.emergencyContact" value="${owner.emergencyContact}" style="width:200px;"   /></td>
+                <td height="30" align="center" valign="middle">邮政编码：</td>
+                <td align="center" valign="middle"><input name="owner.otherPostcode" type="text" size="12" id="owner.otherPostcode" value="${owner.otherPostcode }" /></td>
+                <td height="30" align="center" valign="middle">其它地址：</td>
+                <td align="center" valign="middle"><input name="owner.otherAddress" type="text" size="25" id="owner.otherAddress" value="${owner.otherAddress }" /></td>
+              </tr>
+              <tr>
+                <td height="30" align="center" valign="middle">紧急联系人：</td>
+                <td height="30" align="center" valign="middle"><input name="owner.emergencyContact" type="text" size="12" id="owner.emergencyContact" value="${owner.emergencyContact }" /></td>
                 <td height="30" align="center" valign="middle">联系电话：</td>
-                <td align="center" valign="middle"><input name="owner.emergencyPhone" type="text" class="textbox" id="owner.emergencyPhone" value="${owner.emergencyPhone}" style="width:80px;"  /></td>
+                <td align="center" valign="middle"><input name="owner.emergencyPhone" type="text" size="25" id="owner.emergencyPhone" value="${owner.emergencyPhone }" /></td>
               </tr>
-              <tr>
-                <td height="30" colspan="2" align="center" valign="middle">&nbsp;</td>
-                <td height="30" colspan="3" align="left" valign="middle">&nbsp;</td>
-              </tr>
-              <tr>
-                <td height="30" colspan="2" align="center" valign="middle">&nbsp;</td>
-                <td height="30" colspan="3" align="left" valign="middle">&nbsp;</td>
-              </tr>
-            </table></td>
-          </tr>
+              </table>
+            </td>
+          </tr>  
           <tr>
             <td height="30" align="center" valign="bottom"><input type="button" name="ToP1" id="ToP1" value="上一步" onclick="to('P1');" />
-              
-     
-     <input type="submit" name="Submit" id="Submit" value="完　成"   />
-      
-     <input type="button" name="button" id="button" value="关 闭" onclick="closeEditOwner()"/>
-                </td>
+            <input type="submit" name="Submit" id="Submit" value="完　成"   />
+            <input type="button" name="button" id="button" value="关 闭" onclick="closeAddNewOwner()"/>
+            </td>
           </tr>
-        </table>
+      </table>
       </div>
       <div id="P3" style="display:;"></div>
       </td>
@@ -285,10 +289,4 @@
   </table>
 </form>
 </body>
-<script type="text/javascript">
-if (document.readyState=="complete")  
-{ 
-	owner_edit_init();
-}
-</script>
 </html>

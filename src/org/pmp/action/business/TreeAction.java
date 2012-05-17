@@ -13,8 +13,10 @@
 package org.pmp.action.business;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -59,7 +61,10 @@ public class TreeAction extends ActionSupport{
 	List<Project> proList = new ArrayList<Project>();
 	
 	if (obj instanceof Company){
-	    proList = (List<Project>) projectService.loadProjectByComID(pager, ((Company)obj).getComId());
+		Company com = (Company)obj;
+		Map<String,Object> params = new HashMap<String,Object>();
+		String order = "order by project.proId asc";
+	    proList = projectService.loadProjectList_ByCompany(com.getComId(), params, order, pager);
 	}
 	if (obj instanceof Project){
 	    Project pro = (Project)obj;

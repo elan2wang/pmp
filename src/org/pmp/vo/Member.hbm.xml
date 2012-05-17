@@ -18,10 +18,10 @@
             <column name="Mem_Relation" length="50" />
         </property>
         <property name="memIdentity" type="string">
-            <column name="Mem_Identity" length="18" />
+            <column name="Mem_Identity" length="50" />
         </property>
         <property name="memPhone" type="string">
-            <column name="Mem_Phone" length="12" />
+            <column name="Mem_Phone" length="50" />
         </property>
     </class>
 </hibernate-mapping>

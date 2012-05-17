@@ -8,6 +8,7 @@
 package org.pmp.service.impl.business;
 
 import java.util.List;
+import java.util.Map;
 
 import org.pmp.dao.business.IHouseDAO;
 import org.pmp.service.business.IHouseService;
@@ -78,18 +79,7 @@ public class HouseService implements IHouseService {
 		return houseDao.getHouseByID(houseId);
 	}
 
-	/**
-	 * @Title: loadHouseList
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public List loadHouseList(Pager pager) {
-		return houseDao.loadHouseList(pager);
-	}
+	
 
 	/**
 	 * @param houseDao the houseDao to set
@@ -98,8 +88,9 @@ public class HouseService implements IHouseService {
 		this.houseDao = houseDao;
 	}
 
+	
 	/**
-	 * @Title: getHouseByProjectOrBuilding
+	 * @Title: loadHouseList_ByCompany
 	 * @Description: TODO
 	 *
 	 * @param  TODO
@@ -107,13 +98,12 @@ public class HouseService implements IHouseService {
 	 * @throws TODO
 	 */
 	@Override
-	public List getHouseByProjectOrBuilding(Integer projectId,
-			Integer buildingId, Pager pager) {
-		return houseDao.getHouseByProjectOrBuilding(projectId, buildingId, pager);
+	public List<House> loadHouseList_ByCompany(Integer comId,Map<String,Object>params,String order,Pager pager)
+	{
+		return houseDao.loadHouseList_ByCompany(comId, params, order, pager);
 	}
-
 	/**
-	 * @Title: getHouseByBuilding
+	 * @Title: loadHouseList_ByProject
 	 * @Description: TODO
 	 *
 	 * @param  TODO
@@ -121,10 +111,25 @@ public class HouseService implements IHouseService {
 	 * @throws TODO
 	 */
 	@Override
-	public List getHouseByBuilding(Building building) {
-		return houseDao.getHouseByBuilding(building);
+	public List<House> loadHouseList_ByProject(Integer proId,Map<String,Object>params,String order,Pager pager)
+	{
+		return houseDao.loadHouseList_ByProject(proId, params, order, pager);
 	}
 
+	/**
+	 * @Title: loadHouseList_ByBuilding
+	 * @Description: TODO
+	 *
+	 * @param  TODO
+	 * @return TODO
+	 * @throws TODO
+	 */
+	@Override
+    public List<House> loadHouseList_ByBuilding(Integer builId,Map<String,Object>params,String order,Pager pager)
+    {
+    	return houseDao.loadHouseList_ByBuilding(builId, params, order, pager);
+    }
+    
 	/**
 	 * @Title: getHouseByHouseNum
 	 * @Description: TODO

@@ -9,19 +9,25 @@ package org.pmp.action.business;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
+import org.pmp.service.business.IBuildingService;
 import org.pmp.service.business.IHouseService;
 import org.pmp.util.JsonConvert;
 import org.pmp.util.Pager;
+import org.pmp.util.SessionHandler;
 import org.pmp.vo.Building;
+import org.pmp.vo.Company;
 import org.pmp.vo.House;
 import org.pmp.vo.Owner;
+import org.pmp.vo.Project;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -37,9 +43,10 @@ public class HouseAction extends ActionSupport {
 	private IHouseService houseService;
 	private House house;
 	private Integer houseId;
-//	private Pager pager;
-	private Integer currentPage;
-	private Integer pageSize;
+
+	private Integer page;
+	private Integer rp;
+	
 	private Integer projectId;
 	private Integer buildingId;
 	
@@ -74,115 +81,66 @@ public class HouseAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
-	public void loadHouseList(){
-		logger.debug("进入loadHouseList方法");
-		Pager pager = new Pager(pageSize,currentPage);
-		List houseList = houseService.loadHouseList(pager);
-		logger.debug("得到的houseList为"+houseList.toString());
-		StringBuffer sb = new StringBuffer();
-		sb.append("{\n");
-		sb.append("  "+JsonConvert.toJson("RowsCount")+":"+JsonConvert.toJson(pager.getRowsCount())+",\n");
-		sb.append("  "+JsonConvert.toJson("PageSize")+":"+JsonConvert.toJson(pager.getPageSize())+",\n");
-		sb.append("  "+JsonConvert.toJson("CurrentPage")+":"+JsonConvert.toJson(pager.getCurrentPage())+",\n");
-		sb.append("  "+JsonConvert.toJson("PagesCount")+":"+JsonConvert.toJson(pager.getPagesCount())+",\n");
-		sb.append("  "+JsonConvert.toJson("Rows")+":[\n");
-		Iterator ite = houseList.iterator();
-		while(ite.hasNext()){
-			sb.append("    {");
-			House house = (House)ite.next();
-			sb.append(JsonConvert.toJson("houseId")+":"+JsonConvert.toJson(house.getHouseId().toString())+",");
-			sb.append(JsonConvert.toJson("houseNum")+":"+JsonConvert.toJson(house.getHouseNum().toString())+",");
-			sb.append(JsonConvert.toJson("houseArea")+":"+JsonConvert.toJson(house.getHouseArea().toString())+",");
-			sb.append(JsonConvert.toJson("project")+":"+JsonConvert.toJson(house.getBuilding().getProject().getProName().toString())+",");
-			sb.append(JsonConvert.toJson("company")+":"+JsonConvert.toJson(house.getBuilding().getProject().getCompany().getComName().toString())+",");
-			sb.append(JsonConvert.toJson("condoFeeRate")+":"+JsonConvert.toJson(house.getCondoFeeRate().toString())+",");
-			if(house.isIsempty()){
-				sb.append(JsonConvert.toJson("isempty")+":"+JsonConvert.toJson("是")+",");
-			}else{
-				sb.append(JsonConvert.toJson("isempty")+":"+JsonConvert.toJson("否")+",");
+	public void loadHouseListBySessionHandler(){
+		logger.debug("进入loadHouseListBySessionHandler方法");
+		System.out.println("projectId:"+projectId);
+		System.out.println("buildingId:"+buildingId);
+		List houseList = null;
+		houseList = new ArrayList<House>();
+		Object obj = SessionHandler.getUserRefDomain();
+		//如果是小区管理员，则只显示本小区内的楼宇
+		
+		Pager pager = new Pager(rp,page);
+		Pager pager2 = new Pager(10000,1);
+		Map<String,Object> params = new HashMap<String,Object>();
+		String order = "order by houseId asc";
+		if(projectId==0){		
+			if(obj instanceof Project)
+			{
+				Project pro = (Project)obj;
+				System.out.println(pro.getProName());
+				houseList = houseService.loadHouseList_ByProject(pro.getProId(), params, order, pager2);
 			}
-			sb.deleteCharAt(sb.length()-1);
-		    sb.append("},\n");
+			else if(obj instanceof Company)
+			{
+				Company com = (Company)obj;
+				houseList = houseService.loadHouseList_ByCompany(com.getComId(), params, order, pager2);
+			}
 		}
-		sb.deleteCharAt(sb.length()-2);
-		sb.append("  ]\n}\n");
-		logger.debug("得到的json数据为"+sb.toString());
-		//output the Jason data
-		try {    
-	            HttpServletResponse response = ServletActionContext.getResponse();  
-	            response.setContentType("application/json;charset=UTF-8");
-	            response.setCharacterEncoding("UTF-8");
-	            response.getWriter().println(sb.toString());     
-	        } catch (IOException e) {                     
-	            e.printStackTrace();  
-	        } 
-	}
-	
-	public void getHouseByProjectOrBuilding(){
-		logger.debug("进入getHouseByProjectOrBuilding方法");
-		Pager pager = new Pager(pageSize,currentPage);
-		List houseList = houseService.getHouseByProjectOrBuilding(projectId, buildingId, pager);
+		else if(projectId!=0 && buildingId==0){ 
+			houseList = houseService.loadHouseList_ByProject(projectId, params, order, pager2);
+		}
+		else if(buildingId!=0)
+			houseList = houseService.loadHouseList_ByBuilding(buildingId, params, order, pager2);
 		logger.debug("得到的houseList为"+houseList.toString());
-		StringBuffer sb = new StringBuffer();
-		sb.append("{\n");
-		sb.append("  "+JsonConvert.toJson("RowsCount")+":"+JsonConvert.toJson(pager.getRowsCount())+",\n");
-		sb.append("  "+JsonConvert.toJson("PageSize")+":"+JsonConvert.toJson(pager.getPageSize())+",\n");
-		sb.append("  "+JsonConvert.toJson("CurrentPage")+":"+JsonConvert.toJson(pager.getCurrentPage())+",\n");
-		sb.append("  "+JsonConvert.toJson("PagesCount")+":"+JsonConvert.toJson(pager.getPagesCount())+",\n");
-		sb.append("  "+JsonConvert.toJson("Rows")+":[\n");
-		Iterator ite = houseList.iterator();
-		while(ite.hasNext()){
-			sb.append("    {");
-			House house = (House)ite.next();
-			String[] houseInfo = house.getHouseNum().split("-");
-			String houseFloor = houseInfo[2].substring(0, 1);
-			sb.append(JsonConvert.toJson("houseId")+":"+JsonConvert.toJson(house.getHouseId().toString())+",");
-//			sb.append(JsonConvert.toJson("building")+":"+JsonConvert.toJson(house.getBuilding().getBuilNum().toString())+",");
-//			sb.append(JsonConvert.toJson("ownerName")+":"+JsonConvert.toJson(house.getOwner().getOwnerName().toString())+",");
-			sb.append(JsonConvert.toJson("houseUnit")+":"+JsonConvert.toJson(houseInfo[1].toString())+",");
-			sb.append(JsonConvert.toJson("houseFloor")+":"+JsonConvert.toJson(houseFloor)+",");
-			sb.append(JsonConvert.toJson("houseNum")+":"+JsonConvert.toJson(house.getHouseNum().toString())+",");
-//			sb.append(JsonConvert.toJson("houseArea")+":"+JsonConvert.toJson(house.getHouseArea().toString())+",");
-//			sb.append(JsonConvert.toJson("houseDesc")+":"+JsonConvert.toJson(house.getHouseDesc().toString())+",");
-//			sb.append(JsonConvert.toJson("condoFeeRate")+":"+JsonConvert.toJson(house.getCondoFeeRate().toString())+",");
-			sb.append(JsonConvert.toJson("isempty")+":"+JsonConvert.toJson(house.isIsempty())+",");
-			sb.deleteCharAt(sb.length()-1);
-		    sb.append("},\n");
-		}
-		sb.deleteCharAt(sb.length()-2);
-		sb.append("  ]\n}\n");
-		logger.debug("得到的json数据为"+sb.toString());
-		//output the Jason data
-		try {    
-	            HttpServletResponse response = ServletActionContext.getResponse();  
-	            response.setContentType("application/json;charset=UTF-8");
-	            response.setCharacterEncoding("UTF-8");
-	            response.getWriter().println(sb.toString());     
-	        } catch (IOException e) {                     
-	            e.printStackTrace();  
-	        }
+		pager.setRowsCount(houseList.size());
+		String data = JsonConvert.list2FlexJson(pager, houseList, "org.pmp.vo.House");
+		System.out.println(data);
+		logger.debug(data);
+		JsonConvert.output(data);
+	
 	}
 	
-	/**
-	 * @return void
-	 */
-	public void getAllHouseNum(){
-		Building building = new Building();
-		building.setBuilId(buildingId);
-		List houseList = houseService.getHouseByBuilding(building);
-		if(houseList!=null && houseList.size()!=0)
-		{
-			List show = new ArrayList<String>();
-			show.add("houseId");
-			show.add("houseNum");
-			String data = JsonConvert.list2Json(houseList, "org.pmp.vo.House", show);
-			JsonConvert.output(data);
-		}
-		else
-		{
-			System.out.println("data is null");
-		}
-	}
+//	/**
+//	 * @return void
+//	 */
+//	public void getAllHouseNum(){
+//		Building building = new Building();
+//		building.setBuilId(buildingId);
+//		List houseList = houseService.getHouseByBuilding(building);
+//		if(houseList!=null && houseList.size()!=0)
+//		{
+//			List show = new ArrayList<String>();
+//			show.add("houseId");
+//			show.add("houseNum");
+//			String data = JsonConvert.list2Json(houseList, "org.pmp.vo.House", show);
+//			JsonConvert.output(data);
+//		}
+//		else
+//		{
+//			System.out.println("data is null");
+//		}
+//	}
 	
 	/**
 	 * @return the house
@@ -207,42 +165,6 @@ public class HouseAction extends ActionSupport {
 	 */
 	public void setHouseId(Integer houseId) {
 		this.houseId = houseId;
-	}
-	/**
-	 * @return the pager
-	 */
-//	public Pager getPager() {
-//		return pager;
-//	}
-//	/**
-//	 * @param pager the pager to set
-//	 */
-//	public void setPager(Pager pager) {
-//		this.pager = pager;
-//	}
-	/**
-	 * @return the currentPage
-	 */
-	public Integer getCurrentPage() {
-		return currentPage;
-	}
-	/**
-	 * @param currentPage the currentPage to set
-	 */
-	public void setCurrentPage(Integer currentPage) {
-		this.currentPage = currentPage;
-	}
-	/**
-	 * @return the pageSize
-	 */
-	public Integer getPageSize() {
-		return pageSize;
-	}
-	/**
-	 * @param pageSize the pageSize to set
-	 */
-	public void setPageSize(Integer pageSize) {
-		this.pageSize = pageSize;
 	}
 	/**
 	 * @param houseService the houseService to set
@@ -316,5 +238,33 @@ public class HouseAction extends ActionSupport {
 	 */
 	public void setHouseNum(String houseNum) {
 		this.houseNum = houseNum;
+	}
+
+	/**
+	 * @return the page
+	 */
+	public Integer getPage() {
+		return page;
+	}
+
+	/**
+	 * @param page the page to set
+	 */
+	public void setPage(Integer page) {
+		this.page = page;
+	}
+
+	/**
+	 * @return the rp
+	 */
+	public Integer getRp() {
+		return rp;
+	}
+
+	/**
+	 * @param rp the rp to set
+	 */
+	public void setRp(Integer rp) {
+		this.rp = rp;
 	}
 }
