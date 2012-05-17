@@ -10,6 +10,7 @@ $(function(){
 	} else {
 		url="loadCondoFeeList_ByCompany?comId="+comId+"&year="+year+"&month="+month;
 	}
+	alert(url);
 	$('#cf_list').flexigrid({
 		url:url,
 		dataType:"json",
@@ -26,10 +27,10 @@ $(function(){
 			{ separator: true },
 		],
 		searchitems:[
- 		    { display: '房号', name: 'house', isDefault:false },
- 		    { display: '业主', name: 'owner', isDefault:false },
- 		    { display: '状态', name: 'state', isDefault:true },
- 		    { display: '录入时间', name: 'inputTime', isDefault:false }
+ 		    { display: '房号', name: 'house', isdefault:false },
+ 		    { display: '业主', name: 'owner', isdefault:false },
+ 		    { display: '状态', name: 'state', isdefault:true },
+ 		    { display: '录入时间', name: 'inputTime', isDefault:false}
 		],
 		showSearch:true,
         height:Height*0.98,
