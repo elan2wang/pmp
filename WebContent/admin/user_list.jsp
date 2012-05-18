@@ -15,7 +15,7 @@
 
 <script type="text/javascript" src="../Scripts/jquery-1.7.1.js" ></script>
 <script type="text/javascript" src="../Scripts/component/easyui/jquery.easyui.min.js" ></script>
-<script type="text/javascript" src="../Scripts/component/flexigrid-1.1/js/flexigrid.js"></script>
+<script type="text/javascript" src="../Scripts/component/flexigrid-1.1/js/flexigrid-new.js"></script>
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
 <script type="text/javascript" src="../Scripts/common/window.js"></script>
 <script type="text/javascript" src="../Scripts/common/select.js"></script>
@@ -29,29 +29,31 @@
        </ul>   
        <div class="content">
            <div class="innercontent">
-             <div class="grid_top">
-             <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="openAddWindow('#newUser')">添加新用户</a>
-                <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="">导入</a>
-                <span>筛选</span>：<select id="select1" name="select1"  style="width:100px" onchange="getSecondInfo()">
-                                           <option selected="selected">所在小区</option>
-                                           <option >1</option>
-                                           <option >2</option>
-                                  </select>
-                                  <select id="select2" name="select2"  style="width:100px">
-                                           <option selected="selected">请选择小区</option>
-                                  </select>
-                 <span> 搜索：</span><input type="text" width="100" />
-                 <a href="javascript:void(0)" class="easyui-linkbutton" plain="true">搜索</a>
-                 <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onclick="selectAll()">全选</a>
-                 <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onclick="selectOpposite()">反选</a>
-                 <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onclick="selectNone()">全不选</a>
-                 <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onclick="deleteSelected()">批量删除</a>
-              </div>
-              <table id="userlist">
-                 <tbody id="user_data">
-                 </tbody>
-              </table>
-              <div class="footer">
+               <div class="content_main">
+                   <div class="grid_top">
+                      <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="openAddWindow('#newUser')">添加新用户</a>
+                      <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="">导入</a>
+                      <span>筛选</span>：
+                      <select id="select1" name="select1"  style="width:100px" onchange="getSecondInfo()">
+                             <option selected="selected">所在小区</option>
+                             <option >1</option>
+                             <option >2</option>
+                      </select>
+                      <select id="select2" name="select2"  style="width:100px">
+                              <option selected="selected">请选择小区</option>
+                      </select>
+                      <span> 搜索：</span><input type="text" width="100" />
+                      <a href="javascript:void(0)" class="easyui-linkbutton" plain="true">搜索</a>
+                      <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onclick="selectAll()">全选</a>
+                      <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onclick="selectOpposite()">反选</a>
+                      <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onclick="selectNone()">全不选</a>
+                      <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onclick="deleteSelected()">批量删除</a>
+                   </div>
+                   <table id="userlist">
+                      <tbody id="user_data">
+                      </tbody>
+                   </table>
+                   <div class="footer">
 	                <span class="gotopage">
                         <a  href="javascript:void(0);" title="跳转" onclick="PageDownOrUp(6)">
                             <img src="../Images/gotopage.gif" />
@@ -78,17 +80,15 @@
                                 <option>20</option>
                            </select></span>
 	          </div>
-              <div id="newUser" class="easyui-window" href="user_add.jsp" title="添加新用户" iconCls="icon-save" style="width:350px;height:370px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
-              </div>
-              
-              
-               <div id="editUser" class="easyui-window"  title="编辑用户" iconCls="icon-save" style="width:350px;height:370px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
-               </div>
-               
-
+                   <div id="newUser" class="easyui-window" href="user_add.jsp" title="添加新用户" iconCls="icon-save" style="width:350px;height:370px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
+                   </div>
+                   <div id="editUser" class="easyui-window"  title="编辑用户" iconCls="icon-save" style="width:350px;height:370px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
+                   </div>
+                 </div>
 	       </div>
 	  </div>
   </div>
+    <script type="text/javascript" src="../Scripts/common/changeSize.js"></script>
 </body>
 </html>
 

@@ -7,6 +7,11 @@ body{
     margin-bottom: 0px;
     font-size:12px;
 }
+a{ text-decoration:none;
+text-align:center;
+font-size:12px;
+color:#09C
+}
 .grid_top
 {
 	height:30px;

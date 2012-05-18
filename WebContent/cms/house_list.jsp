@@ -25,7 +25,7 @@
 <body>
   <div class="wrap">  
               <div id="top_info" name="top_info" style="display:none" >
-             <div class="top_info">
+                <div class="grid_top">
                 <span>当前小区：</span><span><script>document.write(parent.document.getElementById("frame.projectName").value)</script></span>
                 <span>当前楼号：</span><span><script>document.write(parent.document.getElementById("frame.builNum").value)</script></span>
                 <span>所属物业：</span><span><script>document.write(parent.document.getElementById("frame.projectName").value)</script></span>

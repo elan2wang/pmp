@@ -16,6 +16,6 @@ $(function(){
 			 { display: '权限描述', width: Width*0.43, align: 'center' },
              { display: '操作',  width: Width*0.2, align: 'center' }
 	    ],
-	    height:Height
+	    height:Height*0.9
 	});
 });

@@ -42,7 +42,7 @@ $(function(){
 
 function cfInput(){
 	var rowid,idString="";
-	$("#cf_list td input[checked=checked]").each(function(){
+	$("#cf_list td input:checked").each(function(){
 		rowid=$(this).parent().parent().parent().attr("id");
 		rowid=rowid.substr(3);
 		idString+=rowid+",";

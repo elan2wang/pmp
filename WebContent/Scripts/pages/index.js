@@ -1,5 +1,5 @@
 // JavaScript Document
-function getElementsByClassName(className){
+  function getElementsByClassName(className){
 	var elems = (document.body).getElementsByTagName("*");
 	var result=[];
 	for (i=0; j=elems[i]; i++){
@@ -8,7 +8,7 @@ function getElementsByClassName(className){
 	   }
 	}
 	return result;
-} 
+  } 
   function initSize(){
 	    var nv=navigator;
     	var width=document.documentElement.clientWidth;
@@ -74,5 +74,7 @@ function getElementsByClassName(className){
         intMonth = today.getMonth() + 1; //月加1
         intYear = today.getFullYear(); //返回年
         datestr = intYear + "年" + intMonth + "月" + intDate + "日 星期" + charDay[intDay];
-        document.write(datestr);
+        //document.write(datestr);
+        return datestr;
+        
     }

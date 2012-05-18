@@ -32,30 +32,34 @@ $(function(){
 		     url:"project_listBySessionHandler",
 		     dataType:"json",
 		     colModel: [
-             { display: '项目名称',name:'proName', width: Width*0.22, align: 'center' },
-			 { display: '项目地址',name:'proAddress', width: Width*0.22, align: 'center' },
-             { display: '所属物业公司',name:'company', width: Width*0.22,align: 'center' },
-			 { display: '交付时间',name:'deliveryTime', width: Width*0.22, align: 'center' },
-			 { display: '项目规模', name:'proHouseCount',width: Width*0.22, align: 'center',hide:'true' },
-			 { display: '项目备注', name:'proDesc',width: Width*0.22, align: 'center' ,hide:'true'},
-			 { display: '项目类型',name:'proType', width: Width*0.22, align: 'center' ,hide:'true'},
-			 { display: '启用消控',name:'fireEnabled', width: Width*0.22, align: 'center' ,hide:'true'},
-			 { display: '是否启用', name:'enabled',width: Width*0.22, align: 'center' ,hide:'true'}
-             ],height:305,
+               { display: '项目名称',name:'proName', width: Width*0.2, align: 'center' },
+			   { display: '项目地址',name:'proAddress', width: Width*0.2, align: 'center' },
+               { display: '所属物业公司',name:'company', width: Width*0.2,align: 'center' },
+			   { display: '交付时间',name:'deliveryTime', width: Width*0.15, align: 'center' },
+			   { display: '项目规模', name:'proHouseCount',width: Width*0.22, align: 'center',hide:'true' },
+			   { display: '项目备注', name:'proDesc',width: Width*0.22, align: 'center' ,hide:'true'},
+			   { display: '项目类型',name:'proType', width: Width*0.22, align: 'center' ,hide:'true'},
+			   { display: '启用消控',name:'fireEnabled', width: Width*0.22, align: 'center' ,hide:'true'},
+			   { display: '是否启用', name:'enabled',width: Width*0.22, align: 'center' ,hide:'true'}
+             ],
+             height:Height*0.79,
+             searchitems:[
+              	{ display: '项目名称', name: 'proName', isdefault:false },
+              	{ display: '交付时间', name: 'deliveryTime', isdefault:false },
+              	{ display: '项目地址', name: 'proAddress', isdefault:false },
+              	{ display: '项目规模', name: 'proHouseCount', isdefault:true }
+             ],
+             showSearch:true,
              showcheckbox:true,
              usepager: true,
      		 useRp: true,
      		 rp: 15,
      		 operation:true,
-<<<<<<< HEAD
-			operationcontent:'<a href="javascript:void(0)" onclick="openEditProject($(this).parent().parent().parent())">编辑</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#\" onclick=\"selectBuildTab($(this).parent().parent().parent(),$(this).parent().parent().parent(),$(this).parent().parent().parent())\">楼宇设置</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#\" onclick=\"deleteProject($(this).parent().parent().parent(),$(this).parent().parent().parent());\">删除</a>',
-			operationWidth: Width*0.22});
-=======
-			 operationcontent:'<a href="javascript:void(0)" onclick="openEditProject($(this).parent().parent().parent())">编辑</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#\" onclick=\"selectBuildTab($(this).parent().parent().parent(),$(this).parent().parent().parent(),$(this).parent().parent().parent())\">楼宇设置</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#\" onclick=\"deleteProject($(this).parent().parent().parent(),$(this).prev().prev().prev().prev().html());\">删除</a>',
-			 operationWidth: Width*0.22});
+			operationcontent:'<a href="javascript:void(0)" onclick="openEditProject($(this).parent().parent().parent())">编辑</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"javascript:void(0)\" onclick=\"selectBuildTab($(this).parent().parent().parent(),$(this).parent().parent().parent(),$(this).parent().parent().parent())\">楼宇设置</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"javascript:void(0)\" onclick=\"deleteProject($(this).parent().parent().parent(),$(this).parent().parent().parent());\">删除</a>',
+			operationWidth: Width*0.2});
+
 	//  document.getElementById("searchState").value="0";//搜索状态值  初始化
 	 // PageDownOrUp(0);
->>>>>>> 68dee3d6c5fab48cbd37f17a8b41516c0989b527
 
 	});
 function openAddNewProject(){

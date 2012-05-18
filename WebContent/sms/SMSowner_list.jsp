@@ -20,29 +20,13 @@
 <body onload="init()">
 <div class="wrap">
             <div class="grid_top"> 
-                  <select>
-                     <option>----公司----</option>
-                  </select>
 
-                   
-                   <!--  
-                  <select>
-                     <option value="0">---小区---</option>
-                  </select>
-                   --> 
-                 
-
-                  
                   <s:action name="getProjectBySessionHander" namespace="/cms" executeResult="true"/>
                   <!--  
                   <input type="hidden" name="proId" id="proId" value="${proId}"/>
                   -->
                   <select id="buildingId" onchange="buildingChanged()">
                      <option value="0">-楼号-</option>
-                  </select>
-                  <select>
-
-                     <option value="0">-单元号-</option>
                   </select>
                   <a href="#" class="linkbutton" onclick="selectAll()">全选</a>
                   <a href="#" class="linkbutton" onclick="selectOpposite()">反选</a>

@@ -32,7 +32,9 @@
     <div class="innercontent">
       <div class="content_main">
         <div class="left_main" style="float:left">
-          <%@ include file="house_tree.jsp" %>
+            <div class="left_main_content">
+              <%@ include file="house_tree.jsp" %>
+            </div>
         </div>
         <div class="middle"></div>
         <div id="right_main" class="right_main" style="float:left;display:none">

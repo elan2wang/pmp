@@ -20,6 +20,24 @@ div
 {
 	background-color:#edf1f6;
 }
+.index_top_right
+{
+	float:right; 
+	margin-right:20px; 
+	margin-top:30px;
+	display:inline-block
+	height:30px;
+	line-height:30px;
+    font-family:"微软雅黑","黑体","宋体";
+    font-size:14px;
+    padding:0;
+    text-align:left;
+    width:auto;
+}
+.index_top_right a{ text-decoration:none;
+text-align:center;
+color:#005590;
+}
 .index_top_block
 {
 	margin-left:20px;
