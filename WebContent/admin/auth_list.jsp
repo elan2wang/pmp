@@ -30,33 +30,37 @@
        </ul>   
        <div class="content">
            <div class="innercontent">
-             <div class="grid_top">
-             <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="openAddWindow('#newAuth')">添加新权限</a>
-              </div>
-              <table id="authlist"><% int i =1; %>
-                 <tbody id="auth_data"><c:forEach var="auth" items="${authorityList}">
-                 <tr><td><%=i++%></td><td>${auth.authName}</td><td>${auth.issys}</td><td>${auth.enabled}</td><td>${auth.authDesc}</td>
-                    <td>
-                       <a href="javascript:void(0)" onclick="openEditWindow('#editAuth','getAuthById?authId='+$(this).next().html())">编辑</a>
-                       <span style="display:none;width:10px">${auth.authId}</span>
-                       <span style="display:inline-block;width:10px"></span>
-                       <a href="javascript:void(0)" onclick="openEditWindow('#auth_res','getAuthRes?authID='+$(this).prev().prev().html())">分配资源</a>
-                       <span style="display:inline-block;width:10px"></span>
-                       <a href="javascript:void(0)" onclick="deleteRow($(this).parent().parent().parent(),'deleteAuthById?authId='+$(this).prev().prev().prev().prev().html(),'您将删除该权限，确认删除?')">删除</a>
-                     </td>
-                 </tr>
-                 </c:forEach>
-                 <% i=1; %>
-                 </tbody>
-              </table>
+               <div class="content_main">
+                   <div class="grid_top">
+                      <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="openAddWindow('#newAuth')">添加新权限</a>
+                   </div>
+                   <table id="authlist"><% int i =1; %>
+                     <tbody id="auth_data">
+                        <c:forEach var="auth" items="${authorityList}">
+                          <tr><td><%=i++%></td><td>${auth.authName}</td><td>${auth.issys}</td><td>${auth.enabled}</td><td>${auth.authDesc}</td>
+                              <td>
+                              <a href="javascript:void(0)" onclick="openEditWindow('#editAuth','getAuthById?authId='+$(this).next().html())">编辑</a>
+                              <span style="display:none;width:10px">${auth.authId}</span>
+                              <span style="display:inline-block;width:10px"></span>
+                              <a href="javascript:void(0)" onclick="openEditWindow('#auth_res','getAuthRes?authID='+$(this).prev().prev().html())">分配资源</a>
+                              <span style="display:inline-block;width:10px"></span>
+                              <a href="javascript:void(0)" onclick="deleteRow($(this).parent().parent().parent(),'deleteAuthById?authId='+$(this).prev().prev().prev().prev().html(),'您将删除该权限，确认删除?')">删除</a>
+                             </td>
+                           </tr>
+                         </c:forEach>
+                         <% i=1; %>
+                      </tbody>
+                   </table>
+                   <div id="newAuth" class="easyui-window" href="auth_add.jsp" title="添加新权限" iconCls="icon-save" style="width:350px;height:270px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
+                   </div>
+                   <div id="editAuth" class="easyui-window" title="编辑权限" iconCls="icon-save" style="width:350px;height:270px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
+                   </div>
+                   <div id="auth_res" class="easyui-window" title="给权限分配资源" iconCls="icon-save" style="width:500px;height:370px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
+                   </div>
+               </div>
            </div>
        </div>
-       <div id="newAuth" class="easyui-window" href="auth_add.jsp" title="添加新权限" iconCls="icon-save" style="width:350px;height:270px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
-       </div>
-       <div id="editAuth" class="easyui-window" title="编辑权限" iconCls="icon-save" style="width:350px;height:270px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
-       </div>
-       <div id="auth_res" class="easyui-window" title="给权限分配资源" iconCls="icon-save" style="width:500px;height:370px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
-       </div>
     </div>
+  <script type="text/javascript" src="../Scripts/common/changeSize.js"></script>
 </body>
 </html>

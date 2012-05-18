@@ -25,31 +25,36 @@
 </head>
 <body>
 <div class="wrap">
-  <ul class="nav">
-    <li id="tab1" class="active"><a href="javascript:void(0)">模块管理</a></li>
-  </ul>
-  <div class="content">
-    <div class="innercontent">
-      <div class="grid_top"><a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="openAddWindow('#newModule')">添加新模块</a></div>
-      <table id="module_list"><%int i=1;%>
-      <tbody id="module_list_data">
-        <c:forEach var="module" items="${moduleList }">
-        <tr>
-          <td><%=i++%></td><td>${module.modName }</td><td>${module.modLevel }</td><td>${module.modOrder }</td><td>${module.enabled }</td><td>${module.issys }</td><td>${module.modUrl }</td>
-          <td>
-          <a href="javascript:void(0)" onclick="openEditWindow('#editModule','getModule?modId='+$(this).next().html())">编辑</a>
-          <span style="display:none;width:10px">${module.modId }</span>
-          <span style="display:inline-block;width:10px"></span>
-          <a href="javascript:void(0)" onclick="deleteRow($(this).parent().parent().parent(),'deleteModule?modId='+$(this).prev().prev().html(),'您将删除该模块，确认删除？')">删除</a>        
-          </td>
-        </tr>
-        </c:forEach>
-      </tbody>
-      </table>
+    <ul class="nav">
+        <li id="tab1" class="active"><a href="javascript:void(0)">模块管理</a></li>
+    </ul>
+    <div class="content">
+        <div class="innercontent">
+            <div class="content_main" >
+                <div class="grid_top">
+                    <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="openAddWindow('#newModule')">添加新模块</a>
+                </div>
+                <table id="module_list"><%int i=1;%>
+                    <tbody id="module_list_data">
+                       <c:forEach var="module" items="${moduleList }">
+                       <tr>
+                         <td><%=i++%></td><td>${module.modName }</td><td>${module.modLevel }</td><td>${module.modOrder }</td><td>${module.enabled }</td><td>${module.issys }</td><td>${module.modUrl }</td>
+                         <td>
+                             <a href="javascript:void(0)" onclick="openEditWindow('#editModule','getModule?modId='+$(this).next().html())">编辑</a>
+                             <span style="display:none;width:10px">${module.modId }</span>
+                             <span style="display:inline-block;width:10px"></span>
+                             <a href="javascript:void(0)" onclick="deleteRow($(this).parent().parent().parent(),'deleteModule?modId='+$(this).prev().prev().html(),'您将删除该模块，确认删除？')">删除</a>        
+                          </td>
+                        </tr>
+                        </c:forEach>
+                    </tbody>
+                 </table>
+                 <div id="newModule" class="easyui-window" href="mod_add.jsp" title="添加新模块" iconCls="icon-save" style="width:350px;height:270px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
+                 <div id="editModule" class="easyui-window" title="编辑模块" iconCls="icon-save" style="width:350px;height:270px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
+            </div>
+       </div>
     </div>
-  </div>
-  <div id="newModule" class="easyui-window" href="mod_add.jsp" title="添加新模块" iconCls="icon-save" style="width:350px;height:270px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
-  <div id="editModule" class="easyui-window" title="编辑模块" iconCls="icon-save" style="width:350px;height:270px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
 </div>
+<script type="text/javascript" src="../Scripts/common/changeSize.js"></script>
 </body>
 </html>

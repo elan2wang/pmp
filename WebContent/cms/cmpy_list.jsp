@@ -29,22 +29,31 @@
        </ul>   
        <div class="content">
            <div class="innercontent">
-             <div class="grid_top">
-             <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="openAddNewCmpy()">添加新公司</a>
-                <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="">导入</a>
-                 <span> 搜索：</span><input type="text" width="100" />
-                  <a href="javascript:void(0)" class="easyui-linkbutton" plain="true">搜索</a>
-              </div>
-              <table id="cmpylist">
+              <div class="content_main">
+                   <div class="grid_top">
+                      <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="openAddNewCmpy()">添加新公司</a>
+                      <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="">导入</a>
+                      <span> 搜索：</span><input type="text" width="100" />
+                      <a href="javascript:void(0)" class="easyui-linkbutton" plain="true">搜索</a>
+                   </div>
+                   <table id="cmpylist">
 
-              </table>
+                   </table>
             
-              <div id="newCmpy" class="easyui-window" href="cmpy_add.jsp" title="添加新公司" iconCls="icon-save" style="width:350px;height:370px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
-  	          </div>
-              <div id="editCmpy" class="easyui-window" title="编辑公司信息" iconCls="icon-save" style="width:350px;height:370px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
-  	          </div> 	          
+                   <div id="newCmpy" class="easyui-window" href="cmpy_add.jsp" title="添加新公司" iconCls="icon-save" style="width:350px;height:370px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
+  	               </div>
+                   <div id="editCmpy" class="easyui-window" title="编辑公司信息" iconCls="icon-save" style="width:350px;height:370px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
+  	               </div> 	          
+	          </div>
 	       </div>
 	  </div>
   </div>
+  <script type="text/javascript">
+   var Width2=document.documentElement.clientWidth;
+   var Height2=document.documentElement.clientHeight;
+   ChangeHeight(Width2,Height2,'content');
+   ChangeHeight(Width2,Height2,'innercontent');
+   ChangeHeight(Width2,Height2-4,'content_main');
+  </script>
 </body>
 </html>

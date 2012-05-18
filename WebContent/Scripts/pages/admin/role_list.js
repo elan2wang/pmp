@@ -14,9 +14,9 @@ $(function(){
     	             { display: '角色层次', width: Width*0.05, align: 'center' },
     	             { display: '是否可用', width: Width*0.05,align: 'center' },
     				 { display: '是否管理角色', width: Width*0.1, align: 'center' },
-    				 { display: '角色描述', width: Width*0.43, align: 'center' },
-    	             { display: '操作',  width: Width*0.2,align: 'center' }
+    				 { display: '角色描述', width: Width*0.38, align: 'center' },
+    	             { display: '操作',  width: Width*0.25,align: 'center' }
     	],
-    	height:Height
+    	height:Height*0.95
     });
 });

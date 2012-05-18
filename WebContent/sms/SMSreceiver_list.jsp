@@ -22,6 +22,7 @@
        </ul>   
        <div class="content" style="height:380px;border:1px solid lightblue;border-top:hidden">
            <div class="innercontent" style="height:380px">
+             
               <iframe id="SMSuser_Frame" name="SMSuser_Frame" frameborder="0" scrolling="auto" width="100%" height="380"  >
               </iframe>
            </div>

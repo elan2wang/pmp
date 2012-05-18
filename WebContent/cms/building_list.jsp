@@ -25,13 +25,13 @@
 <body style="height:100%">
   <div class="wrap">  
              <div id="top_info" name="top_info"  style="display:none;" >
-                <div class="top_info">
+                <div class="grid_top">
                   <span>当前小区：</span><span ><script>document.write(parent.document.getElementById("frame.projectName").value)</script></span>
                   <span>所属物业：</span><span ><script>document.write(parent.document.getElementById("frame.projectName").value)</script></span>
                 </div>
                 <div class="grid_top"> 
-                  <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="openAddNewBuild()">添加新楼宇</a>
-                  <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="openAddNewUser()">导入</a>
+                  <span><a href="javascript:void(0)" class="linkbutton"  onClick="openAddNewBuild()">添加新楼宇</a></span>
+                  <span><a href="javascript:void(0)" class="linkbutton"  onClick="openAddNewUser()">导入</a></span>
                 </div>
              </div>
              <div id="top_info2" name="top_info2" class="grid_top"  style="display:none;" >

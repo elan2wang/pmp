@@ -20,11 +20,11 @@ $(function(){
             { display: '状态', name: 'state', width: Width*0.1, sortable:true, align: 'center' },
             { display: '应收金额', name: 'oughtMoney', width: Width*0.1, sortable:true, align: 'center' },
             { display: '实收金额', name: 'fetchMoney', width: Width*0.1, sortable:true, align: 'center' },
-            { display: '录入时间', name: 'inputTime', width: Width*0.2, sortable:true, align: 'center' },
+            { display: '录入时间', name: 'inputTime', width: Width*0.2, sortable:true, align: 'center' }
         ],
         buttons:[
             { name: '数据导出', bclass: 'add', onpress: dataImport },
-			{ separator: true },
+			{ separator: true }
 		],
 		searchitems:[
  		    { display: '房号', name: 'house', isdefault:false },

@@ -34,14 +34,22 @@
        </ul> 
        <div class="content">
            <div class="innercontent">
-                 <table id="owner_list">
-                 </table>
-                 <!-- pop up windows -->
-                 <div id="ownerEdit" class="easyui-window" title="业主信息修改" iconCls="icon-save" style="width:600px;height:410px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
-                 <div id="ownerImport" href="owner_import.jsp" class="easyui-window" title="业主信息导入" iconCls="icon-save" style="width:350px;height:200px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
-                 <div id="ownerAdd" href="owner_add.jsp" class="easyui-window" title="添加业主" iconCls="icon-save" style="width:600px;height:410px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
+               <div class="content_main" >
+                   <table id="owner_list">
+                   </table>
+                   <!-- pop up windows -->
+                   <div id="ownerEdit" class="easyui-window" title="业主信息修改" iconCls="icon-save" style="width:600px;height:410px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
+                   <div id="ownerImport" href="owner_import.jsp" class="easyui-window" title="业主信息导入" iconCls="icon-save" style="width:350px;height:200px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
+                   <div id="ownerAdd" href="owner_add.jsp" class="easyui-window" title="添加业主" iconCls="icon-save" style="width:600px;height:410px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
+               </div>
            </div>
        </div>
 </div>
+ <script type="text/javascript">
+   var Width2=document.documentElement.clientWidth;
+   var Height2=document.documentElement.clientHeight;
+   ChangeHeight(Width2,Height2,'content');
+   ChangeHeight(Width2,Height2,'innercontent');
+  </script>
 </body>
 </html>

@@ -46,8 +46,8 @@ a{
        <div class="index_main_top"><img src="Images/blank11.gif" width="6" height="6" /></div>
        <div class="index_main_left">
           <div class="index_main_left_top">
-		       <script type="text/jscript">
-			     todayDate();
+		       <script type="text/javascript">
+			     document.write(todayDate());
                </script>
           </div>
           <div style="border-right:1px #6c92ad solid; height:8px"><img src="Images/blank11.gif" width="8" height="8" /></div>

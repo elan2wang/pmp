@@ -59,7 +59,7 @@ function cfExport(){
 
 function cfEdit(){
 	var rowid,idString="";
-	$("#cf_list td input[checked=checked]").each(function(){
+	$("#cf_list td input:checked").each(function(){
 		rowid=$(this).parent().parent().parent().attr("id");
 		rowid=rowid.substr(3);
 		idString+=rowid+",";
@@ -90,14 +90,14 @@ function deleteItem(){
 		url: 'cf_item_delete?cfiId='+cfiId,
 		success: function(data){
 			alert("项目删除成功");
-			window.parent.location.href='cf_item_list.jsp';
+			//window.parent.location.href='cf_item_list.jsp';
 		}
 	});
 }
 
 function deleteList(){
 	var rowid,idString="";
-	$("#cf_list td input[checked=checked]").each(function(){
+	$("#cf_list td input:checked").each(function(){
 		rowid=$(this).parent().parent().parent().attr("id");
 		rowid=rowid.substr(3);
 		idString+=rowid+",";
@@ -120,14 +120,14 @@ function deleteList(){
 		url: 'cf_delete?idStr='+idString,
 		success: function(data){
 			alert("记录删除成功");
-			window.parent.location.href='cf_list_by_item.jsp?cfiId='+getQueryString("cfiId");
+			window.location.href='cf_list_by_item.jsp?cfiId='+getQueryString("cfiId");
 		}
 	});
 }
 
 function cfAudit(){
 	var rowid,idString="";
-	$("#cf_list td input[checked=checked]").each(function(){
+	$("#cf_list td input:checked").each(function(){
 		rowid=$(this).parent().parent().parent().attr("id");
 		rowid=rowid.substr(3);
 		idString+=rowid+",";

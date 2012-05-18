@@ -15,8 +15,8 @@ $(function(){
 			 { display:'排序', width: Width*0.05, align:'center' },
 			 { display:'是否启用', width: Width*0.1, align:'center' },
 			 { display:'管理模块', width: Width*0.1, align:'center' },
-			 { display:'模块链接', width: Width*0.42, align:'center' },
-			 { display:'操作', width: Width*0.1, align:'center' }
+			 { display:'模块链接', width: Width*0.37, align:'center' },
+			 { display:'操作', width: Width*0.15, align:'center' }
 			],
 		height:Height
 	});

@@ -31,38 +31,51 @@
       <li id="tab2"><a href="cf_month_list.jsp">缴费历史</a></li>
       <sec:authorize access="hasRole('ROLE_COMPANY_MANAGER')"><li id="tab2"><a href="cf_item_list.jsp">财务管理</a></li></sec:authorize>
     </ul>
-    <div class="content">
+    <div class="content" style='font-family:"微软雅黑","黑体","宋体";'>
     <div class="innercontent">
       <div class="content_main">
         <form name="form1" action="cf_item_add" method="POST">
 		<br/><fieldset class="add_fieldset">
 		  <legend class="add_legend">第一步：选择物业项目</legend>
-		  <select id="ProId" name="ProId">
-		    <s:action name="select_project" executeResult="true" namespace="/fee" />
-		  </select>
+		  <div class="selectdiv">
+		     <select id="ProId" name="ProId">
+		        <s:action name="select_project" executeResult="true" namespace="/fee" />
+		     </select>
+		  </div>
 		</fieldset>
 		<br/><fieldset class="add_fieldset">
 		  <legend class="add_legend">第二步：选择时间</legend>
-		  <select id="itemYear" name="condoFeeItem.itemYear">
-		    <option value="2012">2014年</option>
-		    <option value="2011">2013年</option>
-		    <option value="2012" selected="selected">2012年</option>
-		    <option value="2012">2011年</option>
-		    <option value="2011">2010年</option>
-		  </select><br />
-		  <c:forEach var="month" begin="1" end="12" step="1">
-		    <input type="checkbox" name="itemMonth" value="${month }" /><span style="display:inline-block;font-size:12px;width:80px">${month }月</span>
-		    <c:if test="${month%6 == 0 }"><br /></c:if>
-		  </c:forEach>
-		  <input type="button" value="全选" onclick="checkAll('itemMonth')" /><input type="button" value="反选" onclick="reverseCheck('itemMonth')" />
-		  <input type="button" value="全不选" onclick="checkNone('itemMonth')" />
+		  <div class="selectdiv2">
+		       <select id="itemYear" name="condoFeeItem.itemYear">
+		          <option value="2012">2014年</option>
+		          <option value="2011">2013年</option>
+		          <option value="2012" selected="selected">2012年</option>
+		          <option value="2012">2011年</option>
+		          <option value="2011">2010年</option>
+		       </select><br />
+		    </div>
+		    <div class="checkgroup">
+		        <c:forEach var="month" begin="1" end="12" step="1">
+		           <input type="checkbox" name="itemMonth" value="${month }" /><span style="display:inline-block;font-size:12px;width:80px">${month }月</span>
+		           <c:if test="${month%6 == 0 }"><br /></c:if>
+		        </c:forEach>
+		    </div>
+		    <div class="buttongroup">
+		      <span><input type="button" value="全选" onclick="checkAll('itemMonth')" /></span>
+		      <span><input type="button" value="反选" onclick="reverseCheck('itemMonth')" /></span>
+		      <span><input type="button" value="全不选" onclick="checkNone('itemMonth')" /></span>
+		    </div>
 		</fieldset><br/>
 		<fieldset class="add_fieldset">
 		  <legend class="add_legend">第三步：预览信息</legend>
-		  <input type="button" value="预览创建信息" onclick="preview()" /><br/>
+		  <div class="buttongroup">
+		    <input type="button" value="预览创建信息" onclick="preview()" /><br/>
+		  </div>
+		  <div class="buttongroup">
 		  <textarea name="display" id="display" disabled="disabled" rows="2" cols="120" style="font-size:14px;"></textarea><br/>
+		  </div>
 		</fieldset>
-		<div style="padding-left:20px">
+		<div style="padding-left:20px;margin-top:10px">
 		<input type="submit" value="确认创建" disabled="disabled" />
 		<input type="button" value="取消创建" onclick="" /><br/>
 		</div>
@@ -71,6 +84,12 @@
     </div>
 	</div>
 </div>
-
+  <script type="text/javascript">
+   var Width2=document.documentElement.clientWidth;
+   var Height2=document.documentElement.clientHeight;
+   ChangeHeight(Width2,Height2,'content');
+   ChangeHeight(Width2,Height2,'innercontent');
+   ChangeHeight(Width2,Height2,'content_main');
+  </script>
 </body>
 </html>
