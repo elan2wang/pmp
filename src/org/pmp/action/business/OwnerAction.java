@@ -147,7 +147,7 @@ public class OwnerAction extends ActionSupport{
 	
 	Object obj = SessionHandler.getUserRefDomain();
 	String objName = obj.getClass().getName();
-	HouseOwner ho = houseOwnerService.getHouseByOwner(owner);
+	HouseOwner ho = houseOwnerService.getHouseOwner_ByOwner(ownerId);
 	House hou = ho.getHouse();
 	Building bui = hou.getBuilding();
 	Project pro = bui.getProject();		
@@ -219,16 +219,14 @@ public class OwnerAction extends ActionSupport{
 	
 	/* import data from the upload file and store in the cfList */
 	List<Owner> ownerList = new ArrayList<Owner>();
-	Map<String,House> map = new HashMap<String,House>();
-	Boolean hasError = OwnerImport.execute(new FileInputStream(ownerFile), os, ownerList, map);
+	Boolean hasError = OwnerImport.execute(new FileInputStream(ownerFile), os, ownerList);
 	/* close OutputStream */
 	os.flush();os.close();
 	
 	logger.debug("ownerList.size="+ownerList.size());
-	logger.debug("map.size="+map.size());
 	
 	/* call the method batchSetOughtMoney to update the condoFee*/
-	ownerService.batchSave(ownerList,map);
+	ownerService.batchSave(ownerList);
 	
 	/* if there are some mistakes of the file */
 	if (hasError){

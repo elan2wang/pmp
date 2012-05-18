@@ -72,7 +72,7 @@ public class OwnerService implements IOwnerService {
 	ho.setOwner(instance);
 	ho.setHouse(houseDAO.getHouseByID(houseId));
 	/* save houseOwner instance */
-	houseOwnerDAO.addHouseOwner(ho);
+	houseOwnerDAO.saveHouseOwner(ho);
 	
     }
 
@@ -98,7 +98,7 @@ public class OwnerService implements IOwnerService {
 	houseDAO.updateHouse(house);
 	
 	/* set houseOwner instance */
-	HouseOwner ho = houseOwnerDAO.getHouseByOwner(instance);
+	HouseOwner ho = houseOwnerDAO.getHouseOwner_ByOwner(instance.getOwnerId());
 	ho.setHouse(houseDAO.getHouseByID(houseId));
 	/* save houseOwner instance */
 	houseOwnerDAO.updateHouseOwner(ho);
@@ -108,14 +108,12 @@ public class OwnerService implements IOwnerService {
      * @see org.pmp.service.business.IOwnerService#batchSave(java.util.List,java.util.Map)
      */
     @Override
-    public void batchSave(List<Owner> list,Map<String,House> map) {
-	ownerDAO.batchSave(list);
-	for(Owner owner : list){
-	    House house = map.get(owner.getOwnerName());
-	    logger.debug("house.houseNum="+house.getHouseNum()+"  house.houseDesc="+house.getHouseDesc());
-	    logger.debug("owner.ownerId="+owner.getOwnerId());
-	}
+    public void batchSave(List<Owner> list) {
+	/* batch save owner instance , and return the generated key */
+	List<Integer> idList = ownerDAO.batchSave(list);
 	
+	/* call procedure to generated HouseOwner instance list */
+	houseOwnerDAO.batchSave(idList);
     }
 
     /**

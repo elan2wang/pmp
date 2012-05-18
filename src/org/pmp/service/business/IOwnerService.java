@@ -29,7 +29,7 @@ public interface IOwnerService {
     public void addOwner(Owner instance,List<Member> list,Integer houseId);
     public void editOwner(Owner instance,List<Member> list,Integer houseId);
     public void batchDelete(List<Owner> list);
-    public void batchSave(List<Owner> list,Map<String,House> map);
+    public void batchSave(List<Owner> list);
     
     public Owner getOwner_ById(Integer ownerId);
     

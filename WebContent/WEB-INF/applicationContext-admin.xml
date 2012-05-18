@@ -113,9 +113,7 @@
     <property name="roleModuleService" ref="roleModuleService" />
   </bean>
   
-  <bean id="loginAction" class="org.pmp.action.admin.LoginAction">
-    <property name="moduleService" ref="moduleService" />
-  </bean>
+  <bean id="loginAction" class="org.pmp.action.admin.LoginAction" />
   
   <bean id="errorHandleAction" class="org.pmp.action.admin.ErrorHandleAction">
     <property name="userService" ref="userService" />

@@ -203,41 +203,34 @@ public class OwnerDAO2 extends BaseDAO implements IOwnerDAO2 {
     /**
      * @see org.pmp.dao.business.IOwnerDAO2#batchSave(java.util.List)
      */
+    
     @Override
-    public List<Integer> batchSave(final List<Owner> list) {
+    public List<Integer> batchSave(List<Owner> list) {
 	List<Integer> idList = new ArrayList<Integer>();
-	logger.debug("进入batchSave");
 	Session session = getSession();
-	logger.debug("test0101");
-	Transaction tx = session.beginTransaction();
+	Transaction tx = null;
 	try {
-	    logger.debug("test01010");
 	    Connection conn = session.connection();
-	    logger.debug("test1111");
 	    String sql = "insert into tb_Owner(Owner_Name,Gender,Nationality,Native," +
 		"Birthday,ISMARRIED,Organization,Hobby,Identity_Type,Identity_Code,Home_Phone,Mobile,Get_Time,Decorate_Time," +
 		"In_Time,Park_Num,Car_Num,Car_Type,Storeroom,House_Area,Use_Style,Other_Address,Other_Postcode,Emergency_Contact," +
 		"Emergency_Phone,House_Num,Owner_Desc) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	    ResultSet rs = null;
+	    
             PreparedStatement stmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-            logger.debug("111111111");
 	    int i = 0;
-            logger.debug("test");
+	    tx = session.beginTransaction();
 	    for (Owner owner : list){
 		stmt.setString(1, owner.getOwnerName());
-		logger.debug("test0");
 		stmt.setString(2, owner.getGender());
-		logger.debug("test00");
 		stmt.setString(3, owner.getNationality());
 		stmt.setString(4, owner.getNative_());
-		logger.debug("test1");
 		if (owner.getBirthday()!=null){
 		    java.sql.Date date=new java.sql.Date(owner.getBirthday().getTime());
 	    	    stmt.setDate(5, date);
 		} else {
 		    stmt.setDate(5, null);
 		}
-		logger.debug("test2");
     		stmt.setBoolean(6, owner.isIsmarried());
     		stmt.setString(7, owner.getOrganization());
     		stmt.setString(8, owner.getHobby());
@@ -245,7 +238,6 @@ public class OwnerDAO2 extends BaseDAO implements IOwnerDAO2 {
     		stmt.setString(10, owner.getIdentityCode());
     		stmt.setString(11, owner.getHomePhone());
     		stmt.setString(12, owner.getMobile());
-    		logger.debug("test3");
     		if(owner.getGetTime()!=null){
     		    java.sql.Date date1 = new java.sql.Date(owner.getGetTime().getTime());
     		    stmt.setDate(13, date1);
@@ -264,7 +256,6 @@ public class OwnerDAO2 extends BaseDAO implements IOwnerDAO2 {
     		} else {
     		    stmt.setDate(15, null);
     		}
-    		logger.debug("test4");
     		stmt.setString(16, owner.getParkNum());
     		stmt.setString(17, owner.getCarNum());
     		stmt.setString(18, owner.getCarType());
@@ -278,12 +269,10 @@ public class OwnerDAO2 extends BaseDAO implements IOwnerDAO2 {
     		stmt.setString(26, owner.getHouseNum());
     		stmt.setString(27, owner.getOwnerDesc());
     		stmt.execute();
-    		logger.debug("NOK"+i);
     		rs = stmt.getGeneratedKeys();
     		rs.next();
     		Integer id = rs.getInt(1);
     		idList.add(id);
-    		logger.debug("OK"+i++);
 	    }
 	} catch (RuntimeException e){
 	    tx.rollback();
@@ -298,9 +287,10 @@ public class OwnerDAO2 extends BaseDAO implements IOwnerDAO2 {
 	    tx.commit();
 	    session.close();
 	}
+	
 	return idList;
     }
-    
+
     //~ Getters and Setters ============================================================================================
 
 }

@@ -7,7 +7,12 @@
  */
 package org.pmp.util;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
+import org.pmp.service.admin.IModuleService;
 import org.pmp.service.admin.IUserGroupRoleService;
 import org.pmp.service.admin.IUserService;
 import org.pmp.service.business.ICompanyService;
@@ -34,9 +39,8 @@ public class SessionHandler {
     static Logger logger = Logger.getLogger(SessionHandler.class.getName());
     
     //~ Methods ========================================================================================================
-    public static TbUser getUser(){
+    public static void putUserIntoSession(){
 	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	if (authentication == null)return null;
 	String principal = authentication.getPrincipal().toString();
 	String [] aa = principal.split(";");
 	String bb = null;
@@ -49,30 +53,17 @@ public class SessionHandler {
 	String [] cc = bb.split(":");
 	String username = cc[2].trim();
 	
+	/* get user instance */
 	IUserService userService = (IUserService)SpringContextUtil.getBean("userService");
 	TbUser user = userService.getUserByUsername(username);
-	return user;
-    }
-
-    public static TbGroup getUserGroup(){
-	TbUser user = getUser();
+	
+	/* get the user's group and role instance */
 	IUserGroupRoleService ugrService = (IUserGroupRoleService)SpringContextUtil.getBean("ugrService");
 	TbUserGroupRole ugr = ugrService.getUGR_ByUserID(user.getUserId());
 	TbGroup group = ugr.getTbGroup();
-	return group;
-    }
-    
-    public static TbRole getUserRole(){
-	TbUser user = getUser();
-	IUserGroupRoleService ugrService = (IUserGroupRoleService)SpringContextUtil.getBean("ugrService");
-	TbUserGroupRole ugr = ugrService.getUGR_ByUserID(user.getUserId());
 	TbRole role = ugr.getTbRole();
 	
-	return role;
-    }
-    
-    public static Object getUserRefDomain(){
-	TbGroup group = getUserGroup();
+	/* get the user's refDomain instance */
 	String refDomain = group.getRefDomain().trim();
 	Integer level = group.getGroupLevel();
 	Object obj = null;
@@ -83,19 +74,59 @@ public class SessionHandler {
 	    IProjectService projectService = (IProjectService)SpringContextUtil.getBean("projectService");
 	    obj = projectService.getProjectByName(refDomain);
 	}
-	return obj;
+	
+	/* get the user's SMSComapny instance */
+	SMSCompany smsc = null;
+	ISmsCompanyService smscService = (ISmsCompanyService)SpringContextUtil.getBean("smsCompanyService");
+	if (obj instanceof Company){
+	    smsc = smscService.getSMSCompanyByComID(((Company)obj).getComId());
+	}
+	if (obj instanceof Project){
+	    Integer comId = ((Project)obj).getCompany().getComId();
+	    smsc = smscService.getSMSCompanyByComID(comId);
+	}
+	/* By default, the system level users related SMSCompany's ID is 1 */
+	if (refDomain.equals("系统层")){
+	    smsc = smscService.getSMSCompanyByID(1);
+	}
+	
+	/* get user related moduleList */
+	IModuleService moduleService = (IModuleService)SpringContextUtil.getBean("moduleService");
+	List<?> moduleList = moduleService.getModuleListByRoleID(role.getRoleId());
+	
+	Map<String,Object> session = ServletActionContext.getContext().getSession();
+	session.put("user", user);
+	session.put("group", group);
+	session.put("role", role);
+	session.put("refDomain", obj);
+	session.put("smsc", smsc);
+	session.put("moduleList", moduleList);
+    }
+    
+    public static TbUser getUser(){
+	Map<String,Object> session = ServletActionContext.getContext().getSession();
+	return (TbUser)session.get("user");
+    }
+    
+    
+
+    public static TbGroup getUserGroup(){
+	Map<String,Object> session = ServletActionContext.getContext().getSession();
+	return (TbGroup)session.get("group");
+    }
+    
+    public static TbRole getUserRole(){
+	Map<String,Object> session = ServletActionContext.getContext().getSession();
+	return (TbRole)session.get("role");
+    }
+    
+    public static Object getUserRefDomain(){
+	Map<String,Object> session = ServletActionContext.getContext().getSession();
+	return session.get("refDomain");
     }
     
     public static SMSCompany getSMSCompany(){
-	SMSCompany smsc = null;
-        ISmsCompanyService smscService = (ISmsCompanyService)SpringContextUtil.getBean("smsCompanyService");
-	if (getUserRefDomain().getClass().getName().equals("org.pmp.vo.Company")){
-	    smsc = smscService.getSMSCompanyByComID(((Company)getUserRefDomain()).getComId());
-	}
-	if (getUserRefDomain().getClass().getName().equals("org.pmp.vo.Project")){
-	    Integer comId = ((Project)getUserRefDomain()).getCompany().getComId();
-	    smsc = smscService.getSMSCompanyByComID(comId);
-	}
-	return smsc;
+	Map<String,Object> session = ServletActionContext.getContext().getSession();
+	return (SMSCompany)session.get("smsc");
     }
 }

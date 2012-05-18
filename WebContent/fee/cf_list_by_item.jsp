@@ -24,11 +24,13 @@
 <body>
 <table id="cf_list">
 </table>
+<input type="hidden" id="cfiId" value="" />
 
 <!-- pop up windows -->
 <div id="cfEdit" class="easyui-window" title="物业费修改" iconCls="icon-save" style="width:350px;height:370px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
 <div id="cfImport" href="cf_import.jsp" class="easyui-window" title="物业费导入" iconCls="icon-save" style="width:350px;height:200px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
 <div id="cfAudit" class="easyui-window" title="物业费审核" iconCls="icon-save" style="width:600px;height:370px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
+<div id="cfExport" href="cf_export.jsp" class="easyui-window" title="导出物业费设置清单" iconCls="icon-save" style="width:350px;height:300px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
 
 </body>
 </html>

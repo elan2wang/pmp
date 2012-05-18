@@ -1,5 +1,8 @@
 $(function(){
 	var cfiId = getQueryString("cfiId");
+	/* set the value of the hidden input */
+	document.getElementById("cfiId").value = cfiId;
+	
 	$('#cf_list').flexigrid({
 		url:"loadCondoFeeList_ByCFI?cfiId="+cfiId,
 		dataType:"json",
@@ -54,7 +57,7 @@ function cfImport(){
 }
 
 function cfExport(){
-	
+	openAddWindow('#cfExport');
 }
 
 function cfEdit(){

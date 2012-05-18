@@ -62,7 +62,6 @@ public class SmsSendAction extends ActionSupport{
     }
     
     public void loadHistory(){
-	logger.debug("aaaaaaaa");
 	List<?> list = null;
 	Map<String,Object> params = new HashMap<String,Object>();
 	String order = null;

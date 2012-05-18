@@ -44,7 +44,7 @@
   </bean>
   
   <bean id="houseOwnerService" class="org.pmp.service.impl.business.HouseOwnerService">
-  	<property name="houseOwnerDao" ref="houseOwnerDAO"></property>
+  	<property name="houseOwnerDAO" ref="houseOwnerDAO"></property>
   </bean>
   
   <bean id="memberService" class="org.pmp.service.impl.business.MemberService">

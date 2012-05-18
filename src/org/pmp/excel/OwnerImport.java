@@ -19,7 +19,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import jxl.Cell;
 import jxl.Sheet;
@@ -31,16 +30,8 @@ import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 
 import org.apache.log4j.Logger;
-import org.pmp.service.business.IBuildingService;
-import org.pmp.service.business.IHouseService;
-import org.pmp.service.business.IOwnerService;
-import org.pmp.service.business.IProjectService;
-import org.pmp.util.SpringContextUtil;
 import org.pmp.validate.OwnerValidate2;
-import org.pmp.vo.Building;
-import org.pmp.vo.House;
 import org.pmp.vo.Owner;
-import org.pmp.vo.Project;
 
 /**
  * @author Elan
@@ -53,7 +44,7 @@ public class OwnerImport {
     private static Logger logger = Logger.getLogger(OwnerImport.class.getName());
 
     //~ Methods ========================================================================================================
-    public static boolean execute(InputStream is,OutputStream os,List<Owner> ownerList,Map<String,House> map){
+    public static boolean execute(InputStream is,OutputStream os,List<Owner> ownerList){
 	boolean hasError = false;
 	try {
 	    /* create the input workbook and sheet */
@@ -67,12 +58,7 @@ public class OwnerImport {
 	    ws.setName("errorSheet");
 	    /* create a variable to count the removed rows */
 	    Integer removedRows = 0;
-	    
-	    /* get used services from spring context */
-            IProjectService projectService = (IProjectService)SpringContextUtil.getBean("projectService");
-            IHouseService houseService = (IHouseService)SpringContextUtil.getBean("houseService");
-            IBuildingService buildingService = (IBuildingService)SpringContextUtil.getBean("buildingService");
-            
+	  
             Cell cell = null;
             for (int j = 1; j < sheet.getRows(); j++) {
                 List<Cell> list = new ArrayList<Cell>();
@@ -83,27 +69,6 @@ public class OwnerImport {
 	        if(!OwnerValidate2.isRight(list)){
 	            hasError = true;
 	        } else {
-	            /* get related instances */
-	            House house = null;
-	            try {
-	        	Project project = projectService.getProjectByName(list.get(1).getContents().trim());
-	        	logger.debug("projectName="+project.getProName());
-		            
-	        	Building building = buildingService.getBuildingByProjectIdAndBuildingNum(
-		        	    project.getProId(), Integer.parseInt(list.get(2).getContents().trim()));
-		        
-	        	logger.debug("buildingNum="+building.getBuilNum());
-	        	house = houseService.getHouseByBuildingIdAndHouseNum(building.getBuilId(), list.get(3).getContents().trim());
-	                
-	        	logger.debug("house.houseNum="+house.getHouseNum());
-	        	
-	            } catch (RuntimeException e){
-	        	logger.error("get instance failed"+e);
-	        	hasError = true;
-	        	continue;
-	            }
-	            logger.debug("记录正常");
-	            
 	            /* if current record is right remove it from ws */
 	            ws.removeRow(j-removedRows++);
 	            
@@ -114,6 +79,9 @@ public class OwnerImport {
 	            owner.setHouseArea(Double.parseDouble(list.get(4).getContents().trim()));
 	            owner.setOwnerName(list.get(5).getContents().trim());
 	            owner.setMobile(list.get(6).getContents().trim());
+	            /* ownerDesc必须设置为物业项目名称  */
+	            owner.setOwnerDesc(list.get(1).getContents().trim());
+	            
 	            /* set other none required field */
 	            DateFormat format = new SimpleDateFormat("yyyy/MM/dd");
 	            
@@ -139,11 +107,9 @@ public class OwnerImport {
 	            if(!list.get(26).getContents().trim().equals(""))owner.setEmergencyContact(list.get(26).getContents().trim());
 	            if(!list.get(27).getContents().trim().equals(""))owner.setEmergencyPhone(list.get(27).getContents().trim());
 	            if(!list.get(28).getContents().trim().equals(""))owner.setHobby(list.get(28).getContents().trim());
-	            owner.setOwnerDesc(list.get(0).getContents()+","+list.get(1).getContents()+","+list.get(2).getContents());
 	            /* add the instance into ownerList */
 	            ownerList.add(owner);
-	            /* add the ownerName and related house into map */
-	            map.put(owner.getOwnerName(), house);
+	            
 	        }
 	    }
             wwb.write();
@@ -162,7 +128,6 @@ public class OwnerImport {
 	    e.printStackTrace();
 	}
 	
-	logger.debug("ownerList.size="+ownerList.size());
 	return hasError;
     }
     //~ Getters and Setters ============================================================================================

@@ -56,8 +56,8 @@
     
     <!-- CondoFee Related actions ======================================================================== -->
     
-    <!-- page tag triggered actions -->
-    <action name="select_project" class="org.pmp.action.business.PageTriggerAction" method="select_project" >
+    <!-- select options related actions -->
+    <action name="select_project" class="org.pmp.action.business.PageTriggerAction" method="selectProject_ByAuth" >
       <result name="success">/fee/pro_options.jsp</result>
     </action>
     
@@ -106,8 +106,6 @@
     
     <action name="loadTimeParkFeeByProject" class="org.pmp.action.business.TimeParkFeeAction" method="loadTimeParkFeeByProject">
     </action>
-    
-    
     
   </package>
 </struts>

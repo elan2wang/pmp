@@ -1,5 +1,5 @@
 /**
- * Author            : Jason
+ * Author            : Elan
  * Created On        : 2012-4-15 下午12:15:03
  * 
  * Copyright 2012.  All rights reserved. 
@@ -7,8 +7,10 @@
  */
 package org.pmp.dao.impl.business;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +18,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.jdbc.Work;
 import org.pmp.dao.admin.BaseDAO;
 import org.pmp.dao.business.IHouseOwnerDAO;
 import org.pmp.util.Pager;
@@ -27,171 +30,79 @@ import org.pmp.vo.HouseOwner;
 import org.pmp.vo.Owner;
 
 /**
- * @author Jason
+ * @author Elan
  * @version 1.0
  * @update TODO
  */
 public class HouseOwnerDAO extends BaseDAO implements IHouseOwnerDAO {
-
-	Logger logger = Logger.getLogger(HouseOwnerDAO.class.getName());
+    Logger logger = Logger.getLogger(HouseOwnerDAO.class.getName());
+    public void batchSave(final List<Integer> ownerIdList){
+        logger.debug("begin to batch add houseOwner with ownerIdList by call procedure add_house_owner");
+        Work work = new Work(){
+            public void execute(Connection connection)throws SQLException{
+                String procedure = "{call add_house_owner(?) }";
+                CallableStatement cstmt = connection.prepareCall(procedure);
+                for(Integer id : ownerIdList){
+                    cstmt.setInt(1, id);
+                    cstmt.executeUpdate();
+                }
+            }
+        };
+	executeWork(work);
+	logger.debug("successfully batch add houseOwner with ownerIdList by call procedure add_house_owner");
+    }
     
-	/**
-	 * @Title: addHouseOwner
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public void addHouseOwner(HouseOwner houseOwner) {
-		logger.debug("begin save houseOwner");
-		Session session = getSession();
-		try{
-			Transaction tx = session.beginTransaction();
-			session.save(houseOwner);
-			tx.commit();
-		}catch(RuntimeException e){
-			logger.error("save houseOwnerFailed"+e);
-			session.close();
-			throw e;
-		}
-		logger.debug("save houseOwnerSuccess");
-		session.close();
+    public void saveHouseOwner(HouseOwner instance){
+	String debugMsg = "save houseOwner instance";
+	try {
+	    saveInstance(instance,debugMsg);
+	} catch (RuntimeException e){
+	    throw e;
 	}
-
-	/**
-	 * @Title: updateHouseOwner
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public void updateHouseOwner(HouseOwner houseOwner) {
-		Session session = getSession();
-		try{
-			Transaction tx = session.beginTransaction();
-			session.update(houseOwner);
-			tx.commit();
-		}catch(RuntimeException e){
-			session.close();
-			throw e;
-		}
-		session.close();
+    }
+    
+    public void updateHouseOwner(HouseOwner instance){
+	String debugMsg = "update houseOwner instance";
+	try {
+	    updateInstance(instance,debugMsg);
+	} catch (RuntimeException e){
+	    throw e;
 	}
-
-	/**
-	 * @Title: getOwnerByHouse
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public HouseOwner getOwnerByHouse(House house) {
-		Session session = getSession();
-		List list = null;
-		HouseOwner houseOwner = null;
-		try{
-			Query query = session.createQuery("from HouseOwner where house.houseId="+house.getHouseId());
-//			Query query = session.createQuery("from HouseOwner where house.houseId=53");
-			list = query.list();
-			houseOwner = (HouseOwner)list.get(0);
-		}catch(RuntimeException e){
-			session.close();
-			throw e;
-		}
-		session.close();
-		return houseOwner;
+    }
+    
+    public HouseOwner getHouseOwner_ByHouse(Integer houseId){
+	String debugMsg = "get houseOwner instance by house,houseId="+houseId;
+	String hql = "from HouseOwner where house.houseId="+houseId;
+	HouseOwner houseOwner = null;
+	try {
+	    houseOwner = (HouseOwner)getInstance(hql,debugMsg);
+	} catch (RuntimeException e){
+	    throw e;
 	}
+	return houseOwner;
+    }
+    
+   
+    public HouseOwner getHouseOwner_ByOwner(Integer ownerId){
+	String debugMsg = "get houseOwner instance by owner,ownerId="+ownerId;
+	String hql = "from HouseOwner where owner.ownerId="+ownerId;
+	HouseOwner houseOwner = null;
+	try {
+	    houseOwner = (HouseOwner)getInstance(hql,debugMsg);
+	} catch (RuntimeException e){
+	    throw e;
+	}
+	return houseOwner;
+    }
+    
+    public void deleteHouseOwner(HouseOwner instance){
+	String debugMsg = "delete houseOwner instance,hoId="+instance.getHoId();
+	String hql = "delete from HouseOwner where hoId="+instance.getHoId();
+	try {
+	    deleteInstance(hql,debugMsg);
+	} catch (RuntimeException e){
+	    throw e;
+	}
+    }
 	
-	/**
-	 * @Title: getHouseByOwner
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public HouseOwner getHouseByOwner(Owner owner)
-	{
-		Session session = getSession();
-		List list = null;
-		HouseOwner houseOwner = null;
-		try{
-			Query query = session.createQuery("from HouseOwner where owner.ownerId="+owner.getOwnerId());
-//			Query query = session.createQuery("from HouseOwner where house.houseId=53");
-			list = query.list();
-			houseOwner = (HouseOwner)list.get(0);
-		}catch(RuntimeException e){
-			session.close();
-			throw e;
-		}
-		session.close();
-		return houseOwner;
-	}
-	/**
-	 * @Title: deleteHouseOwner
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public void deleteHouseOwner(Integer hoId) {
-		Session session = getSession();
-		try{
-			Transaction tx = session.beginTransaction();
-			Query query = session.createQuery("delete HouseOwner where hoId="+hoId);
-			query.executeUpdate();
-			tx.commit();
-		}catch(RuntimeException e){
-			logger.error("deleteHouseOwner failed"+e);
-			session.close();
-			throw e;
-		}
-		session.close();
-	}
-
-	/**
-	 * @Title: batchAddHouseOwner
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public void batchAddHouseOwner(List<Integer> ownerIdList,Map<?,?> map) {
-		Session session = getSession();
-		try{
-			Transaction tx = session.beginTransaction();
-			Connection conn = session.connection();
-			Owner owner = null;
-			House house = null;
-			PreparedStatement stmt1 = conn.prepareStatement("insert into tb_HouseOwner(House_ID,Owner_ID) values(?,?)");
-			PreparedStatement stmt2 = conn.prepareStatement("update tb_House set House_Area=?,ISEMPTY=? where House_ID=?");
-			for (Integer ownerId : ownerIdList) {
-				Query query = session.createQuery("from Owner where ownerId="+ownerId);
-				owner = (Owner)query.list().get(0);
-				house = (House)map.get(owner.getOwnerDesc());
-				stmt1.setInt(1,house.getHouseId());
-				stmt1.setInt(2,owner.getOwnerId());
-				stmt2.setDouble(1,house.getHouseArea());
-				stmt2.setBoolean(2,false);
-				stmt2.setInt(3, house.getHouseId());
-				stmt1.executeUpdate();
-				stmt2.executeUpdate();
-			}
-			tx.commit();
-		}catch(Exception e){
-			System.out.println("Exception"+e);
-		}
-	}
-
 }

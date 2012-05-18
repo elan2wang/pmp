@@ -266,29 +266,4 @@ public class HouseDAO extends BaseDAO implements IHouseDAO {
 		return list;	
     }
     
-    
-    /**
-	 * @Title: getHouseByBuildingNumAndHouseNum
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public House getHouseByBuildingIdAndHouseNum(Integer buildingId,String houseNum) {
-		Session session = getSession();
-		House house = null;
-		List list = null;
-		try{
-			Query query = session.createQuery("from House house where building.builId="+buildingId+" and houseNum='"+houseNum+"'");
-			list = query.list();
-			house = (House)list.get(0);
-		}catch(RuntimeException e){
-			System.out.println(e);
-		}
-		return house;
-	}
-
-	
 }
