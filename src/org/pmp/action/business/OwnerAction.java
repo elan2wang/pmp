@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.pmp.excel.NewCondoFeeImport;
-import org.pmp.excel.OwnerImport2;
+import org.pmp.excel.OwnerImport;
 import org.pmp.service.business.IHouseOwnerService;
 import org.pmp.service.business.IHouseService;
 import org.pmp.service.business.IMemberService;
@@ -220,9 +220,12 @@ public class OwnerAction extends ActionSupport{
 	/* import data from the upload file and store in the cfList */
 	List<Owner> ownerList = new ArrayList<Owner>();
 	Map<String,House> map = new HashMap<String,House>();
-	Boolean hasError = OwnerImport2.execute(new FileInputStream(ownerFile), os, ownerList, map);
+	Boolean hasError = OwnerImport.execute(new FileInputStream(ownerFile), os, ownerList, map);
 	/* close OutputStream */
 	os.flush();os.close();
+	
+	logger.debug("ownerList.size="+ownerList.size());
+	logger.debug("map.size="+map.size());
 	
 	/* call the method batchSetOughtMoney to update the condoFee*/
 	ownerService.batchSave(ownerList,map);

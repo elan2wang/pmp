@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -120,23 +121,6 @@ public class BuildingAction extends ActionSupport {
 		logger.debug(data);
 		JsonConvert.output(data);
 	}
-	
-//	public void getBuildingByProject(){
-//		Pager pager = new Pager(100,1);
-//		List buildingList = buildingService.loadBuildingListByProject(pager, projectId);
-//		if(buildingList!=null && buildingList.size()!=0)
-//		{
-//			List show = new ArrayList<String>();
-//			show.add("builId");
-//			show.add("builNum");
-//			String data = JsonConvert.list2Json(buildingList, "org.pmp.vo.Building", show);
-//			JsonConvert.output(data);
-//		}
-//		else
-//		{
-//			System.out.println("data is null");
-//		}
-//	}
 	
 	public String uploadFile(){
 		if(!MyfileUtil.validate(refFileFileName,"xls")){

@@ -61,9 +61,9 @@ public class TreeAction extends ActionSupport{
 	List<Project> proList = new ArrayList<Project>();
 	
 	if (obj instanceof Company){
-		Company com = (Company)obj;
-		Map<String,Object> params = new HashMap<String,Object>();
-		String order = "order by project.proId asc";
+	    Company com = (Company)obj;
+	    Map<String,Object> params = new HashMap<String,Object>();
+	    String order = "order by proId asc";
 	    proList = projectService.loadProjectList_ByCompany(com.getComId(), params, order, pager);
 	}
 	if (obj instanceof Project){

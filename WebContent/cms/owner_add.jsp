@@ -161,7 +161,7 @@
               <tr>
                 <td height="30" align="center" valign="middle">所在小区：</td>
                 <td align="left" valign="middle">
-                <s:action name="getAllProject" namespace="/cms" executeResult="true"/>
+                <s:action name="getProjectBySessionHander" namespace="/cms" executeResult="true"/>
                 <input type="hidden" id="projectName" name="projectName" value=""/>
                 </td>
                 <td align="center" valign="middle">楼&nbsp;宇&nbsp;号：</td>

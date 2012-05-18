@@ -58,13 +58,22 @@ function cfExport(){
 }
 
 function cfEdit(){
-	alert("您还没有选择要修改的项目");
+	var rowid,idString="";
+	$("#cf_list td input[checked=checked]").each(function(){
+		rowid=$(this).parent().parent().parent().attr("id");
+		rowid=rowid.substr(3);
+		idString+=rowid+",";
+	});
+	//alert(idString.length);
+	idString=idString.substring(0,idString.length-1);
+	//alert(idString);
+	alert(idString);
 	$.ajax({
 		type: 'POST',
 		url: 'pre_check?action=deleteList&idStr=401,402,403',
 		success: function(data){
 			if(data.result=='success'){
-				openEditWindow('#cfEdit','selectCondoFee?action=edit&idStr=401,402,403');
+				openEditWindow('#cfEdit','selectCondoFee?action=edit&idStr='+idString);
 			}
 			else{
 				alert("您选中的记录有已经缴纳物业费的记录，无法修改");
@@ -87,10 +96,19 @@ function deleteItem(){
 }
 
 function deleteList(){
-	alert("您还没有选择要修改的项目");
+	var rowid,idString="";
+	$("#cf_list td input[checked=checked]").each(function(){
+		rowid=$(this).parent().parent().parent().attr("id");
+		rowid=rowid.substr(3);
+		idString+=rowid+",";
+	});
+	//alert(idString.length);
+	idString=idString.substring(0,idString.length-1);
+	//alert(idString);
+	alert(idString);
 	$.ajax({
 		type: 'POST',
-		url: 'pre_check?action=deleteList&idStr=404,405,406',
+		url: 'pre_check?action=deleteList&idStr='+idString,
 		success: function(data){
 			if(data.result=='failed')
 				alert("您选中的记录有已缴纳物业费的记录，不能删除");
@@ -99,7 +117,7 @@ function deleteList(){
 	/* if preCheck successfully */
 	$.ajax({
 		type: 'POST',
-		url: 'cf_delete?idStr=404,405,406',
+		url: 'cf_delete?idStr='+idString,
 		success: function(data){
 			alert("记录删除成功");
 			window.parent.location.href='cf_list_by_item.jsp?cfiId='+getQueryString("cfiId");
@@ -108,13 +126,22 @@ function deleteList(){
 }
 
 function cfAudit(){
-	alert("您还没有选择要修改的项目");
+	var rowid,idString="";
+	$("#cf_list td input[checked=checked]").each(function(){
+		rowid=$(this).parent().parent().parent().attr("id");
+		rowid=rowid.substr(3);
+		idString+=rowid+",";
+	});
+	//alert(idString.length);
+	idString=idString.substring(0,idString.length-1);
+	//alert(idString);
+	alert(idString);
 	$.ajax({
 		type: 'POST',
-		url: 'pre_check?action=deleteList&idStr=401,402,403',
+		url: 'pre_check?action=deleteList&idStr='+idString,
 		success: function(data){
 			if(data.result=='success'){
-				openEditWindow('#cfAudit','selectCondoFee?action=audit&idStr=401,402,403');
+				openEditWindow('#cfAudit','selectCondoFee?action=audit&idStr='+idString);
 			}
 			else{
 				alert("您选中的记录有尚未缴纳物业费的记录，无法审核");

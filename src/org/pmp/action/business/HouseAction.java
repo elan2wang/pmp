@@ -7,26 +7,20 @@
  */
 package org.pmp.action.business;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.apache.struts2.ServletActionContext;
-import org.pmp.service.business.IBuildingService;
 import org.pmp.service.business.IHouseService;
 import org.pmp.util.JsonConvert;
 import org.pmp.util.Pager;
 import org.pmp.util.SessionHandler;
-import org.pmp.vo.Building;
 import org.pmp.vo.Company;
 import org.pmp.vo.House;
-import org.pmp.vo.Owner;
 import org.pmp.vo.Project;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -121,26 +115,6 @@ public class HouseAction extends ActionSupport {
 	
 	}
 	
-//	/**
-//	 * @return void
-//	 */
-//	public void getAllHouseNum(){
-//		Building building = new Building();
-//		building.setBuilId(buildingId);
-//		List houseList = houseService.getHouseByBuilding(building);
-//		if(houseList!=null && houseList.size()!=0)
-//		{
-//			List show = new ArrayList<String>();
-//			show.add("houseId");
-//			show.add("houseNum");
-//			String data = JsonConvert.list2Json(houseList, "org.pmp.vo.House", show);
-//			JsonConvert.output(data);
-//		}
-//		else
-//		{
-//			System.out.println("data is null");
-//		}
-//	}
 	
 	/**
 	 * @return the house
