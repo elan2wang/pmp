@@ -13,13 +13,18 @@
 package org.pmp.action.business;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
+import org.pmp.service.business.IBuildingService;
+import org.pmp.service.business.IHouseService;
 import org.pmp.service.business.IProjectService;
+import org.pmp.util.JsonConvert;
 import org.pmp.util.Pager;
 import org.pmp.util.SessionHandler;
 import org.pmp.vo.Company;
@@ -38,14 +43,19 @@ public class PageTriggerAction extends ActionSupport{
     private static Logger logger = Logger.getLogger(PageTriggerAction.class.getName());
     //~ Instance Fields ================================================================================================
     private IProjectService projectService;
+    private IHouseService houseService;
+    private IBuildingService buildingService;
+    
+    private Integer proId;
+    private Integer builId;
     
     //~ Methods ========================================================================================================
-    public String select_project(){
+    public String selectProject_ByAuth(){
 	List<Project> list = null;
 	Object obj = SessionHandler.getUserRefDomain();
 	if (obj instanceof Company){
 	    Pager pager = new Pager(1000,1);
-	    list = (List<Project>) projectService.loadProjectByComID(pager, ((Company)obj).getComId());
+	    list = projectService.loadProjectList_ByCompany(((Company)obj).getComId(), new HashMap<String,Object>(), "", pager);
 	} else{
 	    list = new ArrayList<Project>();
 	    list.add((Project)obj);
@@ -55,6 +65,22 @@ public class PageTriggerAction extends ActionSupport{
 	request.setAttribute("proList", list);
 	return SUCCESS;
     }
+    
+    public void selectHouse_ByBuil(){
+        List<?> houseList = houseService.loadHouseList_ByBuilding(builId, new HashMap<String,Object>(), "", new Pager(1000,1));
+        String[] attrs = {"houseId","houseNum"};
+        List<String> show = Arrays.asList(attrs);
+        String data = JsonConvert.list2Json(houseList, "org.pmp.vo.House", show);
+        JsonConvert.output(data);
+    }
+    
+    public void selectBuilding_ByPro(){
+	List<?> buildingList = buildingService.loadBuildingList_ByProject(proId, new HashMap<String,Object>(), "", new Pager(1000,1));
+	String[] attrs = {"builId","builNum"};
+	List<String> show = Arrays.asList(attrs);
+	String data = JsonConvert.list2Json(buildingList, "org.pmp.vo.Building", show);
+	JsonConvert.output(data);
+    }
     //~ Getters and Setters ============================================================================================
 
     public IProjectService getProjectService() {
@@ -63,6 +89,38 @@ public class PageTriggerAction extends ActionSupport{
 
     public void setProjectService(IProjectService projectService) {
         this.projectService = projectService;
+    }
+
+    public IHouseService getHouseService() {
+        return houseService;
+    }
+
+    public void setHouseService(IHouseService houseService) {
+        this.houseService = houseService;
+    }
+
+    public IBuildingService getBuildingService() {
+        return buildingService;
+    }
+
+    public void setBuildingService(IBuildingService buildingService) {
+        this.buildingService = buildingService;
+    }
+
+    public Integer getProId() {
+        return proId;
+    }
+
+    public void setProId(Integer proId) {
+        this.proId = proId;
+    }
+
+    public Integer getBuilId() {
+        return builId;
+    }
+
+    public void setBuilId(Integer builId) {
+        this.builId = builId;
     }
 
 }

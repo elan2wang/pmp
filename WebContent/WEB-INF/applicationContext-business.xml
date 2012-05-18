@@ -122,6 +122,8 @@
   
   <bean id="pageTriggerAction" class="org.pmp.action.business.PageTriggerAction">
     <property name="projectService" ref="projectService" />
+    <property name="houseService" ref="houseService" />
+    <property name="buildingService" ref="buildingService" />
   </bean>
   
   <bean id="smsSendAction" class="org.pmp.action.business.SmsSendAction">

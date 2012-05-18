@@ -40,7 +40,7 @@ function projectChanged(builId,houseId)
 	 var projectId=document.getElementById("projectId").value;
 	 $.ajax({
 	  type: "POST",
-	  url: "getBuildingByProject?projectId="+projectId,
+	  url: "selectBuilding_ByPro?proId="+projectId,
 	  dataType: "json",
 	  success : function(data){
 	      var selector=$('#buildingId'); 
@@ -81,7 +81,7 @@ function buildingChanged(houseid){
 	var buildingId = document.getElementById("buildingId").value;
 	$.ajax({
 		type: "POST",
-		url: "getAllHouseNum?buildingId="+buildingId,
+		url: "selectHouse_ByBuil?builId="+buildingId,
 		dataType:"json",
 		success:function(data){
 			var houseId=$('#houseId');

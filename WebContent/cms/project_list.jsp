@@ -40,7 +40,7 @@
                                               <option>定海区</option>
                                               <option>普陀区</option>
                                               <option>岱山区</option>
-                                              <option>嵊泗区</option>s
+                                              <option>嵊泗区</option>
                                       </select>
  
                  <input type="text" id="keyWord" name="keyWord" />

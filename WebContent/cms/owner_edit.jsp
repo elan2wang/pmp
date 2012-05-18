@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-
+<script type="text/javascript" src="../Scripts/pages/cms/owner_edit.js"></script>
 <title>无标题文档</title>
 </head>
 
