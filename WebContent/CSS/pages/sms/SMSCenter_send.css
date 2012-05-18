@@ -14,11 +14,8 @@
 	margin:5px 0 5px 0;
 }
 .phoneinput
-{
-	border-left: medium none;
-	border-right: medium none;
-    border-top: medium none; 
-	border-bottom: 1px solid lightblue;
+{ 
+	border: 1px solid lightblue;
 }
 
 .SMS_main .row2
