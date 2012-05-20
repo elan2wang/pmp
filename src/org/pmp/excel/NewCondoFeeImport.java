@@ -74,7 +74,7 @@ public class NewCondoFeeImport {
 	            ICondoFeeService condoFeeService = (ICondoFeeService)SpringContextUtil.getBean("condoFeeService");
 	            CondoFee item = condoFeeService.getCondoFee_ById(Integer.parseInt(list.get(0).trim()));
 	            if (item != null){
-	        	item.setOughtMoney(Double.parseDouble(list.get(6)));
+	        	item.setOughtMoney(Double.parseDouble(list.get(7)));
                         cfList.add(item);
 	                /* remove the right row */
 		        logger.debug("j="+j+"   removedRows="+removedRows);

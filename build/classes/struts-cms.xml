@@ -110,6 +110,10 @@
       <result name="success">/cms/owner_list.jsp</result>
     </action>
     
+    <action name="deleteOwner" class="org.pmp.action.business.OwnerAction" method="deleteOwner">
+      <result name="success">/cms/owner_list.jsp</result>
+    </action>
+    
     <!-- select options related actions  -->
     
     <action name="selectHouse_ByBuil" class="org.pmp.action.business.PageTriggerAction" method="selectHouse_ByBuil" />

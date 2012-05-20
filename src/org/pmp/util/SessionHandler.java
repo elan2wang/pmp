@@ -40,6 +40,7 @@ public class SessionHandler {
     
     //~ Methods ========================================================================================================
     public static void putUserIntoSession(){
+	Map<String,Object> session = ServletActionContext.getContext().getSession();
 	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	String principal = authentication.getPrincipal().toString();
 	String [] aa = principal.split(";");
@@ -56,12 +57,15 @@ public class SessionHandler {
 	/* get user instance */
 	IUserService userService = (IUserService)SpringContextUtil.getBean("userService");
 	TbUser user = userService.getUserByUsername(username);
+	session.put("user", user);
 	
 	/* get the user's group and role instance */
 	IUserGroupRoleService ugrService = (IUserGroupRoleService)SpringContextUtil.getBean("ugrService");
 	TbUserGroupRole ugr = ugrService.getUGR_ByUserID(user.getUserId());
 	TbGroup group = ugr.getTbGroup();
 	TbRole role = ugr.getTbRole();
+	session.put("group", group);
+	session.put("role", role);
 	
 	/* get the user's refDomain instance */
 	String refDomain = group.getRefDomain().trim();
@@ -74,6 +78,7 @@ public class SessionHandler {
 	    IProjectService projectService = (IProjectService)SpringContextUtil.getBean("projectService");
 	    obj = projectService.getProjectByName(refDomain);
 	}
+	session.put("refDomain", obj);
 	
 	/* get the user's SMSComapny instance */
 	SMSCompany smsc = null;
@@ -89,17 +94,11 @@ public class SessionHandler {
 	if (refDomain.equals("系统层")){
 	    smsc = smscService.getSMSCompanyByID(1);
 	}
+	session.put("smsc", smsc);
 	
 	/* get user related moduleList */
 	IModuleService moduleService = (IModuleService)SpringContextUtil.getBean("moduleService");
 	List<?> moduleList = moduleService.getModuleListByRoleID(role.getRoleId());
-	
-	Map<String,Object> session = ServletActionContext.getContext().getSession();
-	session.put("user", user);
-	session.put("group", group);
-	session.put("role", role);
-	session.put("refDomain", obj);
-	session.put("smsc", smsc);
 	session.put("moduleList", moduleList);
     }
     

@@ -41,6 +41,7 @@
               	<input type="hidden" id="proId" name="proId" value="${project.proId}"/>
               	<input type="hidden" name="builId" id="builId" value="${building.builId}"/>
               	<input type="hidden" name="houseId2" id="houseId2" value="${house.houseId}"/>
+              	<input type="hidden" name="houseNum2" id="houseNum2" value="${house.houseNum}"/>
               	<input type="hidden" name="objName" id="objName" value="${objName}"/>
                 </td>
               </tr>

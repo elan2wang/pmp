@@ -35,7 +35,7 @@ function to(page) {
 
 /* when method defined in owner_add.js whose name is 'owner_edit_init' */
 /* invoke this method,it will contain parameters, otherwise there is no parameters */
-function projectChanged(builId,houseId)
+function projectChanged(builId,houseId,houseNum)
 {
 	 var projectId=document.getElementById("projectId").value;
 	 $.ajax({
@@ -68,16 +68,15 @@ function projectChanged(builId,houseId)
 				  }
 			  });
 			  if(succ && houseId){
-				  buildingChanged(houseId);
+				  buildingChanged(houseId,houseNum);
 		      }
 	  	  }
 	  }
 	});
 }
 
-/* when method defined in owner_add.js whose name is 'owner_edit_init' */
-/* invoke this method,it will contain parameters, otherwise there is no parameters */
-function buildingChanged(houseid){
+
+function buildingChanged(houseid,houseNum){
 	var buildingId = document.getElementById("buildingId").value;
 	$.ajax({
 		type: "POST",
@@ -92,15 +91,9 @@ function buildingChanged(houseid){
 			if(data)
 		  	{			
 				$.each(data.Rows,function(commentIndex,comment){
-					 if(houseid && houseid==comment['houseId'])
-					 {
-					     houseId.append('<option selected="selected" value="'+comment['houseId']+'">'+comment['houseNum']+'</option>');
-					 }
-					 else
-					 {
-				         houseId.append('<option value="'+comment['houseId']+'">'+comment['houseNum']+'</option>');
-					 }
-				 });
+				     houseId.append('<option value="'+comment['houseId']+'">'+comment['houseNum']+'</option>');
+			    });
+				houseId.append('<option selected="selected" value="'+houseid+'">'+houseNum+'</option>');
 		  	}
 		}
 	});

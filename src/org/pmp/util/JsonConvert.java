@@ -118,7 +118,6 @@ public class JsonConvert {
         throw new RuntimeException("Unsupported type: " + o.getClass().getName());
     }
 
-    
     static String object2Json(Object obj,String beanType){
 	StringBuffer sb = new StringBuffer();
 	sb.append("{");

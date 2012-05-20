@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -67,7 +68,9 @@ public class PageTriggerAction extends ActionSupport{
     }
     
     public void selectHouse_ByBuil(){
-        List<?> houseList = houseService.loadHouseList_ByBuilding(builId, new HashMap<String,Object>(), "", new Pager(1000,1));
+	Map<String,Object> map = new HashMap<String,Object>();
+	map.put("isempty", 1);
+        List<?> houseList = houseService.loadHouseList_ByBuilding(builId, map, "", new Pager(1000,1));
         String[] attrs = {"houseId","houseNum"};
         List<String> show = Arrays.asList(attrs);
         String data = JsonConvert.list2Json(houseList, "org.pmp.vo.House", show);

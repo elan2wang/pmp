@@ -1,6 +1,6 @@
 /**
- * Author            : Jason
- * Created On        : 2012-3-22 ����05:30:34
+ * Author            : Elan
+ * Created On        : 2012-3-22 下午05:30:34
  * 
  * Copyright 2012.  All rights reserved. 
  * 
@@ -12,16 +12,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
@@ -37,7 +33,7 @@ import org.pmp.vo.Project;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
- * @author Jason
+ * @author Elan
  * @version 1.0
  * @update TODO
  */

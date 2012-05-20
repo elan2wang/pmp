@@ -1,5 +1,5 @@
 /**
- * Author            : Jason
+ * Author            : Elan
  * Created On        : 2012-3-28 下午04:42:11
  * 
  * Copyright 2012.  All rights reserved. 
@@ -8,7 +8,6 @@
 package org.pmp.action.business;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +25,7 @@ import org.pmp.vo.Project;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
- * @author Jason
+ * @author Elan
  * @version 1.0
  * @update TODO
  */

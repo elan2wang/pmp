@@ -20,6 +20,7 @@ $(function(){
   	var proName = document.getElementById("proId").value;
   	var builId = document.getElementById("builId").value;
   	var houseId = document.getElementById("houseId2").value;
+  	var houseNum = document.getElementById("houseNum2").value;
   	var objName = document.getElementById("objName").value;
   	if(objName=="org.pmp.vo.Project")
   	{
@@ -32,8 +33,8 @@ $(function(){
  	UpdateSelectedItem(select_ismarried,ismarried);
  	UpdateSelectedItem(select_identityType,identityType);
   	UpdateSelectedItem(select_projectId,proName);
-  	UpdateSelectedItem(select_projectId,proName);	 
-  	projectChanged(builId,houseId);
+  	
+  	projectChanged(builId,houseId,houseNum);
 });
 
 function UpdateSelectedItem(objSelect, objItemValue) {   

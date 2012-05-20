@@ -14,7 +14,7 @@
 <form name="form1" id="form1" action="cf_edit" method="post">
 <table cellpadding="2px" cellspacing="2px" border="0" style="bottom-border:1px,dash">
 <tr>
-  <th style="width:30px;">序号</th>
+  <th style="width:40px;">序号</th>
   <th style="width:40px;">房号</th><th style="width:40px;">业主</th>
   <th style="width:60px;">时间</th><th style="width:80px;">应收金额(元)</th>
 </tr>

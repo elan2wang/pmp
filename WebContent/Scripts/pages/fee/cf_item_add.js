@@ -10,15 +10,20 @@ $(function(){
 });
 
 function preview(){
-	var proId = $('#ProId').val();
-	var itemYear = $('#itemYear').val();
 	var itemMonth = $('input:checked');
+	if(itemMonth.length==0){
+		alert("请选择月份");
+		return;
+	}
 	var months = "";
 	itemMonth.each(function(){
 		months+=$(this).val()+",";
 	});
 	months = months.substring(0, months.length-1);
-	alert(months);
+
+	var proId = $('#ProId').val();
+	var itemYear = $('#itemYear').val();
+	
 	var url = "cf_item_preview?proId="+proId+"&itemYear="+itemYear+"&months="+months;
 	$.ajax({
 		type: "POST",
@@ -29,4 +34,13 @@ function preview(){
 		}
 	});
 	$('input[type=submit]').removeAttr("disabled");
+}
+
+function cancel_item(){
+	$('#display').html("");
+	var itemMonth = $('input:checked');
+	itemMonth.each(function(){
+		$(this).removeAttr('checked');
+	});
+	$('input[type=submit]').attr("disabled","disabled");
 }

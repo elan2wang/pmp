@@ -52,11 +52,12 @@ public class CondoFeeDAO extends BaseDAO implements ICondoFeeDAO {
 	logger.debug("list.size="+list.size());
 	Work work = new Work(){
 	    public void execute(Connection connection)throws SQLException{
-		String sql = "update tb_CondoFee set Ought_Money=? where CF_ID=?";
+		String sql = "update tb_CondoFee set Ought_Money=?,State=? where CF_ID=?";
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		for (int i=0;i<list.size();i++){
 		    stmt.setDouble(1, list.get(i).getOughtMoney());
-		    stmt.setInt(2, list.get(i).getCfId());
+		    stmt.setString(2, "input");
+		    stmt.setInt(3, list.get(i).getCfId());
 		    stmt.executeUpdate();
 		}
 	    }

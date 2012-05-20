@@ -3,10 +3,10 @@
  * email： shohokh@gmail.com
  * create:   2012-5-16
  * 
- * this script is used by the cf_import.jsp
+ * this script is used by the owner_import.jsp
  */ 
 
-function new_cf_import(){
+function owner_import(){
 	if($('#cfFile').val()==""){
 		alert("请选择上传的文件");
 		return false;
@@ -24,9 +24,9 @@ function new_cf_import(){
 	$.ajaxFileUpload
 	(
 		{
-			url:'new_cf_import', 
+			url:'ownerImport', 
 			secureuri:false,
-			fileElementId:'cfFile',
+			fileElementId:'ownerFile',
 			dataType: 'json',
 			success: function (data, status)
 			{
@@ -34,12 +34,11 @@ function new_cf_import(){
 				{
 					if(data.error != '')
 					{
-						alert(data.msg);
 						$('#msg').html(data.msg);
 					}else
 					{
-						$('#cfImport').window('close');
-					    alert(data.msg);
+						$('#ownerImport').window('close');
+						alert(data.msg);
 					}
 				}
 			},
