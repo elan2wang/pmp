@@ -12,7 +12,7 @@
   <package name="default"  extends="struts-default">
 	<!-- Login Related Actions -->
 	<action name="index" class="org.pmp.action.admin.LoginAction" method="loadWelcomePage">
-	  <result name="success">/admin_index.jsp</result>
+	  <result name="success" type="redirect">/admin_index.jsp</result>
 	</action>
 	
 	<action name="access_denied" class="org.pmp.action.admin.ErrorHandleAction" method="accessDenied">

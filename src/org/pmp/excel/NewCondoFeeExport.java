@@ -41,7 +41,7 @@ public class NewCondoFeeExport {
 	    WritableWorkbook wwb = Workbook.createWorkbook(os);
 	    WritableSheet ws = wwb.createSheet("sheet1", 0);
 	    /* set the header of the excel file */
-	    String[] header = {"编号","所在小区","房号","面积","时间","业主","应收物业费"};
+	    String[] header = {"编号","所在小区","房号","面积","年份","月份","业主","应收物业费"};
 	    ExportUtil.writeHead(ws, header);
 	    
 	    /* i begin with 1 not 0 */
@@ -51,8 +51,9 @@ public class NewCondoFeeExport {
 		ws.addCell(ExportUtil.toCell(cf.getHouse().getBuilding().getProject().getProName(), 1, i));
 		ws.addCell(ExportUtil.toCell(cf.getHouse().getHouseNum().toString(), 2, i));
 		ws.addCell(ExportUtil.toCell(cf.getHouse().getHouseArea(), 3, i));
-		ws.addCell(ExportUtil.toCell(cf.getCfYear()+"-"+cf.getCfMonth(), 4, i));
-		ws.addCell(ExportUtil.toCell(cf.getOwner().getOwnerName(), 5, i));
+		ws.addCell(ExportUtil.toCell(cf.getCfYear(), 4, i));
+		ws.addCell(ExportUtil.toCell(cf.getCfMonth(), 5, i));
+		ws.addCell(ExportUtil.toCell(cf.getOwner().getOwnerName(), 6, i));
 	    }
 	    /* put the data in cache to file and close cache */
 	    wwb.write();

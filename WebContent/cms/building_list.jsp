@@ -25,14 +25,19 @@
 <body style="height:100%">
   <div class="wrap">  
              <div id="top_info" name="top_info"  style="display:none;" >
-                <div class="top_info">
+                <div class="grid_top">
                   <span>当前小区：</span><span ><script>document.write(parent.document.getElementById("frame.projectName").value)</script></span>
                   <span>所属物业：</span><span ><script>document.write(parent.document.getElementById("frame.projectName").value)</script></span>
                 </div>
                 <div class="grid_top"> 
+<<<<<<< HEAD
                   <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="openAddNewBuild()">添加新楼宇</a>
                   <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="builImport()">导入</a>
                	  <div id="builImport" href="buil_import.jsp" class="easyui-window" title="楼宇导入" iconCls="icon-save" style="width:350px;height:200px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
+=======
+                  <span><a href="javascript:void(0)" class="linkbutton"  onClick="openAddNewBuild()">添加新楼宇</a></span>
+                  <span><a href="javascript:void(0)" class="linkbutton"  onClick="openAddNewUser()">导入</a></span>
+>>>>>>> 06f54611c7339a2a3aff189dd92ad074577aef01
                 </div>
              </div>
              

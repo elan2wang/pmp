@@ -28,21 +28,14 @@ a{
 <div class="index">
    <div style="height:60px" class="index_top">
        <div class="clear"></div>
-      <div style="float:right; margin-left:620px; margin-right:20px; display:inline-block" class="index_top_right">
-           <p></p>
-           <p >
-                 <span><a href="#">欢迎页 </a> </span><span>|</span>
-                 <span><a href="#"> 帮助 </a></span><span>|</span>
-                 <span><a href="#"> 关于</a> </span><span>|</span>
-                 <span><input type="button" value="退出" /></span>
-            </p>
+      <div class="index_top_right">
+           <span><a href="javascript:void(0)" >欢迎页 </a> </span><span>|</span>
+           <span><a href="javascript:void(0)"> 帮助 </a></span><span>|</span>
+           <span><a href="javascript:void(0)"> 关于</a> </span><span>|</span>
+           <span><a href="javascript:void(0)">退出</a></span>
        </div>
        <div style="float:left">
            <img src="Images/Logo2.gif" width="340" height="60" />
-       </div>
-       <div style="float:left" class="index_top_block">
-           <p><span>1</span><span>1</span><span>1</span></p>
-           <p >当前小区：</p>
        </div>
        <div style="float:left" class="index_top_block1">
        </div>
@@ -53,8 +46,8 @@ a{
        <div class="index_main_top"><img src="Images/blank11.gif" width="6" height="6" /></div>
        <div class="index_main_left">
           <div class="index_main_left_top">
-		       <script type="text/jscript">
-			     todayDate();
+		       <script type="text/javascript">
+			     document.write(todayDate());
                </script>
           </div>
           <div style="border-right:1px #6c92ad solid; height:8px"><img src="Images/blank11.gif" width="8" height="8" /></div>
@@ -62,7 +55,8 @@ a{
              <c:forEach var="item" items="${moduleList }">
              <div id="m1" class="LMIitem" onmouseover="button(this,'over')" onmouseout="button(this,'out')" onclick="button(this,'onclick','${item.modUrl}')">${item.modName }</div>
              </c:forEach>
-             <div id="m_rest" class="LMIitem" style="height:500px"></div>
+             <div id="blanks" name="blanks" style="border-right:1px #6c92ad solid;">&nbsp;</div>
+             
           </div>
        </div><!-- 结束标签 class="index_main_left"-->
        <div class="index_main_right">
@@ -71,8 +65,9 @@ a{
        </div>
    </div><!-- 结束标签 class="index_main"-->
    <div class="clear"></div>
-   <div class="index_main_top"><img src="Images/blank11.gif" width="6" height="6" /></div>
+   
    <div class="index_footer">
+       <div class="index_main_top"><img src="Images/blank11.gif" width="6" height="6" /></div>
        <div id="userinfo" style="display:inline-block;line-height:30px;text-align:center">版权所有：中国移动公司</div>
    </div>
    

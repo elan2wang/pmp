@@ -14,7 +14,7 @@
 <form name="form1" id="form1" action="cf_input" method="post">
 	<table cellpadding="2px" cellspacing="2px" border="0">
 	<tr style="height:25px">
-	  <th style="width:30px;">序号</th>
+	  <th style="width:40px;">序号</th>
 	  <th style="width:100px;">时间</th>
 	  <th style="width:80px;">应收金额</th>
 	  <th style="width:100px;">收费金额</th>

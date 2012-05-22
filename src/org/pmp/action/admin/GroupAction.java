@@ -8,6 +8,7 @@
 package org.pmp.action.admin;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -67,14 +68,14 @@ public class GroupAction extends ActionSupport {
 	    logger.debug("fatherID="+group.getFatherGroupId());
 	    Integer comId = companyService.getCompanyByName(father.getRefDomain()).getComId();
 	    logger.debug("comID="+comId);
-	    List<?> projectList = projectService.loadProjectByComID(pager, comId);
+	    List<?> projectList = projectService.loadProjectList_ByCompany(comId, new HashMap<String,Object>(), "", pager);
 	    logger.debug("projectList.size="+projectList.size());
 	    request.setAttribute("groupList", groupList);
 	    request.setAttribute("projectList", projectList);
 	}
 	if (group.getGroupLevel().equals(2)){
 	    Pager pager = new Pager(1000,1);
-	    List<?> companyList = companyService.loadCompanyList(pager);
+	    List<?> companyList = companyService.loadCompanyList_ByChinaMobile(new HashMap<String,Object>(), "", pager);
 	    request.setAttribute("companyList", companyList);
 	}
 	
@@ -106,8 +107,8 @@ public class GroupAction extends ActionSupport {
     public void levelChange(){
 	logger.debug("进入levelChange");
 	if (level.equals(2)){
-	    Pager pager = new Pager(1000,1);
-	    List<?> companyList = companyService.loadCompanyList(pager);
+	    Pager pager = new Pager(1000,1);    
+	    List<?> companyList = companyService.loadCompanyList_ByChinaMobile(new HashMap<String,Object>(), "", pager);
 	    logger.debug("companyList.size="+companyList.size());
 	    String[] attrs = {"comId","comName"};
 	    List<String> show = Arrays.asList(attrs);
@@ -119,7 +120,7 @@ public class GroupAction extends ActionSupport {
             Pager pager = new Pager(1000,1);
             List<?> groupList = groupService.getGroupListByLevel(pager, level-1);
             Integer comId = companyService.getCompanyByName(((TbGroup)groupList.get(0)).getRefDomain()).getComId();
-            List<?> proList = projectService.loadProjectByComID(pager, comId);
+            List<?> proList = projectService.loadProjectList_ByCompany(comId, new HashMap<String,Object>(), "", pager);
             String[] attrs1 = {"groupId","groupName"};
             String[] attrs2 = {"proId","proName"};
             List<String> show1 = Arrays.asList(attrs1);
@@ -136,7 +137,7 @@ public class GroupAction extends ActionSupport {
 	Pager pager = new Pager(1000,1);
 	String comName = ((TbGroup)groupService.getGroupByID(fatherGroup)).getRefDomain();
 	Integer comId = companyService.getCompanyByName(comName).getComId();
-	List<?> proList = projectService.loadProjectByComID(pager, comId);
+	List<?> proList = projectService.loadProjectList_ByCompany(comId, new HashMap<String,Object>(), "", pager);
         String[] attrs = {"proId","proName"};
         List<String> show = Arrays.asList(attrs);
         String data = JsonConvert.list2Json(proList, "org.pmp.vo.Project", show);

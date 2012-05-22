@@ -37,4 +37,6 @@ public interface IRoleService {
      * @return List  角色的实体列表
      */
     public List getRoleList();
+    
+    public List<?> loadRoleList_LevelNotBellow(Integer level,String order);
 }

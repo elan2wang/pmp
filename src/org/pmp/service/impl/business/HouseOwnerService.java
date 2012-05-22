@@ -1,115 +1,94 @@
 /**
- * Author            : Jason
- * Created On        : 2012-4-15 下午02:44:12
+ * Author            : Elan
+ * Created On        : 2012-5-18 下午04:31:55
  * 
  * Copyright 2012.  All rights reserved. 
+ *
+ * Revision History
+ * 
+ *    Date       Modifier       Comments
+ * ----------    -------------  --------------------------------------------
  * 
  */
 package org.pmp.service.impl.business;
 
 import java.util.List;
-import java.util.Map;
 
-import org.pmp.dao.impl.business.HouseOwnerDAO;
+import org.apache.log4j.Logger;
+import org.pmp.dao.business.IHouseOwnerDAO;
 import org.pmp.service.business.IHouseOwnerService;
-import org.pmp.vo.House;
 import org.pmp.vo.HouseOwner;
-import org.pmp.vo.Owner;
 
 /**
- * @author Jason
+ * @author Elan
  * @version 1.0
  * @update TODO
  */
 public class HouseOwnerService implements IHouseOwnerService {
-	
-	private HouseOwnerDAO houseOwnerDao;
 
+    //~ Static Fields ==================================================================================================
+    private static Logger logger = Logger.getLogger(HouseOwnerService.class.getName());
 
-	/**
-	 * @Title: saveHouseOwner
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public void saveHouseOwner(HouseOwner houseOwner) {
-		houseOwnerDao.addHouseOwner(houseOwner);
-	}
+    //~ Instance Fields ================================================================================================
+    private IHouseOwnerDAO houseOwnerDAO; 
+    
+    //~ Methods ========================================================================================================
+    /**
+     * @see org.pmp.service.business.IHouseOwnerService#batchAdd(java.util.List)
+     */
+    @Override
+    public void batchAdd(List<Integer> ownerIdList) {
+	houseOwnerDAO.batchSave(ownerIdList);
+    }
 
-	/**
-	 * @Title: updateHouseOwner
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public void updateHouseOwner(HouseOwner houseOwner) {
-		houseOwnerDao.updateHouseOwner(houseOwner);
-	}
+    /**
+     * @see org.pmp.service.business.IHouseOwnerService#addHouseOwner(org.pmp.vo.HouseOwner)
+     */
+    @Override
+    public void addHouseOwner(HouseOwner instance) {
+	houseOwnerDAO.saveHouseOwner(instance);
+    }
 
-	/**
-	 * @Title: getOwnerByHouse
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public HouseOwner getOwnerByHouse(House house) {
-		return houseOwnerDao.getOwnerByHouse(house);
-	}
-	
-	/**
-	 * @Title: getHouseByOwner
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public HouseOwner getHouseByOwner(Owner owner)
-	{
-		return houseOwnerDao.getHouseByOwner(owner);
-	}
-	
-	/**
-	 * @Title: deleteHouseOwner
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public void deleteHouseOwner(Integer hoId) {
-		houseOwnerDao.deleteHouseOwner(hoId);
-	}
-	
-	/**
-	 * @param houseOwnerDao the houseOwnerDao to set
-	 */
-	public void setHouseOwnerDao(HouseOwnerDAO houseOwnerDao) {
-		this.houseOwnerDao = houseOwnerDao;
-	}
+    /**
+     * @see org.pmp.service.business.IHouseOwnerService#editHouseOwner(org.pmp.vo.HouseOwner)
+     */
+    @Override
+    public void editHouseOwner(HouseOwner instance) {
+	houseOwnerDAO.updateHouseOwner(instance);
+    }
 
-	/**
-	 * @Title: batchAddHouseOwner
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public void batchAddHouseOwner(List<Integer> ownerIdList, Map map) {
-		houseOwnerDao.batchAddHouseOwner(ownerIdList, map);
-	}
+    /**
+     * @see org.pmp.service.business.IHouseOwnerService#deleteHouseOwner(org.pmp.vo.HouseOwner)
+     */
+    @Override
+    public void deleteHouseOwner(HouseOwner instance) {
+	houseOwnerDAO.deleteHouseOwner(instance);
+    }
+
+    /**
+     * @see org.pmp.service.business.IHouseOwnerService#getHouseOwner_ByHouse(java.lang.Integer)
+     */
+    @Override
+    public HouseOwner getHouseOwner_ByHouse(Integer houseId) {
+	return houseOwnerDAO.getHouseOwner_ByHouse(houseId);
+    }
+
+    /**
+     * @see org.pmp.service.business.IHouseOwnerService#getHouseOwner_ByOwner(java.lang.Integer)
+     */
+    @Override
+    public HouseOwner getHouseOwner_ByOwner(Integer ownerId) {
+	return houseOwnerDAO.getHouseOwner_ByOwner(ownerId);
+    }
+
+    //~ Getters and Setters ============================================================================================
+
+    public IHouseOwnerDAO getHouseOwnerDAO() {
+        return houseOwnerDAO;
+    }
+
+    public void setHouseOwnerDAO(IHouseOwnerDAO houseOwnerDAO) {
+        this.houseOwnerDAO = houseOwnerDAO;
+    }
 
 }

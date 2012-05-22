@@ -32,7 +32,9 @@
     <div class="innercontent">
       <div class="content_main">
         <div class="left_main" style="float:left">
-          <%@ include file="item_tree.jsp" %>
+            <div class="left_main_content">
+            <%@ include file="item_tree.jsp" %>
+            </div>
         </div>
         <div class="middle"></div>
         <div id="right_main" class="right_main" style="float:left;display:none">
@@ -42,5 +44,14 @@
     </div>
   </div>
 </div>
+  <script type="text/javascript">
+   var Width2=document.documentElement.clientWidth;
+   var Height2=document.documentElement.clientHeight;
+   ChangeHeight(Width2,Height2,'content');
+   ChangeHeight(Width2,Height2,'innercontent');
+   ChangeHeight(Width2,Height2,'left_main');
+   ChangeHeight(Width2,Height2,'middle');
+   ChangeHeight(Width2,Height2,'right_main');
+  </script>
 </body>
 </html>

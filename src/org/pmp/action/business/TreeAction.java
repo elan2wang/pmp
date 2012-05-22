@@ -61,9 +61,9 @@ public class TreeAction extends ActionSupport{
 	List<Project> proList = new ArrayList<Project>();
 	
 	if (obj instanceof Company){
-		Company com = (Company)obj;
-		Map<String,Object> params = new HashMap<String,Object>();
-		String order = "order by project.proId asc";
+	    Company com = (Company)obj;
+	    Map<String,Object> params = new HashMap<String,Object>();
+	    String order = "order by proId asc";
 	    proList = projectService.loadProjectList_ByCompany(com.getComId(), params, order, pager);
 	}
 	if (obj instanceof Project){
@@ -76,14 +76,14 @@ public class TreeAction extends ActionSupport{
 	    Project pro = ite.next();
 	    nodes.add(JsonConvert.toJsonTreeNode(index++, 0, pro.getProName(), "", 
 		    "", "", "../Images/dtree/pro.jpg", "../Images/dtree/pro.jpg", false));
-	    List<Building> builList = buildingService.loadBuildingListByProject(pager, pro.getProId());
+	    List<Building> builList = buildingService.loadBuildingList_ByProject(pro.getProId(), new HashMap<String,Object>(), "", pager);
 	    Iterator<Building> ite1 = builList.iterator();
 	    Integer pid1 = index-1;
 	    while(ite1.hasNext()){
 		Building buil = ite1.next();
 		nodes.add(JsonConvert.toJsonTreeNode(index++, pid1, buil.getBuilNum()+"号楼", "", 
 			    buil.getBuilType(), "", "../Images/dtree/buil.jpg", "../Images/dtree/buil.jpg", false));
-		List<House> houseList = houseService.getHouseByBuilding(buil);
+		List<House> houseList = houseService.loadHouseList_ByBuilding(buil.getBuilId(), new HashMap<String,Object>(), "", pager);
 		Iterator<House> ite2 = houseList.iterator();
 		Integer pid2 = index-1;
 		while(ite2.hasNext()){

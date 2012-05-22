@@ -28,5 +28,5 @@ public interface IHouseService {
     public List<House> loadHouseList_ByCompany(Integer comId,Map<String,Object>params,String order,Pager pager);   
     public List<House> loadHouseList_ByProject(Integer proId,Map<String,Object>params,String order,Pager pager);
     public List<House> loadHouseList_ByBuilding(Integer builId,Map<String,Object>params,String order,Pager pager);
-    public House getHouseByBuildingIdAndHouseNum(Integer buildingId,String houseNum);
+    
 }

@@ -40,7 +40,7 @@ public class CondoFeeService implements ICondoFeeService {
 	condoFeeDAO.batchInput(list);
     }
     
-    public void batchAudit(final List<CondoFee> list){
+    public void batchAudit(List<CondoFee> list){
 	condoFeeDAO.batchAudit(list);
     }
     public void batchDelete(List<CondoFee> list) {

@@ -22,20 +22,24 @@ else
 }
 
 //更改content的高度
-function ChangeHeight(width,height){
-	alert("进来了+"+height+document.getElementsByClassName("content").length);
-	var arr=document.getElementsByClassName("content");
+function ChangeHeight(width,height,classname){
+	//alert("进来了+"+height+document.getElementsByClassName("left_main"));
+	var arr=getElementsByClassName(classname);
 	for(var i=0;i<arr.length;i++)
 	{
-		arr[i].style.height=(height-37)+'px';
-	}
-	arr=document.getElementsByClassName("innercontent");
-	for(i=0;i<arr.length;i++)
-	{
-		arr[i].style.height=(height-37)+'px';
+		arr[i].style.height=(height-47)+'px';
 	}
 }
-
+function getElementsByClassName(className){
+	var elems = (document.body).getElementsByTagName("*");
+	var result=[];
+	for (i=0; j=elems[i]; i++){
+	   if ((" "+j.className+" ").indexOf(" "+className+" ")!=-1){
+	        result.push(j);
+	   }
+	}
+	return result;
+} 
 //添加页面的<tr><td>
 function AddTds(row,colm){
 	var  html="";

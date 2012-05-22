@@ -7,14 +7,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link href="../CSS/common/common.css" rel="stylesheet" type="text/css" />
-<link href="../CSS/common/tab.css" rel="stylesheet" type="text/css" />
-<link href="../CSS/common/iBox.css" rel="stylesheet" type="text/css" />
-
-<script type="text/javascript" src="../Scripts/component/My97DatePicker/WdatePicker.js"></script>
-<script type="text/javascript" src="../Scripts/jquery-1.7.1.js" ></script>
-<script type="text/javascript" src="../Scripts/common/common.js"></script>
-<script type="text/javascript" src="../Scripts/pages/cms/owner_add.js"></script>
 <title>无标题文档</title>
 </head>
 
@@ -169,7 +161,7 @@
               <tr>
                 <td height="30" align="center" valign="middle">所在小区：</td>
                 <td align="left" valign="middle">
-                <s:action name="getAllProject" namespace="/cms" executeResult="true"/>
+                <s:action name="getProjectBySessionHander" namespace="/cms" executeResult="true"/>
                 <input type="hidden" id="projectName" name="projectName" value=""/>
                 </td>
                 <td align="center" valign="middle">楼&nbsp;宇&nbsp;号：</td>

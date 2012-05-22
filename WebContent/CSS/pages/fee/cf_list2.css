@@ -2,17 +2,21 @@
 {
    font-size:12px;
    margin:10px 10px 0 10px;
+   height:500px;
 
 }
 .content_main .left_main
 {
 	border:1px solid lightblue;
-	width:15%;
-	text-align:center;
-	align:center;
+	width:25%;
 	height:500px;
 	overflow-y:scroll;
 	float:left;
+}
+.content_main .left_main .left_main_content
+{
+	margin:20px 0 0 40px;
+	
 }
 .content_main .middle
 {
@@ -24,7 +28,7 @@
 .content_main .right_main
 {
 	border:1px solid lightblue;
-	width:83%;
+	width:73%;
 	height:500px;
 	float:left;
 	margin:0px;
@@ -36,8 +40,46 @@
     margin-left:0px;
     padding-left:20px;
 }
+.add_fieldset .selectdiv
+{
+	border:1px solid lightblue;
+	width:150px;
+	margin-top:10px;
+}
+.add_fieldset .selectdiv select
+{
+	display:inline-block;
+	width:152px;
+	margin:-1px;
+}
+.add_fieldset .selectdiv2
+{
+	border:1px solid lightblue;
+	width:80px;
+	margin-top:10px;
+}
+.add_fieldset .selectdiv2 select
+{
+	display:inline-block;
+	width:82px;
+	margin:-1px;
+}
+.add_fieldset .checkgroup
+{
+	margin-top:10px;
+}
+.add_fieldset .buttongroup
+{
+	margin-top:10px;
+}
+.add_fieldset .buttongroup span
+{
+	display:inline-block;
+	margin-right:10px;
+}
 .add_legend
 {
 	font-size:14px;
-	font-color:lightblue;
+	color:#005590;
+	font-family:"微软雅黑","黑体","宋体";
 }

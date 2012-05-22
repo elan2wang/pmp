@@ -6,10 +6,10 @@ font-size:12px;
 color:#09C
 }
 .nav{
-    background: none repeat scroll 0 0 #E0ECFF;
 	border:1px solid #8DB2E3;
 	height:30px;
-	margin:0}
+	margin:0;
+	padding-left:30px}
 .nav li{ border: 1px solid #8DB2E3;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
@@ -24,7 +24,9 @@ color:#09C
 	border-bottom:hidden;
 	height:25px;
 	line-height:25px;
-	text-align:center}
+	text-align:center;
+}
+
 .nav li.active{ background: url("../../Images/tabs_active.png") repeat-x scroll left bottom #7EABCD;
     color: #416AA3;
     font-weight: bold;
@@ -37,9 +39,13 @@ color:#09C
 	border-top:hidden
  }
 .content .innercontent{ display:none;}
+.content_main
+{
+	margin:10px;border:1px solid lightblue;padding:2px;
+}
 .linkbutton
 {
-	color:black;
+	color:#808080;
 	border:1px solid #7eabcd;
 	padding:0px 5px 0px 5px;
 	-moz-border-radius:3px;

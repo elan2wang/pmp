@@ -23,6 +23,7 @@ import org.pmp.dao.business.IMemberDAO;
 import org.pmp.dao.business.IOwnerDAO2;
 import org.pmp.service.business.IOwnerService;
 import org.pmp.util.Pager;
+import org.pmp.vo.House;
 import org.pmp.vo.HouseOwner;
 import org.pmp.vo.Member;
 import org.pmp.vo.Owner;
@@ -60,12 +61,18 @@ public class OwnerService implements IOwnerService {
 	}
 	memberDAO.batchSave(list);
 	
+	/* update house info */
+	House house = houseDAO.getHouseByID(houseId);
+	house.setHouseArea(instance.getHouseArea());
+	house.setIsempty(false);
+	houseDAO.updateHouse(house);
+	
 	/* set houseOwner instance */
 	HouseOwner ho = new HouseOwner();
 	ho.setOwner(instance);
 	ho.setHouse(houseDAO.getHouseByID(houseId));
 	/* save houseOwner instance */
-	houseOwnerDAO.addHouseOwner(ho);
+	houseOwnerDAO.saveHouseOwner(ho);
 	
     }
 
@@ -84,11 +91,34 @@ public class OwnerService implements IOwnerService {
 	}
 	memberDAO.batchUpdate(list);
 	
+	/* update old house info */
+	House oldHouse = houseOwnerDAO.getHouseOwner_ByOwner(instance.getOwnerId()).getHouse();
+	oldHouse.setIsempty(true);
+	houseDAO.updateHouse(oldHouse);
+	
+	/* update new house info */
+	House newHouse = houseDAO.getHouseByID(houseId);
+	newHouse.setHouseArea(instance.getHouseArea());
+	newHouse.setIsempty(false);
+	houseDAO.updateHouse(newHouse);
+	
 	/* set houseOwner instance */
-	HouseOwner ho = houseOwnerDAO.getHouseByOwner(instance);
+	HouseOwner ho = houseOwnerDAO.getHouseOwner_ByOwner(instance.getOwnerId());
 	ho.setHouse(houseDAO.getHouseByID(houseId));
 	/* save houseOwner instance */
 	houseOwnerDAO.updateHouseOwner(ho);
+    }
+
+    /**
+     * @see org.pmp.service.business.IOwnerService#batchSave(java.util.List,java.util.Map)
+     */
+    @Override
+    public void batchSave(List<Owner> list) {
+	/* batch save owner instance , and return the generated key */
+	List<Integer> idList = ownerDAO.batchSave(list);
+	
+	/* call procedure to generated HouseOwner instance list */
+	houseOwnerDAO.batchSave(idList);
     }
 
     /**
@@ -105,6 +135,16 @@ public class OwnerService implements IOwnerService {
     @Override
     public Owner getOwner_ById(Integer ownerId) {
 	return ownerDAO.getOwner_ById(ownerId);
+    }
+    
+
+    /**
+     * @see org.pmp.service.business.IOwnerService#loadOwnerList_ByBuil(java.lang.Integer, java.util.Map, java.lang.String, org.pmp.util.Pager)
+     */
+    @Override
+    public List<?> loadOwnerList_ByBuil(Integer builId,
+	    Map<String, Object> params, String order, Pager pager) {
+	return ownerDAO.loadOwnerList_ByBuil(builId, params, order, pager);
     }
 
     /**

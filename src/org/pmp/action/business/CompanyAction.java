@@ -67,7 +67,7 @@ public class CompanyAction extends ActionSupport {
     	Pager pager2 = new Pager(1000,1);
     	Map<String,Object> params = new HashMap<String,Object>();
     	String order = "order by comId asc";
-    	companyList = companyService.loadBuildingList_ByChinaMobile(params, order, pager2);
+    	companyList = companyService.loadCompanyList_ByChinaMobile(params, order, pager2);
     	return SUCCESS;
     }
     
@@ -87,7 +87,7 @@ public class CompanyAction extends ActionSupport {
     		Pager pager2 = new Pager(1000,1);
     		Map<String,Object> params = new HashMap<String,Object>();
     		String order = "order by comId asc";
-    		companyList = companyService.loadBuildingList_ByChinaMobile(params, order, pager2);
+    		companyList = companyService.loadCompanyList_ByChinaMobile(params, order, pager2);
     	}
     	//invoke JsonConvert.list2Jason method to get JsonData
     	pager.setRowsCount(companyList.size());

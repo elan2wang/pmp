@@ -143,17 +143,4 @@ public class HouseService implements IHouseService {
 		return houseDao.getHouseByHouseNum(houseNum);
 	}
 
-	/**
-	 * @Title: getHouseByBuildingIdAndHouseNum
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public House getHouseByBuildingIdAndHouseNum(Integer buildingId,
-			String houseNum) {
-		return houseDao.getHouseByBuildingIdAndHouseNum(buildingId, houseNum);
-	}
 }

@@ -1,5 +1,7 @@
 @charset "utf-8";
 /* CSS Document */
+html,body{margin:0;padding:0}
+
 .clear
 {
 	clear:both; 
@@ -17,6 +19,24 @@ div
 .index_top
 {
 	background-color:#edf1f6;
+}
+.index_top_right
+{
+	float:right; 
+	margin-right:20px; 
+	margin-top:30px;
+	display:inline-block
+	height:30px;
+	line-height:30px;
+    font-family:"微软雅黑","黑体","宋体";
+    font-size:14px;
+    padding:0;
+    text-align:left;
+    width:auto;
+}
+.index_top_right a{ text-decoration:none;
+text-align:center;
+color:#005590;
 }
 .index_top_block
 {
@@ -71,7 +91,7 @@ div
 }
 .index_footer
 {
-	height:30px;
+	height:36px;
 	width:100%;
 	background-color:#edf1f6;
 	text-align:center;

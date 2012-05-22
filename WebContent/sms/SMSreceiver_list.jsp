@@ -20,8 +20,9 @@
           <li id="tab1" class="active"><a href="#">用户</a></li>
           <li id="tab2"><a href="#">业主</a></li>
        </ul>   
-       <div class="content" style="height:380px">
+       <div class="content" style="height:380px;border:1px solid lightblue;border-top:hidden">
            <div class="innercontent" style="height:380px">
+             
               <iframe id="SMSuser_Frame" name="SMSuser_Frame" frameborder="0" scrolling="auto" width="100%" height="380"  >
               </iframe>
            </div>

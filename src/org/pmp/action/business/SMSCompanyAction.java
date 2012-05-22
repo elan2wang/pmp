@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.pmp.service.business.ICompanyService;
-import org.pmp.service.business.ISMSCompanyService;
+import org.pmp.service.business.ISmsCompanyService;
 import org.pmp.util.JsonConvert;
 import org.pmp.util.Pager;
 import org.pmp.util.SessionHandler;
@@ -30,13 +30,13 @@ import com.opensymphony.xwork2.ActionSupport;
  * @version 1.0
  * @update TODO
  */
-public class SMSCompanyAction extends ActionSupport {
+public class SmsCompanyAction extends ActionSupport {
 
     private static final long serialVersionUID = 4641286597063236773L;
     //~ Static Fields ==================================================================================================
-    static Logger logger = Logger.getLogger(SMSCompanyAction.class.getName());
+    static Logger logger = Logger.getLogger(SmsCompanyAction.class.getName());
     //~ Instance Fields ================================================================================================
-    private ISMSCompanyService smsCompanyService;
+    private ISmsCompanyService smsCompanyService;
     private ICompanyService companyService;
     
     private SMSCompany smsCompany;
@@ -110,11 +110,11 @@ public class SMSCompanyAction extends ActionSupport {
 
    
     //~ Getters and Setters ============================================================================================
-    public ISMSCompanyService getSmsCompanyService() {
+    public ISmsCompanyService getSmsCompanyService() {
         return smsCompanyService;
     }
 
-    public void setSmsCompanyService(ISMSCompanyService smsCompanyService) {
+    public void setSmsCompanyService(ISmsCompanyService smsCompanyService) {
         this.smsCompanyService = smsCompanyService;
     }
 

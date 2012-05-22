@@ -13,6 +13,8 @@
 package org.pmp.action.business;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -62,10 +64,10 @@ public class SmsAction extends ActionSupport{
 		System.out.println(builId);
 		if (proId!=null && builId!=null){
 		//	Project pro = projectService.getProjectByID(proId);
-			list = ownerService.loadOwnerList_ByBuilding(builId, pager);
+			list = ownerService.loadOwnerList_ByBuil(builId, new HashMap<String,Object>(), "", pager);
 		} else if (proId!=null && builId==null){
 		//	Project pro = projectService.getProjectByID(proId);
-			list = ownerService.loadOwnerList_ByProject(proId, pager);
+			list = ownerService.loadOwnerList_ByPro(proId, new HashMap<String,Object>(), "", pager);
 		} else {
 			list = new ArrayList<Owner>();;
 			
@@ -74,13 +76,9 @@ public class SmsAction extends ActionSupport{
 		{
 			Pager page = new Pager(1000,1);
 			page.setRowsCount(list.size());
-			List show = new ArrayList<String>();
-			show.add("ownerName");
-			show.add("mobile");
-			show.add("parkNum");
-			show.add("houseNum");
-			//show.add("ownerName");
-			//ownerId mobile houseNum
+			String[] attrs = {"ownerName","mobile","parkNum","houseNum"};
+			List<String> show = Arrays.asList(attrs);
+			
 			String data = JsonConvert.list2FlexJson(page, list, "org.pmp.vo.Owner", show);
 			System.out.println(data);
 			logger.debug(data);
@@ -106,14 +104,9 @@ public class SmsAction extends ActionSupport{
 		{
 			Pager page = new Pager(1000,1);
 			page.setRowsCount(list.size());
-			List show = new ArrayList<String>();
-			show.add("username");
-			show.add("password");
-			show.add("realname");
-			show.add("mobile");
-			show.add("identify");
-			show.add("userDesc");			
-			//ownerId mobile houseNum
+			String[] attrs = {"username","password","realname","mobile","identify","userDesc"};
+			List<String> show = Arrays.asList(attrs);
+			
 			String data = JsonConvert.list2FlexJson(page, list, "org.pmp.vo.TbUser", show);
 			System.out.println(data);
 			logger.debug(data);

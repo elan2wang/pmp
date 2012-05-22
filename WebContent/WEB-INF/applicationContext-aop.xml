@@ -8,14 +8,17 @@
            http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
   
   
-  <bean id="advice" class="org.pmp.aop.SmsAdvice" />
+  <bean id="smsAdvice" class="org.pmp.sms.SmsAdvice" >
+    <property name="smsSendService" ref="smsSendService" />
+  </bean>
+  
   <bean id="logAdvice" class="org.pmp.log.UserBehaviorTrackLogger" />
   
   <!-- SMS related AOP configuration -->
   <aop:config>  
-    <aop:aspect ref="advice">  
-       <aop:pointcut id="smsPointcut" expression="execution(* org.pmp.service.business.ICondoFeeService.inputCondoFee(..))"/>  
-       <aop:after method="sendMessage" pointcut-ref="smsPointcut"/>
+    <aop:aspect ref="smsAdvice">  
+       <aop:pointcut id="smsInput" expression="execution(* org.pmp.service.business.ICondoFeeService.batchInput(..))"/>  
+       <aop:after method="inputAdvice" pointcut-ref="smsInput"/>
      </aop:aspect>
   </aop:config>
 

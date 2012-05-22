@@ -6,16 +6,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link href="../CSS/common/common.css" rel="stylesheet" type="text/css" />
-<link href="../CSS/common/tab.css" rel="stylesheet" type="text/css" />
-<link href="../CSS/common/iBox.css" rel="stylesheet" type="text/css" />
-
-<script type="text/javascript" src="../Scripts/component/My97DatePicker/WdatePicker.js"></script>
-<script type="text/javascript" src="../Scripts/jquery-1.7.1.js" ></script>
-<script type="text/javascript" src="../Scripts/common/common.js"></script>
-<script type="text/javascript" src="../Scripts/pages/cms/owner_add.js"></script>
 <script type="text/javascript" src="../Scripts/pages/cms/owner_edit.js"></script>
 <title>无标题文档</title>
 </head>
@@ -50,6 +41,7 @@
               	<input type="hidden" id="proId" name="proId" value="${project.proId}"/>
               	<input type="hidden" name="builId" id="builId" value="${building.builId}"/>
               	<input type="hidden" name="houseId2" id="houseId2" value="${house.houseId}"/>
+              	<input type="hidden" name="houseNum2" id="houseNum2" value="${house.houseNum}"/>
               	<input type="hidden" name="objName" id="objName" value="${objName}"/>
                 </td>
               </tr>
@@ -184,7 +176,7 @@
               <tr>
                 <td height="30" align="center" valign="middle">所在小区：</td>
                 <td align="left" valign="middle">
-              	<s:action name="getAllProject" namespace="/cms" executeResult="true"/>     
+              	<s:action name="getProjectBySessionHander" namespace="/cms" executeResult="true"/>  
               	<input type="hidden" id="projectName" name="projectName" value=""/>          	 	                	 	
                 </td>
                 <td align="center" valign="middle">楼&nbsp;宇&nbsp;号：</td>

@@ -3,7 +3,7 @@
  * email： shohokh@gmail.com
  * create:   2012-5-14
  * 
- * this script is used by the cf_list_by_item.jsp.jsp
+ * this script is used by the cf_list_by_item.jsp
  */ 
 
 $(function(){
@@ -25,9 +25,9 @@ $(function(){
 			{ name: '短信催缴', bclass:'delete', onpress: smsInform }
 		],
 		searchitems:[
-		    { display: '年份', name: 'cfYear', isDefault:false },
-		    { display: '月份', name: 'cfMonth', isDefault:false },
-		    { display: '状态', name: 'state', isDefault:true },
+		    { display: '年份', name : 'cfYear' },
+		    { display: '月份', name : 'cfMonth' },
+		    { display: '状态', name : 'state', isdefault : true }
 		],
 		showSearch:true,
 		height:Height*0.88,
@@ -42,15 +42,28 @@ $(function(){
 
 function cfInput(){
 	var rowid,idString="";
-	$("#cf_list td input[checked=checked]").each(function(){
+	$("#cf_list td input:checked").each(function(){
 		rowid=$(this).parent().parent().parent().attr("id");
 		rowid=rowid.substr(3);
 		idString+=rowid+",";
 	});
-	//alert(idString.length);
+	if(idString==""){
+		alert("请选择需要录入的物业费记录");
+		return;
+	}
 	idString=idString.substring(0,idString.length-1);
-	//alert(idString);
-	openEditWindow('#cfInput','selectCondoFee?action=record&idStr='+idString);
+	$.ajax({
+		type: 'POST',
+		url: 'pre_check?action=record&idStr='+idString,
+		success: function(data){
+			if(data.result=='success'){
+				openEditWindow('#cfInput','selectCondoFee?action=record&idStr='+idString);
+			}
+			else{
+				alert("您选中的物业费记录无法录入,可能有以下原因：\n(1)有记录尚未设置应收金额\n(2)有记录已经通过审核");
+			}
+		}
+	});
 }
 
 function smsInform(){

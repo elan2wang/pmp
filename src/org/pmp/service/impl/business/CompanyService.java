@@ -45,9 +45,9 @@ public class CompanyService implements ICompanyService {
 	return companyDAO.getCompanyByName(companyName);
     }
 
-    public List<Company> loadBuildingList_ByChinaMobile(Map<String,Object>params,String order,Pager pager)
+    public List<Company> loadCompanyList_ByChinaMobile(Map<String,Object>params,String order,Pager pager)
     {
-    	return companyDAO.loadBuildingList_ByChinaMobile(params, order, pager);
+    	return companyDAO.loadCompanyList_ByChinaMobile(params, order, pager);
     }
 
     //~ Getters and Setters ============================================================================================

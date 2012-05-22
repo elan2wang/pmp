@@ -9,23 +9,22 @@
       <result name="success">/cms/smsc_list.jsp</result>
     </action>
     
-    <action name="getSMSCompany" class="org.pmp.action.business.SMSCompanyAction" method="getSMSCompany">
+    <action name="getSMSCompany" class="org.pmp.action.business.SmsCompanyAction" method="getSMSCompany">
       <result name="success">/cms/smsc_edit.jsp</result>
     </action>
     
+
     <action name="editSMSCompany" class="org.pmp.action.business.SMSCompanyAction" method="editSMSCompany">
       <result name="success">/cms/smsc_list.jsp</result>
     </action>
     
-    <action name="deleteSMSCompany" class="org.pmp.action.business.SMSCompanyAction" method="deleteSMSCompany">
-      <result name="success">/cms/smsc_list.jsp</result>
-    </action>
     
     <action name="batchDeleteSMSCompany" class="org.pmp.action.business.SMSCompanyAction" method="batchDeleteSMSCompany">
    	  <result name="success">/cms/smsc_list.jsp</result>
     </action>
     
-    <action name="loadSMSCompanyList" class="org.pmp.action.business.SMSCompanyAction" method="loadSMSCompanyList">
+    
+    <action name="loadSMSCompanyList" class="org.pmp.action.business.SmsCompanyAction" method="loadSMSCompanyList">
       <result name="success">/cms/smsc_list.jsp</result>
     </action>
     
@@ -64,12 +63,8 @@
 	</action>
 	<action name="getBuildingByProject" class="org.pmp.action.business.BuildingAction" method="getBuildingByProject">
 	</action>
-	
-	<action name="new_buil_import" class="org.pmp.action.business.BuildingAction" method="uploadFile">
-		<result name="success">/cms/building_list.jsp</result>
-	</action>
-	
-	
+
+
 	<action name="get_project" class="org.pmp.action.business.ProjectAction" method="getProjectById">
 		<result name="success">/cms/project_edit.jsp</result>
 	</action>
@@ -104,6 +99,7 @@
 		<result name="success">/cms/project_list.jsp</result>
 	</action>
 	
+	
 	<!-- owner related actions -->
 	<action name="loadOwnerList_ByPro" class="org.pmp.action.business.OwnerAction" method="loadOwnerList_ByPro" />
     
@@ -119,10 +115,19 @@
       <result name="success">/cms/owner_edit.jsp</result>
     </action>
     
-    <!-- s:action tag related actions  -->
-    <action name="load_owner_list_banner" class="org.pmp.action.business.PageTriggerAction" method="select_project">
-      <result name="success">/fee/pro_options.jsp</result>
+    <action name="ownerImport" class="org.pmp.action.business.OwnerAction" method="importOwner">
+      <result name="success">/cms/owner_list.jsp</result>
     </action>
+    
+    <action name="deleteOwner" class="org.pmp.action.business.OwnerAction" method="deleteOwner">
+      <result name="success">/cms/owner_list.jsp</result>
+    </action>
+    
+    <!-- select options related actions  -->
+    
+    <action name="selectHouse_ByBuil" class="org.pmp.action.business.PageTriggerAction" method="selectHouse_ByBuil" />
+    
+    <action name="selectBuilding_ByPro" class="org.pmp.action.business.PageTriggerAction" method="selectBuilding_ByPro" />
   </package>
 
 </struts>

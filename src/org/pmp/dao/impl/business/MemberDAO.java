@@ -55,8 +55,10 @@ public class MemberDAO extends BaseDAO implements IMemberDAO {
      */
     @Override
     public void batchUpdate(List<Member> list) {
-	deleteMember_ByOwner(list.get(0).getOwner());
-	batchSave(list);
+	if(list.size()!=0){
+	    deleteMember_ByOwner(list.get(0).getOwner());
+	    batchSave(list);
+	}
     }
 
     /**

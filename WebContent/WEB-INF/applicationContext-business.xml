@@ -44,7 +44,7 @@
   </bean>
   
   <bean id="houseOwnerService" class="org.pmp.service.impl.business.HouseOwnerService">
-  	<property name="houseOwnerDao" ref="houseOwnerDAO"></property>
+  	<property name="houseOwnerDAO" ref="houseOwnerDAO"></property>
   </bean>
   
   <bean id="memberService" class="org.pmp.service.impl.business.MemberService">
@@ -60,7 +60,7 @@
     <property name="condoFeeDAO" ref="condoFeeDAO" />
   </bean>
   
-  <bean id="smsCompanyService" class="org.pmp.service.impl.business.SMSCompanyService">
+  <bean id="smsCompanyService" class="org.pmp.service.impl.business.SmsCompanyService">
     <property name="smsCompanyDAO" ref="smsCompanyDAO" />
   </bean>
   
@@ -100,12 +100,12 @@
     <property name="houseService" ref="houseService" />
   </bean>
   
-  <bean id="condoFeeAction2" class="org.pmp.action.business.CondoFeeAction2">
+  <bean id="condoFeeAction" class="org.pmp.action.business.CondoFeeAction">
     <property name="condoFeeService" ref="condoFeeService" />
     <property name="condoFeeItemService" ref="condoFeeItemService" />
   </bean>
   
-  <bean id="smsCompanyAction" class="org.pmp.action.business.SMSCompanyAction">
+  <bean id="smsCompanyAction" class="org.pmp.action.business.SmsCompanyAction">
     <property name="smsCompanyService" ref="smsCompanyService" />
     <property name="companyService" ref="companyService" />
   </bean>
@@ -122,6 +122,8 @@
   
   <bean id="pageTriggerAction" class="org.pmp.action.business.PageTriggerAction">
     <property name="projectService" ref="projectService" />
+    <property name="houseService" ref="houseService" />
+    <property name="buildingService" ref="buildingService" />
   </bean>
   
   <bean id="smsSendAction" class="org.pmp.action.business.SmsSendAction">
