@@ -92,4 +92,22 @@ public class GroupDAO extends BaseDAO implements IGroupDAO {
 	}
 	return list;
     }
+    
+    public List<?> loadGroupList_ByComAndLevel(String comName,Integer level,String order){
+	String debugMsg = "load group List by company and groupLevel,comName"+comName+" groupLevel="+level;
+	List<?> list = null;
+	String hql = null;
+	if (level==2){
+	    hql = "from TbGroup where groupLevel=2 and refDomain='"+comName+"'";
+	}
+	if (level==3){
+	    hql = "from TbGroup where groupLevel=3 and fatherGroupId=(select groupId from TbGroup where refDomain='"+comName+"')";
+	}
+	try{
+	    list = loadListByCondition(hql,new Pager(10000,1),debugMsg);
+	} catch (RuntimeException e){
+	    throw e;
+	}
+	return list;
+    }
 }

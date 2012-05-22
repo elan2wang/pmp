@@ -1,5 +1,15 @@
-﻿// JavaScript Document
+﻿/**
+ * author: Elan Wang
+ * email： shohokh@gmail.com
+ * create:   2012-5-14
+ * 
+ * this script is used by the user_list.jsp
+ */ 
+
 $(function(){
+	var editURL = "getUser?userId=";
+	var editWindow = "#editUser";
+	
 	$(".content .innercontent").eq(0).show();
 	$("#tab1").click(function(){
 		$(".nav li").removeClass("active");	
@@ -7,145 +17,65 @@ $(function(){
 		$(".content .innercontent").hide().eq(0).show();
 		return false;
 	});
-	$('#user_data').html(AddTds(20,5));
-	$('#userlist').flexigrid({
-		colModel: [
-		             { display: '序号',  width: Width*0.03,  align: 'center' },
-		             { display: '真实姓名', width: Width*0.15, align: 'center' },
-					 { display: '职务', width: Width*0.2, align: 'center' },
-					 { display: '用户描述', width: Width*0.52,align: 'center' },
-		             { display: '操作',  width: Width*0.1, align: 'center' }
-	    ],
-	    height:Height-30
+	$('#user_list').flexigrid({
+		url:"loadUserList",
+		dataType:"json",
+        colModel:[
+            { display: '真实姓名', name: 'tbUser.realname', width: Width*0.08, sortable:true, align: 'center' },
+            { display: '用户名', name: 'tbUser.username', width: Width*0.08, sortable:true, align: 'center' },
+            { display: '手机号码', name: 'tbUser.mobile', width: Width*0.1, sortable:true, align: 'center' },
+            { display: '身份证号', name: 'tbUser.identify', width: Width*0.15, sortable:true, align: 'center' },
+            { display: '职位', name: 'tbUser.position', width: Width*0.1, sortable:true, align: 'center' },
+            { display: '角色', name: 'tbRole.roleName', width: Width*0.1, sortable:true, align: 'center' },
+            { display: '用户组', name: 'tbGroup.groupName', width: Width*0.12, sortable:true, align: 'center' },
+            { display: '是否启用', name: 'tbUser.enabled', width: Width*0.06, sortable:true, align: 'center' }
+        ],
+        buttons:[
+            { name: '添加用户', bclass: 'add', onpress: userAdd },
+     	    { separator: true },
+     		{ name: '删除用户', bclass:'delete', onpress: userDelete }
+     	],
+     	searchitems:[
+     		{ display: '用户名', name : 'tbUser.username' },
+     	    { display: '真实姓名', name : 'tbUser.realname', isdefault : true  },
+     	    { display: '手机号码', name : 'tbUser.mobile' },
+     	    { display: '用户组', name : 'tbGroup.groupName' },
+     	    { display: '角色', name : 'tbRole.roleName' }
+     	],
+     	showSearch:true,
+		height:Height*0.8,
+        showcheckbox:true,
+        nomsg: '没有符合条件的用户',
+        usepager:true,
+        useRp:true,
+        rp: 15,
+		showTableToggleBtn: true,
+		operation:true,
+		operationcontent:'<a href="javascript:void(0)" onclick="openEditWindow(\''+editWindow+'\',\''+editURL+'\'+$(this).parent().parent().parent().attr(\'id\').substr(3))">编辑</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" onclick="passwordReset($(this).parent().parent().parent().attr(\'id\').substr(3))">重置密码</a>',
+		operationWidth: Width*0.1
 	});
 });
 
-function PageDownOrUp(flag){
-	        var nowpage=parseInt(document.getElementById("now_page").innerHTML);
-			var pagerow=parseInt(document.getElementById("page_row").options[document.getElementById("page_row").selectedIndex].text);
-			var gopage=document.getElementById("go_page").value;
-			var urlstr="";
-			//alert(nowpage+1);
-			initIcon();
-			switch(flag)
-			{
-				case 0://默认值
-				   nowpage=1;
-				   pagerow=10;
-				   break;
-				case 1:
-				   nowpage=1;
-				   break;
-				case 2:
-				   nowpage--;
-				   break;
-				case 3:
-				   nowpage++;
-				   break;
-				case 4:
-				   nowpage=totalpage;
-				   break;
-				case 5:
-				   break;
-				case 6:	
-				   if(gopage==""){
-			          alert("跳转页面不能为空！");
-				      return;
-				   }
-				   if(isNaN(parseInt(gopage))){
-					   return;
-				   }
-				   if(parseInt(gopage)>totalpage){
-			          alert("跳转页面大于总页面数！");
-				      return;
-				   }
-				   break;
-			}
-			urlstr="user_list?currentPage="+nowpage+"&pageSize="+pagerow;
-            $.ajax({
-			  type: "POST",
-			  url: urlstr,
-			  dataType: "json",
-			  success : function(data){
-				      $('#now_page').html(data.CurrentPage);
-				      $('#total_page').html(data.PagesCount);
-				      $('#total_record').html(data.RowsCount);
-					  var i=0;
-                      $('#user_data').find('tr').hide();
-					  var tableTds=$('#user_data').find('td');
-					  tableTds.find('div').css('text-align','center');
-					  for(i=0;i<20;i++)
-					  {$('#user_data').find('tr').eq(i).show();}
-					  i=0;
-					  tableTds.find('div').html("");
-					  var k=1;	//记录序号
-					  $.each(data.Rows, function(commentIndex, comment){
-						tableTds.eq(i++).find('div').html((k++)+"<input type='checkbox' id='checkgroup' name='checkgroup'/>");
-						tableTds.eq(i++).find('div').html(comment['realname']);
-						tableTds.eq(i++).find('div').html(comment['position']);
-						tableTds.eq(i++).find('div').html(comment['userDesc']);
-						var strhtml="<a href=\"javascript:void(0)\" onclick=\"openEditWindow('#editUser','get_user?userId='+$(this).next().html())\">编辑</a><span style=\"display:none;width:10px\">"+comment['userId']+"</span><span style='display:none'>"+i+"</span><span style=\"display:inline-block;width:10px\"></span><a href=\"javascript:void(0)\" onclick=\"deleteRow($(this).parent().parent().parent(),'deleteUserById?userId='+$(this).prev().prev().prev().html(),'您将删除该用户,确认删除?')\">删除</a>";
-						tableTds.eq(i++).find('div').html(strhtml);
-					  });
-					  var totalpage=parseInt($("#total_page").html());
-				      changeIcon(nowpage,totalpage);
-					  
-			  }
-			}); 
-        }
+function userAdd(){
+	openAddWindow('#newUser');
+}
 
-
-function selectAll(){
-	$('input[type="checkbox"]').attr("checked",true);
-}
-function selectOpposite(){
-	var allchecks=$('input[type="checkbox"]');
-	for(i=0;i<allchecks.length;i++)
-	{
-		onecheck=allchecks.eq(i);
-		if(onecheck.attr("checked")=="checked"){
-			onecheck.attr("checked",false);
-		}
-		else
-		{
-			onecheck.attr("checked",true);
-		}
-	}
-}
-function selectNone(){
-	$('input[type="checkbox"]').attr("checked",false);
-}
-function deleteSelected(){
-	//alert($('input[checked="checked"]').length);
-	//$('input[type="checkbox"]').attr("checked",false);
-	var boxes = $("checkgroup");  
-    var groupTypeId = new Array();  
-    for (var i = 0; i < boxes.length; i++)  
-    {  
-       if (boxes[i].checked)  
-       {  
-	      alert(1);
-          groupTypeId[i] = boxes[i].value;  
-       }
-     }
-}
-function getSecondInfo()
-{
-	 var select1Value=document.getElementById("select1")[document.getElementById("select1").selectedIndex].innerHTML;
-	 $.ajax({
-	  type: "POST",
-	  url: "../cms/datagrid_data.json",
-	  dataType: "json",
-	  success : function(data){
-		      var selector=$('#select2'); 
-			  var s=selector.find('option');
-			  for(i=1;i<=10;i++){
-			     s.eq(i).remove();
-			  }
-			  $.each( data.rows , function(commentIndex, comment) {
-                   selector.append('<option value="'+comment['name']+'">'+comment['name']+'</option>');
-			  });
-			  
-	  }
+function userDelete(){
+	var rowid,idString="";
+	$("#user_list td input:checked").each(function(){
+		rowid=$(this).parent().parent().parent().attr("id");
+		rowid=rowid.substr(3);
+		idString+=rowid+",";
 	});
+	if(idString==""){
+		alert("请选择要删除的业主记录");
+		return;
+	}
+	idString=idString.substring(0,idString.length-1);
+	if(!confirm("您确定要删除该用户信息?"))return;
+	jQuery.post('deleteUser?idStr='+idString);
+}
+
+function passwordReset(userId){
+	alert("重置的密码已发送给该用户");
 }

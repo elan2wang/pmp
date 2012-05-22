@@ -8,7 +8,9 @@
 package org.pmp.dao.admin;
 
 import java.util.List;
+import java.util.Map;
 
+import org.pmp.util.Pager;
 import org.pmp.vo.TbRole;
 
 
@@ -38,5 +40,7 @@ public interface IRoleDAO {
      * @return List  角色的实体列表
      */
     public List getRoleList();
+    
+    public List<?> loadRoleList_LevelNotBellow(Integer level,String order);
     
 }

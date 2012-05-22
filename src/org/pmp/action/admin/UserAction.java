@@ -7,8 +7,12 @@
  */
 package org.pmp.action.admin;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,6 +24,9 @@ import org.pmp.service.admin.IUserGroupRoleService;
 import org.pmp.service.admin.IUserService;
 import org.pmp.util.JsonConvert;
 import org.pmp.util.Pager;
+import org.pmp.util.SessionHandler;
+import org.pmp.vo.Company;
+import org.pmp.vo.Project;
 import org.pmp.vo.TbGroup;
 import org.pmp.vo.TbRole;
 import org.pmp.vo.TbUser;
@@ -46,12 +53,18 @@ public class UserAction extends ActionSupport{
     private Integer roleId;
     private Integer groupId;
     private Integer userId;
-    private Integer currentPage=1;
-    private Integer pageSize=15;
     
-    //~ Constructor ====================================================================================================
+    /* used when deleteUser */
+    private String idStr;
     
-
+    /* =========FlexiGrid post parameters======= */
+    private Integer page=1;
+    private Integer rp=15;
+    private String sortname;
+    private String sortorder;
+    private String query;
+    private String qtype;
+    /* =========FlexiGrid post parameters======= */
 
     //~ Methods ========================================================================================================
     public String addUser(){
@@ -77,33 +90,7 @@ public class UserAction extends ActionSupport{
 	return SUCCESS;
     }
     
-    public void deleteUser(){
-    	userService.deleteUser(userId);
-    	ugrService.deleteUGR_ByUserID(userId);
-    }
-    
-
-    public String getUserById(){
-    	TbUserGroupRole ugr = ugrService.getUGR_ByUserID(userId);
-    	
-    	List<?> roleList = roleService.getRoleList();
-    	Pager pager = new Pager(1000,1);
-    	Integer level = ugr.getTbRole().getRoleLevel();
-    	List<?> groupList = groupService.getGroupListByLevel(pager, level);
-    	
-    	HttpServletRequest request = ServletActionContext.getRequest();
-    	request.setAttribute("ugr", ugr);
-    	request.setAttribute("roleList", roleList);
-    	request.setAttribute("groupList", groupList);
-    	return SUCCESS;
-    }
-    
-    /**
-     * @Title: updateUser
-     * @Description: 修改用户基本信息，除了用户名和密码
-     
-     */
-    public String updateUser(){
+    public String editUser(){
 	logger.debug("aaa");
         TbUser user2 = userService.getUserById(user.getUserId());
     	user.setUsername(user2.getUsername());
@@ -120,6 +107,23 @@ public class UserAction extends ActionSupport{
     	ugr.setTbUser(user);
     	
     	ugrService.editUGR(ugr);
+    	return SUCCESS;
+    }
+    
+    public void deleteUser(){
+	List<TbUser> userList = new ArrayList<TbUser>();
+	String[] checkedID = idStr.split(",");
+	for (int i=0;i<checkedID.length;i++){
+	    TbUser user = userService.getUserById(Integer.parseInt(checkedID[i]));
+	    userList.add(user);
+	}
+	userService.batchDelete(userList);
+    }
+
+    public String getUserDetail(){
+    	TbUserGroupRole ugr = ugrService.getUGR_ByUserID(userId);
+    	HttpServletRequest request = ServletActionContext.getRequest();
+    	request.setAttribute("ugr", ugr);
     	return SUCCESS;
     }
     
@@ -142,46 +146,58 @@ public class UserAction extends ActionSupport{
 	return SUCCESS;
     }
     
-    
-    public void loadRoleList(){
-	logger.debug("loadRoleList");
-	List<?> roleList = roleService.getRoleList();
-	String[] attrs = {"roleId","roleName"};
-	List<String> show = Arrays.asList(attrs);
-	String data = JsonConvert.list2Json(roleList, "org.pmp.vo.TbRole", show);
-	logger.debug(data);
-	JsonConvert.output(data);
-	
-    }
-    /**
-     * @Title: loadRoleGroupList
-     * @Description: 加载添加用户界面的角色下拉列表和用户组下拉列表数据
-     */
-    public void loadGroupList(){
-	logger.debug("loadRoleGroupList");
-	Pager pager = new Pager(1000,1);
-	Integer level = roleService.getRoleByID(roleId).getRoleLevel();
-	List<?> groupList = groupService.getGroupListByLevel(pager, level);
-	String[] attrs = {"groupId","groupName"};
-	List<String> show = Arrays.asList(attrs);
-	String data = JsonConvert.list2Json(groupList, "org.pmp.vo.TbGroup", show);
-	logger.debug(data);
-	JsonConvert.output(data);
-    }
-    
-    /**
-     * @Title: loadUserList
-     * @Description: 加载用户信息列表的数据，由ajax异步调用
-     */
     public void loadUserList(){
-    	Pager pager = new Pager(pageSize, currentPage);
-    	List<?> users =  userService.getUserList(pager);
-    	
-    	String[] attrs = {"userId","realname","mobile","identify","position","userDesc","enabled","issys"};
-    	List<String> show = Arrays.asList(attrs);
-    	String data = JsonConvert.list2Json(pager, users, "org.pmp.vo.TbUser",show);
-    	logger.debug(data);
-    	JsonConvert.output(data);
+	/* set query parameters */
+	Pager pager = new Pager(rp,page);
+	String order = null;
+	Map<String,Object> params = new HashMap<String,Object>();
+	if (!qtype.equals("")&&!query.equals("")){
+	    params.put(qtype, query);
+	}
+	if (!sortname.equals("undefined")&&!sortorder.equals("undefined")){
+	    order= "order by "+sortname+" "+sortorder;
+	} else{
+	    order = "order by tbUser.username asc";
+	}
+	
+	List<?> ugrList = null;
+	if (SessionHandler.getUserGroup().getGroupLevel()==1){
+	    ugrList = ugrService.loadUGRList(params, order, pager);
+	}
+	if (SessionHandler.getUserGroup().getGroupLevel()==2){
+	    String comName = ((Company)SessionHandler.getUserRefDomain()).getComName();
+	    ugrList = ugrService.loadUGRList_ByCom(comName, params, order, pager);
+	}
+	if (SessionHandler.getUserGroup().getGroupLevel()==3){
+	    String proName = ((Project)SessionHandler.getUserRefDomain()).getProName();
+	    ugrList = ugrService.loadUGRList_ByPro(proName, params, order, pager);
+	}
+	
+    	/* convert ugrList instance to JsonData */
+	StringBuilder sb = new StringBuilder();
+	sb.append("{\n");
+    	sb.append("  "+JsonConvert.toJson("page")+":\""+JsonConvert.toJson(pager.getCurrentPage())+"\",\n");
+    	sb.append("  "+JsonConvert.toJson("total")+":"+JsonConvert.toJson(pager.getRowsCount())+",\n");
+    	sb.append("  "+JsonConvert.toJson("rows")+":[\n");
+	Iterator<?> ite = ugrList.iterator();
+	while(ite.hasNext()){
+	    TbUserGroupRole ugr = (TbUserGroupRole)ite.next();
+	    sb.append("    {"+JsonConvert.toJson("id")+":\""+JsonConvert.toJson(ugr.getTbUser().getUserId())+"\",");
+	    sb.append(JsonConvert.toJson("cell")+":{");
+	    sb.append(JsonConvert.toJson("tbUser.realname")+":"+JsonConvert.toJson(ugr.getTbUser().getRealname())+",");
+	    sb.append(JsonConvert.toJson("tbUser.username")+":"+JsonConvert.toJson(ugr.getTbUser().getUsername())+",");
+	    sb.append(JsonConvert.toJson("tbUser.mobile")+":"+JsonConvert.toJson(ugr.getTbUser().getMobile())+",");
+	    sb.append(JsonConvert.toJson("tbUser.identify")+":"+JsonConvert.toJson(ugr.getTbUser().getIdentify())+",");
+	    sb.append(JsonConvert.toJson("tbUser.position")+":"+JsonConvert.toJson(ugr.getTbUser().getPosition())+",");
+	    sb.append(JsonConvert.toJson("tbUser.enabled")+":"+JsonConvert.toJson(ugr.getTbUser().isEnabled())+",");
+	    sb.append(JsonConvert.toJson("tbUser.issys")+":"+JsonConvert.toJson(ugr.getTbUser().isIssys())+",");
+	    sb.append(JsonConvert.toJson("tbGroup.groupName")+":"+JsonConvert.toJson(ugr.getTbGroup().getGroupName())+",");
+	    sb.append(JsonConvert.toJson("tbRole.roleName")+":"+JsonConvert.toJson(ugr.getTbRole().getRoleName())+"}},\n");
+	}
+	if(ugrList.size()!=0)sb.deleteCharAt(sb.length()-2);
+	sb.append("  ]\n}");
+	logger.debug(sb.toString());
+    	JsonConvert.output(sb.toString());
     }
     
     //~ Getters and Setters ============================================================================================
@@ -242,27 +258,67 @@ public class UserAction extends ActionSupport{
     }
 
     public Integer getUserId() {
-		return userId;
-	}
+        return userId;
+    }
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 
-	public Integer getCurrentPage() {
-		return currentPage;
-	}
+    public Integer getPage() {
+        return page;
+    }
 
-	public void setCurrentPage(Integer currentPage) {
-		this.currentPage = currentPage;
-	}
+    public void setPage(Integer page) {
+        this.page = page;
+    }
 
-	public Integer getPageSize() {
-		return pageSize;
-	}
+    public Integer getRp() {
+        return rp;
+    }
 
-	public void setPageSize(Integer pageSize) {
-		this.pageSize = pageSize;
-	}
-	
+    public void setRp(Integer rp) {
+        this.rp = rp;
+    }
+
+    public String getSortname() {
+        return sortname;
+    }
+
+    public void setSortname(String sortname) {
+        this.sortname = sortname;
+    }
+
+    public String getSortorder() {
+        return sortorder;
+    }
+
+    public void setSortorder(String sortorder) {
+        this.sortorder = sortorder;
+    }
+
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
+    }
+
+    public String getQtype() {
+        return qtype;
+    }
+
+    public void setQtype(String qtype) {
+        this.qtype = qtype;
+    }
+
+    public String getIdStr() {
+        return idStr;
+    }
+
+    public void setIdStr(String idStr) {
+        this.idStr = idStr;
+    }
+
 }

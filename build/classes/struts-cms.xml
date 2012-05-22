@@ -5,23 +5,23 @@
   
   <package name="cms" extends="struts-default" namespace="/cms">
 	<!-- SMS_Company related Actions -->
-	<action name="addSMSCompany" class="org.pmp.action.business.SMSCompanyAction" method="addSMSCompany">
+	<action name="addSMSCompany" class="org.pmp.action.business.SmsCompanyAction" method="addSMSCompany">
       <result name="success" type="chain">loadSMSCompanyList</result>
     </action>
     
-    <action name="getSMSCompany" class="org.pmp.action.business.SMSCompanyAction" method="getSMSCompany">
+    <action name="getSMSCompany" class="org.pmp.action.business.SmsCompanyAction" method="getSMSCompany">
       <result name="success">/cms/smsc_edit.jsp</result>
     </action>
     
-    <action name="editSMSCompany" class="org.pmp.action.business.SMSCompanyAction" method="editSMSCompany">
+    <action name="editSMSCompany" class="org.pmp.action.business.SmsCompanyAction" method="editSMSCompany">
       <result name="success" type="chain">loadSMSCompanyList</result>
     </action>
     
-    <action name="deleteSMSCompany" class="org.pmp.action.business.SMSCompanyAction" method="deleteSMSCompany">
+    <action name="deleteSMSCompany" class="org.pmp.action.business.SmsCompanyAction" method="deleteSMSCompany">
       <result name="success" type="chain">loadSMSCompanyList</result>
     </action>
     
-    <action name="loadSMSCompanyList" class="org.pmp.action.business.SMSCompanyAction" method="loadSMSCompanyList">
+    <action name="loadSMSCompanyList" class="org.pmp.action.business.SmsCompanyAction" method="loadSMSCompanyList">
       <result name="success">/cms/smsc_list.jsp</result>
     </action>
     

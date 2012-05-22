@@ -3,7 +3,7 @@
  * email： shohokh@gmail.com
  * create:   2012-5-14
  * 
- * this script is used by the cf_list_by_item.jsp.jsp
+ * this script is used by the cf_list_by_item.jsp
  */ 
 
 $(function(){

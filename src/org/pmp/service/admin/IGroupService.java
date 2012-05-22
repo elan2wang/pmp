@@ -49,4 +49,6 @@ public interface IGroupService {
      * @return List  用户组列表
      */
     public List getGroupListByLevel(Pager pager,Integer level);
+    
+    public List<?> loadGroupList_ByComAndLevel(String comName,Integer level,String order);
 }

@@ -8,6 +8,7 @@
 package org.pmp.dao.admin;
 
 import java.util.List;
+import java.util.Map;
 
 import org.pmp.util.Pager;
 import org.pmp.vo.TbUser;
@@ -21,7 +22,8 @@ public interface IUserDAO {
     
     public void saveUser(TbUser instance);
     public void updateUser(TbUser instance);
-    public void deleteUser(Integer userID);
+    public void batchDelete(List<TbUser> list);
+    
     public TbUser getUserById(Integer userID);
     
     /**

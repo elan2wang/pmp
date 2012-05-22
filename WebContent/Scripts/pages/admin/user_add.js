@@ -12,7 +12,6 @@
  * load rolelist and grouplist
  */
 function loadRoleList(){
-	alert("aaa");
 	$.ajax({
 		type: "POST",
 		url: "load_Role_list",
@@ -24,14 +23,13 @@ function loadRoleList(){
 			$.each( data.Rows,function(commentIndex, comment){
 				roleSelector.append("<option value=\""+comment['roleId']+"\">"+comment['roleName']+"</option>");
 			});
+			roleChange();
 		}
-			
 	});
 }
 
-function roleChange(){
+function roleChange(groupId){
 	var roleId = document.getElementById('roleId').value;
-	
 	$.ajax({
 		type: "POST",
 		url: "load_Group_list?roleId="+roleId,
@@ -41,7 +39,11 @@ function roleChange(){
 			groupSelector.find('option').remove();
 			//roleSelector加载option选项
 			$.each( data.Rows,function(commentIndex, comment){
-				groupSelector.append("<option value=\""+comment['groupId']+"\">"+comment['groupName']+"</option>");
+				if(groupId!='undefined' && groupId==comment['groupId']){
+					groupSelector.append("<option selected='selected' value=\""+comment['groupId']+"\">"+comment['groupName']+"</option>");
+				} else {
+					groupSelector.append("<option value=\""+comment['groupId']+"\">"+comment['groupName']+"</option>");
+				}
 			});
 		}
 			
