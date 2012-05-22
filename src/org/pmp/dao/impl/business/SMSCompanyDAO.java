@@ -7,9 +7,15 @@
  */
 package org.pmp.dao.impl.business;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.jdbc.Work;
 import org.pmp.dao.admin.BaseDAO;
 import org.pmp.dao.business.ISmsCompanyDAO;
 import org.pmp.util.Pager;
@@ -48,15 +54,39 @@ public class SmsCompanyDAO extends BaseDAO implements ISmsCompanyDAO{
     }
     
     public void delereSMSCompany(Integer smscId){
-	String debugMsg = "delete SMSCompany instance,smscId="+smscId;
-	String hql = "delete from SMSCompany where smscId="+smscId;
-	try {
-	    deleteInstance(hql,debugMsg);
-	} catch (RuntimeException e){
-	    throw e;
-	}
+    	String debugMsg = "delete SMSCompany instance,smscId="+smscId;
+    	String hql = "delete from SMSCompany where smscId="+smscId;
+    	try {
+    		deleteInstance(hql,debugMsg);
+    	} catch (RuntimeException e){
+    		throw e;
+    	}
     }
-    
+    public void batchDeleteSMSCompany(final List<SMSCompany> list)
+    {
+    	try
+    	{
+    	logger.debug("begin to batch delete SMSCompany");
+    	logger.debug("list.size="+list.size());
+    	Work work = new Work(){
+    	    public void execute(Connection connection)throws SQLException{
+    		String sql = "delete from tb_SMSCompany where SMSC_ID=?";
+			PreparedStatement stmt = connection.prepareStatement(sql);
+    		for (int i=0;i<list.size();i++){
+
+    		    stmt.setInt(1, list.get(i).getSmscId());
+    		    System.out.println(list.get(i).getSmscId());
+    		    stmt.executeUpdate();
+    		}
+    	    }
+    	};
+    	executeWork(work);
+    	logger.debug("successfully batch delete CondoFee");
+    	}catch(Exception e)
+    	{
+    		e.printStackTrace();
+    	}
+    }
     public SMSCompany getSMSCompanyByID(Integer smscId){
 	String debugMsg = "get SMSCompany instance by ID,smscId="+smscId;
 	String hql = "from SMSCompany smsc where smsc.smscId="+smscId;

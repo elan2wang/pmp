@@ -10,20 +10,27 @@ $(function(){
 			return false;
 		});
 	  $('#cmpylist').flexigrid({
-		  	 url:"cmpy_listBySessionHandler",
+		  	 url:"cmpy_list",
 		     dataType:"json",
 		     colModel: [
-             { display: '序号',  width: 40,  align: 'center' },
-             { display: '公司名称', width: 200, align: 'center' },
-			 { display: '注册日期', width: 200, align: 'center' },
-             { display: '公司法人', width: 200,align: 'center' },
-			 { display: '联系方式', width: 200, align: 'center' },
-			 { display: '工商执照', width: 200, align: 'center',hide:'true' },
-			 { display: '注册资金', width: 200, align: 'center' ,hide:'true'},
-			 { display: '公司地址', width: 200, align: 'center' ,hide:'true'},
-			 { display: '备注', width: 200, align: 'center' ,hide:'true'},
-             { display: '操作',  width: 120, sortable: true, align: 'center', align: 'left' }
-             ],height:305,
+             { display: '公司名称',name:'comName', width: 200, align: 'center' },
+			 { display: '注册日期', name:'registerTime',width: 200, align: 'center' },
+             { display: '公司法人',name:'comLegal', width: 200,align: 'center' },
+			 { display: '联系方式',name:'comPhone', width: 200, align: 'center' },
+			 { display: '工商执照',name:'comLicense', width: 200, align: 'center',hide:'true' },
+			 { display: '注册资金',name:'registerMoney', width: 200, align: 'center' ,hide:'true'},
+			 { display: '公司地址',name:'comAddress', width: 200, align: 'center' ,hide:'true'},
+			 { display: '备注',name:'comDesc', width: 200, align: 'center' ,hide:'true'}
+             ],
+             buttons : [
+    			       	{name: '添加新公司', bclass: 'add', onpress : openAddNewCmpy},
+    			       	{name: '导入', bclass: 'modify', onpress : cmyImport},
+    			       	{separator: true}
+    		],
+    		searchitems:[
+    		 		    { display: '公司名称', name: 'comName', isDefault:true },
+    		 		],
+             height:305,
              showcheckbox:true,
              usepager: true,
      		 useRp: true,
@@ -33,6 +40,13 @@ $(function(){
 			operationWidth: Width*0.22});
 
 	});
+
+
+function cmyImport(){
+	openAddWindow('#cmyImport');
+}
+
+
 function openAddNewCmpy(){
 			$('#newCmpy').window('open');
 		}

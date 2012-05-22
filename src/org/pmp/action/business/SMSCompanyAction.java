@@ -7,6 +7,7 @@
  */
 package org.pmp.action.business;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,9 +16,12 @@ import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.pmp.service.business.ICompanyService;
 import org.pmp.service.business.ISMSCompanyService;
+import org.pmp.util.JsonConvert;
 import org.pmp.util.Pager;
+import org.pmp.util.SessionHandler;
 import org.pmp.vo.Company;
 import org.pmp.vo.SMSCompany;
+import org.pmp.vo.TbRole;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -38,6 +42,9 @@ public class SMSCompanyAction extends ActionSupport {
     private SMSCompany smsCompany;
     private Integer comId;
     private Integer smscId;
+	private String deleteIdString;
+	private Integer page;
+	private Integer rp;
     //~ Constructor ====================================================================================================
 
     //~ Methods ========================================================================================================
@@ -63,6 +70,17 @@ public class SMSCompanyAction extends ActionSupport {
 	smsCompanyService.delereSMSCompany(smscId);
 	return SUCCESS;
     }
+    public String batchDeleteSMSCompany(){
+    	List<SMSCompany> smscompany = new ArrayList<SMSCompany>();
+    	String []ids = deleteIdString.split(",");
+    	for(int i=0;i<ids.length;++i)
+    	{
+    		SMSCompany smscom = smsCompanyService.getSMSCompanyByID(Integer.parseInt(ids[i]));
+    		smscompany.add(smscom);
+    	}
+    	smsCompanyService.batchDeleteSMSCompany(smscompany);
+    	return SUCCESS;
+     }
     
     public String getSMSCompany(){
 	SMSCompany smsCompany = smsCompanyService.getSMSCompanyByID(smscId);
@@ -72,13 +90,22 @@ public class SMSCompanyAction extends ActionSupport {
 	return SUCCESS;
     }
     
-    public String loadSMSCompanyList(){
-	Pager pager = new Pager(1000,1);
-	List<?> smsCompanyList = smsCompanyService.loadSMSCompanyList(pager);
-	
-	HttpServletRequest request = ServletActionContext.getRequest();
-	request.setAttribute("smsCompanyList", smsCompanyList);
-	return SUCCESS;
+    public void loadSMSCompanyList(){
+    	Pager pager = new Pager(rp,page);
+    	Object obj = SessionHandler.getUserRole();
+    	TbRole role = (TbRole)obj;
+    	List<SMSCompany> smsCompanyList = null;
+    	//移动公司管理员
+    	if(role.getRoleLevel()==1)
+    		smsCompanyList = smsCompanyService.loadSMSCompanyList(pager);
+    	else
+    		smsCompanyList = new ArrayList<SMSCompany>();
+    	logger.debug("得到的smsCompanyList为"+smsCompanyList.toString());
+		pager.setRowsCount(smsCompanyList.size());
+		String data = JsonConvert.list2FlexJson(pager, smsCompanyList, "org.pmp.vo.SMSCompany");
+		System.out.println(data);
+		logger.debug(data);
+		JsonConvert.output(data);
     }
 
    
@@ -122,5 +149,46 @@ public class SMSCompanyAction extends ActionSupport {
     public void setComId(Integer comId) {
         this.comId = comId;
     }
+    /**
+	 * @return the page
+	 */
+	public Integer getPage() {
+		return page;
+	}
+
+	/**
+	 * @param page the page to set
+	 */
+	public void setPage(Integer page) {
+		this.page = page;
+	}
+
+	/**
+	 * @return the rp
+	 */
+	public Integer getRp() {
+		return rp;
+	}
+
+	/**
+	 * @param rp the rp to set
+	 */
+	public void setRp(Integer rp) {
+		this.rp = rp;
+	}
+    /**
+	 * @return the deleteIdString
+	 */
+	public String getDeleteIdString() {
+		return deleteIdString;
+	}
+
+	/**
+	 * @param deleteIdString the deleteIdString to set
+	 */
+	public void setDeleteIdString(String deleteIdString) {
+		this.deleteIdString = deleteIdString;
+	}
+
     
 }

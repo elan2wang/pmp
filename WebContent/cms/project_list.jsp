@@ -20,6 +20,7 @@
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
 <script type="text/javascript" src="../Scripts/common/window.js"></script>
 <script type="text/javascript" src="../Scripts/pages/cms/project_list.js"></script>
+
 </head>
 
 <body >
@@ -33,8 +34,12 @@
            <div class="innercontent">
 
              <div class="grid_top">
+             <!--  
                 <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="openAddWindow('#newPro')">添加新项目</a>
-                <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="">导入</a>
+                <a href="pro_import.jsp" class="easyui-linkbutton" plain="true" onClick="">导入</a>
+             -->
+             	<div id="proImport" href="pro_import.jsp" class="easyui-window" title="项目导入" iconCls="icon-save" style="width:350px;height:200px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
+             	<!-- 
              	<span>筛选</span>：<select id="project.proDistrict" name="project.proDistrict">
                                               <option selected="selected">选择地区</option>
                                               <option>定海区</option>
@@ -46,6 +51,7 @@
                  <input type="text" id="keyWord" name="keyWord" />
                  <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onclick="searchProject()">搜索</a>
                  <input type="hidden" id="searchState" name="searchState" value="0"/>
+                  -->
               </div>
               <table id="projectlist">
               </table>

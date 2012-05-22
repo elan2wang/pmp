@@ -31,14 +31,18 @@
                 </div>
                 <div class="grid_top"> 
                   <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="openAddNewBuild()">添加新楼宇</a>
-                  <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="openAddNewUser()">导入</a>
+                  <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="builImport()">导入</a>
+               	  <div id="builImport" href="buil_import.jsp" class="easyui-window" title="楼宇导入" iconCls="icon-save" style="width:350px;height:200px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
                 </div>
              </div>
+             
              <div id="top_info2" name="top_info2" class="grid_top"  style="display:none;" >
+            	 <!-- 
                 <span>筛选</span><s:action name="getAllProject" namespace="/cms" executeResult="true"/>
                  <a href="javascript:void(0)" class="easyui-linkbutton" plain="true">搜索</a>
+                 	-->
              </div>
-
+ 		
               <table id="buildinglist">
             
               </table>

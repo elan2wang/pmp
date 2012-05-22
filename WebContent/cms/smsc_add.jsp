@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script type="text/javascript" src="../Scripts/jquery-1.7.1.min.js" ></script>
 <script type="text/javascript" src="../Scripts/pages/cms/smsc_add.js"></script>
 <title>信息机管理</title>
 </head>
@@ -31,7 +31,7 @@
          </div>
          <div class="rowStyle">
              <div><span >公司名称:</span>
-             <span><select name="comId" id="comId"></select>
+             <span><s:action name="companyAction!getAllCompany" namespace="/cms" executeResult="true"/>
              </span></div>
          </div>
           <div class="rowStyle">

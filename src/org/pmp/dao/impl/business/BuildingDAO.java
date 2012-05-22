@@ -40,83 +40,23 @@ public class BuildingDAO extends BaseDAO implements IBuildingDAO {
 	
 	 
 	public void saveBuilding(Building building) {
-		logger.debug("begin to save a building");
-		Session session = getSession();
-		try{
-			Transaction tx = session.beginTransaction();
-			session.save(building);
-			tx.commit();
-		}catch(RuntimeException e){
-			logger.error("save a building failed",e);
-			session.close();
-			throw e;
-		}
-		logger.debug("save a building success");
-		session.close();
+		saveInstance(building,"saving a building");
 	}
 
 	 
 	public void updateBuilding(Building building) {
-		Session session = getSession();
-		logger.debug("begin to update a building");
-		String hql = "update Building set project=?,builNum=?,builType=?,floorCount=?,skipFloor=?,housesPer=?,unitCount=?,"+
-					"unitTag=?,builDesc=?,enabled=? where builId="+building.getBuilId();
-		Query query = session.createQuery(hql);
-		query.setParameter(0, building.getProject());
-		query.setParameter(1, building.getBuilNum());
-		query.setParameter(2, building.getBuilType());
-		query.setParameter(3, building.getFloorCount());
-		query.setParameter(4, building.getSkipFloor());
-		query.setParameter(5, building.getHousesPer());
-		query.setParameter(6, building.getUnitCount());
-		query.setParameter(7, building.getUnitTag());
-		query.setParameter(8, building.getBuilDesc());
-		query.setParameter(9, building.isEnabled());
-		try{
-			Transaction tx = session.beginTransaction();
-			query.executeUpdate();
-			tx.commit();
-		}catch(RuntimeException e){
-			logger.error("update a building is error",e);
-			throw e;
-		}
-		logger.debug("update a building success");
-		session.close();
+		updateInstance(building,"begin to update a building");
 	}
 
 	public void deleteBuilding(Integer buildingID) {
-		Session session = getSession();
-		logger.debug("begin to delete a building by ID");
-		try{
-			Transaction tx = session.beginTransaction();
-			Query query = session.createQuery("delete Building bui where bui.builId = "+ buildingID);
-			query.executeUpdate();
-			tx.commit();
-		}catch(RuntimeException e){
-			logger.error("delete a building bu ID failed", e);
-			throw e;
-		}
-		logger.debug("delete a building by ID success");
-		session.close();
+		String hql = "delete Building bui where bui.builId = "+ buildingID;
+		deleteInstance(hql,"begin to delete a building by ID");
 	}
 
 	
 	public Building getBuildingByID(Integer buildingID) {
-		Session session = getSession();
-		Building building = null;
-		List list = null;
-		logger.debug("begin to get a building by ID");
-		try{
-			Transaction tx = session.beginTransaction();
-			Query query = session.createQuery("from Building bui where bui.builId="+buildingID);
-			list = query.list();
-			building = (Building)list.get(0);
-		}catch(RuntimeException e){
-			logger.error("get a building by ID failed",e);
-			throw e;
-		}
-		logger.debug("get a building by ID success");
-		session.close();
+		String hql = "from Building bui where bui.builId="+buildingID;
+		Building building = (Building)getInstance(hql,"begin to get a building by ID");
 		return building;
 	}
 
@@ -131,21 +71,8 @@ public class BuildingDAO extends BaseDAO implements IBuildingDAO {
 	 * @throws TODO
 	 */
 	public Building getBuildingByBuilNum(Integer bulNum) {
-		Session session = getSession();
-		Building building = null;
-		List list = null;
-		logger.debug("begin to get a building by bulNum.");
-		try {
-		    Transaction tx = session.beginTransaction();
-		    Query query = session.createQuery("from Building bul where bul.builNum = "+bulNum);
-		    list = query.list();
-		    building = (Building)list.get(0);
-		} catch (RuntimeException e){
-		    logger.error("get a building by bulNum failed.",e);
-		    throw e;
-		}
-		logger.debug("get a building by bulNum successfully.");
-		session.close();
+		String hql = "from Building bul where bul.builNum = "+bulNum;
+		Building building = (Building)getInstance(hql,"begin to get a building by bulNum.");
 		return building;
 	    }
 
@@ -296,12 +223,8 @@ public class BuildingDAO extends BaseDAO implements IBuildingDAO {
 	@Override
 	public Building getBuildingByProjectIdAndBuildingNum(Integer projectId,
 			Integer buildingNum) {
-		Building building = null;
-		List list = null;
-		Session session = getSession();
-		Query query = session.createQuery("from Building where project.proId="+projectId+" and builNum="+buildingNum);
-		list = query.list();
-		building = (Building)list.get(0);
+		String hql = "from Building where project.proId="+projectId+" and builNum="+buildingNum;
+		Building building = (Building)getInstance(hql,"get a Buidling By projectId and buildNum");
 		return building;
 	}
 }

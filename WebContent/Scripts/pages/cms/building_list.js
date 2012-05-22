@@ -26,16 +26,23 @@ $(function(){
 				 { display: '物业费标准', name:'condoFeeRate',  width: 100, align: 'center'},
 				 { display: '备注', name:'builDesc',  width: 100, align: 'center' ,hide:'true'},
 				 { display: '是否启用',  name:'enabled', width: 200, align: 'center' ,hide:'true'}
-	             ],height:305,
+	             ],
+	    		searchitems:[
+	    		 		    { display: '楼号', name: 'builNum', isDefault:true },
+	    		 		],
+	             height:305,
 	             showcheckbox:true,
 	             usepager: true,
 	     		 useRp: true,
 	     		 rp: 15,
 	     		 operation:true,
-				operationcontent:'<a href="javascript:void(0)" onclick="openEditBuild($(this).parent().parent().parent())">编辑</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#\" onclick=\"parent.selectHouseTab($(this).parent().parent().parent())\">清单</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#\" onclick=\"deleteBuilding($(this).parent().parent().parent(),$(this).prev().prev().prev().prev().html());\">删除</a>',
+				operationcontent:'<a href="javascript:void(0)" onclick="openEditBuild($(this).parent().parent().parent())">编辑</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#\" onclick=\"parent.selectHouseTab($(this).parent().parent().parent())\">清单</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#\" onclick=\"deleteBuilding($(this).parent().parent().parent(),$(this).parent().parent().parent());\">删除</a>',
 				operationWidth: Width*0.22
 			});
 });
+function builImport(){
+	openAddWindow('#builImport');
+}
 function openAddNewBuild(){
 	         $win=$('#newBuild').window({
                 top:10,   

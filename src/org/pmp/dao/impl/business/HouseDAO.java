@@ -22,6 +22,7 @@ import org.pmp.vo.Building;
 import org.pmp.vo.CondoFee;
 import org.pmp.vo.House;
 import org.pmp.vo.Owner;
+import org.pmp.vo.Project;
 
 /**
  * @author Jason
@@ -43,18 +44,7 @@ public class HouseDAO extends BaseDAO implements IHouseDAO {
 	 */
 	@Override
 	public void saveHouse(House house) {
-		logger.debug("begin to save a House");
-		Session session = getSession();
-		try{
-			Transaction tx = session.beginTransaction();
-			session.save(house);
-			tx.commit();
-		}catch(RuntimeException e){
-			logger.error("save a house failed",e);
-			throw e;
-		}
-		logger.debug("save a house success");
-		session.close();
+		saveInstance(house,"saving a house");
 	}
 
 	/**
@@ -67,27 +57,7 @@ public class HouseDAO extends BaseDAO implements IHouseDAO {
 	 */
 	@Override
 	public void updateHouse(House house) {
-		Session session = getSession();
-		logger.debug("begin to update a House");
-//		String hql = "update House set building=?,houseNum=?,houseArea=?,houseDesc=?,condoFeeRate=?,isempty=? where houseId ="+house.getHouseId();
-//		Query query = session.createQuery(hql);
-//		query.setParameter(0, house.getBuilding());
-//		query.setParameter(1, house.getHouseNum());
-//		query.setParameter(2, house.getHouseArea());
-//		query.setParameter(3, house.getHouseDesc());
-//		query.setParameter(4, house.getCondoFeeRate());
-//		query.setParameter(5, house.isIsempty());
-		try{
-			Transaction tx = session.beginTransaction();
-			session.update(house);
-//			query.executeUpdate();
-			tx.commit();
-		}catch(RuntimeException e){
-			logger.error("update a House is error",e);
-			throw e;
-		}
-		logger.debug("update a House success");
-		session.close();
+		updateInstance(house,"begin to update a house");
 	}
 
 	/**
@@ -100,19 +70,8 @@ public class HouseDAO extends BaseDAO implements IHouseDAO {
 	 */
 	@Override
 	public void deleteHouse(Integer houseID) {
-		Session session = getSession();
-		logger.debug("begin to delete a House by ID");
-		try{
-			Transaction tx = session.beginTransaction();
-			Query query = session.createQuery("delete House where houseId = "+ houseID);
-			query.executeUpdate();
-			tx.commit();
-		}catch(RuntimeException e){
-			logger.error("delete a House bu ID failed", e);
-			throw e;
-		}
-		logger.debug("delete a House by ID success");
-		session.close();
+		String hql = "delete House where houseId = "+ houseID;
+		deleteInstance(hql,"begin to delete a House by ID");
 	}
 
 	/**
@@ -125,22 +84,9 @@ public class HouseDAO extends BaseDAO implements IHouseDAO {
 	 */
 	@Override
 	public House getHouseByID(Integer houseId) {
-		Session session = getSession();
-		House house = null;
-		List list = null;
-		logger.debug("begin to get a House by ID");
-		try{
-			Transaction tx = session.beginTransaction();
-			Query query = session.createQuery("from House where houseId="+houseId);
-			list = query.list();
-			house = (House)list.get(0);
-		}catch(RuntimeException e){
-			logger.error("get a House by ID failed",e);
-			throw e;
-		}
-		logger.debug("get a House by ID success");
-		session.close();
-		return house;
+		String hql = "from House where houseId="+houseId;
+		House house = (House)getInstance(hql,"get a House By ID");
+		return house;	
 	}
 
 	/**
@@ -153,22 +99,9 @@ public class HouseDAO extends BaseDAO implements IHouseDAO {
 	 */
 	@Override
 	public House getHouseByHouseNum(String houseNum) {
-		Session session = getSession();
-		House house = null;
-		List list = null;
-		logger.debug("begin to get a House by houseNum");
-		try{
-			Transaction tx = session.beginTransaction();
-			Query query = session.createQuery("from House where houseNum='"+houseNum+"'");
-			list = query.list();
-			house = (House)list.get(0);
-		}catch(RuntimeException e){
-			logger.error("get a House by houseNum failed",e);
-			throw e;
-		}
-		logger.debug("get a House by houseNum success");
-		session.close();
-		return house;
+		String hql = "from House where houseNum="+houseNum;
+		House house = (House)getInstance(hql,"begin to get a building by bulNum.");
+		return house;	
 	}
 
 	
@@ -277,17 +210,9 @@ public class HouseDAO extends BaseDAO implements IHouseDAO {
 	 */
 	@Override
 	public House getHouseByBuildingIdAndHouseNum(Integer buildingId,String houseNum) {
-		Session session = getSession();
-		House house = null;
-		List list = null;
-		try{
-			Query query = session.createQuery("from House house where building.builId="+buildingId+" and houseNum='"+houseNum+"'");
-			list = query.list();
-			house = (House)list.get(0);
-		}catch(RuntimeException e){
-			System.out.println(e);
-		}
-		return house;
+		String hql = "from House house where building.builId="+buildingId+" and houseNum='"+houseNum+"'";
+		House house = (House)getInstance(hql,"begin to get a house by building.builId and houseNum.");
+		return house;	
 	}
 
 	

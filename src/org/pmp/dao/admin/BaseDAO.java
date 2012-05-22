@@ -40,11 +40,11 @@ public class BaseDAO {
 	Session session = getSession();
 	Transaction tx = null;
 	try {
-            tx = session.beginTransaction();
+            tx = session.beginTransaction();          	
             session.doWork(work);
 	} catch (RuntimeException e){
 	    tx.rollback();
-	    session.close();
+	  //  session.close();
 	    logger.debug(e.getMessage());
 	    throw e;
 	} finally {

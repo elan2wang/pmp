@@ -3,7 +3,7 @@ $(function()
 {
   	//获取有下拉框的id
   	var proType = document.getElementById("project.proType");
-  	var procompany = document.getElementById("project.company"); 
+  	var procompany = document.getElementById("comId"); 
   	var proDistrict = document.getElementById("proDistrict");
   	
   //获取隐藏域中的值，即服务器传来的owner的属性值
