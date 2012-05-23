@@ -58,6 +58,7 @@
         <value>org/pmp/vo/TimeParkFee.hbm.xml</value>
         <value>org/pmp/vo/FixedParkFee.hbm.xml</value>
         <value>org/pmp/vo/FixedParkFeeItem.hbm.xml</value>
+        <value>org/pmp/vo/Zone.hbm.xml</value>
       </list>
     </property>
   </bean>

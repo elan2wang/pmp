@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+  
+  <!-- DAO Declare -->
+  <!-- ======================================================================================= -->
+  <bean id="zoneDAO" class="org.pmp.dao.impl.fire.ZoneDAO" parent="baseDAO"/>
+  
+  <!-- Service Declare -->
+  <!-- ======================================================================================= -->
+  <bean id="zoneService" class="org.pmp.service.impl.fire.ZoneService">
+    <property name="zoneDAO" ref="zoneDAO" />
+  </bean>
+  
+  <!-- Action Declare -->
+  <!-- ======================================================================================= -->
+  <bean id="zoneAction" class="org.pmp.action.fire.ZoneAction">
+    <property name="zoneService" ref="zoneService" />
+    <property name="projectService" ref="projectService" />
+  </bean>
+    
+</beans>
