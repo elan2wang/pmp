@@ -29,7 +29,7 @@ $(function(){
     		 searchitems:[
     		     { display: '公司名称', name: 'comName', isDefault:true },
     		 ],
-             height:305,
+             height:Height*0.88,
              showcheckbox:true,
              usepager: true,
      		 useRp: true,
