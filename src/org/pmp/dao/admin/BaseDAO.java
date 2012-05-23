@@ -42,11 +42,11 @@ public class BaseDAO {
 	Session session = getSession();
 	Transaction tx = null;
 	try {
-            tx = session.beginTransaction();
+            tx = session.beginTransaction();          	
             session.doWork(work);
 	} catch (RuntimeException e){
 	    tx.rollback();
-	    session.close();
+	  //  session.close();
 	    logger.debug(e.getMessage());
 	    throw e;
 	} finally {
@@ -246,4 +246,22 @@ public class BaseDAO {
         session.close();
         return obj;
     }
+    
+    protected void deleteInstance(Object obj,String debugMsg){
+        logger.debug("delete a instance: "+debugMsg);
+    	Session session = getSession();
+            Transaction tx = null;
+            try {
+                tx = session.beginTransaction();
+                session.delete(obj);
+                tx.commit();
+            } catch (RuntimeException e){
+                tx.rollback();
+                logger.error("get a instance failed: "+debugMsg,e);
+                session.close();
+                throw e;
+            }
+            logger.debug("get a instance successfully: "+debugMsg);
+            session.close();
+     }
 }

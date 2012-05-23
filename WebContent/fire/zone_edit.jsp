@@ -7,12 +7,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="../Scripts/pages/fire/zone_edit.js"></script>
 <title>无标题文档</title>
 </head>
 	<body>
  <div class="window_content">
-	            <form id="form" name="form" action="addZone" method="post" enctype="multipart/form-data">
+	            <form id="form" name="form" action="updateZone" method="post" enctype="multipart/form-data">
 	                <div class="rowStyle">
+	                   <input type="hidden" value="${zone.zoneId}" name="zone.zoneId">
+	                   <input type="hidden" value="${zone.zoneImgUrl}" name="zone.zoneImgUrl">
+	                   <input type="hidden" value="${zone.zoneConfigUrl}" name="zone.zoneConfigUrl">
 	                   <div><span >场地名称：</span><span><input name="zone.zoneName" type="text" class="textbox" id="zone.zoneName" value="${zone.zoneName}"/></span></div>
 	                </div>
 	                <div class="rowStyle">
@@ -20,6 +24,7 @@
 		                              <span >所在小区：</span>
 		                              <span>
 	                                     <s:action name="getProjectBySessionHander" namespace="/cms" executeResult="true"/>
+	                                     <input type="hidden" id="proId" name="proId" value="${zone.project.proId}"/> 
 	                                  </span>
                                   </div>
 	                </div>

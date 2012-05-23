@@ -8,6 +8,7 @@
 package org.pmp.service.impl.business;
 
 import java.util.List;
+import java.util.Map;
 
 import org.pmp.dao.business.ICompanyDAO;
 import org.pmp.service.business.ICompanyService;
@@ -44,16 +45,9 @@ public class CompanyService implements ICompanyService {
 	return companyDAO.getCompanyByName(companyName);
     }
 
-    public List<?> loadCompanyList(Pager pager) {
-	return companyDAO.loadCompanyList(pager);
-    }
-
-    public List<?> loadEnabledCompanyList(Pager pager) {
-	return companyDAO.loadEnabledCompanyList(pager);
-    }
-
-    public List<?> loadDisabledComapnyList(Pager pager) {
-	return companyDAO.loadDisabledCompanyList(pager);
+    public List<Company> loadCompanyList_ByChinaMobile(Map<String,Object>params,String order,Pager pager)
+    {
+    	return companyDAO.loadCompanyList_ByChinaMobile(params, order, pager);
     }
 
     //~ Getters and Setters ============================================================================================

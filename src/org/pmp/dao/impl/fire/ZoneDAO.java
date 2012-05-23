@@ -40,5 +40,19 @@ public class ZoneDAO extends BaseDAO implements IZoneDAO{
 		String debugMsg="get zone by ID!";
 		return (Zone)getInstanceById(Zone.class, zoneID, debugMsg);
 	}
+
+	@Override
+	public Zone updateZone(Zone zone) {
+		String debugMsg="update zone!";
+		updateInstance(zone, debugMsg);
+		return zone;
+	}
+
+	@Override
+	public Zone deleteZone(Zone zone) {
+		String debugMsg="delete zone!";
+		deleteInstance(zone, debugMsg);
+		return zone;
+	}
 	
 }

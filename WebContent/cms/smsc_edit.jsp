@@ -1,17 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<script type="text/javascript" src="../Scripts/pages/cms/smsc_edit.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
-<body onload="loadCompanyList()">
+<body>
 <div class="window_content">
 <form name="form2" id="form2" action="editSMSCompany" method="post">
-         <div class="rowStyle" style="display:none">
-             <div><span >信息机编号:</span><span><input type="text" name="smsCompany.smscId" value="${smsCompany.smscId }"/></span></div>
-         </div>
+       <input type="hidden" name="smsCompany.smscId" id="smsCompany.smscId" value='${smsCompany.smscId}'/>
+        
          <div class="rowStyle">
              <div><span >信息机名称:</span><span><input type="text" name="smsCompany.smscName" value="${smsCompany.smscName }"/></span></div>
          </div>
@@ -32,8 +33,8 @@
          </div>
          <div class="rowStyle">
              <div><span >公司名称:</span>
-             <span style="display:none" id="hiddenComId">${smsCompany.company.comId }</span>
-             <span><select name="comId" id="comId"></select>
+              <input type="hidden" name="project.proType" id="hiddenComId" value='${smsCompany.company.comId}'/>
+             <span><s:action name="companyAction!getAllCompany" namespace="/cms" executeResult="true"/>
              </span></div>
          </div>
           <div class="rowStyle">

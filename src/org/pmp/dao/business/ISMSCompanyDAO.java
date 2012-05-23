@@ -10,6 +10,7 @@ package org.pmp.dao.business;
 import java.util.List;
 
 import org.pmp.util.Pager;
+import org.pmp.vo.Owner;
 import org.pmp.vo.SMSCompany;
 
 /**
@@ -23,6 +24,8 @@ public interface ISmsCompanyDAO {
     public void updateSMSCompany(SMSCompany instance);
     
     public void delereSMSCompany(Integer smscId);
+    
+    public void batchDeleteSMSCompany(List<SMSCompany> list);
     
     public SMSCompany getSMSCompanyByID(Integer smscId);
     

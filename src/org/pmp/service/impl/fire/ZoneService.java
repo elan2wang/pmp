@@ -34,5 +34,17 @@ public class ZoneService implements IZoneService{
 	public Zone getZoneById(Integer zoneID) {
 		return this.zoneDAO.getZoneById(zoneID);
 	}
+
+	@Override
+	public Zone updateZone(Zone zone) {
+		this.zoneDAO.updateZone(zone);
+		return zone;
+	}
+
+	@Override
+	public Zone deleteZone(Zone zone) {
+		this.zoneDAO.deleteZone(zone);
+		return zone;
+	}
 	
 }

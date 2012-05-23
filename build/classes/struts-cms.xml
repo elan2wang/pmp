@@ -6,22 +6,25 @@
   <package name="cms" extends="struts-default" namespace="/cms">
 	<!-- SMS_Company related Actions -->
 	<action name="addSMSCompany" class="org.pmp.action.business.SMSCompanyAction" method="addSMSCompany">
-      <result name="success" type="chain">loadSMSCompanyList</result>
+      <result name="success">/cms/smsc_list.jsp</result>
     </action>
     
-    <action name="getSMSCompany" class="org.pmp.action.business.SMSCompanyAction" method="getSMSCompany">
+    <action name="getSMSCompany" class="org.pmp.action.business.SmsCompanyAction" method="getSMSCompany">
       <result name="success">/cms/smsc_edit.jsp</result>
     </action>
     
+
     <action name="editSMSCompany" class="org.pmp.action.business.SMSCompanyAction" method="editSMSCompany">
-      <result name="success" type="chain">loadSMSCompanyList</result>
+      <result name="success">/cms/smsc_list.jsp</result>
     </action>
     
-    <action name="deleteSMSCompany" class="org.pmp.action.business.SMSCompanyAction" method="deleteSMSCompany">
-      <result name="success" type="chain">loadSMSCompanyList</result>
+    
+    <action name="batchDeleteSMSCompany" class="org.pmp.action.business.SMSCompanyAction" method="batchDeleteSMSCompany">
+   	  <result name="success">/cms/smsc_list.jsp</result>
     </action>
     
-    <action name="loadSMSCompanyList" class="org.pmp.action.business.SMSCompanyAction" method="loadSMSCompanyList">
+    
+    <action name="loadSMSCompanyList" class="org.pmp.action.business.SmsCompanyAction" method="loadSMSCompanyList">
       <result name="success">/cms/smsc_list.jsp</result>
     </action>
     
@@ -58,6 +61,9 @@
 	</action>
 	<action name="delete_building" class="org.pmp.action.business.BuildingAction" method="deleteBuilding">
 	</action>
+	<action name="getBuildingByProject" class="org.pmp.action.business.BuildingAction" method="getBuildingByProject">
+	</action>
+
 
 	<action name="get_project" class="org.pmp.action.business.ProjectAction" method="getProjectById">
 		<result name="success">/cms/project_edit.jsp</result>
@@ -82,8 +88,11 @@
 
 	<action name="deleteHouse" class="org.pmp.action.business.HouseAction" method="deleteHouse"></action>
 	
+	<action name="new_house_import" class="org.pmp.action.business.HouseAction" method="uploadFile">
+		<result name="success">/cms/house_list.jsp</result>
+	</action>
 	
-	<action name="fileUpload" class="org.pmp.action.business.ProjectAction" method="uploadFile">
+	<action name="new_pro_import" class="org.pmp.action.business.ProjectAction" method="uploadFile">
 		<result name="success">/cms/project_list.jsp</result>
 	</action>
 	<action name="buildingImport" class="org.pmp.action.business.BuildingAction" method="uploadFile">

@@ -9,9 +9,12 @@ package org.pmp.action.business;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
+
+import java.io.OutputStream;
+
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,9 +52,9 @@ public class ProjectAction extends ActionSupport {
 	private String keyWord;
 	private List projectList;
 	private String projectName;
-	private File refFile;
-	private String refFileFileName;
-	private String refFileContentType;
+	private File proFile;
+	private String proFileFileName;
+	private String proFileContentType;
 	
 	public String addProject(){
 			projectService.addProject(project);
@@ -126,31 +129,47 @@ public class ProjectAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
-	public String uploadFile(){
-	if(!MyfileUtil.validate(refFileFileName,"xls")){
-	    String postfix = MyfileUtil.getPostfix(refFileFileName);
-	    String message = postfix+"类型的文件暂不支持，请选择xls类型文件";
-	    HttpServletRequest request = ServletActionContext.getRequest();
-	    request.setAttribute("message", message);
-	    return "filetype_error";
-	}
-		StringBuffer errorPath = new StringBuffer();
-		StringBuffer isError = new StringBuffer();
-		try {
-			InputStream is = new FileInputStream(refFile);
-			List projectList = ProjectImport.projectList(is,isError,errorPath);
-			projectService.batchSaveProject(projectList);
-			HttpServletRequest request = ServletActionContext.getRequest();
-		    request.setAttribute("errorPath", errorPath);
-		}catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		if(isError.toString().equals("是")){
-			return ERROR; 
-		}
-		return SUCCESS;
+	public void uploadFile()throws IOException{
+		    HttpServletRequest request = ServletActionContext.getRequest();
+		    String message = null;
+		    System.out.println("proFileFileName:"+proFileFileName);
+			if(!MyfileUtil.validate(proFileFileName,"xls")){
+			    logger.debug("文件格式不对");
+			    String postfix = MyfileUtil.getPostfix(proFileFileName);
+			    message = postfix+"类型的文件暂不支持，请选择xls类型文件";
+			    request.setAttribute("message", message);
+			    JsonConvert.output("{\"error\":\"filetype_error\",\"msg\":"+JsonConvert.toJson(message)+"}");
+			    return;
+			}
+			/* create the dir to store error data */
+			MyfileUtil.createDir("error_data");
+			/* create the error data file in this dir */
+			String fileName = MyfileUtil.createFilename();
+			String fullName = ServletActionContext.getServletContext().getRealPath("error_data")+"\\"+fileName+".xls";
+			String downLoad = ServletActionContext.getServletContext().getContextPath()+"/error_data/"+fileName+".xls";
+			OutputStream os = new FileOutputStream(fullName);
+			System.out.println(fullName);
+			/* import data from the upload file and store in the cfList */
+			List<Project> proList = new ArrayList<Project>();
+			Boolean hasError = ProjectImport.execute(new FileInputStream(proFile), os, proList);
+			/* close OutputStream */
+			os.flush();
+			os.close();
+			
+			/* call the method batchSetOughtMoney to update the condoFee*/
+			projectService.batchSaveProject(proList);
+			
+			/* if there are some mistakes of the file */
+			if (hasError){
+			    message = "记录有错误,正确数据已导入，请下载错误数据<a href=\""+downLoad+"\">下载</a>";
+			    JsonConvert.output("{\"error\":\"record_error\",\"msg\":"+JsonConvert.toJson(message)+"}");
+			    return;
+			}
+			
+			/* data import success */
+			message = "数据导入成功";
+			JsonConvert.output("{\"error\":\"\",\"msg\":"+JsonConvert.toJson(message)+"}");
+			return;
 	}
 	
 	public void setProjectService(IProjectService projectService) {
@@ -196,28 +215,28 @@ public class ProjectAction extends ActionSupport {
 		this.projectList = projectList;
 	}
 	
-	public File getRefFile() {
-		return refFile;
+	public File getProFile() {
+		return proFile;
 	}
 
-	public void setRefFile(File refFile) {
-		this.refFile = refFile;
+	public void setProFile(File proFile) {
+		this.proFile = proFile;
 	}
 
-	public String getRefFileFileName() {
-		return refFileFileName;
+	public String getProFileFileName() {
+		return proFileFileName;
 	}
 
-	public void setRefFileFileName(String refFileFileName) {
-		this.refFileFileName = refFileFileName;
+	public void setProFileFileName(String proFileFileName) {
+		this.proFileFileName = proFileFileName;
 	}
 
-	public String getRefFileContentType() {
-		return refFileContentType;
+	public String getProFileContentType() {
+		return proFileContentType;
 	}
 
-	public void setRefFileContentType(String refFileContentType) {
-		this.refFileContentType = refFileContentType;
+	public void setProFileContentType(String proFileContentType) {
+		this.proFileContentType = proFileContentType;
 	}
 
 	public Integer getRp() {

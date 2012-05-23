@@ -7,6 +7,10 @@
  */
 package org.pmp.service.admin;
 
+import java.util.List;
+import java.util.Map;
+
+import org.pmp.util.Pager;
 import org.pmp.vo.TbUserGroupRole;
 
 /**
@@ -16,7 +20,6 @@ import org.pmp.vo.TbUserGroupRole;
  */
 public interface IUserGroupRoleService {
     public void addUGR(TbUserGroupRole instance);
-    public void deleteUGR_ByUserID(Integer userID);
     public void editUGR(TbUserGroupRole instance);
     
     /**
@@ -28,4 +31,11 @@ public interface IUserGroupRoleService {
      * @throws RuntimeException
      */
     public TbUserGroupRole getUGR_ByUserID(Integer userID);
+    
+    public List<?> loadUGRList(Map<String,Object> params,String order,Pager pager);
+    
+    public List<?> loadUGRList_ByPro(String proName,Map<String,Object> params,String order,Pager pager);
+
+    public List<?> loadUGRList_ByCom(String comName,Map<String,Object> params,String order,Pager pager);
+
 }

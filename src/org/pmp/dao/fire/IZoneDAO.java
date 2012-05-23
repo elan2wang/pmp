@@ -20,9 +20,13 @@ import org.pmp.vo.Zone;
  * @update TODO
  */
 public interface IZoneDAO{
-      public List<?> loadZoneListByProId(Integer proId,Pager pager);
-      
-      public Zone saveZone(Zone zone);
-      
-      public Zone getZoneById(Integer zoneID);
+	   List<?> loadZoneListByProId(Integer proId,Pager pager);
+	  
+	   Zone saveZone(Zone zone);
+	  
+	   Zone getZoneById(Integer zoneID);
+	  
+	   Zone updateZone(Zone zone);
+	   
+	   Zone deleteZone(Zone zone);
 }

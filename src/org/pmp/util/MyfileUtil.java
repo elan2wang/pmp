@@ -76,4 +76,20 @@ public class MyfileUtil {
 		    return null;
 		}
     }
+    
+    public static boolean deleteFileOrDirectory(String path){
+		boolean b=false;
+    	try {
+    		if(path!=null){
+    			File f=new File(path);
+    			if(f.exists()){
+    				b=f.delete();
+    			}	
+    		}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return b;
+    }
+    
 }

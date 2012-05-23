@@ -24,6 +24,8 @@ public interface ISmsCompanyService {
     
     public void delereSMSCompany(Integer smscId);
     
+    public void batchDeleteSMSCompany(List<SMSCompany> list);
+    
     public SMSCompany getSMSCompanyByID(Integer smscId);
     
     public SMSCompany getSMSCompanyByComID(Integer comId);

@@ -11,6 +11,11 @@
       <action name="editZone" class="org.pmp.action.fire.ZoneAction" method="editZone">
            <result name="success">/fire/zone_edit.jsp</result>
       </action>
+      <action name="updateZone" class="org.pmp.action.fire.ZoneAction" method="updateZone">
+           <result name="success">/fire/zone_list.jsp</result>
+      </action>
+      <action name="deleteZone" class="org.pmp.action.fire.ZoneAction" method="deleteZone"></action>
+      
   </package>
 </struts>
 

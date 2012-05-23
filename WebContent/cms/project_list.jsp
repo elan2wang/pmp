@@ -20,6 +20,7 @@
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
 <script type="text/javascript" src="../Scripts/common/window.js"></script>
 <script type="text/javascript" src="../Scripts/pages/cms/project_list.js"></script>
+
 </head>
 
 <body >
@@ -31,11 +32,23 @@
        </ul>   
        <div class="content">
            <div class="innercontent">
+<<<<<<< HEAD
+
+             <div class="grid_top">
+             <!--  
+                <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="openAddWindow('#newPro')">添加新项目</a>
+                <a href="pro_import.jsp" class="easyui-linkbutton" plain="true" onClick="">导入</a>
+             -->
+             	<div id="proImport" href="pro_import.jsp" class="easyui-window" title="项目导入" iconCls="icon-save" style="width:350px;height:200px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
+             	<!-- 
+             	<span>筛选</span>：<select id="project.proDistrict" name="project.proDistrict">
+=======
              <div class="content_main">
                 <div class="grid_top">
                     <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="openAddWindow('#newPro')">添加新项目</a>
                     <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="">导入</a>
              	    <span>筛选</span>：<select id="project.proDistrict" name="project.proDistrict">
+>>>>>>> 06f54611c7339a2a3aff189dd92ad074577aef01
                                               <option selected="selected">选择地区</option>
                                               <option>定海区</option>
                                               <option>普陀区</option>
@@ -43,12 +56,22 @@
                                               <option>嵊泗区</option>
                                       </select>
  
+<<<<<<< HEAD
+                 <input type="text" id="keyWord" name="keyWord" />
+                 <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onclick="searchProject()">搜索</a>
+                 <input type="hidden" id="searchState" name="searchState" value="0"/>
+                  -->
+              </div>
+              <table id="projectlist">
+              </table>
+=======
                     <input type="text" id="keyWord" name="keyWord" />
                     <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onclick="searchProject()">搜索</a>
                     <input type="hidden" id="searchState" name="searchState" value="0"/>
                  </div>
                  <table id="projectlist">
                  </table>
+>>>>>>> 06f54611c7339a2a3aff189dd92ad074577aef01
              
 	             <% int i=0; %>
                  <div id="newPro" class="easyui-window" href="project_add.jsp?" title="添加新项目" iconCls="icon-save" style="width:400px;height:370px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">

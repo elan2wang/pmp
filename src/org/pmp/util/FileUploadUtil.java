@@ -6,12 +6,13 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import org.apache.struts2.ServletActionContext;
+
 public class FileUploadUtil {
    
    public static String fileUpload(File uploadFile,String uploadFileName,String toUploadDir) throws IOException{
 	    	
 		String uploadDir=MyfileUtil.createDir(toUploadDir);
-		
 		
 		FileInputStream fis = new FileInputStream(uploadFile);
 		
@@ -27,7 +28,7 @@ public class FileUploadUtil {
 		fos.close();
 		fis.close();
 		
-		return uploadDir+File.separator+uploadFileName;
+		return toUploadDir+"/"+uploadFileName;
    }
    
 }

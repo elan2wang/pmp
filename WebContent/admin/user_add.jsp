@@ -28,7 +28,7 @@
              <div><span >用户描述:</span><span><input type="text" name="user.userDesc" /></span></div>
          </div>
          <div class="rowStyle">
-             <div><span >选择角色:</span><span><select id="roleId" name="user.roleId" onchange="roleChange()"></select></span></div>
+             <div><span >选择角色:</span><span><select id="roleId" name="roleId" onchange="roleChange()"></select></span></div>
          </div>
          <div class="rowStyle">
              <div><span >选择用户组:</span><span><select id="groupId" name="groupId"></select></span></div>

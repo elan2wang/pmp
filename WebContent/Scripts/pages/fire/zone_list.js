@@ -20,9 +20,7 @@ $(function(){
         buttons:[
                  { name: '添加场地', bclass: 'add', onpress: zoneAdd },
                  { separator: true },
-                 { name: '业主信息导入', bclass:'import', onpress: ownerImport },
-                 { separator: true },
-                 { name: '删除业主', bclass:'delete', onpress: ownerDelete }
+                 { name: '删除场地', bclass:'delete', onpress: ownerDelete }
      		],
      	searchitems:[
      		    { display: '姓名', name: 'ownerName', isDefault:false },
@@ -53,25 +51,34 @@ function ownerImport(){
 }
 
 function ownerDelete(){
+	
 	var rowid,idString="";
+	
 	$("#owner_list td input:checked").each(function(){
 		rowid=$(this).parent().parent().parent().attr("id");
 		rowid=rowid.substr(3);
 		idString+=rowid+",";
 	});
+	
 	if(idString==""){
-		alert("请选择删除的业主记录");
+		alert("请选择删除的场地记录!");
 		return;
 	}
+	
 	idString=idString.substring(0,idString.length-1);
-	if(!confirm("您将删除编号为："+idString+"的业主"))return;
+	
+	if(!confirm("您将删除编号为："+idString+"的场地!"))return;
+    	
+	
 	$.ajax({
 		type: 'POST',
-		url: 'deleteOwner?idStr='+idString,
+		url: 'deleteZone?idStr='+idString,
 		success: function(data){
-			alert("业主记录删除成功");
+			alert("场地记录删除成功");
+			window.location.href="/fire/zone_list.jsp";
 		}
 	});
+	
 }
 
 

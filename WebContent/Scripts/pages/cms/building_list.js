@@ -18,6 +18,22 @@ $(function(){
 				  url:"building_listBySessionHandler?"+"projectId="+pageid,
 				  dataType:"json",
 				  colModel: [
+<<<<<<< HEAD
+	             { display: '楼号', name:'builNum',  width: 100, align: 'center' },
+				 { display: '单元数', name:'unitCount',  width: 100, align: 'center' },
+	             { display: '楼层数', name:'floorCount',  width: 100,align: 'center' },
+				 { display: '单元层户数', name:'housesPer',  width: 100, align: 'center' },
+				 { display: '跳过楼层数', name:'skipFloor',  width: 100, align: 'center' },
+				 { display: '楼宇类型',  name:'builType', width: 100, align: 'center'},
+				 { display: '物业费标准', name:'condoFeeRate',  width: 100, align: 'center'},
+				 { display: '备注', name:'builDesc',  width: 100, align: 'center' ,hide:'true'},
+				 { display: '是否启用',  name:'enabled', width: 200, align: 'center' ,hide:'true'}
+	             ],
+	    		searchitems:[
+	    		 		    { display: '楼号', name: 'builNum', isDefault:true },
+	    		 		],
+	             height:305,
+=======
 	                 { display: '楼号', name:'builNum',  width: 100, align: 'center' },
 				     { display: '单元数', name:'unitCount',  width: 100, align: 'center' },
 	                 { display: '楼层数', name:'floorCount',  width: 100,align: 'center' },
@@ -36,15 +52,24 @@ $(function(){
 	                { display: '单元层户数', name: 'housesPer', isdefault:true }
 	             ],
 	             showSearch:true,
+>>>>>>> 06f54611c7339a2a3aff189dd92ad074577aef01
 	             showcheckbox:true,
 	             usepager: true,
 	     		 useRp: true,
 	     		 rp: 15,
 	     		 operation:true,
+<<<<<<< HEAD
+				operationcontent:'<a href="javascript:void(0)" onclick="openEditBuild($(this).parent().parent().parent())">编辑</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#\" onclick=\"parent.selectHouseTab($(this).parent().parent().parent())\">清单</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#\" onclick=\"deleteBuilding($(this).parent().parent().parent(),$(this).parent().parent().parent());\">删除</a>',
+				operationWidth: Width*0.22
+=======
 				 operationcontent:'<a href="javascript:void(0)" onclick="openEditBuild($(this).parent().parent().parent())">编辑</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"javascript:void(0)\" onclick=\"parent.selectHouseTab($(this).parent().parent().parent())\">清单</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"javascript:void(0)\" onclick=\"deleteBuilding($(this).parent().parent().parent(),$(this).prev().prev().prev().prev().html());\">删除</a>',
 				 operationWidth: Width*0.22
+>>>>>>> 06f54611c7339a2a3aff189dd92ad074577aef01
 			});
 });
+function builImport(){
+	openAddWindow('#builImport');
+}
 function openAddNewBuild(){
 	         $win=$('#newBuild').window({
                 top:10,   

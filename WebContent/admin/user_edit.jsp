@@ -7,11 +7,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript" src="../Scripts/pages/admin/user_add.js"></script>
+<script type="text/javascript" src="../Scripts/pages/admin/user_edit.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
 <div class="window_content">
-<form name="form2" id="form2" action="updateUser" method="post">
+<form name="form2" id="form2" action=editUser" method="post">
 		<input type="hidden" name="user.userId" id="user.userId" value='${ugr.tbUser.userId }'/>
          <div class="rowStyle">
              <div><span >真实姓名:</span><span><input type="text" name="user.realname"  value='${ugr.tbUser.realname }'/></span></div>
@@ -29,18 +30,12 @@
              <div><span >用户描述:</span><span><input type="text" name="user.userDesc" value='${ugr.tbUser.userDesc }'/></span></div>
          </div>
          <div class="rowStyle">
-             <div><span >选择角色:</span><span><select id="roleId" name="roleId" onchange="roleChange()">
-             <c:forEach var="item" items="${roleList }">
-               <option value="${item.roleId }" <c:if test="${ugr.tbRole.roleId == item.roleId }">selected="true"</c:if>>${item.roleName }</option>
-             </c:forEach>
-             </select></span></div>
+             <input type="hidden" id="roleID" value="${ugr.tbRole.roleId }" />
+             <div><span >选择角色:</span><span><select id="roleId" name="roleId" onchange="roleChange()"></select></span></div>
          </div>
          <div class="rowStyle">
-             <div><span >选择用户组:</span><span><select id="groupId" name="groupId">
-             <c:forEach var="item" items="${groupList }">
-               <option value="${item.groupId }" <c:if test="${ugr.tbGroup.groupId == item.groupId }">selected="true"</c:if>>${item.groupName }</option>
-             </c:forEach>
-             </select></span></div>
+             <input type="hidden" id="groupID" value="${ugr.tbGroup.groupId }" />
+             <div><span >选择用户组:</span><span><select id="groupId" name="groupId"></select></span></div>
          </div>
          <div class="rowStyle">
              <div><span >是否启用:</span>

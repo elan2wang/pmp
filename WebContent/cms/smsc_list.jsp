@@ -17,10 +17,10 @@
 
 <script type="text/javascript" src="../Scripts/jquery-1.7.1.js" ></script>
 <script type="text/javascript" src="../Scripts/component/easyui/jquery.easyui.min.js" ></script>
-<script type="text/javascript" src="../Scripts/component/flexigrid-1.1/js/flexigrid.js"></script>
+<script type="text/javascript" src="../Scripts/component/flexigrid-1.1/js/flexigrid-new.js"></script>
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
+<script type="text/javascript" src="../Scripts/common/window.js"></script>
 <script type="text/javascript" src="../Scripts/pages/cms/smsc_list.js"></script>
-<script type="text/javascript" src="../Scripts/pages/cms/smsc_add.js"></script>
 </head>
 <body>
  <div class="wrap">      
@@ -30,21 +30,9 @@
        <div class="content">
            <div class="innercontent">
              <div class="grid_top">
-             <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="openAddSMSC()">添加新信息机</a>
               </div>
-              <table id="smsclist"><%int i=1;%>
-                 <tbody id="smsc_data">
-                 <c:forEach var="item" items="${smsCompanyList }">
-                 <tr><td><%=i++%></td><td>${item.smscName }</td><td>${item.smsUpUrl }</td><td>${item.smsDownUrl }</td><td>${item.username}</td><td>${item.extendCode}</td><td>${item.company.comName}</td>
-                    <td>
-                       <a href="javascript:void(0)" onclick="openEditSMSC($(this).next().html())">编辑</a>
-                       <span style="display:none;width:10px">${item.smscId }</span>
-                       <span style="display:inline-block;width:10px"></span>
-                       <a href="javascript:void(0)" onclick="deleteRow($(this).parent().parent().parent(),$(this).prev().prev().html())">删除</a>
-                     </td>
-                 </tr>
-                 </c:forEach>
-                 </tbody>
+              <table id="smsclist">
+
               </table>
            </div>
        </div>

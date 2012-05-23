@@ -48,64 +48,18 @@ public class ProjectDAO extends BaseDAO implements IProjectDAO {
 //        return list;
 //    }
 	public void saveProject(Project project) {
-		Session session = getSession();
-		try{
-			Transaction tx = session.beginTransaction();
-			session.save(project);
-			tx.commit();
-		}catch(RuntimeException e){
-			logger.error("saving a project failed",e);
-			throw e;
-		}
-		logger.debug("saving a project successful");
-		session.close();
+		saveInstance(project,"saving a project");
 	}
 
 	
 
 	public void updateProject(Project project) {
-		logger.debug("begin to update a project");
-		String hql = "update Project set company=?,proName=?,proDistrict=?,proStreet=?,proAddress=?,deliveryTime=?,"+
-					"proHouseCount=?,proDesc=?,proType=?,fireEnabled=?,enabled=? where proId="+project.getProId();
-		Session session = getSession();
-		try{
-		Query query = session.createQuery(hql);
-		query.setParameter(0, project.getCompany());
-		query.setParameter(1, project.getProName());
-		query.setParameter(2, project.getProDistrict());
-		query.setParameter(3, project.getProStreet());
-		query.setParameter(4, project.getProAddress());
-		query.setParameter(5, project.getDeliveryTime());
-		query.setParameter(6, project.getProHouseCount());
-		query.setParameter(7, project.getProDesc());
-		query.setParameter(8, project.getProType());
-		query.setParameter(9, project.isFireEnabled());
-		query.setParameter(10, project.isEnabled());
-			Transaction tx = session.beginTransaction();
-			query.executeUpdate();
-			tx.commit();
-		}catch(RuntimeException e){
-			logger.error("update a project failed",e);
-			throw e;
-		}
-		logger.debug("update a project success");
-		session.close();
+		updateInstance(project,"begin to update a project");
 	}
 
 	public void deleteProject(Integer projectID) {
-		Session session = getSession();
-		logger.debug("begin to delete a project by ID");
-		try{
-			Transaction tx = session.beginTransaction();
-			Query query = session.createQuery("delete Project pro where pro.proId = "+ projectID);
-			query.executeUpdate();
-			tx.commit();
-		}catch(RuntimeException e){
-			logger.error("delete a project bu ID failed", e);
-			throw e;
-		}
-		logger.debug("delete a project by ID success");
-		session.close();
+		String hql = "delete Project pro where pro.proId = "+ projectID;
+		deleteInstance(hql,"begin to delete a project by ID");
 	}
 
 	public Project getProjectByID(Integer projectID) {
@@ -115,21 +69,8 @@ public class ProjectDAO extends BaseDAO implements IProjectDAO {
 	}
 	
 	public Project getProjectByName(String projectName) {
-		Session session = getSession();
-		Project project = null;
-		List list = null;
-		logger.debug("begin to get a project by Name");
-		try{
-			Transaction tx = session.beginTransaction();
-			Query query = session.createQuery("from Project where proName ='"+ projectName+"'");
-			list = query.list();
-			project = (Project)list.get(0);
-		}catch(RuntimeException e){
-			logger.error("get a project by Name failed",e);
-			throw e;
-		}
-		logger.debug("get a project by Name success");
-		session.close();
+		String hql = "from Project where proName ='"+ projectName+"'";
+		Project project = (Project)getInstance(hql,"begin to get a project by Name");
 		return project;
 	}
 	/**

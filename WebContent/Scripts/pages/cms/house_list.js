@@ -30,21 +30,24 @@ $(function(){
 				 { display: '房屋面积',name:'houseArea', width: 200, align: 'center' },
 	             { display: '物业费标准', name:'condoFeeRate',width: 200,align: 'center' },
 	             { display: '是否空置',name:'isempty', width: 200,align: 'center' }
-	             ],height:305,
+	             ], 
+	    		searchitems:[
+	    		 		    { display: '房号', name: 'houseNum', isDefault:true },
+	    		 		],
+	             height:305,
 	             showcheckbox:true,
 	             usepager: true,
 	     		 useRp: true,
 	     		 rp: 15,
 	     		 operation:true,
-	     		operationcontent:'<a href="javascript:void(0)" onclick="openEditHouse($(this).parent().parent().parent())">编辑</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#\" onclick=\"deleteHouse($(this).parent().parent().parent(),$(this).prev().prev().prev().prev().html());\">删除</a>',
+	     		operationcontent:'<a href="javascript:void(0)" onclick="openEditHouse($(this).parent().parent().parent())">编辑</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#\" onclick=\"deleteHouse($(this).parent().parent().parent(),$(this).parent().parent().parent());\">删除</a>',
 				 operationWidth: Width*0.22
 	             });		
 
 });
-//function searchHouse(){
-//	document.getElementById("searchState").value="1";
-//	PageDownOrUp(0);
-//}
+function houseImport(){
+	openAddWindow('#houseImport');
+}
 function openEditHouse(obj)
 {
 	var id=parseInt(obj.attr("id").substr(3));	

@@ -75,7 +75,7 @@ public class GroupAction extends ActionSupport {
 	}
 	if (group.getGroupLevel().equals(2)){
 	    Pager pager = new Pager(1000,1);
-	    List<?> companyList = companyService.loadCompanyList(pager);
+	    List<?> companyList = companyService.loadCompanyList_ByChinaMobile(new HashMap<String,Object>(), "", pager);
 	    request.setAttribute("companyList", companyList);
 	}
 	
@@ -107,8 +107,8 @@ public class GroupAction extends ActionSupport {
     public void levelChange(){
 	logger.debug("进入levelChange");
 	if (level.equals(2)){
-	    Pager pager = new Pager(1000,1);
-	    List<?> companyList = companyService.loadCompanyList(pager);
+	    Pager pager = new Pager(1000,1);    
+	    List<?> companyList = companyService.loadCompanyList_ByChinaMobile(new HashMap<String,Object>(), "", pager);
 	    logger.debug("companyList.size="+companyList.size());
 	    String[] attrs = {"comId","comName"};
 	    List<String> show = Arrays.asList(attrs);

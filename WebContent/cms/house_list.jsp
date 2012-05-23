@@ -32,9 +32,13 @@
             </div>
             <div class="grid_top"> 
                   <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="openAddNewHouse()">添加新房产</a>
+                   <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="houseImport()">导入</a>
+               	  <div id="houseImport" href="house_import.jsp" class="easyui-window" title="房产导入" iconCls="icon-save" style="width:350px;height:200px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
                 </div>
              </div>
+             
               <div id="top_info2" name="top_info2" class="grid_top"  style="display:none;" >
+                <!--  
                 <span>筛选</span><s:action name="getAllProject" namespace="/cms" executeResult="true"/>
                                       <select id="buildingId" name="buildingId">
                                               <option selected="selected">选择楼宇</option>
@@ -45,7 +49,9 @@
                  <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="selectOpposite()">反选</a>
                  <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="selectNone()">全不选</a>
                   <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="deleteSelected(this)">批量删除</a>
+            -->
              </div>
+             
               <table id="houselist">
               </table>
              

@@ -12,4 +12,7 @@ public interface IZoneService {
     
     Zone getZoneById(Integer zoneID);
     
+    Zone updateZone(Zone zone);
+    
+    Zone deleteZone(Zone zone);
 }

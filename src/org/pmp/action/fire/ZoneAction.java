@@ -25,6 +25,7 @@ import org.pmp.util.MyfileUtil;
 import org.pmp.util.Pager;
 import org.pmp.util.SessionHandler;
 import org.pmp.vo.Company;
+import org.pmp.vo.Owner;
 import org.pmp.vo.Project;
 import org.pmp.vo.Zone;
 
@@ -49,6 +50,7 @@ public class ZoneAction extends ActionSupport{
     private Integer rp=15;
     
     private Integer zoneID;
+    private String idStr; 
     
     private Zone zone;
     private Integer projectId;
@@ -100,12 +102,12 @@ public class ZoneAction extends ActionSupport{
     	logger.info("###################添加场地信息!");    	
     	    	
 		if(zoneImg!=null&&zoneImgFileName!=null){
-			String zoneImgUrl=FileUploadUtil.fileUpload(zoneImg, zoneImgFileName, "/upload");
+			String zoneImgUrl=FileUploadUtil.fileUpload(zoneImg, zoneImgFileName, "fireConfig");
 			zone.setZoneImgUrl(zoneImgUrl);
 		}
     	
 		if(zoneConfig!=null&&zoneConfigFileName!=null){
-			String zoneConfigUrl=FileUploadUtil.fileUpload(zoneConfig, zoneConfigFileName, "/upload");
+			String zoneConfigUrl=FileUploadUtil.fileUpload(zoneConfig, zoneConfigFileName, "fireConfig");
 			zone.setZoneConfigUrl(zoneConfigUrl);
 		}
 		
@@ -124,6 +126,46 @@ public class ZoneAction extends ActionSupport{
     public String editZone(){
     	logger.info("修改场地信息!==ID:"+zoneID);
         zone=zoneService.getZoneById(zoneID);
+    	return SUCCESS;
+    }
+    
+    public void deleteZone(){
+    	try {
+			String[] checkedID = idStr.split(",");
+			for (int i = 0; i < checkedID.length; i++) {
+				zone = zoneService.getZoneById(Integer.valueOf(checkedID[i]));
+
+				MyfileUtil.deleteFileOrDirectory(zone.getZoneImgUrl());
+				MyfileUtil.deleteFileOrDirectory(zone.getZoneConfigUrl());
+
+				zoneService.deleteZone(zone);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
+    
+    public String updateZone() throws IOException{
+    	
+		if(zoneImg!=null&&zoneImgFileName!=null){
+			String zoneImgUrl=FileUploadUtil.fileUpload(zoneImg, zoneImgFileName, "fireConfig");
+			zone.setZoneImgUrl(zoneImgUrl);
+		}
+    	
+		if(zoneConfig!=null&&zoneConfigFileName!=null){
+			String zoneConfigUrl=FileUploadUtil.fileUpload(zoneConfig, zoneConfigFileName, "fireConfig");
+			zone.setZoneConfigUrl(zoneConfigUrl);
+		}
+		
+    	Project project=new Project();
+    	project=projectService.getProjectByID(projectId);
+    	
+    	zone.setProject(project);
+    	
+		System.out.println(zone);
+		
+		zoneService.updateZone(zone);
+		
     	return SUCCESS;
     }
     
@@ -234,7 +276,15 @@ public class ZoneAction extends ActionSupport{
 	public void setZoneID(Integer zoneID) {
 		this.zoneID = zoneID;
 	}
-    
+
+	public String getIdStr() {
+		return idStr;
+	}
+
+	public void setIdStr(String idStr) {
+		this.idStr = idStr;
+	}
+	
 }
 
 
