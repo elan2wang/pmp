@@ -14,12 +14,11 @@
 <link href="../Scripts/component/easyui/themes/icon.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="../Scripts/jquery-1.7.1.js" ></script>
-<script type="text/javascript" src="../Scripts/component/flexigrid-1.1/js/flexigrid-new.js"></script>
 <script type="text/javascript" src="../Scripts/component/easyui/jquery.easyui.min.js" ></script>
+<script type="text/javascript" src="../Scripts/component/flexigrid-1.1/js/flexigrid-new.js"></script>
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
 <script type="text/javascript" src="../Scripts/common/window.js"></script>
 <script type="text/javascript" src="../Scripts/pages/cms/building_list.js"></script>
-<script type="text/javascript" src="../Scripts/pages/cms/building_add.js"></script>
 </head>
 
 <body style="height:100%">
@@ -30,22 +29,16 @@
                   <span>所属物业：</span><span ><script>document.write(parent.document.getElementById("frame.projectName").value)</script></span>
                 </div>
                 <div class="grid_top"> 
-<<<<<<< HEAD
+
                   <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="openAddNewBuild()">添加新楼宇</a>
                   <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="builImport()">导入</a>
                	  <div id="builImport" href="buil_import.jsp" class="easyui-window" title="楼宇导入" iconCls="icon-save" style="width:350px;height:200px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
-=======
-                  <span><a href="javascript:void(0)" class="linkbutton"  onClick="openAddNewBuild()">添加新楼宇</a></span>
-                  <span><a href="javascript:void(0)" class="linkbutton"  onClick="openAddNewUser()">导入</a></span>
->>>>>>> 06f54611c7339a2a3aff189dd92ad074577aef01
+
                 </div>
              </div>
              
              <div id="top_info2" name="top_info2" class="grid_top"  style="display:none;" >
-            	 <!-- 
-                <span>筛选</span><s:action name="getAllProject" namespace="/cms" executeResult="true"/>
-                 <a href="javascript:void(0)" class="easyui-linkbutton" plain="true">搜索</a>
-                 	-->
+ 
              </div>
  		
               <table id="buildinglist">
@@ -53,11 +46,9 @@
               </table>
           
               <input type="hidden" id="buildingId" name="buildingId" value="" /> 
-               <div id="newBuild" class="easyui-window" href="building_add.jsp" title="添加新楼宇" iconCls="icon-save" style="width:350px;height:370px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
+               <div id="newBuild" class="easyui-window" href="building_add.jsp" title="添加新楼宇" iconCls="icon-save" style="width:350px;height:420px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
 	          </div>
-              <div id="editBuild" class="easyui-window" title="编辑楼宇" iconCls="icon-save" style="width:350px;height:370px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
-                  <iframe id="mainFrame" name="mainFrame" frameborder="0" scrolling="auto" width="100%" height="100%" src="building_edit.jsp">
-                  </iframe>
+	          <div id="editBuild" class="easyui-window"  title="编辑楼宇"  iconCls="icon-save" style="width:350px;height:420px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
 	          </div>
   </div>
 </body>

@@ -17,13 +17,14 @@ $(function(){
 	  $('#smsclist').flexigrid({
 		  	 url:"loadSMSCompanyList",
 		     dataType:"json",
+		     type: "POST",
 		     colModel: [
-             { display: '信息机名称',name:'smscName', width: 100, align: 'center' },
-			 { display: '信息机上行地址',name:'smsUpUrl', width: 200, align: 'center' },
-             { display: '信息及下行地址',name:'smsDownUrl', width: 200,align: 'center' },
-			 { display: '应用账号', name:'username',width: 100, align: 'center' },
-			 { display: '应用扩展码',name:'extendCode', width: 100, align: 'center' },
-			 { display: '公司名称',name:'company', width: 100, align: 'center' },
+             { display: '信息机名称',name:'smscName', width: Width*0.1, align: 'center' },
+			 { display: '信息机上行地址',name:'smsUpUrl', width: Width*0.25, align: 'center' },
+             { display: '信息及下行地址',name:'smsDownUrl', width: Width*0.25,align: 'center' },
+			 { display: '应用账号', name:'username',width: Width*0.05, align: 'center' },
+			 { display: '应用扩展码',name:'extendCode', width: Width*0.05, align: 'center' },
+			 { display: '公司名称',name:'company', width: Width*0.1, align: 'center' },
              ],
              buttons : [
     			       	{name: '添加新项目', bclass: 'add', onpress : openAddSMSC},
@@ -33,14 +34,14 @@ $(function(){
     		searchitems:[
     		 		    { display: '信息机名称', name: '', isDefault:true },
     		 		],
-    		 height:305,
+    		 height:Height*0.79,
              showcheckbox:true,
              usepager: true,
      		 useRp: true,
      		 rp: 15,
      		 operation:true,
      		 operationcontent:'<a href="javascript:void(0)" onclick="openEditSMSC($(this).parent().parent().parent())">编辑</a>',
-			 operationWidth: Width*0.22       
+			 operationWidth: Width*0.05       
 	  });
 	});
 
@@ -98,6 +99,7 @@ function deleteSMSCs()
 	    success : function(data){
 	    }
     });
+	$('#smsclist').flexReload();
 }
 var windowsOpened=false;
 function openEditSMSC(obj){

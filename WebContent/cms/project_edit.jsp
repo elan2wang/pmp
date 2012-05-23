@@ -16,7 +16,7 @@
                        <div class="rowStyle">
                           <div><span >项目类型：</span>
                            <input type="hidden" name="project.proType" id="proType" value='${project.proType}'/>
-                              <span><select id="project.proType" name="project.proType" >
+                              <span><select id="project.proType" name="project.proType" style="width:150px;">
                               <option selected="selected">选择项目类型</option>
                               <option>小区</option>
                               <option>大厦</option>
@@ -35,7 +35,7 @@
                        <div class="rowStyle">
                           <div><span >所属地区：</span>
                            <input type="hidden" name="project.proDistrict" id="District" value='${project.proDistrict}'/>
-                               <span><select id="proDistrict" name="project.proDistrict" onchange="getStreets()" >
+                               <span><select id="proDistrict" name="project.proDistrict" onchange="getStreets()" style="width:150px;">
                                               <option value="选择地区" selected="selected">选择地区</option>
                                               <option value="定海区">定海区</option>
                                               <option value="普陀区">普陀区</option>
@@ -48,7 +48,7 @@
                        <div class="rowStyle">
                            <div><span >所属街道：</span>
                             <input type="hidden" name="project.proStreet" id="proStreet" value='${project.proStreet}'/>
-                              <span><select id="project.proStreet" name="project.proStreet">
+                              <span><select id="project.proStreet" name="project.proStreet" style="width:150px;">
 <!--                                         <option selected="selected">选择镇或街道</option> -->
                                     </select>
                               </span>
@@ -60,7 +60,7 @@
                           <div><span >建成时间：</span><span><input id="project.deliveryTime" name="project.deliveryTime" type="text" class="textbox"  value='<s:property value="project.deliveryTime"/>' readonly="readonly" style="cursor:pointer;" onFocus="WdatePicker()" /></span></div>
                        </div>
                        <div class="rowStyle">
-                          <div><span >户          数：</span><span><input name="project.proHouseCount" type="text"  id="project.proHouseCount" value='<s:property value="project.proHouseCount"/>'/></span></div>
+                          <div><span >户&nbsp;&nbsp;&nbsp;&nbsp;数：</span><span><input name="project.proHouseCount" type="text"  id="project.proHouseCount" value='<s:property value="project.proHouseCount"/>'/></span></div>
                        </div>
                        <div class="rowStyle">
                         <input type="hidden" name="project.enabled" id="project.enabled" value='${project.enabled}'/>
@@ -71,7 +71,7 @@
                        <div><span >启用消控：</span><span><input id="isfireEnabled" name="project.fireEnabled" type="radio" value="true"/>启用<input id="notfireEnabled" type="radio" name="project.fireEnabled" value="false" checked/>不启用</span></div>
                        </div>
                        <div class="rowStyle">
-                          <div><span style=" display:inline-block; width:60px">备&nbsp;&nbsp;注：</span><span><textarea name="project.proDesc" style="height:40px;" class="textbox" id="project.proDesc" value='<s:property value="project.proDesc"/>'></textarea></span></div>
+                          <div><span style=" display:inline-block; width:80px;height:40px;line-height:40px">备&nbsp;&nbsp;&nbsp;&nbsp;注：</span><span><textarea name="project.proDesc" style="height:40px;width:150px" class="textbox" id="project.proDesc" value='<s:property value="project.proDesc"/>'></textarea></span></div>
                        </div>
                       <input type="hidden" name="project.proId" id="project.proId" value='<s:property value="project.proId"/>'/>
                        <div class="rowStyle">
