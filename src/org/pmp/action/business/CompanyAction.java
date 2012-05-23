@@ -45,8 +45,10 @@ public class CompanyAction extends ActionSupport {
 	private Integer rp;
     private Integer comid;
     private List<?> companyList;
+    private String companyName;
 
-    //~ Methods ========================================================================================================
+
+	//~ Methods ========================================================================================================
     public String addCompany(){
 	company.setEnabled(true);
 	companyService.addCompany(company);
@@ -103,6 +105,33 @@ public class CompanyAction extends ActionSupport {
 	request.setAttribute("company", company);
 	return SUCCESS;
     }
+    
+    public void checkCompanyByName(){
+    	HttpServletRequest request = ServletActionContext.getRequest();
+    	try
+    	{
+    		companyName = new String(companyName.getBytes("ISO-8859-1"),"UTF-8");
+    	}    	
+    	catch(Exception e){}
+    	System.out.println(companyName);
+    	Company company = companyService.getCompanyByName(companyName);
+    	String data = null;
+    	if(company!=null)
+    	{
+    		System.out.println("company!=null");
+    		data="{\"result\":\"Failed\"}";
+       
+    	}
+    	else
+    	{
+    		System.out.println("company==null");
+    		data="{\"result\":\"Success\"}";
+    	}
+    	data = JsonConvert.toJson(data);
+     	logger.debug(data);
+    	JsonConvert.output(data);
+    	
+      }
     
     //~ Getters and Setters ============================================================================================
 
@@ -168,4 +197,18 @@ public class CompanyAction extends ActionSupport {
         this.comid = comid;
     }
 
+
+    /**
+	 * @return the companyName
+	 */
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	/**
+	 * @param companyName the companyName to set
+	 */
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
 }

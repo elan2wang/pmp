@@ -40,8 +40,7 @@ function new_user_import(){
 					{
 						$('#msg').html(data.msg);
 					}
-				}
-			},
+				}		},
 			error: function (data, status, e)
 			{
 				alert(e);
