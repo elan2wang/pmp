@@ -21,7 +21,6 @@
 <script type="text/javascript" src="../Scripts/pages/cms/cmpy_edit.js"></script>
 
 </head>
-
 <body>
    <div class="wrap">      
        <ul class="nav">
@@ -29,24 +28,10 @@
        </ul>   
        <div class="content">
            <div class="innercontent">
-<<<<<<< HEAD
-             <div class="grid_top">
-             <div id="cmyImport" href="cmy_import.jsp" class="easyui-window" title="公司导入" iconCls="icon-save" style="width:350px;height:200px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
-              </div>
-              <table id="cmpylist">
-=======
               <div class="content_main">
-                   <div class="grid_top">
-                      <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="openAddNewCmpy()">添加新公司</a>
-                      <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="">导入</a>
-                      <span> 搜索：</span><input type="text" width="100" />
-                      <a href="javascript:void(0)" class="easyui-linkbutton" plain="true">搜索</a>
-                   </div>
                    <table id="cmpylist">
->>>>>>> 06f54611c7339a2a3aff189dd92ad074577aef01
 
                    </table>
-            
                    <div id="newCmpy" class="easyui-window" href="cmpy_add.jsp" title="添加新公司" iconCls="icon-save" style="width:350px;height:370px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
   	               </div>
                    <div id="editCmpy" class="easyui-window" title="编辑公司信息" iconCls="icon-save" style="width:350px;height:370px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">

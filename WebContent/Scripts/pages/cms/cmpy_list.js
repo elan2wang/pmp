@@ -13,7 +13,6 @@ $(function(){
 		  	 url:"cmpy_list",
 		     dataType:"json",
 		     colModel: [
-<<<<<<< HEAD
              { display: '公司名称',name:'comName', width: 200, align: 'center' },
 			 { display: '注册日期', name:'registerTime',width: 200, align: 'center' },
              { display: '公司法人',name:'comLegal', width: 200,align: 'center' },
@@ -24,35 +23,13 @@ $(function(){
 			 { display: '备注',name:'comDesc', width: 200, align: 'center' ,hide:'true'}
              ],
              buttons : [
-    			       	{name: '添加新公司', bclass: 'add', onpress : openAddNewCmpy},
-    			       	{name: '导入', bclass: 'modify', onpress : cmyImport},
-    			       	{separator: true}
-    		],
-    		searchitems:[
-    		 		    { display: '公司名称', name: 'comName', isDefault:true },
-    		 		],
+    	         {name: '添加新公司', bclass: 'add', onpress : openAddNewCmpy},
+    			 {separator: true}
+    		 ],
+    		 searchitems:[
+    		     { display: '公司名称', name: 'comName', isDefault:true },
+    		 ],
              height:305,
-=======
-                { display: '序号',  width: 40,  align: 'center' },
-                { display: '公司名称', width: 200, align: 'center' },
-			    { display: '注册日期', width: 200, align: 'center' },
-                { display: '公司法人', width: 200,align: 'center' },
-			    { display: '联系方式', width: 200, align: 'center' },
-			    { display: '工商执照', width: 200, align: 'center',hide:'true' },
-			    { display: '注册资金', width: 200, align: 'center' ,hide:'true'},
-			    { display: '公司地址', width: 200, align: 'center' ,hide:'true'},
-			    { display: '备注', width: 200, align: 'center' ,hide:'true'},
-                { display: '操作',  width: 120, sortable: true, align: 'center', align: 'left' }
-             ],
-             height:Height*0.86,
-             /*searchitems:[
-      	       { display: '公司名称', name: 'builNum', isdefault:false },
-      	       { display: '单元数', name: 'unitCount', isdefault:false },
-      	       { display: '楼层数', name: 'floorCount', isdefault:false },
-      	       { display: '单元层户数', name: 'housesPer', isdefault:true }
-      	     ],
-      	     showSearch:true,*/
->>>>>>> 06f54611c7339a2a3aff189dd92ad074577aef01
              showcheckbox:true,
              usepager: true,
      		 useRp: true,
