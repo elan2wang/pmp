@@ -1,5 +1,6 @@
 package org.pmp.dao.admin;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -223,5 +224,44 @@ public class BaseDAO {
 	logger.debug("load list successfully: "+debugMsg);
 	session.close();
 	return list2;
+    }	
+   
+    protected Object getInstanceById(Class<?> clazz,Serializable id,String debugMsg){
+    logger.debug("begin to get a instance: "+debugMsg);
+    
+    Object obj=null;
+	Session session = getSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            obj=session.get(clazz, id);
+            tx.commit();
+        } catch (RuntimeException e){
+            tx.rollback();
+            logger.error("get a instance failed: "+debugMsg,e);
+            session.close();
+            throw e;
+        }
+        logger.debug("get a instance successfully: "+debugMsg);
+        session.close();
+        return obj;
     }
+    
+    protected void deleteInstance(Object obj,String debugMsg){
+        logger.debug("delete a instance: "+debugMsg);
+    	Session session = getSession();
+            Transaction tx = null;
+            try {
+                tx = session.beginTransaction();
+                session.delete(obj);
+                tx.commit();
+            } catch (RuntimeException e){
+                tx.rollback();
+                logger.error("get a instance failed: "+debugMsg,e);
+                session.close();
+                throw e;
+            }
+            logger.debug("get a instance successfully: "+debugMsg);
+            session.close();
+     }
 }

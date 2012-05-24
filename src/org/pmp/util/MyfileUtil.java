@@ -59,19 +59,37 @@ public class MyfileUtil {
 	return sb.toString();
     }
     
-    public static void createDir(String path){
-	try {
-	    String dirPath = ServletActionContext.getServletContext().getRealPath(path);
-	    File dirFile = new File(dirPath);
-	    Boolean isExist = dirFile.exists();
-	    if (isExist){
-		logger.debug("this dir already exist");
-	    } else {
-		dirFile.mkdir();
-	    }
-	} catch (Exception err){
-	    logger.error("create dir failed");
-	    err.printStackTrace();
-	}
+    public static String createDir(String path){
+		try {
+		    String dirPath = ServletActionContext.getServletContext().getRealPath(path);
+		    File dirFile = new File(dirPath);
+		    Boolean isExist = dirFile.exists();
+		    if (isExist){
+			logger.debug("this dir already exist");
+		    } else {
+			dirFile.mkdir();
+		    }
+		    return dirPath;
+		} catch (Exception err){
+		    logger.error("create dir failed");
+		    err.printStackTrace();
+		    return null;
+		}
     }
+    
+    public static boolean deleteFileOrDirectory(String path){
+		boolean b=false;
+    	try {
+    		if(path!=null){
+    			File f=new File(path);
+    			if(f.exists()){
+    				b=f.delete();
+    			}	
+    		}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return b;
+    }
+    
 }

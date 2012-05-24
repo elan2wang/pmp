@@ -6,6 +6,7 @@
   <include file="struts-cms.xml" />
   <include file="struts-admin.xml" />
   <include file="struts-sms.xml" />
+  <include file="struts-fire.xml" />
   
   <constant name="struts.i18n.encoding" value="UTF-8" />
   

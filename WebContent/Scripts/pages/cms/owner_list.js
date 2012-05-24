@@ -32,7 +32,7 @@ $(function(){
 		searchitems:[
 		    { display: '姓名', name: 'ownerName', isDefault:false },
 		    { display: '联系电话', name: 'mobile', isDefault:false },
-		    { display: '房号', name: 'houseNum', isDefault:true },
+		    { display: '房号', name: 'houseNum', isDefault:true }
 		],
 		showSearch:true,
 		height:Height*0.79,
