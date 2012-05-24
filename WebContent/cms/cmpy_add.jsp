@@ -10,7 +10,7 @@
 </head>
 
 <body>
-<form id="form1" method="post" action="addCompany" onsubmit="return FormCheck()">
+<form id="form1" method="post" action="addCompany" onsubmit="return newFormCheck()">
    <div class="rowStyle">
                           <div><span >公司名称：</span><span><input name="company.comName" type="text" class="textbox" id="company.comName" /></span></div>
                        </div>
@@ -36,7 +36,7 @@
                           <div><span style=" display:inline-block; width:80px;height:40px;line-height:40px">备&nbsp;&nbsp;&nbsp;&nbsp;注：</span><span><textarea name="company.comDesc" style="height:40px;width:150px" class="textbox" id="company.comDesc"></textarea></span></div>
                        </div>
                        <div class="rowStyle">
-                          <div style=" margin-left:100px;margin-top:20px"><input type="submit" value="完成" onclick="return newFormCheck(); "/></div>
+                          <div style=" margin-left:100px;margin-top:20px"><input type="button" value="完成" onclick="return newFormCheck(); "/></div>
                        </div>
                       <div class="clear"></div>
 </form>

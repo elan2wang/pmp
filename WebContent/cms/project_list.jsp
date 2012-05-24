@@ -39,9 +39,9 @@
               </div>
               <table id="projectlist">
               </table>
-                 <div id="newPro" class="easyui-window" href="project_add.jsp?" title="添加新项目" iconCls="icon-save" style="width:400px;height:440px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
+                 <div id="newPro" class="easyui-window" href="project_add.jsp?" title="添加新项目" iconCls="icon-save" style="width:400px;height:400px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
                  </div>
-                 <div id="editPro" class="easyui-window"  title="编辑项目"  iconCls="icon-save" style="width:400px;height:440px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
+                 <div id="editPro" class="easyui-window"  title="编辑项目"  iconCls="icon-save" style="width:400px;height:400px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
 	             </div>
 	          </div>
            <input type="hidden" id="frame.pageType" name="frame.pageType" value="all" />

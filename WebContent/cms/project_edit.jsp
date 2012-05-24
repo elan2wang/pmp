@@ -10,14 +10,15 @@
 <body>
               <div class="window_content">
                    <form id="form" name="form" action="update_Project" method="post">
+                    <input type="hidden" id="project.company.comId" name="project.company.comId" value="${project.company.comId}" />
                        <div class="rowStyle">
-                          <div><span >项目名称：</span><span><input name="project.proName" type="text" class="textbox" id="project.proName" value='<s:property value="project.proName"/>'/></span></div>
+                          <div><span >项目名称：</span><span><input name="project.proName" type="text" class="textbox" id="project.proName" value="${project.proName}" ReadOnly/></span></div>
                        </div>
                        <div class="rowStyle">
                           <div><span >项目类型：</span>
-                           <input type="hidden" name="project.proType" id="proType" value='${project.proType}'/>
+                           <input type="hidden" name="project.proType2" id="proType" value='${project.proType}'/>
                               <span><select id="project.proType" name="project.proType" style="width:150px;">
-                              <option selected="selected">选择项目类型</option>
+                              <option selected="selected" value="">选择项目类型</option>
                               <option>小区</option>
                               <option>大厦</option>
                               <option>别墅</option>
@@ -25,18 +26,12 @@
                               </span>
                           </div>
                        </div>
-                       <div class="rowStyle">
-                          <div><span >归属物业：</span>
-                              <input type="hidden" name="project.company.comId" id="project.company.comId" value='${project.company.comId}'/>
-                              <span><s:action name="companyAction!getAllCompany" namespace="/cms" executeResult="true"/>
-                              </span>
-                          </div>
-                       </div>
+                
                        <div class="rowStyle">
                           <div><span >所属地区：</span>
-                           <input type="hidden" name="project.proDistrict" id="District" value='${project.proDistrict}'/>
+                           <input type="hidden" name="project.proDistrict2" id="District" value='${project.proDistrict}'/>
                                <span><select id="proDistrict" name="project.proDistrict" onchange="getStreets()" style="width:150px;">
-                                              <option value="选择地区" selected="selected">选择地区</option>
+                                              <option value="" selected="selected">选择地区</option>
                                               <option value="定海区">定海区</option>
                                               <option value="普陀区">普陀区</option>
                                               <option value="岱山区">岱山区</option>
@@ -47,7 +42,7 @@
                        </div>
                        <div class="rowStyle">
                            <div><span >所属街道：</span>
-                            <input type="hidden" name="project.proStreet" id="proStreet" value='${project.proStreet}'/>
+                            <input type="hidden" name="project.proStreet2" id="proStreet" value='${project.proStreet}'/>
                               <span><select id="project.proStreet" name="project.proStreet" style="width:150px;">
 <!--                                         <option selected="selected">选择镇或街道</option> -->
                                     </select>
@@ -63,11 +58,11 @@
                           <div><span >户&nbsp;&nbsp;&nbsp;&nbsp;数：</span><span><input name="project.proHouseCount" type="text"  id="project.proHouseCount" value='<s:property value="project.proHouseCount"/>'/></span></div>
                        </div>
                        <div class="rowStyle">
-                        <input type="hidden" name="project.enabled" id="project.enabled" value='${project.enabled}'/>
+                        <input type="hidden" name="project.enabled2" id="project.enabled" value='${project.enabled}'/>
                           <div><span >是否启用：</span><span><input id="isenabled" name="project.enabled" type="radio" value="true"/>启用<input id="notenabled" type="radio" name="project.enabled" value="false" checked/>不启用</span></div>
                        </div> 
                        <div class="rowStyle">
-                                      <input type="hidden" name="project.fireEnabled" id="project.fireEnabled" value='${project.fireEnabled}'/>
+                                      <input type="hidden" name="project.fireEnabled2" id="project.fireEnabled" value='${project.fireEnabled}'/>
                        <div><span >启用消控：</span><span><input id="isfireEnabled" name="project.fireEnabled" type="radio" value="true"/>启用<input id="notfireEnabled" type="radio" name="project.fireEnabled" value="false" checked/>不启用</span></div>
                        </div>
                        <div class="rowStyle">
@@ -75,7 +70,7 @@
                        </div>
                       <input type="hidden" name="project.proId" id="project.proId" value='<s:property value="project.proId"/>'/>
                        <div class="rowStyle">
-                          <div style=" margin-left:100px;margin-top:20px"><input type="submit" value="完成" onclick="return  FormCheck(); "/></div>
+                          <div style=" margin-left:100px;margin-top:20px"><input type="button" value="完成" onclick="return  FormCheck(); "/></div>
                        </div>
                       <div class="clear"></div>
                    </form>

@@ -51,7 +51,7 @@ public class BuildingAction extends ActionSupport {
 	private Integer buildingId;
 	private Integer projectId;
 	private Integer thisProjectId;
-	
+	private Integer builNum;
 
 	private Building building;
 	private IBuildingService buildingService;
@@ -68,13 +68,28 @@ public class BuildingAction extends ActionSupport {
 	
 
 	public String saveBuilding(){
-		Project project = new Project();
-		project.setProId(thisProjectId);
-		building.setProject(project);
+		System.out.println("in saveBuilding:"+building.getProject().getProName());
 		buildingService.saveBuilding(building);
+		System.out.println("in saveBuilding:"+building.getProject().getProName());
 		return SUCCESS;
 	}
 	
+	 public void checkBuildingByBuilNumAndProjectId(){
+	    	Building building = buildingService.getBuildingByProjectIdAndBuildingNum(projectId,builNum);
+	    	String data = null;
+	    	if(building!=null)
+	    	{
+	    		data="{"+JsonConvert.toJson("result")+":"+JsonConvert.toJson("Failed")+"}";
+	       
+	    	}
+	    	else
+	    	{
+	    		data="{"+JsonConvert.toJson("result")+":"+JsonConvert.toJson("Success")+"}";
+	    	}
+	     	logger.debug(data);
+	    	JsonConvert.output(data);
+	    	
+	  }
 	public String updateBuilding(){
 		buildingService.updateBuilding(building);
 		return SUCCESS;
@@ -98,7 +113,7 @@ public class BuildingAction extends ActionSupport {
 		//如果是小区管理员，则只显示本小区内的楼宇
 		
 		Pager pager = new Pager(rp,page);
-		Pager pager2 = new Pager(10000,1);
+		//Pager pager2 = new Pager(10000,1);
 		Map<String,Object> params = new HashMap<String,Object>();
 		String order = "order by builId asc";
 		if(projectId==0){		
@@ -106,19 +121,19 @@ public class BuildingAction extends ActionSupport {
 			{
 				Project pro = (Project)obj;
 				System.out.println(pro.getProName());
-				buildingList = buildingService.loadBuildingList_ByProject(pro.getProId(), params, order, pager2);
+				buildingList = buildingService.loadBuildingList_ByProject(pro.getProId(), params, order, pager);
 			}
 			else if(obj instanceof Company)
 			{
 				Company com = (Company)obj;
-				buildingList = buildingService.loadBuildingList_ByCompany(com.getComId(), params, order, pager2);
+				buildingList = buildingService.loadBuildingList_ByCompany(com.getComId(), params, order, pager);
 			}
 		}
 		else{ 
-			buildingList = buildingService.loadBuildingList_ByProject(projectId, params, order, pager2);
+			buildingList = buildingService.loadBuildingList_ByProject(projectId, params, order, pager);
 		}
 		logger.debug("得到的buildingList为"+buildingList.toString());
-		pager.setRowsCount(buildingList.size());
+	//	pager.setRowsCount(buildingList.size());
 		String data = JsonConvert.list2FlexJson(pager, buildingList, "org.pmp.vo.Building");
 		System.out.println(data);
 		logger.debug(data);
@@ -339,5 +354,19 @@ public class BuildingAction extends ActionSupport {
 	 */
 	public void setRefFileContentType(String refFileContentType) {
 		this.refFileContentType = refFileContentType;
+	}
+
+	/**
+	 * @return the builNum
+	 */
+	public Integer getBuilNum() {
+		return builNum;
+	}
+
+	/**
+	 * @param builNum the builNum to set
+	 */
+	public void setBuilNum(Integer builNum) {
+		this.builNum = builNum;
 	}
 }

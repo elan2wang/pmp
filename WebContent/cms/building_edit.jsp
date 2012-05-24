@@ -11,33 +11,37 @@
 
 <body>
               <div class="window_content">
-                   <form id="form" name="form" action="buildingAction!updateBuilding.action" method="post">
+                   <form id="form" name="form" action="updateBuilding" method="post">
+                    <input type="hidden" id="building.project.proId" name="building.project.proId" value="${building.project.proId}" />
                        <div class="rowStyle">
-                          <div><span >楼&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</span><span><input name="building.builNum" type="text" class="textbox" id="building.builNum" value='${building.builNum}'/></span></div>
+                          <div><span >楼&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</span><span><input name="building.builNum" type="text" class="textbox" id="building.builNum" value='${building.builNum}' readOnly/></span></div>
                        </div>
                        <div class="rowStyle">
-                          <div><span >单&nbsp;元&nbsp;标识：</span><span><select id="building.unitTag" name="building.unitTag" style="width:155px">
-                          	<option selected="selected" >请选择单元标识</option>
+                          <div><span >单&nbsp;元&nbsp;标识：</span>
+                           <input type="hidden" name="building.unitTag2" id="building.unitTag2" value='${building.unitTag}'/>
+                          <span><select id="building.unitTag" name="building.unitTag" style="width:155px">
+                          	<option selected="selected" value="">请选择单元标识</option>
                           	<option>数字</option>
                           	<option>字母</option>
                           </select></span></div>
                        </div>
                        <div class="rowStyle">
-                          <div style="float:left"><span >单&nbsp;&nbsp;元&nbsp;&nbsp;数：</span><span><input name="building.unitCount" type="text" class="textbox" id="building.unitCount" value='${building.unitCount}' /></span></div>
+                          <div style="float:left"><span >单&nbsp;&nbsp;元&nbsp;&nbsp;数：</span><span><input name="building.unitCount" type="text" class="textbox" id="building.unitCount" value='${building.unitCount}' readOnly/></span></div>
                        </div>
                        <div class="rowStyle">
-                          <div><span >楼&nbsp;&nbsp;层&nbsp;&nbsp;数：</span><span><input name="building.floorCount" type="text" class="textbox" id="building.floorCount" value='${building.floorCount}'/></span></div>
+                          <div><span >楼&nbsp;&nbsp;层&nbsp;&nbsp;数：</span><span><input name="building.floorCount" type="text" class="textbox" id="building.floorCount" value='${building.floorCount}' readOnly/></span></div>
                        </div>
                        <div class="rowStyle">
-                          <div><span>单元层户数：</span><span><input name="building.housesPer" type="text" class="textbox" id="building.housesPer" value='${building.housesPer}'/></span></div>
+                          <div><span>单元层户数：</span><span><input name="building.housesPer" type="text" class="textbox" id="building.housesPer" value='${building.housesPer}' readOnly/></span></div>
                        </div>
                        <div class="rowStyle">
-                          <div><span >跳过楼层数：</span><span><input name="building.skipFloor" type="text" class="textbox" id="building.skipFloor" value='${building.skipFloor}'/></span></div>
+                          <div><span >跳过楼层数：</span><span><input name="building.skipFloor" type="text" class="textbox" id="building.skipFloor" value='${building.skipFloor}' readOnly/></span></div>
                        </div>
                        <div class="rowStyle">
                           <div><span >楼&nbsp;宇&nbsp;类型：</span>
+                          <input type="hidden" name="building.builType2" id="building.builType2" value='${building.builType}'/>
                                <span><select id="building.builType" name="building.builType" style="width:150px">
-                                              <option selected="selected" value='${building.builType}'>${building.builType}</option>
+                                              <option selected="selected" value="">请选择楼宇类型</option>
                                               <option>多层（普通）</option>
                                               <option>多层（电梯）</option>
                                               <option>小高层</option>
@@ -51,15 +55,12 @@
                            </div>
                        </div>
                        <div class="rowStyle">
-                          <div><span >物业费标准：</span><span><input name="building.condoFeeRate" type="text" class="textbox" id="building.condoFeeRate" value='${building.condoFeeRate}'/></span></div>
-                       </div>
-                       <div class="rowStyle">
                           <div>
                             <span >是&nbsp;否&nbsp;启用：</span>
                             <span>
-                             	<input type="hidden" name="project.enabled" id="project.enabled" value='${project.enabled}'/>
-                               <input id="isenabled" name="project.enabled" type="radio" value="true"/><label for="project.enabled">启用</label>
-                               <input id="notenabled" type="radio" name="project.enabled" value="false" checked/><label for="project.enabled">不启用</label>
+                             	<input type="hidden" name="building.enabled2" id="building.enabled" value='${building.enabled}'/>
+                               <input id="isenabled" name="building.enabled" type="radio" value="true"/><label for="building.enabled">启用</label>
+                               <input id="notenabled" type="radio" name="building.enabled" value="false" checked/><label for="building.enabled">不启用</label>
                             </span>
                           </div>
                        </div>
@@ -68,7 +69,7 @@
                        	<input type="hidden" id="building.builId" name="building.builId" value='<s:property value="building.builId"/>'>
                        </div>
                        <div class="rowStyle">
-                          <div style=" margin-left:100px;margin-top:20px"><input type="submit" value="保存" onclick="return  editFormCheck(); "/>
+                          <div style=" margin-left:100px;margin-top:20px"><input type="button" value="保存" onclick="return  editFormCheck(); "/>
                                          <input type="button" value="关闭" onclick="editClose(); "/></div>
                        </div>
                       <div class="clear"></div>

@@ -59,16 +59,14 @@ function newFormCheck(){
 		return check_Cmpy(strim(objfc1.value),objfc1);
 }
 function check_Cmpy(CmpyName,objfc1) {
-	alert(CmpyName);
+	var url = "checkCompanyByName?companyName="+CmpyName;
     	$.ajax({
 			type: "POST",
-			url: "checkCompanyByName?companyName="+CmpyName,
+			url: url,
 			dataType:"json",
-			success : function(data){
-				alert("fdafa");
-				//data==null，说明该公司名称没有发生重复
-				alert(data);
-				if(data=="Failed")
+			success : function(data){					
+				var result = data["result"];
+				if(result=="Failed")
 				{
 					alert("已存在同名公司，请核对！");
 					objfc1.select();
@@ -76,7 +74,6 @@ function check_Cmpy(CmpyName,objfc1) {
 				}
 				else
 				{
-					alert(document.getElementById("form1"));
 					document.getElementById("form1").submit();
 					return true;
 					closeAddNewCmpy();

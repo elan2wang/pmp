@@ -48,12 +48,14 @@ public class BuildingService implements IBuildingService {
 		int unit = building.getUnitCount();
 		int floor = building.getFloorCount();
 		int housePer = building.getHousesPer();
-		
+		int skipfloor = Integer.parseInt(building.getSkipFloor());
 		ArrayList<String> list = new ArrayList<String>();
 		
 		if(building.getUnitTag().equals("数字")){
 			for(int i=1;i<=unit;i++){
 				for(int j=1;j<=floor;j++){
+					if(j==skipfloor)
+						continue;
 					for(int k=1;k<=housePer;k++){
 						if(k<10){
 							String houseNum = building.getBuilNum()+"-"+String.valueOf(i)+"-"+String.valueOf(j)+"0"+String.valueOf(k);
@@ -68,6 +70,8 @@ public class BuildingService implements IBuildingService {
 		}else{
 			for(int i=1;i<=unit;i++){
 				for(int j=1;j<=floor;j++){
+					if(j==skipfloor)
+						continue;
 					for(int k=1;k<=housePer;k++){
 						if(k<10){
 							String houseNum = building.getBuilNum()+"-"+String.valueOf((char)(64+i))+"-"+String.valueOf(j)+"0"+String.valueOf(k);
