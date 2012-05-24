@@ -15,6 +15,11 @@
            <result name="success">/fire/zone_list.jsp</result>
       </action>
       <action name="deleteZone" class="org.pmp.action.fire.ZoneAction" method="deleteZone"></action>
+      <action name="toZoneView" class="org.pmp.action.fire.ZoneAction" method="toZoneView">
+           <result name="success">/fire/fc_device_list.jsp</result>
+      </action>
+      
+      <action name="zoneTree" class="org.pmp.action.business.TreeAction" method="zoneTree" />
       
   </package>
 </struts>

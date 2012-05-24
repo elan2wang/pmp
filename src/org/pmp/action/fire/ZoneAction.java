@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.text.ZoneView;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
@@ -29,6 +30,7 @@ import org.pmp.vo.Owner;
 import org.pmp.vo.Project;
 import org.pmp.vo.Zone;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.sun.net.httpserver.Authenticator.Success;
 
@@ -54,6 +56,8 @@ public class ZoneAction extends ActionSupport{
     
     private Zone zone;
     private Integer projectId;
+    private String query;
+    private String qtype;
     
     private File zoneImg;
     private String zoneImgFileName;
@@ -73,17 +77,47 @@ public class ZoneAction extends ActionSupport{
     	 Object obj=SessionHandler.getUserRefDomain();
     	 //aaa 项目管理员         bbb 公司管理员
     	 
+		 Map<String, Object> params=new HashMap<String, Object>();
+		 if (!qtype.equals("")&&!query.equals("")){
+		       params.put(qtype, query);
+		 }
+		 
     	 if(obj instanceof Company){
     		 //公司管理员
     		 Company company=(Company)obj;
     		 logger.info("公司ID:###########"+company.getComId());
+    		 
+    		 try {
+				 List<Project> pList=projectService.loadProjectList_ByCompany(company.getComId(), null, null, null);
+				 List<Integer> proIdList=new ArrayList();
+				 
+				 for (Project pro : pList) {
+					proIdList.add(pro.getProId());
+				 }
+				 
+				 List<Zone> zoneList=zoneService.loadZoneListByProIdList(proIdList,params,null,pager);
+				 
+				 String[] attrs = {"zoneName","project","zoneType","zoneImgUrl","zoneConfigUrl","zoneDesc"};
+				 
+				 List<String> show = Arrays.asList(attrs);
+				 
+				 String data = JsonConvert.list2FlexJson(pager, zoneList, "org.pmp.vo.Zone", show);
+				
+				 logger.debug(data);
+				 
+				 JsonConvert.output(data);
+				 
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
     	 }
+    	 
     	 else{
     		 //项目管理员
     		 Project project=(Project)obj;
     		 logger.info("项目ID:############"+project.getProId()); //项目ID
     		 
-    		 List<?> zoneList=zoneService.loadZoneListByProId(project.getProId(), pager);
+    		 List<Zone> zoneList=zoneService.loadZoneListByProId(project.getProId(),params,null,pager);
     		 
 			 String[] attrs = {"zoneName","project","zoneType","zoneImgUrl","zoneConfigUrl","zoneDesc"};
 			 
@@ -98,6 +132,13 @@ public class ZoneAction extends ActionSupport{
     	 
     }
 
+    public String toZoneView() {
+    	Integer zoneId=zone.getZoneId();
+    	zone=zoneService.getZoneById(zoneId);
+    	ActionContext context = ActionContext.getContext();
+    	return SUCCESS;
+    }
+    
     public String addZone() throws IOException{
     	logger.info("###################添加场地信息!");    	
     	    	
@@ -130,13 +171,14 @@ public class ZoneAction extends ActionSupport{
     }
     
     public void deleteZone(){
+    	String dirPath = ServletActionContext.getServletContext().getRealPath("/");
     	try {
 			String[] checkedID = idStr.split(",");
 			for (int i = 0; i < checkedID.length; i++) {
 				zone = zoneService.getZoneById(Integer.valueOf(checkedID[i]));
 
-				MyfileUtil.deleteFileOrDirectory(zone.getZoneImgUrl());
-				MyfileUtil.deleteFileOrDirectory(zone.getZoneConfigUrl());
+				MyfileUtil.deleteFileOrDirectory(dirPath+zone.getZoneImgUrl());
+				MyfileUtil.deleteFileOrDirectory(dirPath+zone.getZoneConfigUrl());
 
 				zoneService.deleteZone(zone);
 			}
@@ -146,14 +188,16 @@ public class ZoneAction extends ActionSupport{
     }
     
     public String updateZone() throws IOException{
-    	
+    	String dirPath = ServletActionContext.getServletContext().getRealPath("/");
 		if(zoneImg!=null&&zoneImgFileName!=null){
 			String zoneImgUrl=FileUploadUtil.fileUpload(zoneImg, zoneImgFileName, "fireConfig");
+			MyfileUtil.deleteFileOrDirectory(dirPath+zone.getZoneImgUrl());
 			zone.setZoneImgUrl(zoneImgUrl);
 		}
     	
 		if(zoneConfig!=null&&zoneConfigFileName!=null){
 			String zoneConfigUrl=FileUploadUtil.fileUpload(zoneConfig, zoneConfigFileName, "fireConfig");
+			MyfileUtil.deleteFileOrDirectory(dirPath+zone.getZoneConfigUrl());
 			zone.setZoneConfigUrl(zoneConfigUrl);
 		}
 		
@@ -284,7 +328,22 @@ public class ZoneAction extends ActionSupport{
 	public void setIdStr(String idStr) {
 		this.idStr = idStr;
 	}
-	
+
+	public String getQuery() {
+		return query;
+	}
+
+	public void setQuery(String query) {
+		this.query = query;
+	}
+
+	public String getQtype() {
+		return qtype;
+	}
+
+	public void setQtype(String qtype) {
+		this.qtype = qtype;
+	}
 }
 
 

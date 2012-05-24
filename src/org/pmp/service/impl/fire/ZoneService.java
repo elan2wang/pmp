@@ -1,6 +1,7 @@
 package org.pmp.service.impl.fire;
 
 import java.util.List;
+import java.util.Map;
 
 import org.pmp.dao.fire.IZoneDAO;
 import org.pmp.service.fire.IZoneService;
@@ -12,8 +13,8 @@ public class ZoneService implements IZoneService{
 	private IZoneDAO zoneDAO;
 	
 	@Override
-	public List<?> loadZoneListByProId(Integer proId, Pager pager) {
-		return zoneDAO.loadZoneListByProId(proId, pager);
+	public List<Zone> loadZoneListByProId(Integer proId,Map<String,Object>params,String order,Pager pager) {
+		return zoneDAO.loadZoneListByProId(proId,params,order,pager);
 	}
 
 	public IZoneDAO getZoneDAO() {
@@ -45,6 +46,11 @@ public class ZoneService implements IZoneService{
 	public Zone deleteZone(Zone zone) {
 		this.zoneDAO.deleteZone(zone);
 		return zone;
+	}
+
+	@Override
+	public List<Zone> loadZoneListByProIdList(List<Integer> proIdList,Map<String,Object>params,String order,Pager paper) {
+		return this.zoneDAO.loadZoneListByProIdList(proIdList,params,order,paper);
 	}
 	
 }

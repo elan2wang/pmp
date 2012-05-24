@@ -23,9 +23,9 @@ $(function(){
                  { name: '删除场地', bclass:'delete', onpress: ownerDelete }
      		],
      	searchitems:[
-     		    { display: '姓名', name: 'ownerName', isDefault:false },
-     		    { display: '联系电话', name: 'mobile', isDefault:false },
-     		    { display: '房号', name: 'houseNum', isDefault:true }
+     		    { display: '所属小区', name: 'z.project.proName', isDefault:false },
+     		    { display: '场地名称', name: 'z.zoneName', isDefault:false },
+     		    { display: '类型', name: 'z.zoneType', isDefault:true }
      		],
 		showSearch:true,
 		height:Height*0.79,
@@ -75,7 +75,7 @@ function ownerDelete(){
 		url: 'deleteZone?idStr='+idString,
 		success: function(data){
 			alert("场地记录删除成功");
-			window.location.href="/fire/zone_list.jsp";
+			window.location.href="zone_list.jsp";
 		}
 	});
 	
