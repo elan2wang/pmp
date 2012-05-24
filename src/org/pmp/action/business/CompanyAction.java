@@ -107,27 +107,22 @@ public class CompanyAction extends ActionSupport {
     }
     
     public void checkCompanyByName(){
-    	HttpServletRequest request = ServletActionContext.getRequest();
     	try
     	{
     		companyName = new String(companyName.getBytes("ISO-8859-1"),"UTF-8");
     	}    	
     	catch(Exception e){}
-    	System.out.println(companyName);
     	Company company = companyService.getCompanyByName(companyName);
     	String data = null;
     	if(company!=null)
     	{
-    		System.out.println("company!=null");
-    		data="{\"result\":\"Failed\"}";
+    		data="{"+JsonConvert.toJson("result")+":"+JsonConvert.toJson("Failed")+"}";
        
     	}
     	else
     	{
-    		System.out.println("company==null");
-    		data="{\"result\":\"Success\"}";
+    		data="{"+JsonConvert.toJson("result")+":"+JsonConvert.toJson("Success")+"}";
     	}
-    	data = JsonConvert.toJson(data);
      	logger.debug(data);
     	JsonConvert.output(data);
     	

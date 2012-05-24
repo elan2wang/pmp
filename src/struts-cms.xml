@@ -65,8 +65,14 @@
 	</action>
 	<action name="getBuildingByProject" class="org.pmp.action.business.BuildingAction" method="getBuildingByProject">
 	</action>
-
-
+	<action name="saveBuilding" class="org.pmp.action.business.BuildingAction" method="saveBuilding">
+		<result name="success">/cms/building_list.jsp</result>
+	</action>	
+	<action name="updateBuilding" class="org.pmp.action.business.BuildingAction" method="updateBuilding">
+		<result name="success">/cms/building_list.jsp</result>
+	</action>	
+	<action name="checkBuildingByBuilNumAndProjectId" class="org.pmp.action.business.BuildingAction" method="checkBuildingByBuilNumAndProjectId">
+	</action>
 	<action name="get_project" class="org.pmp.action.business.ProjectAction" method="getProjectById">
 		<result name="success">/cms/project_edit.jsp</result>
 	</action>
@@ -78,6 +84,11 @@
 	<action name="update_Project" class="org.pmp.action.business.ProjectAction" method="updateProject">
 		<result name="success">/cms/project_list.jsp</result>
 	</action>
+	
+	<action name="checkProjectByName" class="org.pmp.action.business.ProjectAction" method="checkProjectByName">
+	</action>
+	
+	
 	<action name="projectAction" class="org.pmp.action.business.ProjectAction" method="">
 		<result name="success">/cms/project_list.jsp</result>
 	</action>

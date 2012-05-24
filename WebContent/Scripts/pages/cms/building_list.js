@@ -5,13 +5,13 @@ $(function(){
 	if(parent.document.getElementById("frame.pageType").value=="all"){	
 	    pageid = 0;
 		$('#top_info').css("display","none");
-		$('#top_info2').css("display","block");
+//		$('#top_info2').css("display","block");
 		coefficient=0.94;
 	   }
 	   else{
 		  pageid=parseInt(parent.document.getElementById("frame.pageId").value);
 		  $('#top_info').css("display","block");
-		  $('#top_info2').css("display","none");
+	//	  $('#top_info2').css("display","none");
 		  coefficient=0.88;
 	   }
 		  $('#buildinglist').flexigrid({
@@ -25,7 +25,7 @@ $(function(){
 				 { display: '单元层户数', name:'housesPer',  width: Width*0.05, align: 'center' },
 				 { display: '跳过楼层数', name:'skipFloor',  width: Width*0.05, align: 'center' },
 				 { display: '楼宇类型',  name:'builType', width: Width*0.1, align: 'center'},
-				 { display: '物业费标准', name:'condoFeeRate',  width: Width*0.05, align: 'center'},
+				 { display: '物业费标准', name:'condoFeeRate',  width: Width*0.05, align: 'center',hide:'true'},
 				 { display: '备注', name:'builDesc',  width: Width*0.2, align: 'center' ,hide:'true'},
 				 { display: '是否启用',  name:'enabled', width: Width*0.05, align: 'center' ,hide:'true'}
 	             ],

@@ -1,29 +1,16 @@
 // JavaScript Document
-function check_Cmpy(CmpyName) {
-    	$.ajax({
-			type: "POST",
-			url: "getCompanyByName?companyName="+CmpyName,
-			success : function(data){
-				//data==null，说明该公司名称没有发生重复
-				if(data==null)
-					return true;
-				return false;
-			}
-		});    	
-}
-
     //=======================================================
 	function strim(str){
 		return str.replace(/(^\s*)|(\s*$)/g,""); 
 	}
 function FormCheck(){
-		objfc1=document.getElementById("company.comName");
-		objfc2=document.getElementById("company.comLegal");
-		objfc3=document.getElementById("company.comPhone");
-		objfc4=document.getElementById("company.registerTime");
-		objfc5=document.getElementById("company.registerMoney");
-		objfc6=document.getElementById("company.comLicense");
-		objfc7=document.getElementById("company.comAddress");
+		objfc1=document.getElementById("company.comName2");
+		objfc2=document.getElementById("company.comLegal2");
+		objfc3=document.getElementById("company.comPhone2");
+		objfc4=document.getElementById("company.registerTime2");
+		objfc5=document.getElementById("company.registerMoney2");
+		objfc6=document.getElementById("company.comLicense2");
+		objfc7=document.getElementById("company.comAddress2");
 		var isPhonePattern = /\d{3}-\d{8}|\d{4}-\d{7}/;
 		var isMobilePattern = /^(13|15|18)[0-9]{9}$/;
 		//alert(strim(objfc1.value));
@@ -67,17 +54,7 @@ function FormCheck(){
 			objfc7.focus();
 			return (false);
 		}
-		//检查公司名称是否重复
-		if(check_Cmpy(strim(objfc1.value))==false)
-		{
-			alert("已存在同名公司，请核对！");
-			objfc1.select();
-			 return false;
-		}
-		else
-		{
-			document.getElementById("form1").submit();
-			return true;
-			closeAddNewCmpy();
-		}	
+		document.getElementById("form2").submit();
+		closeEditCmpy();
+		return true;
 }

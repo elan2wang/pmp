@@ -17,7 +17,7 @@
                        <div class="rowStyle">
                           <div><span >项目类型：</span>
                               <span><select id="project.proType" name="project.proType" style="width:150px;">
-                              <option selected="selected">选择项目类型</option>
+                              <option selected="selected" value="">选择项目类型</option>
                               <option>小区</option>
                               <option>大厦</option>
                               <option>别墅</option>
@@ -26,15 +26,9 @@
                           </div>
                        </div>
                        <div class="rowStyle">
-                          <div><span >归属物业：</span>
-                              <span><s:action name="companyAction!getAllCompany" namespace="/cms" executeResult="true"/>
-                              </span>
-                          </div>
-                       </div>
-                       <div class="rowStyle">
                           <div><span >所属地区：</span>
                                <span><select id="proDistrict" name="project.proDistrict" onchange="getStreets()" style="width:150px;">
-                                              <option selected="selected">选择地区</option>
+                                              <option selected="selected"  value="">选择地区</option>
                                               <option>定海区</option>                                            
                                               <option>普陀区</option>
                                               <option>岱山区</option>
@@ -69,7 +63,7 @@
                           <div><span style=" display:inline-block;width:80px;height:40px;line-height:40px">备&nbsp;&nbsp;&nbsp;&nbsp;注：</span><span><textarea name="project.proDesc" style="height:40px;width:150px" class="textbox" id="project.proDesc"></textarea></span></div>
                        </div>
                        <div class="rowStyle">
-                          <div style=" margin-left:100px;margin-top:20px"><input type="submit" value="完成" onclick="return  FormCheck(); "/></div>
+                          <div style=" margin-left:100px;margin-top:20px"><input type="button" value="完成" onclick="return  FormCheck(); "/></div>
                        </div>
                       <div class="clear"></div>
                    </form>

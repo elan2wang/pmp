@@ -53,7 +53,7 @@ $(function(){
     		              	{ display: '项目地址', name: 'proAddress', isdefault:false },
     		              	{ display: '项目规模', name: 'proHouseCount', isdefault:true }
     		             ],
-             height:Height*0.84,
+             height:Height*0.80,
              
              showcheckbox:true,
              usepager: true,
@@ -151,7 +151,7 @@ function getStreets(street)
 		var ppS=document.getElementById("project.proStreet");
 		ppS.innerHTML="";
 		if(!street)
-			ppS.add(new Option("请选择街道","请选择街道"));
+			ppS.add(new Option("请选择街道",""));
 			$.ajax({
 				type: "GET",
 				url: "../xmls/areas.xml",
