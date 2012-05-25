@@ -33,7 +33,7 @@ public class CondoFeeValidate {
 	if (list.get(0).equals(""))return false;
 	if (!Pattern.matches("\\d+", list.get(0)))return false;
 	
-	if (list.get(6).equals(""))return false;
+	if (list.get(7).equals(""))return false;
 	//if (list.get(5).matches(""));
 	return true;
     }

@@ -149,7 +149,7 @@ public class TbUser implements MyUserDetails,java.io.Serializable {
 
     public String toString() {
     	StringBuilder sb = new StringBuilder();
-    	sb.append(super.toString()).append(": ");
+    	sb.append("TbUser: ");
     	sb.append("Username: ").append(this.username).append("; ");
     	sb.append("Password: [PROTECTED]; ");
     	sb.append("Mobile: ").append(this.mobile).append("; ");
@@ -161,11 +161,11 @@ public class TbUser implements MyUserDetails,java.io.Serializable {
     	sb.append("AccountNonExpired: ").append(this.accountNonExpired).append("; ");
     	sb.append("credentialsNonExpired: ").append(this.credentialsNonExpired).append("; ");
     	sb.append("AccountNonLocked: ").append(this.accountNonLocked).append("; ");
-    
-        if (!authorities.isEmpty()) {
+        /*
+        if (!this.authorities.isEmpty()) {
             sb.append("Granted Authorities: ");
             boolean first = true;
-            for (GrantedAuthority auth : authorities) {
+            for (GrantedAuthority auth : this.authorities) {
                 if (!first) {
                     sb.append(",");
                 }
@@ -175,7 +175,7 @@ public class TbUser implements MyUserDetails,java.io.Serializable {
         } else {
             sb.append("Not granted any authorities");
         }
-        
+        */
         return sb.toString();
     }
     //~ Getters and Setters ============================================================================================

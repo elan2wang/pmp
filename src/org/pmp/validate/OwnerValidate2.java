@@ -29,6 +29,7 @@ public class OwnerValidate2 {
     
     //~ Methods ========================================================================================================
     public static boolean isRight(List<Cell> list){
+	if(list.get(4).getContents().equals(""))return false;
 	return true;
     }
 }

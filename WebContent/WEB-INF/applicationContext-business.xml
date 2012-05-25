@@ -118,6 +118,7 @@
     <property name="projectService" ref="projectService" />
     <property name="buildingService" ref="buildingService" />
     <property name="houseService" ref="houseService" />
+    <property name="zoneService" ref="zoneService"></property>
   </bean>
   
   <bean id="pageTriggerAction" class="org.pmp.action.business.PageTriggerAction">

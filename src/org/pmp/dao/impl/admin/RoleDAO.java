@@ -8,6 +8,7 @@
 package org.pmp.dao.impl.admin;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
@@ -15,6 +16,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.pmp.dao.admin.BaseDAO;
 import org.pmp.dao.admin.IRoleDAO;
+import org.pmp.util.Pager;
+import org.pmp.util.ParamsToString;
 import org.pmp.vo.TbRole;
 
 /**
@@ -91,6 +94,22 @@ public class RoleDAO extends BaseDAO implements IRoleDAO{
 	return resourceList;
     }
     
-    //~ Getters and Setters ============================================================================================
-
+    public List<?> loadRoleList_LevelNotBellow(Integer level,String order){
+	List<?> list = null;
+	String debugMsg = "load Role list";
+	StringBuilder hql = new StringBuilder();
+	hql.append("from TbRole where roleLevel>="+level);
+	if(order==null){
+	    hql.append(" order by roleLevel asc");
+	} else {
+	    hql.append(" "+order);
+	}
+	try {
+	    list = loadListByCondition(hql.toString(),new Pager(10000,1),debugMsg);
+	} catch (RuntimeException e){
+	    throw e;
+	}
+	return list;
+    }
+   
 }

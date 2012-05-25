@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-5-21 12:04:16 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.pmp.vo.Zone" table="tb_Zone" schema="dbo" catalog="db_pmp2">
+        <id name="zoneId" type="integer">
+            <column name="Zone_ID" />
+            <generator class="identity" />
+        </id>
+        <property name="zoneName" type="string">
+            <column name="Zone_Name" length="50" />
+        </property>
+        <many-to-one name="project" class="org.pmp.vo.Project" fetch="select" lazy="false">
+            <column name="Pro_ID" />
+        </many-to-one>
+        <property name="zoneType" type="string">
+            <column name="Zone_Type" length="50" />
+        </property>
+        <property name="zoneImgUrl" type="string">
+            <column name="Zone_ImgURL" length="200" />
+        </property>
+        <property name="zoneConfigUrl" type="string">
+            <column name="Zone_ConfigURL" length="200" />
+        </property>
+        <property name="zoneDesc" type="string">
+            <column name="Zone_Desc" length="200" />
+        </property>
+    </class>
+</hibernate-mapping>

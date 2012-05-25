@@ -25,12 +25,14 @@ $(function(){
         buttons:[
             { name: '添加业主', bclass: 'add', onpress: ownerAdd },
             { separator: true },
-            { name: '<sec:authorize access="hasRole(\'ROLE_COMPANY_MANAGER\')">业主信息导入</sec:authorize>', bclass:'import', onpress: ownerImport }
+            { name: '业主信息导入', bclass:'import', onpress: ownerImport },
+            { separator: true },
+            { name: '删除业主', bclass:'delete', onpress: ownerDelete }
 		],
 		searchitems:[
 		    { display: '姓名', name: 'ownerName', isDefault:false },
 		    { display: '联系电话', name: 'mobile', isDefault:false },
-		    { display: '房号', name: 'houseNum', isDefault:true },
+		    { display: '房号', name: 'houseNum', isDefault:true }
 		],
 		showSearch:true,
 		height:Height*0.79,
@@ -41,7 +43,7 @@ $(function(){
         rp: 15,
 		showTableToggleBtn: true,
 		operation:true,
-		operationcontent:'<a href="javascript:void(0)" onclick="openEditWindow(\''+editWindow+'\',\''+editURL+'\'+$(this).parent().parent().parent().attr(\'id\').substr(3))">编辑</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#\" onclick=\"selectBuildTab($(this).parent().parent().parent(),$(this).parent().parent().parent(),$(this).parent().parent().parent())\">删除</a>',
+		operationcontent:'<a href="javascript:void(0)" onclick="openEditWindow(\''+editWindow+'\',\''+editURL+'\'+$(this).parent().parent().parent().attr(\'id\').substr(3))">编辑</a>',
 		operationWidth: Width*0.15
 	});
 });
@@ -52,4 +54,26 @@ function ownerAdd(){
 
 function ownerImport(){
 	openAddWindow('#ownerImport');
+}
+
+function ownerDelete(){
+	var rowid,idString="";
+	$("#owner_list td input:checked").each(function(){
+		rowid=$(this).parent().parent().parent().attr("id");
+		rowid=rowid.substr(3);
+		idString+=rowid+",";
+	});
+	if(idString==""){
+		alert("请选择删除的业主记录");
+		return;
+	}
+	idString=idString.substring(0,idString.length-1);
+	if(!confirm("您将删除编号为："+idString+"的业主"))return;
+	$.ajax({
+		type: 'POST',
+		url: 'deleteOwner?idStr='+idString,
+		success: function(data){
+			alert("业主记录删除成功");
+		}
+	});
 }

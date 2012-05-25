@@ -20,7 +20,8 @@ import org.pmp.vo.TbUser;
 public interface IUserService {
     public void addUser(TbUser instance);
     public void editUser(TbUser instance);
-    public void deleteUser(Integer userID);
+    public void batchDelete(List<TbUser> list);
+    
     public TbUser getUserById(Integer userId);
     
     /**

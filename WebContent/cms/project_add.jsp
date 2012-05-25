@@ -16,8 +16,8 @@
                        </div>
                        <div class="rowStyle">
                           <div><span >项目类型：</span>
-                              <span><select id="project.proType" name="project.proType" >
-                              <option selected="selected">选择项目类型</option>
+                              <span><select id="project.proType" name="project.proType" style="width:150px;">
+                              <option selected="selected" value="">选择项目类型</option>
                               <option>小区</option>
                               <option>大厦</option>
                               <option>别墅</option>
@@ -26,15 +26,9 @@
                           </div>
                        </div>
                        <div class="rowStyle">
-                          <div><span >归属物业：</span>
-                              <span><s:action name="companyAction!getAllCompany" namespace="/cms" executeResult="true"/>
-                              </span>
-                          </div>
-                       </div>
-                       <div class="rowStyle">
                           <div><span >所属地区：</span>
-                               <span><select id="proDistrict" name="project.proDistrict" onchange="getStreets()">
-                                              <option selected="selected">选择地区</option>
+                               <span><select id="proDistrict" name="project.proDistrict" onchange="getStreets()" style="width:150px;">
+                                              <option selected="selected"  value="">选择地区</option>
                                               <option>定海区</option>                                            
                                               <option>普陀区</option>
                                               <option>岱山区</option>
@@ -45,7 +39,7 @@
                        </div>
                        <div class="rowStyle">
                            <div><span >所属街道：</span>
-                              <span><select id="project.proStreet" name="project.proStreet">
+                              <span><select id="project.proStreet" name="project.proStreet" style="width:150px;">
 <!--                                         <option selected="selected">选择镇或街道</option> -->
                                     </select>
                               </span>
@@ -57,7 +51,7 @@
                           <div><span >建成时间：</span><span><input id="project.deliveryTime" name="project.deliveryTime" type="text" class="textbox"   readonly="readonly" style="cursor:pointer;" onFocus="WdatePicker()" /></span></div>
                        </div>
                        <div class="rowStyle">
-                          <div><span >户          数：</span><span><input name="project.proHouseCount" type="text"  id="project.proHouseCount" /></span></div>
+                          <div><span >户&nbsp;&nbsp;&nbsp;&nbsp;数：</span><span><input name="project.proHouseCount" type="text"  id="project.proHouseCount" /></span></div>
                        </div>
                        <div class="rowStyle">
                           <div><span >是否启用：</span><span><input id="project.enabled" name="project.enabled" type="radio" value="true"/>启用<input id="project.enabled" type="radio" name="project.enabled" value="false" checked/>不启用</span></div>
@@ -66,10 +60,10 @@
                           <div><span>启用消控：</span><span><input id="project.fireEnabled" name="project.fireEnabled" type="radio" value="true"/>启用<input id="project.fireEnabled" type="radio" name="project.fireEnabled" value="false" checked/>不启用</span></div>
                        </div>
                        <div class="rowStyle">
-                          <div><span style=" display:inline-block; width:60px">备&nbsp;&nbsp;注：</span><span><textarea name="project.proDesc" style="height:40px;" class="textbox" id="project.proDesc"></textarea></span></div>
+                          <div><span style=" display:inline-block;width:80px;height:40px;line-height:40px">备&nbsp;&nbsp;&nbsp;&nbsp;注：</span><span><textarea name="project.proDesc" style="height:40px;width:150px" class="textbox" id="project.proDesc"></textarea></span></div>
                        </div>
                        <div class="rowStyle">
-                          <div style=" margin-left:100px;margin-top:20px"><input type="submit" value="完成" onclick="return  FormCheck(); "/></div>
+                          <div style=" margin-left:100px;margin-top:20px"><input type="button" value="完成" onclick="return  FormCheck(); "/></div>
                        </div>
                       <div class="clear"></div>
                    </form>

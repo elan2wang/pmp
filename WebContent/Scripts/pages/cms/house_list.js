@@ -2,11 +2,16 @@
 $(function(){
 	var builid;
 	var projectid;
+	var coefficient;//表格高度系数
 	if(parent.document.getElementById("frame.pageType").value=="all"){	
 		projectid = 0;
+		coefficient=0.84;
 	}
 	else
+		{
 		projectid = parseInt(parent.document.getElementById("frame.pageId").value);
+		 coefficient=0.80;
+		}
 	if(parent.document.getElementById("frame.housepageType").value=="all"){
 		builid = 0;
 		
@@ -28,23 +33,26 @@ $(function(){
 			  	 colModel: [
 	             { display: '房号', name:'houseNum',width: 200, align: 'center' },
 				 { display: '房屋面积',name:'houseArea', width: 200, align: 'center' },
-	             { display: '物业费标准', name:'condoFeeRate',width: 200,align: 'center' },
+	             { display: '物业费标准', name:'condoFeeRate',width: 200,align: 'center',hide:'true' },
 	             { display: '是否空置',name:'isempty', width: 200,align: 'center' }
-	             ],height:305,
+	             ], 
+	    		searchitems:[
+	    		 		    { display: '房号', name: 'houseNum', isDefault:true },
+	    		 		],
+	             height:Height*coefficient,
 	             showcheckbox:true,
 	             usepager: true,
 	     		 useRp: true,
 	     		 rp: 15,
 	     		 operation:true,
-	     		operationcontent:'<a href="javascript:void(0)" onclick="openEditHouse($(this).parent().parent().parent())">编辑</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#\" onclick=\"deleteHouse($(this).parent().parent().parent(),$(this).prev().prev().prev().prev().html());\">删除</a>',
+	     		operationcontent:'<a href="javascript:void(0)" onclick="openEditHouse($(this).parent().parent().parent())">编辑</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#\" onclick=\"deleteHouse($(this).parent().parent().parent(),$(this).parent().parent().parent());\">删除</a>',
 				 operationWidth: Width*0.22
 	             });		
 
 });
-//function searchHouse(){
-//	document.getElementById("searchState").value="1";
-//	PageDownOrUp(0);
-//}
+function houseImport(){
+	openAddWindow('#houseImport');
+}
 function openEditHouse(obj)
 {
 	var id=parseInt(obj.attr("id").substr(3));	

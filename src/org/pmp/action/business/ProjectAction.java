@@ -1,6 +1,6 @@
 /**
- * Author            : Jason
- * Created On        : 2012-3-22 ����05:30:34
+ * Author            : Elan
+ * Created On        : 2012-3-22 下午05:30:34
  * 
  * Copyright 2012.  All rights reserved. 
  * 
@@ -9,19 +9,18 @@ package org.pmp.action.business;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Field;
+
+import java.io.OutputStream;
+
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
@@ -37,7 +36,7 @@ import org.pmp.vo.Project;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
- * @author Jason
+ * @author Elan
  * @version 1.0
  * @update TODO
  */
@@ -53,12 +52,15 @@ public class ProjectAction extends ActionSupport {
 	private String keyWord;
 	private List projectList;
 	private String projectName;
-	private File refFile;
-	private String refFileFileName;
-	private String refFileContentType;
-	
+	private File proFile;
+	private String proFileFileName;
+	private String proFileContentType;
 	public String addProject(){
-			projectService.addProject(project);
+		//调用该方法的必定是公司管理员
+		Object obj = SessionHandler.getUserRefDomain();
+		Company com = (Company)obj;
+		project.setCompany(com);
+		projectService.addProject(project);
 		return SUCCESS;
 	}
 	
@@ -70,10 +72,32 @@ public class ProjectAction extends ActionSupport {
 		projectService.editProject(project);
 		return SUCCESS;
 	}
-	
+	 public void checkProjectByName(){
+		    	try
+		    	{
+		    		projectName = new String(projectName.getBytes("ISO-8859-1"),"UTF-8");
+		    	}    	
+		    	catch(Exception e){}
+		    	Project project = projectService.getProjectByName(projectName);
+		    	String data = null;
+		    	if(project!=null)
+		    	{
+		    		data="{"+JsonConvert.toJson("result")+":"+JsonConvert.toJson("Failed")+"}";
+		       
+		    	}
+		    	else
+		    	{
+		    		data="{"+JsonConvert.toJson("result")+":"+JsonConvert.toJson("Success")+"}";
+		    	}
+		     	logger.debug(data);
+		    	JsonConvert.output(data);
+		    	
+		      }
+	 
 	public void loadProjectListBySessionHandler(){
 		logger.debug("进入getProjectBySessionHander");
 		Object obj = SessionHandler.getUserRefDomain();
+		Pager pager = new Pager(rp,page);
 		projectList = new ArrayList<Project>();
 		//如果是小区管理员，则只显示本小区内的项目
 		if(obj instanceof Project)
@@ -85,13 +109,12 @@ public class ProjectAction extends ActionSupport {
 		else if(obj instanceof Company)
 		{
 			Company com = (Company)obj;
-			Pager pager = new Pager(10000,1);
 			Map<String,Object> params = new HashMap<String,Object>();
 			String order = "order by proId asc";
 			projectList = projectService.loadProjectList_ByCompany(com.getComId(), params, order, pager);
 		}	
-		Pager pager = new Pager(rp,page);
-		pager.setRowsCount(projectList.size());
+		
+	//	pager.setRowsCount(projectList.size());
 		String data = JsonConvert.list2FlexJson(pager, projectList, "org.pmp.vo.Project");
 		System.out.println(data);
 		logger.debug(data);
@@ -130,31 +153,47 @@ public class ProjectAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
-	public String uploadFile(){
-	if(!MyfileUtil.validate(refFileFileName,"xls")){
-	    String postfix = MyfileUtil.getPostfix(refFileFileName);
-	    String message = postfix+"类型的文件暂不支持，请选择xls类型文件";
-	    HttpServletRequest request = ServletActionContext.getRequest();
-	    request.setAttribute("message", message);
-	    return "filetype_error";
-	}
-		StringBuffer errorPath = new StringBuffer();
-		StringBuffer isError = new StringBuffer();
-		try {
-			InputStream is = new FileInputStream(refFile);
-			List projectList = ProjectImport.projectList(is,isError,errorPath);
-			projectService.batchSaveProject(projectList);
-			HttpServletRequest request = ServletActionContext.getRequest();
-		    request.setAttribute("errorPath", errorPath);
-		}catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		if(isError.toString().equals("是")){
-			return ERROR; 
-		}
-		return SUCCESS;
+	public void uploadFile()throws IOException{
+		    HttpServletRequest request = ServletActionContext.getRequest();
+		    String message = null;
+		    System.out.println("proFileFileName:"+proFileFileName);
+			if(!MyfileUtil.validate(proFileFileName,"xls")){
+			    logger.debug("文件格式不对");
+			    String postfix = MyfileUtil.getPostfix(proFileFileName);
+			    message = postfix+"类型的文件暂不支持，请选择xls类型文件";
+			    request.setAttribute("message", message);
+			    JsonConvert.output("{\"error\":\"filetype_error\",\"msg\":"+JsonConvert.toJson(message)+"}");
+			    return;
+			}
+			/* create the dir to store error data */
+			MyfileUtil.createDir("error_data");
+			/* create the error data file in this dir */
+			String fileName = MyfileUtil.createFilename();
+			String fullName = ServletActionContext.getServletContext().getRealPath("error_data")+"\\"+fileName+".xls";
+			String downLoad = ServletActionContext.getServletContext().getContextPath()+"/error_data/"+fileName+".xls";
+			OutputStream os = new FileOutputStream(fullName);
+			System.out.println(fullName);
+			/* import data from the upload file and store in the cfList */
+			List<Project> proList = new ArrayList<Project>();
+			Boolean hasError = ProjectImport.execute(new FileInputStream(proFile), os, proList);
+			/* close OutputStream */
+			os.flush();
+			os.close();
+			
+			/* call the method batchSetOughtMoney to update the condoFee*/
+			projectService.batchSaveProject(proList);
+			
+			/* if there are some mistakes of the file */
+			if (hasError){
+			    message = "记录有错误,正确数据已导入，请下载错误数据<a href=\""+downLoad+"\">下载</a>";
+			    JsonConvert.output("{\"error\":\"record_error\",\"msg\":"+JsonConvert.toJson(message)+"}");
+			    return;
+			}
+			
+			/* data import success */
+			message = "数据导入成功";
+			JsonConvert.output("{\"error\":\"\",\"msg\":"+JsonConvert.toJson(message)+"}");
+			return;
 	}
 	
 	public void setProjectService(IProjectService projectService) {
@@ -200,28 +239,28 @@ public class ProjectAction extends ActionSupport {
 		this.projectList = projectList;
 	}
 	
-	public File getRefFile() {
-		return refFile;
+	public File getProFile() {
+		return proFile;
 	}
 
-	public void setRefFile(File refFile) {
-		this.refFile = refFile;
+	public void setProFile(File proFile) {
+		this.proFile = proFile;
 	}
 
-	public String getRefFileFileName() {
-		return refFileFileName;
+	public String getProFileFileName() {
+		return proFileFileName;
 	}
 
-	public void setRefFileFileName(String refFileFileName) {
-		this.refFileFileName = refFileFileName;
+	public void setProFileFileName(String proFileFileName) {
+		this.proFileFileName = proFileFileName;
 	}
 
-	public String getRefFileContentType() {
-		return refFileContentType;
+	public String getProFileContentType() {
+		return proFileContentType;
 	}
 
-	public void setRefFileContentType(String refFileContentType) {
-		this.refFileContentType = refFileContentType;
+	public void setProFileContentType(String proFileContentType) {
+		this.proFileContentType = proFileContentType;
 	}
 
 	public Integer getRp() {

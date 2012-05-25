@@ -14,7 +14,6 @@ package org.pmp.action.business;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -27,10 +26,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
-import org.pmp.excel.NewCondoFeeImport;
 import org.pmp.excel.OwnerImport;
 import org.pmp.service.business.IHouseOwnerService;
-import org.pmp.service.business.IHouseService;
 import org.pmp.service.business.IMemberService;
 import org.pmp.service.business.IOwnerService;
 import org.pmp.service.business.IProjectService;
@@ -40,7 +37,6 @@ import org.pmp.util.Pager;
 import org.pmp.util.SessionHandler;
 import org.pmp.vo.Building;
 import org.pmp.vo.Company;
-import org.pmp.vo.CondoFee;
 import org.pmp.vo.House;
 import org.pmp.vo.HouseOwner;
 import org.pmp.vo.Member;
@@ -77,6 +73,9 @@ public class OwnerAction extends ActionSupport{
     
     /* used when getOwnerInfo */
     private Integer ownerId;
+    
+    /* used when deleteOwner */
+    private String idStr; 
     
     /* used when import owner data */
     private File ownerFile;
@@ -138,7 +137,13 @@ public class OwnerAction extends ActionSupport{
     }
     
     public void deleteOwner(){
-	
+	List<Owner> ownerList = new ArrayList<Owner>();
+	String[] checkedID = idStr.split(",");
+	for (int i=0;i<checkedID.length;i++){
+	    Owner owner = ownerService.getOwner_ById(Integer.parseInt(checkedID[i]));
+	    ownerList.add(owner);
+	}
+	ownerService.batchDelete(ownerList);
     }
     
     public String getOwnerInfo(){
@@ -424,6 +429,22 @@ public class OwnerAction extends ActionSupport{
 
     public void setOwnerFileContentType(String ownerFileContentType) {
         this.ownerFileContentType = ownerFileContentType;
+    }
+
+    public static Logger getLogger() {
+        return logger;
+    }
+
+    public static void setLogger(Logger logger) {
+        OwnerAction.logger = logger;
+    }
+
+    public String getIdStr() {
+        return idStr;
+    }
+
+    public void setIdStr(String idStr) {
+        this.idStr = idStr;
     }
 
 }

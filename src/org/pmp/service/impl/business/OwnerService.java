@@ -91,11 +91,16 @@ public class OwnerService implements IOwnerService {
 	}
 	memberDAO.batchUpdate(list);
 	
-	/* update house info */
-	House house = houseDAO.getHouseByID(houseId);
-	house.setHouseArea(instance.getHouseArea());
-	house.setIsempty(false);
-	houseDAO.updateHouse(house);
+	/* update old house info */
+	House oldHouse = houseOwnerDAO.getHouseOwner_ByOwner(instance.getOwnerId()).getHouse();
+	oldHouse.setIsempty(true);
+	houseDAO.updateHouse(oldHouse);
+	
+	/* update new house info */
+	House newHouse = houseDAO.getHouseByID(houseId);
+	newHouse.setHouseArea(instance.getHouseArea());
+	newHouse.setIsempty(false);
+	houseDAO.updateHouse(newHouse);
 	
 	/* set houseOwner instance */
 	HouseOwner ho = houseOwnerDAO.getHouseOwner_ByOwner(instance.getOwnerId());

@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +32,7 @@ import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.pmp.excel.NewCondoFeeExport;
 import org.pmp.excel.NewCondoFeeImport;
+import org.pmp.jms.JmsPublisher;
 import org.pmp.service.business.ICondoFeeItemService;
 import org.pmp.service.business.ICondoFeeService;
 import org.pmp.util.JsonConvert;
@@ -339,24 +341,47 @@ public class CondoFeeAction extends ActionSupport{
     }
     
     public void preCheck(){
+	/* if action is deleteItem */
+	if (action.equals("deleteItem")){
+	    List<CondoFee> list = condoFeeService.loadCondoFeeList_ByCFI(cfiId, new HashMap<String,Object>(), "", new Pager(1000000,1));
+	    Iterator<CondoFee> ite = list.iterator();
+	    while(ite.hasNext()){
+		CondoFee cf = ite.next();
+		if(!(cf.getState().equals("new")||cf.getState().equals("input"))){
+		    JsonConvert.output("{\"result\":\"failed\"}");
+		    return;
+		}
+	    }
+	    JsonConvert.output("{\"result\":\"success\"}");
+	    return;
+	}
+	/* if action is not deleteItem */
+
 	String[] checkedID = idStr.split(",");
 	for (int i=0;i<checkedID.length;i++){
 	    CondoFee cf = condoFeeService.getCondoFee_ById(Integer.parseInt(checkedID[i]));
 	    if (action.equals("audit")){
-		if(cf.getFetchMoney()==null){
+		if(!cf.getState().equals("payed")){
 		    logger.debug(cf.getFetchMoney());
 		    JsonConvert.output("{\"result\":\"failed\"}");
                     return;
 		}
 	    }
 	    if (action.equals("deleteList")||action.equals("edit")){
-		if(cf.getFetchMoney()!=null){
+		if(!(cf.getState().equals("new")||cf.getState().equals("input"))){
+		    JsonConvert.output("{\"result\":\"failed\"}");
+		    return;
+		}
+	    }
+	    if (action.equals("record")){
+		if(!(cf.getState().equals("input")||cf.getState().equals("denied"))){
 		    JsonConvert.output("{\"result\":\"failed\"}");
 		    return;
 		}
 	    }
 	}
 	JsonConvert.output("{\"result\":\"success\"}");
+	return;
     }
     
     //~ Getters and Setters ============================================================================================

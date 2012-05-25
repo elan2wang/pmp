@@ -18,13 +18,13 @@ function FireAlarm(id,obj)
     this.stopBlink=function(){
     	if(!this.Obj)
     		return;
-    	this.Obj.css("visibility" ,"visible");
         alert("stop");
     	clearInterval(this.TimerID);
+    	this.Obj.css("visibility" ,"visible");
     }
     this.startFireAlarm=function(){
     	id="s"+this.ID;
-  	    $("#head").append('<bgsound id='+id+'   src= "../fireConfig/FIRE.WAV"   loop=-1   volume=4>');
+  	    $("#head",window.parent.document).append('<bgsound id='+id+'   src= "../fireConfig/FIRE.WAV"   loop=-1   volume=4>');
     }
     this.stopFireAlarm=function(){
     	$("#s"+this.ID).attr("src","");

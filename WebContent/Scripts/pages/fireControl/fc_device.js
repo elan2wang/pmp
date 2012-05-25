@@ -1,14 +1,19 @@
-$(function(){
-	
-	//Blink();
-	load_device('../fireConfig/basement1.xml');
-	
-	//var obj=findByNumber("995001");
-	//Blink(obj);
-	//createFireAlarm("995001");
-});
-//makeRequest();
-var objList=new Array();
+
+alert($("#configUrl").val());
+load_device($("#configUrl").val());
+
+     
+
+//setTimeout(_request(objList),5000);
+function _request(arr){
+	return function()
+	{
+		parent.makeRequest(arr);
+	}
+}
+
+
+
 //load xml配置文件
 function load_device(url){
 	$.ajax({
@@ -18,20 +23,19 @@ function load_device(url){
 		dataType: "xml",
 		success : function(xml){
 			var pagedata=$(xml).find("zone");
-			alert(pagedata.attr("picpath"));
+			//alert(pagedata.attr("picpath"));
 			list_divice(xml);
 		}
 	});
 }
 //把装置部署的背景图片上
 function list_divice(xml){
-	alert("come in");
+	//alert("come in");
 	var divCon=$('#devicelist');
 	var zone=$(xml).find("zone");
 	var devideArr=zone.find("device");
 	var deviceNum=devideArr.length;
 	
-	alert(encodeURI("地下室1.bmp"));
 	url=encodeURI("地下室1.bmp");
 	divCon.append('<img  src="../fireConfig/basement1.bmp"  border="0"/>');
 	//divCon.append('<img  src='+zone.attr("picpath").toString()+'  border="0"/>');
@@ -39,7 +43,6 @@ function list_divice(xml){
 	for(var i=0;i<deviceNum;i++)
 	{   
 	    var thisdevice=devideArr.eq(i);
-		//alert();
 		imageurl=thisdevice.attr("imageid").toString();
 		imgid=thisdevice.attr("devicenumber").toString();
 		var info=thisdevice.attr("devicetypename").toString();
@@ -51,13 +54,11 @@ function list_divice(xml){
     
 	$('li div').each(function(i)
 	{
-		 //alert("33");
 		 var fire=new FireAlarm($(this).attr('id'),$(this));
 		 objList.push(fire);
 		 createRightMenu(fire);
 		 //startAlarm(fire);
 		 //startBlink(fire);
-		 //createRightMenu(fire);
 		 var thisdevice2=devideArr.eq(i);
 		 $(this).find('img').css("height",thisdevice2.attr("height")+"px");
 	     $(this).find('img').css("width",thisdevice2.attr("width")+"px");
@@ -66,34 +67,12 @@ function list_divice(xml){
 		 thisdevice2=null;
 		 fire=null;
 	});
+	
+	//
 }
 
 //向服务器请求异常数据
- function makeRequest(){
-	 $.ajax({
-		    type: "GET",
-			url: "../fireConfig/user.txt",
-			cache:false,
-			dataType: "json",
-			success : function(data){
-				$.each(data.rows, function( i,row ){
-					$("#myajax").append(row["id"]);
-					if(i==2)
-					{
-						//alert(row["id"]);
-						var fireobj2=findByFireId(row["id"]);
-						fireobj2.showMessage();
-						startBlink(fireobj2);
-					}
-				});
-				setTimeout("makeRequest()", 2000);
-			},
-			error:function(){
-				alert("error");
-				setTimeout("makeRequest()", 2000);
-			}
-		});
- }
+
  
  //切换显示与否  实现闪烁功能
 
@@ -137,7 +116,7 @@ function list_divice(xml){
 	  var obj;
 	  $('li div').each(function(){
 		  if(($(this).attr("id")).toString()==deviceNumber.toString()){
-			  alert("1");
+			 // alert("1");
 			  obj=$(this);
 		  }
 	  });

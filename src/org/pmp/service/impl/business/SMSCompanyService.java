@@ -42,6 +42,10 @@ public class SmsCompanyService implements ISmsCompanyService{
 	smsCompanyDAO.delereSMSCompany(smscId);
     }
     
+    public void batchDeleteSMSCompany(List<SMSCompany> list)
+    {
+    	smsCompanyDAO.batchDeleteSMSCompany(list);
+    }
     public SMSCompany getSMSCompanyByID(Integer smscId){
 	return smsCompanyDAO.getSMSCompanyByID(smscId);
     }

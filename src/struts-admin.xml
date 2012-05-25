@@ -114,43 +114,25 @@
 	<action name="fatherChange" class="org.pmp.action.admin.GroupAction" method="fatherChange">
 	</action>
 	
-	<action name="load_Role_list" class="org.pmp.action.admin.UserAction" method="loadRoleList">
-	</action>
-	
-	<action name="fatherChange" class="org.pmp.action.admin.GroupAction" method="fatherChange">
-	</action>
-	
-	<action name="load_Role_list" class="org.pmp.action.admin.UserAction" method="loadRoleList">
-	</action>
-	
-	<action name="fatherChange" class="org.pmp.action.admin.GroupAction" method="fatherChange">
-	</action>
-	
-	<action name="load_Role_list" class="org.pmp.action.admin.UserAction" method="loadRoleList">
-	</action>
-	
-	<action name="load_Group_list" class="org.pmp.action.admin.UserAction" method="loadGroupList">
-	</action>
-	
 	<!-- User Related Actions Begin -->
 	<action name="addUser" class="org.pmp.action.admin.UserAction" method="addUser">
 	  <result name="success">/admin/user_list.jsp</result>
 	</action>
-
-	<action name="user_list" class="org.pmp.action.admin.UserAction" method="loadUserList">
-	</action>
 	
-	<action name="get_user" class="org.pmp.action.admin.UserAction" method="getUserById">
+	<action name="getUser" class="org.pmp.action.admin.UserAction" method="getUserDetail">
 	  <result name="success">/admin/user_edit.jsp</result>
 	</action>
 	
-	<action name="updateUser" class="org.pmp.action.admin.UserAction" method="updateUser">
+	<action name="editUser" class="org.pmp.action.admin.UserAction" method="editUser">
 	  <result name="success">/admin/user_list.jsp</result>
 	  <result name="input">/error/fof.jsp</result>
 	</action>
 	
-	<action name="deleteUserById" class="org.pmp.action.admin.UserAction" method="deleteUser">
+	<action name="deleteUser" class="org.pmp.action.admin.UserAction" method="deleteUser">
+	  <result name="success">/admin/user_list.jsp</result>
 	</action>
+	
+	<action name="loadUserList" class="org.pmp.action.admin.UserAction" method="loadUserList" />
 	
 	<!-- Module related Actions -->
 	<action name="addModule" class="org.pmp.action.admin.ModuleAction" method="addModule">
@@ -181,6 +163,12 @@
 	<action name="editRoleModule" class="org.pmp.action.admin.RoleModuleAction" method="editRoleModule">
 	  <result name="success" type="chain">loadRoleList</result>
 	</action>
+	
+	
+	<!-- pager triggered actions -->
+	<action name="load_Role_list" class="org.pmp.action.admin.PagerTriggerAction" method="loadRoleList_ByUser" />
+	
+	<action name="load_Group_list" class="org.pmp.action.admin.PagerTriggerAction" method="loadGroupList_ByRole" />
 	
   </package>
 

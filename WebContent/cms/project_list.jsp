@@ -20,6 +20,7 @@
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
 <script type="text/javascript" src="../Scripts/common/window.js"></script>
 <script type="text/javascript" src="../Scripts/pages/cms/project_list.js"></script>
+
 </head>
 
 <body >
@@ -31,32 +32,18 @@
        </ul>   
        <div class="content">
            <div class="innercontent">
-             <div class="content_main">
-                <div class="grid_top">
-                    <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="openAddWindow('#newPro')">添加新项目</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="">导入</a>
-             	    <span>筛选</span>：<select id="project.proDistrict" name="project.proDistrict">
-                                              <option selected="selected">选择地区</option>
-                                              <option>定海区</option>
-                                              <option>普陀区</option>
-                                              <option>岱山区</option>
-                                              <option>嵊泗区</option>
-                                      </select>
- 
-                    <input type="text" id="keyWord" name="keyWord" />
-                    <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onclick="searchProject()">搜索</a>
-                    <input type="hidden" id="searchState" name="searchState" value="0"/>
+
+
+             <div class="grid_top">
+             	<div id="proImport" href="pro_import.jsp" class="easyui-window" title="项目导入" iconCls="icon-save" style="width:350px;height:200px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
+              </div>
+              <table id="projectlist">
+              </table>
+                 <div id="newPro" class="easyui-window" href="project_add.jsp?" title="添加新项目" iconCls="icon-save" style="width:400px;height:400px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
                  </div>
-                 <table id="projectlist">
-                 </table>
-             
-	             <% int i=0; %>
-                 <div id="newPro" class="easyui-window" href="project_add.jsp?" title="添加新项目" iconCls="icon-save" style="width:400px;height:370px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
-                 </div>
-                 <div id="editPro" class="easyui-window"  title="编辑项目"  iconCls="icon-save" style="width:400px;height:370px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
+                 <div id="editPro" class="easyui-window"  title="编辑项目"  iconCls="icon-save" style="width:400px;height:400px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
 	             </div>
 	          </div>
-	       </div>
            <input type="hidden" id="frame.pageType" name="frame.pageType" value="all" />
            <input type="hidden" id="frame.pageId" name="frame.pageId" value="" />
            <input type="hidden" id="frame.projectName" name="frame.projectName" value="" />
@@ -77,7 +64,7 @@
                   </iframe>
                </div>
            </div>
-      </div>
+         </div>
   </div>
   <script type="text/javascript">
    var Width2=document.documentElement.clientWidth;

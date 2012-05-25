@@ -8,6 +8,7 @@
 package org.pmp.service.impl.admin;
 
 import java.util.List;
+import java.util.Map;
 
 import org.pmp.dao.admin.IUserDAO;
 import org.pmp.service.admin.IUserService;
@@ -35,9 +36,8 @@ public class UserService implements IUserService {
     public void editUser(TbUser instance){
 	userDAO.updateUser(instance);
     }
-    
-    public void deleteUser(Integer userID){
-	userDAO.deleteUser(userID);
+    public void batchDelete(final List<TbUser> list){
+	userDAO.batchDelete(list);
     }
     
     public void passwordReset(String password, Integer userID) {
@@ -47,6 +47,10 @@ public class UserService implements IUserService {
     public TbUser getUserByUsername(String username) {
 	return userDAO.getUserByUsername(username);
     }
+    
+    public TbUser getUserById(Integer userID){
+	return userDAO.getUserById(userID);
+    }
 
     public List getUserList(Pager pager) {
 	return userDAO.getUserList(pager);
@@ -55,14 +59,11 @@ public class UserService implements IUserService {
     public List getUserListByGroup(Pager pager, Integer groupID) {
 	return userDAO.getUserListByGroup(pager, groupID);
     }
+    
     public List loadUserList_ByProject(Pager pager,Integer proId)
     {
     	return userDAO.loadUserList_ByProject(pager,proId);
     }
-    @Override
-	public TbUser getUserById(Integer userId) {
-		return userDAO.getUserById(userId);
-	}
     //~ Getters and Setters ============================================================================================
     public IUserDAO getUserDAO() {
         return userDAO;
@@ -70,6 +71,4 @@ public class UserService implements IUserService {
     public void setUserDAO(IUserDAO userDAO) {
         this.userDAO = userDAO;
     }
-
-	
 }

@@ -23,7 +23,7 @@ $(function(){
             { display: '录入时间', name: 'inputTime', width: Width*0.2, sortable:true, align: 'center' }
         ],
         buttons:[
-            { name: '数据导出', bclass: 'add', onpress: dataImport },
+            { name: '数据导出', bclass: 'excel', onpress: dataImport },
 			{ separator: true }
 		],
 		searchitems:[

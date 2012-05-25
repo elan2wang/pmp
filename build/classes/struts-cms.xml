@@ -5,23 +5,26 @@
   
   <package name="cms" extends="struts-default" namespace="/cms">
 	<!-- SMS_Company related Actions -->
-	<action name="addSMSCompany" class="org.pmp.action.business.SMSCompanyAction" method="addSMSCompany">
-      <result name="success" type="chain">loadSMSCompanyList</result>
+	<action name="addSMSCompany" class="org.pmp.action.business.SmsCompanyAction" method="addSMSCompany">
+      <result name="success">/cms/smsc_list.jsp</result>
     </action>
     
-    <action name="getSMSCompany" class="org.pmp.action.business.SMSCompanyAction" method="getSMSCompany">
+    <action name="getSMSCompany" class="org.pmp.action.business.SmsCompanyAction" method="getSMSCompany">
       <result name="success">/cms/smsc_edit.jsp</result>
     </action>
     
-    <action name="editSMSCompany" class="org.pmp.action.business.SMSCompanyAction" method="editSMSCompany">
-      <result name="success" type="chain">loadSMSCompanyList</result>
+
+    <action name="editSMSCompany" class="org.pmp.action.business.SmsCompanyAction" method="editSMSCompany">
+      <result name="success">/cms/smsc_list.jsp</result>
     </action>
     
-    <action name="deleteSMSCompany" class="org.pmp.action.business.SMSCompanyAction" method="deleteSMSCompany">
-      <result name="success" type="chain">loadSMSCompanyList</result>
+    
+    <action name="batchDeleteSMSCompany" class="org.pmp.action.business.SmsCompanyAction" method="batchDeleteSMSCompany">
+   	  <result name="success">/cms/smsc_list.jsp</result>
     </action>
     
-    <action name="loadSMSCompanyList" class="org.pmp.action.business.SMSCompanyAction" method="loadSMSCompanyList">
+    
+    <action name="loadSMSCompanyList" class="org.pmp.action.business.SmsCompanyAction" method="loadSMSCompanyList">
       <result name="success">/cms/smsc_list.jsp</result>
     </action>
     
@@ -31,6 +34,8 @@
 	</action>
 	<action name="getCompanyByID" class="org.pmp.action.business.CompanyAction" method="getCompanyByID">
 	  <result name="success">/cms/cmpy_edit.jsp</result>
+	</action>
+	<action name="checkCompanyByName" class="org.pmp.action.business.CompanyAction" method="checkCompanyByName">
 	</action>
 	<action name="addCompany" class="org.pmp.action.business.CompanyAction" method="addCompany">
 	  <result name="success">/cms/cmpy_list.jsp</result>
@@ -58,7 +63,16 @@
 	</action>
 	<action name="delete_building" class="org.pmp.action.business.BuildingAction" method="deleteBuilding">
 	</action>
-
+	<action name="getBuildingByProject" class="org.pmp.action.business.BuildingAction" method="getBuildingByProject">
+	</action>
+	<action name="saveBuilding" class="org.pmp.action.business.BuildingAction" method="saveBuilding">
+		<result name="success">/cms/building_list.jsp</result>
+	</action>	
+	<action name="updateBuilding" class="org.pmp.action.business.BuildingAction" method="updateBuilding">
+		<result name="success">/cms/building_list.jsp</result>
+	</action>	
+	<action name="checkBuildingByBuilNumAndProjectId" class="org.pmp.action.business.BuildingAction" method="checkBuildingByBuilNumAndProjectId">
+	</action>
 	<action name="get_project" class="org.pmp.action.business.ProjectAction" method="getProjectById">
 		<result name="success">/cms/project_edit.jsp</result>
 	</action>
@@ -70,6 +84,11 @@
 	<action name="update_Project" class="org.pmp.action.business.ProjectAction" method="updateProject">
 		<result name="success">/cms/project_list.jsp</result>
 	</action>
+	
+	<action name="checkProjectByName" class="org.pmp.action.business.ProjectAction" method="checkProjectByName">
+	</action>
+	
+	
 	<action name="projectAction" class="org.pmp.action.business.ProjectAction" method="">
 		<result name="success">/cms/project_list.jsp</result>
 	</action>
@@ -82,8 +101,11 @@
 
 	<action name="deleteHouse" class="org.pmp.action.business.HouseAction" method="deleteHouse"></action>
 	
+	<action name="new_house_import" class="org.pmp.action.business.HouseAction" method="uploadFile">
+		<result name="success">/cms/house_list.jsp</result>
+	</action>
 	
-	<action name="fileUpload" class="org.pmp.action.business.ProjectAction" method="uploadFile">
+	<action name="new_pro_import" class="org.pmp.action.business.ProjectAction" method="uploadFile">
 		<result name="success">/cms/project_list.jsp</result>
 	</action>
 	<action name="buildingImport" class="org.pmp.action.business.BuildingAction" method="uploadFile">
@@ -107,6 +129,10 @@
     </action>
     
     <action name="ownerImport" class="org.pmp.action.business.OwnerAction" method="importOwner">
+      <result name="success">/cms/owner_list.jsp</result>
+    </action>
+    
+    <action name="deleteOwner" class="org.pmp.action.business.OwnerAction" method="deleteOwner">
       <result name="success">/cms/owner_list.jsp</result>
     </action>
     

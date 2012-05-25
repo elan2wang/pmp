@@ -1,78 +1,6 @@
 // JavaScript Document
 
-    //公共函数
-    function removeChildren(parent) {
-        while (parent.firstChild) {
-            parent.removeChild(parent.firstChild);
-        }
-        return parent;
-    }
-    function createRequest(options) {
-        var req = false;
-        if (window.XMLHttpRequest) {
-            var req = new window.XMLHttpRequest();
-        } else if (window.ActiveXObject) {
-            var req = new window.ActiveXObject('Microsoft.XMLHTTP');
-        }
-        if (!req) return false;
-        req.onreadystatechange = function () {
-            if (req.readyState == 4 && req.status == 200) {
-                options.listener.call(req);
-            } else if (req.readyState == 4 && req.status == 404) {
-                options.failListener.call(req)
-            }
-        };
-        req.open(options.method, options.url, true);
-        return req;
-    }
-    //楼号选择函数段
-    function ajaxRequest_Cmpy() {
-        var objCmpyName = document.getElementById('CmpyName');
-        var cmpyName = objCmpyName.value;
-        var ran = (new Date().getTime()) ^ Math.random();
-        var options = {
-            url: 'CmpyNameChk_callback.aspx?ran=' + ran + '&q=' + cmpyName,
-            listener: callback_Cmpy,
-            method: 'GET',
-            failListener: failCallback_Cmpy
-        }
-        var request = createRequest(options);
-        request.send(null);
-    }
-    function callback_Cmpy() {
-        var objCmpyName = document.getElementById('CmpyName');
-        var txtDoc = this.responseText;
-        if (txtDoc == "true") {
-            alert("已存在同名公司，请核对！");
-            objCmpyName.select();
-            return false;
-        }
-        else {
-            return true;
-        }
-    }
-    function failCallback_Cmpy() {
-        alert("ERROR:CmpyNameChk_callback.aspx?q=' + cmpyName FAIL");
-    }
     //=======================================================
-    function to(page) {
-        objP1 = document.getElementById("P1");
-        objP2 = document.getElementById("P2");
-        objTab1 = document.getElementById("Tab1");
-        objTab2 = document.getElementById("Tab2");
-        if (page == "P2") {
-            objP1.style.display = "none";
-            objP2.style.display = "block";
-            objTab1.className = "ModuleTap";
-            objTab2.className = "ModuleTapOn";
-        }
-        if (page == "P1") {
-            objP1.style.display = "block";
-            objP2.style.display = "none";
-            objTab1.className = "ModuleTapOn";
-            objTab2.className = "ModuleTap";
-        }
-    }
 	function strim(str){
 		return str.replace(/(^\s*)|(\s*$)/g,""); 
 	}
@@ -127,6 +55,29 @@ function newFormCheck(){
 			objfc7.focus();
 			return (false);
 		}
-		document.getElementById("form").submit();
-		window.parent.closeAddNewCmpy();
+		//检查公司名称是否重复
+		return check_Cmpy(strim(objfc1.value),objfc1);
+}
+function check_Cmpy(CmpyName,objfc1) {
+	var url = "checkCompanyByName?companyName="+CmpyName;
+    	$.ajax({
+			type: "POST",
+			url: url,
+			dataType:"json",
+			success : function(data){					
+				var result = data["result"];
+				if(result=="Failed")
+				{
+					alert("已存在同名公司，请核对！");
+					objfc1.select();
+					 return false;
+				}
+				else
+				{
+					document.getElementById("form1").submit();
+					return true;
+					closeAddNewCmpy();
+				}
+			}
+		});    	
 }

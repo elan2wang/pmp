@@ -8,10 +8,12 @@
 package org.pmp.action.business;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,7 +22,9 @@ import org.apache.struts2.ServletActionContext;
 import org.pmp.service.business.ICompanyService;
 import org.pmp.util.Pager;
 import org.pmp.util.JsonConvert;
+import org.pmp.util.SessionHandler;
 import org.pmp.vo.Company;
+import org.pmp.vo.TbRole;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -37,12 +41,14 @@ public class CompanyAction extends ActionSupport {
     private Company company;
     
     //~ URL Fields
-    private Integer currentPage = 1;
-    private Integer pageSize = 10;
+	private Integer page;	
+	private Integer rp;
     private Integer comid;
     private List<?> companyList;
+    private String companyName;
 
-    //~ Methods ========================================================================================================
+
+	//~ Methods ========================================================================================================
     public String addCompany(){
 	company.setEnabled(true);
 	companyService.addCompany(company);
@@ -60,20 +66,36 @@ public class CompanyAction extends ActionSupport {
     }
     
     public String getAllCompany(){
-	Pager pager = new Pager(1000,1);
-    	companyList = companyService.loadCompanyList(pager);
+    	Pager pager2 = new Pager(1000,1);
+    	Map<String,Object> params = new HashMap<String,Object>();
+    	String order = "order by comId asc";
+    	companyList = companyService.loadCompanyList_ByChinaMobile(params, order, pager2);
     	return SUCCESS;
     }
     
     public void loadCompanyList(){
-	logger.debug("进入loadCompanyList");
-	Pager pager = new Pager(pageSize,currentPage);
-	List<?> companyList = companyService.loadCompanyList(pager);
-	
-	//invoke JsonConvert.list2Jason method to get JsonData
-	String data = JsonConvert.list2Json(pager, companyList, "org.pmp.vo.Company");
-	logger.debug(data);
-	JsonConvert.output(data);
+    	logger.debug("进入loadCompanyList");
+    	Pager pager = new Pager(rp,page);
+    	TbRole role = SessionHandler.getUserRole();
+    	List<Company> companyList = new ArrayList<Company>();
+    	//如果是公司管理员
+    	if(role.getRoleLevel()==2)
+    	{
+    		Company com = (Company)SessionHandler.getUserRefDomain();
+    		companyList.add(com);
+    	}
+    	else if(role.getRoleLevel()==1)
+    	{  		
+    		Pager pager2 = new Pager(1000,1);
+    		Map<String,Object> params = new HashMap<String,Object>();
+    		String order = "order by comId asc";
+    		companyList = companyService.loadCompanyList_ByChinaMobile(params, order, pager2);
+    	}
+    	//invoke JsonConvert.list2Jason method to get JsonData
+    	pager.setRowsCount(companyList.size());
+    	String data = JsonConvert.list2FlexJson(pager, companyList, "org.pmp.vo.Company");
+    	logger.debug(data);
+    	JsonConvert.output(data);
     }
     
     public String getCompanyByID(){
@@ -83,6 +105,28 @@ public class CompanyAction extends ActionSupport {
 	request.setAttribute("company", company);
 	return SUCCESS;
     }
+    
+    public void checkCompanyByName(){
+    	try
+    	{
+    		companyName = new String(companyName.getBytes("ISO-8859-1"),"UTF-8");
+    	}    	
+    	catch(Exception e){}
+    	Company company = companyService.getCompanyByName(companyName);
+    	String data = null;
+    	if(company!=null)
+    	{
+    		data="{"+JsonConvert.toJson("result")+":"+JsonConvert.toJson("Failed")+"}";
+       
+    	}
+    	else
+    	{
+    		data="{"+JsonConvert.toJson("result")+":"+JsonConvert.toJson("Success")+"}";
+    	}
+     	logger.debug(data);
+    	JsonConvert.output(data);
+    	
+      }
     
     //~ Getters and Setters ============================================================================================
 
@@ -102,13 +146,7 @@ public class CompanyAction extends ActionSupport {
         this.company = company;
     }
 
-    public Integer getCurrentPage() {
-        return currentPage;
-    }
 
-    public void setCurrentPage(Integer currentPage) {
-        this.currentPage = currentPage;
-    }
     
     public List<?> getCompanyList() {
         return companyList;
@@ -118,13 +156,33 @@ public class CompanyAction extends ActionSupport {
         this.companyList = companyList;
     }
 
-    public Integer getPageSize() {
-        return pageSize;
-    }
+    /**
+	 * @return the page
+	 */
+	public Integer getPage() {
+		return page;
+	}
 
-    public void setPageSize(Integer pageSize) {
-        this.pageSize = pageSize;
-    }
+	/**
+	 * @param page the page to set
+	 */
+	public void setPage(Integer page) {
+		this.page = page;
+	}
+
+	/**
+	 * @return the rp
+	 */
+	public Integer getRp() {
+		return rp;
+	}
+
+	/**
+	 * @param rp the rp to set
+	 */
+	public void setRp(Integer rp) {
+		this.rp = rp;
+	}
 
     public Integer getComid() {
         return comid;
@@ -134,4 +192,18 @@ public class CompanyAction extends ActionSupport {
         this.comid = comid;
     }
 
+
+    /**
+	 * @return the companyName
+	 */
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	/**
+	 * @param companyName the companyName to set
+	 */
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
 }

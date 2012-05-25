@@ -46,6 +46,10 @@ public class RoleService implements IRoleService{
     public List getRoleList(){
 	return roleDAO.getRoleList();
     }
+    
+    public List<?> loadRoleList_LevelNotBellow(Integer level,String order){
+	return roleDAO.loadRoleList_LevelNotBellow(level, order);
+    }
     //~ Getters and Setters ============================================================================================
 
     public IRoleDAO getRoleDAO() {

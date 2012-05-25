@@ -67,13 +67,14 @@ function cfEdit(){
 		rowid=rowid.substr(3);
 		idString+=rowid+",";
 	});
-	//alert(idString.length);
+	if(idString==""){
+		alert("请选择要修改的物业费记录");
+		return;
+	}
 	idString=idString.substring(0,idString.length-1);
-	//alert(idString);
-	alert(idString);
 	$.ajax({
 		type: 'POST',
-		url: 'pre_check?action=deleteList&idStr=401,402,403',
+		url: 'pre_check?action=edit&idStr='+idString,
 		success: function(data){
 			if(data.result=='success'){
 				openEditWindow('#cfEdit','selectCondoFee?action=edit&idStr='+idString);
@@ -87,13 +88,23 @@ function cfEdit(){
 
 function deleteItem(){
 	var cfiId = getQueryString("cfiId");
-	if(!confirm("你将删除编号为"+cfiId+"的项目，及其关联的物业费清单"))return;
+	if(!confirm("你将删除编号为:"+cfiId+"的项目，及其关联的物业费清单"))return;
 	$.ajax({
 		type: 'POST',
-		url: 'cf_item_delete?cfiId='+cfiId,
+		url: 'pre_check?action=deleteItem&cfiId='+cfiId,
 		success: function(data){
-			alert("项目删除成功");
-			//window.parent.location.href='cf_item_list.jsp';
+			if(data.result=='success'){
+				$.ajax({
+					type: 'POST',
+					url: 'cf_item_delete?cfiId='+cfiId,
+					success: function(data){
+						alert("项目删除成功");
+						window.parent.location.href='cf_item_list.jsp';
+					}
+				});
+			} else {
+				alert("您无法删除该项目,可能的原因：\n(1)该项目已经有物业费记录被小区管理员录入");
+			}
 		}
 	});
 }
@@ -105,25 +116,29 @@ function deleteList(){
 		rowid=rowid.substr(3);
 		idString+=rowid+",";
 	});
-	//alert(idString.length);
+	if(idString==""){
+		alert("请选择要删除的物业费记录");
+		return;
+	}
 	idString=idString.substring(0,idString.length-1);
-	//alert(idString);
-	alert(idString);
+	if(!confirm("您将删除编号为："+idString+"物业费记录"))return;
 	$.ajax({
 		type: 'POST',
 		url: 'pre_check?action=deleteList&idStr='+idString,
 		success: function(data){
-			if(data.result=='failed')
-				alert("您选中的记录有已缴纳物业费的记录，不能删除");
-		}
-	});
-	/* if preCheck successfully */
-	$.ajax({
-		type: 'POST',
-		url: 'cf_delete?idStr='+idString,
-		success: function(data){
-			alert("记录删除成功");
-			window.location.href='cf_list_by_item.jsp?cfiId='+getQueryString("cfiId");
+			if(data.result=='success'){
+				$.ajax({
+					type: 'POST',
+					url: 'cf_delete?idStr='+idString,
+					success: function(data){
+						alert("记录删除成功");
+						window.location.href='cf_list_by_item.jsp?cfiId='+getQueryString("cfiId");
+					}
+				});
+			} else {
+				alert("您选中的记录不能删除,可能有以下原因：\n(1)该记录已经录入实收金额\n(2)该记录已经通过审核");
+				return;
+			}
 		}
 	});
 }
@@ -135,19 +150,20 @@ function cfAudit(){
 		rowid=rowid.substr(3);
 		idString+=rowid+",";
 	});
-	//alert(idString.length);
+	if(idString==""){
+		alert("请选择要审核的物业费记录");
+		return;
+	}
 	idString=idString.substring(0,idString.length-1);
-	//alert(idString);
-	alert(idString);
 	$.ajax({
 		type: 'POST',
-		url: 'pre_check?action=deleteList&idStr='+idString,
+		url: 'pre_check?action=audit&idStr='+idString,
 		success: function(data){
 			if(data.result=='success'){
 				openEditWindow('#cfAudit','selectCondoFee?action=audit&idStr='+idString);
 			}
 			else{
-				alert("您选中的记录有尚未缴纳物业费的记录，无法审核");
+				alert("您选中的记录有无法审核,可能有以下原因：\n(1)该记录已经通过审核(2)该记录尚未录入实收金额");
 			}
 		}
 	});

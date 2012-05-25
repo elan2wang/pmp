@@ -7,9 +7,14 @@
  */
 package org.pmp.dao.impl.admin;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 import org.pmp.dao.admin.BaseDAO;
 import org.pmp.dao.admin.IUserGroupRoleDAO;
+import org.pmp.util.Pager;
+import org.pmp.util.ParamsToString;
 import org.pmp.vo.TbUserGroupRole;
 
 /**
@@ -35,16 +40,6 @@ public class UserGroupRoleDAO extends BaseDAO implements IUserGroupRoleDAO{
 	}
     }
     
-    public void deleteUGR_ByUserID(Integer userID){
-	String debugMsg = "deleteUGR_ByUserID userID="+userID.toString();
-	String hql = "delete from TbUserGroupRole ugr where ugr.tbUser.userId = "+userID.toString();
-	try {
-	    deleteInstance(hql,debugMsg);
-	} catch (RuntimeException e){
-	    throw e;
-	}
-    }
-    
     public void updateUGR(TbUserGroupRole instance){
 	String debugMsg = "updateUGR userID="+instance.getTbUser().getUserId();
 	try {
@@ -65,6 +60,84 @@ public class UserGroupRoleDAO extends BaseDAO implements IUserGroupRoleDAO{
 	}
 	return ugr;
     }
-    //~ Getters and Setters ============================================================================================
+    
+    /**
+     * @see org.pmp.dao.admin.IUserGroupRoleDAO#loadUGRList(java.util.Map, java.lang.String, org.pmp.util.Pager)
+     */
+    public List<?> loadUGRList(Map<String, Object> params, String order,
+	    Pager pager) {
+	List<?> list = null;
+	String debugMsg = "load User list";
+	StringBuilder hql = new StringBuilder();
+	hql.append("from TbUserGroupRole");
+	if(params.size()!=0){
+	    hql.append(" where ");
+	    hql.append(ParamsToString.toString(params).substring(4));
+	}
+	else {
+	    hql.append("");
+	}
+	if(order==null){
+	    hql.append(" order by tbGroup.groupLevel asc");
+	} else {
+	    hql.append(" "+order);
+	}
+	try {
+	    list = loadListByCondition(hql.toString(),pager,debugMsg);
+	} catch (RuntimeException e){
+	    throw e;
+	}
+	return list;
+    }
+
+    /**
+     * @see org.pmp.dao.admin.IUserGroupRoleDAO#loadUGRList_ByCom(java.lang.String, java.util.Map, java.lang.String, org.pmp.util.Pager)
+     */
+    public List<?> loadUGRList_ByCom(String comName,Map<String,Object> params,String order,Pager pager){
+	List<?> list = null;
+	String debugMsg = "load User list by company, comName="+comName;
+	StringBuilder hql = new StringBuilder();
+	hql.append("from TbUserGroupRole where tbGroup.groupId in " +
+		   "(select groupId from TbGroup where refDomain='"+comName+"' or fatherGroupId=" +
+		   "(select groupId from TbGroup where refDomain='"+comName+"'))");
+	hql.append(ParamsToString.toString(params));
+	if (order==null){
+	    hql.append(" order by tbGroup.groupLevel asc");
+	} else {
+	    hql.append(" "+order);
+	}
+	logger.debug(hql);
+	try {
+	    list = loadListByCondition(hql.toString(),pager,debugMsg);
+	} catch (RuntimeException e){
+	    throw e;
+	}
+	return list;
+    }
+   
+    /**
+     * @see org.pmp.dao.admin.IUserGroupRoleDAO#loadUGRList_ByPro(java.lang.String, java.util.Map, java.lang.String, org.pmp.util.Pager)
+     */
+    public List<?> loadUGRList_ByPro(String proName,
+	    Map<String, Object> params, String order, Pager pager) {
+	List<?> list = null;
+	String debugMsg = "load User list by project, proName="+proName;
+	StringBuilder hql = new StringBuilder();
+	hql.append("from TbUserGroupRole where tbGroup.groupId in " +
+		   "(select groupId from TbGroup where refDomain='"+proName+"')");
+	hql.append(ParamsToString.toString(params));
+	if (order==null){
+	    hql.append(" order by tbGroup.groupLevel asc");
+	} else {
+	    hql.append(" "+order);
+	}
+	logger.debug(hql);
+	try {
+	    list = loadListByCondition(hql.toString(),pager,debugMsg);
+	} catch (RuntimeException e){
+	    throw e;
+	}
+	return list;
+    }
 
 }

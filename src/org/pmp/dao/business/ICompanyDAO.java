@@ -25,5 +25,5 @@ public interface ICompanyDAO {
     public void deleteCompany(Integer companyID);
     public Company getCompanyByID(Integer companyID);
     public Company getCompanyByName(String companyName);
-    public List<Company> loadBuildingList_ByChinaMobile(Map<String,Object>params,String order,Pager pager);
+    public List<Company> loadCompanyList_ByChinaMobile(Map<String,Object>params,String order,Pager pager);
 }

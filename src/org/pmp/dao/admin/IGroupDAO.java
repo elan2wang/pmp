@@ -50,4 +50,6 @@ public interface IGroupDAO {
      */
     public List getGroupListByLevel(Pager pager,Integer level);
     
+    public List<?> loadGroupList_ByComAndLevel(String comName,Integer level,String order);
+    
 }

@@ -38,7 +38,8 @@ function new_cf_import(){
 						$('#msg').html(data.msg);
 					}else
 					{
-						$('#msg').html(data.msg);
+						$('#cfImport').window('close');
+					    alert(data.msg);
 					}
 				}
 			},

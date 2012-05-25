@@ -3,13 +3,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<script type="text/javascript" src="../Scripts/pages/cms/cmpy_add.js"></script>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>新建物业公司</title>
 
 </head>
 
 <body>
-<form id="form1" method="post" action="addCompany" onsubmit="return FormCheck()">
+<form id="form1" method="post" action="addCompany" onsubmit="return newFormCheck()">
    <div class="rowStyle">
                           <div><span >公司名称：</span><span><input name="company.comName" type="text" class="textbox" id="company.comName" /></span></div>
                        </div>
@@ -32,10 +33,10 @@
                           <div><span >公司地址：</span><span><input name="company.comAddress" type="text" class="textbox" id="company.comAddress" /></span></div>
                        </div>
                        <div class="rowStyle">
-                          <div><span style=" display:inline-block; width:80px;height:40px;line-height:40px">备&nbsp;&nbsp;注：</span><span><textarea name="company.comDesc" style="height:40px;" class="textbox" id="company.comDesc"></textarea></span></div>
+                          <div><span style=" display:inline-block; width:80px;height:40px;line-height:40px">备&nbsp;&nbsp;&nbsp;&nbsp;注：</span><span><textarea name="company.comDesc" style="height:40px;width:150px" class="textbox" id="company.comDesc"></textarea></span></div>
                        </div>
                        <div class="rowStyle">
-                          <div style=" margin-left:100px;margin-top:20px"><input type="submit" value="完成" onclick="return newFormCheck(); "/></div>
+                          <div style=" margin-left:100px;margin-top:20px"><input type="button" value="完成" onclick="return newFormCheck(); "/></div>
                        </div>
                       <div class="clear"></div>
 </form>

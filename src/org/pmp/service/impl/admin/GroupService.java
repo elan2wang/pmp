@@ -53,7 +53,9 @@ public class GroupService implements IGroupService {
     public List getGroupListByLevel(Pager pager,Integer level){
 	return groupDAO.getGroupListByLevel(pager, level);
     }
-    
+    public List<?> loadGroupList_ByComAndLevel(String comName,Integer level,String order){
+	return groupDAO.loadGroupList_ByComAndLevel(comName, level, order);
+    }
     //~ Getters and Setters ============================================================================================
     public IGroupDAO getGroupDAO() {
         return groupDAO;

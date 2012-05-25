@@ -10,8 +10,10 @@ package org.pmp.action.business;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -25,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.pmp.excel.BuildingImport;
+import org.pmp.excel.ProjectImport;
 import org.pmp.service.business.IBuildingService;
 import org.pmp.util.JsonConvert;
 import org.pmp.util.MyfileUtil;
@@ -48,7 +51,7 @@ public class BuildingAction extends ActionSupport {
 	private Integer buildingId;
 	private Integer projectId;
 	private Integer thisProjectId;
-	
+	private Integer builNum;
 
 	private Building building;
 	private IBuildingService buildingService;
@@ -65,13 +68,28 @@ public class BuildingAction extends ActionSupport {
 	
 
 	public String saveBuilding(){
-		Project project = new Project();
-		project.setProId(thisProjectId);
-		building.setProject(project);
+		System.out.println("in saveBuilding:"+building.getProject().getProName());
 		buildingService.saveBuilding(building);
+		System.out.println("in saveBuilding:"+building.getProject().getProName());
 		return SUCCESS;
 	}
 	
+	 public void checkBuildingByBuilNumAndProjectId(){
+	    	Building building = buildingService.getBuildingByProjectIdAndBuildingNum(projectId,builNum);
+	    	String data = null;
+	    	if(building!=null)
+	    	{
+	    		data="{"+JsonConvert.toJson("result")+":"+JsonConvert.toJson("Failed")+"}";
+	       
+	    	}
+	    	else
+	    	{
+	    		data="{"+JsonConvert.toJson("result")+":"+JsonConvert.toJson("Success")+"}";
+	    	}
+	     	logger.debug(data);
+	    	JsonConvert.output(data);
+	    	
+	  }
 	public String updateBuilding(){
 		buildingService.updateBuilding(building);
 		return SUCCESS;
@@ -95,7 +113,7 @@ public class BuildingAction extends ActionSupport {
 		//如果是小区管理员，则只显示本小区内的楼宇
 		
 		Pager pager = new Pager(rp,page);
-		Pager pager2 = new Pager(10000,1);
+		//Pager pager2 = new Pager(10000,1);
 		Map<String,Object> params = new HashMap<String,Object>();
 		String order = "order by builId asc";
 		if(projectId==0){		
@@ -103,51 +121,69 @@ public class BuildingAction extends ActionSupport {
 			{
 				Project pro = (Project)obj;
 				System.out.println(pro.getProName());
-				buildingList = buildingService.loadBuildingList_ByProject(pro.getProId(), params, order, pager2);
+				buildingList = buildingService.loadBuildingList_ByProject(pro.getProId(), params, order, pager);
 			}
 			else if(obj instanceof Company)
 			{
 				Company com = (Company)obj;
-				buildingList = buildingService.loadBuildingList_ByCompany(com.getComId(), params, order, pager2);
+				buildingList = buildingService.loadBuildingList_ByCompany(com.getComId(), params, order, pager);
 			}
 		}
 		else{ 
-			buildingList = buildingService.loadBuildingList_ByProject(projectId, params, order, pager2);
+			buildingList = buildingService.loadBuildingList_ByProject(projectId, params, order, pager);
 		}
 		logger.debug("得到的buildingList为"+buildingList.toString());
-		pager.setRowsCount(buildingList.size());
+	//	pager.setRowsCount(buildingList.size());
 		String data = JsonConvert.list2FlexJson(pager, buildingList, "org.pmp.vo.Building");
 		System.out.println(data);
 		logger.debug(data);
 		JsonConvert.output(data);
 	}
 	
-	public String uploadFile(){
+
+	
+	public void uploadFile()throws IOException{
+		HttpServletRequest request = ServletActionContext.getRequest();
+	    String message = null;
+	    System.out.println("proFileFileName:"+refFileFileName);
+
 		if(!MyfileUtil.validate(refFileFileName,"xls")){
+		    logger.debug("文件格式不对");
 		    String postfix = MyfileUtil.getPostfix(refFileFileName);
-		    String message = postfix+"类型的文件暂不支持，请选择xls类型文件";
-		    HttpServletRequest request = ServletActionContext.getRequest();
+		    message = postfix+"类型的文件暂不支持，请选择xls类型文件";
 		    request.setAttribute("message", message);
-		    return "filetype_error";
+		    JsonConvert.output("{\"error\":\"filetype_error\",\"msg\":"+JsonConvert.toJson(message)+"}");
+		    return;
 		}
-		StringBuffer errorPath = new StringBuffer();
-		StringBuffer isError = new StringBuffer();
-			try {
-				InputStream is = new FileInputStream(refFile);
-				List buildingList = BuildingImport.buildingList(is,isError,errorPath);
-				buildingService.batchSaveBuilding(buildingList);
-				HttpServletRequest request = ServletActionContext.getRequest();
-			    request.setAttribute("errorPath", errorPath);
-			}catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			if(isError.toString().equals("是")){
-				return ERROR;
-			}
-		return SUCCESS;
+		/* create the dir to store error data */
+		MyfileUtil.createDir("error_data");
+		/* create the error data file in this dir */
+		String fileName = MyfileUtil.createFilename();
+		String fullName = ServletActionContext.getServletContext().getRealPath("error_data")+"\\"+fileName+".xls";
+		String downLoad = ServletActionContext.getServletContext().getContextPath()+"/error_data/"+fileName+".xls";
+		OutputStream os = new FileOutputStream(fullName);
+		System.out.println(fullName);
+		/* import data from the upload file and store in the cfList */
+		List<Building> builList = new ArrayList<Building>();
+		Boolean hasError = BuildingImport.execute(new FileInputStream(refFile), os, builList);
+		/* close OutputStream */
+		os.flush();
+		os.close();
+		
+		/* call the method batchSetOughtMoney to update the condoFee*/
+		buildingService.batchSaveBuilding(builList);
+		
+		/* if there are some mistakes of the file */
+		if (hasError){
+		    message = "记录有错误,正确数据已导入，请下载错误数据<a href=\""+downLoad+"\">下载</a>";
+		    JsonConvert.output("{\"error\":\"record_error\",\"msg\":"+JsonConvert.toJson(message)+"}");
+		    return;
+		}
+		
+		/* data import success */
+		message = "数据导入成功";
+		JsonConvert.output("{\"error\":\"\",\"msg\":"+JsonConvert.toJson(message)+"}");
+		return;
 	}
 	
 	/**
@@ -318,5 +354,19 @@ public class BuildingAction extends ActionSupport {
 	 */
 	public void setRefFileContentType(String refFileContentType) {
 		this.refFileContentType = refFileContentType;
+	}
+
+	/**
+	 * @return the builNum
+	 */
+	public Integer getBuilNum() {
+		return builNum;
+	}
+
+	/**
+	 * @param builNum the builNum to set
+	 */
+	public void setBuilNum(Integer builNum) {
+		this.builNum = builNum;
 	}
 }
