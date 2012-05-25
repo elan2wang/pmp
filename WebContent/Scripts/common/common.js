@@ -100,3 +100,4 @@ function getQueryString(name) {
     var r = window.location.search.substr(1).match(reg);
     if (r != null) return unescape(r[2]); return null;
 }
+var objList=new Array();//存放火灾警报的数组

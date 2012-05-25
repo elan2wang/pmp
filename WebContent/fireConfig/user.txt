@@ -1,7 +1,0 @@
-{
-"page":"1",
-"total":14,
-"rows":[{"id":"1","cell":{"realname":"aw","position":"qteacher","userDesc":"userDesc"}},
-{"id":"2","cell":{"realname":"aw","position":"qteacher","userDesc":"userDesc"}},
-{"id":"3","cell":{"realname":"aw","position":"qteacher","userDesc":"userDesc"}}
-]}
