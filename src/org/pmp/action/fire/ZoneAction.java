@@ -135,7 +135,6 @@ public class ZoneAction extends ActionSupport{
     public String toZoneView() {
     	Integer zoneId=zone.getZoneId();
     	zone=zoneService.getZoneById(zoneId);
-    	ActionContext context = ActionContext.getContext();
     	return SUCCESS;
     }
     
