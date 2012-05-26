@@ -174,16 +174,22 @@ public class BaseDAO {
 	logger.debug("begin to load list: "+debugMsg);
 	Session session = getSession();
 	Transaction tx = null;
-	Integer startRow = (pager.getCurrentPage()-1)*pager.getPageSize();
+	Integer startRow =null;
+	if(pager!=null){
+	   startRow = (pager.getCurrentPage()-1)*pager.getPageSize();	
+	}
 	List<?> list1 = null;
 	List<?> list2 = null;
 	try {
 	    tx = session.beginTransaction();
 	    Query query = session.createQuery(hql);
 	    list1 = query.list();
-	    pager.setRowsCount(list1.size());
-	    query.setFirstResult(startRow);
-	    query.setMaxResults(pager.getPageSize());
+
+		if(pager!=null){
+		    pager.setRowsCount(list1.size());
+		    query.setFirstResult(startRow);
+		    query.setMaxResults(pager.getPageSize());
+		}
 	    list2 = query.list();
 	    tx.commit();
 	} catch (RuntimeException e){

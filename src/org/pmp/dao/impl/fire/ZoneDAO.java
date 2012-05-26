@@ -7,13 +7,14 @@ import org.hibernate.Session;
 import org.pmp.dao.admin.BaseDAO;
 import org.pmp.dao.fire.IZoneDAO;
 import org.pmp.util.Pager;
+import org.pmp.util.ParamsToString;
 import org.pmp.vo.Zone;
 
 public class ZoneDAO extends BaseDAO implements IZoneDAO{
     
 	@Override
-	public List<?> loadZoneListByProId(Integer proId,Pager pager) {
-			List<?> list = null;
+	public List<Zone> loadZoneListByProId(Integer proId,Map<String,Object>params,String order,Pager pager) {
+			List<Zone> list = null;
 			
 			String debugMsg = "load Zone list by project, proId="+proId;
 			
@@ -23,7 +24,15 @@ public class ZoneDAO extends BaseDAO implements IZoneDAO{
 			
 			hql.append(aa);
 			
-			list=loadListByCondition(hql.toString(), pager, debugMsg);
+			hql.append(ParamsToString.toString(params));
+			
+			if (order==null){
+			    hql.append(" order by z.zoneId desc");
+			} else {
+			    hql.append(" "+order);
+			}
+			
+			list=(List<Zone>) loadListByCondition(hql.toString(), pager, debugMsg);
 			
 		    return list;
 	}
@@ -53,6 +62,40 @@ public class ZoneDAO extends BaseDAO implements IZoneDAO{
 		String debugMsg="delete zone!";
 		deleteInstance(zone, debugMsg);
 		return zone;
+	}
+
+	@Override
+	public List<Zone> loadZoneListByProIdList(List<Integer> proIdList,Map<String,Object>params,String order,Pager paper) {
+		List<Zone> list = null;
+		
+		String debugMsg = "load Zone list by projectList, proIdList="+proIdList;
+		
+		StringBuilder hql = new StringBuilder();
+		
+		StringBuilder aa = new StringBuilder("from Zone z where z.project.proId in (");
+		
+		for (int i=0;i<proIdList.size();i++) {
+            if(i==proIdList.size()-1){
+            	aa.append(proIdList.get(i));
+            	break;
+            }
+			aa.append(proIdList.get(i)+",");
+		}
+		aa.append(")");
+		
+		hql.append(aa);
+	  
+		hql.append(ParamsToString.toString(params));
+		
+		if (order==null){
+		    hql.append(" order by z.zoneId desc");
+		} else {
+		    hql.append(" "+order);
+		}
+		
+		list=(List<Zone>) loadListByCondition(hql.toString(), paper, debugMsg);
+		
+	    return list;
 	}
 	
 }

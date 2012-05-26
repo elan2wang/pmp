@@ -1,0 +1,35 @@
+body{
+	margin:0px;
+}
+.wrap{
+	margin:0px;
+	padding:0px;
+	align:center;
+}
+.wrap .top{
+	margin:10px;
+	padding:0px;
+}
+.wrap .device{
+	margin:10px;
+	padding:0px;
+	height:300px;
+	width:inherent;
+	overflow:scroll;
+}
+.wrap .bottom_left{
+	float:left;
+	height:100px;
+	border-right:1px solid lightblue;
+	width:50%;
+}
+.wrap .bottom_right{
+	float:left;
+	height:100px;
+	width:49%;
+}
+.wrap .bottom{
+	border:1px solid lightblue;
+	margin:10px;
+	height:100px;
+}

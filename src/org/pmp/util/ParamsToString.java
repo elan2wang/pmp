@@ -31,7 +31,7 @@ public class ParamsToString {
     //~ Methods ========================================================================================================
     public static String toString(Map<String,Object> params){
 	StringBuilder sb = new StringBuilder();
-	if (params.isEmpty()){
+	if (params==null||params.isEmpty()){
 	    return "";
 	} else {
 	    sb.append(" and ");
