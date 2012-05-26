@@ -28,7 +28,7 @@ function FormCheck(){
 			//objfc8=document.getElementById("building.project.proId");
 			var isPhonePattern = /\d{3}-\d{8}|\d{4}-\d{7}/;
 			var isMobilePattern = /^(13|15|18)[0-9]{9}$/;
-			
+			var isIdentifyPattern = /^d{17}(\d|X)$/;
 			if(strim(objfc1.value)==""){
 				alert("真实姓名不能为空");
 				objfc1.focus();
@@ -44,8 +44,8 @@ function FormCheck(){
 				objfc3.focus();
 				return(false);
 			}
-			if(strim(objfc4.value)==""){
-				alert("身份证号不能为空");
+			if(isIdentifyPattern.test(objfc4.value)==false){
+				alert("身份证号不规范");
 				objfc4.focus();
 				return (false);
 			}

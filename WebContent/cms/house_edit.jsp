@@ -24,7 +24,7 @@
                           <div><span >房号：</span><span><input name="house.houseNum" type="text" class="textbox" id="houseNum" value='${house.houseNum}' readOnly/></span></div>
                        </div>
                        <div class="rowStyle">
-                          <div><span >房屋面积：</span><span><input name="house.houseArea" type="text" class="textbox" id="house.houseArea" value='${house.houseArea}'/></span></div>
+                          <div><span >房屋面积：</span><span><input name="house.houseArea" type="text" class="textbox" id="house.houseArea" value='${house.houseArea}' onkeyup="this.value=this.value.replace(/[^\d\.]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d\.]/g,'') " /></span></div>
                        </div>
                        <div class="rowStyle">
                           <div>
