@@ -59,7 +59,12 @@ $(function(){
 function userAdd(){
 	openAddWindow('#newUser');
 }
-
+function closeAddNewUser(){
+	$('#newUser').window('close');
+}
+function closeEditUser(){
+	$('#editUser').window('close');
+}
 function userDelete(){
 	var rowid,idString="";
 	$("#user_list td input:checked").each(function(){
