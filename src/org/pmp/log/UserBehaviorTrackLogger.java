@@ -45,10 +45,16 @@ public class UserBehaviorTrackLogger {
     public void addBehaviorTrack(JoinPoint jp) throws Exception{
         StringBuilder msg = new StringBuilder();
 	if (SessionHandler.getUser()!=null){
+	    /* 从session从获取当前用户名 */
 	    String username = SessionHandler.getUser().getRealname();
+	    /* 获取连接点方法的参数数组 */
 	    Object[] obj = jp.getArgs();
-	    msg.append("["+username+"]: add a "+obj[0].getClass().getSimpleName()+" instance. Instance details:");
-	    msg.append(obj[0].toString());
+	    /* 添加用户名 */
+	    msg.append("["+username+"]: ");
+	    /* 添加事件类型、对象类型 */
+	    msg.append("Add "+obj[0].getClass().getSimpleName()+", ");
+	    /* 添加操作对象的详细信息 */
+	    msg.append("Details:"+obj[0].toString());
 	}
         logger.info(msg.toString());
     }

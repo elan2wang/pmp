@@ -24,4 +24,8 @@
 			length="1" />
 		<sql-type jdbc-type="VARCHAR" hibernate-type="string" />
 	</type-mapping>
+	<table-filter match-name="tb_FireInfo" match-catalog="db_pmp2"
+		match-schema="dbo" package="org.pmp.vo">
+	</table-filter>
+	<table catalog="db_pmp2" schema="dbo" name="tb_FireInfo" class="FireInfo"></table>
 </hibernate-reverse-engineering>

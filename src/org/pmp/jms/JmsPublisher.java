@@ -33,18 +33,17 @@ public class JmsPublisher {
     //~ Static Fields ==================================================================================================
     private static Logger logger = Logger.getLogger(JmsPublisher.class.getName());
     //~ Instance Fields ================================================================================================
-    private static JmsTemplate template = (JmsTemplate) SpringContextUtil.getBean("jmsTemplate");
+    private static JmsTemplate template =(JmsTemplate)SpringContextUtil.getBean("jmsTemplate");
     private static Destination destination = (Destination) SpringContextUtil.getBean("destination");
     
     //~ Methods ========================================================================================================
     public static void sendMessgae(final String ids){
-	logger.debug("begin to send a message to SmsClient");
 	template.send(destination, new MessageCreator() {  
             public Message createMessage(Session session) throws JMSException {
-                return session.createTextMessage("begin to work : "+ids);  
+                return session.createTextMessage("begin to send : "+ids);  
             }  
         }); 
-	logger.debug("successfully send a message(\"begin to work\") to SMS platform");
+	logger.debug("successfully send a message");
     }
     //~ Getters and Setters ============================================================================================
 }

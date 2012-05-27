@@ -7,21 +7,21 @@
            http://www.springframework.org/schema/aop
            http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
   
-  
+  <!-- 业务短信服务的通知对象 -->
   <bean id="smsAdvice" class="org.pmp.sms.SmsAdvice" >
     <property name="smsSendService" ref="smsSendService" />
   </bean>
   
-  <bean id="logAdvice" class="org.pmp.log.UserBehaviorTrackLogger" />
-  
-  <!-- SMS related AOP configuration -->
+  <!-- 业务短信切面配置 -->
   <aop:config>  
     <aop:aspect ref="smsAdvice">  
-       <aop:pointcut id="smsInput" expression="execution(* org.pmp.service.business.ICondoFeeService.batchInput(..))"/>  
+       <aop:pointcut id="smsInput" expression=
+       "execution(* org.pmp.service.business.ICondoFeeService.batchInput(..))"/>  
        <aop:after method="inputAdvice" pointcut-ref="smsInput"/>
      </aop:aspect>
   </aop:config>
 
+  <bean id="logAdvice" class="org.pmp.log.UserBehaviorTrackLogger" />
   <!-- Log related AOP configuration -->
   <aop:config>
     <aop:aspect ref="logAdvice">  
