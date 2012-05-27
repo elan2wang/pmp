@@ -27,6 +27,7 @@ import org.pmp.service.business.ICondoFeeItemService;
 import org.pmp.service.business.ICondoFeeService;
 import org.pmp.service.business.IHouseService;
 import org.pmp.service.business.IProjectService;
+import org.pmp.service.fire.IZoneService;
 import org.pmp.util.JsonConvert;
 import org.pmp.util.Pager;
 import org.pmp.util.SessionHandler;
@@ -35,6 +36,7 @@ import org.pmp.vo.Company;
 import org.pmp.vo.CondoFeeItem;
 import org.pmp.vo.House;
 import org.pmp.vo.Project;
+import org.pmp.vo.Zone;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -52,6 +54,7 @@ public class TreeAction extends ActionSupport{
     private IBuildingService buildingService;
     private IHouseService houseService;
     private ICondoFeeItemService condoFeeItemService;
+    private IZoneService zoneService;
     
     //~ Methods ========================================================================================================
     public void houseTree(){
@@ -98,6 +101,58 @@ public class TreeAction extends ActionSupport{
 	logger.debug(data);
 	JsonConvert.output(data);
     }
+       
+    public void zoneTree(){
+    	
+    	Object obj = SessionHandler.getUserRefDomain();
+    	List<String> nodes = new ArrayList<String>();
+    	Pager pager = new Pager(10000,1);
+    	
+    	List<Project> proList = new ArrayList<Project>();
+    	
+    	if (obj instanceof Company){
+    	    Company com = (Company)obj;
+    	    Map<String,Object> params = new HashMap<String,Object>();
+    	    String order = "order by proId asc";
+    	    proList = projectService.loadProjectList_ByCompany(com.getComId(), params, order, pager);
+    	}
+    	
+    	if (obj instanceof Project){
+    	    Project pro = (Project)obj;
+    	    proList.add(pro);
+    	}
+    	
+    	Iterator<Project> ite = proList.iterator();
+    	Integer index = 1;
+    	
+    	while(ite.hasNext()){
+    		
+    	    Project pro = ite.next();
+    	    nodes.add(JsonConvert.toJsonTreeNode(index++, 0, pro.getProName(), "", 
+    		    "", "", "../Images/dtree/pro.jpg", "../Images/dtree/pro.jpg", false));
+    	    
+    	    String order = "order by z.zoneId asc";
+    	    
+    	    List<Zone> zoneList = zoneService.loadZoneListByProId(pro.getProId(), null, order, null);
+            
+    	    Iterator<Zone> ite1= zoneList.iterator();
+    	    
+    	    Integer pid1 = index-1;
+    	    
+    	    while(ite1.hasNext()){
+    	    	    
+		    		Zone zone = ite1.next();
+		    		
+		    		nodes.add(JsonConvert.toJsonTreeNode(index++, pid1,zone.getZoneName(),"toZoneView?zone.zoneId="+zone.getZoneId(), 
+		    			    "", "fc_device", "../Images/dtree/buil.jpg", "../Images/dtree/buil.jpg", false));
+            }
+    	}
+    	
+    	String data = JsonConvert.toJsonTree(nodes);
+    	logger.debug(data);
+    	JsonConvert.output(data);
+    }
+    
     
     public void monthTree(){
 	/* get current user's refDomain */
@@ -194,5 +249,13 @@ public class TreeAction extends ActionSupport{
     public void setCondoFeeItemService(ICondoFeeItemService condoFeeItemService) {
         this.condoFeeItemService = condoFeeItemService;
     }
+
+	public IZoneService getZoneService() {
+		return zoneService;
+	}
+
+	public void setZoneService(IZoneService zoneService) {
+		this.zoneService = zoneService;
+	}
     
 }

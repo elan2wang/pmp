@@ -36,9 +36,9 @@
               </table>
            </div>
        </div>
-       <div id="newSmsc" class="easyui-window" href="smsc_add.jsp" title="添加新信息机" iconCls="icon-save" style="width:350px;height:370px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
+       <div id="newSmsc" class="easyui-window" href="smsc_add.jsp" title="添加新信息机" iconCls="icon-save" style="width:350px;height:330px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
        </div>
-        <div id="editSmsc" class="easyui-window"  title="编辑信息机" iconCls="icon-save" style="width:350px;height:370px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
+        <div id="editSmsc" class="easyui-window"  title="编辑信息机" iconCls="icon-save" style="width:350px;height:330px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
        </div>
     </div>
 </body>

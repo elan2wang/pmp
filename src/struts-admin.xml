@@ -118,7 +118,9 @@
 	<action name="addUser" class="org.pmp.action.admin.UserAction" method="addUser">
 	  <result name="success">/admin/user_list.jsp</result>
 	</action>
-	
+	<action name="checkUser" class="org.pmp.action.admin.UserAction" method="checkUser">
+	  <result name="success">/admin/user_list.jsp</result>
+	</action>
 	<action name="getUser" class="org.pmp.action.admin.UserAction" method="getUserDetail">
 	  <result name="success">/admin/user_edit.jsp</result>
 	</action>

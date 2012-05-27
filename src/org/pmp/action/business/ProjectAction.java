@@ -55,9 +55,12 @@ public class ProjectAction extends ActionSupport {
 	private File proFile;
 	private String proFileFileName;
 	private String proFileContentType;
-	
 	public String addProject(){
-			projectService.addProject(project);
+		//调用该方法的必定是公司管理员
+		Object obj = SessionHandler.getUserRefDomain();
+		Company com = (Company)obj;
+		project.setCompany(com);
+		projectService.addProject(project);
 		return SUCCESS;
 	}
 	
@@ -69,10 +72,32 @@ public class ProjectAction extends ActionSupport {
 		projectService.editProject(project);
 		return SUCCESS;
 	}
-	
+	 public void checkProjectByName(){
+		    	try
+		    	{
+		    		projectName = new String(projectName.getBytes("ISO-8859-1"),"UTF-8");
+		    	}    	
+		    	catch(Exception e){}
+		    	Project project = projectService.getProjectByName(projectName);
+		    	String data = null;
+		    	if(project!=null)
+		    	{
+		    		data="{"+JsonConvert.toJson("result")+":"+JsonConvert.toJson("Failed")+"}";
+		       
+		    	}
+		    	else
+		    	{
+		    		data="{"+JsonConvert.toJson("result")+":"+JsonConvert.toJson("Success")+"}";
+		    	}
+		     	logger.debug(data);
+		    	JsonConvert.output(data);
+		    	
+		      }
+	 
 	public void loadProjectListBySessionHandler(){
 		logger.debug("进入getProjectBySessionHander");
 		Object obj = SessionHandler.getUserRefDomain();
+		Pager pager = new Pager(rp,page);
 		projectList = new ArrayList<Project>();
 		//如果是小区管理员，则只显示本小区内的项目
 		if(obj instanceof Project)
@@ -84,13 +109,12 @@ public class ProjectAction extends ActionSupport {
 		else if(obj instanceof Company)
 		{
 			Company com = (Company)obj;
-			Pager pager = new Pager(10000,1);
 			Map<String,Object> params = new HashMap<String,Object>();
 			String order = "order by proId asc";
 			projectList = projectService.loadProjectList_ByCompany(com.getComId(), params, order, pager);
 		}	
-		Pager pager = new Pager(rp,page);
-		pager.setRowsCount(projectList.size());
+		
+	//	pager.setRowsCount(projectList.size());
 		String data = JsonConvert.list2FlexJson(pager, projectList, "org.pmp.vo.Project");
 		System.out.println(data);
 		logger.debug(data);

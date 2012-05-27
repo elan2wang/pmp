@@ -1,5 +1,6 @@
 package org.pmp.dao.admin;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -173,16 +174,22 @@ public class BaseDAO {
 	logger.debug("begin to load list: "+debugMsg);
 	Session session = getSession();
 	Transaction tx = null;
-	Integer startRow = (pager.getCurrentPage()-1)*pager.getPageSize();
+	Integer startRow =null;
+	if(pager!=null){
+	   startRow = (pager.getCurrentPage()-1)*pager.getPageSize();	
+	}
 	List<?> list1 = null;
 	List<?> list2 = null;
 	try {
 	    tx = session.beginTransaction();
 	    Query query = session.createQuery(hql);
 	    list1 = query.list();
-	    pager.setRowsCount(list1.size());
-	    query.setFirstResult(startRow);
-	    query.setMaxResults(pager.getPageSize());
+
+		if(pager!=null){
+		    pager.setRowsCount(list1.size());
+		    query.setFirstResult(startRow);
+		    query.setMaxResults(pager.getPageSize());
+		}
 	    list2 = query.list();
 	    tx.commit();
 	} catch (RuntimeException e){
@@ -223,5 +230,44 @@ public class BaseDAO {
 	logger.debug("load list successfully: "+debugMsg);
 	session.close();
 	return list2;
+    }	
+   
+    protected Object getInstanceById(Class<?> clazz,Serializable id,String debugMsg){
+    logger.debug("begin to get a instance: "+debugMsg);
+    
+    Object obj=null;
+	Session session = getSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            obj=session.get(clazz, id);
+            tx.commit();
+        } catch (RuntimeException e){
+            tx.rollback();
+            logger.error("get a instance failed: "+debugMsg,e);
+            session.close();
+            throw e;
+        }
+        logger.debug("get a instance successfully: "+debugMsg);
+        session.close();
+        return obj;
     }
+    
+    protected void deleteInstance(Object obj,String debugMsg){
+        logger.debug("delete a instance: "+debugMsg);
+    	Session session = getSession();
+            Transaction tx = null;
+            try {
+                tx = session.beginTransaction();
+                session.delete(obj);
+                tx.commit();
+            } catch (RuntimeException e){
+                tx.rollback();
+                logger.error("get a instance failed: "+debugMsg,e);
+                session.close();
+                throw e;
+            }
+            logger.debug("get a instance successfully: "+debugMsg);
+            session.close();
+     }
 }

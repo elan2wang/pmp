@@ -33,7 +33,7 @@ function preview(){
 			$('#display').html(data.info);
 		}
 	});
-	$('input[type=submit]').removeAttr("disabled");
+	$('input[type=button]').removeAttr("disabled");
 }
 
 function cancel_item(){
@@ -42,5 +42,45 @@ function cancel_item(){
 	itemMonth.each(function(){
 		$(this).removeAttr('checked');
 	});
-	$('input[type=submit]').attr("disabled","disabled");
+	$('input[type=button]').attr("disabled","disabled");
+}
+
+
+function FormCheck(){
+	var proId = $('#ProId').val();
+	var itemYear = $('#itemYear').val();
+	var itemMonth = $('input:checked');
+	if(itemMonth.length==0){
+		alert("请选择月份");
+		objfc1.focus();
+		return (false);
+	}
+	var months = "";
+	itemMonth.each(function(){
+		months+=$(this).val()+",";
+	});
+	months = months.substring(0, months.length-1);
+	//检查月份是否重复
+	return check_Month(months,proId,itemYear);
+}
+function check_Month(months,proId,itemYear) {
+	var url = "check_Month?months="+months+"&proId="+proId+"&itemYear="+itemYear;
+    	$.ajax({
+			type: "POST",
+			url: url,
+			dataType:"json",
+			success : function(data){					
+				var result = data["result"];
+				if(result=="Failed")
+				{
+					alert("有月份已录入，请核对！");
+					 return false;
+				}
+				else
+				{
+					document.getElementById("form").submit();
+					return true;						
+				}
+			}
+		});    	
 }

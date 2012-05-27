@@ -14,7 +14,13 @@ public class Zone implements java.io.Serializable {
     private String zoneImgUrl;
     private String zoneConfigUrl;
     private String zoneDesc;
-
+    
+    public String toString(){
+    	StringBuffer sb=new StringBuffer();
+    	sb.append("[ "+zoneId+","+zoneName+","+project+","+zoneType+","+zoneImgUrl+","+zoneConfigUrl+","+zoneDesc+" ]");
+    	return sb.toString();
+    }
+    
     public Zone() {
     }
 

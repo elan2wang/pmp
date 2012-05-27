@@ -64,21 +64,21 @@ function closeEditCmpy(){
 
 function deleteCmpy(obj,objid){
 	var id = parseInt(objid.attr("id").substr(3));
-	alert("进入删除方法");
 	alert(id);
-	if(!confirm("您将删除该项目有关的楼宇及房屋所有的信息,确定删除吗?"))
+	if(!confirm("您将删除该公司及该公司所有的信息,确定删除吗?"))
 	{
 		return;
 	}
 	$.ajax({
 		  type: "POST",
-		  url: 'deleteCmpy?comid='+id,
+		  url: 'deleteCompany?comid='+id,
 		  dataType: "json",
 		  success : function(data){
 //			  if((data.success).equals("")){
-			  obj.hide();
+		//	  obj.hide();
 //			  }
 		  }
 	   });
+	$('#cmpylist').flexReload();
 }			
 		

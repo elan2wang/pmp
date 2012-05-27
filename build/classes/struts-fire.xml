@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+  <constant name="struts.i18n.encoding" value="UTF-8" />
+  
+  <package name="fire" extends="struts-default" namespace="/fire">
+      <action name="loadZoneList" class="org.pmp.action.fire.ZoneAction" method="loadZoneList"></action>
+      <action name="addZone" class="org.pmp.action.fire.ZoneAction" method="addZone">
+           <result name="success">/fire/zone_list.jsp</result>
+      </action>
+      <action name="editZone" class="org.pmp.action.fire.ZoneAction" method="editZone">
+           <result name="success">/fire/zone_edit.jsp</result>
+      </action>
+      <action name="updateZone" class="org.pmp.action.fire.ZoneAction" method="updateZone">
+           <result name="success">/fire/zone_list.jsp</result>
+      </action>
+      <action name="deleteZone" class="org.pmp.action.fire.ZoneAction" method="deleteZone"></action>
+      <action name="toZoneView" class="org.pmp.action.fire.ZoneAction" method="toZoneView">
+           <result name="success">/fire/fc_device_list.jsp</result>
+      </action>
+      
+      <action name="zoneTree" class="org.pmp.action.business.TreeAction" method="zoneTree" />
+      
+  </package>
+</struts>
+

@@ -17,8 +17,7 @@
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
 <script type="text/javascript" src="../Scripts/common/window.js"></script>
 <script type="text/javascript" src="../Scripts/pages/cms/cmpy_list.js"></script>
-<script type="text/javascript" src="../Scripts/pages/cms/cmpy_add.js"></script>
-<script type="text/javascript" src="../Scripts/pages/cms/cmpy_edit.js"></script>
+
 
 </head>
 <body>
@@ -32,9 +31,9 @@
                    <table id="cmpylist">
 
                    </table>
-                   <div id="newCmpy" class="easyui-window" href="cmpy_add.jsp" title="添加新公司" iconCls="icon-save" style="width:350px;height:370px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
+                   <div id="newCmpy" class="easyui-window" href="cmpy_add.jsp" title="添加新公司" iconCls="icon-save" style="width:300px;height:300px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
   	               </div>
-                   <div id="editCmpy" class="easyui-window" title="编辑公司信息" iconCls="icon-save" style="width:350px;height:370px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
+                   <div id="editCmpy" class="easyui-window" title="编辑公司信息" iconCls="icon-save" style="width:300px;height:300px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
   	               </div> 	          
 	          </div>
 	       </div>

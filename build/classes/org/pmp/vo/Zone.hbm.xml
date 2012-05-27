@@ -6,7 +6,7 @@
     <class name="org.pmp.vo.Zone" table="tb_Zone" schema="dbo" catalog="db_pmp2">
         <id name="zoneId" type="integer">
             <column name="Zone_ID" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
         <property name="zoneName" type="string">
             <column name="Zone_Name" length="50" />

@@ -16,6 +16,9 @@
     <!-- CondoFee item related actions -->
     <action name="cf_item_preview" class="org.pmp.action.business.CondoFeeItemAction" method="previewItemInfo" />
     
+    <action name="check_Month" class="org.pmp.action.business.CondoFeeItemAction" method="check_Month">
+    </action>
+    
     <action name="cf_item_add" class="org.pmp.action.business.CondoFeeItemAction" method="addCondoFeeItem">
       <result name="success" type="redirect">/fee/cf_item_list.jsp</result>
     </action>
