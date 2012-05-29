@@ -512,6 +512,37 @@ public class JsonConvert {
 	return sb.toString();
     }
     
+    public static String toJsonFireInfos(int zoneId,String deviceNumber,Date receiveTime,String receiveInfo){
+    	StringBuffer sb = new StringBuffer();
+    	sb.append("{");
+    	sb.append(toJson("zoneId")+":"+toJson(zoneId)+",");
+    	sb.append(toJson("deviceNumber")+":"+toJson(deviceNumber)+",");
+    	sb.append(toJson("receiveTime")+":"+toJson(receiveTime)+",");
+    	sb.append(toJson("receiveInfo")+":"+toJson(receiveInfo)+",");
+    	sb.append("}");
+    	return sb.toString();
+    }
+    
+    public static String toJsonFireInfoList(List<String> callNodes,List<String> warnNodes){
+    	StringBuffer sb = new StringBuffer();
+    	sb.append("{\n  "+toJson("callFireInfos")+":[\n");
+    	for (int i=0;i<callNodes.size();i++){
+    	    sb.append("    "+callNodes.get(i)+",\n");
+    	}
+    	sb.deleteCharAt(sb.length()-2);
+    	sb.append("]\n");
+    	
+    	sb.append(",\n"+toJson("warnFireInfos")+":[\n");
+    	for (int i=0;i<warnNodes.size();i++){
+    	    sb.append("    "+warnNodes.get(i)+",\n");
+    	}
+    	sb.deleteCharAt(sb.length()-2);
+    	sb.append("]\n");
+    	sb.append("}");
+    	
+    	return sb.toString().replaceAll(",}", "}");
+    }
+    
     public static String toJsonTree(List<String> nodes){
 	StringBuffer sb = new StringBuffer();
 	sb.append("{\n  "+toJson("Nodes")+":[\n");

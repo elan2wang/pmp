@@ -20,14 +20,14 @@ public class ZoneDAO extends BaseDAO implements IZoneDAO{
 			
 			StringBuilder hql = new StringBuilder();
 			
-			String aa = "from Zone z where z.project.proId="+proId;
+			String aa = "from Zone where project.proId="+proId;
 			
 			hql.append(aa);
 			
 			hql.append(ParamsToString.toString(params));
 			
 			if (order==null){
-			    hql.append(" order by z.zoneId desc");
+			    hql.append(" order by zoneId desc");
 			} else {
 			    hql.append(" "+order);
 			}
@@ -72,7 +72,7 @@ public class ZoneDAO extends BaseDAO implements IZoneDAO{
 		
 		StringBuilder hql = new StringBuilder();
 		
-		StringBuilder aa = new StringBuilder("from Zone z where z.project.proId in (");
+		StringBuilder aa = new StringBuilder("from Zone where project.proId in (");
 		
 		for (int i=0;i<proIdList.size();i++) {
             if(i==proIdList.size()-1){
@@ -88,7 +88,7 @@ public class ZoneDAO extends BaseDAO implements IZoneDAO{
 		hql.append(ParamsToString.toString(params));
 		
 		if (order==null){
-		    hql.append(" order by z.zoneId desc");
+		    hql.append(" order by zoneId desc");
 		} else {
 		    hql.append(" "+order);
 		}
@@ -96,6 +96,22 @@ public class ZoneDAO extends BaseDAO implements IZoneDAO{
 		list=(List<Zone>) loadListByCondition(hql.toString(), paper, debugMsg);
 		
 	    return list;
+	}
+
+	@Override
+	public Zone queryZoneByParams(Map<String, Object> params) {
+		
+		String debugMsg = "query Zone by params!";
+		
+		StringBuilder hql = new StringBuilder();
+		
+		String aa = "from Zone where 1=1";
+		
+		hql.append(aa);
+		
+		hql.append(ParamsToString.toString(params));
+		
+		return (Zone)getInstance(hql.toString(),debugMsg);
 	}
 	
 }

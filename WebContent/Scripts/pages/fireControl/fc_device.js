@@ -1,18 +1,8 @@
 
-alert($("#configUrl").val());
-load_device($("#configUrl").val());
+//alert($("#configUrl").val());
+load_device("../"+$("#configUrl").val());
 
      
-
-//setTimeout(_request(objList),5000);
-function _request(arr){
-	return function()
-	{
-		parent.makeRequest(arr);
-	}
-}
-
-
 
 //load xml配置文件
 function load_device(url){
@@ -37,7 +27,7 @@ function list_divice(xml){
 	var deviceNum=devideArr.length;
 	
 	url=encodeURI("地下室1.bmp");
-	divCon.append('<img  src="../fireConfig/basement1.bmp"  border="0"/>');
+	divCon.append('<img  src="../'+$("#imgUrl").val()+'"  border="0"/>');
 	//divCon.append('<img  src='+zone.attr("picpath").toString()+'  border="0"/>');
 	var imageid='';
 	for(var i=0;i<deviceNum;i++)

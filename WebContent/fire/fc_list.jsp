@@ -31,7 +31,7 @@
         <div class="middle"></div>
         
         <div id="right_main" class="right_main" style="float:left;">
-           <div style="height:300px">
+           <div style="height:400px">
            <iframe name="fc_device" id="fc_device"  frameborder="0" scrolling="auto" width="100%" height="100%" style="margin:0px;padding:0px"></iframe>
             </div>
           <div class="bottom">

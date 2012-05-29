@@ -9,38 +9,32 @@ $(function(){
 	$(".content .innercontent").eq(0).show();
 	$("#right_main").css("display","block");
 });
-function makeRequest(arr){
-	alert("request");
+
+
+makeRequest();
+function makeRequest(){
+	 alert("request");
 	 $.ajax({
-		    type: "GET",
-			url: "../fireConfig/user.txt",
+		    type: "POST",
+			url: "fire/getFireInfos",
 			cache:false,
 			dataType: "json",
 			success : function(data){
-				$.each(data.rows, function( i,row ){
-					
-					if(i==2)
-					{
-						//alert(row["id"]);
-						var fireobj2=findByFireId(row["id"],arr);
-						fireobj2.showMessage();
-						fireobj2.startFireAlarm();
-						fireobj2.startBlink();
-					}
+				$.each(data.callFireInfos, function( i,row ){
+					alert(row.deviceNumber+":"+row.receiveInfo+":"+i);
 				});
-				setTimeout(_makeRequest(arr), 2000);
+				$.each(data.warnFireInfos, function( i,row ){
+					alert(row.deviceNumber+":"+row.receiveInfo+":"+i);
+				});
+				//setTimeout("makeRequest()", 2000);
 			},
 			error:function(){
 				alert("error");
-				setTimeout(_makeRequest(arr), 2000);
+				//setTimeout("makeRequest()", 2000);
 			}
 		});
 }
-function _makeRequest(arr){
-	return function(){
-		makeRequest(arr);
-	}
-}
+
 //根据id找fire对象
 function findByFireId(id,objList){
 	alert(objList.length);

@@ -9,8 +9,8 @@
 var zoneImgUrl="${zone.zoneImgUrl}";
 var zoneConfigUrl="${zone.zoneConfigUrl}";
 if(zoneImgUrl!=null&&zoneImgUrl!=""&&zoneConfigUrl!=null&&zoneConfigUrl!=""){
-    alert(zoneImgUrl);
-    alert(zoneConfigUrl); 
+    //alert(zoneImgUrl);
+    //alert(zoneConfigUrl); 
 }
 </script>
 <link href="../CSS/pages/fireControl/fc_device_list.css" rel="stylesheet" type="text/css" />
@@ -30,7 +30,7 @@ img {display:block}
 <body onload="">
 <input id="imgUrl" type="hidden" value="${zone.zoneImgUrl}"/>
 <input id="configUrl" type="hidden" value="${zone.zoneConfigUrl}"/>
-<div class="wrap" >
+<div class="wrap" style="height: 400px;">
    <div class="top" >
       <span><input type="button" value="全屏显示"/></span>
    </div>

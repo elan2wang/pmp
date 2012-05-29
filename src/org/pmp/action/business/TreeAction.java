@@ -131,7 +131,7 @@ public class TreeAction extends ActionSupport{
     	    nodes.add(JsonConvert.toJsonTreeNode(index++, 0, pro.getProName(), "", 
     		    "", "", "../Images/dtree/pro.jpg", "../Images/dtree/pro.jpg", false));
     	    
-    	    String order = "order by z.zoneId asc";
+    	    String order = "order by zoneId asc";
     	    
     	    List<Zone> zoneList = zoneService.loadZoneListByProId(pro.getProId(), null, order, null);
             
@@ -143,7 +143,7 @@ public class TreeAction extends ActionSupport{
     	    	    
 		    		Zone zone = ite1.next();
 		    		
-		    		nodes.add(JsonConvert.toJsonTreeNode(index++, pid1,zone.getZoneName(),"toZoneView?zone.zoneId="+zone.getZoneId(), 
+		    		nodes.add(JsonConvert.toJsonTreeNode(index++, pid1,zone.getZoneName(),"toZoneView?zoneId="+zone.getZoneId(), 
 		    			    "", "fc_device", "../Images/dtree/buil.jpg", "../Images/dtree/buil.jpg", false));
             }
     	}
