@@ -526,20 +526,27 @@ public class JsonConvert {
     public static String toJsonFireInfoList(List<String> callNodes,List<String> warnNodes){
     	StringBuffer sb = new StringBuffer();
     	sb.append("{\n  "+toJson("callFireInfos")+":[\n");
+    	
     	for (int i=0;i<callNodes.size();i++){
+    	    if(i==callNodes.size()-1){
+    	    	sb.append("    "+callNodes.get(i)+"\n");
+    	    	break;
+    	    }
     	    sb.append("    "+callNodes.get(i)+",\n");
     	}
-    	sb.deleteCharAt(sb.length()-2);
+    	
     	sb.append("]\n");
     	
     	sb.append(",\n"+toJson("warnFireInfos")+":[\n");
     	for (int i=0;i<warnNodes.size();i++){
+    	    if(i==warnNodes.size()-1){
+    	    	sb.append("    "+warnNodes.get(i)+"\n");
+    	    	break;
+    	    }
     	    sb.append("    "+warnNodes.get(i)+",\n");
     	}
-    	sb.deleteCharAt(sb.length()-2);
     	sb.append("]\n");
     	sb.append("}");
-    	
     	return sb.toString().replaceAll(",}", "}");
     }
     

@@ -13,7 +13,6 @@ $(function(){
 
 makeRequest();
 function makeRequest(){
-	 alert("request");
 	 $.ajax({
 		    type: "POST",
 			url: "fire/getFireInfos",

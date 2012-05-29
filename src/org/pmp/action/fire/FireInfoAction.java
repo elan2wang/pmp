@@ -21,41 +21,40 @@ public class FireInfoAction extends ActionSupport{
 	private IFireInfoService fireInfoService;
 	
 	public void getFireInfos(){
-		
-		logger.info("加载报警数据列表######################");
-	    
-		Map<String, Object> params=new HashMap<String, Object>();//报警数据
-        params.put("state", 1);
-        params.put("receiveInfo", "00");
-		
-		List<FireInfo> callList=fireInfoService.getCallFireInfos(params, null);
-		
-		params.clear();
-		params.put("state", 1);
-		List<String> receiveInfos=new ArrayList<String>();
-		receiveInfos.add("02");
-		receiveInfos.add("03");
-	    
-		List<FireInfo> warnList=fireInfoService.getWarnFireInfos(params, receiveInfos, null);
-		
-		List<String> callNodes = new ArrayList<String>();
-    	Iterator<FireInfo> calls = callList.iterator();
-    	while(calls.hasNext()){
-    		  FireInfo fireInfo = calls.next();
-    		  callNodes.add(JsonConvert.toJsonFireInfos(fireInfo.getZone().getZoneId(), fireInfo.getDeviceNumber(), fireInfo.getReceiveTime(), fireInfo.getReceiveInfo()));
-    	}
-    	
-		List<String> warnNodes = new ArrayList<String>();
-    	Iterator<FireInfo> warns = warnList.iterator();
-    	while(warns.hasNext()){
-    		  FireInfo fireInfo = warns.next();
-    		  warnNodes.add(JsonConvert.toJsonFireInfos(fireInfo.getZone().getZoneId(), fireInfo.getDeviceNumber(), fireInfo.getReceiveTime(), fireInfo.getReceiveInfo()));
-    	}
-    	
-    	String data=JsonConvert.toJsonFireInfoList(callNodes,warnNodes);
-    	logger.info(data);
-    	JsonConvert.output(data);
-    	
+
+			logger.info("加载报警数据列表######################");
+			
+			Map<String, Object> params=new HashMap<String, Object>();//报警数据
+			params.put("state", 1);
+			params.put("receiveInfo", "00");
+			
+			List<FireInfo> callList=fireInfoService.getCallFireInfos(params, null);
+			
+			params.clear();
+			params.put("state", 1);
+			List<String> receiveInfos=new ArrayList<String>();
+			receiveInfos.add("02");
+			receiveInfos.add("03");
+			
+			List<FireInfo> warnList=fireInfoService.getWarnFireInfos(params, receiveInfos, null);
+			
+			List<String> callNodes = new ArrayList<String>();
+			Iterator<FireInfo> calls = callList.iterator();
+			while(calls.hasNext()){
+				  FireInfo fireInfo = calls.next();
+				  callNodes.add(JsonConvert.toJsonFireInfos(fireInfo.getZone().getZoneId(), fireInfo.getDeviceNumber(), fireInfo.getReceiveTime(), fireInfo.getReceiveInfo()));
+			}
+			
+			List<String> warnNodes = new ArrayList<String>();
+			Iterator<FireInfo> warns = warnList.iterator();
+			while(warns.hasNext()){
+				  FireInfo fireInfo = warns.next();
+				  warnNodes.add(JsonConvert.toJsonFireInfos(fireInfo.getZone().getZoneId(), fireInfo.getDeviceNumber(), fireInfo.getReceiveTime(), fireInfo.getReceiveInfo()));
+			}
+			
+			String data=JsonConvert.toJsonFireInfoList(callNodes,warnNodes);
+			logger.info(data);
+			JsonConvert.output(data);
 	}
 
 	public IFireInfoService getFireInfoService() {

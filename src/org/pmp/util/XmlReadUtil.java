@@ -20,9 +20,8 @@ public class XmlReadUtil {
 		Element zone = root.getChild("zone");
 		List<Element> list = zone.getChildren();
 		
-		FireDevice fireDevice=new FireDevice();
-		
 		for (Element element : list) {
+			FireDevice fireDevice=new FireDevice();
 			String deviceNumber = element.getAttributeValue("devicenumber");
 			String typeName = element.getAttributeValue("devicetypename");
 			String mark=element.getAttributeValue("mark");

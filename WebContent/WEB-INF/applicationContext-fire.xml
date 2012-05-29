@@ -28,6 +28,7 @@
     <property name="zoneService" ref="zoneService" />
     <property name="projectService" ref="projectService" />
     <property name="fireDeviceService" ref="fireDeviceService"></property>
+    <property name="fireInfoService" ref="fireInfoService"></property>
   </bean>
   <bean id="fireInfoAction" class="org.pmp.action.fire.FireInfoAction">
     <property name="fireInfoService" ref="fireInfoService" />

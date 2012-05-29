@@ -29,5 +29,10 @@ public class FireInfoService implements IFireInfoService {
 			List<String> receiveInfos, String order) {
 		return this.fireInfoDAO.getWarnFireInfos(params, receiveInfos, order);
 	}
+
+	@Override
+	public boolean deleteFireInfoByParams(Map<String, Object> params) {
+		return this.fireInfoDAO.deleteFireInfoByParams(params);
+	}
 	
 }

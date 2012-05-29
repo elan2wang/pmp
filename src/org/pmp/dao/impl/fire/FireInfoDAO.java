@@ -70,5 +70,27 @@ public class FireInfoDAO extends BaseDAO implements IFireInfoDAO{
 		list=(List<FireInfo>) loadListByCondition(hql.toString(), null, debugMsg);
 		
 	    return list;
+	}
+
+	@Override
+	public boolean deleteFireInfoByParams(Map<String, Object> params) {
+		try {
+			String debugMsg="delete FireInfo by params!";
+			
+			StringBuilder hql = new StringBuilder();
+			
+			String aa = "delete from FireInfo where 1=1";
+			
+			hql.append(aa);
+			
+			hql.append(ParamsToString.toString(params));
+			
+			deleteInstance(hql.toString(), debugMsg);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+        
+		return true;
 	}  
 }

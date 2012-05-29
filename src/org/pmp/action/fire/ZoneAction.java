@@ -21,6 +21,7 @@ import org.jdom.JDOMException;
 import org.pmp.dao.fire.IZoneDAO;
 import org.pmp.service.business.IProjectService;
 import org.pmp.service.fire.IFireDeviceService;
+import org.pmp.service.fire.IFireInfoService;
 import org.pmp.service.fire.IZoneService;
 import org.pmp.util.FileUploadUtil;
 import org.pmp.util.JsonConvert;
@@ -53,6 +54,7 @@ public class ZoneAction extends ActionSupport{
     private IZoneService zoneService;
     private IProjectService projectService;
     private IFireDeviceService fireDeviceService;
+    private IFireInfoService fireInfoService;
     
     /* =========FlexiGrid post parameters======= */
     private Integer page=1;
@@ -157,16 +159,11 @@ public class ZoneAction extends ActionSupport{
     	logger.info(zone);
     	
     	zoneService.saveZone(zone);
-    	
-		Map<String, Object> params=new HashMap<String, Object>();
-		params.put("zoneConfigUrl",zoneConfigUrl);
-    	Zone tempZone=zoneService.queryZoneByParams(params);
-    	System.out.println(tempZone);
+    	    	
+    	Zone tempZone=zoneService.getZoneById(zone.getZoneId());
     	
     	if(!zoneConfigUrl.equals("")){
     		String dirPath = ServletActionContext.getServletContext().getRealPath("fireConfig");
-    		System.out.println(dirPath);
-    		System.out.println(zoneConfigUrl);
     		int index=zoneConfigUrl.indexOf("/");
     		String configPath=dirPath+"\\"+zoneConfigUrl.subSequence(index+1, zoneConfigUrl.length());
     		List<FireDevice> firedeviceList=null;
@@ -196,10 +193,8 @@ public class ZoneAction extends ActionSupport{
 			String[] checkedID = idStr.split(",");
 			for (int i = 0; i < checkedID.length; i++) {
 				zone = zoneService.getZoneById(Integer.valueOf(checkedID[i]));
-
 				MyfileUtil.deleteFileOrDirectory(dirPath+zone.getZoneImgUrl());
 				MyfileUtil.deleteFileOrDirectory(dirPath+zone.getZoneConfigUrl());
-
 				zoneService.deleteZone(zone);
 			}
 		} catch (Exception e) {
@@ -219,15 +214,29 @@ public class ZoneAction extends ActionSupport{
 			String zoneConfigUrl=FileUploadUtil.fileUpload(zoneConfig, zoneConfigFileName, "fireConfig");
 			MyfileUtil.deleteFileOrDirectory(dirPath+zone.getZoneConfigUrl());
 			zone.setZoneConfigUrl(zoneConfigUrl);
+			
+			Map<String, Object> params=new HashMap<String, Object>();
+			params.put("zone.zoneId", zone.getZoneId());
+			fireDeviceService.deleteFireDeviceByParams(params);
+			
+			String xmlPath = ServletActionContext.getServletContext().getRealPath("fireConfig");
+    		int index=zoneConfigUrl.indexOf("/");
+    		String configPath=xmlPath+"\\"+zoneConfigUrl.subSequence(index+1, zoneConfigUrl.length());
+    		List<FireDevice> firedeviceList=null;
+    		try {
+				firedeviceList=XmlReadUtil.readXml(configPath);
+			} catch (JDOMException e) {
+				e.printStackTrace();
+			}
+            for (FireDevice fireDevice : firedeviceList) {
+				fireDevice.setZone(zone);
+				fireDeviceService.saveFireDevice(fireDevice);
+			}
 		}
 		
     	Project project=new Project();
     	project=projectService.getProjectByID(projectId);
-    	
     	zone.setProject(project);
-    	
-		System.out.println(zone);
-		
 		zoneService.updateZone(zone);
 		
     	return SUCCESS;
@@ -389,6 +398,16 @@ public class ZoneAction extends ActionSupport{
 
 	public void setFireDeviceService(IFireDeviceService fireDeviceService) {
 		this.fireDeviceService = fireDeviceService;
+	}
+
+
+	public IFireInfoService getFireInfoService() {
+		return fireInfoService;
+	}
+
+
+	public void setFireInfoService(IFireInfoService fireInfoService) {
+		this.fireInfoService = fireInfoService;
 	}
 	
 }
