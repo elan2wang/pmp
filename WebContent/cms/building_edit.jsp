@@ -26,7 +26,9 @@
                           </select></span></div>
                        </div>
                        <div class="rowStyle">
-                          <div style="float:left"><span >单&nbsp;&nbsp;元&nbsp;&nbsp;数：</span><span><input name="building.unitCount" type="text" class="textbox" id="building.unitCount" value='${building.unitCount}' readOnly/></span></div>
+                          <div style="float:left"><span >单&nbsp;&nbsp;元&nbsp;&nbsp;数：</span><span>
+                          <input name="building.unitCount" type="text" class="textbox" id="building.unitCount" value='${building.unitCount}' readOnly/>
+                          </span></div>
                        </div>
                        <div class="rowStyle">
                           <div><span >楼&nbsp;&nbsp;层&nbsp;&nbsp;数：</span><span><input name="building.floorCount" type="text" class="textbox" id="building.floorCount" value='${building.floorCount}' readOnly/></span></div>

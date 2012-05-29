@@ -32,6 +32,7 @@ $(function(){
 			     dataType:"json",
 			  	 colModel: [
 	             { display: '房号', name:'houseNum',width: 200, align: 'center' },
+	             { display: '所属小区', name:'project',width: 200, align: 'center' },
 				 { display: '房屋面积',name:'houseArea', width: 200, align: 'center' },
 	             { display: '物业费标准', name:'condoFeeRate',width: 200,align: 'center',hide:'true' },
 	             { display: '是否空置',name:'isempty', width: 200,align: 'center' }

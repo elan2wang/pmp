@@ -25,6 +25,7 @@ import org.pmp.service.admin.IUserService;
 import org.pmp.util.JsonConvert;
 import org.pmp.util.Pager;
 import org.pmp.util.SessionHandler;
+import org.pmp.vo.Building;
 import org.pmp.vo.Company;
 import org.pmp.vo.Project;
 import org.pmp.vo.TbGroup;
@@ -53,8 +54,9 @@ public class UserAction extends ActionSupport{
     private Integer roleId;
     private Integer groupId;
     private Integer userId;
-    
-    /* used when deleteUser */
+    private String userName;
+  
+	/* used when deleteUser */
     private String idStr;
     
     /* =========FlexiGrid post parameters======= */
@@ -89,6 +91,23 @@ public class UserAction extends ActionSupport{
 	
 	return SUCCESS;
     }
+    
+    public void checkUser(){
+    	TbUser user = userService.getUserByUsername(userName);
+    	String data = null;
+    	if(user!=null)
+    	{
+    		data="{"+JsonConvert.toJson("result")+":"+JsonConvert.toJson("Failed")+"}";
+       
+    	}
+    	else
+    	{
+    		data="{"+JsonConvert.toJson("result")+":"+JsonConvert.toJson("Success")+"}";
+    	}
+     	logger.debug(data);
+    	JsonConvert.output(data);
+    	
+  }
     
     public String editUser(){
 	logger.debug("aaa");
@@ -320,5 +339,18 @@ public class UserAction extends ActionSupport{
     public void setIdStr(String idStr) {
         this.idStr = idStr;
     }
+    /**
+	 * @return the userName
+	 */
+	public String getUserName() {
+		return userName;
+	}
+
+	/**
+	 * @param userName the userName to set
+	 */
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
 }

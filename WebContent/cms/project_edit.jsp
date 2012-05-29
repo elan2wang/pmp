@@ -55,7 +55,7 @@
                           <div><span >建成时间：</span><span><input id="project.deliveryTime" name="project.deliveryTime" type="text" class="textbox"  value='<s:property value="project.deliveryTime"/>' readonly="readonly" style="cursor:pointer;" onFocus="WdatePicker()" /></span></div>
                        </div>
                        <div class="rowStyle">
-                          <div><span >户&nbsp;&nbsp;&nbsp;&nbsp;数：</span><span><input name="project.proHouseCount" type="text"  id="project.proHouseCount" value='<s:property value="project.proHouseCount"/>'/></span></div>
+                          <div><span >户&nbsp;&nbsp;&nbsp;&nbsp;数：</span><span><input name="project.proHouseCount" type="text"  id="project.proHouseCount" value='<s:property value="project.proHouseCount"/>' onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') "/></span></div>
                        </div>
                        <div class="rowStyle">
                         <input type="hidden" name="project.enabled2" id="project.enabled" value='${project.enabled}'/>

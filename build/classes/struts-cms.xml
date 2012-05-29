@@ -98,7 +98,9 @@
 	<action name="getHouseById" class="org.pmp.action.business.HouseAction" method="getHouseById">
 		<result name="success">/cms/house_edit.jsp</result>
 	</action>
-
+	<action name="updateHouse" class="org.pmp.action.business.HouseAction" method="updateHouse">
+		<result name="success">/cms/house_list.jsp</result>
+	</action>
 	<action name="deleteHouse" class="org.pmp.action.business.HouseAction" method="deleteHouse"></action>
 	
 	<action name="new_house_import" class="org.pmp.action.business.HouseAction" method="uploadFile">
