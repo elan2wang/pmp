@@ -24,6 +24,7 @@ img {display:block}
 <body onload="" style="background:black">
 <input id="imgUrl" type="hidden" value="${zone.zoneImgUrl}"/>
 <input id="configUrl" type="hidden" value="${zone.zoneConfigUrl}"/>
+<input id="zoneID" type="hidden" value="${zone.zoneId}"/>
 <div class="wrap" style="height: 400px;">
    <div class="top" >
       <span><button  class="fullscreen"  onclick="FullScreen(this)">全屏显示</button></span>

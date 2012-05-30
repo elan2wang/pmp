@@ -63,8 +63,8 @@ function list_divice(xml){
 	});
 	
 	//决定是否闪烁
-	var thisList=parent.deviceNumList;
-	if(thisList.length>0){
+	var thisList=findByZoneId($("#zoneID").val(),parent.deviceNumList);
+	if(thisList&&thisList.length>0){
 		for(var i=0;i<thisList.length;i++)
 		{
 			findByFireId(thisList[i]).startBlink();
@@ -133,11 +133,23 @@ function list_divice(xml){
 	  }
 	  return null;
   }
-  
+  //根据zoneID找到相应的数组
+  function findByZoneId(zoneId,parentList){
+	  var thisList=new Array();
+	  for(var i=0;i<parentList.length;i++)
+	  {
+		  if(parentList[i].ID==zoneId)
+		  {
+			  thisList.push(parentList[i].deviceID);
+		  }
+	  }
+	  //alert(thisList.length);
+	  return thisList;
+  }
 
   function _stopAlarm(id,clickId){
 	  var fireObj=findByFireId(id);
-      fireObj.stopFireAlarm();
+      fireObj.stopBlink();
       updateFireInfoState(id,clickId);
   }
   

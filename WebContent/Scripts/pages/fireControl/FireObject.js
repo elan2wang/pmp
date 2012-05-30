@@ -1,3 +1,15 @@
+ Array.prototype.indexOf = function(val) {
+            for (var i = 0; i < this.length; i++) {
+                if (this[i] == val) return i;
+            }
+            return -1;
+        };
+ Array.prototype.remove = function(val) {
+            var index = this.indexOf(val);
+            if (index > -1) {
+                this.splice(index, 1);
+            }
+        };
 function FireAlarm(id,obj)
 {
     //添加属性
@@ -21,12 +33,10 @@ function FireAlarm(id,obj)
     	clearInterval(this.TimerID);
     	this.Obj.css("visibility" ,"visible");
     }
-    this.startFireAlarm=function(){
-    	id="s"+this.ID;
-  	    $("#head",window.parent.document).append('<bgsound id='+id+'   src= "../fireConfig/FIRE.WAV"   loop=-1   volume=4>');
-    }
-    this.stopFireAlarm=function(){
-    	$("#s"+this.ID).attr("src","");
-  	    this.stopBlink(this.Obj);
-    }
+
+}
+function Zone(zoneID,deviceID,type){
+	this.ID=zoneID;
+	this.deviceID=deviceID;
+	this.Type=type;
 }
