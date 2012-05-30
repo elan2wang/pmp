@@ -12,6 +12,7 @@ import org.pmp.util.JsonConvert;
 import org.pmp.vo.FireInfo;
 import org.pmp.vo.Project;
 import com.opensymphony.xwork2.ActionSupport;
+import com.sun.corba.se.impl.io.FVDCodeBaseImpl;
 
 
 public class FireInfoAction extends ActionSupport{
@@ -19,6 +20,9 @@ public class FireInfoAction extends ActionSupport{
     private static Logger logger = Logger.getLogger(FireInfoAction.class.getName());
 	
 	private IFireInfoService fireInfoService;
+	
+	private String deviceNum;
+	private Integer state;
 	
 	public void getFireInfos(){
 
@@ -33,6 +37,7 @@ public class FireInfoAction extends ActionSupport{
 			params.clear();
 			params.put("state", 1);
 			List<String> receiveInfos=new ArrayList<String>();
+			receiveInfos.add("01");
 			receiveInfos.add("02");
 			receiveInfos.add("03");
 			
@@ -57,6 +62,11 @@ public class FireInfoAction extends ActionSupport{
 			JsonConvert.output(data);
 	}
 
+	public void updateFireInfoState(){
+		    logger.info("########################"+deviceNum+":"+state);
+		    fireInfoService.editFireInfoStateByDeviceNum(deviceNum, state);
+	}
+	
 	public IFireInfoService getFireInfoService() {
 		return fireInfoService;
 	}
@@ -64,4 +74,21 @@ public class FireInfoAction extends ActionSupport{
 	public void setFireInfoService(IFireInfoService fireInfoService) {
 		this.fireInfoService = fireInfoService;
 	}
+
+	public String getDeviceNum() {
+		return deviceNum;
+	}
+
+	public void setDeviceNum(String deviceNum) {
+		this.deviceNum = deviceNum;
+	}
+
+	public Integer getState() {
+		return state;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
+	}
+	
 }

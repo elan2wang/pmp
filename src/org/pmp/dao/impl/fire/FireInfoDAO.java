@@ -92,5 +92,19 @@ public class FireInfoDAO extends BaseDAO implements IFireInfoDAO{
 		}
         
 		return true;
+	}
+
+	@Override
+	public FireInfo getFireInfoByDeviceNum(String deviceNum) {
+        String debugMsg = "getFireInfo by deviceNum, deviceNum="+deviceNum;
+        String hql="from FireInfo where deviceNumber='"+deviceNum+"'";
+		return (FireInfo)getInstance(hql, debugMsg);
+	}
+
+	@Override
+	public FireInfo editFireInfo(FireInfo fireInfo) {
+		String debugMsg="update FireInfo!";
+		updateInstance(fireInfo, debugMsg);
+		return fireInfo;
 	}  
 }

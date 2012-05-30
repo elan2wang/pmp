@@ -11,4 +11,5 @@ public interface IFireInfoService {
 	List<FireInfo> getWarnFireInfos(Map<String, Object> params,
 			List<String> receiveInfos, String order);
 	boolean deleteFireInfoByParams(Map<String, Object> params);
+    boolean editFireInfoStateByDeviceNum(String deviceNum,Integer state);
 }

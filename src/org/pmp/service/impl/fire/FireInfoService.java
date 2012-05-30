@@ -34,5 +34,19 @@ public class FireInfoService implements IFireInfoService {
 	public boolean deleteFireInfoByParams(Map<String, Object> params) {
 		return this.fireInfoDAO.deleteFireInfoByParams(params);
 	}
-	
+
+	@Override
+	public boolean editFireInfoStateByDeviceNum(String deviceNum, Integer state) {
+		try {
+			FireInfo fireInfo=this.fireInfoDAO.getFireInfoByDeviceNum(deviceNum);
+			if(fireInfo!=null){
+				fireInfo.setState(state);
+				this.fireInfoDAO.editFireInfo(fireInfo);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
 }

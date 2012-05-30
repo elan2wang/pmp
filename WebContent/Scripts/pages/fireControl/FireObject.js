@@ -18,7 +18,6 @@ function FireAlarm(id,obj)
     this.stopBlink=function(){
     	if(!this.Obj)
     		return;
-        alert("stop");
     	clearInterval(this.TimerID);
     	this.Obj.css("visibility" ,"visible");
     }

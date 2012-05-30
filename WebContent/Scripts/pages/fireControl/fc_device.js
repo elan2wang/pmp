@@ -135,16 +135,34 @@ function list_divice(xml){
   }
   
 
-  function _stopAlarm(id){
+  function _stopAlarm(id,clickId){
 	  var fireObj=findByFireId(id);
       fireObj.stopFireAlarm();
+      updateFireInfoState(id,clickId);
   }
+  
+  function updateFireInfoState(deviceNum,state){
+	  $.ajax(
+				{
+					type:'POST',
+					url:'fire/updateFireInfoState',
+					data:{'deviceNum':''+deviceNum+'','state':state},
+					success:function(msg){
+					},
+					error:function(resut){
+					    alert("处理警报错误!");
+					}
+				}
+	   );
+  }
+  
   //生成右键菜单
   function createRightMenu(fire){
 	  //alert(fire.ID);
 	  $('#'+fire.ID).RightMenu("m"+fire.ID,{
 		   menuList:[
-		       {menuName:"关闭警报",clickEvent:"_stopAlarm("+fire.ID+")"}
+		       {menuName:"关闭警报",clickEvent:"_stopAlarm("+fire.ID+",'2')"},
+		       {menuName:"视为误报",clickEvent:"_stopAlarm("+fire.ID+",'3')"}
 		   ]
 	  });
   }
