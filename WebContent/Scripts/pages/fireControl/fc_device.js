@@ -5,9 +5,7 @@ load_device("../"+$("#configUrl").val());
 
 
 
-
-
-
+var thisList=new Array();
 //load xml配置文件
 function load_device(url){
 	$.ajax({
@@ -63,7 +61,8 @@ function list_divice(xml){
 	});
 	
 	//决定是否闪烁
-	var thisList=findByZoneId($("#zoneID").val(),parent.deviceNumList);
+	thisList.length=0;
+	thisList=findByZoneId($("#zoneID").val(),parent.deviceNumList);
 	if(thisList&&thisList.length>0){
 		for(var i=0;i<thisList.length;i++)
 		{
@@ -78,10 +77,10 @@ function list_divice(xml){
  //切换显示与否  实现闪烁功能
 
  function Blink(obj){
-  if(obj.css("visibility") == "visible")
-	  obj.css("visibility" , "hidden");
+  if(obj.find("img").css("visibility") == "visible")
+	  obj.find("img").css("visibility" , "hidden");
   else
-	  obj.css("visibility" ,"visible");
+	  obj.find("img").css("visibility" ,"visible");
  }
  //setTimeout 方法不能传递参数  写这个方法  以弥补这个缺陷
  function  _Blink(obj){

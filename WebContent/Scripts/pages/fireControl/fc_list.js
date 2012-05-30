@@ -13,7 +13,6 @@ $(function(){
 setInterval("makeRequest()",5000);
 makeRequest();
 var deviceNumList=new Array();
-var deviceCallList=new Array();
 function makeRequest(){
 	 $.ajax({
 		    type: "POST",
@@ -22,7 +21,6 @@ function makeRequest(){
 			dataType: "json",
 			success : function(data){
 				deviceNumList.length=0;
-				deviceCallList.lenght=0;
 				$("#alarm_data").html(" ");
 				$("#abnormal_data").html(" ");//先初始化
 				devices="";
@@ -44,6 +42,16 @@ function makeRequest(){
 					setDeviceNum(zone);zone=null;
 					$("#abnormal_data").append("<p id="+devices+"><a  target='fc_device' href='toZoneView?zoneId="+zoneID+"' onclick='setDeviceNum("+'"'+devices+'"'+")'>异常数据:  场地ID "+zoneID+"  设备ID "+devices+"  时间："+time+"</a></p>");
 				});
+				length=document.getElementById("fc_device").contentWindow.thisList.length;
+				if($("#alarm").attr("src")==""&&data.callFireInfos.length>0)
+				{
+					$("#alarm").attr("src","../fireConfig/FIRE.WAV");
+				}else if(data.callFireInfos==0){
+					$("#alarm").attr("src","");
+				}
+				if(data.callFireInfos.length!=length){
+					//document.getElementById("fc_device").contentWindow.location.reload();
+				}
 			},
 			error:function(){
 				alert("error");
@@ -59,13 +67,7 @@ function operation(data){
 //设置页面devicelist的值
 function setDeviceNum(zone){
 	deviceNumList.push(zone);
-	deviceCallList.push(zone);
-	if($("#alarm").attr("src")==""&&deviceCallList.length>0)
-	{
-		$("#alarm").attr("src","../fireConfig/FIRE.WAV");
-	}else if(deviceCallList.length==0){
-		$("#alarm").attr("src","");
-	}
+
 }
 
 

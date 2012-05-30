@@ -31,7 +31,7 @@ function FireAlarm(id,obj)
     	if(!this.Obj)
     		return;
     	clearInterval(this.TimerID);
-    	this.Obj.css("visibility" ,"visible");
+    	this.Obj.find("img").css("visibility" ,"visible");
     }
 
 }
