@@ -12,6 +12,7 @@ $(function(){
 
 setInterval("makeRequest()",5000);
 var deviceNumList=new Array();
+var deviceCallList=new Array();
 function makeRequest(){
 	 $.ajax({
 		    type: "POST",
@@ -19,18 +20,28 @@ function makeRequest(){
 			cache:false,
 			dataType: "json",
 			success : function(data){
-				$.each(data.fireData, function( i,content ){
-					  zoneID=content["zone_ID"];
-					  var devices="";
-					  $.each(content["info"],function(j,inner){
-						  devices+=inner["device_ID"]+" ";
-					  });
-					  if(content["type"]=="001"){
-							$("#alarm_data").append("<p><a  target='fc_device' href='toZoneView?zone.zoneId="+zoneID+"' onclick='setDeviceNum("+'"'+devices+'"'+");'>警报数据:  场地ID "+zoneID+"  设备ID "+devices+"</a></p>");
-					  }else{
-							$("#abnormal_data").append("<p><a  target='fc_device' href='toZoneView?zone.zoneId="+zoneID+"' onclick='setDeviceNum("+'"'+devices+'"'+")'>异常数据:  场地ID "+zoneID+"  设备ID "+devices+"</a></p>");
-					  }
+				deviceNumList.length=0;
+				$("#alarm_data").html(" ");
+				$("#abnormal_data").html(" ");//先初始化
+				devices="";
+				zoneID="";
+				time="";
+				$.each(data.callFireInfos, function( i,content ){
+					devices=content["deviceNumber"];
+					zoneID=content["zoneId"];
+					time=content["receiveTime"];
+					var zone=new Zone(content["zoneId"],content["deviceNumber"],'call');
+					setDeviceNum(zone);zone=null;
+					 $("#alarm_data").append("<p id="+devices+"><a  target='fc_device' href='toZoneView?zoneId="+zoneID+"' onclick='setDeviceNum("+'"'+devices+'"'+");'>警报数据:  场地ID "+zoneID+"  设备ID "+devices+" 时间："+time+"</a></p>");
 					});
+				$.each(data.warnFireInfos, function( i,content ){
+					devices=content["deviceNumber"];
+					zoneID=content["zoneId"];
+					time=content["receiveTime"];
+					var zone=new Zone(content["zoneId"],content["deviceNumber"],'warn');
+					setDeviceNum(zone);zone=null;
+					$("#abnormal_data").append("<p id="+devices+"><a  target='fc_device' href='toZoneView?zoneId="+zoneID+"' onclick='setDeviceNum("+'"'+devices+'"'+")'>异常数据:  场地ID "+zoneID+"  设备ID "+devices+"  时间："+time+"</a></p>");
+				});
 			},
 			error:function(){
 				alert("error");
@@ -45,14 +56,15 @@ function operation(data){
 	
 }
 //设置页面devicelist的值
-function setDeviceNum(str){
-	deviceNumList.length=0;
-	strs=str.split(" ");
-	for(var i=0;i<strs.length-1;i++)
+function setDeviceNum(zone){
+	deviceNumList.push(zone);
+	deviceCallList.push(zone);
+	if($("#alarm").attr("src")==""&&deviceCallList.length>0)
 	{
-		deviceNumList.push(strs[i]);
+		$("#alarm").attr("src","../fireConfig/FIRE.WAV");
+	}else if(deviceCallList.length==0){
+		$("#alarm").attr("src","");
 	}
-
 }
 
 

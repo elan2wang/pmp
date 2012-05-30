@@ -14,6 +14,7 @@
 <script type="text/javascript" src="../Scripts/pages/fireControl/FireObject.js" ></script>
 <script type="text/javascript" src="../Scripts/pages/fireControl/fc_list.js"></script>
 <title>消防控制部署</title>
+<bgsound id="alarm"   src=""   loop=-1   volume=4>
 </head>
 <body>
 <div class="wrap">
