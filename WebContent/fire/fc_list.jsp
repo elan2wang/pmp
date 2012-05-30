@@ -35,8 +35,10 @@
            <iframe name="fc_device" id="fc_device"  frameborder="0" scrolling="auto" width="100%" height="100%" style="margin:0px;padding:0px"></iframe>
             </div>
           <div class="bottom">
-             <div class="bottom_left"><span id="myajax"></span></div>
-             <div class="bottom_right">1111111</div>
+             <div class="bottom_left" id="callFireInfo">
+             </div>
+             <div class="bottom_right" id="warnFireInfo">
+             </div>
           </div>
         </div>
       </div>

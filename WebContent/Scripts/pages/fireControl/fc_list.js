@@ -12,6 +12,7 @@ $(function(){
 
 
 makeRequest();
+
 function makeRequest(){
 	 $.ajax({
 		    type: "POST",
@@ -20,10 +21,12 @@ function makeRequest(){
 			dataType: "json",
 			success : function(data){
 				$.each(data.callFireInfos, function( i,row ){
-					alert(row.deviceNumber+":"+row.receiveInfo+":"+i);
+					//alert(row.deviceNumber+":"+row.receiveInfo+":"+i);
+					insertCallFireInfos(row.zoneId,row.deviceNumber);
 				});
+		        
 				$.each(data.warnFireInfos, function( i,row ){
-					alert(row.deviceNumber+":"+row.receiveInfo+":"+i);
+					//alert(row.deviceNumber+":"+row.zoneId+":"+i);
 				});
 				//setTimeout("makeRequest()", 2000);
 			},
@@ -33,6 +36,21 @@ function makeRequest(){
 			}
 		});
 }
+
+function CreateLink(deviceNumber,zoneId){
+	
+}
+
+function insertCallFireInfos(zoneId,deviceNumber){
+	    var callFire=document.getElementById("callFireInfo").innerHTML='&emsp;<a href="#" style="color: red;">消火栓11</a>&emsp;<a href="#">点型感温</a>&emsp;<a href="#">点型感烟</a>';
+	    
+	    var warnFire=document.getElementById("warnFireInfo").innerHTML;
+	    
+	    //alert(warnFire=="");
+	    
+	    //alert(callFire);
+}
+
 
 //根据id找fire对象
 function findByFireId(id,objList){
