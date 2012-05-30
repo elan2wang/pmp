@@ -30,5 +30,4 @@ function FireAlarm(id,obj)
     	$("#s"+this.ID).attr("src","");
   	    this.stopBlink(this.Obj);
     }
- 
 }

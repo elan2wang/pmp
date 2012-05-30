@@ -1,0 +1,19 @@
+{"fireData":[
+   {"zone_ID":"11","type":"001","info":[
+             {"device_ID":"995001","status":"1","startTime":"2012-05-26 13:27"},
+             {"device_ID":"995002","status":"2","startTime":"2012-05-26 13:27"}
+             ]},
+   {"zone_ID":"11","type":"002","info":[
+             {"device_ID":"995001","status":"1","startTime":"2012-05-26 13:27"},
+             {"device_ID":"995002","status":"2","startTime":"2012-05-26 13:27"}
+             ]},
+   {"zone_ID":"12","type":"001","info":[
+             {"device_ID":"995055","status":"1","startTime":"2012-05-26 13:27"},
+             {"device_ID":"995056","status":"2","startTime":"2012-05-26 13:27"}
+             ]},
+   {"zone_ID":"12","type":"002","info":[
+             {"device_ID":"995055","status":"1","startTime":"2012-05-26 13:27"},
+             {"device_ID":"995056","status":"2","startTime":"2012-05-26 13:27"}
+             ]}
+ ]
+}

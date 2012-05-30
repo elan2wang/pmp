@@ -39,7 +39,6 @@
                    </table>
                    <!-- pop up windows -->
                    <div id="zoneEdit" href="zone_edit.jsp" class="easyui-window" title="场地信息修改" iconCls="icon-save" style="width:600px;height:410px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
-                   <div id="ownerImport" href="owner_import.jsp" class="easyui-window" title="业主信息导入" iconCls="icon-save" style="width:350px;height:200px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
                    <div id="zoneAdd" href="zone_add.jsp" class="easyui-window" title="添加场地" iconCls="icon-save" style="width:600px;height:410px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
                </div>
            </div>

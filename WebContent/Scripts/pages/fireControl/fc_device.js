@@ -1,16 +1,8 @@
 
-alert($("#configUrl").val());
-load_device($("#configUrl").val());
+//alert($("#configUrl").val());
+load_device("../"+$("#configUrl").val());
 
-     
 
-//setTimeout(_request(objList),5000);
-function _request(arr){
-	return function()
-	{
-		parent.makeRequest(arr);
-	}
-}
 
 
 
@@ -28,7 +20,7 @@ function load_device(url){
 		}
 	});
 }
-//把装置部署的背景图片上
+//把装置部署到背景图片上
 function list_divice(xml){
 	//alert("come in");
 	var divCon=$('#devicelist');
@@ -36,8 +28,8 @@ function list_divice(xml){
 	var devideArr=zone.find("device");
 	var deviceNum=devideArr.length;
 	
-	url=encodeURI("地下室1.bmp");
-	divCon.append('<img  src="../fireConfig/basement1.bmp"  border="0"/>');
+	//url=encodeURI("地下室1.bmp");
+	divCon.append('<img  src="../'+$("#imgUrl").val()+'"  border="0"/>');
 	//divCon.append('<img  src='+zone.attr("picpath").toString()+'  border="0"/>');
 	var imageid='';
 	for(var i=0;i<deviceNum;i++)
@@ -68,7 +60,14 @@ function list_divice(xml){
 		 fire=null;
 	});
 	
-	//
+	//决定是否闪烁
+	var thisList=parent.deviceNumList;
+	if(thisList.length>0){
+		for(var i=0;i<thisList.length;i++)
+		{
+			findByFireId(thisList[i]).startBlink();
+		}
+	}
 }
 
 //向服务器请求异常数据
@@ -127,18 +126,18 @@ function list_divice(xml){
 	  for(var i=0;i<objList.length;i++)
 	  {
 		  if(objList[i].ID==id){
-			  alert(objList[i].TimerID);
 			  return objList[i];
 		  }
 	  }
 	  return null;
   }
   
-  //生成右键菜单
+
   function _stopAlarm(id){
 	  var fireObj=findByFireId(id);
       fireObj.stopFireAlarm();
   }
+  //生成右键菜单
   function createRightMenu(fire){
 	  //alert(fire.ID);
 	  $('#'+fire.ID).RightMenu("m"+fire.ID,{
@@ -147,4 +146,20 @@ function list_divice(xml){
 		   ]
 	  });
   }
- 
+ //全屏显示功能
+  function FullScreen(self){
+	  
+	  var frame=parent.document.getElementById("fc_device");
+	  if(self.innerHTML=="全屏显示"){
+	      frame.style.position= "absolute";
+	      frame.style.left="0px";
+	      frame.style.top="0px";
+	      self.innerHTML="退出全屏";
+	  }
+	  else{
+		  frame.style.position="";
+	      frame.style.left="0px";
+	      frame.style.top="0px";
+	      self.innerHTML="全屏显示";
+	  }
+  }

@@ -9,36 +9,45 @@ $(function(){
 	$(".content .innercontent").eq(0).show();
 	$("#right_main").css("display","block");
 });
-function makeRequest(arr){
-	alert("request");
+setInterval("makeRequest()",5000);
+var deviceNumList=new Array();
+function makeRequest(){
 	 $.ajax({
 		    type: "GET",
-			url: "../fireConfig/user.txt",
+			url: "../fireConfig/fireData.txt",
 			cache:false,
 			dataType: "json",
 			success : function(data){
-				$.each(data.rows, function( i,row ){
-					
-					if(i==2)
-					{
-						//alert(row["id"]);
-						var fireobj2=findByFireId(row["id"],arr);
-						fireobj2.showMessage();
-						fireobj2.startFireAlarm();
-						fireobj2.startBlink();
-					}
-				});
-				setTimeout(_makeRequest(arr), 2000);
+				$.each(data.fireData, function( i,content ){
+					  zoneID=content["zone_ID"];
+					  var devices="";
+					  $.each(content["info"],function(j,inner){
+						  devices+=inner["device_ID"]+" ";
+					  });
+					  if(content["type"]=="001"){
+							$("#alarm_data").append("<p><a  target='fc_device' href='toZoneView?zone.zoneId="+zoneID+"' onclick='setDeviceNum("+'"'+devices+'"'+");'>警报数据:  场地ID "+zoneID+"  设备ID "+devices+"</a></p>");
+					  }else{
+							$("#abnormal_data").append("<p><a  target='fc_device' href='toZoneView?zone.zoneId="+zoneID+"' onclick='setDeviceNum("+'"'+devices+'"'+")'>异常数据:  场地ID "+zoneID+"  设备ID "+devices+"</a></p>");
+					  }
+					});
 			},
 			error:function(){
 				alert("error");
-				setTimeout(_makeRequest(arr), 2000);
 			}
 		});
 }
-function _makeRequest(arr){
-	return function(){
-		makeRequest(arr);
+
+//操作异常数据和警报数据
+function operation(data){
+	
+}
+//设置页面devicelist的值
+function setDeviceNum(str){
+	deviceNumList.length=0;
+	strs=str.split(" ");
+	for(var i=0;i<strs.length-1;i++)
+	{
+		deviceNumList.push(strs[i]);
 	}
 }
 //根据id找fire对象
