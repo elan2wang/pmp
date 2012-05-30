@@ -31,12 +31,14 @@
         <div class="middle"></div>
         
         <div id="right_main" class="right_main" style="float:left;">
+
            <div style="height:370px">
            <iframe name="fc_device" id="fc_device"  frameborder="0" scrolling="auto" width="100%" height="100%" style="margin:0px;padding:0px"></iframe>
             </div>
           <div class="bottom">
              <div id="alarm_data" class="bottom_left"></div>
              <div id="abnormal_data" class="bottom_right"></div>
+
           </div>
         </div>
       </div>

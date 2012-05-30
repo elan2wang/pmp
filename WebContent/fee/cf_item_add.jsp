@@ -34,7 +34,7 @@
     <div class="content" style='font-family:"微软雅黑","黑体","宋体";'>
     <div class="innercontent">
       <div class="content_main">
-        <form name="form1" action="cf_item_add" method="POST">
+        <form name="form" id="form" action="cf_item_add" method="POST">
 		<br/><fieldset class="add_fieldset">
 		  <legend class="add_legend">第一步：选择物业项目</legend>
 		  <div class="selectdiv">
@@ -50,8 +50,8 @@
 		          <option value="2012">2014年</option>
 		          <option value="2011">2013年</option>
 		          <option value="2012" selected="selected">2012年</option>
-		          <option value="2012">2011年</option>
-		          <option value="2011">2010年</option>
+		          <option value="2011">2011年</option>
+		          <option value="2010">2010年</option>
 		       </select><br />
 		    </div>
 		    <div class="checkgroup">
@@ -76,7 +76,7 @@
 		  </div>
 		</fieldset>
 		<div style="padding-left:20px;margin-top:10px">
-		<input type="submit" value="确认创建" disabled="disabled" />
+		<input type="button" value="确认创建"  onclick="return FormCheck();" disabled="disabled"/>
 		<input type="reset" value="取消创建" onclick="cancel_item()" /><br/>
 		</div>
 		</form>

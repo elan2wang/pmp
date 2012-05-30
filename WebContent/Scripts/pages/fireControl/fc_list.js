@@ -9,12 +9,13 @@ $(function(){
 	$(".content .innercontent").eq(0).show();
 	$("#right_main").css("display","block");
 });
+
 setInterval("makeRequest()",5000);
 var deviceNumList=new Array();
 function makeRequest(){
 	 $.ajax({
-		    type: "GET",
-			url: "../fireConfig/fireData.txt",
+		    type: "POST",
+			url: "fire/getFireInfos",
 			cache:false,
 			dataType: "json",
 			success : function(data){
@@ -33,9 +34,11 @@ function makeRequest(){
 			},
 			error:function(){
 				alert("error");
+
 			}
 		});
 }
+
 
 //操作异常数据和警报数据
 function operation(data){
@@ -49,7 +52,10 @@ function setDeviceNum(str){
 	{
 		deviceNumList.push(strs[i]);
 	}
+
 }
+
+
 //根据id找fire对象
 function findByFireId(id,objList){
 	alert(objList.length);

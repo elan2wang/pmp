@@ -52,5 +52,10 @@ public class ZoneService implements IZoneService{
 	public List<Zone> loadZoneListByProIdList(List<Integer> proIdList,Map<String,Object>params,String order,Pager paper) {
 		return this.zoneDAO.loadZoneListByProIdList(proIdList,params,order,paper);
 	}
+
+	@Override
+	public Zone queryZoneByParams(Map<String, Object> params) {
+		return this.zoneDAO.queryZoneByParams(params);
+	}
 	
 }

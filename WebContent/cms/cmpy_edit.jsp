@@ -27,7 +27,7 @@
                           <div><span >注册时间：</span><span><input name="company.registerTime" type="text" class="textbox" id="company.registerTime2" value="${company.registerTime }" readonly="readonly"  style="cursor:pointer;" onFocus="WdatePicker()"/></span></div>
                        </div>
                        <div class="rowStyle">
-                          <div><span >注册资金：</span><span><input name="company.registerMoney" type="text" class="textbox" id="company.registerMoney2" value="${company.registerMoney }"/></span></div>
+                          <div><span >注册资金：</span><span><input name="company.registerMoney" type="text" class="textbox" id="company.registerMoney2" value="${company.registerMoney }" onkeyup="this.value=this.value.replace(/[^\d\.]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d\.]/g,'') "/></span></div>
                        </div>
                        <div class="rowStyle">
                           <div><span >工商执照：</span><span><input name="company.comLicense" type="text" class="textbox" id="company.comLicense2" value="${company.comLicense }"/></span></div>

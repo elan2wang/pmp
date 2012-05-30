@@ -12,10 +12,12 @@
 <body>
  <div class="window_content">
                    <form id="form" name="form" action="" method="post">
-                   		<input type="hidden" name="house.houseId" id= "house.houseId" value='<s:property value="house.houseId"/>'/>
+                   		<input type="hidden" name="house.building.builId" id= "house.building.builId" value=""/>
+                      <!--  
                        <div class="rowStyle">
-                          <div><span >楼号：</span><span><input name="buildingNum" type="text" class="textbox" id="buildingNum" /></span></div>
+                          <div><span >楼号：</span><span><input name="house.buildingNum" type="text" class="textbox" id="buildingNum" /></span></div>
                        </div>
+                       -->
                         <div class="rowStyle">
                           <div><span >单元号：</span><span><input name="unit" type="text" class="textbox" id="unit" /></span></div>
                        </div>
@@ -26,14 +28,11 @@
                           <div><span >房屋面积：</span><span><input name="house.houseArea" type="text" class="textbox" id="house.houseArea" /></span></div>
                        </div>
                        <div class="rowStyle">
-                          <div><span >物业费标准：</span><span><input name="house.condoFeeRate" type="text" class="textbox" id="house.condoFeeRate" /></span></div>
-                       </div>
-                       <div class="rowStyle">
                           <div>
                             <span>房屋状态：</span>
                             <span>
-                               <input id="house.isempty" name="house.isempty" type="radio" value="true" checked="checked"/><label for="project.enabled">空置</label>
-                               <input id="house.isempty" type="radio" name="house.isempty" value="false"/><label for="project.enabled">入住</label>
+                               <input id="house.isempty1" name="house.isempty" type="radio" value="true" checked="checked"/><label for="house.isempty">空置</label>
+                               <input id="house.isempty2" type="radio" name="house.isempty" value="false"/><label for="house.isempty">入住</label>
                             </span>
                           </div>
                        </div> 
@@ -41,7 +40,7 @@
                           <div><span>备&nbsp;&nbsp;注：</span><span><textarea name="house.houseDesc" style="height:40px;" class="textbox" id="house.houseDesc"></textarea></span></div>
                        </div>
                        <div class="rowStyle">
-                          <div style=" margin-left:100px;margin-top:20px"><input type="submit" value="完成" onclick="return  FormCheck(); "/>
+                          <div style=" margin-left:100px;margin-top:20px"><input type="button" value="完成" onclick="return  FormCheck(); "/>
                                                                           <input type="button" value="关闭" onclick="return Close(); "/></div>
                        </div>
                       <div class="clear"></div>

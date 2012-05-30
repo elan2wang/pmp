@@ -4,9 +4,7 @@ $(function()
 	//building.project.proId  赋值为选中的小区的Id
 	objfc1=document.getElementById("building.project.proId");
 	var projectId = parent.document.getElementById("frame.pageId").value;
-	alert("in buidl_add.js   projectId="+projectId);
 	objfc1.value = projectId;
-	alert(document.getElementById("building.project.proId").value);
 });
 	function strim(str){
 		return str.replace(/(^\s*)|(\s*$)/g,""); 
