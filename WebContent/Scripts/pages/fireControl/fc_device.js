@@ -25,7 +25,6 @@ function list_divice(xml){
 	var zone=$(xml).find("zone");
 	var devideArr=zone.find("device");
 	var deviceNum=devideArr.length;
-	
 	url=encodeURI("地下室1.bmp");
 	divCon.append('<img  src="../'+$("#imgUrl").val()+'"  border="0"/>');
 	//divCon.append('<img  src='+zone.attr("picpath").toString()+'  border="0"/>');

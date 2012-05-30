@@ -165,7 +165,7 @@ public class ZoneAction extends ActionSupport{
     	if(!zoneConfigUrl.equals("")){
     		String dirPath = ServletActionContext.getServletContext().getRealPath("fireConfig");
     		int index=zoneConfigUrl.indexOf("/");
-    		String configPath=dirPath+"\\"+zoneConfigUrl.subSequence(index+1, zoneConfigUrl.length());
+    		String configPath="file:///"+dirPath+"\\"+zoneConfigUrl.substring(index+1, zoneConfigUrl.length());
     		List<FireDevice> firedeviceList=null;
     		try {
 				firedeviceList=XmlReadUtil.readXml(configPath);
@@ -221,7 +221,7 @@ public class ZoneAction extends ActionSupport{
 			
 			String xmlPath = ServletActionContext.getServletContext().getRealPath("fireConfig");
     		int index=zoneConfigUrl.indexOf("/");
-    		String configPath=xmlPath+"\\"+zoneConfigUrl.subSequence(index+1, zoneConfigUrl.length());
+    		String configPath="file:///"+xmlPath+"\\"+zoneConfigUrl.substring(index+1, zoneConfigUrl.length());
     		List<FireDevice> firedeviceList=null;
     		try {
 				firedeviceList=XmlReadUtil.readXml(configPath);
