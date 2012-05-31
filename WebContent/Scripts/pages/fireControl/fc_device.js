@@ -39,7 +39,7 @@ function list_divice(xml){
 		imgid=thisdevice.attr("devicenumber").toString();
 		var info=thisdevice.attr("devicetypename").toString();
 		if(imageurl.length<=1){imageurl='0'+imageurl;}
-		divCon.append('<div class="devicePosi" id='+imgid+'><a href="javascript:void(0)" target="_blank" title="'+info+'"><img src="../fireConfig/DevIco/'+imageurl+'.ico" border="0" id='+imgid+'></a></div>');
+		divCon.append('<div class="devicePosi" id='+imgid+'><a href="javascript:void(0);" title="'+info+'"><img src="../fireConfig/DevIco/'+imageurl+'.ico" border="0" id='+imgid+'></a></div>');
 		
 		thisdevice=null;
 	}
