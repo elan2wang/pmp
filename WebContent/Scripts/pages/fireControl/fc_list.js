@@ -42,7 +42,7 @@ function makeRequest(){
 					setDeviceNum(zone);zone=null;
 					$("#abnormal_data").append("<p id="+devices+"><a  target='fc_device' href='toZoneView?zoneId="+zoneID+"' onclick='setDeviceNum("+'"'+devices+'"'+")'>异常数据:  场地ID "+zoneID+"  设备ID "+devices+"  时间："+time+"</a></p>");
 				});
-				length=document.getElementById("fc_device").contentWindow.thisList.length;
+				//length=document.getElementById("fc_device").contentWindow.thisList.length;
 				if($("#alarm").attr("src")==""&&data.callFireInfos.length>0)
 				{
 					$("#alarm").attr("src","../fireConfig/FIRE.WAV");
