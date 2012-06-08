@@ -143,8 +143,8 @@ public class TreeAction extends ActionSupport{
     	    	    
 		    		Zone zone = ite1.next();
 		    		
-		    		nodes.add(JsonConvert.toJsonTreeNode(index++, pid1,zone.getZoneName(),"toZoneView?zoneId="+zone.getZoneId(), 
-		    			    "", "fc_device", "../Images/dtree/buil.jpg", "../Images/dtree/buil.jpg", false));
+		    		nodes.add(JsonConvert.toJsonTreeNode(index++, pid1,zone.getZoneName(),"javascript:linkZone("+zone.getZoneId()+");", 
+		    			    "", "", "../Images/dtree/buil.jpg", "../Images/dtree/buil.jpg", false));
             }
     	}
     	

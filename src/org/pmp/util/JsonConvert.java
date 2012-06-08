@@ -522,6 +522,28 @@ public class JsonConvert {
     	sb.append("}");
     	return sb.toString();
     }
+
+    public static String toJsonZones(int zoneId,String zoneName,String zoneImgUrl,String zoneConfigUrl){
+    	StringBuffer sb = new StringBuffer();
+    	sb.append("{");
+    	sb.append(toJson("zoneId")+":"+toJson(zoneId)+",");
+    	sb.append(toJson("zoneName")+":"+toJson(zoneName)+",");
+    	sb.append(toJson("zoneImgUrl")+":"+toJson(zoneImgUrl)+",");
+    	sb.append(toJson("zoneConfigUrl")+":"+toJson(zoneConfigUrl)+",");
+    	sb.append("}");
+    	return sb.toString();
+    }
+    
+    public static String toJsonZoneList(List<String> nodes){
+    	StringBuffer sb = new StringBuffer();
+    	sb.append("{\n  "+toJson("zones")+":[\n");
+    	for (int i=0;i<nodes.size();i++){
+    	    sb.append("    "+nodes.get(i)+",\n");
+    	}
+    	sb.deleteCharAt(sb.length()-2);
+    	sb.append("  ]\n}");
+    	return sb.toString().replaceAll(",}", "}");
+    }
     
     public static String toJsonFireInfoList(List<String> callNodes,List<String> warnNodes){
     	StringBuffer sb = new StringBuffer();

@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +32,7 @@ import org.pmp.util.SessionHandler;
 import org.pmp.util.XmlReadUtil;
 import org.pmp.vo.Company;
 import org.pmp.vo.FireDevice;
+import org.pmp.vo.FireInfo;
 import org.pmp.vo.Owner;
 import org.pmp.vo.Project;
 import org.pmp.vo.Zone;
@@ -80,6 +82,40 @@ public class ZoneAction extends ActionSupport{
     private String zoneConfigContentType;
     
     //~ Methods ========================================================================================================
+    
+    public void getAllZones(){
+    	 logger.info("###################获取所有信息");
+      	 Object obj=SessionHandler.getUserRefDomain();
+      	 List<Integer> proIdList=new ArrayList();
+		 
+	   	 if(obj instanceof Company){
+	   		         //公司管理员
+	   		         Company company=(Company)obj;
+					 List<Project> pList=projectService.loadProjectList_ByCompany(company.getComId(), null, null, null);
+					 for (Project pro : pList) {
+						proIdList.add(pro.getProId());
+					 }
+	   	 }else{
+		    		 //项目管理员
+		    		 Project project=(Project)obj;
+		    		 proIdList.add(project.getProId());
+	   	 }
+      	 
+	   	 List<Zone> zoneList=zoneService.loadZoneListByProIdList(proIdList,null,null,null);
+	   	 
+	   	 List<String> zoneStrs = new ArrayList<String>();
+	   	 Iterator<Zone> zones = zoneList.iterator();
+	   	 while(zones.hasNext()){
+	   		 	Zone z = zones.next();
+	   		    zoneStrs.add(JsonConvert.toJsonZones(z.getZoneId(), z.getZoneName(), z.getZoneImgUrl(), z.getZoneConfigUrl()));
+	   	 }
+		 
+	   	 String data=JsonConvert.toJsonZoneList(zoneStrs);
+
+		 logger.info(data);
+		 
+		 JsonConvert.output(data);
+    }
     
     public void loadZoneList(){
     	

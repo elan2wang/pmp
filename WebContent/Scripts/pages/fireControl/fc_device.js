@@ -1,9 +1,13 @@
 
 //alert($("#configUrl").val());
-load_device("../"+$("#configUrl").val());
 
+var zoneImgUrl=parent.zoneImgUrlTmp;
+var zoneConfigUrl=parent.zoneConfigUrlTmp;
+var zoneId=parent.zoneIdTmp;
 
+//alert(zoneImgUrl+":"+zoneConfigUrl);
 
+load_device("../"+zoneConfigUrl);
 
 var thisList=new Array();
 //load xml配置文件
@@ -29,7 +33,7 @@ function list_divice(xml){
 	var deviceNum=devideArr.length;
 
 
-	divCon.append('<img  src="../'+$("#imgUrl").val()+'"  border="0"/>');
+	divCon.append('<img  src="../'+zoneImgUrl+'"  border="0"/>');
 	//divCon.append('<img  src='+zone.attr("picpath").toString()+'  border="0"/>');
 	var imageid='';
 	for(var i=0;i<deviceNum;i++)
@@ -62,7 +66,7 @@ function list_divice(xml){
 	
 	//决定是否闪烁
 	thisList.length=0;
-	thisList=findByZoneId($("#zoneID").val(),parent.deviceNumList);
+	thisList=findByZoneId(zoneId,parent.deviceNumList);
 	if(thisList&&thisList.length>0){
 		for(var i=0;i<thisList.length;i++)
 		{
@@ -142,7 +146,6 @@ function list_divice(xml){
 			  thisList.push(parentList[i].deviceID);
 		  }
 	  }
-	  //alert(thisList.length);
 	  return thisList;
   }
 
