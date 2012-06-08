@@ -55,44 +55,19 @@ function AddTds(row,colm){
 	return html;
 	
 }
-function initIcon(){
-	document.getElementById("first_page").firstChild.src="../Images/first1.gif";
-	document.getElementById("first_page").onclick="PageDownOrUp(1)";
-	document.getElementById("pre_page").firstChild.src="../Images/pre1.gif";
-	document.getElementById("pre_page").onclick="PageDownOrUp(2)";
-	document.getElementById("next_page").firstChild.src="../Images/next1.gif";
-	document.getElementById("next_page").onclick="PageDownOrUp(3)";
-	document.getElementById("last_page").firstChild.src="../Images/last1.gif";
-	document.getElementById("last_page").onclick="PageDownOrUp(4)";
-}
-function changeIcon(nowpage,totalpage){
-	if(nowpage==1)
-	{
-	    document.getElementById("first_page").firstChild.src="../Images/first2.gif";
-	    document.getElementById("pre_page").firstChild.src="../Images/pre2.gif";
-	    document.getElementById("first_page").onclick="";
-	    document.getElementById("pre_page").onclick="";
-		if(nowpage==totalpage)
-		{
-	       document.getElementById("next_page").firstChild.src="../Images/next2.gif";
-	       document.getElementById("last_page").firstChild.src="../Images/last2.gif";
-	       document.getElementById("next_page").onclick="";
-	       document.getElementById("last_page").onclick="";
-		}
-		
-	}
-	if(nowpage==totalpage){
-		 document.getElementById("next_page").firstChild.src="../Images/next2.gif";
-	     document.getElementById("last_page").firstChild.src="../Images/last2.gif";
-	     document.getElementById("next_page").onclick="";
-	     document.getElementById("last_page").onclick="";
-		 if(nowpage==1){
-			  document.getElementById("first_page").firstChild.src="../Images/first2.gif";
-	          document.getElementById("pre_page").firstChild.src="../Images/pre2.gif";
-	          document.getElementById("first_page").onclick="";
-	          document.getElementById("pre_page").onclick="";
-		 }
-    }
+
+
+function UpdateSelectedItem(objSelect, objItemValue) {   
+    for (var i = 0; i < objSelect.options.length; i++) {
+        if (objSelect.options[i].value == objItemValue) {  
+       	 objSelect.options[i].selected = true; 
+            break;       
+        }       
+    } 
+}   
+
+function strim(str){
+	return str.replace(/(^\s*)|(\s*$)/g,""); 
 }
 
 function getQueryString(name) {
@@ -100,4 +75,6 @@ function getQueryString(name) {
     var r = window.location.search.substr(1).match(reg);
     if (r != null) return unescape(r[2]); return null;
 }
-var objList=new Array();//存放火灾警报的数组
+
+//存放火灾警报的数组
+var objList=new Array();

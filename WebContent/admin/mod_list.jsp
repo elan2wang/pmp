@@ -43,14 +43,14 @@
                              <a href="javascript:void(0)" onclick="openEditWindow('#editModule','getModule?modId='+$(this).next().html())">编辑</a>
                              <span style="display:none;width:10px">${module.modId }</span>
                              <span style="display:inline-block;width:10px"></span>
-                             <a href="javascript:void(0)" onclick="deleteRow($(this).parent().parent().parent(),'deleteModule?modId='+$(this).prev().prev().html(),'您将删除该模块，确认删除？')">删除</a>        
+                             <a href="javascript:void(0)" onclick="deleteRow($(this).parent().parent().parent(),'deleteModule?modId='+$(this).prev().prev().html(),'您将删除该模块，确认删除?')">删除</a>        
                           </td>
                         </tr>
                         </c:forEach>
                     </tbody>
                  </table>
-                 <div id="newModule" class="easyui-window" href="mod_add.jsp" title="添加新模块" iconCls="icon-save" style="width:350px;height:270px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
-                 <div id="editModule" class="easyui-window" title="编辑模块" iconCls="icon-save" style="width:350px;height:270px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
+                 <div id="newModule" class="easyui-window" href="mod_add.jsp" title="添加新模块" iconCls="icon-save" style="width:300px;height:270px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
+                 <div id="editModule" class="easyui-window" title="编辑模块" iconCls="icon-save" style="width:300px;height:270px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
             </div>
        </div>
     </div>

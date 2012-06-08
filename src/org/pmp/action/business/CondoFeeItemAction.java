@@ -89,45 +89,32 @@ public class CondoFeeItemAction extends ActionSupport {
     	boolean fail = false;
     	for(int i=0;i<condoFeeItemList.size();++i)
     	{
-    		CondoFeeItem condoFeeItem = (CondoFeeItem)condoFeeItemList.get(i);
-    		if(condoFeeItem.getItemYear().equals(itemYear))
-    		{
-    			String items[] = condoFeeItem.getItemMonth().split(",");
-    			String items_js[]=months.split(",");
-    			for(int item_i=0;item_i<items_js.length;item_i++)
-    			{
-    				for(int item_j=0;item_j<items.length;++item_j)
-    				{
-    					if(items_js[item_i].equals(items[item_j]))
-    					{
-    						fail = true;
-    						break;
-    					}
-    				}
-    				if(fail)
-    					break;
-    						
+    	    CondoFeeItem condoFeeItem = (CondoFeeItem)condoFeeItemList.get(i);
+    	    if(condoFeeItem.getItemYear().equals(itemYear)){
+    		String items[] = condoFeeItem.getItemMonth().split(",");
+    		String items_js[]=months.split(",");
+    		for(int item_i=0;item_i<items_js.length;item_i++){
+    		    for(int item_j=0;item_j<items.length;++item_j){
+    			if(items_js[item_i].equals(items[item_j])){
+    			    fail = true;
+    			    break;
     			}
-    			if(fail)
-    				break;
-    				
+    		    }
+    		    if(fail)break;	
     		}
-    		else
-    			continue;
+    		if(fail)break;
+    	    }
+    	    else continue;
     	}
     	String data = null;
-    	if(fail)
-    	{
-    		data="{"+JsonConvert.toJson("result")+":"+JsonConvert.toJson("Failed")+"}";
-       
+    	if(fail){
+    	    data="{"+JsonConvert.toJson("result")+":"+JsonConvert.toJson("Failed")+"}";
     	}
-    	else
-    	{
-    		data="{"+JsonConvert.toJson("result")+":"+JsonConvert.toJson("Success")+"}";
+    	else{
+    	    data="{"+JsonConvert.toJson("result")+":"+JsonConvert.toJson("Success")+"}";
     	}
      	logger.debug(data);
     	JsonConvert.output(data);
-    	
   }
     
     
@@ -161,8 +148,7 @@ public class CondoFeeItemAction extends ActionSupport {
     }
     
     public void deleteCondoFeeItem(){
-	logger.debug("begin to delete");
-	condoFeeItemService.deleteCondoFeeItem(cfiId);
+	condoFeeItemService.deleteCondoFeeItem(condoFeeItemService.getCondoFeeItemByID(cfiId));
     }
     
     //~ Getters and Setters ============================================================================================

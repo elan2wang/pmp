@@ -18,13 +18,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.log4j.Logger;
-import org.apache.struts2.ServletActionContext;
 import org.pmp.service.business.IBuildingService;
 import org.pmp.service.business.ICondoFeeItemService;
-import org.pmp.service.business.ICondoFeeService;
 import org.pmp.service.business.IHouseService;
 import org.pmp.service.business.IProjectService;
 import org.pmp.service.fire.IZoneService;
@@ -79,14 +75,14 @@ public class TreeAction extends ActionSupport{
 	    Project pro = ite.next();
 	    nodes.add(JsonConvert.toJsonTreeNode(index++, 0, pro.getProName(), "", 
 		    "", "", "../Images/dtree/pro.jpg", "../Images/dtree/pro.jpg", false));
-	    List<Building> builList = buildingService.loadBuildingList_ByProject(pro.getProId(), new HashMap<String,Object>(), "", pager);
+	    List<Building> builList = buildingService.loadBuildingList_ByProject(pro.getProId(), new HashMap<String,Object>(), "order by builNum asc", pager);
 	    Iterator<Building> ite1 = builList.iterator();
 	    Integer pid1 = index-1;
 	    while(ite1.hasNext()){
 		Building buil = ite1.next();
 		nodes.add(JsonConvert.toJsonTreeNode(index++, pid1, buil.getBuilNum()+"号楼", "", 
 			    buil.getBuilType(), "", "../Images/dtree/buil.jpg", "../Images/dtree/buil.jpg", false));
-		List<House> houseList = houseService.loadHouseList_ByBuilding(buil.getBuilId(), new HashMap<String,Object>(), "", pager);
+		List<House> houseList = houseService.loadHouseList_ByBuilding(buil.getBuilId(), new HashMap<String,Object>(), "order by houseNum asc", pager);
 		Iterator<House> ite2 = houseList.iterator();
 		Integer pid2 = index-1;
 		while(ite2.hasNext()){
@@ -152,7 +148,6 @@ public class TreeAction extends ActionSupport{
     	logger.debug(data);
     	JsonConvert.output(data);
     }
-    
     
     public void monthTree(){
 	/* get current user's refDomain */

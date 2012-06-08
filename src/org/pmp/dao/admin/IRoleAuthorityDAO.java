@@ -19,5 +19,5 @@ import org.pmp.vo.TbRoleAuthority;
 public interface IRoleAuthorityDAO {
     public void batchSave(List<TbRoleAuthority> list);
     public void batchDeleteByRoleID(Integer roleID);
-    public void batchUpdateByRoleID(Integer roleID,List<TbRoleAuthority> list);
+    public void batchUpdateByRoleID(List<TbRoleAuthority> list,Integer roleID);
 }

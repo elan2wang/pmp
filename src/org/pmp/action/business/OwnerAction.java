@@ -183,16 +183,14 @@ public class OwnerAction extends ActionSupport{
 	}
 	
 	/* retrieve user's refDomain and set proId */
-	List<Project> proList = new ArrayList<Project>();
+	List<?> cfList = new ArrayList<Owner>();
 	Object obj = SessionHandler.getUserRefDomain();
 	if (obj instanceof Project){
-	    proList.add((Project)obj);
+	    cfList = ownerService.loadOwnerList_ByPro(((Project)obj).getProId(), params, order, pager);
 	}
 	if (obj instanceof Company){
-	    proList = (List<Project>) projectService.loadProjectList_ByCompany(((Company)obj).getComId(), new HashMap<String,Object>(), "", new Pager(1000,1));
+	    cfList = ownerService.loadOwnerList_ByCom(((Company)obj).getComId(), params, order, pager);
 	}
-	/* invoke service to get list */
-	List<?> cfList = ownerService.loadOwnerList_ByPro(proList.get(0).getProId(), params, order, pager);
 	
 	String[] attrs = {"ownerName","gender","mobile","houseNum","houseArea","organization"};
 	List<String> show = Arrays.asList(attrs);

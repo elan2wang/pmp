@@ -8,7 +8,7 @@
 package org.pmp.action.admin;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -18,16 +18,19 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
+import org.pmp.jms.JmsPublisher;
 import org.pmp.service.admin.IGroupService;
 import org.pmp.service.admin.IRoleService;
 import org.pmp.service.admin.IUserGroupRoleService;
 import org.pmp.service.admin.IUserService;
+import org.pmp.service.business.ISmsSendService;
 import org.pmp.util.JsonConvert;
 import org.pmp.util.Pager;
 import org.pmp.util.SessionHandler;
-import org.pmp.vo.Building;
 import org.pmp.vo.Company;
 import org.pmp.vo.Project;
+import org.pmp.vo.SMSCompany;
+import org.pmp.vo.SMSSend;
 import org.pmp.vo.TbGroup;
 import org.pmp.vo.TbRole;
 import org.pmp.vo.TbUser;
@@ -49,6 +52,7 @@ public class UserAction extends ActionSupport{
     private IRoleService roleService;
     private IGroupService groupService;
     private IUserGroupRoleService ugrService;
+    private ISmsSendService smsSendService;
     
     private TbUser user;
     private Integer roleId;
@@ -95,29 +99,23 @@ public class UserAction extends ActionSupport{
     public void checkUser(){
     	TbUser user = userService.getUserByUsername(userName);
     	String data = null;
-    	if(user!=null)
-    	{
-    		data="{"+JsonConvert.toJson("result")+":"+JsonConvert.toJson("Failed")+"}";
-       
+    	if(user!=null){
+    	    data="{"+JsonConvert.toJson("result")+":"+JsonConvert.toJson("Failed")+"}";
     	}
-    	else
-    	{
-    		data="{"+JsonConvert.toJson("result")+":"+JsonConvert.toJson("Success")+"}";
+    	else{
+    	    data="{"+JsonConvert.toJson("result")+":"+JsonConvert.toJson("Success")+"}";
     	}
      	logger.debug(data);
     	JsonConvert.output(data);
-    	
-  }
+    }
     
     public String editUser(){
-	logger.debug("aaa");
         TbUser user2 = userService.getUserById(user.getUserId());
     	user.setUsername(user2.getUsername());
     	user.setPassword(user2.getPassword());
     	user.setIssys(user2.isIssys());
     	userService.editUser(user);
     	TbUserGroupRole ugr = ugrService.getUGR_ByUserID(user.getUserId());
-        logger.debug("bbb");
     	
     	TbRole role = roleService.getRoleByID(roleId);
     	TbGroup group = groupService.getGroupByID(groupId);
@@ -146,23 +144,32 @@ public class UserAction extends ActionSupport{
     	return SUCCESS;
     }
     
-    /**
-     * @Title: editUsernamePassword
-     * @Description: 修改用户的用户名和密码
-     */
-    public String editUsernamePassword(){
-	TbUser user2 = userService.getUserById(userId);
-	user.setEnabled(user2.isEnabled());
-	user.setIdentify(user2.getIdentify());
-	user.setIssys(user2.isIssys());
-	user.setMobile(user2.getMobile());
-	user.setPosition(user2.getPosition());
-	user.setRealname(user2.getRealname());
-	user.setUserDesc(user2.getUserDesc());
-	user.setUserId(userId);
+    public void passwordReset(){
+	/* 生成随机6位数字密码 */
+	Integer randomPassword = (int) (System.currentTimeMillis()%10000000);
+	logger.debug("password="+randomPassword);
 	
+	TbUser user = userService.getUserById(userId);
+	user.setPassword(randomPassword.toString());
+	/* 更新该用户的密码 */
 	userService.editUser(user);
-	return SUCCESS;
+	
+	/* 获得该用户所在公司的OpenMAS账号 */
+	SMSCompany smsc = SessionHandler.getSMSCompany(userId);
+	/* 创建SMSSend对象 */
+	SMSSend smsSend = new SMSSend();
+	smsSend.setSMSCompany(smsc);
+	smsSend.setSmssPerson(SessionHandler.getUser().getUsername());
+	smsSend.setSmssReceiver(user.getMobile());
+	smsSend.setSmssState("new");
+	smsSend.setSmssTime(new Date());
+	smsSend.setSmssContent("您重置后的密码为："+randomPassword+",登录后请及时更改您的密码！");
+	
+	/* 保存该待发送短信记录 */
+	smsSendService.addSmsSend(smsSend);
+	
+	/* 给消息队列发消息 */
+	JmsPublisher.sendMessgae(smsSend.getSmssId().toString());
     }
     
     public void loadUserList(){
@@ -351,6 +358,14 @@ public class UserAction extends ActionSupport{
 	 */
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public ISmsSendService getSmsSendService() {
+	    return smsSendService;
+	}
+
+	public void setSmsSendService(ISmsSendService smsSendService) {
+	    this.smsSendService = smsSendService;
 	}
 
 }

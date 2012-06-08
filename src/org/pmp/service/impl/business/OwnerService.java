@@ -20,7 +20,7 @@ import org.apache.log4j.Logger;
 import org.pmp.dao.business.IHouseDAO;
 import org.pmp.dao.business.IHouseOwnerDAO;
 import org.pmp.dao.business.IMemberDAO;
-import org.pmp.dao.business.IOwnerDAO2;
+import org.pmp.dao.business.IOwnerDAO;
 import org.pmp.service.business.IOwnerService;
 import org.pmp.util.Pager;
 import org.pmp.vo.House;
@@ -39,7 +39,7 @@ public class OwnerService implements IOwnerService {
     private static Logger logger = Logger.getLogger(OwnerService.class.getName());
 
     //~ Instance Fields ================================================================================================
-    private IOwnerDAO2 ownerDAO;
+    private IOwnerDAO ownerDAO;
     private IMemberDAO memberDAO;
     private IHouseOwnerDAO houseOwnerDAO;
     private IHouseDAO houseDAO;
@@ -166,11 +166,11 @@ public class OwnerService implements IOwnerService {
     }
     //~ Getters and Setters ============================================================================================
 
-    public IOwnerDAO2 getOwnerDAO() {
+    public IOwnerDAO getOwnerDAO() {
         return ownerDAO;
     }
 
-    public void setOwnerDAO(IOwnerDAO2 ownerDAO) {
+    public void setOwnerDAO(IOwnerDAO ownerDAO) {
         this.ownerDAO = ownerDAO;
     }
 

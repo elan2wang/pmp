@@ -77,7 +77,7 @@ public class RoleAuthorityDAO extends BaseDAO implements IRoleAuthorityDAO {
         session.close();
     }
     
-    public void batchUpdateByRoleID(Integer roleID,List<TbRoleAuthority> list){
+    public void batchUpdateByRoleID(List<TbRoleAuthority> list,Integer roleID){
 	logger.debug("bacthUpdate(1):batchDelete begin");
 	batchDeleteByRoleID(roleID);
 	logger.debug("bacthUpdate(1):batchDelete successfully");

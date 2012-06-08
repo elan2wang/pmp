@@ -74,6 +74,7 @@ function ownerDelete(){
 		url: 'deleteOwner?idStr='+idString,
 		success: function(data){
 			alert("业主记录删除成功");
+			window.location.href=window.location.href;
 		}
 	});
 }

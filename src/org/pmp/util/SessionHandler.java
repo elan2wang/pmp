@@ -53,7 +53,7 @@ public class SessionHandler {
 	}
 	String [] cc = bb.split(":");
 	String username = cc[2].trim();
-	
+	session.put("username", username);
 	/* get user instance */
 	IUserService userService = (IUserService)SpringContextUtil.getBean("userService");
 	TbUser user = userService.getUserByUsername(username);
@@ -66,6 +66,7 @@ public class SessionHandler {
 	TbRole role = ugr.getTbRole();
 	session.put("group", group);
 	session.put("role", role);
+	session.put("rolename", role.getRoleName());
 	
 	/* get the user's refDomain instance */
 	String refDomain = group.getRefDomain().trim();
@@ -106,8 +107,6 @@ public class SessionHandler {
 	Map<String,Object> session = ServletActionContext.getContext().getSession();
 	return (TbUser)session.get("user");
     }
-    
-    
 
     public static TbGroup getUserGroup(){
 	Map<String,Object> session = ServletActionContext.getContext().getSession();
@@ -127,5 +126,25 @@ public class SessionHandler {
     public static SMSCompany getSMSCompany(){
 	Map<String,Object> session = ServletActionContext.getContext().getSession();
 	return (SMSCompany)session.get("smsc");
+    }
+    
+    public static SMSCompany getSMSCompany(Integer userId){
+	SMSCompany smsc = null;
+	IUserGroupRoleService ugrService = (IUserGroupRoleService)SpringContextUtil.getBean("ugrService");
+	ISmsCompanyService smscService = (ISmsCompanyService)SpringContextUtil.getBean("smsCompanyService");
+	TbUserGroupRole ugr = ugrService.getUGR_ByUserID(userId);
+	String refDomain = ugr.getTbGroup().getRefDomain();
+	Integer groupLevel = ugr.getTbGroup().getGroupLevel();
+	if(groupLevel == 2){
+	    ICompanyService companyService = (ICompanyService)SpringContextUtil.getBean("companyService");
+	    Company com = companyService.getCompanyByName(refDomain);
+	    smsc = smscService.getSMSCompanyByComID(com.getComId());
+	} else if(groupLevel == 3){
+	    IProjectService projectService = (IProjectService)SpringContextUtil.getBean("projectService");
+	    Project pro = projectService.getProjectByName(refDomain);
+	    Integer comId = pro.getCompany().getComId();
+	    smsc = smscService.getSMSCompanyByComID(comId);
+	}
+	return smsc;
     }
 }

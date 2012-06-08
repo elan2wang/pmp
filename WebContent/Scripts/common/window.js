@@ -35,8 +35,6 @@ function closeWindow(id){
 
 /* used when delete a record */
 function deleteRow(obj,url,debugMsg){
-	alert(url);
-	alert(debugMsg);
 	if(!confirm(debugMsg))return;
 	$.ajax({
 		type: "POST",

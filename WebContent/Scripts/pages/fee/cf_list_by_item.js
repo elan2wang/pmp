@@ -18,7 +18,6 @@ $(function(){
             { display: '录入人员', name: 'recordPerson', width: Width*0.1, sortable:true, align: 'center' },
             { display: '备注', name: 'comment', width: Width*0.2, sortable:true, align: 'center' }
         ],
-        title:'表格',
         buttons:[
 			{ name: '数据导入', bclass:'import', onpress: cfImport },
 			{ separator: true },
@@ -33,8 +32,6 @@ $(function(){
 			{ name: '缴费审核', bclass:'check', onpress: cfAudit }
 		],
 		searchitems:[
-		    { display: '房号', name: 'house', isdefault:false },
-		    { display: '业主', name: 'owner', isdefault:false },
 		    { display: '年份', name: 'cfYear', isdefault:false },
 		    { display: '月份', name: 'cfMonth', isdefault:false },
 		    { display: '状态', name: 'state', isdefault:false },
@@ -42,7 +39,7 @@ $(function(){
 		    { display: '录入人员', name: 'recordPerson', isdefault:true }
 		],
 		showSearch:true,
-		height:Height*0.82,
+		height:Height*0.9,
         showcheckbox:true,
         nomsg: '没有符合条件的物业费记录',
         usepager:true,

@@ -7,16 +7,30 @@
 <title>添加新模块</title>
 </head>
 <body>
+<div class="window_content">
 <form action="addModule" method="post">
-模块名称:<input type="text" name="module.modName"/><br/>
-模块链接:<input type="text" name="module.modUrl"><br/>
-模块级别:<input type="text" name="module.modLevel"><br/>
-模块排序:<input type="text" name="module.modOrder"><br/>
+<div class="rowStyle">
+模块名称:<input type="text" class="textbox" name="module.modName"/></div>
+<div class="rowStyle">
+模块链接:<input type="text" class="textbox" name="module.modUrl"></div>
+<div class="rowStyle">
+模块级别:<input type="text" class="textbox" name="module.modLevel"></div>
+<div class="rowStyle">
+模块排序:<input type="text" class="textbox" name="module.modOrder"></div>
+<div class="rowStyle">
 是否启用:<input type="radio" name="module.enabled" value="true" checked/>是
-<input type="radio" name="module.enabled" value="false"/>否<br/>
-是否管理模块:<input type="radio" name="module.issys" value="true" checked/>是
-<input type="radio" name="module.issys" value="false"/>否<br/>
-<input type="submit" value="提交"/>
+<input type="radio" name="module.enabled" value="false"/>否</div>
+<div class="rowStyle">
+管理模块:<input type="radio" name="module.issys" value="true" checked/>是
+<input type="radio" name="module.issys" value="false"/>否
+</div>
+<div class="rowStyle">
+       <div style=" margin-left:80px;margin-top:10px">
+       <input type="submit" value="提交"/>
+       <input type="button" value="取消" onclick="closeWindow('#newModule')" /> 
+       </div>
+</div>
 </form>
+</div>
 </body>
 </html>

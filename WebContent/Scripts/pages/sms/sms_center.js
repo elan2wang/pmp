@@ -1,24 +1,23 @@
 // JavaScript Document
 $(function(){
-	
-	$(".content .innercontent").eq(0).show();
+    $(".content .innercontent").eq(0).show();
 
-	$("#tab1").click(function(){
-			$(".nav li").removeClass("active");	
-			$(this).addClass('active');
-			$(".content .innercontent").hide().eq(0).show();
-			return false;
-		});
-	$("#tab2").click(function(){
-		    document.getElementById("SMSsended_Frame").src="SMSCenter_sended.jsp";
-			$(".nav li").removeClass("active");	
-			$(this).addClass('active');
-			$(".content .innercontent").hide().eq(1).show();
-			//document.getElementById("frame.pageType").value="all";
-			return false;
-		});
-
+    $("#tab1").click(function(){
+		$(".nav li").removeClass("active");	
+		$(this).addClass('active');
+		$(".content .innercontent").hide().eq(0).show();
+		return false;
 	});
+    $("#tab2").click(function(){
+	    document.getElementById("SMSsended_Frame").src="sms_list.jsp";
+		$(".nav li").removeClass("active");	
+		$(this).addClass('active');
+		$(".content .innercontent").hide().eq(1).show();
+		//document.getElementById("frame.pageType").value="all";
+		return false;
+	});
+
+});
 
 
 function AddReceiverList(arr)
@@ -38,7 +37,7 @@ function AddReceiverList(arr)
 }
 function FindReceiver()
 {
-	document.getElementById("SMSlist_Frame").src="SMSreceiver_list.jsp";
+	document.getElementById("SMSlist_Frame").src="sms_receiver.jsp";
 }
 function closeReceiver()
 {
@@ -60,7 +59,7 @@ function addReceiver() {
     phone = objreceiverNumber.value;
     var recvierCount = new Number(objrecevierCount.innerHTML);
 
-    for (i = 0; i < objreceiverList.length; i++) {
+    for (var i = 0; i < objreceiverList.length; i++) {
         if (objreceiverList[i].value == phone) {
             //alert(objreceiverList[i]);
             alert("该号码已在列表中！");
@@ -132,7 +131,7 @@ function textCount() {
 
     currentWordsCount = objcurrenttext.value.length;
     totalMsgCount = Math.floor(currentWordsCount / 70) + 1;
-    remainWordsCount = 140 - currentWordsCount;
+    remainWordsCount = 70 - currentWordsCount;
     objcurrentWords.innerHTML = currentWordsCount;
     objtotalMsg.innerHTML = totalMsgCount;
     objremainWords.innerHTML= remainWordsCount;
@@ -143,7 +142,7 @@ function receiverListTransfer() {
     objrealReceiverList = document.getElementById("realReceiverList");
 
     strValues = "";
-    for (i = objreceiverList.length; i > 0; i--) {
+    for (var i = objreceiverList.length; i > 0; i--) {
         if (i == objreceiverList.length) {
             strValues = objreceiverList[i - 1].value;
         }
@@ -160,16 +159,16 @@ function formcheck() {
 
     if (objreceiverList.length == 0) {
         alert("接收不能人为空！");
-        return;
+        return false;
     }
     if (objcurrenttext.value == "") {
         alert("短信内容不能为空！");
-        return;
+        return false;
     }
+    receiverListTransfer();
+    alert("短信已发送");
+    return true;
 }
 function receiverListID_onclick() {
 
-}
-function submit(){
-	document.getElementById('button6').submit();
 }

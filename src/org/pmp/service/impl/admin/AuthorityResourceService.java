@@ -34,7 +34,7 @@ public class AuthorityResourceService implements IAuthorityResourceService{
     public void batchDeleteByAuthID(Integer authID){
 	authorityResourceDAO.batchDeleteByAuthID(authID);
     }
-    public void batchEditByAuthID(Integer authID,List<TbAuthorityResource> list){
+    public void batchEditByAuthID(List<TbAuthorityResource> list,Integer authID){
 	authorityResourceDAO.batchUpdateByAuthID(authID, list);
     }
     //~ Getters and Setters ============================================================================================

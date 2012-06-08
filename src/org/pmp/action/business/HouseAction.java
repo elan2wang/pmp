@@ -22,7 +22,6 @@ import org.pmp.util.SessionHandler;
 import org.pmp.vo.Company;
 import org.pmp.vo.House;
 import org.pmp.vo.Project;
-import org.pmp.vo.TbUserGroupRole;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -33,236 +32,236 @@ import com.opensymphony.xwork2.ActionSupport;
  */
 public class HouseAction extends ActionSupport {
 	
-	static Logger logger = Logger.getLogger(HouseAction.class.getName());
+    private static Logger logger = Logger.getLogger(HouseAction.class.getName());
 	
-	private IHouseService houseService;
-	private House house;
-	private Integer houseId;
+    private IHouseService houseService;
+    private House house;
+    private Integer houseId;
 
-	private Integer page;
-	private Integer rp;
+    private Integer projectId;
+    private Integer buildingId;
 	
-	private Integer projectId;
-	private Integer buildingId;
-	
-	private String buildingNum;
-	private String unit;
-	private String houseNum;
-	
-	
+    private String buildingNum;
+    private String unit;
+    private String houseNum;
+    
+    private String idStr;
+    
+    /* =========FlexiGrid post parameters======= */
+    private Integer page=1;
+    private Integer rp=15;
+    private String sortname;
+    private String sortorder;
+    private String query;
+    private String qtype;
+    /* =========FlexiGrid post parameters======= */
 
-
-
-	public String saveHouse(){
-		houseService.saveHouse(house);
-		return SUCCESS;
+    public String saveHouse(){
+	houseService.addHouse(house);
+	return SUCCESS;
+    }
+	
+    public String updateHouse(){
+        houseService.editHouse(house);
+        return SUCCESS;
+    }
+	
+    public void deleteHouse(){
+	List<House> houseList = new ArrayList<House>();
+	String[] checkedID = idStr.split(",");
+	for (int i=0;i<checkedID.length;i++){
+	    House house = houseService.getHouseByID(Integer.parseInt(checkedID[i]));
+	    houseList.add(house);
+	}
+	houseService.batchDelete(houseList);
+    }
+	
+    public String getHouseById(){
+        house = houseService.getHouseByID(houseId);
+        String[] houseInfo = house.getHouseNum().split("-");
+        buildingNum = houseInfo[0];
+        unit = houseInfo[1];
+        houseNum = houseInfo[2];
+        return SUCCESS;
+    }
+	
+    public void loadHouseListBySessionHandler(){
+        List<?> houseList = null;
+        houseList = new ArrayList<House>();
+        Object obj = SessionHandler.getUserRefDomain();
+        //如果是小区管理员，则只显示本小区内的楼宇
+		
+        Pager pager = new Pager(rp,page);
+        String order = null;
+	Map<String,Object> params = new HashMap<String,Object>();
+	if (!qtype.equals("")&&!query.equals("")){
+	    params.put(qtype, query);
+	}
+	if (!sortname.equals("undefined")&&!sortorder.equals("undefined")){
+	    order= "order by "+sortname+" "+sortorder;
+	} else{
+	    order = "order by building.builId asc, houseNum asc";
 	}
 	
-	public String updateHouse(){
-		houseService.updateHouse(house);
-		return SUCCESS;
-	}
-	
-	public void deleteHouse(){
-		houseService.deleteHouse(houseId);
-	}
-	
-	public String getHouseById(){
-		house = houseService.getHouseById(houseId);
-		String[] houseInfo = house.getHouseNum().split("-");
-		buildingNum = houseInfo[0];
-		unit = houseInfo[1];
-		houseNum = houseInfo[2];
-		return SUCCESS;
-	}
-	
-	public void loadHouseListBySessionHandler(){
-		logger.debug("进入loadHouseListBySessionHandler方法");
-		System.out.println("projectId:"+projectId);
-		System.out.println("buildingId:"+buildingId);
-		List houseList = null;
-		houseList = new ArrayList<House>();
-		Object obj = SessionHandler.getUserRefDomain();
-		//如果是小区管理员，则只显示本小区内的楼宇
-		
-		Pager pager = new Pager(rp,page);
-	//	Pager pager2 = new Pager(10000,1);
-		Map<String,Object> params = new HashMap<String,Object>();
-		String order = "order by houseId asc";
-		if(buildingId!=0)
-			houseList = houseService.loadHouseList_ByBuilding(buildingId, params, order, pager);
-		else if(projectId==0){		
-			if(obj instanceof Project)
-			{
-				Project pro = (Project)obj;
-				System.out.println(pro.getProName());
-				houseList = houseService.loadHouseList_ByProject(pro.getProId(), params, order, pager);
-			}
-			else if(obj instanceof Company)
-			{
-				Company com = (Company)obj;
-				houseList = houseService.loadHouseList_ByCompany(com.getComId(), params, order, pager);
-			}
-		}
-		else 
-			houseList = houseService.loadHouseList_ByProject(projectId, params, order, pager);
-		
-		
-		logger.debug("得到的houseList为"+houseList.toString());
-		
-		
-		/* convert ugrList instance to JsonData */
-		StringBuilder sb = new StringBuilder();
-		sb.append("{\n");
-    	sb.append("  "+JsonConvert.toJson("page")+":\""+JsonConvert.toJson(pager.getCurrentPage())+"\",\n");
-    	sb.append("  "+JsonConvert.toJson("total")+":"+JsonConvert.toJson(pager.getRowsCount())+",\n");
+        if(buildingId!=0){
+            houseList = houseService.loadHouseList_ByBuilding(buildingId, params, order, pager);
+        }
+        else if(projectId==0){
+            if(obj instanceof Project){
+                Project pro = (Project)obj;
+                houseList = houseService.loadHouseList_ByProject(pro.getProId(), params, order, pager);
+            }
+            else if(obj instanceof Company){
+                Company com = (Company)obj;
+                houseList = houseService.loadHouseList_ByCompany(com.getComId(), params, order, pager);
+            }
+        }  else {
+            houseList = houseService.loadHouseList_ByProject(projectId, params, order, pager);
+        }
+        
+        /* convert ugrList instance to JsonData */
+        StringBuilder sb = new StringBuilder();
+        sb.append("{\n");
+        sb.append("  "+JsonConvert.toJson("page")+":\""+JsonConvert.toJson(pager.getCurrentPage())+"\",\n");
+        sb.append("  "+JsonConvert.toJson("total")+":"+JsonConvert.toJson(pager.getRowsCount())+",\n");
     	sb.append("  "+JsonConvert.toJson("rows")+":[\n");
-		Iterator<?> ite = houseList.iterator();
-		
-		while(ite.hasNext()){
-		    House house = (House)ite.next();
-		    sb.append("    {"+JsonConvert.toJson("id")+":\""+JsonConvert.toJson(house.getHouseId())+"\",");
-		    sb.append(JsonConvert.toJson("cell")+":{");
-		    sb.append(JsonConvert.toJson("project")+":"+JsonConvert.toJson(house.getBuilding().getProject().getProName())+",");
-		    sb.append(JsonConvert.toJson("houseNum")+":"+JsonConvert.toJson(house.getHouseNum())+",");
-		    sb.append(JsonConvert.toJson("houseArea")+":"+JsonConvert.toJson(house.getHouseArea())+",");
-		    sb.append(JsonConvert.toJson("houseDesc")+":"+JsonConvert.toJson(house.getHouseDesc())+",");
-		    sb.append(JsonConvert.toJson("condoFeeRate")+":"+JsonConvert.toJson(house.getCondoFeeRate())+",");
-		    sb.append(JsonConvert.toJson("cycleMonth")+":"+JsonConvert.toJson(house.getCycleMonth())+",");
-		    sb.append(JsonConvert.toJson("isempty")+":"+JsonConvert.toJson(house.isIsempty())+"}},\n");
-		}
-		if(houseList.size()!=0)sb.deleteCharAt(sb.length()-2);
-		sb.append("  ]\n}");
-		logger.debug(sb.toString());
-		logger.debug(sb.toString());
-	    JsonConvert.output(sb.toString());		
-	
-	}
-	
-	
-	/**
-	 * @return the house
-	 */
-	public House getHouse() {
-		return house;
-	}
-	/**
-	 * @param house the house to set
-	 */
-	public void setHouse(House house) {
-		this.house = house;
-	}
-	/**
-	 * @return the houseId
-	 */
-	public Integer getHouseId() {
-		return houseId;
-	}
-	/**
-	 * @param houseId the houseId to set
-	 */
-	public void setHouseId(Integer houseId) {
-		this.houseId = houseId;
-	}
-	/**
-	 * @param houseService the houseService to set
-	 */
-	public void setHouseService(IHouseService houseService) {
-		this.houseService = houseService;
-	}
-	/**
-	 * @param projectId the projectId to set
-	 */
-	public void setProjectId(Integer projectId) {
-		this.projectId = projectId;
-	}
-	/**
-	 * @return the projectId
-	 */
-	public Integer getProjectId() {
-		return projectId;
-	}
-	/**
-	 * @return the buildingId
-	 */
-	public Integer getBuildingId() {
-		return buildingId;
-	}
+        Iterator<?> ite = houseList.iterator();
+        while(ite.hasNext()){
+            House house = (House)ite.next();
+            sb.append("    {"+JsonConvert.toJson("id")+":\""+JsonConvert.toJson(house.getHouseId())+"\",");
+            sb.append(JsonConvert.toJson("cell")+":{");
+            sb.append(JsonConvert.toJson("project")+":"+JsonConvert.toJson(house.getBuilding().getProject().getProName())+",");
+            sb.append(JsonConvert.toJson("houseNum")+":"+JsonConvert.toJson(house.getHouseNum())+",");
+            sb.append(JsonConvert.toJson("houseArea")+":"+JsonConvert.toJson(house.getHouseArea())+",");
+            sb.append(JsonConvert.toJson("houseDesc")+":"+JsonConvert.toJson(house.getHouseDesc())+",");
+            sb.append(JsonConvert.toJson("condoFeeRate")+":"+JsonConvert.toJson(house.getCondoFeeRate())+",");
+            sb.append(JsonConvert.toJson("cycleMonth")+":"+JsonConvert.toJson(house.getCycleMonth())+",");
+            sb.append(JsonConvert.toJson("isempty")+":"+JsonConvert.toJson(house.isIsempty())+"}},\n");
+        }
+        if(houseList.size()!=0)sb.deleteCharAt(sb.length()-2);
+        sb.append("  ]\n}");
+        JsonConvert.output(sb.toString());		
+    }
 
-	/**
-	 * @param buildingId the buildingId to set
-	 */
-	public void setBuildingId(Integer buildingId) {
-		this.buildingId = buildingId;
-	}
-	
-	/**
-	 * @return the buildingNum
-	 */
-	public String getBuildingNum() {
-		return buildingNum;
-	}
+    //~ getters and setters ===========================================================================================
+    public IHouseService getHouseService() {
+        return houseService;
+    }
 
-	/**
-	 * @param buildingNum the buildingNum to set
-	 */
-	public void setBuildingNum(String buildingNum) {
-		this.buildingNum = buildingNum;
-	}
+    public void setHouseService(IHouseService houseService) {
+        this.houseService = houseService;
+    }
 
-	/**
-	 * @return the unit
-	 */
-	public String getUnit() {
-		return unit;
-	}
+    public House getHouse() {
+        return house;
+    }
 
-	/**
-	 * @param unit the unit to set
-	 */
-	public void setUnit(String unit) {
-		this.unit = unit;
-	}
+    public void setHouse(House house) {
+        this.house = house;
+    }
 
-	/**
-	 * @return the houseNum
-	 */
-	public String getHouseNum() {
-		return houseNum;
-	}
+    public Integer getHouseId() {
+        return houseId;
+    }
 
-	/**
-	 * @param houseNum the houseNum to set
-	 */
-	public void setHouseNum(String houseNum) {
-		this.houseNum = houseNum;
-	}
+    public void setHouseId(Integer houseId) {
+        this.houseId = houseId;
+    }
 
-	/**
-	 * @return the page
-	 */
-	public Integer getPage() {
-		return page;
-	}
+    public Integer getProjectId() {
+        return projectId;
+    }
 
-	/**
-	 * @param page the page to set
-	 */
-	public void setPage(Integer page) {
-		this.page = page;
-	}
+    public void setProjectId(Integer projectId) {
+        this.projectId = projectId;
+    }
 
-	/**
-	 * @return the rp
-	 */
-	public Integer getRp() {
-		return rp;
-	}
+    public Integer getBuildingId() {
+        return buildingId;
+    }
 
-	/**
-	 * @param rp the rp to set
-	 */
-	public void setRp(Integer rp) {
-		this.rp = rp;
-	}
+    public void setBuildingId(Integer buildingId) {
+        this.buildingId = buildingId;
+    }
+
+    public String getBuildingNum() {
+        return buildingNum;
+    }
+
+    public void setBuildingNum(String buildingNum) {
+        this.buildingNum = buildingNum;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public String getHouseNum() {
+        return houseNum;
+    }
+
+    public void setHouseNum(String houseNum) {
+        this.houseNum = houseNum;
+    }
+
+    public Integer getPage() {
+        return page;
+    }
+
+    public void setPage(Integer page) {
+        this.page = page;
+    }
+
+    public Integer getRp() {
+        return rp;
+    }
+
+    public void setRp(Integer rp) {
+        this.rp = rp;
+    }
+
+    public String getSortname() {
+        return sortname;
+    }
+
+    public void setSortname(String sortname) {
+        this.sortname = sortname;
+    }
+
+    public String getSortorder() {
+        return sortorder;
+    }
+
+    public void setSortorder(String sortorder) {
+        this.sortorder = sortorder;
+    }
+
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
+    }
+
+    public String getQtype() {
+        return qtype;
+    }
+
+    public void setQtype(String qtype) {
+        this.qtype = qtype;
+    }
+
+    public String getIdStr() {
+        return idStr;
+    }
+
+    public void setIdStr(String idStr) {
+        this.idStr = idStr;
+    }
+    
 }

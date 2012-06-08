@@ -20,7 +20,7 @@ import org.pmp.vo.TbGroup;
 public interface IGroupDAO {
     public void saveGroup(TbGroup instance);
     public void updateGroup(TbGroup instance);
-    public void deleteGroup(Integer groupID);
+    public void deleteGroup(TbGroup instance);
     
     /**
      * @Title: getGroupByID

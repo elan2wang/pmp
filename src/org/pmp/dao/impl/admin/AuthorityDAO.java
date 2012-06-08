@@ -53,13 +53,13 @@ public class AuthorityDAO extends BaseDAO implements IAuthorityDAO {
     	}
     }
 
-    public void deleteAuthority(Integer authID) {
-    	String hql = "delete TbAuthority where authId="+authID;
-    	String debugMsg = "delete Authority";
+    public void deleteAuthority(TbAuthority instance) {
+    	String hql = "delete TbAuthority where authId="+instance.getAuthId();
+    	String debugMsg = "delete Authority where authId="+instance.getAuthId();
     	try{
-    		deleteInstance(hql, debugMsg);
+    	    deleteInstance(hql, debugMsg);
     	}catch(RuntimeException e){
-    		throw e;
+    	    throw e;
     	}
     }
     

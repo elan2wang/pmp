@@ -59,7 +59,7 @@ public class RoleAction extends ActionSupport{
     }
     
     public void deleteRoleById(){
-    	roleService.deleteRole(roleId);
+    	roleService.deleteRole(roleService.getRoleByID(roleId));
     }
     //~ Getters and Setters ============================================================================================
 

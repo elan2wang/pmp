@@ -24,7 +24,7 @@ import org.pmp.vo.SMSSend;
  * @update TODO
  */
 public interface ISmsSendService {
-    public void saveSmsSend(SMSSend instance);
+    public void addSmsSend(SMSSend instance);
     
     public List<?> loadSmsSend_ByCompany(Integer comId,Pager pager,Map<String,Object> params,String order);
     

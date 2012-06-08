@@ -19,5 +19,5 @@ import org.pmp.vo.TbRoleAuthority;
 public interface IRoleAuthorityService {
     public void batchAdd(List<TbRoleAuthority> list);
     public void batchDeleteByRoleID(Integer roleID);
-    public void batchEditByRoleID(Integer roleID,List<TbRoleAuthority> list);
+    public void batchEditByRoleID(List<TbRoleAuthority> list,Integer roleID);
 }

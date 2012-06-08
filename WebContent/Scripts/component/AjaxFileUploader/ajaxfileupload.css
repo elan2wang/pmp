@@ -12,7 +12,6 @@ body
 h1, h2, h3, h4, h5
 {
     margin: 0 0 1em;
-    color: #F2683E;
 }
 h1
 {
@@ -22,7 +21,7 @@ h1
 p{margin: 0 0 1em;}
 a,
 a:link,
-a:visited{color: #F2683E;}
+a:visited{}
 a:hover,
 a:active{}
 a img{border: none;}

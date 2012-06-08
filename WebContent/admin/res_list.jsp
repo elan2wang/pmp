@@ -18,7 +18,7 @@
 
 <script type="text/javascript" src="../Scripts/jquery-1.7.1.js" ></script>
 <script type="text/javascript" src="../Scripts/component/easyui/jquery.easyui.min.js" ></script>
-<script type="text/javascript" src="../Scripts/component/flexigrid-1.1/js/flexigrid.js"></script>
+<script type="text/javascript" src="../Scripts/component/flexigrid-1.1/js/flexigrid-new.js"></script>
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
 <script type="text/javascript" src="../Scripts/common/window.js"></script>
 <script type="text/javascript" src="../Scripts/pages/admin/res_list.js"></script>
@@ -31,29 +31,11 @@
        <div class="content">
            <div class="innercontent">
                <div class="content_main">
-                   <div class="grid_top">
-                      <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="openAddWindow('#newRes')">添加新资源</a>
-                      <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="openAddWindow('#importRes')">导入资源</a>
-                   </div>
                    <table id="reslist">
-                      <tbody id="res_data"><% int i =1; %>
-                         <c:forEach var="res" items="${resList}">
-                         <tr><td><%= i++ %></td><td>${res.resName}</td><td>${res.resType}</td><td>${res.issys}</td><td>${res.enabled}</td><td>${res.resLink}</td><td>${res.resDesc}</td>                    <td>
-                              <a href="javascript:void(0)" onclick="openEditWindow('#editRes','getResById?resId='+$(this).next().html())">编辑</a>
-                              <span style="display:none;width:10px">${res.resId}</span><span style="display:inline-block;width:10px"></span>
-                              <a href="javascript:void(0)" onclick="deleteRow($(this).parent().parent().parent(),'deleteResById?resId='+$(this).prev().prev().html()),'您将删除该资源，确认删除'">删除</a>
-                            </td>
-                         </tr>
-                        </c:forEach>
-                        <% i=1; %>
-                     </tbody>
-                    </table>
-                    <div id="newRes" class="easyui-window" href="res_add.jsp" title="添加新资源" iconCls="icon-save" style="width:350px;height:270px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
-                    </div>
-                    <div id="editRes" class="easyui-window"  title="编辑资源" iconCls="icon-save" style="width:350px;height:270px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
-                    </div>
-                    <div id="importRes" href="res_import.jsp" class="easyui-window"  title="导入资源" iconCls="icon-save" style="width:350px;height:270px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
-                     </div>
+                   </table>
+                   <div id="newRes" class="easyui-window" href="res_add.jsp" title="添加新资源" iconCls="icon-save" style="width:350px;height:300px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
+                   <div id="editRes" class="easyui-window"  title="编辑资源" iconCls="icon-save" style="width:350px;height:300px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
+                   <div id="importRes" href="res_import.jsp" class="easyui-window"  title="导入资源" iconCls="icon-save" style="width:350px;height:200px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
               </div>
           </div>
        </div>

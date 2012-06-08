@@ -17,7 +17,7 @@
       <div class="left">
          <div class="select_tab">未分配权限</div>
          <div class="">
-              <select id="auth_1" name="auth_1" multiple="multiple">
+              <select id="auth_1" name="auth_1" multiple="multiple" style="width:200px">
               <c:forEach var="item" items="${noneGrantedAuthList}">
               		<option title="描述：${item.authDesc}；是否启用：${item.enabled}；是否系统管理员：${item.issys}" value="${item.authId}">${item.authName}</option>
 				</c:forEach>
@@ -25,15 +25,15 @@
          </div>
       </div>
       <div class="middle">
-      		<div ><input  type="button" onclick="Add('#auth_1','#authList');" value="添&nbsp;&nbsp;&nbsp;&nbsp;加" /></div>
-			<div ><input  type="button" onclick="Remove('#auth_1','#authList');"  value="移&nbsp;&nbsp;&nbsp;&nbsp;除" /></div>
-			<div ><input  type="button" onclick="AddAll('#auth_1','#authList')" value="全部添加"  /></div>
-			<div ><input  type="button" onclick="RemoveAll('#auth_1','#authList');" value="全部移除"/></div>
+      		<div class="rowStyle"><input  type="button" onclick="Add('#auth_1','#authList');" value="添&nbsp;&nbsp;&nbsp;&nbsp;加" /></div>
+			<div class="rowStyle"><input  type="button" onclick="Remove('#auth_1','#authList');"  value="移&nbsp;&nbsp;&nbsp;&nbsp;除" /></div>
+			<div class="rowStyle"><input  type="button" onclick="AddAll('#auth_1','#authList')" value="全部添加"  /></div>
+			<div class="rowStyle"><input  type="button" onclick="RemoveAll('#auth_1','#authList');" value="全部移除"/></div>
       </div>
       <div class="right">
          <div class="select_tab">已分配权限</div>
          <div class="">
-              <select id="authList" name="authList" multiple="multiple">
+              <select id="authList" name="authList" multiple="multiple" style="width:200px">
                 <c:forEach var="item" items="${grantedAuthList}">
               		<option title="描述：${item.authDesc}；是否启用：${item.enabled}；是否系统管理员：${item.issys}" value="${item.authId}">${item.authName}</option>
 				</c:forEach>
@@ -42,8 +42,9 @@
       </div>
       <div style="clear:both"></div>
      <div class="rowStyle">
-           <div style=" margin-left:100px;margin-top:20px">
+           <div style=" margin-left:230px;margin-top:20px">
            <input type="submit" value="提交" onclick="return selectAll('#authList')"/>
+           <input type="button" value="取消" onclick="closeWindow('#role_auth')"/>
            </div>
       </div>
 </form>

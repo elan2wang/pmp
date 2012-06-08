@@ -1,5 +1,5 @@
 /**
- * Author            : Jason
+ * Author            : Elan
  * Created On        : 2012-4-28 下午12:07:40
  * 
  * Copyright 2012.  All rights reserved. 
@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author Jason
+ * @author Elan
  * @version 1.0
  * @update TODO
  */

@@ -28,18 +28,13 @@
           <li id="tab1" class="active"><a href="javascript:void(0)">信息机管理</a></li>
        </ul>   
        <div class="content">
-           <div class="innercontent">
-             <div class="grid_top">
-              </div>
+           <div class="content_main">
               <table id="smsclist">
-
               </table>
            </div>
        </div>
-       <div id="newSmsc" class="easyui-window" href="smsc_add.jsp" title="添加新信息机" iconCls="icon-save" style="width:350px;height:330px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
-       </div>
-        <div id="editSmsc" class="easyui-window"  title="编辑信息机" iconCls="icon-save" style="width:350px;height:330px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
-       </div>
+       <div id="newSmsc" class="easyui-window" href="smsc_add.jsp" title="添加新信息机" iconCls="icon-save" style="width:350px;height:330px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
+       <div id="editSmsc" class="easyui-window"  title="编辑信息机" iconCls="icon-save" style="width:350px;height:330px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
     </div>
 </body>
 </html>

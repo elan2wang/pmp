@@ -163,7 +163,7 @@ public class CondoFeeDAO extends BaseDAO implements ICondoFeeDAO {
     public List<CondoFee> loadCondoFeeList_ByHouse(Integer houseId,
 	    Map<String, Object> params, String order, Pager pager) {
 	List<CondoFee> list = null;
-	String debugMsg = "load CondoFee list by owner, ownerId="+houseId;
+	String debugMsg = "load CondoFee list by house, houseId="+houseId;
 	StringBuilder hql = new StringBuilder();
 	hql.append("from CondoFee where house.houseId ="+houseId);
 	hql.append(ParamsToString.toString(params));

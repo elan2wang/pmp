@@ -10,6 +10,7 @@
 <title>添加权限</title>
 </head>
 <body>
+<div class="window_content">
 <form name="form1" id="form1" method="post" action="updateRes">
 		<input type="hidden" name="resource.resId" id="resource.resId" value="${resource.resId}"/>
          <div class="rowStyle">
@@ -41,9 +42,11 @@
              </div>
          </div>
           <div class="rowStyle">
-              <div style=" margin-left:100px;margin-top:20px"><input type="submit" value="提交" onclick="return  editFormCheck(); "/>
-               <input type="button" value="关闭" onclick="editClose(); "/></div>
+              <div style=" margin-left:100px;margin-top:20px">
+              <input type="submit" value="提交" onclick="return  editFormCheck(); "/>
+              <input type="button" value="取消" onclick="closeWindow('#editRes')"/></div>
            </div>
 </form>
+</div>
 </body>
 </html>

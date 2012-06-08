@@ -8,6 +8,7 @@
 <title>无标题文档</title>
 <link href="../CSS/common/common.css" rel="stylesheet" type="text/css" />
 <link href="../CSS/common/iBox.css" rel="stylesheet" type="text/css" />
+<link href="../CSS/common/tab.css" rel="stylesheet" type="text/css" />
 <link href="../CSS/pages/cms/building_list.css" rel="stylesheet" type="text/css" />
 <link href="../Scripts/component/flexigrid-1.1/css/flexigrid.pack.css" rel="stylesheet" type="text/css" />
 <link href="../Scripts/component/easyui/themes/default/easyui.css" rel="stylesheet" type="text/css" />
@@ -23,34 +24,13 @@
 </head>
 
 <body>
-  <div class="wrap">  
-  <!--  
-              <div id="top_info" name="top_info" style="display:none" >
-                <div class="grid_top">
-                <span>当前小区：</span><span><script>document.write(parent.document.getElementById("frame.projectName").value)</script></span>
-                <span>当前楼号：</span><span><script>document.write(parent.document.getElementById("frame.builNum").value)</script></span>
-                <span>所属物业：</span><span><script>document.write(parent.document.getElementById("frame.projectName").value)</script></span>
-            </div>
-    -->
-            <div class="grid_top"> 
-              <!--  
-                  <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="openAddNewHouse()">添加新房产</a>                 
-               
-                   <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="houseImport()">导入</a>
-               	  <div id="houseImport" href="house_import.jsp" class="easyui-window" title="房产导入" iconCls="icon-save" style="width:350px;height:200px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
-                 -->
-                </div>
-             </div>
-                         
-             
-              <table id="houselist">
-              </table>
-             <!--  
-	          <div id="newHouse" class="easyui-window" href="house_add.jsp?" title="添加新房产" iconCls="icon-save" style="width:350px;height:330px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
-          </div>
-	          -->
-	          <div id="editHouse" class="easyui-window"  title="编辑房屋" iconCls="icon-save" style="width:350px;height:330px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
-	          </div>
+
+<div class="wrap">
+  <div class="content_main">
+    <table id="houselist">
+    </table>
+    <div id="editHouse" class="easyui-window"  title="编辑房屋" iconCls="icon-save" style="width:350px;height:330px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
   </div>
+</div>
 </body>
 </html>

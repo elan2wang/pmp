@@ -8,17 +8,31 @@
 <title>编辑模块信息</title>
 </head>
 <body>
+<div class="window_content">
 <form action="editModule" method="post">
-<span style="display:none">模块编号:<input type="text" name="module.modId" value="${module.modId }"/></span><br/>
-模块名称:<input type="text" name="module.modName" value="${module.modName }"/><br/>
-模块链接:<input type="text" name="module.modUrl" value="${module.modUrl }"><br/>
-模块级别:<input type="text" name="module.modLevel" value="${module.modLevel }"><br/>
-模块排序:<input type="text" name="module.modOrder" value="${module.modOrder }"><br/>
+<span style="display:none">模块编号:<input type="text" class="textbox" name="module.modId" value="${module.modId }"/></span>
+<div class="rowStyle">
+模块名称:<input type="text" class="textbox" name="module.modName" value="${module.modName }"/></div>
+<div class="rowStyle">
+模块链接:<input type="text" class="textbox" name="module.modUrl" value="${module.modUrl }"></div>
+<div class="rowStyle">
+模块级别:<input type="text" class="textbox" name="module.modLevel" value="${module.modLevel }"></div>
+<div class="rowStyle">
+模块排序:<input type="text" class="textbox" name="module.modOrder" value="${module.modOrder }"></div>
+<div class="rowStyle">
 是否启用:<input type="radio" name="module.enabled" value="true" <c:if test="${module.enabled == true }">checked</c:if>/>是
-<input type="radio" name="module.enabled" value="false" <c:if test="${module.enabled == false }">checked</c:if>/>否<br/>
-是否管理模块:<input type="radio" name="module.issys" value="true" <c:if test="${module.issys == true }">checked</c:if>/>是
-<input type="radio" name="module.issys" value="false" <c:if test="${module.issys == false }">checked</c:if>/>否<br/>
-<input type="submit" value="提交"/>
+<input type="radio" name="module.enabled" value="false" <c:if test="${module.enabled == false }">checked</c:if>/>否</div>
+<div class="rowStyle">
+管理模块:<input type="radio" name="module.issys" value="true" <c:if test="${module.issys == true }">checked</c:if>/>是
+<input type="radio" name="module.issys" value="false" <c:if test="${module.issys == false }">checked</c:if>/>否</div>
+<div class="rowStyle">
+       <div style=" margin-left:80px;margin-top:10px">
+       <input type="submit" value="提交"/>
+       <input type="button" value="取消" onclick="closeWindow('#editModule')" /> 
+       </div>
+</div>
 </form>
+</form>
+</div>
 </body>
 </html>

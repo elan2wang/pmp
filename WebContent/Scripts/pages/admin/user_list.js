@@ -23,12 +23,12 @@ $(function(){
         colModel:[
             { display: '真实姓名', name: 'tbUser.realname', width: Width*0.08, sortable:true, align: 'center' },
             { display: '用户名', name: 'tbUser.username', width: Width*0.08, sortable:true, align: 'center' },
-            { display: '手机号码', name: 'tbUser.mobile', width: Width*0.1, sortable:true, align: 'center' },
-            { display: '身份证号', name: 'tbUser.identify', width: Width*0.15, sortable:true, align: 'center' },
-            { display: '职位', name: 'tbUser.position', width: Width*0.1, sortable:true, align: 'center' },
+            { display: '手机号码', name: 'tbUser.mobile', width: Width*0.08, sortable:true, align: 'center' },
+            { display: '身份证号', name: 'tbUser.identify', width: Width*0.13, sortable:true, align: 'center' },
+            { display: '职位', name: 'tbUser.position', width: Width*0.07, sortable:true, align: 'left' },
             { display: '角色', name: 'tbRole.roleName', width: Width*0.1, sortable:true, align: 'center' },
-            { display: '用户组', name: 'tbGroup.groupName', width: Width*0.12, sortable:true, align: 'center' },
-            { display: '是否启用', name: 'tbUser.enabled', width: Width*0.06, sortable:true, align: 'center' }
+            { display: '用户组', name: 'tbGroup.groupName', width: Width*0.2, sortable:true, align: 'left' },
+            { display: '是否启用', name: 'tbUser.enabled', width: Width*0.05, sortable:true, align: 'center' }
         ],
         buttons:[
             { name: '添加用户', bclass: 'add', onpress: userAdd },
@@ -43,7 +43,7 @@ $(function(){
      	    { display: '角色', name : 'tbRole.roleName' }
      	],
      	showSearch:true,
-		height:Height*0.8,
+		height:Height*0.82,
         showcheckbox:true,
         nomsg: '没有符合条件的用户',
         usepager:true,
@@ -59,12 +59,7 @@ $(function(){
 function userAdd(){
 	openAddWindow('#newUser');
 }
-function closeAddNewUser(){
-	$('#newUser').window('close');
-}
-function closeEditUser(){
-	$('#editUser').window('close');
-}
+
 function userDelete(){
 	var rowid,idString="";
 	$("#user_list td input:checked").each(function(){
@@ -82,5 +77,13 @@ function userDelete(){
 }
 
 function passwordReset(userId){
-	alert("重置的密码已发送给该用户");
+	if(!confirm("您将发送密码重置短信给该用户?"))return;
+	$.ajax({
+		type:"post",
+		dataType:"json",
+		url:"passwordReset?userId="+userId,
+		success: function(data){
+			alert("密码已重置!");
+		}
+	});
 }

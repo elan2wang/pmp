@@ -13,28 +13,28 @@
 <div class="window_content">
 <form name="form" id="form" action="addUser" method="post">
          <div class="rowStyle">
-             <div><span >真实姓名:</span><span><input type="text" name="user.realname" id="user.realname"/></span></div>
+             <div><span >真实姓名:</span><span><input type="text" name="user.realname" id="user.realname"/></span><span style="color:red">*</span></div>
          </div>
          <div class="rowStyle">
-             <div><span >用&nbsp;户&nbsp;名:</span><span><input type="text" name="user.username" id="user.username"/></span></div>
+             <div><span >用&nbsp;户&nbsp;名:</span><span><input type="text" name="user.username" id="user.username"/></span><span style="color:red">*</span></div>
          </div>
          <div class="rowStyle">
-             <div><span >手机号码:</span><span><input type="text" name="user.mobile" id="user.mobile"/></span></div>
+             <div><span >手机号码:</span><span><input type="text" name="user.mobile" id="user.mobile"/></span><span style="color:red">*</span></div>
          </div>
          <div class="rowStyle">
-             <div><span >身份证号:</span><span><input type="text" name="user.identify" id="user.identify"/></span></div>
+             <div><span >身份证号:</span><span><input type="text" name="user.identify" id="user.identify"/></span><span style="color:red">*</span></div>
          </div>
          <div class="rowStyle">
-             <div><span >职位:</span><span><input type="text" name="user.position" id="user.position"/></span></div>
+             <div><span >职&nbsp;&nbsp;&nbsp;&nbsp;位:</span><span><input type="text" name="user.position" id="user.position"/></span></div>
          </div>
          <div class="rowStyle">
              <div><span >用户描述:</span><span><input type="text" name="user.userDesc" id="user.userDesc"/></span></div>
          </div>
          <div class="rowStyle">
-             <div><span >选择角色:</span><span><select id="roleId" name="roleId" onchange="roleChange()"></select></span></div>
+             <div><span >选择角色:</span><span><select id="roleId" name="roleId" onchange="roleChange()" class="selectbox"></select></span><span style="color:red">*</span></div>
          </div>
          <div class="rowStyle">
-             <div><span >选择用户组:</span><span><select id="groupId" name="groupId"></select></span></div>
+             <div><span >用&nbsp;户&nbsp;组:</span><span><select id="groupId" name="groupId" class="selectbox"></select></span><span style="color:red">*</span></div>
          </div>
          <div class="rowStyle">
              <div><span >是否启用:</span>
@@ -45,8 +45,9 @@
              </div>
          </div>
           <div class="rowStyle">
-              <div style="margin-left:100px; margin-top:20px"><input type="button" value="提交" onclick="return FormCheck(); "/>
-                                 <input type="button" value="关闭" onclick="addClose(); "/></div>
+              <div style="margin-left:100px; margin-top:20px">
+              <input type="button" value="提交" onclick="return FormCheck();"/>
+              <input type="button" value="关闭" onclick="closeWindow('#newUser')"/></div>
            </div>
          </form>
          </div>

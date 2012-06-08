@@ -9,13 +9,13 @@ $(function(){
 	});
 	$('#grouplist').flexigrid({
 		colModel: [
-             { display: '序号',  width: Width*0.02,  align: 'center' },
-             { display: '用户组名称', width: Width*0.15, align: 'center' },
-			 { display: '用户组关联域', width: Width*0.1, align: 'center' },
+             { display: '序号',  width: Width*0.05,  align: 'center' },
+             { display: '用户组名称', width: Width*0.2, align: 'left' },
+			 { display: '关联域', width: Width*0.15, align: 'left' },
 			 { display: '用户组级别', width: Width*0.1,align: 'center' },
-			 { display: '用户组描述', width: Width*0.5,align: 'center' },
+			 { display: '用户组描述', width: Width*0.3,align: 'left' },
              { display: '操作',  width: Width*0.1, align: 'center' }
 	    ],
-	    height:Height
+	    height:Height*0.95
 	});  
 });

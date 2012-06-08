@@ -4,12 +4,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="../Scripts/component/AjaxFileUploader/ajaxfileupload.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../Scripts/component/AjaxFileUploader/ajaxfileupload.js"></script>
+<script type="text/javascript" src="../Scripts/pages/admin/res_import.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
-<% if(request.getAttribute("message")!=null){ %><span style="color:red">${message }</span><%} %>
-<form name="form1" action="import_res" method="post" enctype="multipart/form-data">
-<input type="file" name="resFile" /><input type="submit" value="导入">
-</form>
+<h2>请选择上传的文件</h2>
+<input type="file" id="resFile" size="25" name="resFile" /><input type="button" onclick="res_import()" value="导入">
+<br><img src='../Images/loading.gif' id='loading' style='display:none'><br>
+<div id="msg" style="color:red;font-size:13px;text-aligan:center"></div>
 </body>
 </html>

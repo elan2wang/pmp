@@ -21,7 +21,7 @@ import org.pmp.vo.Project;
 public interface IProjectService {
     public void addProject(Project project);
     public void editProject(Project project);
-    public void deleteProject(Integer projectID);
+    public void deleteProject(Project project);
     public Project getProjectByID(Integer projectID);
     public Project getProjectByName(String projectName);
     public List<Project> loadProjectList_ByCompany(Integer comId,Map<String,Object>params,String order,Pager pager);

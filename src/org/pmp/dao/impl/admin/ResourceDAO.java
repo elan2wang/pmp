@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
@@ -20,6 +21,8 @@ import org.hibernate.Transaction;
 import org.hibernate.jdbc.Work;
 import org.pmp.dao.admin.BaseDAO;
 import org.pmp.dao.admin.IResourceDAO;
+import org.pmp.util.Pager;
+import org.pmp.util.ParamsToString;
 import org.pmp.vo.TbResource;
 /**
  * @author Elan
@@ -34,94 +37,114 @@ public class ResourceDAO extends BaseDAO implements IResourceDAO {
     
     public void batchSave(final List<TbResource> list){
 	logger.debug("begin to batch save TbResource");
-	final String hql = "insert into tb_Resource(Res_Name,Res_Type,Res_Link,Res_Desc,ENABLED,ISSYS,Mod_ID) " +
-                           "values(?,?,?,?,?,?,?)";
-	Session session = getSession();
-	Transaction tx = session.beginTransaction();
-	try {
-	    Work work = new Work(){
-		public void execute(Connection connection) throws SQLException{
-		    PreparedStatement stmt = connection.prepareStatement(hql);
-		    Iterator<TbResource> ite = list.iterator();
-		    while(ite.hasNext()){
-			TbResource res = ite.next();
-			logger.debug(res.getResName()+" "+res.getResType()+" "+res.getResLink()+" " +res.getResDesc()+" " +res.isEnabled()+" "+res.isIssys()+" "+res.getModId());
-			stmt.setString(1, res.getResName());
-			stmt.setString(2, res.getResType());
-			stmt.setString(3, res.getResLink());
-			stmt.setString(4, res.getResDesc());
-			if (res.isEnabled()) stmt.setInt(5, 1);
-			else stmt.setInt(5, 0);
-			if (res.isIssys()) stmt.setInt(6, 1);
-			else stmt.setInt(6, 0);
-			stmt.setInt(7, res.getModId());
-			stmt.executeUpdate();
-		    }
-		}
-	    };
-	    session.doWork(work);
-	} catch (RuntimeException e){
-	    tx.rollback();
-	    logger.error(e.getStackTrace());
-	    throw e;
-	} finally{
-            tx.commit();
-	    session.close();
-	}
-	
+	Work work = new Work(){
+	    public void execute(Connection connection) throws SQLException{
+                final String hql = "insert into tb_Resource(Res_Name,Res_Type,Res_Link,Res_Desc,ENABLED,ISSYS,Mod_ID) " +
+                                   "values(?,?,?,?,?,?,?)";
+                PreparedStatement stmt = connection.prepareStatement(hql);
+                Iterator<TbResource> ite = list.iterator();
+                while(ite.hasNext()){
+                    TbResource res = ite.next();
+                    logger.debug(res.getResName()+" "+res.getResType()+" "+res.getResLink()+" " +res.getResDesc()+" " +res.isEnabled()+" "+res.isIssys()+" "+res.getModId());
+                    stmt.setString(1, res.getResName());
+                    stmt.setString(2, res.getResType());
+                    stmt.setString(3, res.getResLink());
+                    stmt.setString(4, res.getResDesc());
+                    if (res.isEnabled()) stmt.setInt(5, 1);
+                    else stmt.setInt(5, 0);
+                    if (res.isIssys()) stmt.setInt(6, 1);
+                    else stmt.setInt(6, 0);
+                    stmt.setInt(7, res.getModId());
+                    stmt.executeUpdate();
+                }
+            }
+	};
+	executeWork(work);
+	logger.debug("successfully batch save TbResource");
+    }
+    
+    public void batchDelete(final List<TbResource> list){
+	logger.debug("begin to batch delete resource,size="+list.size());
+	Work work = new Work(){
+	    public void execute(Connection connection) throws SQLException{
+                final String hql = "delete tb_Resource where Res_ID = ?";
+                PreparedStatement stmt = connection.prepareStatement(hql);
+                Iterator<TbResource> ite = list.iterator();
+                while(ite.hasNext()){
+                    TbResource res = ite.next();
+                    stmt.setInt(1, res.getResId());
+                    stmt.executeUpdate();
+                }
+	    }
+	};
+	executeWork(work);
+	logger.debug("successfully batch delete resource");
     }
     
     public void saveResource(TbResource instance){
-	Session session = getSession();
-        logger.debug("begin to save a resource.");
+	String debugMsg = "save an resource instance";
         try {
-            Transaction tx = session.beginTransaction();
-            session.save(instance);
-            tx.commit();
+            saveInstance(instance,debugMsg);
         } catch (RuntimeException e){
-            logger.error("save a resource failed",e);
             throw e;
         }
-        logger.debug("save a resource successfully.");
-        session.close();
     }
     
     public void updateResource(TbResource instance){
-    	String debugMsg = "updateResource";
-    	try{
-    		updateInstance(instance, debugMsg);
-    	}catch (RuntimeException e) {
-    		throw e;
-		}
-    }
-    public void deleteResource(Integer resID){
-    	String hql = "delete TbResource where resId="+resID;
-    	String debugMsg = "deleteResource";
-    	try {
-			deleteInstance(hql, debugMsg);
-		} catch (RuntimeException e) {
-			throw e;
-		}
+	String debugMsg = "update an resource instance,resId="+instance.getResId();
+        try {
+            updateInstance(instance,debugMsg);
+        } catch (RuntimeException e){
+            throw e;
+        }
     }
     
-    public TbResource getResourceByID(Integer authID){
-	Session session = getSession();
-	TbResource resource = null;
-	logger.debug("begin to get resource entity.");
+    public void deleteResource(TbResource instance){
+    	String hql = "delete TbResource where resId="+instance.getResId();
+    	String debugMsg = "delete TbResource where resId="+instance.getResId();
+    	try {
+    	    deleteInstance(hql, debugMsg);
+	} catch (RuntimeException e) {
+	    throw e;
+	}
+    }
+    
+    public TbResource getResourceByID(Integer resId){
+	String hql = "from TbResource where resId="+resId;
+	String debugMsg = "get resource by id,resId="+resId;
+	TbResource res = null;
 	try {
-	    Transaction tx = session.beginTransaction();
-            Query query = session.createQuery("from TbResource res where res.resId = ?");
-            query.setParameter(0, authID);
-            resource = (TbResource)query.list().get(0);
-            tx.commit();
+	    res = (TbResource)getInstance(hql,debugMsg);
 	} catch (RuntimeException e){
-            logger.error("get resource entity failed.",e);
             throw e;
 	}
-	logger.debug("get resource entity successfully.");
-        session.close();
-	return resource;
+	return res;
     }
+    
+    public List loadResourceList(Map<String, Object> params, String order,
+	    Pager pager) {
+	List<TbResource> list = null;
+	String debugMsg = "load TbResource list";
+	StringBuilder hql = new StringBuilder();
+	hql.append("from TbResource");
+	if (params.size()!=0){
+	    hql.append(" where ");
+	    hql.append(ParamsToString.toString(params).substring(5));
+	}
+	if (order==null){
+	    hql.append(" order by resId desc");
+	} else {
+	    hql.append(" "+order);
+	}
+	logger.debug(hql);
+	try {
+	    list = (List<TbResource>) loadListByCondition(hql.toString(),pager,debugMsg);
+	} catch (RuntimeException e){
+	    throw e;
+	}
+	return list;
+    }
+    
     
     public List getAllResources(){
 	Session session = getSession();
@@ -227,4 +250,5 @@ public class ResourceDAO extends BaseDAO implements IResourceDAO {
         session.close();
 	return resourceList;
     }
+
 }

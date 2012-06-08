@@ -47,9 +47,9 @@ public class ModuleDAO extends BaseDAO implements IModuleDAO {
 	}
     }
     
-    public void deleteModule(Integer modId){
-	String debugMsg = "delete module,modId="+modId;
-	String hql = "delete from TbModule where modId="+modId;
+    public void deleteModule(TbModule instance){
+	String debugMsg = "delete module,modId="+instance.getModId();
+	String hql = "delete from TbModule where modId="+instance.getModId();
 	try {
 	    deleteInstance(hql,debugMsg);
 	} catch(RuntimeException e){

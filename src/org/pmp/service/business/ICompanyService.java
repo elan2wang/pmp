@@ -21,7 +21,7 @@ import org.pmp.vo.Company;
 public interface ICompanyService {
     public void addCompany(Company company);
     public void editCompany(Company company);
-    public void deleteCompany(Integer companyID);
+    public void deleteCompany(Company company);
     public Company getCompanyByID(Integer companyID);
     public Company getCompanyByName(String companyName);
     public List<Company> loadCompanyList_ByChinaMobile(Map<String,Object>params,String order,Pager pager);

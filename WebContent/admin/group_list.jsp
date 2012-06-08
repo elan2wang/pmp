@@ -45,9 +45,9 @@
                        </tbody>
                     </table>
                </div>
-               <div id="newGroup" class="easyui-window" href="group_add.jsp" title="添加新用户组" iconCls="icon-save" style="width:300px;height:200px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
+               <div id="newGroup" class="easyui-window" href="group_add.jsp" title="添加新用户组" iconCls="icon-save" style="width:330px;height:270px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
                </div>
-               <div id="editGroup" class="easyui-window" href="group_edit.jsp" title="编辑用户组" iconCls="icon-save" style="width:300px;height:200px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
+               <div id="editGroup" class="easyui-window" href="group_edit.jsp" title="编辑用户组" iconCls="icon-save" style="width:330px;height:270px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
                </div>
           </div>
       </div>

@@ -53,9 +53,9 @@ public class RoleDAO extends BaseDAO implements IRoleDAO{
         }
     }
     
-    public void deleteRole(Integer roleID){
-    	String hql = "delete TbRole where roleId="+roleID;
-    	String debugMsg = "deleteRole";
+    public void deleteRole(TbRole instance){
+    	String hql = "delete TbRole where roleId="+instance.getRoleId();
+    	String debugMsg = "delete Role where roleId="+instance.getRoleId();
     	try{
     	    deleteInstance(hql, debugMsg);
     	}catch(RuntimeException e){

@@ -22,7 +22,7 @@ import org.pmp.vo.TbRole;
 public interface IRoleDAO {
     public void saveRole(TbRole instance);
     public void updateRole(TbRole instance);
-    public void deleteRole(Integer roleID);
+    public void deleteRole(TbRole instance);
     
     /**
      * @Title: getRoleByID

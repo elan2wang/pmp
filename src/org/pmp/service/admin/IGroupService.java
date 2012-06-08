@@ -20,7 +20,7 @@ import org.pmp.vo.TbGroup;
 public interface IGroupService {
     public void addGroup(TbGroup instance);
     public void editGroup(TbGroup instance);
-    public void deleteGroup(Integer groupID);
+    public void deleteGroup(TbGroup instance);
     
     /**
      * @Title: getGroupByID
