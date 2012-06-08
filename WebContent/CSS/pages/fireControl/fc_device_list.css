@@ -7,29 +7,52 @@ body{
 	align:center;
 }
 .wrap .top{
-	margin:10px;
+	position:absolute;
+	top:5px;
+	left:5px;
+	z-index:10;
 	padding:0px;
 }
 .wrap .device{
 	margin:10px;
 	padding:0px;
-	height:300px;
+
+	height:inherent;
+
 	width:inherent;
-	overflow:scroll;
 }
 .wrap .bottom_left{
 	float:left;
 	height:100px;
 	border-right:1px solid lightblue;
 	width:50%;
+	overflow-y:scroll;
 }
 .wrap .bottom_right{
 	float:left;
 	height:100px;
 	width:49%;
+	overflow-y:scroll;
 }
 .wrap .bottom{
 	border:1px solid lightblue;
 	margin:10px;
+
 	height:100px;
+	
+}
+.wrap .bottom a{
+	color:red;
+	}
+.wrap .fullscreen{
+	background:black;
+	display:inline-block;
+	width:70px;
+	height:25px;
+	line-height:25px;
+	text-align:center;
+	font-size:12px;
+	color: #FFFFFF;
+	text-decoration:none;
+
 }

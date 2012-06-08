@@ -2,7 +2,7 @@ $(function(){
 	
 	$(".content .innercontent").eq(0).show();
 	
-	var editURL = "editZone?zoneID=";
+	var editURL = "editZone?zoneId=";
 	
 	var editWindow = "#zoneEdit";
 	
@@ -23,9 +23,9 @@ $(function(){
                  { name: '删除场地', bclass:'delete', onpress: ownerDelete }
      		],
      	searchitems:[
-     		    { display: '所属小区', name: 'z.project.proName', isDefault:false },
-     		    { display: '场地名称', name: 'z.zoneName', isDefault:false },
-     		    { display: '类型', name: 'z.zoneType', isDefault:true }
+     		    { display: '所属小区', name: 'project.proName', isDefault:false },
+     		    { display: '场地名称', name: 'zoneName', isDefault:false },
+     		    { display: '类型', name: 'zoneType', isDefault:true }
      		],
 		showSearch:true,
 		height:Height*0.79,

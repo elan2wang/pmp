@@ -18,4 +18,6 @@ public interface IZoneService {
     Zone deleteZone(Zone zone);
     
     List<Zone> loadZoneListByProIdList(List<Integer> proIdList,Map<String,Object>params,String order,Pager paper);
+    
+    Zone queryZoneByParams(Map<String,Object>params); 
 }

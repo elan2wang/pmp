@@ -7,11 +7,19 @@
   <!-- DAO Declare -->
   <!-- ======================================================================================= -->
   <bean id="zoneDAO" class="org.pmp.dao.impl.fire.ZoneDAO" parent="baseDAO"/>
-  
+  <bean id="fireInfoDAO" class="org.pmp.dao.impl.fire.FireInfoDAO" parent="baseDAO"/>
+  <bean id="fireDeviceDAO" class="org.pmp.dao.impl.fire.FireDeviceDAO" parent="baseDAO"/>
+    
   <!-- Service Declare -->
   <!-- ======================================================================================= -->
   <bean id="zoneService" class="org.pmp.service.impl.fire.ZoneService">
     <property name="zoneDAO" ref="zoneDAO" />
+  </bean>
+  <bean id="fireInfoService" class="org.pmp.service.impl.fire.FireInfoService">
+    <property name="fireInfoDAO" ref="fireInfoDAO" />
+  </bean>
+  <bean id="fireDeviceService" class="org.pmp.service.impl.fire.FireDeviceService">
+    <property name="fireDeviceDAO" ref="fireDeviceDAO" />
   </bean>
   
   <!-- Action Declare -->
@@ -19,6 +27,11 @@
   <bean id="zoneAction" class="org.pmp.action.fire.ZoneAction">
     <property name="zoneService" ref="zoneService" />
     <property name="projectService" ref="projectService" />
+    <property name="fireDeviceService" ref="fireDeviceService"></property>
+    <property name="fireInfoService" ref="fireInfoService"></property>
+  </bean>
+  <bean id="fireInfoAction" class="org.pmp.action.fire.FireInfoAction">
+    <property name="fireInfoService" ref="fireInfoService" />
   </bean>
     
 </beans>

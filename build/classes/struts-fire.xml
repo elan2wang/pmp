@@ -21,6 +21,9 @@
       
       <action name="zoneTree" class="org.pmp.action.business.TreeAction" method="zoneTree" />
       
+      <action name="getFireInfos" class="org.pmp.action.fire.FireInfoAction" method="getFireInfos"></action>
+      <action name="updateFireInfoState" class="org.pmp.action.fire.FireInfoAction" method="updateFireInfoState"></action>      
+      
   </package>
 </struts>
 

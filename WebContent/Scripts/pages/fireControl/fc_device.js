@@ -1,19 +1,11 @@
 
-alert($("#configUrl").val());
-load_device($("#configUrl").val());
-
-     
-
-//setTimeout(_request(objList),5000);
-function _request(arr){
-	return function()
-	{
-		parent.makeRequest(arr);
-	}
-}
+//alert($("#configUrl").val());
+load_device("../"+$("#configUrl").val());
 
 
 
+
+var thisList=new Array();
 //load xml配置文件
 function load_device(url){
 	$.ajax({
@@ -28,16 +20,16 @@ function load_device(url){
 		}
 	});
 }
-//把装置部署的背景图片上
+//把装置部署到背景图片上
 function list_divice(xml){
 	//alert("come in");
 	var divCon=$('#devicelist');
 	var zone=$(xml).find("zone");
 	var devideArr=zone.find("device");
 	var deviceNum=devideArr.length;
-	
-	url=encodeURI("地下室1.bmp");
-	divCon.append('<img  src="../fireConfig/basement1.bmp"  border="0"/>');
+
+
+	divCon.append('<img  src="../'+$("#imgUrl").val()+'"  border="0"/>');
 	//divCon.append('<img  src='+zone.attr("picpath").toString()+'  border="0"/>');
 	var imageid='';
 	for(var i=0;i<deviceNum;i++)
@@ -68,7 +60,15 @@ function list_divice(xml){
 		 fire=null;
 	});
 	
-	//
+	//决定是否闪烁
+	thisList.length=0;
+	thisList=findByZoneId($("#zoneID").val(),parent.deviceNumList);
+	if(thisList&&thisList.length>0){
+		for(var i=0;i<thisList.length;i++)
+		{
+			findByFireId(thisList[i]).startBlink();
+		}
+	}
 }
 
 //向服务器请求异常数据
@@ -77,10 +77,10 @@ function list_divice(xml){
  //切换显示与否  实现闪烁功能
 
  function Blink(obj){
-  if(obj.css("visibility") == "visible")
-	  obj.css("visibility" , "hidden");
+  if(obj.find("img").css("visibility") == "visible")
+	  obj.find("img").css("visibility" , "hidden");
   else
-	  obj.css("visibility" ,"visible");
+	  obj.find("img").css("visibility" ,"visible");
  }
  //setTimeout 方法不能传递参数  写这个方法  以弥补这个缺陷
  function  _Blink(obj){
@@ -127,24 +127,70 @@ function list_divice(xml){
 	  for(var i=0;i<objList.length;i++)
 	  {
 		  if(objList[i].ID==id){
-			  alert(objList[i].TimerID);
 			  return objList[i];
 		  }
 	  }
 	  return null;
   }
+  //根据zoneID找到相应的数组
+  function findByZoneId(zoneId,parentList){
+	  var thisList=new Array();
+	  for(var i=0;i<parentList.length;i++)
+	  {
+		  if(parentList[i].ID==zoneId)
+		  {
+			  thisList.push(parentList[i].deviceID);
+		  }
+	  }
+	  //alert(thisList.length);
+	  return thisList;
+  }
+
+  function _stopAlarm(id,clickId){
+	  var fireObj=findByFireId(id);
+      fireObj.stopBlink();
+      updateFireInfoState(id,clickId);
+  }
+  
+  function updateFireInfoState(deviceNum,state){
+	  $.ajax(
+				{
+					type:'POST',
+					url:'fire/updateFireInfoState',
+					data:{'deviceNum':''+deviceNum+'','state':state},
+					success:function(msg){
+					},
+					error:function(resut){
+					    alert("处理警报错误!");
+					}
+				}
+	   );
+  }
   
   //生成右键菜单
-  function _stopAlarm(id){
-	  var fireObj=findByFireId(id);
-      fireObj.stopFireAlarm();
-  }
   function createRightMenu(fire){
 	  //alert(fire.ID);
 	  $('#'+fire.ID).RightMenu("m"+fire.ID,{
 		   menuList:[
-		       {menuName:"关闭警报",clickEvent:"_stopAlarm("+fire.ID+")"}
+		       {menuName:"关闭警报",clickEvent:"_stopAlarm("+fire.ID+",'2')"},
+		       {menuName:"视为误报",clickEvent:"_stopAlarm("+fire.ID+",'3')"}
 		   ]
 	  });
   }
- 
+ //全屏显示功能
+  function FullScreen(self){
+	  
+	  var frame=parent.document.getElementById("fc_device");
+	  if(self.innerHTML=="全屏显示"){
+	      frame.style.position= "absolute";
+	      frame.style.left="0px";
+	      frame.style.top="0px";
+	      self.innerHTML="退出全屏";
+	  }
+	  else{
+		  frame.style.position="";
+	      frame.style.left="0px";
+	      frame.style.top="0px";
+	      self.innerHTML="全屏显示";
+	  }
+  }

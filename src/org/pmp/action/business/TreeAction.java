@@ -18,13 +18,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.log4j.Logger;
-import org.apache.struts2.ServletActionContext;
 import org.pmp.service.business.IBuildingService;
 import org.pmp.service.business.ICondoFeeItemService;
-import org.pmp.service.business.ICondoFeeService;
 import org.pmp.service.business.IHouseService;
 import org.pmp.service.business.IProjectService;
 import org.pmp.service.fire.IZoneService;
@@ -131,7 +127,7 @@ public class TreeAction extends ActionSupport{
     	    nodes.add(JsonConvert.toJsonTreeNode(index++, 0, pro.getProName(), "", 
     		    "", "", "../Images/dtree/pro.jpg", "../Images/dtree/pro.jpg", false));
     	    
-    	    String order = "order by z.zoneId asc";
+    	    String order = "order by zoneId asc";
     	    
     	    List<Zone> zoneList = zoneService.loadZoneListByProId(pro.getProId(), null, order, null);
             
@@ -143,7 +139,7 @@ public class TreeAction extends ActionSupport{
     	    	    
 		    		Zone zone = ite1.next();
 		    		
-		    		nodes.add(JsonConvert.toJsonTreeNode(index++, pid1,zone.getZoneName(),"toZoneView?zone.zoneId="+zone.getZoneId(), 
+		    		nodes.add(JsonConvert.toJsonTreeNode(index++, pid1,zone.getZoneName(),"toZoneView?zoneId="+zone.getZoneId(), 
 		    			    "", "fc_device", "../Images/dtree/buil.jpg", "../Images/dtree/buil.jpg", false));
             }
     	}
@@ -152,7 +148,6 @@ public class TreeAction extends ActionSupport{
     	logger.debug(data);
     	JsonConvert.output(data);
     }
-    
     
     public void monthTree(){
 	/* get current user's refDomain */

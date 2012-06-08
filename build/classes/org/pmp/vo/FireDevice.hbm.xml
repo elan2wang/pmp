@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-5-25 12:51:24 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.pmp.vo.FireDevice" table="tb_FireDevice" schema="dbo" catalog="db_pmp2">
+        <id name="fireDeviceId" type="integer">
+            <column name="FD_ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="zone" class="org.pmp.vo.Zone" fetch="select" lazy="false">
+            <column name="Zone_ID" />
+        </many-to-one>
+        <property name="deviceNumber" type="string">
+            <column name="Device_Number" length="50" />
+        </property>
+        <property name="typeName" type="string">
+            <column name="Type_Name" length="50" />
+        </property>
+        <property name="mark" type="string">
+            <column name="Mark" length="50" />
+        </property>
+    </class>
+</hibernate-mapping>
