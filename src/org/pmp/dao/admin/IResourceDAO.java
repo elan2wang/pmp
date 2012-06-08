@@ -8,7 +8,9 @@
 package org.pmp.dao.admin;
 
 import java.util.List;
+import java.util.Map;
 
+import org.pmp.util.Pager;
 import org.pmp.vo.TbResource;
 
 /**
@@ -19,17 +21,20 @@ import org.pmp.vo.TbResource;
 public interface IResourceDAO {
     public void saveResource(TbResource instance);
     public void updateResource(TbResource instance);
-    public void deleteResource(Integer resID);
+    public void deleteResource(TbResource instance);
+    public void batchSave(List<TbResource> list);
+    public void batchDelete(List<TbResource> list);
     
-    public void batchSave(final List<TbResource> list);
+    public List loadResourceList(Map<String, Object> params,String order, Pager pager);
+    
     /**
      * @Title: getResourceByID
      * @Description: 根据资源的ID获取资源实体对象
      *
-     * @param  resID  资源编号
+     * @param  resId  资源编号
      * @return TbResource  资源实体对象
      */
-    public TbResource getResourceByID(Integer resID);
+    public TbResource getResourceByID(Integer resId);
     
     /**
      * @Title: getAllResources

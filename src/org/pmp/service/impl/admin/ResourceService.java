@@ -8,10 +8,12 @@
 package org.pmp.service.impl.admin;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.pmp.dao.admin.IResourceDAO;
 import org.pmp.service.admin.IResourceService;
+import org.pmp.util.Pager;
 import org.pmp.vo.TbResource;
 
 /**
@@ -34,6 +36,10 @@ public class ResourceService implements IResourceService {
 	resourceDAO.batchSave(list);
     }
     
+    public void batchDelete(List<TbResource> list){
+	resourceDAO.batchDelete(list);
+    }
+    
     public void addResource(TbResource instance){
 	resourceDAO.saveResource(instance);
     }
@@ -42,8 +48,12 @@ public class ResourceService implements IResourceService {
 	resourceDAO.updateResource(instance);
     }
     
-    public void deleteResource(Integer resID){
-	resourceDAO.deleteResource(resID);
+    public void deleteResource(TbResource instance){
+	resourceDAO.deleteResource(instance);
+    }
+    
+    public List loadResourceList(Map<String, Object> params,String order, Pager pager){
+	return resourceDAO.loadResourceList(params, order, pager);
     }
     
     public TbResource getResourceByID(Integer resID){

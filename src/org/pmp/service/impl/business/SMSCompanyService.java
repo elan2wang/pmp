@@ -38,8 +38,8 @@ public class SmsCompanyService implements ISmsCompanyService{
 	smsCompanyDAO.updateSMSCompany(instance);
     }
     
-    public void delereSMSCompany(Integer smscId){
-	smsCompanyDAO.delereSMSCompany(smscId);
+    public void delereSMSCompany(SMSCompany instance){
+	smsCompanyDAO.delereSMSCompany(instance);
     }
     
     public void batchDeleteSMSCompany(List<SMSCompany> list)

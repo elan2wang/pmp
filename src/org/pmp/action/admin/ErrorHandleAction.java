@@ -36,6 +36,7 @@ public class ErrorHandleAction extends ActionSupport{
 	    .SPRING_SECURITY_ACCESS_DENIED_EXCEPTION_KEY);
 	request.setAttribute("errorDetails", ex.getMessage());
 	
+	logger.debug("===============================================================================");
 	return SUCCESS;
     }
     //~ Getters and Setters ============================================================================================

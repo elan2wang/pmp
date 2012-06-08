@@ -22,7 +22,7 @@ public interface ISmsCompanyService {
     
     public void editSMSCompany(SMSCompany instance);
     
-    public void delereSMSCompany(Integer smscId);
+    public void delereSMSCompany(SMSCompany instance);
     
     public void batchDeleteSMSCompany(List<SMSCompany> list);
     

@@ -2,13 +2,14 @@
 	margin:10px;
 }
 .window_content .left{
-	 width:150px; 
+	 width:200px; 
 	 float:left; 
 	 margin:5px; 
 	 padding:20px 0 0 20px;
 }
 .select_tab{
 	text-align:center;
+	font-size:12px;
 }
 .window_content .middle{
 	 width:100px; 
@@ -16,12 +17,12 @@
 	 padding:60px 0 0 10px;
 }
 .window_content .right{
-	 width:150px; 
+	 width:200px; 
 	 float:left; 
 	 margin:5px; 
 	 padding:20px 0 0 0;
 }
 .window_content select{
 	height:200px;
-	width:100%;
+	width:200px;
 }

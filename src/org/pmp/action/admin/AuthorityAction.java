@@ -59,7 +59,7 @@ public class AuthorityAction extends ActionSupport {
     }
     
     public void deleteAuthById(){
-    	authorityService.deleteResource(authId);
+    	authorityService.deleteResource(authorityService.getAuthorityByID(authId));
     }
     
     //~ Getters and Setters ============================================================================================

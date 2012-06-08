@@ -1,142 +1,72 @@
 // JavaScript Document
 $(function(){
-	
-	$(".content .innercontent").eq(0).show();
+	$('#projectlist').flexigrid({
+	     url:"project_listBySessionHandler",
+	     dataType:"json",
+	     colModel: [
+             { display: '项目名称',name:'proName', width: Width*0.15, sortable:true, align: 'center' },
+             { display: '所属物业',name:'company', width: Width*0.15, sortable:true, align: 'center' },
+			 { display: '所属地区',name:'proDistrict', width: Width*0.1, sortable:true, align: 'center' },
+			 { display: '所属街道',name:'proStreet', width: Width*0.1, sortable:true, align: 'center' },
+			 { display: '详细地址',name:'proAddress', width: Width*0.22, sortable:true, align: 'center' },
+			 { display: '交付时间',name:'deliveryTime', width: Width*0.1, sortable:true, align: 'center',hide:'true'  },
+			 { display: '项目规模', name:'proHouseCount',width: Width*0.1, sortable:true, align: 'center',hide:'true' },
+			 { display: '项目备注', name:'proDesc',width: Width*0.22, sortable:true, align: 'center' ,hide:'true'},
+			 { display: '项目类型',name:'proType', width: Width*0.1, sortable:true, align: 'center' ,hide:'true'},
+			 { display: '启用消控',name:'fireEnabled', width: Width*0.1, sortable:true, align: 'center' ,hide:'true'},
+			 { display: '是否启用', name:'enabled',width: Width*0.1, sortable:true, align: 'center' ,hide:'true'}
+         ],
+         buttons : [
+	       	 {name: '新增项目', bclass: 'add', onpress : addProject},
+	       	 {name: '导入项目', bclass: 'import', onpress : importProject},
+	       	 {separator: true}
+		 ],
+		 searchitems:[
+          	 { display: '项目名称', name: 'proName', isdefault:true },
+          	 { display: '所属地区', name: 'proDistrict', isdefault:false },
+          	 { display: '所属街道', name: 'proStreet', isdefault:false }
+         ],
+         height:Height*0.84,
+         showSearch:true,
+         showcheckbox:true,
+         usepager: true,
+ 		 useRp: true,
+ 		 rp: 15,
+ 		 operation:true,
+		 operationcontent:'<a href="javascript:void(0)" onclick="openEditProject($(this).parent().parent().parent())">编辑</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#\" onclick=\"parent.selectBuildTab($(this).parent().parent().parent(),$(this).parent().parent().parent(),$(this).parent().parent().parent())\">楼宇设置</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#\" onclick=\"deleteProject($(this).parent().parent().parent(),$(this).parent().parent().parent());\">删除</a>',
+		 operationWidth: Width*0.22
+    });
+});
 
-	$("#tab1").click(function(){
-			$(".nav li").removeClass("active");	
-			$(this).addClass('active');
-			$(".content .innercontent").hide().eq(0).show();
-			return false;
-		});
-	$("#tab2").click(function(){
-		document.getElementById("buildingFrame").src="building_list.jsp";
-			$(".nav li").removeClass("active");	
-			$(this).addClass('active');
-			$(".content .innercontent").hide().eq(1).show();
-			document.getElementById("frame.pageType").value="all";
-			return false;
-		});
-     $("#tab3").click(function(){
-	   document.getElementById("houseFrame").src="house_list.jsp";
-			$(".nav li").removeClass("active");	
-			$(this).addClass('active');
-			$(".content .innercontent").hide().eq(2).show();
-			document.getElementById("frame.housepageType").value="all";
-			return false;
-		});
-     
-     
-	 // $('#project_data').html(AddTds(20,10));
-	  $('#projectlist').flexigrid({
-		     url:"project_listBySessionHandler",
-		     dataType:"json",
-		     colModel: [
-             { display: '项目名称',name:'proName', width: Width*0.15, align: 'center' },
-			 { display: '项目地址',name:'proAddress', width: Width*0.22, align: 'center' },
-             { display: '所属物业公司',name:'company', width: Width*0.15,align: 'center' },
-			 { display: '交付时间',name:'deliveryTime', width: Width*0.1, align: 'center' },
-			 { display: '项目规模', name:'proHouseCount',width: Width*0.1, align: 'center',hide:'true' },
-			 { display: '项目备注', name:'proDesc',width: Width*0.22, align: 'center' ,hide:'true'},
-			 { display: '项目类型',name:'proType', width: Width*0.1, align: 'center' ,hide:'true'},
-			 { display: '启用消控',name:'fireEnabled', width: Width*0.1, align: 'center' ,hide:'true'},
-			 { display: '是否启用', name:'enabled',width: Width*0.1, align: 'center' ,hide:'true'}
-             ],
-             buttons : [
-    			       	{name: '添加新项目', bclass: 'add', onpress : openAddNewProject},
-    			       	{name: '导入', bclass: 'modify', onpress : proImport},
-    			       	{separator: true}
-    		],
-    		searchitems:[
-    		              	{ display: '项目名称', name: 'proName', isdefault:false },
-    		              	{ display: '交付时间', name: 'deliveryTime', isdefault:false },
-    		              	{ display: '项目地址', name: 'proAddress', isdefault:false },
-    		              	{ display: '项目规模', name: 'proHouseCount', isdefault:true }
-    		             ],
-             height:Height*0.80,
-             
-             showcheckbox:true,
-             usepager: true,
-     		 useRp: true,
-     		 rp: 15,
-     		 operation:true,
-			operationcontent:'<a href="javascript:void(0)" onclick="openEditProject($(this).parent().parent().parent())">编辑</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#\" onclick=\"selectBuildTab($(this).parent().parent().parent(),$(this).parent().parent().parent(),$(this).parent().parent().parent())\">楼宇设置</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#\" onclick=\"deleteProject($(this).parent().parent().parent(),$(this).parent().parent().parent());\">删除</a>',
-			operationWidth: Width*0.22});
-
-	});
-
-function proImport(){
+function importProject(){
 	openAddWindow('#proImport');
 }
 		
-function openAddNewProject(){
-
-			$('#newPro').window('open');
-		}
-function closeAddNewProject(){
-			$('#newPro').window('close');
-		}
-
-
-
+function addProject(){
+	$('#newPro').window('open');
+}
 
 function openEditProject(obj){
 	var id=parseInt(obj.attr("id").substr(3));
 	var url = 'get_project?projectId='+id;
 	openEditWindow("#editPro",url);
-		}
+}
 function closeEditProject(){
-	        $('#editPro').window('close');
-	    }
+	$('#editPro').window('close');
+}
 function deleteProject(obj,objid){
 	var id = parseInt(objid.attr("id").substr(3));
-	alert("进入删除方法");
-	alert(id);
-	if(!confirm("您将删除该项目有关的楼宇及房屋所有的信息,确定删除吗?"))
-	{
-		return;
-	}
+	if(!confirm("您将删除该项目以及关联楼宇、房产、业主、物业费信息,确定删除吗?"))return;
 	$.ajax({
-		  type: "POST",
-		  url: 'deleteProject?projectId='+id,
-		  dataType: "json",
-		  success : function(data){
-//			  if((data.success).equals("")){
-			  obj.hide();
-//			  }
-		  }
-	   });
-}		
-		
-function selectBuildTab(objproject,objcompany,objid){
-	var project = objproject.find('td').eq(1).find('div').html();
-	var company = objcompany.find('td').eq(3).find('div').html();
-	var id=parseInt(objid.attr("id").substr(3));
+		type: "POST",
+	    url: 'deleteProject?projectId='+id,
+	    dataType: "json",
+	    success : function(data){
+		    obj.hide();
+	    }
+	});
+}
 
-	        document.getElementById("frame.pageType").value="one";
-	        document.getElementById("frame.pageId").value=id;
-	        document.getElementById("frame.projectName").value=project;
-	        document.getElementById("frame.company").value=company;
-	        document.getElementById("buildingFrame").src="building_list.jsp";
-			$(".nav li").removeClass("active");	
-			$("#tab2").addClass('active');
-			$(".content .innercontent").hide().eq(1).show();
-
-        }
-
-function selectHouseTab(builidObj){
-	alert("in selectHouseTab");
-
-	var id = parseInt(builidObj.attr("id").substr(3));	
-	alert("buidlid:"+id);
-			document.getElementById("frame.housepageType").value="one";
-			//document.getElementById("frame.builNum").value=buildNum;
-			document.getElementById("frame.housepageId").value=id;
-			document.getElementById("houseFrame").src="house_list.jsp";
-			$(".nav li").removeClass("active");
-			$("#tab3").addClass('active');
-			$(".content .innercontent").hide().eq(2).show();
-		}
 function getStreets(street)
 {	
 		var objppd=document.getElementById("proDistrict");

@@ -33,8 +33,10 @@ public class JmsPublisher {
     //~ Static Fields ==================================================================================================
     private static Logger logger = Logger.getLogger(JmsPublisher.class.getName());
     //~ Instance Fields ================================================================================================
-    private static JmsTemplate template =(JmsTemplate)SpringContextUtil.getBean("jmsTemplate");
-    private static Destination destination = (Destination) SpringContextUtil.getBean("destination");
+    private static JmsTemplate template =
+	(JmsTemplate)SpringContextUtil.getBean("jmsTemplate");
+    private static Destination destination = 
+	(Destination) SpringContextUtil.getBean("destination");
     
     //~ Methods ========================================================================================================
     public static void sendMessgae(final String ids){

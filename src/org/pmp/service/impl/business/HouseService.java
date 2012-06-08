@@ -22,125 +22,82 @@ import org.pmp.vo.House;
  * @update TODO
  */
 public class HouseService implements IHouseService {
-	
-	private IHouseDAO houseDao;
+    private IHouseDAO houseDAO;
 
-	
+    /**
+     * @see org.pmp.service.business.IHouseService#addHouse(org.pmp.vo.House)
+     */
+    @Override
+    public void addHouse(House house) {
+	houseDAO.saveHouse(house);
+    }
 
-	/**
-	 * @Title: saveHouse
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public void saveHouse(House house) {
-		houseDao.saveHouse(house);
-	}
+    /**
+     * @see org.pmp.service.business.IHouseService#editHouse(org.pmp.vo.House)
+     */
+    @Override
+    public void editHouse(House house) {
+	houseDAO.updateHouse(house);
+    }
 
-	/**
-	 * @Title: deleteHouse
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public void deleteHouse(Integer houseId) {
-		houseDao.deleteHouse(houseId);
-	}
+    /**
+     * @see org.pmp.service.business.IHouseService#batchDelete(java.util.List)
+     */
+    @Override
+    public void batchDelete(List<House> list) {
+	houseDAO.batchDelete(list);
+    }
 
-	/**
-	 * @Title: updateHouse
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public void updateHouse(House house) {
-		houseDao.updateHouse(house);
-	}
+    /**
+     * @see org.pmp.service.business.IHouseService#getHouseByID(java.lang.Integer)
+     */
+    @Override
+    public House getHouseByID(Integer houseId) {
+	return houseDAO.getHouseByID(houseId);
+    }
 
-	/**
-	 * @Title: getHouseById
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public House getHouseById(Integer houseId) {
-		return houseDao.getHouseByID(houseId);
-	}
+    /**
+     * @see org.pmp.service.business.IHouseService#getHouseByHouseNum(java.lang.String)
+     */
+    @Override
+    public House getHouseByHouseNum(String houseNum) {
+	return houseDAO.getHouseByHouseNum(houseNum);
+    }
 
-	
+    /**
+     * @see org.pmp.service.business.IHouseService#loadHouseList_ByCompany(java.lang.Integer, java.util.Map, java.lang.String, org.pmp.util.Pager)
+     */
+    @Override
+    public List<House> loadHouseList_ByCompany(Integer comId,
+	    Map<String, Object> params, String order, Pager pager) {
+	return houseDAO.loadHouseList_ByCompany(comId, params, order, pager);
+    }
 
-	/**
-	 * @param houseDao the houseDao to set
-	 */
-	public void setHouseDao(IHouseDAO houseDao) {
-		this.houseDao = houseDao;
-	}
+    /**
+     * @see org.pmp.service.business.IHouseService#loadHouseList_ByProject(java.lang.Integer, java.util.Map, java.lang.String, org.pmp.util.Pager)
+     */
+    @Override
+    public List<House> loadHouseList_ByProject(Integer proId,
+	    Map<String, Object> params, String order, Pager pager) {
+	return houseDAO.loadHouseList_ByProject(proId, params, order, pager);
+    }
 
-	
-	/**
-	 * @Title: loadHouseList_ByCompany
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public List<House> loadHouseList_ByCompany(Integer comId,Map<String,Object>params,String order,Pager pager)
-	{
-		return houseDao.loadHouseList_ByCompany(comId, params, order, pager);
-	}
-	/**
-	 * @Title: loadHouseList_ByProject
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public List<House> loadHouseList_ByProject(Integer proId,Map<String,Object>params,String order,Pager pager)
-	{
-		return houseDao.loadHouseList_ByProject(proId, params, order, pager);
-	}
+    /**
+     * @see org.pmp.service.business.IHouseService#loadHouseList_ByBuilding(java.lang.Integer, java.util.Map, java.lang.String, org.pmp.util.Pager)
+     */
+    @Override
+    public List<House> loadHouseList_ByBuilding(Integer builId,
+	    Map<String, Object> params, String order, Pager pager) {
+	return houseDAO.loadHouseList_ByBuilding(builId, params, order, pager);
+    }
 
-	/**
-	 * @Title: loadHouseList_ByBuilding
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-    public List<House> loadHouseList_ByBuilding(Integer builId,Map<String,Object>params,String order,Pager pager)
-    {
-    	return houseDao.loadHouseList_ByBuilding(builId, params, order, pager);
+    //~ getters and setters ========================================================================================================================
+    public IHouseDAO getHouseDAO() {
+        return houseDAO;
+    }
+
+    public void setHouseDAO(IHouseDAO houseDAO) {
+        this.houseDAO = houseDAO;
     }
     
-	/**
-	 * @Title: getHouseByHouseNum
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public House getHouseByHouseNum(String houseNum) {
-		return houseDao.getHouseByHouseNum(houseNum);
-	}
-
 }

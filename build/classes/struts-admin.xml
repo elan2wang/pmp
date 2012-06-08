@@ -5,29 +5,23 @@
   
   <package name="admin"  extends="struts-default" namespace="/admin">
     <!-- Resource Related Actions begin -->
-    <action name="loadResList" class="org.pmp.action.admin.ResourceAction" method="loadResList">
-		<result name="success">/admin/res_list.jsp</result>
-	</action>
+    <action name="loadResList" class="org.pmp.action.admin.ResourceAction" method="loadResList" />
 	
-	<action name="import_res" class="org.pmp.action.admin.ResourceAction" method="importRes">
-	  <result name="success" type="chain">loadResList</result>
-	  <result name="filetype_error">/admin/res_import.jsp</result>
-	</action>
+	<action name="import_res" class="org.pmp.action.admin.ResourceAction" method="importRes" />
 	
     <action name="addRes" class="org.pmp.action.admin.ResourceAction" method="addResource">
-	  <result name="success" type="chain">loadResList</result>
+	  <result name="success">/admin/res_list.jsp</result>
 	</action>
 	
-	<action name="getResById" class="org.pmp.action.admin.ResourceAction" method="getResById">
+	<action name="getRes" class="org.pmp.action.admin.ResourceAction" method="getResById">
 		<result name="success">/admin/res_edit.jsp</result>
 	</action>
 	
 	<action name="updateRes" class="org.pmp.action.admin.ResourceAction" method="updateRes">
-		<result name="success" type="chain">loadResList</result>
+		<result name="success">/admin/res_list.jsp</result>
 	</action>
 	
-	<action name="deleteResById" class="org.pmp.action.admin.ResourceAction" method="deleteResById">
-	</action>
+	<action name="deleteRes" class="org.pmp.action.admin.ResourceAction" method="deleteRes" />
 	
 	<!-- authority related actions begin -->
 	<action name="loadAuthList" class="org.pmp.action.admin.AuthorityAction" method="loadAuthList">
@@ -104,9 +98,7 @@
 	  <result name="success" type="chain">loadGroupList</result>
 	</action>
 	
-	<action name="deleteGroup" class="org.pmp.action.admin.GroupAction" method="deleteGroup">
-	  <result name="success" type="chain">loadGroupList</result>
-	</action>
+	<action name="deleteGroup" class="org.pmp.action.admin.GroupAction" method="deleteGroup" />
 	
 	<action name="levelChange" class="org.pmp.action.admin.GroupAction" method="levelChange">
 	</action>
@@ -136,14 +128,14 @@
 	
 	<action name="loadUserList" class="org.pmp.action.admin.UserAction" method="loadUserList" />
 	
+	<action name="passwordReset" class="org.pmp.action.admin.UserAction" method="passwordReset" />
+	
 	<!-- Module related Actions -->
 	<action name="addModule" class="org.pmp.action.admin.ModuleAction" method="addModule">
 	  <result name="success" type="chain">loadModuleList</result>
 	</action>
 	
-	<action name="deleteModule" class="org.pmp.action.admin.ModuleAction" method="deleteModule">
-	  <result name="success" type="chain">loadModuleList</result>
-	</action>
+	<action name="deleteModule" class="org.pmp.action.admin.ModuleAction" method="deleteModule" />
 	
 	<action name="editModule" class="org.pmp.action.admin.ModuleAction" method="editModule">
 	  <result name="success" type="chain">loadModuleList</result>

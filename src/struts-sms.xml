@@ -5,18 +5,19 @@
   
   <package name="sms" extends="struts-default" namespace="/sms">
     <!-- SMS_Owner related Actions -->
-	<action name="load_owner_list" class="org.pmp.action.business.SmsAction" method="load_owner_list">
-   	</action>
+	<action name="load_owner_list" class="org.pmp.action.business.SmsAction" method="load_owner_list" />
    	
-   	<action name="load_user_list" class="org.pmp.action.business.SmsAction" method="load_user_list">
-   	</action>
+   	<action name="load_user_list" class="org.pmp.action.business.SmsAction" method="load_user_list" />
    	
-   	<action name="addSmsSend" class="org.pmp.action.business.SmsSendAction" method="addSmsSend">
-   	  <result name="success">/sms/SMSCenter_send.jsp</result>
-   	</action>
-   	
-   	<action name="loadHistory" class="org.pmp.action.business.SmsSendAction" method="loadHistory" />
+   	<action name="loadHistory" class="org.pmp.action.business.SmsAction" method="loadHistory" />
   
+   	<action name="addSmsSend" class="org.pmp.action.business.SmsAction" method="addSmsSend">
+   	  <result name="success">/sms/sms_center.jsp</result>
+   	</action>
+   	
+   	<!-- page triggered actions -->
+   	<action name="selectBuilding_ByPro" class="org.pmp.action.business.PageTriggerAction" method="selectBuilding_ByPro" />
+   	
   </package>
 
 </struts>

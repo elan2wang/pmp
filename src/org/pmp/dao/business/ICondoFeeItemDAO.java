@@ -19,7 +19,7 @@ import org.pmp.vo.CondoFeeItem;
  */
 public interface ICondoFeeItemDAO {
     public void saveCondoFeeItem(CondoFeeItem instance);
-    public void deleteCondoFeeItem(Integer cfiId);
+    public void deleteCondoFeeItem(CondoFeeItem instance);
     
     public List<?> getCondoFeeYear();
     

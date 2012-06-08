@@ -5,10 +5,6 @@
  * 
  * this script is used by the cf_item_add.jsp
  */ 
-$(function(){
-	$(".content .innercontent").show();
-});
-
 function preview(){
 	var itemMonth = $('input:checked');
 	if(itemMonth.length==0){
@@ -33,7 +29,7 @@ function preview(){
 			$('#display').html(data.info);
 		}
 	});
-	$('input[type=button]').removeAttr("disabled");
+	$('#submitbtn').removeAttr("disabled");
 }
 
 function cancel_item(){
@@ -42,7 +38,7 @@ function cancel_item(){
 	itemMonth.each(function(){
 		$(this).removeAttr('checked');
 	});
-	$('input[type=button]').attr("disabled","disabled");
+	$('#submitbtn').attr("disabled","disabled");
 }
 
 
@@ -73,8 +69,8 @@ function check_Month(months,proId,itemYear) {
 				var result = data["result"];
 				if(result=="Failed")
 				{
-					alert("有月份已录入，请核对！");
-					 return false;
+					alert("有月份已创建，请核对！");
+					return false;
 				}
 				else
 				{

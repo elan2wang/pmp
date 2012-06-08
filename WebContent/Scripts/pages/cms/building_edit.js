@@ -12,16 +12,16 @@ $(function(){
   		unitTag.blur();
   	};
 	UpdateSelectedItem(builType,builTypeValue);
-	   //启用赋值
-		var isornotempty = document.getElementById("building.enabled");
-		if(isornotempty.value==document.getElementById("isenabled").value)
-		{
-			document.getElementById("isenabled").checked = true;
-		}
-		else if(isornotempty.value==document.getElementById("notenabled").value)
-		{
-			document.getElementById("notenabled").checked = true;
-		}
+    //启用赋值
+	var isornotempty = document.getElementById("building.enabled");
+	if(isornotempty.value==document.getElementById("isenabled").value)
+	{
+		document.getElementById("isenabled").checked = true;
+	}
+	else if(isornotempty.value==document.getElementById("notenabled").value)
+	{
+		document.getElementById("notenabled").checked = true;
+	}
 });
 function UpdateSelectedItem(objSelect, objItemValue) {   
     for (var i = 0; i < objSelect.options.length; i++) {
@@ -45,7 +45,6 @@ function editFormCheck(){
 	
 	objfc8=document.getElementById("building.project.proId");
 	
-	
 	if(strim(objfc1.value)==""){
 		alert("楼号不能为空");
 		objfc1.focus();
@@ -66,16 +65,6 @@ function editFormCheck(){
 		objfc4.focus();
 		return (false);
 	}
-	if(strim(objfc5.value)==""){
-		alert("单元层户数不能为空");
-		objfc5.focus();
-		return (false);
-	}
-	if(strim(objfc6.value)==""){
-		alert("跳过楼层数不能为空");
-		objfc6.focus();
-		return (false);
-	}
 	if(strim(objfc7.value)==""){
 		alert("请选择楼宇类型");
 		objfc7.focus();
@@ -86,5 +75,5 @@ function editFormCheck(){
 	return true;	
 }
 function editClose(){
-	    closeEditBuild();
-	}
+	closeEditBuild();
+}

@@ -17,7 +17,7 @@
 	</action>
 	
 	<action name="access_denied" class="org.pmp.action.admin.ErrorHandleAction" method="accessDenied">
-	  <result name="success">/error/access_denied.jsp</result>
+	  <result name="success" type="redirect">/error/access_denied.jsp</result>
 	</action>
 	
 	<action name="getBuildingByProject" class="org.pmp.action.business.BuildingAction" method="getBuildingByProject">

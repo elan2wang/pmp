@@ -19,7 +19,7 @@ import org.pmp.vo.TbRole;
 public interface IRoleService {
     public void addRole(TbRole instance);
     public void editRole(TbRole instance);
-    public void deleteRole(Integer roleID);
+    public void deleteRole(TbRole instance);
     
     /**
      * @Title: getRoleByID

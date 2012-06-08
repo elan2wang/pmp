@@ -36,7 +36,7 @@ public class ModuleAction extends ActionSupport{
 
     //~ Methods ========================================================================================================
     public String addModule(){
-	moduleService.saveModule(module);
+	moduleService.addModule(module);
 	return SUCCESS;
     }
     
@@ -45,9 +45,8 @@ public class ModuleAction extends ActionSupport{
 	return SUCCESS;
     }
     
-    public String deleteModule(){
-	moduleService.deleteModule(modId);
-	return SUCCESS;
+    public void deleteModule(){
+	moduleService.deleteModule(moduleService.getModuleByID(modId));
     }
     
     public String loadModule(){

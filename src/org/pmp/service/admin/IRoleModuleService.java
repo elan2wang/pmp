@@ -19,5 +19,5 @@ import org.pmp.vo.TbRoleModule;
 public interface IRoleModuleService {
     public void batchSave(List<TbRoleModule> list);
     public void batchDeleteByRoleID(Integer roleID);
-    public void batchUpdateByRoleID(Integer roleID,List<TbRoleModule> list);
+    public void batchUpdateByRoleID(List<TbRoleModule> list,Integer roleID);
 }

@@ -39,9 +39,9 @@ public class CondoFeeItemDAO extends BaseDAO implements ICondoFeeItemDAO{
 	}
     }
 
-    public void deleteCondoFeeItem(Integer cfiId){
-	String debugMsg = "delete condoFeeItem,cfiId="+cfiId;
-	String hql = "delete from CondoFeeItem where cfiId="+cfiId;
+    public void deleteCondoFeeItem(CondoFeeItem instance){
+	String debugMsg = "delete condoFeeItem,cfiId="+instance.getCfiId();
+	String hql = "delete from CondoFeeItem where cfiId="+instance.getCfiId();
 	try {
 	    deleteInstance(hql,debugMsg);
 	} catch (RuntimeException e){

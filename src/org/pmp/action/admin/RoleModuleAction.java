@@ -78,7 +78,7 @@ public class RoleModuleAction extends ActionSupport {
 		list.add(rm);
 	    }
 	    logger.debug("list.size"+list.size());
-            roleModuleService.batchUpdateByRoleID(roleId, list);
+            roleModuleService.batchUpdateByRoleID(list,roleId);
 	    return SUCCESS;
 	}
     }

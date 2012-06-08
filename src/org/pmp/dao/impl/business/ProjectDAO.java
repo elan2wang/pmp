@@ -57,8 +57,8 @@ public class ProjectDAO extends BaseDAO implements IProjectDAO {
 		updateInstance(project,"begin to update a project");
 	}
 
-	public void deleteProject(Integer projectID) {
-		String hql = "delete Project pro where pro.proId = "+ projectID;
+	public void deleteProject(Project project) {
+		String hql = "delete Project pro where pro.proId = "+ project.getProId();
 		deleteInstance(hql,"begin to delete a project by ID");
 	}
 

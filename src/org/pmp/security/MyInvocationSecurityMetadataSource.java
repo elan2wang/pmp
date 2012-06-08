@@ -61,24 +61,23 @@ public class MyInvocationSecurityMetadataSource implements
     }
 	
     /**
-     * 该方法在构造函数中调用，系统初始化时就被执行
-     * 本方法实现，把系统的所有资源作为key，该资源所能访问的权限集合作为value，存储在Map对象中
+     * 该方法在构造函数中调用，系统初始化时就被执行，创建Map对象
+     * 把系统的所有资源作为key，该资源所能访问的权限集合作为value
      */
     private void loadDefinedResource(){
 	/* 从数据库获取所有的权限列表 */
         List<String> allAuthorityNames = securityService.getAllAuthorities();
-        
         /* key of the resourceMap is Resource,value is Authority */
         resourceMap = new HashMap<String,Collection<ConfigAttribute>>();
-	
         /* 遍历权限列表 */
         for (String auth : allAuthorityNames){
             ConfigAttribute ca = new SecurityConfig(auth);
             /* 获取权限auth能够访问的资源列表 */
-            List<String> resourceList = securityService.getResourcesByAuthority(auth);
+            List<String> resourceList = 
+        	securityService.getResourcesByAuthority(auth);
             /* 遍历auth拥有的资源列表 */
             /* 若resourceMap中含有该资源，则将auth添加到该资源的权限集合中 */
-            /* 若不含，则为该资源创建权限集合对象，并将该资源及其权限集合添加到resourceMap中 */
+            /* 若不含，则为该资源创建权限集合对象，并将该资源及其权限集合添加到该权限集合中 */
             for(String res : resourceList){
                 String url = res;
                 if(resourceMap.containsKey(url)){
@@ -86,7 +85,8 @@ public class MyInvocationSecurityMetadataSource implements
                     value.add(ca);
                     resourceMap.put(url, value);
                 } else {
-                    Collection<ConfigAttribute> attributes = new ArrayList<ConfigAttribute>();
+                    Collection<ConfigAttribute> attributes = 
+                	new ArrayList<ConfigAttribute>();
                     attributes.add(ca);
                     resourceMap.put(url, attributes);
                 }
@@ -101,11 +101,9 @@ public class MyInvocationSecurityMetadataSource implements
             throws IllegalArgumentException {
 	/* 从FilterInvocation对象中获取请求的URL */ 
 	String url = ((FilterInvocation) arg0).getRequestUrl();
-	
 	/* 省略URL中的参数  */
 	int firstQuestionMarkIndex = url.indexOf("?");
-	if (-1 != firstQuestionMarkIndex)
-	{
+	if (-1 != firstQuestionMarkIndex){
 	    url = url.substring(0, firstQuestionMarkIndex);
 	}
 	/* 遍历resourceMap的key，若与请求URL匹配 */

@@ -38,8 +38,8 @@ public class GroupService implements IGroupService {
 	groupDAO.updateGroup(instance);
     }
     
-    public void deleteGroup(Integer groupID){
-	groupDAO.deleteGroup(groupID);
+    public void deleteGroup(TbGroup instance){
+	groupDAO.deleteGroup(instance);
     }
     
     public TbGroup getGroupByID(Integer groupID){

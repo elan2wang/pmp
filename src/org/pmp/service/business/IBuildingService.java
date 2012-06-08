@@ -21,9 +21,9 @@ import org.pmp.vo.Project;
  * @update TODO
  */
 public interface IBuildingService {
-    public void saveBuilding(Building building);
-    public void updateBuilding(Building building);
-    public void deleteBuilding(Integer builId);
+    public void addBuilding(Building building);
+    public void editBuilding(Building building);
+    public void deleteBuilding(Building building);
     public Building getBuildingById(Integer buildId);
     public List<Building> loadBuildingList_ByCompany(Integer comId,Map<String,Object>params,String order,Pager pager);
     

@@ -19,5 +19,5 @@ import org.pmp.vo.TbAuthorityResource;
 public interface IAuthorityResourceService {
     public void batchAdd(List<TbAuthorityResource> list);
     public void batchDeleteByAuthID(Integer authID);
-    public void batchEditByAuthID(Integer authID,List<TbAuthorityResource> list);
+    public void batchEditByAuthID(List<TbAuthorityResource> list,Integer authID);
 }

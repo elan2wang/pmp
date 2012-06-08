@@ -60,7 +60,7 @@ public class RoleAuthorityAction extends ActionSupport {
 		ra.setTbRole(role);
 		list.add(ra);
 	    }
-            roleAuthorityService.batchEditByRoleID(roleId, list);
+            roleAuthorityService.batchEditByRoleID(list,roleId);
 	    return SUCCESS;
 	}
     }

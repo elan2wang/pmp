@@ -89,9 +89,8 @@ public class GroupAction extends ActionSupport {
 	return SUCCESS;
     }
     
-    public String deleteGroup(){
-	groupService.deleteGroup(groupId);
-	return SUCCESS;
+    public void deleteGroup(){
+	groupService.deleteGroup(groupService.getGroupByID(groupId));
     }
     
     public String loadGroupList(){

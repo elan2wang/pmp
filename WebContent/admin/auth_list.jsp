@@ -55,7 +55,7 @@
                    </div>
                    <div id="editAuth" class="easyui-window" title="编辑权限" iconCls="icon-save" style="width:350px;height:270px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
                    </div>
-                   <div id="auth_res" class="easyui-window" title="给权限分配资源" iconCls="icon-save" style="width:500px;height:370px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
+                   <div id="auth_res" class="easyui-window" title="给权限分配资源" iconCls="icon-save" style="width:600px;height:370px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
                    </div>
                </div>
            </div>

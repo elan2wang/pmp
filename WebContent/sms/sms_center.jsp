@@ -9,7 +9,7 @@
 <link href="../CSS/common/tab.css" rel="stylesheet" type="text/css" />
 <link href="../CSS/pages/sms/SMSCenter_send.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="../Scripts/jquery-1.7.1.js" ></script>
-<script type="text/javascript" src="../Scripts/pages/sms/SMSCenter_send.js"></script>
+<script type="text/javascript" src="../Scripts/pages/sms/sms_center.js"></script>
 
 </head>
 <body>
@@ -20,6 +20,7 @@
        </ul>   
        <div class="content">
            <div class="innercontent">
+               <form method="post" action="addSmsSend">
                <div class="SMS_main">
                   <div class="row1"><span>接收人号码:</span>
                     
@@ -43,27 +44,26 @@
                   </div>
                   <div class="row5">
                         <span class="row5_1"></span>
-                       <span><a href="javascript:void(0)" class="linkbutton" name="button6" id="button6"  onclick="formcheck();receiverListTransfer();" >发送</a></span>
+                       <span><input type="submit" value="发送" onclick="return formcheck();" ></span>
                        <span class="row5_3">
                           <span style="display:none" name="currentWords" class="SMS_Count" id="currentWords" >0</span>
                           <span style="display:none" name="totalMsg"  class="SMS_Count" id="totalMsg" >1</span>还可输入
-                         <span name="remainWords"  class="SMS_Count" id="remainWords">140</span>
+                         <span name="remainWords"  class="SMS_Count" id="remainWords">70</span>
                                                                    字
                       </span>
                   </div>
                </div>
                <input type="hidden" name="smsSend.smssReceiver" id="realReceiverList" />
+               </form>
                <div class="SMS_Recv">
-                    <iframe id="SMSlist_Frame" name="SMSlist_Frame" frameborder="0" scrolling="auto" width="100%" height="440"  >
+                    <iframe id="SMSlist_Frame" name="SMSlist_Frame" frameborder="0" scrolling="auto" width="100%" height="600"  >
                     </iframe>
                </div>
 	       </div>
             
            <div class="innercontent">
-                <div class="content_main">
-                  <iframe id="SMSsended_Frame" name="SMSsended_Frame" frameborder="0" scrolling="auto" width="100%" height="450"  >
-                  </iframe>
-                 </div>
+              <iframe id="SMSsended_Frame" name="SMSsended_Frame" frameborder="0" scrolling="auto" width="100%" height="570"  >
+              </iframe>
            </div>
   
       </div>

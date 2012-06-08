@@ -36,8 +36,8 @@ public class CondoFeeItemService implements ICondoFeeItemService{
 	condoFeeDAO.generateCondoFee(instance.getCfiId());
     }
     
-    public void deleteCondoFeeItem(Integer cfiId){
-	condoFeeItemDAO.deleteCondoFeeItem(cfiId);
+    public void deleteCondoFeeItem(CondoFeeItem instance){
+	condoFeeItemDAO.deleteCondoFeeItem(instance);
     }
     
     public List<?> getCondoFeeYear(){

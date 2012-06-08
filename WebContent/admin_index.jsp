@@ -7,6 +7,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="expires" content="Sat, 6 May 1995 12:00:00 GMT">
 <link href="CSS/common/reset.css" rel="stylesheet" type="text/css" />
 <link href="CSS/pages/index.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="Scripts/pages/index.js"></script>
@@ -28,11 +31,11 @@ a{
 <div class="index">
    <div style="height:60px" class="index_top">
        <div class="clear"></div>
-      <div class="index_top_right">
-           <span><a href="javascript:void(0)" >欢迎页 </a> </span><span>|</span>
-           <span><a href="javascript:void(0)"> 帮助 </a></span><span>|</span>
-           <span><a href="javascript:void(0)"> 关于</a> </span><span>|</span>
-           <span><a href="javascript:void(0)">退出</a></span>
+       <div class="index_top_right">
+           <span style="width:250px;text-align:left;font-size:12px;"><span>[</span>当前用户:${username },${rolename }<span>]</span></span>
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           <span><a href="admin_index.jsp" >首页 </a> </span><span>|</span>
+           <span><a href="j_spring_security_logout">退出</a></span>
        </div>
        <div style="float:left">
            <img src="Images/Logo2.gif" width="340" height="60" />

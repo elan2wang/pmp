@@ -35,8 +35,8 @@ public class RoleService implements IRoleService{
 	roleDAO.updateRole(instance);
     }
     
-    public void deleteRole(Integer roleID){
-	roleDAO.deleteRole(roleID);
+    public void deleteRole(TbRole instance){
+	roleDAO.deleteRole(instance);
     }
     
     public TbRole getRoleByID(Integer roleID){

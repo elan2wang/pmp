@@ -35,8 +35,8 @@ public class RoleAuthorityService implements IRoleAuthorityService{
 	roleAuthorityDAO.batchDeleteByRoleID(roleID);
     }
     
-    public void batchEditByRoleID(Integer roleID,List<TbRoleAuthority> list){
-	roleAuthorityDAO.batchUpdateByRoleID(roleID, list);
+    public void batchEditByRoleID(List<TbRoleAuthority> list,Integer roleID){
+	roleAuthorityDAO.batchUpdateByRoleID(list,roleID);
     }
     
     //~ Getters and Setters ============================================================================================

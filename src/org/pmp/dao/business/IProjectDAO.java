@@ -22,7 +22,7 @@ import org.pmp.vo.Project;
 public interface IProjectDAO {
     public void saveProject(Project project);
     public void updateProject(Project project);
-    public void deleteProject(Integer projectID);
+    public void deleteProject(Project project);
     public Project getProjectByID(Integer projectID);
     public Project getProjectByName(String project);
     

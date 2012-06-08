@@ -30,20 +30,24 @@ public class MyUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String arg0)
             throws UsernameNotFoundException, DataAccessException {
         Collection<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();
-        //if the username is not exist then throw UsernameNotFoundException
+        //根据用户名从数据库中获取用户对象
         TbUser user = userDAO.getUserByUsername(arg0);
+        //若获取的用户对象为null，则抛出UsernameNotFoundException
         if (user == null){
-            throw new UsernameNotFoundException("username:"+arg0+",there is no user exist with this name");
+            throw new UsernameNotFoundException("username:"+arg0+
+        	    ",there is no user exist with this name");
         }
-        //if the username has no authority then throw UsernameNotFoundException
+        //如果用户的权限集合为null,则抛出UsernameNotFoundException
         auths = securityService.loadUserAuthoritiesByUsername(arg0);
         if (auths.size() == 0){
-            throw new UsernameNotFoundException("username:"+arg0+",this user has no authority");
+            throw new UsernameNotFoundException("username:"+arg0+
+        	    ",this user has no authority");
         }
-		
-        TbUser user2 = new TbUser(user.getUserId(),user.getUsername(),user.getPassword(),user.getRealname(),
-                user.getMobile(),user.getIdentify(),user.getPosition(),user.getUserDesc(),true,false,
-                true,true,true,auths);
+	//如果获取的用户不为null，且该用户的权限集合不为null，则返回该用户对象	
+        TbUser user2 = new TbUser(user.getUserId(),user.getUsername()
+        	,user.getPassword(),user.getRealname(),user.getMobile(),
+        	user.getIdentify(),user.getPosition(),user.getUserDesc(),
+        	true,false,true,true,true,auths);
         return user2;
     }
 	

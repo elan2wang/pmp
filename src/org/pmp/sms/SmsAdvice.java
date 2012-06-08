@@ -63,7 +63,7 @@ public class SmsAdvice {
 	contents.append("尊敬的业主:"+owner.getOwnerName()+",您好!感谢您缴纳"+timeStr.deleteCharAt(timeStr.length()-1));
 	contents.append("的物业费,总计:"+fetchMoney.toString()+"元,如果问题请及时联系我们");
 	smss.setSmssContent(contents.toString());
-	smsSendService.saveSmsSend(smss);
+	smsSendService.addSmsSend(smss);
 	logger.debug(contents.toString());
 	/* send a message to the message queue */
 	JmsPublisher.sendMessgae(smss.getSmssId().toString());

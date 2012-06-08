@@ -10,7 +10,6 @@ $(function(){
 	} else {
 		url="loadCondoFeeList_ByCompany?comId="+comId+"&year="+year+"&month="+month;
 	}
-	alert(url);
 	$('#cf_list').flexigrid({
 		url:url,
 		dataType:"json",
@@ -22,10 +21,6 @@ $(function(){
             { display: '实收金额', name: 'fetchMoney', width: Width*0.1, sortable:true, align: 'center' },
             { display: '录入时间', name: 'inputTime', width: Width*0.2, sortable:true, align: 'center' }
         ],
-        buttons:[
-            { name: '数据导出', bclass: 'excel', onpress: dataImport },
-			{ separator: true }
-		],
 		searchitems:[
  		    { display: '房号', name: 'house', isdefault:false },
  		    { display: '业主', name: 'owner', isdefault:false },
@@ -33,7 +28,7 @@ $(function(){
  		    { display: '录入时间', name: 'inputTime', isDefault:false}
 		],
 		showSearch:true,
-        height:Height*0.88,
+        height:Height*0.95,
         showcheckbox:true,
         nomsg: '没有符合条件的物业费记录',
         usepager:true,
@@ -42,10 +37,6 @@ $(function(){
 		showTableToggleBtn: true
 	});
 });
-
-function dataImport(){
-	
-}
 
 function dataExport(){
 	

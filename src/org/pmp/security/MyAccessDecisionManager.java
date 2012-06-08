@@ -8,20 +8,19 @@ import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
+import org.springframework.security.access.vote.AbstractAccessDecisionManager;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 
-public class MyAccessDecisionManager implements AccessDecisionManager {
+public class MyAccessDecisionManager extends AbstractAccessDecisionManager implements AccessDecisionManager {
     
     //~ Methods ========================================================================================================
     public void decide(Authentication arg0, Object arg1,
 	    Collection<ConfigAttribute> arg2) throws AccessDeniedException,
 	    InsufficientAuthenticationException {
-	
 	/* arg2==null 表示被访问资源是公共资源 */
 	if(arg2 == null)return;
-	
 	/* 遍历被访问资源所需的权限集合 */
 	Iterator<ConfigAttribute> ite = arg2.iterator();
 	while(ite.hasNext()){
@@ -32,11 +31,8 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
 		if(needRole.trim().equals(ga.getAuthority().trim()))return;
 	    }
 	}
-	
 	/* 如果用户不含有被访问资源所需要的权限，则抛出访问拒绝的异常 */
-	String username = ((TbUser)arg0.getPrincipal()).getUsername();
-	throw new AccessDeniedException("Dear User:"+username+
-		",I'm sorry that you don't have the needed authorities");
+	throw new AccessDeniedException("you don't have needed authority");
     }
     
     public boolean supports(ConfigAttribute arg0) {

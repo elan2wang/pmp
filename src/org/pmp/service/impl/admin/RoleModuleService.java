@@ -34,7 +34,7 @@ public class RoleModuleService implements IRoleModuleService{
     public void batchDeleteByRoleID(Integer roleID){
 	roleModuleDAO.batchDeleteByRoleID(roleID);
     }
-    public void batchUpdateByRoleID(Integer roleID,List<TbRoleModule> list){
+    public void batchUpdateByRoleID(List<TbRoleModule> list,Integer roleID){
 	roleModuleDAO.batchUpdateByRoleID(roleID, list);
     }
     //~ Getters and Setters ============================================================================================

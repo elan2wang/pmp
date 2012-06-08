@@ -13,8 +13,6 @@
 package org.pmp.validate;
 
 import java.util.List;
-import java.util.regex.Pattern;
-
 import org.apache.log4j.Logger;
 
 /**
@@ -31,10 +29,11 @@ public class CondoFeeValidate {
     //~ Methods ========================================================================================================
     public static Boolean isRight(List<String> list){
 	if (list.get(0).equals(""))return false;
-	if (!Pattern.matches("\\d+", list.get(0)))return false;
+	if (!FormatValidate.isValidInteger(list.get(0)))return false;
 	
 	if (list.get(7).equals(""))return false;
-	//if (list.get(5).matches(""));
+	if (!FormatValidate.isValidDouble(list.get(7)))return false;
+
 	return true;
     }
 }

@@ -33,8 +33,8 @@ public class CompanyService implements ICompanyService {
 	companyDAO.updateCompany(company);
     }
 
-    public void deleteCompany(Integer companyID) {
-	companyDAO.deleteCompany(companyID);
+    public void deleteCompany(Company company) {
+	companyDAO.deleteCompany(company);
     }
 
     public Company getCompanyByID(Integer companyID) {

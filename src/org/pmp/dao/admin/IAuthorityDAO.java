@@ -19,7 +19,7 @@ import org.pmp.vo.TbAuthority;
 public interface IAuthorityDAO {
     public void saveAuthority(TbAuthority instance);
     public void updateAuthority(TbAuthority instance);
-    public void deleteAuthority(Integer authID);
+    public void deleteAuthority(TbAuthority instance);
     
     
     /**

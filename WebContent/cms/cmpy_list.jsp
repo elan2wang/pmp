@@ -18,7 +18,6 @@
 <script type="text/javascript" src="../Scripts/common/window.js"></script>
 <script type="text/javascript" src="../Scripts/pages/cms/cmpy_list.js"></script>
 
-
 </head>
 <body>
    <div class="wrap">      
@@ -29,11 +28,10 @@
            <div class="innercontent">
               <div class="content_main">
                    <table id="cmpylist">
-
                    </table>
-                   <div id="newCmpy" class="easyui-window" href="cmpy_add.jsp" title="添加新公司" iconCls="icon-save" style="width:300px;height:300px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
+                   <div id="newCmpy" class="easyui-window" href="cmpy_add.jsp" title="添加新公司" iconCls="icon-save" style="width:310px;height:350px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
   	               </div>
-                   <div id="editCmpy" class="easyui-window" title="编辑公司信息" iconCls="icon-save" style="width:300px;height:300px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
+                   <div id="editCmpy" class="easyui-window" title="编辑公司信息" iconCls="icon-save" style="width:310px;height:350px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
   	               </div> 	          
 	          </div>
 	       </div>
