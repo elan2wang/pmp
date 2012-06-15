@@ -40,7 +40,8 @@ function list_divice(xml){
 	{   
 	    var thisdevice=devideArr.eq(i);
 		imageurl=thisdevice.attr("imageid").toString();
-		imgid=thisdevice.attr("devicenumber").toString();
+		strTmp=thisdevice.attr("devicenumber").toString();
+		imgid=strTmp.substring(2,strTmp.length);
 		var info=thisdevice.attr("devicetypename").toString();
 		if(imageurl.length<=1){imageurl='0'+imageurl;}
 		divCon.append('<div class="devicePosi" id='+imgid+'><a href="javascript:void(0);" title="'+info+'"><img src="../fireConfig/DevIco/'+imageurl+'.ico" border="0" id='+imgid+'></a></div>');
@@ -162,6 +163,7 @@ function list_divice(xml){
 					url:'fire/updateFireInfoState',
 					data:{'deviceNum':''+deviceNum+'','state':state},
 					success:function(msg){
+						window.parent.makeRequest();
 					},
 					error:function(resut){
 					    alert("处理警报错误!");

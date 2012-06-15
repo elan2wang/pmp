@@ -61,6 +61,7 @@
         <value>org/pmp/vo/Zone.hbm.xml</value>
         <value>org/pmp/vo/FireInfo.hbm.xml</value>
         <value>org/pmp/vo/FireDevice.hbm.xml</value>
+        <value>org/pmp/vo/FireInfoBak.hbm.xml</value>
       </list>
     </property>
   </bean>

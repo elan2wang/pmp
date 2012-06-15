@@ -84,6 +84,7 @@ public class ZoneAction extends ActionSupport{
     //~ Methods ========================================================================================================
     
     public void getAllZones(){
+
     	 logger.info("###################获取所有信息");
       	 Object obj=SessionHandler.getUserRefDomain();
       	 List<Integer> proIdList=new ArrayList();

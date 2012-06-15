@@ -30,18 +30,23 @@ public class FireInfoAction extends ActionSupport{
 			
 			Map<String, Object> params=new HashMap<String, Object>();//报警数据
 			params.put("state", 1);
-			params.put("receiveInfo", "00");
+			params.put("receiveInfo", "01");
 			
 			List<FireInfo> callList=fireInfoService.getCallFireInfos(params, null);
 			
 			params.clear();
 			params.put("state", 1);
-			List<String> receiveInfos=new ArrayList<String>();
-			receiveInfos.add("01");
+/*			List<String> receiveInfos=new ArrayList<String>();
 			receiveInfos.add("02");
 			receiveInfos.add("03");
-			
-			List<FireInfo> warnList=fireInfoService.getWarnFireInfos(params, receiveInfos, null);
+			receiveInfos.add("04");
+			receiveInfos.add("05");
+			receiveInfos.add("06");
+			receiveInfos.add("07");
+			receiveInfos.add("08");
+			receiveInfos.add("09");*/
+            
+			List<FireInfo> warnList=fireInfoService.getWarnFireInfos(params, null,null);
 			
 			List<String> callNodes = new ArrayList<String>();
 			Iterator<FireInfo> calls = callList.iterator();
@@ -65,6 +70,14 @@ public class FireInfoAction extends ActionSupport{
 	public void updateFireInfoState(){
 		    logger.info("########################"+deviceNum+":"+state);
 		    fireInfoService.editFireInfoStateByDeviceNum(deviceNum, state);
+	}
+	
+	/**
+	 * 加载消控历史记录列表
+	 */
+	public void loadFireInfoBakList(){
+		 logger.info("加载消控历史数据列表######################");
+		 
 	}
 	
 	public IFireInfoService getFireInfoService() {
