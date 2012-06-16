@@ -166,14 +166,14 @@ public class CondoFeeAction extends ActionSupport{
 	if (!sortname.equals("undefined")&&!sortorder.equals("undefined")){
 	    order= "order by "+sortname+" "+sortorder;
 	} else{
-	    order = "order by house.houseId asc";
+	    order = "order by house.houseId asc,cfMonth desc";
 	}
 	if(year!=null)params.put("cfYear", year);
 	if(month!=null)params.put("cfMonth", month);
 	/* invoke service to get list */
 	List<?> cfList = condoFeeService.loadCondoFeeList_ByCompany(comId, params, order, pager);
 	
-	String[] attrs = {"house","owner","state","oughtMoney","fetchMoney","inputTime"};
+	String[] attrs = {"condoFeeItem","house","owner","cfMonth","state","oughtMoney","fetchMoney","inputTime","comment"};
 	List<String> show = Arrays.asList(attrs);
 	String data = JsonConvert.list2FlexJson(pager, cfList, "org.pmp.vo.CondoFee", show);
 	
@@ -192,7 +192,7 @@ public class CondoFeeAction extends ActionSupport{
 	if (!sortname.equals("undefined")&&!sortorder.equals("undefined")){
 	    order= "order by "+sortname+" "+sortorder;
 	} else{
-	    order = "order by house.houseId asc";
+	    order = "order by house.houseId asc,cfMonth desc";
 	}
 	if(year!=null)params.put("cfYear", year);
 	if(month!=null)params.put("cfMonth", month);

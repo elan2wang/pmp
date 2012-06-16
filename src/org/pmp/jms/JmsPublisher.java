@@ -45,7 +45,7 @@ public class JmsPublisher {
                 return session.createTextMessage("begin to send : "+ids);  
             }  
         }); 
-	logger.debug("successfully send a message");
+	logger.info("successfully send a message");
     }
     //~ Getters and Setters ============================================================================================
 }

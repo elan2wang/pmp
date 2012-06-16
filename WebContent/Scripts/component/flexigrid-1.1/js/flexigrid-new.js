@@ -34,14 +34,14 @@
 			rp: 15, //results per page
 			rpOptions: [10, 15, 20, 30, 50, 1000], //allowed per-page values 
 			title: false,
-			pagestat: 'Displaying {from} to {to} of {total} items',
-			pagetext: 'Page',
-			outof: 'of',
-			findtext: 'Find',
-			procmsg: 'Processing, please wait ...',
+			pagestat: '显示{from} - {to}条,共 {total}条记录',
+			pagetext: '页',
+			outof: '共',
+			findtext: '查找',
+			procmsg: '正在处理,请等待 ...',
 			query: '',
 			qtype: '',
-			nomsg: 'No items',
+			nomsg: '无符合条件的记录',
 			minColToggle: 1, //minimum allowed column to be hidden
 			showToggleBtn: true, //show or hide column toggle popup
 			hideOnSubmit: true,
