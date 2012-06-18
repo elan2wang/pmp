@@ -17,7 +17,7 @@ public class Owner implements java.io.Serializable {
     private String nationality;
     private String native_;
     private Date birthday;
-    private boolean ismarried;
+    private Boolean ismarried;
     private String organization;
     private String hobby;
     private String identityType;

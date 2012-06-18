@@ -7,10 +7,10 @@
  */ 
 $(function(){
 	$(".content .innercontent").eq(0).show();
-	document.getElementById("cf_month_list").src="cf_month_list.jsp";
+	document.getElementById("cf_time_list").src="cf_time_list.jsp";
 	
 	$("#tab1").click(function(){
-	    document.getElementById("cf_month_list").src="cf_month_list.jsp";
+	    document.getElementById("cf_time_list").src="cf_time_list.jsp";
 		$(".nav li").removeClass("active");	
 		$(this).addClass('active');
 		$(".content .innercontent").hide().eq(0).show();

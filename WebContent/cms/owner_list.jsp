@@ -30,7 +30,7 @@
 <body>
 <div class="wrap">      
        <ul class="nav">
-          <li id="tab1" class="active"><a href="javascript:void(0)">公司信息管理</a></li>
+          <li id="tab1" class="active"><a href="javascript:void(0)">业主信息列表</a></li>
        </ul> 
        <div class="content">
            <div class="innercontent">

@@ -107,7 +107,7 @@ public class JsonConvert {
             return string2Json(((org.pmp.vo.House)o).getHouseNum());
         if (o instanceof org.pmp.vo.CondoFeeItem){
             org.pmp.vo.CondoFeeItem obj = (org.pmp.vo.CondoFeeItem)o;
-            return string2Json(obj.getItemYear()+"年"+obj.getItemMonth()+"月"+obj.getProject().getProName()+"物业费项目");
+            return string2Json(obj.getProject().getProName());
         }
 	if (o instanceof org.pmp.vo.FixedParkFeeItem)
 	    return string2Json(((org.pmp.vo.FixedParkFeeItem)o).getItemName());
@@ -258,8 +258,6 @@ public class JsonConvert {
 	
 	return sb.toString();
     }
-    
-
     
     //找到属性名包含Id的主键的Field
     static Field getIdField(Field[] fields)

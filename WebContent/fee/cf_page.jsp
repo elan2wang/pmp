@@ -31,7 +31,7 @@
   <div class="content" style="height:570px;">
     <!-- 物业费历史记录页面  -->
     <div class="innercontent" style="height:100%">
-      <iframe id="cf_month_list" name="cf_month_list" frameborder="0" scrolling="auto" style="width:100%; height:100%" src="" >
+      <iframe id="cf_time_list" name="cf_time_list" frameborder="0" scrolling="auto" style="width:100%; height:100%" src="" >
       </iframe>
     </div>
     <!-- 物业费创建页面  -->

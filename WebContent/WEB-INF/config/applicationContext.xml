@@ -9,8 +9,8 @@
     class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <property name="locations">
       <list>
-        <value>/WEB-INF/jdbc.properties</value>
-        <value>/WEB-INF/hibernate.properties</value>
+        <value>/WEB-INF/config/jdbc.properties</value>
+        <value>/WEB-INF/config/hibernate.properties</value>
       </list>
     </property>
   </bean>

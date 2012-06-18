@@ -21,8 +21,8 @@ public class Project implements java.io.Serializable {
     private Integer proHouseCount;
     private String proDesc;
     private String proType;
-    private boolean fireEnabled;
-    private boolean enabled;
+    private Boolean fireEnabled;
+    private Boolean enabled;
 
     public String toString(){
     	StringBuffer sb=new StringBuffer();

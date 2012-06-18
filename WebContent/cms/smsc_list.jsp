@@ -25,7 +25,7 @@
 <body>
  <div class="wrap">      
        <ul class="nav">
-          <li id="tab1" class="active"><a href="javascript:void(0)">信息机管理</a></li>
+          <li id="tab1" class="active"><a href="javascript:void(0)">信息机列表</a></li>
        </ul>   
        <div class="content">
            <div class="content_main">

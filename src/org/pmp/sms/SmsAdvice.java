@@ -9,21 +9,15 @@ package org.pmp.sms;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
 import org.pmp.jms.JmsPublisher;
-import org.pmp.service.business.ISmsCompanyService;
 import org.pmp.service.business.ISmsSendService;
-import org.pmp.service.impl.business.SmsSendService;
 import org.pmp.util.SessionHandler;
 import org.pmp.vo.CondoFee;
 import org.pmp.vo.Owner;
-import org.pmp.vo.SMSCompany;
 import org.pmp.vo.SMSSend;
-
-import com.chinamobile.openmas.client.Sms;
 
 /**
  * @author Elan

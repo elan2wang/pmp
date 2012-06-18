@@ -137,18 +137,24 @@ public class SmsAction extends ActionSupport{
     
     public void loadHistory(){
 	List<?> list = null;
-	Map<String,Object> params = new HashMap<String,Object>();
 	String order = null;
-	Pager pager = new Pager(1000,1);
+	Pager pager = new Pager(rp,page);
+	Map<String,Object> params = new HashMap<String,Object>();
+	if (!qtype.equals("")&&!query.equals("")){
+	    params.put(qtype, query);
+	}
+	if (!sortname.equals("undefined")&&!sortorder.equals("undefined")){
+	    order= "order by "+sortname+" "+sortorder;
+	} else{
+	    order = "order by smssTime desc";
+	}
 	
 	Object obj = SessionHandler.getUserRefDomain();
 	if (obj instanceof Company){
-	    logger.debug("company user");
 	    list = smsSendService.loadSmsSend_ByCompany(((Company)obj).getComId(), pager, params, order);
 	}
 	else if (obj instanceof Project){
 	    /* retrieve username from SessionHandler */
-	    logger.debug("project user");
 	    String username = SessionHandler.getUser().getUsername();
 	    list = smsSendService.loadSmsSend_ByPerson(username, pager, params, order);
 	} else {
