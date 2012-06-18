@@ -17,6 +17,8 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 /**
  * @author Elan
  * @version 1.0
@@ -55,11 +57,15 @@ public class MyJsonWriter {
     
     private final Writer out;
     
+    private String separator = ":";
+    
     private boolean htmlSafe;
     
     private String deferredName;
     
     private String indent;
+    
+    private boolean lenient;
     
     //~ Constructor ====================================================================================================
     
@@ -82,6 +88,93 @@ public class MyJsonWriter {
     public void endObject(){
 	
     }
+    
+    private JsonScope peek(){
+	int size = stack.size();
+	if (size==0){
+	    throw new IllegalStateException("MyJsonWriter is closed.");
+	}
+	return stack.get(size-1);
+    }
+    
+    private void replaceTop(JsonScope topOfStack){
+	stack.set(stack.size()-1, topOfStack);
+    }
+    
+    private MyJsonWriter name(String name) {
+	if (name==null) {
+	    throw new NullPointerException("name == null");
+	}
+	if (deferredName != null) {
+	    throw new IllegalStateException();
+	}
+	if (stack.isEmpty()) {
+	    throw new IllegalStateException("MyJsonWriter is closed.");
+	}
+	deferredName = name;
+	return this;
+    }
+    
+    private void writeDeferredName() throws IOException{
+	if (deferredName != null){
+	    beforeName();
+	    string(deferredName);
+	    deferredName=null;
+	}
+    }
+    
+    private void newline() throws IOException {
+	if (indent == null){
+	    return;
+	}
+	out.write("\n");
+	for (int i=1;i<stack.size();i++){
+	    out.write(indent);
+	}
+    }
+    
+    private void beforeName() throws IOException{
+	JsonScope context = peek();
+	if (context == JsonScope.NONEMPTY_OBJECT){
+	    out.write(',');
+	} else if (context != JsonScope.EMPTY_OBJECT) {
+	    throw new IllegalStateException("Nesting problem: " + stack);
+	}
+	newline();
+	replaceTop(JsonScope.DANGLING_NAME);
+    }
+    
+    private void beforeValue(boolean root) throws IOException {
+	switch(peek()){
+	case NONEMPTY_DOCUMENT:
+	    if (!lenient){
+		throw new IllegalStateException("JSON must have only one top-level value");
+	    }
+	
+	case EMPTY_DOCUMENT:
+	    if (!lenient && !root){
+		throw new IllegalStateException("JSON must start with an array or an object");
+	    }
+	
+	case EMPTY_ARRAY:
+	    replaceTop(JsonScope.NONEMPTY_ARRAY);
+	    newline();
+	    break;
+	 
+	case NONEMPTY_ARRAY:
+	    out.append(',');
+	    newline();
+	    
+	case DANGLING_NAME:
+	    out.append(separator);
+	    replaceTop(JsonScope.NONEMPTY_OBJECT);
+	    break;
+
+	default:
+	    throw new IllegalStateException("Nesting problem: " + stack);    
+	}
+    }
+    
     private void string(String value) throws IOException {
 	String[] replacements = htmlSafe ? HTML_SAFE_REPLACEMENT_CHARS : REPLACEMENT_CHARS;
 	out.write("\"");
