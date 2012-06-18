@@ -10,8 +10,7 @@ $(function(){
 	$("#right_main").css("display","block");
 });
 
-setInterval("makeRequest()",5000);
-makeRequest();
+//setInterval("makeRequest()",5000);
 var deviceNumList=new Array();
 function makeRequest(){
 	 $.ajax({
