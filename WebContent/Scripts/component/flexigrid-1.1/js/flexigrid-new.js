@@ -344,7 +344,7 @@
 				//build new body
 				var tbody = document.createElement('tbody');
 				if (p.dataType == 'json') {
-					$('.ftitle', g.mDiv).html("datepage:"+data.total);
+					$('.ftitle', g.mDiv).html(data.title);
 					$.each(data.rows, function (i, row) {
 						var tr = document.createElement('tr');
 						if (i % 2 && p.striped) {

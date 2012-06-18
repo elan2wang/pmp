@@ -17,11 +17,15 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.lang.reflect.Field;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,6 +37,8 @@ import org.apache.struts2.ServletActionContext;
 import org.pmp.excel.NewCondoFeeExport;
 import org.pmp.excel.NewCondoFeeImport;
 import org.pmp.jms.JmsPublisher;
+import org.pmp.json.Includer;
+import org.pmp.json.MyTypeAdapterFactory;
 import org.pmp.service.business.ICondoFeeItemService;
 import org.pmp.service.business.ICondoFeeService;
 import org.pmp.service.business.ISmsSendService;
@@ -40,6 +46,7 @@ import org.pmp.util.JsonConvert;
 import org.pmp.util.MyfileUtil;
 import org.pmp.util.Pager;
 import org.pmp.util.SessionHandler;
+import org.pmp.vo.Company;
 import org.pmp.vo.CondoFee;
 import org.pmp.vo.SMSSend;
 
@@ -105,6 +112,40 @@ public class CondoFeeAction extends ActionSupport{
     /* =========FlexiGrid post parameters======= */
     
     //~ Methods ========================================================================================================
+    
+    public void test(CondoFee cf){
+	String[] attrs = {"condoFeeItem.project.proName","house.houseNum","owner.ownerName","cfYear","cfMonth","state","oughtMoney",
+	          "fetchMoney","recordPerson","inputTime","comment"};
+	
+	List<String> show = Arrays.asList(attrs);
+	Includer includer = new Includer(show);
+	
+	MyTypeAdapterFactory factory = new MyTypeAdapterFactory(includer);
+	Map<String, Object> result = new LinkedHashMap<String, Object>();
+	try {
+	    factory.getFields(Class.forName("org.pmp.vo.CondoFee"), cf, result, "");
+	} catch (IllegalArgumentException e) {
+	    logger.debug("IllegalArgumentException");
+	    e.printStackTrace();
+	} catch (IllegalAccessException e) {
+	    logger.debug("IllegalAccessException");
+	    e.printStackTrace();
+	} catch (ClassNotFoundException e) {
+	    logger.debug("ClassNotFoundException");
+	    e.printStackTrace();
+	}
+	logger.debug("result.size="+result.size());
+	for (String key : result.keySet()){
+	    Object obj = result.get(key);
+	    String value = null;
+	    if (obj == null)value="";
+	    else {
+		value=obj.toString();
+	    }
+	    logger.debug(key+":"+value);
+	}
+    }
+
     public void loadCondoFeeList_ByCFI(){
 	/* set query parameters */
 	Pager pager = new Pager(rp,page);
@@ -176,9 +217,20 @@ public class CondoFeeAction extends ActionSupport{
 	String[] attrs = {"condoFeeItem","house","owner","cfMonth","state","oughtMoney","fetchMoney","inputTime","comment"};
 	List<String> show = Arrays.asList(attrs);
 	String data = JsonConvert.list2FlexJson(pager, cfList, "org.pmp.vo.CondoFee", show);
+
+	/* get the statistical data */
+	String message = count(cfList);
+	/* create returned Json data */
+	StringBuilder ret = new StringBuilder();
+	ret.append("{\n  "+JsonConvert.toJson("title")+":"+JsonConvert.toJson(message)+",\n");
+	ret.append(data.substring(2));
+	logger.debug(ret.toString());
 	
-	logger.debug(data);
-	JsonConvert.output(data);
+	/* test */
+	test((CondoFee)cfList.get(0));
+	
+	
+	JsonConvert.output(ret.toString());
     }
     
     public void loadCondoFeeList_ByProject(){
@@ -203,8 +255,14 @@ public class CondoFeeAction extends ActionSupport{
 	List<String> show = Arrays.asList(attrs);
 	String data = JsonConvert.list2FlexJson(pager, cfList, "org.pmp.vo.CondoFee", show);
 	
-	logger.debug(data);
-	JsonConvert.output(data);
+	/* get the statistical data */
+	String message = count(cfList);
+	/* create returned Json data */
+	StringBuilder ret = new StringBuilder();
+	ret.append("{\n  "+JsonConvert.toJson("title")+":"+JsonConvert.toJson(message)+",\n");
+	ret.append(data.substring(2));
+	logger.debug(ret.toString());
+	JsonConvert.output(ret.toString());
     }
     
     public void exportNewCondoFee(){
@@ -421,6 +479,25 @@ public class CondoFeeAction extends ActionSupport{
 	}
 	
     }
+    
+    private String count(List<?> cfList){
+	StringBuilder result = new StringBuilder();
+	Double oughtMoney = 0.0;
+	Double fetchMoney = 0.0;
+	Integer fetchItems = 0;
+	Iterator<?> ite = cfList.iterator();
+	while(ite.hasNext()){
+	    CondoFee cf = (CondoFee)ite.next();
+	    oughtMoney += cf.getOughtMoney();
+	    if (cf.getFetchMoney()!=null){
+		fetchMoney += cf.getFetchMoney();
+		fetchItems += 1;
+	    }
+	}
+	result.append("   总计:"+cfList.size()+" 项        |   已收:"+fetchItems+" 项        |   应收:"+oughtMoney+" 元        |   实收:"+fetchMoney+" 元");
+	return result.toString();
+    }
+    
     //~ Getters and Setters ============================================================================================
 
     public ICondoFeeService getCondoFeeService() {

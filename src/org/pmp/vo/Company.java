@@ -18,7 +18,7 @@ public class Company implements java.io.Serializable {
     private Date registerTime;
     private Integer registerMoney;
     private String comDesc;
-    private boolean enabled;
+    private Boolean enabled;
 
     public String toString(){
     	StringBuffer sb=new StringBuffer();

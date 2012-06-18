@@ -19,7 +19,7 @@ public class Building implements java.io.Serializable {
     private String unitTag;
     private Double condoFeeRate;
     private String builDesc;
-    private boolean enabled;
+    private Boolean enabled;
 
     public String toString(){
     	StringBuffer sb=new StringBuffer();
@@ -39,7 +39,7 @@ public class Building implements java.io.Serializable {
     public Building(Integer builId, Project project, String builNum,
 	    String builType, Integer floorCount, String skipFloor,
 	    Integer housesPer, Integer unitCount, String unitTag,
-	    Double condoFeeRate, String builDesc, boolean enabled) {
+	    Double condoFeeRate, String builDesc, Boolean enabled) {
 	this.builId = builId;
 	this.project = project;
 	this.builNum = builNum;
