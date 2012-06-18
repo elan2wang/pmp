@@ -16,7 +16,7 @@
   <aop:config>  
     <aop:aspect ref="smsAdvice">  
        <aop:pointcut id="smsInput" expression=
-       "execution(* org.pmp.service.business.ICondoFeeService.batchInput(..))"/>  
+       "execution(* org.pmp.service.business.ICondoFeeService.batchAudit(..))"/>  
        <aop:after method="inputAdvice" pointcut-ref="smsInput"/>
      </aop:aspect>
   </aop:config>

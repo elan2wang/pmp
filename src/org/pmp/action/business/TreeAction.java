@@ -160,18 +160,24 @@ public class TreeAction extends ActionSupport{
 	Integer index = 1;
 	while(ite.hasNext()){
 	    Integer year = ite.next();
+	    StringBuilder url0 = new StringBuilder();
+	    if (obj instanceof Project){
+		url0.append("cf_list_by_time.jsp?proId="+((Project)obj).getProId());
+	    } else if (obj instanceof Company){
+		url0.append("cf_list_by_time.jsp?comId="+((Company)obj).getComId());
+	    }
 	    /* add the first level node year */
-	    nodes.add(JsonConvert.toJsonTreeNode(index++, 0, year.toString()+"年物业费清单", "",
-		    "", "", "", "", false));
+	    nodes.add(JsonConvert.toJsonTreeNode(index++, 0, year.toString()+"年物业费清单",
+		    url0.append("&year="+year).toString(),"", "condoFeeList", "", "", false));
 	    /* add second level node month */
 	    Integer pid=index-1;
 	    Integer month = 13;
 	    while(month-- > 1){
 		StringBuilder url = new StringBuilder();
 		if (obj instanceof Project){
-		    url.append("cf_list_by_month.jsp?proId="+((Project)obj).getProId());
+		    url.append("cf_list_by_time.jsp?proId="+((Project)obj).getProId());
 		} else if (obj instanceof Company){
-		    url.append("cf_list_by_month.jsp?comId="+((Company)obj).getComId());
+		    url.append("cf_list_by_time.jsp?comId="+((Company)obj).getComId());
 		}
 		nodes.add(JsonConvert.toJsonTreeNode(index++, pid, month+"月份清单", 
 			url.append("&year="+year+"&month="+month).toString(),"", "condoFeeList", "", "", false));

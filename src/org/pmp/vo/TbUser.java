@@ -27,8 +27,8 @@ public class TbUser implements MyUserDetails,java.io.Serializable {
     private String identify;
     private String position;
     private String userDesc;
-    private boolean enabled;
-    private boolean issys;
+    private Boolean enabled;
+    private Boolean issys;
     
     //~ UserDetails fields =============================================================================================
     private  Collection<GrantedAuthority> authorities;

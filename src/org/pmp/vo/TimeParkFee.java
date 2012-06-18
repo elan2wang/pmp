@@ -14,8 +14,8 @@ public class TimeParkFee implements java.io.Serializable {
     private String carNum;
     private Date parkDate;
     private Integer parkTime;
-    private double parkFeeRate;
-    private double fetchMoney;
+    private Double parkFeeRate;
+    private Double fetchMoney;
     private String fetchPerson;
     private String recordPerson;
     private Date recordTime;

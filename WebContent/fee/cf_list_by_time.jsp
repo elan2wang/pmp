@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../Scripts/component/flexigrid-1.1/js/flexigrid-new.js"></script>
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
 <script type="text/javascript" src="../Scripts/common/window.js"></script>
-<script type="text/javascript" src="../Scripts/pages/fee/cf_list_by_month.js"></script>
+<script type="text/javascript" src="../Scripts/pages/fee/cf_list_by_time.js"></script>
 </head>
 <body>
 <table id="cf_list">

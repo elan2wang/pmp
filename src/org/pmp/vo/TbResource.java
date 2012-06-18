@@ -15,8 +15,8 @@ public class TbResource implements java.io.Serializable {
     private String resType;
     private String resLink;
     private String resDesc;
-    private boolean enabled;
-    private boolean issys;
+    private Boolean enabled;
+    private Boolean issys;
     private Integer modId;
 
     public String toString(){

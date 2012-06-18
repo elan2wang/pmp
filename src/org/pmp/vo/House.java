@@ -15,7 +15,7 @@ public class House implements java.io.Serializable {
     private String houseDesc;
     private Double condoFeeRate;
     private Integer cycleMonth;
-    private boolean isempty;
+    private Boolean isempty;
 
     public String toString(){
        StringBuffer sb=new StringBuffer();

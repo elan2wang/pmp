@@ -23,8 +23,6 @@ $(function(){
 			{ separator: true },
 			{ name: '数据修改', bclass: 'edit', onpress: cfEdit },
 			{ separator: true },
-			{ name: '数据导出', bclass:'export', onpress: cfExport },
-			{ separator: true },
 			{ name: '删除条目', bclass:'delete', onpress: deleteList },
 			{ separator: true },
 			{ name: '删除项目', bclass:'delete', onpress: deleteItem },
@@ -51,10 +49,6 @@ $(function(){
 
 function cfImport(){
 	openAddWindow('#cfImport');
-}
-
-function cfExport(){
-	openAddWindow('#cfExport');
 }
 
 function cfEdit(){

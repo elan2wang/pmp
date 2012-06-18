@@ -11,8 +11,8 @@ public class TbRole implements java.io.Serializable {
     private String roleName;
     private Integer roleLevel;
     private String roleDesc;
-    private boolean enabled;
-    private boolean issys;
+    private Boolean enabled;
+    private Boolean issys;
 
     public String toString(){
 	StringBuilder sb = new StringBuilder();

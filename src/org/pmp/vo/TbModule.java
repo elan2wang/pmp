@@ -15,8 +15,8 @@ public class TbModule implements java.io.Serializable {
     private Integer modLevel;
     private String modUrl;
     private Integer modOrder;
-    private boolean enabled;
-    private boolean issys;
+    private Boolean enabled;
+    private Boolean issys;
 
     public String toString(){
     	StringBuffer sb=new StringBuffer();
