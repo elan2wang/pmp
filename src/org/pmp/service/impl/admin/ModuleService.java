@@ -28,14 +28,14 @@ public class ModuleService implements IModuleService{
     //~ Constructor ====================================================================================================
 
     //~ Methods ========================================================================================================
-    public void saveModule(TbModule instance){
+    public void addModule(TbModule instance){
 	moduleDAO.saveModule(instance);
     }
     public void editModule(TbModule instance){
 	moduleDAO.updateModule(instance);
     }
-    public void deleteModule(Integer modId){
-	moduleDAO.deleteModule(modId);
+    public void deleteModule(TbModule instance){
+	moduleDAO.deleteModule(instance);
     }
     
     public TbModule getModuleByID(Integer modId){

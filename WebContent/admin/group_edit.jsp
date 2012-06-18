@@ -9,62 +9,62 @@
 <title>添加用户组</title>
 </head>
 <body>
+<div class="window_content">
 <form name="form2" id="form2" method="post" action="editGroup">
-         <div class="rowStyle" style="display:none">
-             <div><span >用户组编号:</span><span><input type="text" name="group.groupId" value="${group.groupId }"/></span></div>
-         </div>
-         <div class="rowStyle">
-             <div><span >用户组名称:</span><span><input type="text" name="group.groupName" value="${group.groupName }"/></span></div>
-         </div>
-         <div class="rowStyle">
-             <div><span >用户组描述:</span><span><input type="text" name="group.groupDesc" value="${group.groupDesc }"/></span></div>
-         </div>
-         <div class="rowStyle">
-             <div><span >用户组级别:</span>
-                  <span><select name="group.groupLevel" id="level" onchange="levelChanged()">
-                          <option value="1" <c:if test="${group.groupLevel == 1 }">selected="selected"</c:if> >1：系统级用户组</option>
-                          <option value="2" <c:if test="${group.groupLevel == 2 }">selected="selected"</c:if>>2：公司级用户组</option>
-                          <option value="3" <c:if test="${group.groupLevel == 3 }">selected="selected"</c:if>>3：小区级用户组</option>
-                       </select>
-                  </span>
-             </div>
-         </div>
-         <div class="rowStyle">
-             <div><span >父亲用户组:</span>
-                  <span><select name="group.fatherGroupId" id="fatherGroupId" onchange="fatherGroupChanged()">
-                        <c:if test="${group.groupLevel == 1 }"><option value=0>根用户组</option></c:if>
-                        <c:if test="${group.groupLevel == 2 }"><option value=0>根用户组</option></c:if>
-                        <c:if test="${group.groupLevel == 3 }">
-                        <c:forEach var="item" items="${groupList }">
-                          <option value="${item.groupId }" <c:if test="${group.fatherGroupId == item.groupId }">selected</c:if> >${item.groupName }</option>
-                        </c:forEach>
-                        </c:if>
-                        </select>
-                  </span>
-             </div>
-         </div>
-         <div class="rowStyle">
-             <div><span >关联域:</span>      
-                 <span><select name="group.refDomain" id="refDomain">
-                       <c:if test="${group.groupLevel == 1 }"><option value="空关联域">空关联域</option></c:if>
-                       <c:if test="${group.groupLevel == 2 }">
-                       <c:forEach var="item" items="${companyList }">
-                         <option value="${item.comName }" <c:if test="${group.refDomain == item.comName }">selected</c:if> >${item.comName }</option>
-                       </c:forEach>
-                       </c:if>
-                       <c:if test="${group.groupLevel == 3 }">
-                       <c:forEach var="item" items="${projectList }">
-                         <option value="${item.proName }" <c:if test="${group.refDomain == item.proName }">selected</c:if> >${item.proName }</option>
-                       </c:forEach>
-                       </c:if>
-                       </select>
-                 </span>
-            </div>
-         </div>
-          <div class="rowStyle">
-              <div style=" margin-left:100px;margin-top:20px"><input type="submit" value="提交" onclick="return  editFormCheck(); "/>
-               <input type="button" value="关闭" onclick="editClose(); "/></div>
-           </div>
+  <div class="rowStyle" style="display:none">
+      <div><span >用户组编号:</span><span><input type="text" class="textbox" name="group.groupId" value="${group.groupId }"/></span></div>
+  </div>
+  <div class="rowStyle">
+      <div><span >用户组名称:</span><span><input type="text" class="textbox" name="group.groupName" value="${group.groupName }"/></span></div>
+  </div>
+  <div class="rowStyle">
+      <div><span >用户组描述:</span><span><input type="text" class="textbox" name="group.groupDesc" value="${group.groupDesc }"/></span></div>
+  </div>
+  <div class="rowStyle">
+      <div><span >用户组级别:</span><span><select name="group.groupLevel" id="level" class="selectbox" onchange="levelChanged()">
+                   <option value="1" <c:if test="${group.groupLevel == 1 }">selected="selected"</c:if> >1：系统级用户组</option>
+                   <option value="2" <c:if test="${group.groupLevel == 2 }">selected="selected"</c:if>>2：公司级用户组</option>
+                   <option value="3" <c:if test="${group.groupLevel == 3 }">selected="selected"</c:if>>3：小区级用户组</option>
+                </select>
+           </span>
+      </div>
+  </div>
+  <div class="rowStyle">
+      <div><span >父亲用户组:</span><span><select name="group.fatherGroupId" id="fatherGroupId" class="selectbox" onchange="fatherGroupChanged()">
+                 <c:if test="${group.groupLevel == 1 }"><option value=0>根用户组</option></c:if>
+                 <c:if test="${group.groupLevel == 2 }"><option value=0>根用户组</option></c:if>
+                 <c:if test="${group.groupLevel == 3 }">
+                 <c:forEach var="item" items="${groupList }">
+                   <option value="${item.groupId }" <c:if test="${group.fatherGroupId == item.groupId }">selected</c:if> >${item.groupName }</option>
+                 </c:forEach>
+                 </c:if>
+                 </select>
+           </span>
+      </div>
+  </div>
+  <div class="rowStyle">
+      <div><span >关&nbsp;&nbsp;联&nbsp;&nbsp;域:</span><span><select name="group.refDomain" class="selectbox" id="refDomain">
+                <c:if test="${group.groupLevel == 1 }"><option value="空关联域">空关联域</option></c:if>
+                <c:if test="${group.groupLevel == 2 }">
+                <c:forEach var="item" items="${companyList }">
+                  <option value="${item.comName }" <c:if test="${group.refDomain == item.comName }">selected</c:if> >${item.comName }</option>
+                </c:forEach>
+                </c:if>
+                <c:if test="${group.groupLevel == 3 }">
+                <c:forEach var="item" items="${projectList }">
+                  <option value="${item.proName }" <c:if test="${group.refDomain == item.proName }">selected</c:if> >${item.proName }</option>
+                </c:forEach>
+                </c:if>
+                </select>
+          </span>
+     </div>
+  </div>
+  <div class="rowStyle">
+       <div style=" margin-left:100px;margin-top:20px">
+       <input type="submit" value="提交" onclick="return  editFormCheck(); "/>
+       <input type="button" value="取消" onclick="closeWindow('#editGroup')"/></div>
+  </div>
 </form>
+</div>
 </body>
 </html>

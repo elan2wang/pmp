@@ -47,9 +47,9 @@ public class GroupDAO extends BaseDAO implements IGroupDAO {
 	}
 	
     }
-    public void deleteGroup(Integer groupID){
-	String hql = "delete TbGroup where groupId="+groupID.toString();
-	String debugMsg = "delete group groupID="+groupID;
+    public void deleteGroup(TbGroup instance){
+	String hql = "delete TbGroup where groupId="+instance.getFatherGroupId();
+	String debugMsg = "delete group groupID="+instance.getFatherGroupId();
 	try {
 	    deleteInstance(hql,debugMsg);
 	} catch(RuntimeException e){

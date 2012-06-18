@@ -17,9 +17,9 @@ import org.pmp.vo.TbModule;
  * @update TODO
  */
 public interface IModuleService {
-    public void saveModule(TbModule instance);
+    public void addModule(TbModule instance);
     public void editModule(TbModule instance);
-    public void deleteModule(Integer modId);
+    public void deleteModule(TbModule instance);
     
     public TbModule getModuleByID(Integer modId);
     

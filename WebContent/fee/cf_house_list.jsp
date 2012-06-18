@@ -17,30 +17,19 @@
 <script type="text/javascript" src="../Scripts/component/flexigrid-1.1/js/flexigrid.js"></script>
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
 <script type="text/javascript" src="../Scripts/common/window.js"></script>
-<script type="text/javascript" src="../Scripts/pages/fee/cf_house_list.js"></script>
 <title>物业费缴费管理</title>
 </head>
 <body>
 <div class="wrap">
-  <ul class="nav">
-    <sec:authorize access="hasRole('ROLE_COMPANY_MANAGER')"><li id="tab1"><a href="cf_item_add.jsp">创建物业费</a></li></sec:authorize>
-    <li id="tab1" class="active"><a href="cf_house_list.jsp">缴费录入</a></li>
-    <li id="tab2"><a href="cf_month_list.jsp">缴费历史</a></li>
-    <sec:authorize access="hasRole('ROLE_COMPANY_MANAGER')"><li id="tab2"><a href="cf_item_list.jsp">财务管理</a></li></sec:authorize>
-  </ul>
-  <div class="content">
-    <div class="innercontent">
-      <div class="content_main">
-        <div class="left_main" style="float:left">
-            <div class="left_main_content">
-              <%@ include file="house_tree.jsp" %>
-            </div>
-        </div>
-        <div class="middle"></div>
-        <div id="right_main" class="right_main" style="float:left;display:none">
-          <iframe name="condoFeeList" id="condoFeeList" frameborder="0" scrolling="auto" width="100%" height="100%" style="margin:0px;padding:0px"></iframe>
-        </div>
+  <div class="content_main">
+    <div class="left_main" style="float:left">
+      <div class="left_main_content">
+        <%@ include file="house_tree.jsp" %>
       </div>
+    </div>
+    <div class="middle"></div>
+    <div id="right_main" class="right_main" style="float:left;display:block">
+      <iframe name="condoFeeList" id="condoFeeList" frameborder="0" scrolling="auto" width="100%" height="100%" style="margin:0px;padding:0px"></iframe>
     </div>
   </div>
 </div>

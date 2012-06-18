@@ -19,15 +19,11 @@
     </action>
     
     
-    <action name="batchDeleteSMSCompany" class="org.pmp.action.business.SmsCompanyAction" method="batchDeleteSMSCompany">
-   	  <result name="success">/cms/smsc_list.jsp</result>
-    </action>
-    
+    <action name="batchDeleteSMSCompany" class="org.pmp.action.business.SmsCompanyAction" method="batchDeleteSMSCompany" />
     
     <action name="loadSMSCompanyList" class="org.pmp.action.business.SmsCompanyAction" method="loadSMSCompanyList">
       <result name="success">/cms/smsc_list.jsp</result>
     </action>
-    
     
 	<!-- company related actions -->
 	<action name="select_company_list" class="org.pmp.action.business.CompanyAction" method="select_company_list">
@@ -63,8 +59,7 @@
 	</action>
 	<action name="delete_building" class="org.pmp.action.business.BuildingAction" method="deleteBuilding">
 	</action>
-	<action name="getBuildingByProject" class="org.pmp.action.business.BuildingAction" method="getBuildingByProject">
-	</action>
+	
 	<action name="saveBuilding" class="org.pmp.action.business.BuildingAction" method="saveBuilding">
 		<result name="success">/cms/building_list.jsp</result>
 	</action>	

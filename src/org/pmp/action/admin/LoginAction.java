@@ -7,7 +7,10 @@
  */
 package org.pmp.action.admin;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
 import org.pmp.util.SessionHandler;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -25,9 +28,7 @@ public class LoginAction extends ActionSupport{
 
     //~ Methods ========================================================================================================
     public String loadWelcomePage(){
-	
 	SessionHandler.putUserIntoSession();
-	
 	return SUCCESS;
     }
     

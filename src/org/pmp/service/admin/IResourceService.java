@@ -8,7 +8,9 @@
 package org.pmp.service.admin;
 
 import java.util.List;
+import java.util.Map;
 
+import org.pmp.util.Pager;
 import org.pmp.vo.TbResource;
 
 /**
@@ -19,9 +21,11 @@ import org.pmp.vo.TbResource;
 public interface IResourceService {
     public void addResource(TbResource instance);
     public void editResource(TbResource instance);
-    public void deleteResource(Integer resID);
+    public void deleteResource(TbResource instance);
     public void batchAdd(List<TbResource> list);
+    public void batchDelete(List<TbResource> list);
     
+    public List loadResourceList(Map<String, Object> params,String order, Pager pager);
     /**
      * @Title: getResourceByID
      * @Description: 根据资源的ID获取资源实体对象

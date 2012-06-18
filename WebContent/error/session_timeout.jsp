@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-Session已过期，请重新<a href="http://localhost:8080/pmp/login.jsp">登录</a>
+<h1>Session已过期，请重新<a href="http://localhost:8080/pmp/login.jsp">登录</a></h1>
 </body>
 </html>

@@ -11,35 +11,43 @@
 <body onload="loadCompanyList()">
 <div class="window_content">
 <form name="form1" id="form1" action="addSMSCompany" method="post">
-         <div class="rowStyle">
-             <div><span >信息机名称:</span><span><input type="text" name="smsCompany.smscName" /></span></div>
-         </div>
-         <div class="rowStyle">
-             <div><span >上行地址:</span><span><input type="text" name="smsCompany.smsUpUrl"/></span></div>
-         </div>
-         <div class="rowStyle">
-             <div><span >下行地址:</span><span ><input type="text" name="smsCompany.smsDownUrl"/></span></div>
-         </div>
-         <div class="rowStyle">
-             <div><span >应用账号:</span><span><input type="text" name="smsCompany.username"/></span></div>
-         </div>
-         <div class="rowStyle">
-             <div><span >应用密码:</span><span><input type="text" name="smsCompany.password"/></span></div>
-         </div>
-         <div class="rowStyle">
-             <div><span >应用扩展码:</span><span><input type="text" name="smsCompany.extendCode"/></span></div>
-         </div>
-         <div class="rowStyle">
-             <div><span >公司名称:</span>
-             <span><s:action name="companyAction!getAllCompany" namespace="/cms" executeResult="true"/>
-             </span></div>
-         </div>
-          <div class="rowStyle">
-              <div style=" margin-left:100px;margin-top:20px"><input type="submit" value="提交" onclick="return  addFormCheck(); "/>
-                 <input type="button" value="关闭" onclick="addClose(); "/></div>
-           </div>
-         </form>
-         </div>
+  <div class="rowStyle">
+      <div><span >账号名称:</span>
+      <span><input type="text" id="smsCompany.smscName" name="smsCompany.smscName" /></span><span style="color:red">*</span></div>
+  </div>
+  <div class="rowStyle">
+      <div><span >上行地址:</span>
+      <span><input type="text" id="smsCompany.smsUpUrl" name="smsCompany.smsUpUrl"/></span><span style="color:red">*</span></div>
+  </div>
+  <div class="rowStyle">
+      <div><span >下行地址:</span>
+      <span ><input type="text" id="smsCompany.smsDownUrl" name="smsCompany.smsDownUrl"/></span><span style="color:red">*</span></div>
+  </div>
+  <div class="rowStyle">
+      <div><span >应用账号:</span>
+      <span><input type="text" id="smsCompany.username" name="smsCompany.username"/></span><span style="color:red">*</span></div>
+  </div>
+  <div class="rowStyle">
+      <div><span >应用密码:</span>
+      <span><input type="text" id="smsCompany.password" name="smsCompany.password"/></span><span style="color:red">*</span></div>
+  </div>
+  <div class="rowStyle">
+      <div><span >扩&nbsp;展&nbsp;码:</span>
+      <span><input type="text" id="smsCompany.extendCode" name="smsCompany.extendCode"/></span><span style="color:red">*</span></div>
+  </div>
+  <div class="rowStyle">
+      <div><span >公司名称:</span>
+      <span><s:action name="companyAction!getAllCompany" namespace="/cms" executeResult="true"/>
+      </span></div>
+  </div>
+  <div class="rowStyle">
+      <div style=" margin-left:100px;margin-top:20px">
+      <input type="submit" value="提交" onclick="return FormCheck(); "/>
+      <input type="button" value="取消" onclick="closeWindow('#newSmsc')"/>
+      </div>
+  </div>
+</form>
+</div>
 
 </body>
 </html>

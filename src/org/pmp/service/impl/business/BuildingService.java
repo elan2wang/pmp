@@ -15,7 +15,6 @@ import org.pmp.dao.business.IBuildingDAO;
 import org.pmp.service.business.IBuildingService;
 import org.pmp.util.Pager;
 import org.pmp.vo.Building;
-import org.pmp.vo.Project;
 
 /**
  * @author Jason
@@ -23,32 +22,21 @@ import org.pmp.vo.Project;
  * @update TODO
  */
 public class BuildingService implements IBuildingService {
-	IBuildingDAO buildingDao;
+	IBuildingDAO buildingDAO;
 	
-
-	/**
-	 * @Title: saveBuilding
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
 	@Override
-	public void saveBuilding(Building building) {
-		buildingDao.saveBuilding(building);
-		saveBuildingHouse(building);
+	public void addBuilding(Building building) {
+		buildingDAO.saveBuilding(building);
+		addBuildingHouse(building);
 	}
-	public void saveBuildingHouse(Building building){
-//		private Integer builId;
-//	    private Integer builNum;
-//	    private Integer floorCount;
-//	    private Integer housesPer;
-//	    private Integer unitCount;
+	public void addBuildingHouse(Building building){
 		int unit = building.getUnitCount();
 		int floor = building.getFloorCount();
 		int housePer = building.getHousesPer();
-		int skipfloor = Integer.parseInt(building.getSkipFloor());
+		int skipfloor = -1;
+		if (building.getSkipFloor()!=null&&!building.getSkipFloor().equals("")){
+		    skipfloor = Integer.parseInt(building.getSkipFloor());
+		}
 		ArrayList<String> list = new ArrayList<String>();
 		
 		if(building.getUnitTag().equals("数字")){
@@ -85,110 +73,42 @@ public class BuildingService implements IBuildingService {
 			}
 		}
 		
-		buildingDao.saveBuildingHouse(list, building);
+		buildingDAO.saveBuildingHouse(list, building);
 	}
-	/**
-	 * @Title: updateBuilding
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public void updateBuilding(Building building) {
-		buildingDao.updateBuilding(building);
+
+	public void editBuilding(Building building) {
+		buildingDAO.updateBuilding(building);
+	}
+
+	public void deleteBuilding(Building building) {
+		buildingDAO.deleteBuilding(building);
 
 	}
 
-	/**
-	 * @Title: deleteBuilding
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
-	public void deleteBuilding(Integer builId) {
-		buildingDao.deleteBuilding(builId);
-
-	}
-
-	/**
-	 * @Title: getBuildingById
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
 	public Building getBuildingById(Integer buildId) {
-		return buildingDao.getBuildingByID(buildId);
+		return buildingDAO.getBuildingByID(buildId);
 	}
 	
-	
-	/**
-	 * @Title: loadBuildingList_ByCompany
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
 	public List<Building> loadBuildingList_ByCompany(Integer comId,Map<String,Object>params,String order,Pager pager)
 	{
-		return buildingDao.loadBuildingList_ByCompany(comId, params, order, pager);
+		return buildingDAO.loadBuildingList_ByCompany(comId, params, order, pager);
 	}
 	
-	/**
-	 * @Title: loadBuildingList_ByProject
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
 	public List<Building> loadBuildingList_ByProject(Integer proId,Map<String,Object>params,String order,Pager pager)
 	{
-		return buildingDao.loadBuildingList_ByProject(proId, params, order, pager);
+		return buildingDAO.loadBuildingList_ByProject(proId, params, order, pager);
 	}
 	
-	
-	/**
-	 * @param buildingDao the buildingDao to set
-	 */
-	public void setBuildingDao(IBuildingDAO buildingDao) {
-		this.buildingDao = buildingDao;
+	public void setBuildingDAO(IBuildingDAO buildingDAO) {
+		this.buildingDAO = buildingDAO;
 	}
 
-	/**
-	 * @Title: batchSaveBuilding
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
 	public void batchSaveBuilding(List<Building> buildingList) {
-		buildingDao.batchSaveBuilding(buildingList);
+		buildingDAO.batchSaveBuilding(buildingList);
 	}
 
-	/**
-	 * @Title: getBuildingByProjectIdAndBuildingNum
-	 * @Description: TODO
-	 *
-	 * @param  TODO
-	 * @return TODO
-	 * @throws TODO
-	 */
-	@Override
 	public Building getBuildingByProjectIdAndBuildingNum(Integer projectId,
 			Integer buildingNum) {
-		return buildingDao.getBuildingByProjectIdAndBuildingNum(projectId, buildingNum);
+		return buildingDAO.getBuildingByProjectIdAndBuildingNum(projectId, buildingNum);
 	}
 }

@@ -33,8 +33,8 @@ public class AuthorityService implements IAuthorityService {
     public void editResource(TbAuthority instance){
 	authorityDAO.updateAuthority(instance);
     }
-    public void deleteResource(Integer authID){
-	authorityDAO.deleteAuthority(authID);
+    public void deleteResource(TbAuthority instance){
+	authorityDAO.deleteAuthority(instance);
     }
 
     public TbAuthority getAuthorityByID(Integer authID){

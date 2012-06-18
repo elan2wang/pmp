@@ -12,6 +12,9 @@
  */
 package org.pmp.log;
 
+import java.util.Iterator;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
 import org.pmp.util.SessionHandler;
@@ -42,39 +45,108 @@ public class UserBehaviorTrackLogger {
 	logger.info(msg.toString());
     }
     
-    public void addBehaviorTrack(JoinPoint jp) throws Exception{
+    public void addTrack(JoinPoint jp) throws Exception{
         StringBuilder msg = new StringBuilder();
 	if (SessionHandler.getUser()!=null){
+	    /* 从session从获取当前用户名 */
 	    String username = SessionHandler.getUser().getRealname();
+	    /* 获取连接点方法的参数数组 */
 	    Object[] obj = jp.getArgs();
-	    msg.append("["+username+"]: add a "+obj[0].getClass().getSimpleName()+" instance. Instance details:");
-	    msg.append(obj[0].toString());
+	    /* 添加用户名 */
+	    msg.append("["+username+"]: ");
+	    /* 添加事件类型、对象类型 */
+	    msg.append("Add "+obj[0].getClass().getSimpleName()+", ");
+	    /* 添加操作对象的详细信息 */
+	    msg.append("Details:"+obj[0].toString());
 	}
         logger.info(msg.toString());
     }
     
-    public void editBehaviorTrack(JoinPoint jp) throws Exception{
+    public void editTrack(JoinPoint jp) throws Exception{
 	StringBuilder msg = new StringBuilder();
 	if (SessionHandler.getUser()!=null){
 	    String username = SessionHandler.getUser().getRealname();
 	    Object[] obj = jp.getArgs();
-	    msg.append("["+username+"]: modify the "+obj[0].getClass().getSimpleName()+" instance. after modified:");
-	    msg.append(obj[0].toString());
+	    msg.append("["+username+"]: ");
+	    /* 添加事件类型、对象类型 */
+	    msg.append("Edit "+obj[0].getClass().getSimpleName()+", ");
+	    /* 添加操作对象的详细信息 */
+	    msg.append("Details:"+obj[0].toString());
 	}
         logger.info(msg.toString());
     }
     
-    public void deleteBehaviorTrack(JoinPoint jp) throws Exception{
+    public void deleteTrack(JoinPoint jp) throws Exception{
 	StringBuilder msg = new StringBuilder();
 	if (SessionHandler.getUser()!=null){
 	    String username = SessionHandler.getUser().getRealname();
-	    String signature = jp.getSignature().toString();
 	    Object[] obj = jp.getArgs();
-	    msg.append("["+username+"]: "+signature.split(" ")[1]+" ID="+obj[0]);
+	    msg.append("["+username+"]: ");
+	    /* 添加事件类型、对象类型 */
+	    msg.append("Delete "+obj[0].getClass().getSimpleName()+", ");
+	    /* 添加操作对象的详细信息 */
+	    msg.append("Details:"+obj[0].toString());
 	}
         logger.info(msg.toString());
     }
     
+    public void batchAddTrack(JoinPoint jp) throws Exception{
+	if (SessionHandler.getUser()!=null){
+	    String username = SessionHandler.getUser().getRealname();
+	    Object[] obj = jp.getArgs();
+	    List<?> list = (List<?>)obj[0];
+	    Iterator<?> ite = list.iterator();
+	    while(ite.hasNext()){
+		Object o = ite.next();
+		StringBuilder msg = new StringBuilder();
+		msg.append("["+username+"]: ");
+		/* 添加事件类型、对象类型 */
+		msg.append("Add "+o.getClass().getSimpleName()+", ");
+		/* 添加操作对象的详细信息 */
+		msg.append("Details:"+o.toString());
+	        logger.info(msg.toString());
+	    }
+	}
+    }
+    
+    public void batchEditTrack(JoinPoint jp) throws Exception{
+	if (SessionHandler.getUser()!=null){
+	    String username = SessionHandler.getUser().getRealname();
+	    Object[] obj = jp.getArgs();
+	    List<?> list = (List<?>)obj[0];
+	    Iterator<?> ite = list.iterator();
+	    while(ite.hasNext()){
+		Object o = ite.next();
+		StringBuilder msg = new StringBuilder();
+		msg.append("["+username+"]: ");
+		/* 添加事件类型、对象类型 */
+		msg.append("Edit "+o.getClass().getSimpleName()+", ");
+		/* 添加操作对象的详细信息 */
+		msg.append("Details:"+o.toString());
+	        logger.info(msg.toString());
+	    }
+	}
+    }
+    
+    public void batchDeleteTrack(JoinPoint jp) throws Exception{
+	logger.debug("batchDeleteTrack");
+	if (SessionHandler.getUser()!=null){
+	    String username = SessionHandler.getUser().getRealname();
+	    Object[] obj = jp.getArgs();
+	    List<?> list = (List<?>)obj[0];
+	    Iterator<?> ite = list.iterator();
+	    while(ite.hasNext()){
+		Object o = ite.next();
+		StringBuilder msg = new StringBuilder();
+		msg.append("["+username+"]: ");
+		/* 添加事件类型、对象类型 */
+		msg.append("Delete "+o.getClass().getSimpleName()+", ");
+		/* 添加操作对象的详细信息 */
+		msg.append("Details:"+o.toString());
+	        logger.info(msg.toString());
+	    }
+	}
+    }
     //~ Getters and Setters ============================================================================================
 
 }

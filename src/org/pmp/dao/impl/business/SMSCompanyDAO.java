@@ -53,9 +53,9 @@ public class SmsCompanyDAO extends BaseDAO implements ISmsCompanyDAO{
 	}
     }
     
-    public void delereSMSCompany(Integer smscId){
-    	String debugMsg = "delete SMSCompany instance,smscId="+smscId;
-    	String hql = "delete from SMSCompany where smscId="+smscId;
+    public void delereSMSCompany(SMSCompany instance){
+    	String debugMsg = "delete SMSCompany instance,smscId="+instance.getSmscId();
+    	String hql = "delete from SMSCompany where smscId="+instance.getSmscId();
     	try {
     		deleteInstance(hql,debugMsg);
     	} catch (RuntimeException e){

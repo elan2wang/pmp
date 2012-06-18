@@ -9,11 +9,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-<select id="comId" name="comId" style="width:150px;">
-<option selected="selected">请选择物业</option>
+<select id="comId" name="comId" class="selectbox">
+<option selected="selected" value="0">请选择关联物业</option>
 <c:forEach var="company" items="${companyList}">
 	<option value="${company.comId}">${company.comName}</option>
 </c:forEach>
-</select>
+</select><span style="color:red">*</span>
 </body>
 </html>

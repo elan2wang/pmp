@@ -9,25 +9,19 @@ package org.pmp.action.business;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.pmp.excel.BuildingImport;
-import org.pmp.excel.ProjectImport;
 import org.pmp.service.business.IBuildingService;
 import org.pmp.util.JsonConvert;
 import org.pmp.util.MyfileUtil;
@@ -46,327 +40,247 @@ import com.opensymphony.xwork2.ActionSupport;
  */
 public class BuildingAction extends ActionSupport {
 	
-	static Logger logger = Logger.getLogger(BuildingAction.class.getName());
-	private Pager pager;
-	private Integer buildingId;
-	private Integer projectId;
-	private Integer thisProjectId;
-	private Integer builNum;
+    private static Logger logger = Logger.getLogger(BuildingAction.class.getName());
 
-	private Building building;
-	private IBuildingService buildingService;
-	private List list;
-	private Integer page;
-	
+    private IBuildingService buildingService;
+    
+    private Integer buildingId;
+    private Integer projectId;
+    private Integer builNum;
 
-	private Integer rp;
-	
-	private File refFile;
-	private String refFileFileName;
-	private String refFileContentType;
-	
-	
+    private Building building;
+    
+    /* used when uploadFile */
+    private File refFile;
+    private String refFileFileName;
+    private String refFileContentType;
 
-	public String saveBuilding(){
-		System.out.println("in saveBuilding:"+building.getProject().getProName());
-		buildingService.saveBuilding(building);
-		System.out.println("in saveBuilding:"+building.getProject().getProName());
-		return SUCCESS;
-	}
+    /* =========FlexiGrid post parameters======= */
+    private Integer page=1;
+    private Integer rp=15;
+    private String sortname;
+    private String sortorder;
+    private String query;
+    private String qtype;
+    /* =========FlexiGrid post parameters======= */
+
+    public String saveBuilding(){
+        buildingService.addBuilding(building);
+        return SUCCESS;
+    }
 	
-	 public void checkBuildingByBuilNumAndProjectId(){
-	    	Building building = buildingService.getBuildingByProjectIdAndBuildingNum(projectId,builNum);
-	    	String data = null;
-	    	if(building!=null)
-	    	{
-	    		data="{"+JsonConvert.toJson("result")+":"+JsonConvert.toJson("Failed")+"}";
-	       
-	    	}
-	    	else
-	    	{
-	    		data="{"+JsonConvert.toJson("result")+":"+JsonConvert.toJson("Success")+"}";
-	    	}
-	     	logger.debug(data);
-	    	JsonConvert.output(data);
-	    	
-	  }
-	public String updateBuilding(){
-		buildingService.updateBuilding(building);
-		return SUCCESS;
+    public void checkBuildingByBuilNumAndProjectId(){
+        Building building = buildingService.getBuildingByProjectIdAndBuildingNum(projectId,builNum);
+        String data = null;
+        if(building!=null){
+            data="{"+JsonConvert.toJson("result")+":"+JsonConvert.toJson("Failed")+"}";   
+        } else {
+            data="{"+JsonConvert.toJson("result")+":"+JsonConvert.toJson("Success")+"}";
 	}
+        logger.debug(data);
+        JsonConvert.output(data);
+    }
+    
+    public String updateBuilding(){
+        buildingService.editBuilding(building);
+        return SUCCESS;
+    }
 	
-	public void deleteBuilding(){
-		buildingService.deleteBuilding(buildingId);
-	}
+    public void deleteBuilding(){
+        buildingService.deleteBuilding(buildingService.getBuildingById(buildingId));
+    }
 	
-	public String getBuildingById(){
-		logger.debug("进入getBuildingById方法");
-		building = buildingService.getBuildingById(buildingId);
-		return SUCCESS;
-	}
+    public String getBuildingById(){
+        building = buildingService.getBuildingById(buildingId);
+        return SUCCESS;
+    }
 	
-	public void loadBuildingListBySessionHandler(){		
-		logger.debug("进入loadBuildingListBySessionHandler方法");
-		List buildingList = null;
-		buildingList = new ArrayList<Building>();
-		Object obj = SessionHandler.getUserRefDomain();
-		//如果是小区管理员，则只显示本小区内的楼宇
+    public void loadBuildingListBySessionHandler(){
+        List<?> buildingList = new ArrayList<Building>();
+        Object obj = SessionHandler.getUserRefDomain();
+        //如果是小区管理员，则只显示本小区内的楼宇
 		
-		Pager pager = new Pager(rp,page);
-		//Pager pager2 = new Pager(10000,1);
-		Map<String,Object> params = new HashMap<String,Object>();
-		String order = "order by builId asc";
-		if(projectId==0){		
-			if(obj instanceof Project)
-			{
-				Project pro = (Project)obj;
-				System.out.println(pro.getProName());
-				buildingList = buildingService.loadBuildingList_ByProject(pro.getProId(), params, order, pager);
-			}
-			else if(obj instanceof Company)
-			{
-				Company com = (Company)obj;
-				buildingList = buildingService.loadBuildingList_ByCompany(com.getComId(), params, order, pager);
-			}
-		}
-		else{ 
-			buildingList = buildingService.loadBuildingList_ByProject(projectId, params, order, pager);
-		}
-		logger.debug("得到的buildingList为"+buildingList.toString());
-	//	pager.setRowsCount(buildingList.size());
-		String data = JsonConvert.list2FlexJson(pager, buildingList, "org.pmp.vo.Building");
-		System.out.println(data);
-		logger.debug(data);
-		JsonConvert.output(data);
+        Pager pager = new Pager(rp,page);
+        String order = null;
+	Map<String,Object> params = new HashMap<String,Object>();
+	if (!qtype.equals("")&&!query.equals("")){
+	    params.put(qtype, query);
+	}
+	if (!sortname.equals("undefined")&&!sortorder.equals("undefined")){
+	    order= "order by "+sortname+" "+sortorder;
+	} else{
+	    order = "order by project.proId asc, builNum desc";
 	}
 	
-
+        if(projectId==0){
+            if(obj instanceof Project){
+                Project pro = (Project)obj;
+                buildingList = buildingService.loadBuildingList_ByProject(pro.getProId(), params, order, pager);
+            } else if(obj instanceof Company){
+        	Company com = (Company)obj;
+                buildingList = buildingService.loadBuildingList_ByCompany(com.getComId(), params, order, pager);
+            }
+	} else {
+	    buildingList = buildingService.loadBuildingList_ByProject(projectId, params, order, pager);
+	}
+        
+        String data = JsonConvert.list2FlexJson(pager, buildingList, "org.pmp.vo.Building");
+        logger.debug(data);
+        JsonConvert.output(data);
+    }
 	
-	public void uploadFile()throws IOException{
-		HttpServletRequest request = ServletActionContext.getRequest();
-	    String message = null;
-	    System.out.println("proFileFileName:"+refFileFileName);
-
-		if(!MyfileUtil.validate(refFileFileName,"xls")){
-		    logger.debug("文件格式不对");
-		    String postfix = MyfileUtil.getPostfix(refFileFileName);
-		    message = postfix+"类型的文件暂不支持，请选择xls类型文件";
-		    request.setAttribute("message", message);
-		    JsonConvert.output("{\"error\":\"filetype_error\",\"msg\":"+JsonConvert.toJson(message)+"}");
-		    return;
-		}
-		/* create the dir to store error data */
-		MyfileUtil.createDir("error_data");
-		/* create the error data file in this dir */
-		String fileName = MyfileUtil.createFilename();
-		String fullName = ServletActionContext.getServletContext().getRealPath("error_data")+"\\"+fileName+".xls";
-		String downLoad = ServletActionContext.getServletContext().getContextPath()+"/error_data/"+fileName+".xls";
-		OutputStream os = new FileOutputStream(fullName);
-		System.out.println(fullName);
-		/* import data from the upload file and store in the cfList */
-		List<Building> builList = new ArrayList<Building>();
-		Boolean hasError = BuildingImport.execute(new FileInputStream(refFile), os, builList);
-		/* close OutputStream */
-		os.flush();
-		os.close();
+    public void uploadFile()throws IOException{
+        HttpServletRequest request = ServletActionContext.getRequest();
+        String message = null;
+        if(!MyfileUtil.validate(refFileFileName,"xls")){
+            logger.debug("文件格式不对");
+            String postfix = MyfileUtil.getPostfix(refFileFileName);
+            message = postfix+"类型的文件暂不支持，请选择xls类型文件";
+            request.setAttribute("message", message);
+            JsonConvert.output("{\"error\":\"filetype_error\",\"msg\":"+JsonConvert.toJson(message)+"}");
+            return;
+        }
+        /* create the dir to store error data */
+        MyfileUtil.createDir("error_data");
+        /* create the error data file in this dir */
+        String fileName = MyfileUtil.createFilename();
+        String fullName = ServletActionContext.getServletContext().getRealPath("error_data")+"\\"+fileName+".xls";
+        String downLoad = ServletActionContext.getServletContext().getContextPath()+"/error_data/"+fileName+".xls";
+        OutputStream os = new FileOutputStream(fullName);
+        
+        /* import data from the upload file and store in the cfList */
+        List<Building> builList = new ArrayList<Building>();
+        Boolean hasError = BuildingImport.execute(new FileInputStream(refFile), os, builList);
+        /* close OutputStream */
+        os.flush();
+        os.close();
 		
-		/* call the method batchSetOughtMoney to update the condoFee*/
-		buildingService.batchSaveBuilding(builList);
+        /* call the method batchSetOughtMoney to update the condoFee*/
+        buildingService.batchSaveBuilding(builList);
 		
-		/* if there are some mistakes of the file */
-		if (hasError){
-		    message = "记录有错误,正确数据已导入，请下载错误数据<a href=\""+downLoad+"\">下载</a>";
-		    JsonConvert.output("{\"error\":\"record_error\",\"msg\":"+JsonConvert.toJson(message)+"}");
-		    return;
-		}
+        /* if there are some mistakes of the file */
+        if (hasError){
+            message = "记录有错误,正确数据已导入，请下载错误数据<a href=\""+downLoad+"\">下载</a>";
+            JsonConvert.output("{\"error\":\"record_error\",\"msg\":"+JsonConvert.toJson(message)+"}");
+            return;
+        }
 		
-		/* data import success */
-		message = "数据导入成功";
-		JsonConvert.output("{\"error\":\"\",\"msg\":"+JsonConvert.toJson(message)+"}");
-		return;
-	}
-	
-	/**
-	 * @return the buildingId
-	 */
-	public Integer getBuildingId() {
-		return buildingId;
-	}
+        /* data import success */
+        message = "数据导入成功";
+        JsonConvert.output("{\"error\":\"\",\"msg\":"+JsonConvert.toJson(message)+"}");
+        return;
+    }
 
-	/**
-	 * @param buildingId the buildingId to set
-	 */
-	public void setBuildingId(Integer buildingId) {
-		this.buildingId = buildingId;
-	}
+    //~ getters and setters ================================================================================================
+    public IBuildingService getBuildingService() {
+        return buildingService;
+    }
 
-	/**
-	 * @return the building
-	 */
-	public Building getBuilding() {
-		return building;
-	}
+    public void setBuildingService(IBuildingService buildingService) {
+        this.buildingService = buildingService;
+    }
 
-	/**
-	 * @param building the building to set
-	 */
-	public void setBuilding(Building building) {
-		this.building = building;
-	}
+    public Integer getBuildingId() {
+        return buildingId;
+    }
 
-	/**
-	 * @return the buildingService
-	 */
-	public IBuildingService getBuildingService() {
-		return buildingService;
-	}
+    public void setBuildingId(Integer buildingId) {
+        this.buildingId = buildingId;
+    }
 
-	/**
-	 * @param buildingService the buildingService to set
-	 */
-	public void setBuildingService(IBuildingService buildingService) {
-		this.buildingService = buildingService;
-	}
+    public Integer getProjectId() {
+        return projectId;
+    }
 
-	/**
-	 * @return the list
-	 */
-	public List getList() {
-		return list;
-	}
+    public void setProjectId(Integer projectId) {
+        this.projectId = projectId;
+    }
 
-	/**
-	 * @param list the list to set
-	 */
-	public void setList(List list) {
-		this.list = list;
-	}
+    public Integer getBuilNum() {
+        return builNum;
+    }
 
-	/**
-	 * @return the pager
-	 */
-	public Pager getPager() {
-		return pager;
-	}
+    public void setBuilNum(Integer builNum) {
+        this.builNum = builNum;
+    }
 
-	/**
-	 * @param pager the pager to set
-	 */
-	public void setPager(Pager pager) {
-		this.pager = pager;
-	}
+    public Building getBuilding() {
+        return building;
+    }
 
-	/**
-	 * @return the currentPage
-	 */
-	/**
-	 * @return the page
-	 */
-	public Integer getPage() {
-		return page;
-	}
+    public void setBuilding(Building building) {
+        this.building = building;
+    }
 
-	/**
-	 * @param page the page to set
-	 */
-	public void setPage(Integer page) {
-		this.page = page;
-	}
+    public File getRefFile() {
+        return refFile;
+    }
 
-	/**
-	 * @return the rp
-	 */
-	public Integer getRp() {
-		return rp;
-	}
+    public void setRefFile(File refFile) {
+        this.refFile = refFile;
+    }
 
-	/**
-	 * @param rp the rp to set
-	 */
-	public void setRp(Integer rp) {
-		this.rp = rp;
-	}
+    public String getRefFileFileName() {
+        return refFileFileName;
+    }
 
-	/**
-	 * @return the projectId
-	 */
-	public Integer getProjectId() {
-		return projectId;
-	}
-	/**
-	 * @param projectId the projectId to set
-	 */
-	public void setProjectId(Integer projectId) {
-		this.projectId = projectId;
-	}
-	
-	/**
-	 * @return the thisProjectId
-	 */
-	public Integer getThisProjectId() {
-		return thisProjectId;
-	}
+    public void setRefFileFileName(String refFileFileName) {
+        this.refFileFileName = refFileFileName;
+    }
 
-	/**
-	 * @param thisProjectId the thisProjectId to set
-	 */
-	public void setThisProjectId(Integer thisProjectId) {
-		this.thisProjectId = thisProjectId;
-	}
-	
-	/**
-	 * @return the refFile
-	 */
-	public File getRefFile() {
-		return refFile;
-	}
+    public String getRefFileContentType() {
+        return refFileContentType;
+    }
 
-	/**
-	 * @param refFile the refFile to set
-	 */
-	public void setRefFile(File refFile) {
-		this.refFile = refFile;
-	}
+    public void setRefFileContentType(String refFileContentType) {
+        this.refFileContentType = refFileContentType;
+    }
 
-	/**
-	 * @return the refFileFileName
-	 */
-	public String getRefFileFileName() {
-		return refFileFileName;
-	}
+    public Integer getPage() {
+        return page;
+    }
 
-	/**
-	 * @param refFileFileName the refFileFileName to set
-	 */
-	public void setRefFileFileName(String refFileFileName) {
-		this.refFileFileName = refFileFileName;
-	}
+    public void setPage(Integer page) {
+        this.page = page;
+    }
 
-	/**
-	 * @return the refFileContentType
-	 */
-	public String getRefFileContentType() {
-		return refFileContentType;
-	}
+    public Integer getRp() {
+        return rp;
+    }
 
-	/**
-	 * @param refFileContentType the refFileContentType to set
-	 */
-	public void setRefFileContentType(String refFileContentType) {
-		this.refFileContentType = refFileContentType;
-	}
+    public void setRp(Integer rp) {
+        this.rp = rp;
+    }
 
-	/**
-	 * @return the builNum
-	 */
-	public Integer getBuilNum() {
-		return builNum;
-	}
+    public String getSortname() {
+        return sortname;
+    }
 
-	/**
-	 * @param builNum the builNum to set
-	 */
-	public void setBuilNum(Integer builNum) {
-		this.builNum = builNum;
-	}
+    public void setSortname(String sortname) {
+        this.sortname = sortname;
+    }
+
+    public String getSortorder() {
+        return sortorder;
+    }
+
+    public void setSortorder(String sortorder) {
+        this.sortorder = sortorder;
+    }
+
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
+    }
+
+    public String getQtype() {
+        return qtype;
+    }
+
+    public void setQtype(String qtype) {
+        this.qtype = qtype;
+    }
 }

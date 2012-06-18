@@ -1,9 +1,17 @@
 
 //alert($("#configUrl").val());
+<<<<<<< HEAD
 //load_device("../"+$("#configUrl").val());
+=======
+>>>>>>> 422375ffa21372648fba6f19a06ac2c8ba72c3c5
 
+var zoneImgUrl=parent.zoneImgUrlTmp;
+var zoneConfigUrl=parent.zoneConfigUrlTmp;
+var zoneId=parent.zoneIdTmp;
 
+//alert(zoneImgUrl+":"+zoneConfigUrl);
 
+load_device("../"+zoneConfigUrl);
 
 var thisList=new Array();
 //load xml配置文件
@@ -29,7 +37,7 @@ function list_divice(xml){
 	var deviceNum=devideArr.length;
 
 
-	divCon.append('<img  src="../'+$("#imgUrl").val()+'"  border="0"/>');
+	divCon.append('<img  src="../'+zoneImgUrl+'"  border="0"/>');
 	//divCon.append('<img  src='+zone.attr("picpath").toString()+'  border="0"/>');
 	var imageid='';
 	for(var i=0;i<deviceNum;i++)
@@ -39,7 +47,7 @@ function list_divice(xml){
 		imgid=thisdevice.attr("devicenumber").toString();
 		var info=thisdevice.attr("devicetypename").toString();
 		if(imageurl.length<=1){imageurl='0'+imageurl;}
-		divCon.append('<div class="devicePosi" id='+imgid+'><a href="javascript:void(0)" target="_blank" title="'+info+'"><img src="../fireConfig/DevIco/'+imageurl+'.ico" border="0" id='+imgid+'></a></div>');
+		divCon.append('<div class="devicePosi" id='+imgid+'><a href="javascript:void(0);" title="'+info+'"><img src="../fireConfig/DevIco/'+imageurl+'.ico" border="0" id='+imgid+'></a></div>');
 		
 		thisdevice=null;
 	}
@@ -62,7 +70,7 @@ function list_divice(xml){
 	
 	//决定是否闪烁
 	thisList.length=0;
-	thisList=findByZoneId($("#zoneID").val(),parent.deviceNumList);
+	thisList=findByZoneId(zoneId,parent.deviceNumList);
 	if(thisList&&thisList.length>0){
 		for(var i=0;i<thisList.length;i++)
 		{
@@ -142,7 +150,6 @@ function list_divice(xml){
 			  thisList.push(parentList[i].deviceID);
 		  }
 	  }
-	  //alert(thisList.length);
 	  return thisList;
   }
 

@@ -58,8 +58,8 @@
        </div>
        <div id="newRole" href="role_add.jsp" class="easyui-window" title="添加新角色" style="width:350px;height:270px;padding:5px;" iconCls="icon-save" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
        <div id="editRole" class="easyui-window"  title="编辑角色" style="width:350px;height:270px;padding:5px;" iconCls="icon-save" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
-       <div id="role_auth" class="easyui-window" title="给角色分配权限" style="width:500px;height:370px;padding:5px;" iconCls="icon-save" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
-       <div id="role_mod" class="easyui-window" title="给角色分配模块" style="width:500px;height:370px;padding:5px;" iconCls="icon-save" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
+       <div id="role_auth" class="easyui-window" title="给角色分配权限" style="width:600px;height:370px;padding:5px;" iconCls="icon-save" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
+       <div id="role_mod" class="easyui-window" title="给角色分配模块" style="width:600px;height:370px;padding:5px;" iconCls="icon-save" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
     </div>
     <script type="text/javascript" src="../Scripts/common/changeSize.js"></script>
 </body>

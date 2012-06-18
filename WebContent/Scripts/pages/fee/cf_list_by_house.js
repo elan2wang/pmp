@@ -30,7 +30,7 @@ $(function(){
 		    { display: '状态', name : 'state', isdefault : true }
 		],
 		showSearch:true,
-		height:Height*0.88,
+		height:Height*0.9,
         showcheckbox:true,
         nomsg: '没有符合条件的物业费记录',
         usepager:true,
@@ -67,5 +67,17 @@ function cfInput(){
 }
 
 function smsInform(){
-	alert("短信催缴");
+	var houseId = getQueryString("houseId");
+	$.ajax({
+		type: 'POST',
+		url: 'sms_inform?houseId='+houseId,
+		success: function(data){
+			if(data.result=='success'){
+				
+			}
+			else{
+				
+			}
+		}
+	});
 }

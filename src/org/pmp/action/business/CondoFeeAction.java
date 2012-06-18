@@ -35,11 +35,13 @@ import org.pmp.excel.NewCondoFeeImport;
 import org.pmp.jms.JmsPublisher;
 import org.pmp.service.business.ICondoFeeItemService;
 import org.pmp.service.business.ICondoFeeService;
+import org.pmp.service.business.ISmsSendService;
 import org.pmp.util.JsonConvert;
 import org.pmp.util.MyfileUtil;
 import org.pmp.util.Pager;
 import org.pmp.util.SessionHandler;
 import org.pmp.vo.CondoFee;
+import org.pmp.vo.SMSSend;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -57,7 +59,7 @@ public class CondoFeeAction extends ActionSupport{
     //~ Instance Fields ================================================================================================
     private ICondoFeeService condoFeeService;
     private ICondoFeeItemService condoFeeItemService;
-    
+    private ISmsSendService smsSendService;
     
     /* used when import new condoFee */
     private File cfFile;
@@ -384,6 +386,41 @@ public class CondoFeeAction extends ActionSupport{
 	return;
     }
     
+    public void smsInform(){
+	Pager pager = new Pager(1000,1);
+	Map<String,Object> params = new HashMap<String,Object>();
+	params.put("state", "input");
+	List<CondoFee> list = condoFeeService.loadCondoFeeList_ByHouse(houseId, params, "", pager);
+	if (list.size()!=0){
+	    /* create a SMSSend instance and set its properties */
+	    SMSSend smsSend = new SMSSend();
+	    smsSend.setSMSCompany(SessionHandler.getSMSCompany());
+	    smsSend.setSmssPerson(SessionHandler.getUser().getUsername());
+	    smsSend.setSmssTime(new Date());
+	    smsSend.setSmssState("new");
+	    smsSend.setSmssReceiver(list.get(0).getOwner().getMobile());
+	    /* generate sms content */
+	    StringBuilder sb = new StringBuilder();
+	    sb.append("尊敬的业主："+list.get(0).getOwner().getOwnerName()+",您好！您尚有");
+	    Iterator<CondoFee> ite = list.iterator();
+	    Double totalMoney = 0.0;
+	    while (ite.hasNext()){
+		CondoFee cf = ite.next();
+		totalMoney += cf.getOughtMoney();
+		sb.append(cf.getCfYear()+"-"+cf.getCfMonth()+",");
+	    }
+	    sb.deleteCharAt(sb.length()-1);
+	    sb.append("的物业费未缴纳，总计："+totalMoney+"元，如有疑问请及时联系我们！");
+	    smsSend.setSmssContent(sb.toString());
+	    
+	    //save this instance
+	    smsSendService.addSmsSend(smsSend);
+	    
+	    //send message to message queue
+	    JmsPublisher.sendMessgae(smsSend.getSmssId().toString());
+	}
+	
+    }
     //~ Getters and Setters ============================================================================================
 
     public ICondoFeeService getCondoFeeService() {
@@ -576,6 +613,14 @@ public class CondoFeeAction extends ActionSupport{
 
     public void setQtype(String qtype) {
         this.qtype = qtype;
+    }
+
+    public ISmsSendService getSmsSendService() {
+        return smsSendService;
+    }
+
+    public void setSmsSendService(ISmsSendService smsSendService) {
+        this.smsSendService = smsSendService;
     }
 
 

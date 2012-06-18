@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>403 ERROR</title>
+<title>405 ERROR</title>
 </head>
 <body>
-<h1>403 ERROR,You Know That</h1>
+<h1>405 ERROR,You Know That</h1>
 </body>
 </html>

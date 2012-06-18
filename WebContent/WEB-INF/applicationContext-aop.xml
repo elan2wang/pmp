@@ -7,37 +7,44 @@
            http://www.springframework.org/schema/aop
            http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
   
-  
+  <!-- 业务短信服务的通知对象 -->
   <bean id="smsAdvice" class="org.pmp.sms.SmsAdvice" >
     <property name="smsSendService" ref="smsSendService" />
   </bean>
   
-  <bean id="logAdvice" class="org.pmp.log.UserBehaviorTrackLogger" />
-  
-  <!-- SMS related AOP configuration -->
+  <!-- 业务短信切面配置 -->
   <aop:config>  
     <aop:aspect ref="smsAdvice">  
-       <aop:pointcut id="smsInput" expression="execution(* org.pmp.service.business.ICondoFeeService.batchInput(..))"/>  
+       <aop:pointcut id="smsInput" expression=
+       "execution(* org.pmp.service.business.ICondoFeeService.batchInput(..))"/>  
        <aop:after method="inputAdvice" pointcut-ref="smsInput"/>
      </aop:aspect>
   </aop:config>
 
+  <bean id="logAdvice" class="org.pmp.log.UserBehaviorTrackLogger" />
   <!-- Log related AOP configuration -->
   <aop:config>
     <aop:aspect ref="logAdvice">  
-       <aop:pointcut id="loginPointcut" expression="execution(* org.pmp.service.admin.IModuleService.getModuleListByRoleID(..))"/>  
+       <!-- login / logout operations POINTCUT -->
+       <aop:pointcut id="loginPointcut" expression="execution(* org.pmp.service.admin.IModuleService.getModuleListByRoleID(..))" />
+       <!-- add / edit / delete operations POINTCUT -->
        <aop:pointcut id="addPointcut" expression="execution(* org.pmp.service..*.add*(..))"/>  
-       <aop:pointcut id="savePointcut" expression="execution(* org.pmp.service..*.save*(..))"/>  
-       <aop:pointcut id="updatePointcut" expression="execution(* org.pmp.service..*.update*(..))"/>
        <aop:pointcut id="editPointcut" expression="execution(* org.pmp.service..*.edit*(..))"/>
        <aop:pointcut id="deletePointcut" expression="execution(* org.pmp.service..*.delete*(..))"/>
-       
-       <aop:after method="loginTrack" pointcut-ref="loginPointcut"/>
-       <aop:after method="addBehaviorTrack" pointcut-ref="addPointcut"/>
-       <aop:after method="addBehaviorTrack" pointcut-ref="savePointcut"/>
-       <aop:after method="editBehaviorTrack" pointcut-ref="updatePointcut"/>
-       <aop:after method="editBehaviorTrack" pointcut-ref="editPointcut"/>
-       <aop:after method="deleteBehaviorTrack" pointcut-ref="deletePointcut"/>
+       <!-- batch operations POINTCUT -->
+       <aop:pointcut id="batchAddPointcut" expression="execution(* org.pmp.service..*.batchAdd*(..))"/>
+       <aop:pointcut id="batchEditPointcut" expression="execution(* org.pmp.service..*.batchEdit*(..))"/>
+       <aop:pointcut id="batchDeletePointcut" expression="execution(* org.pmp.service..*.batchDelete*(..))"/>
+       <!-- login / logout operations advice -->
+       <aop:after method="loginTrack" pointcut-ref="loginPointcut" />
+       <!-- add / edit / delete operations advice -->
+       <aop:after method="addTrack" pointcut-ref="addPointcut"/>
+       <aop:after method="editTrack" pointcut-ref="editPointcut"/>
+       <aop:after method="deleteTrack" pointcut-ref="deletePointcut"/>
+       <!-- batch operations advice -->
+       <aop:after method="batchAddTrack" pointcut-ref="batchAddPointcut"/>
+       <aop:after method="batchEditTrack" pointcut-ref="batchEditPointcut"/>
+       <aop:after method="batchDeleteTrack" pointcut-ref="batchDeletePointcut"/>
      </aop:aspect>
   </aop:config>
 </beans>

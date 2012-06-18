@@ -83,7 +83,7 @@ public class AuthorityResourceAction extends ActionSupport{
 		ar.setTbResource(res);
 		list.add(ar);
 	    }
-	    authorityResourceService.batchEditByAuthID(authID, list);
+	    authorityResourceService.batchEditByAuthID(list,authID);
 	}
 	/* after successfully edit the authorityResource, it is essential to reload the SecurityMetadataSource*/
 	SecuritySupport.reloadSecurityMetadataSource();

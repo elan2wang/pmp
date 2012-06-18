@@ -42,9 +42,18 @@ public class SmsCompanyAction extends ActionSupport {
     private SMSCompany smsCompany;
     private Integer comId;
     private Integer smscId;
-	private String deleteIdString;
-	private Integer page;
-	private Integer rp;
+    /* used when batchDeleteSMSCompany */
+    private String idStr;
+    
+    /* =========FlexiGrid post parameters======= */
+    private Integer page=1;
+    private Integer rp=15;
+    private String sortname;
+    private String sortorder;
+    private String query;
+    private String qtype;
+    /* =========FlexiGrid post parameters======= */
+    
     //~ Constructor ====================================================================================================
 
     //~ Methods ========================================================================================================
@@ -67,19 +76,18 @@ public class SmsCompanyAction extends ActionSupport {
     }
     
     public String deleteSMSCompany(){
-	smsCompanyService.delereSMSCompany(smscId);
+	smsCompanyService.delereSMSCompany(smsCompanyService.getSMSCompanyByID(smscId));
 	return SUCCESS;
     }
-    public String batchDeleteSMSCompany(){
+    
+    public void batchDeleteSMSCompany(){
     	List<SMSCompany> smscompany = new ArrayList<SMSCompany>();
-    	String []ids = deleteIdString.split(",");
-    	for(int i=0;i<ids.length;++i)
-    	{
-    		SMSCompany smscom = smsCompanyService.getSMSCompanyByID(Integer.parseInt(ids[i]));
-    		smscompany.add(smscom);
+    	String []ids = idStr.split(",");
+    	for(int i=0;i<ids.length;++i){
+    	    SMSCompany smscom = smsCompanyService.getSMSCompanyByID(Integer.parseInt(ids[i]));
+    	    smscompany.add(smscom);
     	}
     	smsCompanyService.batchDeleteSMSCompany(smscompany);
-    	return SUCCESS;
      }
     
     public String getSMSCompany(){
@@ -97,15 +105,13 @@ public class SmsCompanyAction extends ActionSupport {
     	List<SMSCompany> smsCompanyList = null;
     	//移动公司管理员
     	if(role.getRoleLevel()==1)
-    		smsCompanyList = smsCompanyService.loadSMSCompanyList(pager);
+    	    smsCompanyList = smsCompanyService.loadSMSCompanyList(pager);
     	else
-    		smsCompanyList = new ArrayList<SMSCompany>();
-    	logger.debug("得到的smsCompanyList为"+smsCompanyList.toString());
-		pager.setRowsCount(smsCompanyList.size());
-		String data = JsonConvert.list2FlexJson(pager, smsCompanyList, "org.pmp.vo.SMSCompany");
-		System.out.println(data);
-		logger.debug(data);
-		JsonConvert.output(data);
+    	    smsCompanyList = new ArrayList<SMSCompany>();
+	
+    	String data = JsonConvert.list2FlexJson(pager, smsCompanyList, "org.pmp.vo.SMSCompany");
+	logger.debug(data);
+	JsonConvert.output(data);
     }
 
    
@@ -149,46 +155,60 @@ public class SmsCompanyAction extends ActionSupport {
     public void setComId(Integer comId) {
         this.comId = comId;
     }
-    /**
-	 * @return the page
-	 */
-	public Integer getPage() {
-		return page;
-	}
 
-	/**
-	 * @param page the page to set
-	 */
-	public void setPage(Integer page) {
-		this.page = page;
-	}
+    public String getIdStr() {
+        return idStr;
+    }
 
-	/**
-	 * @return the rp
-	 */
-	public Integer getRp() {
-		return rp;
-	}
+    public void setIdStr(String idStr) {
+        this.idStr = idStr;
+    }
 
-	/**
-	 * @param rp the rp to set
-	 */
-	public void setRp(Integer rp) {
-		this.rp = rp;
-	}
-    /**
-	 * @return the deleteIdString
-	 */
-	public String getDeleteIdString() {
-		return deleteIdString;
-	}
+    public Integer getPage() {
+        return page;
+    }
 
-	/**
-	 * @param deleteIdString the deleteIdString to set
-	 */
-	public void setDeleteIdString(String deleteIdString) {
-		this.deleteIdString = deleteIdString;
-	}
+    public void setPage(Integer page) {
+        this.page = page;
+    }
 
-    
+    public Integer getRp() {
+        return rp;
+    }
+
+    public void setRp(Integer rp) {
+        this.rp = rp;
+    }
+
+    public String getSortname() {
+        return sortname;
+    }
+
+    public void setSortname(String sortname) {
+        this.sortname = sortname;
+    }
+
+    public String getSortorder() {
+        return sortorder;
+    }
+
+    public void setSortorder(String sortorder) {
+        this.sortorder = sortorder;
+    }
+
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
+    }
+
+    public String getQtype() {
+        return qtype;
+    }
+
+    public void setQtype(String qtype) {
+        this.qtype = qtype;
+    }
 }

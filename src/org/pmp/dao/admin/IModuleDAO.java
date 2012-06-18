@@ -19,7 +19,7 @@ import org.pmp.vo.TbModule;
 public interface IModuleDAO {
     public void saveModule(TbModule instance);
     public void updateModule(TbModule instance);
-    public void deleteModule(Integer modId);
+    public void deleteModule(TbModule instance);
     
     public TbModule getModuleByID(Integer modId);
     

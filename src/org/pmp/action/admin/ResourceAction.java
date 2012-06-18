@@ -10,18 +10,26 @@ package org.pmp.action.admin;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
-import org.pmp.excel.ProjectImport;
+import org.pmp.excel.NewCondoFeeImport;
 import org.pmp.excel.ResourceImport;
 import org.pmp.service.admin.IResourceService;
+import org.pmp.util.JsonConvert;
 import org.pmp.util.MyfileUtil;
+import org.pmp.util.Pager;
+import org.pmp.vo.CondoFee;
 import org.pmp.vo.TbResource;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -37,54 +45,89 @@ public class ResourceAction extends ActionSupport {
     //~ Instance Fields ================================================================================================
     private IResourceService resourceService;
     private TbResource resource;
-    private String enabled = "true";
-    private String issys = "false";
-    private List<?> resList;
     private Integer resId;
     
     private File resFile;
     private String resFileFileName;
     private String resFileContentType;
     
+    /* used when deleteRes */
+    private String idStr;
+    
+    /* =========FlexiGrid post parameters======= */
+    private Integer page=1;
+    private Integer rp=15;
+    private String sortname;
+    private String sortorder;
+    private String query;
+    private String qtype;
+    /* =========FlexiGrid post parameters======= */
+    
     //~ Constructor ====================================================================================================
     
     //~ Methods ========================================================================================================
-    public String importRes(){
+    public void importRes() throws IOException{
+	HttpServletRequest request = ServletActionContext.getRequest();
+        String message = null;
 	if(!MyfileUtil.validate(resFileFileName,"xls")){
 	    String postfix = MyfileUtil.getPostfix(resFileFileName);
-	    String message = postfix+"类型的文件暂不支持，请选择xls类型文件";
-	    HttpServletRequest request = ServletActionContext.getRequest();
+	    message = postfix+"类型的文件暂不支持，请选择xls类型文件";
 	    request.setAttribute("message", message);
-	    return "filetype_error";
+	    JsonConvert.output("{\"error\":\"filetype_error\",\"msg\":"+JsonConvert.toJson(message)+"}");
+	    return;
 	}
-	try{
-	    InputStream is = new FileInputStream(resFile);
-	    List<TbResource> list = ResourceImport.getResourceList(is);
-	    resourceService.batchAdd(list);
-	} catch (FileNotFoundException e) {
-		e.printStackTrace();
+	/* create the dir to store error data */
+	MyfileUtil.createDir("error_data");
+	/* create the error data file in this dir */
+	String fileName = MyfileUtil.createFilename();
+	String fullName = ServletActionContext.getServletContext().getRealPath("error_data")+"\\"+fileName+".xls";
+	String downLoad = ServletActionContext.getServletContext().getContextPath()+"/error_data/"+fileName+".xls";
+	OutputStream os = new FileOutputStream(fullName);
+	
+	/* import data from the upload file and store in the resList */
+	List<TbResource> resList = new ArrayList<TbResource>();
+	Boolean hasError = ResourceImport.execute(new FileInputStream(resFile), os, resList);
+	/* close OutputStream */
+	os.flush();os.close();
+	
+	/* batch save resource instance list */
+	resourceService.batchAdd(resList);
+	
+	if (hasError){
+	    message = "记录有错误,正确数据已导入，请下载错误数据<a href=\""+downLoad+"\">下载</a>";
+	    JsonConvert.output("{\"error\":\"record_error\",\"msg\":"+JsonConvert.toJson(message)+"}");
+	    return;
 	}
-	return SUCCESS;
+	
+	/* data import success */
+	message = "数据导入成功";
+	JsonConvert.output("{\"error\":\"\",\"msg\":"+JsonConvert.toJson(message)+"}");
+	return;
+	
     }
     
     public String addResource(){
-	if (enabled.equals("true"))
-	    resource.setEnabled(true);
-	else
-	    resource.setEnabled(false);
-	
-	if (issys.equals("true"))
-	    resource.setIssys(true);
-	else
-	    resource.setIssys(false);
-	
 	resourceService.addResource(resource);
 	return SUCCESS;
     }
     
-    public String loadResList(){
-    	resList = resourceService.getResourceList();
-    	return SUCCESS;
+    public void loadResList(){
+	Pager pager = new Pager(rp,page);
+	String order = null;
+	Map<String,Object> params = new HashMap<String,Object>();
+	if (!qtype.equals("")&&!query.equals("")){
+	    params.put(qtype, query);
+	}
+	if (!sortname.equals("undefined")&&!sortorder.equals("undefined")){
+	    order= "order by "+sortname+" "+sortorder;
+	} else{
+	    order = "order by resType asc, resLink asc";
+	}
+	List<?> resList = resourceService.loadResourceList(params, order, pager);
+	
+	String data = JsonConvert.list2FlexJson(pager, resList, "org.pmp.vo.TbResource");
+	logger.debug(data);
+	JsonConvert.output(data);
     }
     
     public String getResById(){
@@ -97,8 +140,14 @@ public class ResourceAction extends ActionSupport {
     	return SUCCESS;
     }
     
-    public void deleteResById(){
-    	resourceService.deleteResource(resId);
+    public void deleteRes(){
+	List<TbResource> resList = new ArrayList<TbResource>();
+	String[] checkedID = idStr.split(",");
+	for (int i=0;i<checkedID.length;i++){
+	    TbResource res = resourceService.getResourceByID(Integer.parseInt(checkedID[i]));
+	    resList.add(res);
+	}
+	resourceService.batchDelete(resList);
     }
     //~ Getters and Setters ============================================================================================
 
@@ -118,60 +167,91 @@ public class ResourceAction extends ActionSupport {
         this.resource = resource;
     }
 
-    public String getEnabled() {
-        return enabled;
+    public Integer getResId() {
+        return resId;
     }
 
-    public void setEnabled(String enabled) {
-        this.enabled = enabled;
+    public void setResId(Integer resId) {
+        this.resId = resId;
     }
 
-    public String getIssys() {
-        return issys;
+    public File getResFile() {
+        return resFile;
     }
 
-    public void setIssys(String issys) {
-        this.issys = issys;
+    public void setResFile(File resFile) {
+        this.resFile = resFile;
     }
 
-    public List<?> getResList() {
-		return resList;
-	}
+    public String getResFileFileName() {
+        return resFileFileName;
+    }
 
-	public void setResList(List<?> resList) {
-		this.resList = resList;
-	}
-	
-	public Integer getResId() {
-		return resId;
-	}
+    public void setResFileFileName(String resFileFileName) {
+        this.resFileFileName = resFileFileName;
+    }
 
-	public void setResId(Integer resId) {
-		this.resId = resId;
-	}
+    public String getResFileContentType() {
+        return resFileContentType;
+    }
 
-	public File getResFile() {
-	    return resFile;
-	}
+    public void setResFileContentType(String resFileContentType) {
+        this.resFileContentType = resFileContentType;
+    }
 
-	public void setResFile(File resFile) {
-	    this.resFile = resFile;
-	}
+    public Integer getPage() {
+        return page;
+    }
 
-	public String getResFileFileName() {
-	    return resFileFileName;
-	}
+    public void setPage(Integer page) {
+        this.page = page;
+    }
 
-	public void setResFileFileName(String resFileFileName) {
-	    this.resFileFileName = resFileFileName;
-	}
+    public Integer getRp() {
+        return rp;
+    }
 
-	public String getResFileContentType() {
-	    return resFileContentType;
-	}
+    public void setRp(Integer rp) {
+        this.rp = rp;
+    }
 
-	public void setResFileContentType(String resFileContentType) {
-	    this.resFileContentType = resFileContentType;
-	}
+    public String getSortname() {
+        return sortname;
+    }
 
+    public void setSortname(String sortname) {
+        this.sortname = sortname;
+    }
+
+    public String getSortorder() {
+        return sortorder;
+    }
+
+    public void setSortorder(String sortorder) {
+        this.sortorder = sortorder;
+    }
+
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
+    }
+
+    public String getQtype() {
+        return qtype;
+    }
+
+    public void setQtype(String qtype) {
+        this.qtype = qtype;
+    }
+
+    public String getIdStr() {
+        return idStr;
+    }
+
+    public void setIdStr(String idStr) {
+        this.idStr = idStr;
+    }
 }

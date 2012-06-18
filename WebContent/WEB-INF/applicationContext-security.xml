@@ -19,12 +19,17 @@
     <intercept-url pattern="/password_forgotten.jsp" filters="none"/>
     <intercept-url pattern="/login.jsp" filters="none"/>
     <intercept-url pattern="/loginCheck" filters="none"/>
+    <intercept-url pattern="/error/session_timeout.jsp" filters="none"/>
     
     <!-- set the login page and the redirect-URL of successful/failed login -->
     <form-login login-page="/login.jsp" 
      authentication-failure-url="/login.jsp?error=true"
      default-target-url="/index" always-use-default-target="true"/>
     
+    <logout invalidate-session="true"  
+      logout-success-url="/login.jsp"  
+      logout-url="/j_spring_security_logout"/>
+      
     <access-denied-handler error-page="/access_denied"/>
     
     <!-- set the redirect-URL of session timeout -->
@@ -57,7 +62,17 @@
   </authentication-manager>
   
   <!-- define a AccessDecisionManager -->
-  <b:bean id="myAccessDecisionManager" class="org.pmp.security.MyAccessDecisionManager"/>
+  <b:bean id="myAccessDecisionManager" class="org.pmp.security.MyAccessDecisionManager">
+    <b:property name="decisionVoters">
+      <b:list>
+        <!-- set rolePrefix of the roleVoter -->
+        <b:bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter">
+          <b:property name="rolePrefix" value="AUTH_" />
+        </b:bean>
+        <b:bean class="org.springframework.security.access.vote.AuthenticatedVoter" />
+      </b:list>
+    </b:property>
+  </b:bean>
  
   <!-- resource data define. associate resource with authority -->
   <!-- which means define what resources can be accessed by a specific role -->

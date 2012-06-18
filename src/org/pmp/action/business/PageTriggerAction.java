@@ -70,7 +70,7 @@ public class PageTriggerAction extends ActionSupport{
     public void selectHouse_ByBuil(){
 	Map<String,Object> map = new HashMap<String,Object>();
 	map.put("isempty", 1);
-        List<?> houseList = houseService.loadHouseList_ByBuilding(builId, map, "", new Pager(1000,1));
+        List<?> houseList = houseService.loadHouseList_ByBuilding(builId, map, "order by houseNum asc", new Pager(1000,1));
         String[] attrs = {"houseId","houseNum"};
         List<String> show = Arrays.asList(attrs);
         String data = JsonConvert.list2Json(houseList, "org.pmp.vo.House", show);
@@ -78,7 +78,7 @@ public class PageTriggerAction extends ActionSupport{
     }
     
     public void selectBuilding_ByPro(){
-	List<?> buildingList = buildingService.loadBuildingList_ByProject(proId, new HashMap<String,Object>(), "", new Pager(1000,1));
+	List<?> buildingList = buildingService.loadBuildingList_ByProject(proId, new HashMap<String,Object>(), "order by builNum asc", new Pager(1000,1));
 	String[] attrs = {"builId","builNum"};
 	List<String> show = Arrays.asList(attrs);
 	String data = JsonConvert.list2Json(buildingList, "org.pmp.vo.Building", show);

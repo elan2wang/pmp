@@ -47,7 +47,7 @@
               </tr>
               <tr>
                 <td width="70" height="30" align="center" valign="middle">姓&nbsp;&nbsp;&nbsp;&nbsp;名：</td>
-                <td width="180" align="left" valign="middle"><input name="owner.ownerName" type="text" class="textbox" id="owner.ownerName" value="${owner.ownerName}"/></td>
+                <td width="180" align="left" valign="middle"><input name="owner.ownerName" type="text" class="textbox" id="owner.ownerName" value="${owner.ownerName}"/><span style="color:red">*</span></td>
                 <td width="70" align="center" valign="middle">性&nbsp;&nbsp;&nbsp;&nbsp;别：</td>
                 <td width="180" align="left" valign="middle"><select name="owner.gender" class="selectbox" id="select_gender" >
                   <option value="null" selected="selected">－－请选择－－</option>
@@ -153,7 +153,7 @@
                 <td height="30" align="center" valign="middle">家庭电话：</td>
                 <td align="left" valign="middle"><input name="owner.homePhone" type="text" class="textbox" id="owner.homePhone" value="${owner.homePhone}"/></td>
                 <td align="center" valign="middle">手机号码：</td>
-                <td align="left" valign="middle"><input name="owner.mobile" type="text" class="textbox" id="owner.mobile"  value="${owner.mobile}"/></td>
+                <td align="left" valign="middle"><input name="owner.mobile" type="text" class="textbox" id="owner.mobile"  value="${owner.mobile}"/><span style="color:red">*</span></td>
               </tr>
               <tr>
                 <td height="30" align="center" valign="middle">领房时间：</td>
@@ -183,7 +183,7 @@
                 <td align="left" valign="middle">
                 <select id="buildingId" name="buildingId" class="selectbox" onchange="buildingChanged()">
                   <option value="0" value="0" selected="selected">选择楼宇</option>
-                </select>
+                </select><span style="color:red">*</span>
                 <input type="hidden" id="buildingNum" name="buildingNum" value=""/>
                 </td>
               </tr>
@@ -192,11 +192,11 @@
                 <td align="left" valign="middle">
                 	<select id="houseId" name="houseId" class="selectbox">
                 		<option value="0" selected="selected">选择房号</option>
-                	</select>
+                	</select><span style="color:red">*</span>
                 	<input type="hidden" name="houseNum" id="houseNum" value=""/>
                 </td>
                 <td height="30" align="center" valign="middle">房屋面积：</td>
-                <td align="left" valign="middle"><input name="owner.houseArea" type="text" class="textbox" id="owner.houseArea" value="${owner.houseArea}" style="width:110px" />平方米</td>
+                <td align="left" valign="middle"><input name="owner.houseArea" type="text" class="textbox" id="owner.houseArea" value="${owner.houseArea}" style="width:110px" />平方米<span style="color:red">*</span></td>
               </tr>
               <tr>
                 <td height="30" align="center" valign="middle">储藏室号：</td>
@@ -269,8 +269,8 @@
           </tr>  
           <tr>
             <td height="30" align="center" valign="bottom"><input type="button" name="ToP1" id="ToP1" value="上一步" onclick="to('P1');" />
-            <input type="submit" name="Submit" id="Submit" value="完　成"   />
-            <input type="button" name="button" id="button" value="关 闭" onclick="closeAddNewOwner()"/>
+            <input type="submit" name="Submit" id="Submit" value="完&nbsp;&nbsp;成"   />
+            <input type="button" name="button" id="button" value="关&nbsp;&nbsp;闭" onclick="closeWindow('#ownerEdit')"/>
             </td>
           </tr>
       </table>

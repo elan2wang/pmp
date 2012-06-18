@@ -35,7 +35,7 @@ function FireAlarm(id,obj)
     }
 
 }
-function Zone(zoneID,deviceID,type){
+function ZoneFireInfo(zoneID,deviceID,type){
 	this.ID=zoneID;
 	this.deviceID=deviceID;
 	this.Type=type;

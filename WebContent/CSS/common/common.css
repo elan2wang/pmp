@@ -45,17 +45,16 @@ img{ border:0;}
 #fire .tree{ margin-left:40px;}
 
 .window_content{
-	margin:10px;
-	
+	margin:5px;
 	}
 	
 .window_content .rowStyle{
-	margin-left:20px;
+	margin-left:5px;
 	height:30px;
 	line-height:30px;
 	}
 .rowStyle div{
-	margin-left:10px;
+	margin-left:5px;
 }
 .rowStyle div span:first-child{
        display:inline-block;

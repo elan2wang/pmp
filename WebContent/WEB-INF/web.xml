@@ -6,11 +6,12 @@
                              http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" 
          id="WebApp_ID" 
          version="3.0">
+         
   <display-name>PMP</display-name>
   <welcome-file-list>
     <welcome-file>login.jsp</welcome-file>
   </welcome-file-list>
-  <!-- set error redirect URL 
+  <!-- set error redirect URL -->
   <error-page>
     <error-code>404</error-code>
     <location>/error/fof.jsp</location>
@@ -27,7 +28,7 @@
     <exception-type>java.lang.Throwable</exception-type>
     <location>/error/exception.jsp</location>
   </error-page>
-  -->
+  
   
   <!-- set Spring ContextLoaderListener -->
   <listener>
@@ -99,16 +100,6 @@
   	<dispatcher>FORWARD</dispatcher>
   </filter-mapping>
   
-  <!-- set the user-defined filters -->
-  <filter>
-    <filter-name>exceptionHandleFilter</filter-name>
-    <filter-class>org.pmp.filter.ExceptionHandleFilter</filter-class>
-  </filter>
-  
-  <filter-mapping>
-    <filter-name>exceptionHandleFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
   
   <!-- set the JSTL taglib -->
   <jsp-config>

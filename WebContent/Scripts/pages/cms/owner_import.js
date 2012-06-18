@@ -7,7 +7,7 @@
  */ 
 
 function owner_import(){
-	if($('#cfFile').val()==""){
+	if($('#ownerFile').val()==""){
 		alert("请选择上传的文件");
 		return false;
 	}
@@ -39,6 +39,7 @@ function owner_import(){
 					{
 						$('#ownerImport').window('close');
 						alert(data.msg);
+						window.location.href="owner_list.jsp";
 					}
 				}
 			},

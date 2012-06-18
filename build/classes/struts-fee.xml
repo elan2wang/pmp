@@ -16,16 +16,15 @@
     <!-- CondoFee item related actions -->
     <action name="cf_item_preview" class="org.pmp.action.business.CondoFeeItemAction" method="previewItemInfo" />
     
-    <action name="check_Month" class="org.pmp.action.business.CondoFeeItemAction" method="check_Month">
-    </action>
+    <action name="check_Month" class="org.pmp.action.business.CondoFeeItemAction" method="check_Month" />
     
     <action name="cf_item_add" class="org.pmp.action.business.CondoFeeItemAction" method="addCondoFeeItem">
-      <result name="success" type="redirect">/fee/cf_item_list.jsp</result>
+      <result name="success">/fee/cf_item_add.jsp</result>
     </action>
     
     <action name="cf_item_delete" class="org.pmp.action.business.CondoFeeItemAction" method="deleteCondoFeeItem" />
     
-    <!-- condoFee related actions =============================================================================== -->
+    <!-- CondoFee item related actions =============================================================================== -->
     
     <!-- CondoFee Related actions -->
     <action name="loadCondoFeeList_ByCFI" class="org.pmp.action.business.CondoFeeAction" method="loadCondoFeeList_ByCFI" />
@@ -40,13 +39,6 @@
     
     <action name="new_cf_import" class="org.pmp.action.business.CondoFeeAction" method="importNewCondoFee" />
     
-    <action name="selectCondoFee" class="org.pmp.action.business.CondoFeeAction" method="selectCondoFee">
-      <result name="record">/fee/cf_input.jsp</result>
-      <result name="edit">/fee/cf_edit.jsp</result>
-      <result name="audit">/fee/cf_audit.jsp</result>
-      <result name="success" type="chain">loadCondoFeeList_ByHouse</result>
-    </action>
-    
     <action name="cf_edit" class="org.pmp.action.business.CondoFeeAction" method="cfEdit" />
     
     <action name="cf_input" class="org.pmp.action.business.CondoFeeAction" method="cfInput" />
@@ -57,45 +49,20 @@
     
     <action name="pre_check" class="org.pmp.action.business.CondoFeeAction" method="preCheck" />
     
-    <!-- CondoFee Related actions ======================================================================== -->
+    <action name="sms_inform" class="org.pmp.action.business.CondoFeeAction" method="smsInform" />
     
-    <!-- select options related actions -->
+    <action name="selectCondoFee" class="org.pmp.action.business.CondoFeeAction" method="selectCondoFee">
+      <result name="record">/fee/cf_input.jsp</result>
+      <result name="edit">/fee/cf_edit.jsp</result>
+      <result name="audit">/fee/cf_audit.jsp</result>
+      <result name="success" type="chain">loadCondoFeeList_ByHouse</result>
+    </action>
+    <!-- CondoFee Related actions ======================================================================== -->
+
+    <!-- page tag triggered actions ====================================================================== -->
     <action name="select_project" class="org.pmp.action.business.PageTriggerAction" method="selectProject_ByAuth" >
       <result name="success">/fee/pro_options.jsp</result>
     </action>
-    
-    <!-- page tag triggered actions ====================================================================== -->
-    
-    
-    <!-- old actions  -->
-    <!-- ============================================================= -->
-    <action name="loadCondoFeeList" class="org.pmp.action.business.CondoFeeAction" method="loadCondoFeeList">
-      <result name="success">/fee/cf_list.jsp</result>
-    </action>
-   
-    <action name="getCondoFee" class="org.pmp.action.business.CondoFeeAction" method="loadCondoFeeInstance">
-      <result name="success">/fee/cf_input.jsp</result>
-    </action>
-    
-    <action name="viewCondoFee" class="org.pmp.action.business.CondoFeeAction" method="loadCondoFeeInstance">
-      <result name="success">/fee/cf_view.jsp</result>
-    </action>
-    
-    <action name="inputCondoFee" class="org.pmp.action.business.CondoFeeAction" method="inputCondoFee">
-      <result name="success">/fee/cf_list.jsp</result>
-    </action>
-    
-    <action name="auditCondoFee" class="org.pmp.action.business.CondoFeeAction" method="auditCondoFee">
-      <result name="success" type="chain">loadCondoFeeList</result>
-    </action>
-    
-    <action name="loadAttrs" class="org.pmp.action.business.CondoFeeAction" method="loadAttributes">
-      <result name="success">cf_attr.jsp</result>
-    </action>
-    
-    <action name="excel" class="org.pmp.action.business.CondoFeeAction" method="excelExport">
-    </action>
-    
     
     <!-- TimeParkFee related actions -->
     <action name="addTimeParkFee" class="org.pmp.action.business.TimeParkFeeAction" method="addTimeParkFee">
@@ -107,8 +74,7 @@
       <result name="filetype_error">tpf_import.jsp</result>
     </action>
     
-    <action name="loadTimeParkFeeByProject" class="org.pmp.action.business.TimeParkFeeAction" method="loadTimeParkFeeByProject">
-    </action>
+    <action name="loadTimeParkFeeByProject" class="org.pmp.action.business.TimeParkFeeAction" method="loadTimeParkFeeByProject" />
     
   </package>
 </struts>

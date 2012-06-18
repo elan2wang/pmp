@@ -10,7 +10,7 @@
 <script src="../Scripts/pages/fee/load_tree.js"  type="text/javascript" ></script>
 <title>Insert title here</title>
 </head>
-<body onload="load_data('zoneTree')">
+<body onload="load_data('fire/zoneTree')">
 <div class="dtree">
 	<p><a href="javascript: d.openAll();">全部展开</a> | <a href="javascript: d.closeAll();">全部关闭</a></p>
 </div>

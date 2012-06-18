@@ -23,7 +23,7 @@ public interface ISmsCompanyDAO {
     
     public void updateSMSCompany(SMSCompany instance);
     
-    public void delereSMSCompany(Integer smscId);
+    public void delereSMSCompany(SMSCompany instance);
     
     public void batchDeleteSMSCompany(List<SMSCompany> list);
     

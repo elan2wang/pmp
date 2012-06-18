@@ -39,7 +39,7 @@ public class SmsSendService implements ISmsSendService{
      * @see org.pmp.service.business.ISmsSendService#saveSmsSend(org.pmp.vo.SMSSend)
      */
     @Override
-    public void saveSmsSend(SMSSend instance) {
+    public void addSmsSend(SMSSend instance) {
 	smsSendDAO.saveSmsSend(instance);
     }
 

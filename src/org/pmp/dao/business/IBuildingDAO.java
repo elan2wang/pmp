@@ -23,13 +23,14 @@ import org.pmp.vo.Project;
 public interface IBuildingDAO {
     public void saveBuilding(Building building);
     public void updateBuilding(Building building);
-    public void deleteBuilding(Integer buildingID);
+    public void deleteBuilding(Building building);
+    public void saveBuildingHouse(List<String> houseNum,Building building);
+    public void batchSaveBuilding(List<Building> buildingList);
+    
     public Building getBuildingByID(Integer buildingID);
     public Building getBuildingByBuilNum(Integer bulNum);
     public List<Building> loadBuildingList_ByCompany(Integer comId,Map<String,Object>params,String order,Pager pager);
     
     public List<Building> loadBuildingList_ByProject(Integer proId,Map<String,Object>params,String order,Pager pager);
-    public void saveBuildingHouse(List<String> houseNum,Building building);
-    public void batchSaveBuilding(List<Building> buildingList);
     public Building getBuildingByProjectIdAndBuildingNum(Integer projectId,Integer buildingNum);
 }

@@ -66,8 +66,8 @@ public class ProjectService implements IProjectService {
 	 * @throws TODO
 	 */
 	@Override
-	public void deleteProject(Integer projectID) {
-		projectDAO.deleteProject(projectID);
+	public void deleteProject(Project project) {
+		projectDAO.deleteProject(project);
 	}
 
 	/**

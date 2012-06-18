@@ -89,11 +89,11 @@ function buildingChanged(houseid,houseNum){
 				option.eq(i).remove();
 			  }
 			if(data)
-		  	{			
+		  	{	
+				if(houseid!=undefined&&houseNum!=undefined)houseId.append('<option selected="selected" value="'+houseid+'">'+houseNum+'</option>');		
 				$.each(data.Rows,function(commentIndex,comment){
 				     houseId.append('<option value="'+comment['houseId']+'">'+comment['houseNum']+'</option>');
 			    });
-				houseId.append('<option selected="selected" value="'+houseid+'">'+houseNum+'</option>');
 		  	}
 		}
 	});

@@ -48,8 +48,8 @@ public class BuildingDAO extends BaseDAO implements IBuildingDAO {
 		updateInstance(building,"begin to update a building");
 	}
 
-	public void deleteBuilding(Integer buildingID) {
-		String hql = "delete Building bui where bui.builId = "+ buildingID;
+	public void deleteBuilding(Building building) {
+		String hql = "delete Building bui where bui.builId = "+ building.getBuilId();
 		deleteInstance(hql,"begin to delete a building by ID");
 	}
 

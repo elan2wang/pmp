@@ -20,7 +20,7 @@ import org.pmp.vo.TbAuthority;
 public interface IAuthorityService {
     public void addResource(TbAuthority instance);
     public void editResource(TbAuthority instance);
-    public void deleteResource(Integer authID);
+    public void deleteResource(TbAuthority instance);
     public TbAuthority getAuthorityByID(Integer authID);
     public List getAllAuthorities();
     public List getAuthorityList();

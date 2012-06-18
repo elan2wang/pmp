@@ -46,11 +46,6 @@ function FormCheck(){
 		objfc5.focus();
 		return (false);
 	}
-	if(strim(objfc6.value)==""){
-		alert("跳过楼层数不能为空");
-		objfc6.focus();
-		return (false);
-	}
 	if(strim(objfc7.value)==""){
 		alert("请选择楼宇类型");
 		objfc7.focus();

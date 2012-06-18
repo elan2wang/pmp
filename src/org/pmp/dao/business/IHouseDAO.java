@@ -21,7 +21,8 @@ import org.pmp.vo.House;
 public interface IHouseDAO {
     public void saveHouse(House house);
     public void updateHouse(House house);
-    public void deleteHouse(Integer houseID);
+    public void batchDelete(List<House> list);
+
     public House getHouseByID(Integer houseId);
     public House getHouseByHouseNum(String houseNum);
     public List<House> loadHouseList_ByCompany(Integer comId,Map<String,Object>params,String order,Pager pager);   
