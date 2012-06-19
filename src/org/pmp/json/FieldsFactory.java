@@ -20,13 +20,13 @@ import java.util.Map;
  * @version 1.0
  * @update TODO
  */
-public class MyTypeAdapterFactory {
+public class FieldsFactory {
     
     //~ Instance Fields ================================================================================================
     private Includer includer;
 
     //~ Constructor ====================================================================================================
-    public MyTypeAdapterFactory(Includer includer){
+    public FieldsFactory(Includer includer){
 	this.includer = includer;
     }
     
