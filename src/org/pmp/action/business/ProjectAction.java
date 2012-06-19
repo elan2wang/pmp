@@ -120,7 +120,8 @@ public class ProjectAction extends ActionSupport {
             Company com = (Company)obj;
             projectList = projectService.loadProjectList_ByCompany(com.getComId(), params, order, pager);
         }	
-		
+	
+        //
 	String data = JsonConvert.list2FlexJson(pager, projectList, "org.pmp.vo.Project");
         logger.debug(data);
         JsonConvert.output(data);
