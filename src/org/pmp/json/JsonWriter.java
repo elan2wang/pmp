@@ -15,16 +15,15 @@ package org.pmp.json;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-
-
 
 /**
  * @author Elan
  * @version 1.0
  * @update TODO
  */
-public class MyJsonWriter {
+public class JsonWriter {
 
     //~ Static Fields ==================================================================================================
     private static final String[] REPLACEMENT_CHARS;
@@ -68,25 +67,115 @@ public class MyJsonWriter {
     private boolean lenient;
     
     //~ Constructor ====================================================================================================
-    
-    public MyJsonWriter(Writer out) {
+    public JsonWriter(Writer out) {
       if (out == null) {
         throw new NullPointerException("out == null");
       }
       this.out = out;
+      this.htmlSafe = true;
+      this.deferredName = null;
+      this.indent = "  ";
     }
     
     //~ Methods ========================================================================================================
-    public MyJsonWriter nullValue() throws IOException {
+    public JsonWriter beginObject() throws IOException{
+	writeDeferredName();
+	return open(JsonScope.EMPTY_OBJECT, "{");
+    }
+    
+    public JsonWriter endObject() throws IOException{
+	return close(JsonScope.EMPTY_OBJECT, JsonScope.NONEMPTY_OBJECT, "}");
+    }
+    
+    public JsonWriter beginArray() throws IOException{
+	writeDeferredName();
+	return open(JsonScope.EMPTY_ARRAY, "[");
+    }
+    
+    public JsonWriter endArray() throws IOException{
+	return close(JsonScope.EMPTY_ARRAY, JsonScope.NONEMPTY_ARRAY, "]");
+    }
+
+    public  JsonWriter name(String name) {
+	if (name==null) {
+	    throw new NullPointerException("name == null");
+	}
+	if (deferredName != null) {
+	    throw new IllegalStateException();
+	}
+	if (stack.isEmpty()) {
+	    throw new IllegalStateException("MyJsonWriter is closed.");
+	}
+	deferredName = name;
 	return this;
     }
     
-    public void beginObject(){
-	
+    public JsonWriter value(Object value) throws IOException{
+	if (value == null){
+	    return nullValue();
+	}
+	writeDeferredName();
+	beforeValue(false);
+	String val ;
+	if (value instanceof Date){
+	    val = value.toString().substring(0, 10);
+	} else if (value instanceof Boolean) {
+	    val = (Boolean)value ? "true" : "false";
+	} else {
+	    val = value.toString();
+	}
+	string(val);
+	return this;
     }
     
-    public void endObject(){
-	
+    public void flush() throws IOException {
+	if (stack.isEmpty()) {
+	    throw new IllegalStateException("JsonWriter is closed.");
+	}
+	out.flush();
+    }
+    
+    public void close() throws IOException {
+	out.close();
+
+	int size = stack.size();
+	if (size > 1 || size == 1 && stack.get(size - 1) != JsonScope.NONEMPTY_DOCUMENT) {
+	    throw new IOException("Incomplete document");
+	}
+	stack.clear();
+    }
+    
+    public JsonWriter nullValue() throws IOException {
+	if (deferredName != null){
+	    writeDeferredName();
+	}
+	beforeValue(false);
+	out.write("\"\"");
+	return this;
+    }
+    
+    private JsonWriter open(JsonScope empty, String openBracket) throws IOException{
+	beforeValue(true);
+	stack.add(empty);
+	out.write(openBracket);
+	return this;
+    }
+    
+    private JsonWriter close(JsonScope empty, JsonScope nonempty, String closeBracket) throws IOException{
+	JsonScope context = peek();
+	if (context != nonempty && context != empty) {
+	    throw new IllegalStateException("Nesting problem: " + stack);
+	}
+	if (deferredName != null) {
+	    throw new IllegalStateException("Dangling name: " + deferredName);
+	}
+
+	stack.remove(stack.size() - 1);
+	if (context == nonempty) {
+	    newline();
+	}
+        out.write(closeBracket);
+	return this;
     }
     
     private JsonScope peek(){
@@ -101,20 +190,6 @@ public class MyJsonWriter {
 	stack.set(stack.size()-1, topOfStack);
     }
     
-    private MyJsonWriter name(String name) {
-	if (name==null) {
-	    throw new NullPointerException("name == null");
-	}
-	if (deferredName != null) {
-	    throw new IllegalStateException();
-	}
-	if (stack.isEmpty()) {
-	    throw new IllegalStateException("MyJsonWriter is closed.");
-	}
-	deferredName = name;
-	return this;
-    }
-    
     private void writeDeferredName() throws IOException{
 	if (deferredName != null){
 	    beforeName();
@@ -122,7 +197,7 @@ public class MyJsonWriter {
 	    deferredName=null;
 	}
     }
-    
+   
     private void newline() throws IOException {
 	if (indent == null){
 	    return;
@@ -155,6 +230,8 @@ public class MyJsonWriter {
 	    if (!lenient && !root){
 		throw new IllegalStateException("JSON must start with an array or an object");
 	    }
+	    replaceTop(JsonScope.NONEMPTY_DOCUMENT);
+	    break;
 	
 	case EMPTY_ARRAY:
 	    replaceTop(JsonScope.NONEMPTY_ARRAY);
@@ -164,6 +241,7 @@ public class MyJsonWriter {
 	case NONEMPTY_ARRAY:
 	    out.append(',');
 	    newline();
+	    break;
 	    
 	case DANGLING_NAME:
 	    out.append(separator);
@@ -206,7 +284,33 @@ public class MyJsonWriter {
 	}
 	out.write("\"");
     }
+
     
     //~ Getters and Setters ============================================================================================
+    
+    public final void setIndent(String indent) {
+	if (indent.length() == 0){
+	    this.indent = null;
+	    this.separator = ":";
+	} else {
+	    this.indent = indent;
+	    this.separator = ":";
+	}
+    }
 
+    public boolean isHtmlSafe() {
+        return htmlSafe;
+    }
+
+    public void setHtmlSafe(boolean htmlSafe) {
+        this.htmlSafe = htmlSafe;
+    }
+
+    public boolean isLenient() {
+        return lenient;
+    }
+
+    public void setLenient(boolean lenient) {
+        this.lenient = lenient;
+    }
 }

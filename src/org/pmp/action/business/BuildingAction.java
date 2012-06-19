@@ -1,5 +1,5 @@
 /**
- * Author            : Jason
+ * Author            : Elan
  * Created On        : 2012-3-27 下午05:45:43
  * 
  * Copyright 2012.  All rights reserved. 
@@ -13,6 +13,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.pmp.excel.BuildingImport;
+import org.pmp.json.Includer;
+import org.pmp.json.MyJson;
 import org.pmp.service.business.IBuildingService;
 import org.pmp.util.JsonConvert;
 import org.pmp.util.MyfileUtil;
@@ -34,7 +37,7 @@ import org.pmp.vo.Project;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
- * @author Jason
+ * @author Elan
  * @version 1.0
  * @update TODO
  */
@@ -109,7 +112,7 @@ public class BuildingAction extends ActionSupport {
 	if (!sortname.equals("undefined")&&!sortorder.equals("undefined")){
 	    order= "order by "+sortname+" "+sortorder;
 	} else{
-	    order = "order by project.proId asc, builNum desc";
+	    order = "order by project.proId asc, builNum asc";
 	}
 	
         if(projectId==0){
@@ -124,7 +127,12 @@ public class BuildingAction extends ActionSupport {
 	    buildingList = buildingService.loadBuildingList_ByProject(projectId, params, order, pager);
 	}
         
-        String data = JsonConvert.list2FlexJson(pager, buildingList, "org.pmp.vo.Building");
+        String[] attrs = {"builId","project.proName","builNum","builType","floorCount","skipFloor","housesPer","unitCount"};
+        List<String> show = Arrays.asList(attrs);
+        Includer includer = new Includer(show);
+        MyJson json = new MyJson(includer);
+        
+        String data = json.toJson(buildingList, "", pager);
         logger.debug(data);
         JsonConvert.output(data);
     }

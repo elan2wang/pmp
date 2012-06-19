@@ -17,20 +17,20 @@ $(function(){
             { display: '状态', name: 'state', width: Width*0.1, sortable:true, align: 'center' },
             { display: '应收金额', name: 'oughtMoney', width: Width*0.1, sortable:true, align: 'center' },
             { display: '实收金额', name: 'fetchMoney', width: Width*0.1, sortable:true, align: 'center' },
-            { display: '录入时间', name: 'inputTime', width: Width*0.25, sortable:true, align: 'center' }
+            { display: '录入时间', name: 'inputTime', width: Width*0.12, sortable:true, align: 'center' },
+            { display: '备注', name: 'comment', width: Width*0.25, sortable:true, align: 'center' }
         ],
         buttons:[
-            { name: '缴费录入', bclass: 'add', onpress: cfInput },
-			{ separator: true },
-			{ name: '短信催缴', bclass:'delete', onpress: smsInform }
+            { name: '缴费录入', bclass: 'add', onpress: cfInput }
 		],
 		searchitems:[
 		    { display: '年份', name : 'cfYear' },
 		    { display: '月份', name : 'cfMonth' },
 		    { display: '状态', name : 'state', isdefault : true }
 		],
+		title:true,
 		showSearch:true,
-		height:Height*0.9,
+		height:Height*0.84,
         showcheckbox:true,
         nomsg: '没有符合条件的物业费记录',
         usepager:true,

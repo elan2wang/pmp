@@ -13,9 +13,11 @@
 package org.pmp.json;
 
 
-import java.io.StringWriter;
+import java.io.IOException;
+import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.pmp.util.Pager;
 
 /**
  * @author Elan
@@ -26,40 +28,80 @@ public class MyJson {
 
     //~ Static Fields ==================================================================================================
     private static Logger logger = Logger.getLogger(MyJson.class.getName());
+    
     //~ Instance Fields ================================================================================================
-    private final MyTypeAdapterFactory factory;
-    private final Includer includer;
+    private final FieldsFactory fieldsfactory;
+    private final JsonFactory jsonFactory;
+    
+    private Includer includer;
     
     //~ Constructor ====================================================================================================
     public MyJson(){
 	this.includer = Includer.DEFAULT;
-	this.factory = new MyTypeAdapterFactory(this.includer); 
+	this.fieldsfactory = new FieldsFactory(this.includer); 
+	this.jsonFactory = new JsonFactory(this.fieldsfactory);
     }
     
-    public MyJson(Includer includer, MyTypeAdapterFactory factory){
+    public MyJson(Includer includer){
 	this.includer = includer;
-	this.factory = factory;
+	this.fieldsfactory = new FieldsFactory(this.includer); 
+	this.jsonFactory = new JsonFactory(this.fieldsfactory);
+    }
+    
+    public MyJson(Includer includer, FieldsFactory fieldsFactory, Pager pager, JsonFactory jsonFactory){
+	this.includer = includer;
+	this.fieldsfactory = fieldsFactory;
+	this.jsonFactory = jsonFactory;
     }
     
     //~ Methods ========================================================================================================
-    public String toJson(Object src){
-	Class<?> raw = src.getClass();
-	return toJson(src, raw);
+    public String toJson(Object src) {
+	try {
+	    return jsonFactory.toJson(src);
+	} catch (IllegalArgumentException e) {
+	    logger.error("IllegalArgumentException");
+	    e.printStackTrace();
+	} catch (IOException e) {
+	    logger.error("IOException");
+	    e.printStackTrace();
+	} catch (IllegalAccessException e) {
+	    logger.error("IllegalAccessException");
+	    e.printStackTrace();
+	}
+	return null;
     }
     
-    public String toJson(Object src, Class<?> typeOfSrc){
-	StringWriter writer = new StringWriter();
-	toJson(src, src.getClass(), writer);
-	return writer.toString();
+    public String toJson(List<?> list, String title, Pager pager) {
+	try {
+	    return jsonFactory.toJson(list, title, pager);
+	} catch (IllegalArgumentException e) {
+	    logger.error("IllegalArgumentException");
+	    e.printStackTrace();
+	} catch (IOException e) {
+	    logger.error("IOException");
+	    e.printStackTrace();
+	} catch (IllegalAccessException e) {
+	    logger.error("IllegalAccessException");
+	    e.printStackTrace();
+	}
+	return null;
     }
     
-    public void toJson(Object src, Class<?> typeOfSrc, Appendable writer){
-	
-    }
-    
-    public void toJson(Object src, Class<?> typeOfSrc, MyJsonWriter writer){
-	
-    }
     //~ Getters and Setters ============================================================================================
+    public Includer getIncluder() {
+        return includer;
+    }
+
+    public void setIncluder(Includer includer) {
+        this.includer = includer;
+    }
+
+    public FieldsFactory getFieldsfactory() {
+        return fieldsfactory;
+    }
+
+    public JsonFactory getJsonFactory() {
+	return jsonFactory;
+    }
 
 }
