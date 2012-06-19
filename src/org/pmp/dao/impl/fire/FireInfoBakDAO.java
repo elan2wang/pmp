@@ -6,6 +6,7 @@ import java.util.Map;
 import org.pmp.dao.admin.BaseDAO;
 import org.pmp.dao.fire.IFireInfoBakDAO;
 import org.pmp.util.Pager;
+import org.pmp.util.ParamsToString;
 import org.pmp.vo.FireInfoBak;
 
 
@@ -21,9 +22,38 @@ public class FireInfoBakDAO extends BaseDAO implements IFireInfoBakDAO {
 		
 		StringBuilder hql = new StringBuilder();
 		
-		StringBuilder aa = new StringBuilder("from FireInfoBak where project.proId in (");
+		StringBuilder aa = new StringBuilder("from FireInfoBak where zone.project.proId in (");
 		
-		return null;
+		for (int i=0;i<proIdList.size();i++) {
+            if(i==proIdList.size()-1){
+            	aa.append(proIdList.get(i));
+            	break;
+            }
+			aa.append(proIdList.get(i)+",");
+		}
+		aa.append(")");
+		
+		hql.append(aa);
+		
+		hql.append(ParamsToString.toString(params));
+		
+		hql.append(" "+order);
+        
+		list=(List<FireInfoBak>) loadListByCondition(hql.toString(), paper, debugMsg);
+		
+		return list;
 	}
-	
+
+	@Override
+	public FireInfoBak getFireInfoBakById(Integer fireInfoBakId) {
+		String debugMsg="get FireInfoBakById by ID"+fireInfoBakId;
+		return (FireInfoBak)this.getInstanceById(FireInfoBak.class, fireInfoBakId, debugMsg);
+	}
+
+	@Override
+	public FireInfoBak deleteFireInfoBak(FireInfoBak fireInfoBak) {
+		String debugMsg="delete FireInfoBakById="+fireInfoBak;
+		this.deleteInstance(fireInfoBak, debugMsg);
+		return fireInfoBak;
+	}
 }

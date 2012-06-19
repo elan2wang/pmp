@@ -8,4 +8,6 @@ import org.pmp.vo.FireInfoBak;
 
 public interface IFireInfoBakDAO{
 	List<FireInfoBak> loadFireInfoBakListByProIdList(List<Integer> proIdList,Map<String,Object>params,String order,Pager paper);
+	FireInfoBak getFireInfoBakById(Integer fireInfoBakId);
+	FireInfoBak deleteFireInfoBak(FireInfoBak fireInfoBak);
 }

@@ -9,6 +9,7 @@
   <bean id="zoneDAO" class="org.pmp.dao.impl.fire.ZoneDAO" parent="baseDAO"/>
   <bean id="fireInfoDAO" class="org.pmp.dao.impl.fire.FireInfoDAO" parent="baseDAO"/>
   <bean id="fireDeviceDAO" class="org.pmp.dao.impl.fire.FireDeviceDAO" parent="baseDAO"/>
+  <bean id="fireInfoBakDAO" class="org.pmp.dao.impl.fire.FireInfoBakDAO" parent="baseDAO"/>
     
   <!-- Service Declare -->
   <!-- ======================================================================================= -->
@@ -21,6 +22,9 @@
   <bean id="fireDeviceService" class="org.pmp.service.impl.fire.FireDeviceService">
     <property name="fireDeviceDAO" ref="fireDeviceDAO" />
   </bean>
+  <bean id="fireInfoBakService" class="org.pmp.service.impl.fire.FireInfoBakService">
+    <property name="fireInfoBakDAO" ref="fireInfoBakDAO" />
+  </bean>
   
   <!-- Action Declare -->
   <!-- ======================================================================================= -->
@@ -32,6 +36,8 @@
   </bean>
   <bean id="fireInfoAction" class="org.pmp.action.fire.FireInfoAction">
     <property name="fireInfoService" ref="fireInfoService" />
+    <property name="fireInfoBakService" ref="fireInfoBakService" />
+    <property name="projectService" ref="projectService" />
   </bean>
     
 </beans>

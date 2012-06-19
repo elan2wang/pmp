@@ -30,7 +30,7 @@ $(function(){
 		showSearch:true,
 		height:Height*0.79,
 	    showcheckbox:true,
-	    nomsg: '没有符合条件的业主记录',
+	    nomsg: '没有符合条件的场地记录',
 	    usepager:true,
 	    useRp:true,
 	    rp: 15,

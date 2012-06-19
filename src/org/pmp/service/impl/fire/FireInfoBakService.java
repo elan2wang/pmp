@@ -2,44 +2,37 @@ package org.pmp.service.impl.fire;
 
 import java.util.List;
 import java.util.Map;
-
-import org.pmp.dao.impl.fire.FireInfoBakDAO;
+import org.pmp.dao.fire.IFireInfoBakDAO;
 import org.pmp.service.fire.IFireInfoBakService;
 import org.pmp.util.Pager;
 import org.pmp.vo.FireInfoBak;
 
 public class FireInfoBakService implements IFireInfoBakService {
 
-	private FireInfoBakDAO fireInfoBakDAO;
-	private ZoneService zoneService;
-	
+	private IFireInfoBakDAO fireInfoBakDAO;
+    	
 	@Override
 	public List<FireInfoBak> loadFireInfoBakListByProIdList(
 			List<Integer> proIdList, Map<String, Object> params, String order,
 			Pager paper) {
-		//List<Integer> zoneIdList=fireInfoBakDAO.loadZon
-		return null;
+		return fireInfoBakDAO.loadFireInfoBakListByProIdList(proIdList, params, order, paper);
 	}
 
-	
-	
-	public ZoneService getZoneService() {
-		return zoneService;
-	}
-
-
-
-	public void setZoneService(ZoneService zoneService) {
-		this.zoneService = zoneService;
-	}
-
-
-
-	public FireInfoBakDAO getFireInfoBakDAO() {
+	public IFireInfoBakDAO getFireInfoBakDAO() {
 		return fireInfoBakDAO;
 	}
 
-	public void setFireInfoBakDAO(FireInfoBakDAO fireInfoBakDAO) {
+	public void setFireInfoBakDAO(IFireInfoBakDAO fireInfoBakDAO) {
 		this.fireInfoBakDAO = fireInfoBakDAO;
+	}
+
+	@Override
+	public FireInfoBak getFireInfoBakById(Integer fireInfoBakId) {
+		return fireInfoBakDAO.getFireInfoBakById(fireInfoBakId);
+	}
+
+	@Override
+	public FireInfoBak deleteFireInfoBak(FireInfoBak fireInfoBak) {
+		return fireInfoBakDAO.deleteFireInfoBak(fireInfoBak);
 	}
 }

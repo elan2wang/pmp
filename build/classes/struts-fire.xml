@@ -24,6 +24,8 @@
       
       <action name="getFireInfos" class="org.pmp.action.fire.FireInfoAction" method="getFireInfos"></action>
       <action name="updateFireInfoState" class="org.pmp.action.fire.FireInfoAction" method="updateFireInfoState"></action>      
+      <action name="loadFireInfoBakList" class="org.pmp.action.fire.FireInfoAction" method="loadFireInfoBakList"></action> 
+      <action name="deleteFireInfoBak" class="org.pmp.action.fire.FireInfoAction" method="deleteFireInfoBak"></action>
       
   </package>
 </struts>

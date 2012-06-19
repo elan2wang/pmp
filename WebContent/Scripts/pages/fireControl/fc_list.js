@@ -20,12 +20,13 @@ function Zone(zoneId,zoneName,zoneImgUrl,zoneConfigUrl) {
 var zoneList=new Array();
 
 loadAllZones();
-//setLinkZone();
 
-setInterval("makeRequest()",10000);
-setInterval("setLinkZone()",10000);
+setInterval("makeRequest()",5000);
+setTimeout("makeRequest()",1000);
 
-makeRequest();
+//var interval=null;
+//interval=setInterval("setLinkZone()",10000);
+
 var deviceNumList=new Array();
 
 var length=0;
@@ -69,9 +70,8 @@ function makeRequest(){
 				}
 				
 				if(data.callFireInfos.length==0&&data.warnFireInfos.length==0){
-					isSetLink=true;
-				}else {
-					isSetLink=false;
+					setLinkZone();
+					isInit=true;
 				}
 				
 				if(!(length==deviceNumList.length)){
@@ -117,24 +117,30 @@ function linkZone(zoneId){
 }
 
 var n=0;
-
-var isSetLink=true;
+var isInit=false;
 
 function setLinkZone(){
 	var num=zoneList.length;
+	if(num>1){
+		isInit=false;
+	}
+	
+	if(isInit){
+		return;
+	}
+	
     if(n==num){
        n=0;
     }
     
-    if(isSetLink==true){
-        z=zoneList[n];
-        //alert(num);
-        //alert(n);
-        //alert(z);
-        //alert(z.zoneId);
-    	zoneId=z.zoneId;
-    	linkZone(zoneId);
-    }
+    z=zoneList[n];
+    //alert(num);
+    //alert(n);
+    //alert(z);
+    //alert(z.zoneId);
+	zoneId=z.zoneId;
+	linkZone(zoneId);
+    	
 	n++;
 }
 
