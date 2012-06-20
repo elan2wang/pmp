@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-6-20 13:11:21 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.pmp.vo.OwnerRepair" table="tb_OwnerRepair" schema="dbo" catalog="db_pmp2">
+        <id name="opId" type="integer">
+            <column name="OP_ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="houseOwner" class="org.pmp.vo.House" fetch="select" lazy="false">
+            <column name="HO_ID" />
+        </many-to-one>
+        <property name="opNum" type="string">
+            <column name="OP_Num" length="20" />
+        </property>
+        <property name="applyTime" type="timestamp">
+            <column name="Apply_Time" length="23" />
+        </property>
+        <property name="orderDate" type="timestamp">
+            <column name="Order_Date" length="23" />
+        </property>
+        <property name="orderTime" type="string">
+            <column name="Order_Time" length="50" />
+        </property>
+        <property name="repairType" type="string">
+            <column name="Repair_Type" length="50" />
+        </property>
+        <property name="repairDetail" type="string">
+            <column name="Repair_Detail" length="200" />
+        </property>
+        <property name="repairPerson" type="string">
+            <column name="Repair_Person" length="50" />
+        </property>
+        <property name="state" type="string">
+            <column name="State" length="50" />
+        </property>
+        <property name="finishDate" type="timestamp">
+            <column name="Finish_Date" length="23" />
+        </property>
+        <property name="finishTime" type="string">
+            <column name="Finish_Time" length="50" />
+        </property>
+        <property name="accepted" type="boolean">
+            <column name="Accepted" />
+        </property>
+        <property name="evaluate" type="string">
+            <column name="Evaluate" length="50" />
+        </property>
+        <property name="evaluateDetail" type="string">
+            <column name="Evaluate_Detail" length="200" />
+        </property>
+        <property name="laborFee" type="double">
+            <column name="Labor_Fee" precision="53" scale="0" />
+        </property>
+        <property name="materialFee" type="double">
+            <column name="Material_Fee" precision="53" scale="0" />
+        </property>
+        <property name="totalFee" type="double">
+            <column name="Total_Fee" precision="53" scale="0" />
+        </property>
+        <property name="payed" type="boolean">
+            <column name="Payed" />
+        </property>
+    </class>
+</hibernate-mapping>

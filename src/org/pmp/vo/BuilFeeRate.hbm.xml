@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-6-20 13:11:21 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.pmp.vo.BuilFeeRate" table="tb_BuilFeeRate" schema="dbo" catalog="db_pmp2">
+        <id name="bfrId" type="integer">
+            <column name="BFR_ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="building" class="org.pmp.vo.Building" fetch="select" lazy="false">
+            <column name="Buil_ID" />
+        </many-to-one>
+        <property name="beginFloor" type="integer">
+            <column name="Begin_Floor" />
+        </property>
+        <property name="endFloor" type="integer">
+            <column name="End_Floor" />
+        </property>
+        <property name="rate" type="double">
+            <column name="Rate" precision="53" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -77,8 +77,8 @@ public class CondoFeeItemDAO extends BaseDAO implements ICondoFeeItemDAO{
     
     public List<?> loadCondoFeeItemListBy_ComID(Pager pager,Integer comId) {
 	String debugMsg = "load condoFeeItem list";
-	String hql = "select cfi from CondoFeeItem cfi where cfi.project.proId in" +
-	             "(select pro.proId from Project pro where pro.company.comId="+comId+")" +
+	String hql = "select cfi from CondoFeeItem cfi where cfi.project.proId in " +
+	             "(select pro.proId from Project pro where pro.company.comId="+comId+") " +
 	             "order by cfi.cfiId desc";
 	List<?> cfiList = null;
 	try {

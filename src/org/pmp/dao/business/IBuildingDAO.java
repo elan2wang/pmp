@@ -12,8 +12,6 @@ import java.util.Map;
 
 import org.pmp.util.Pager;
 import org.pmp.vo.Building;
-import org.pmp.vo.CondoFee;
-import org.pmp.vo.Project;
 
 /**
  * @author Jason
