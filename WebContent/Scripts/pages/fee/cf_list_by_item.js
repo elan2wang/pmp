@@ -32,9 +32,9 @@ $(function(){
 		searchitems:[
 		    { display: '年份', name: 'cfYear', isdefault:false },
 		    { display: '月份', name: 'cfMonth', isdefault:false },
-		    { display: '状态', name: 'state', isdefault:false },
+		    { display: '状态', name: 'state', isdefault:true },
 		    { display: '录入时间', name: 'inputTime', isdefault:false },
-		    { display: '录入人员', name: 'recordPerson', isdefault:true }
+		    { display: '录入人员', name: 'recordPerson', isdefault:false }
 		],
 		showSearch:true,
 		height:Height*0.9,

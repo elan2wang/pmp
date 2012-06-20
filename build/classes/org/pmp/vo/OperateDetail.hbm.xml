@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-6-20 13:11:21 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.pmp.vo.OperateDetail" table="tb_OperateDetail" schema="dbo" catalog="db_pmp2">
+        <id name="orId" type="integer">
+            <column name="OR_ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="ownerRepair" class="org.pmp.vo.OwnerRepair" fetch="select">
+            <column name="OP_ID" />
+        </many-to-one>
+        <property name="operateTime" type="timestamp">
+            <column name="Operate_Time" length="23" />
+        </property>
+        <property name="operatePerson" type="string">
+            <column name="Operate_Person" length="50" />
+        </property>
+        <property name="operateDetail" type="string">
+            <column name="Operate_Detail" length="500" />
+        </property>
+    </class>
+</hibernate-mapping>

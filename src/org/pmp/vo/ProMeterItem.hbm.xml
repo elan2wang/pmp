@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-6-20 13:11:21 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.pmp.vo.ProMeterItem" table="tb_ProMeterItem" schema="dbo" catalog="db_pmp2">
+        <id name="pmiId" type="integer">
+            <column name="PMI_ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="electricFeeItem" class="org.pmp.vo.ElectricFeeItem" fetch="select">
+            <column name="EFI_ID" />
+        </many-to-one>
+        <property name="beginDegree" type="double">
+            <column name="Begin_Degree" precision="53" scale="0" />
+        </property>
+        <property name="endDegree" type="double">
+            <column name="End_Degree" precision="53" scale="0" />
+        </property>
+        <property name="price" type="double">
+            <column name="Price" precision="53" scale="0" />
+        </property>
+        <property name="totalMoney" type="double">
+            <column name="Total_Money" precision="53" scale="0" />
+        </property>
+        <property name="comment" type="string">
+            <column name="Comment" length="200" />
+        </property>
+    </class>
+</hibernate-mapping>

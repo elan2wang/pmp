@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-6-20 13:11:21 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.pmp.vo.ElectricFeeItem" table="tb_ElectricFeeItem" schema="dbo" catalog="db_pmp2">
+        <id name="efiId" type="integer">
+            <column name="EFI_ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="project" class="org.pmp.vo.Project" fetch="select" lazy="false">
+            <column name="Pro_ID" />
+        </many-to-one>
+        <property name="itemName" type="string">
+            <column name="Item_Name" length="200" />
+        </property>
+        <property name="beginDate" type="timestamp">
+            <column name="Begin_Date" length="23" />
+        </property>
+        <property name="endDate" type="timestamp">
+            <column name="End_Date" length="23" />
+        </property>
+        <property name="generateTime" type="timestamp">
+            <column name="Generate_Time" length="23" />
+        </property>
+        <property name="generatePerson" type="string">
+            <column name="Generate_Person" length="50" />
+        </property>
+        <property name="totalMoney" type="double">
+            <column name="Total_Money" precision="53" scale="0" />
+        </property>
+        <property name="comment" type="string">
+            <column name="Comment" length="200" />
+        </property>
+    </class>
+</hibernate-mapping>

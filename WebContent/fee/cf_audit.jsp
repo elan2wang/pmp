@@ -16,8 +16,8 @@
 <tr>
   <th style="width:40px;">序号</th>
   <th style="width:40px;">房号</th><th style="width:40px;">业主</th>
-  <th style="width:60px;">时间</th><th style="width:80px;">应收金额(元)</th>
-  <th style="width:80px;">实收金额(元)</th><th style="width:60px;">录入人员</th>
+  <th style="width:50px;">时间</th><th style="width:50px;">应收(元)</th>
+  <th style="width:60px;">实收(元)</th><th style="width:60px;">录入人员</th>
   <th style="width:60px;">录入时间</th><th style="width:60px;">审核结果</th>
 </tr>
 <c:forEach var="item" items="${cfList }" varStatus="status">
