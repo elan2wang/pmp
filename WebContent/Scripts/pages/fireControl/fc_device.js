@@ -1,9 +1,4 @@
 
-//alert($("#configUrl").val());
-<<<<<<< HEAD
-//load_device("../"+$("#configUrl").val());
-=======
->>>>>>> 422375ffa21372648fba6f19a06ac2c8ba72c3c5
 
 var zoneImgUrl=parent.zoneImgUrlTmp;
 var zoneConfigUrl=parent.zoneConfigUrlTmp;

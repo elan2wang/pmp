@@ -83,3 +83,12 @@
 	color:#005590;
 	font-family:"微软雅黑","黑体","宋体";
 }
+.add_fieldset .timeSelect
+{
+	margin-top:10px;
+}
+.add_fieldset .tableDiv
+{
+	margin-top:10px;
+	align:left;
+}

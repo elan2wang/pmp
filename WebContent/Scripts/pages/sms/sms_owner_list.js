@@ -23,7 +23,7 @@ function grid(url){
  		usepager: true,
  		useRp: true,
  		rp: 15,
- 		nomsg: '无符合条件的业主',
+ 		nomsg: '无符合条件的业主'
 	};
 	config.url=url;
 	$('#SMSownerlist').flexigrid(config);

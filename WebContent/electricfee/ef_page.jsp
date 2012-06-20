@@ -5,8 +5,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="../Scripts/component/easyui/themes/default/easyui.css" rel="stylesheet" type="text/css" />
+<link href="../Scripts/component/flexigrid-1.1/css/flexigrid.pack.css" rel="stylesheet" type="text/css" />
+<link href="../Scripts/component/easyui/themes/icon.css" rel="stylesheet" type="text/css" />
 <link href="../CSS/common/common.css" rel="stylesheet" type="text/css" />
-<link href="../CSS/common/tab.css" rel="stylesheet" type="text/css" />
+<link href="../CSS/common/fee_tab.css" rel="stylesheet" type="text/css" />
 <link href="../CSS/pages/fee/cf_list2.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="../Scripts/jquery-1.7.1.js" ></script>
@@ -18,30 +21,30 @@
 <body>
 <div class="wrap">
   <ul class="nav">
-    <sec:authorize access="hasAnyRole('AUTH_CONDOFEE_VIEW')"><li id="tab1" class="active"><a href="#">缴费历史</a></li></sec:authorize>
-    <sec:authorize access="hasAnyRole('AUTH_CONDOFEE_CREATE')"><li id="tab2"><a href="#">创建物业费</a></li></sec:authorize>
-    <sec:authorize access="hasAnyRole('AUTH_CONDOFEE_INPUT')"><li id="tab3"><a href="#">缴费录入</a></li></sec:authorize>
-    <sec:authorize access="hasAnyRole('AUTH_CONDOFEE_AUDIT')"><li id="tab4"><a href="#">财务管理</a></li></sec:authorize>
+    <li id="tab1" class="active"><a href="#">缴费历史</a></li>
+    <li id="tab2"><a href="#">创建电费</a></li>
+    <li id="tab3"><a href="#">缴费录入</a></li>
+    <li id="tab4"><a href="#">财务管理</a></li>
   </ul>
   <div class="content" style="height:570px;">
     <!-- 物业费历史记录页面  -->
     <div class="innercontent" style="height:100%">
-      <iframe id="cf_time_list" name="cf_time_list" frameborder="0" scrolling="auto" style="width:100%; height:100%" src="" >
+      <iframe id="ef_time_list" name="ef_time_list" frameborder="0" scrolling="auto" style="width:100%; height:100%" src="" >
       </iframe>
     </div>
     <!-- 物业费创建页面  -->
     <div class="innercontent" style="height:100%">
-      <iframe id="cf_item_add" name="cf_item_add" frameborder="0" scrolling="auto" style="width:100%; height:100%" src="" >
+      <iframe id="ef_item_add" name="ef_item_add" frameborder="0" scrolling="auto" style="width:100%; height:100%" src="" >
       </iframe>
     </div>
     <!-- 物业费录入页面  -->
     <div class="innercontent" style="height:100%">
-      <iframe id="cf_house_list" name="cf_house_list" frameborder="0" scrolling="auto" style="width:100%; height:100%" src="" >
+      <iframe id="ef_house_list" name="ef_house_list" frameborder="0" scrolling="auto" style="width:100%; height:100%" src="" >
       </iframe>
     </div>
     <!-- 物业费审核页面  -->
     <div class="innercontent" style="height:100%">
-      <iframe id="cf_item_list" name="cf_item_list" frameborder="0" scrolling="auto" style="width:100%; height:100%" src="" >
+      <iframe id="ef_item_list" name="ef_item_list" frameborder="0" scrolling="auto" style="width:100%; height:100%" src="" >
       </iframe>
     </div>
   </div>

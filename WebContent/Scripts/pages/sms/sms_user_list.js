@@ -25,7 +25,7 @@ function flexGrid(url)
 	    usepager: true,
 		useRp: true,
 		rp: 15,
-		nomsg: '无符合条件的用户', 
+		nomsg: '无符合条件的用户'
 	};
 	config.url=url;
 	$("#SMSuserlist").flexigrid(config);

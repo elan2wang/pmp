@@ -60,22 +60,15 @@ function makeRequest(){
 					setDeviceNum(zone);zone=null;
 					$("#abnormal_data").append("<p id="+devices+"><a href='javascript:linkZone("+zoneID+");'>异常数据:  场地ID "+zoneID+"  设备ID "+devices+"  时间："+time+"</a></p>");
 				});
-<<<<<<< HEAD
-//				frame.length=document.getElementById("fc_device").contentWindow.thisList.length;
-//				frame.zoneID=document.getElementById("fc_device").contentWindow.getElementById("zoneID").value;
-//				length=getLengthByZoneId(frame.zoneID,data.callFireInfos);	
-=======
-				
->>>>>>> 422375ffa21372648fba6f19a06ac2c8ba72c3c5
+
+
 				if($("#alarm").attr("src")==""&&data.callFireInfos.length>0)
 				{
 					$("#alarm").attr("src","../fireConfig/FIRE.WAV");
 				}else if(data.callFireInfos==0){
 					$("#alarm").attr("src","");
 				}
-				
-<<<<<<< HEAD
-=======
+
 				if(data.callFireInfos.length==0&&data.warnFireInfos.length==0){
 					isSetLink=true;
 				}else {
@@ -95,11 +88,6 @@ function makeRequest(){
 						}
 					}
 				}
-				
-				//if(data.callFireInfos.length!=length){
-					//document.getElementById("fc_device").contentWindow.location.reload();
-				//}
->>>>>>> 422375ffa21372648fba6f19a06ac2c8ba72c3c5
 			},
 			error:function(){
 				alert("error");
