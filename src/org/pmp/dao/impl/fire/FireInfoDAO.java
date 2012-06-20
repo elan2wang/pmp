@@ -37,27 +37,27 @@ public class FireInfoDAO extends BaseDAO implements IFireInfoDAO{
 	}
 
 	@Override
-	public List<FireInfo> getWarnFireInfos(Map<String, Object> params,
-			List<String> receiveInfos, String order) {
+	public List<FireInfo> getWarnFireInfos(Map<String, Object> params,String order,List<String> receiveInfos) {
 		List<FireInfo> list = null;
 		
 		String debugMsg = "load CallFireInfos list by params";
 		
 		StringBuilder hql = new StringBuilder();
 		
-		String aa = "from FireInfo where 1=1";
+		//String aa = "from FireInfo where 1=1";
+		String aa = "from FireInfo where 1=1 and receiveInfo!='01'";
 		
 		hql.append(aa);
 		
-		hql.append(" and receiveInfo in(");
+/*		hql.append(" and receiveInfo in(");
 		String strtmp="";
 		for (String receiveInfo : receiveInfos) {
-			strtmp+=receiveInfo+",";
+			strtmp+=("'"+receiveInfo+"',");
 		}
 		strtmp=strtmp.substring(0,strtmp.length()-1);
 		
 		hql.append(strtmp);
-		hql.append(")");
+		hql.append(")");*/
 		
 		hql.append(ParamsToString.toString(params));
 		

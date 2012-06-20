@@ -20,12 +20,13 @@ function Zone(zoneId,zoneName,zoneImgUrl,zoneConfigUrl) {
 var zoneList=new Array();
 
 loadAllZones();
-//setLinkZone();
 
-setInterval("makeRequest()",10000);
-setInterval("setLinkZone()",10000);
+setInterval("makeRequest()",5000);
+setTimeout("makeRequest()",1000);
 
-makeRequest();
+//var interval=null;
+//interval=setInterval("setLinkZone()",10000);
+
 var deviceNumList=new Array();
 
 var length=0;
@@ -50,7 +51,7 @@ function makeRequest(){
 					time=content["receiveTime"];
 					var zone=new ZoneFireInfo(content["zoneId"],content["deviceNumber"],'call');
 					setDeviceNum(zone);zone=null;
-					 $("#alarm_data").append("<p id="+devices+"><a href='javascript:linkZone("+zoneID+");'>警报数据:  场地ID "+zoneID+"  设备ID "+devices+" 时间："+time+"</a></p>");
+					 $("#alarm_data").append("<p id="+devices+"><a href='javascript:linkZone("+zoneID+");'>报警:&nbsp;&nbsp;场地ID "+zoneID+"  设备ID "+devices+" 时间："+time+"</a></p>");
 					});
 				$.each(data.warnFireInfos, function( i,content ){
 					devices=content["deviceNumber"];
@@ -58,7 +59,7 @@ function makeRequest(){
 					time=content["receiveTime"];
 					var zone=new ZoneFireInfo(content["zoneId"],content["deviceNumber"],'warn');
 					setDeviceNum(zone);zone=null;
-					$("#abnormal_data").append("<p id="+devices+"><a href='javascript:linkZone("+zoneID+");'>异常数据:  场地ID "+zoneID+"  设备ID "+devices+"  时间："+time+"</a></p>");
+					$("#abnormal_data").append("<p id="+devices+"><a href='javascript:linkZone("+zoneID+");'>异常:&nbsp;&nbsp;场地ID "+zoneID+"  设备ID "+devices+"  时间："+time+"</a></p>");
 				});
 
 
@@ -70,9 +71,8 @@ function makeRequest(){
 				}
 
 				if(data.callFireInfos.length==0&&data.warnFireInfos.length==0){
-					isSetLink=true;
-				}else {
-					isSetLink=false;
+					setLinkZone();
+					isInit=true;
 				}
 				
 				if(!(length==deviceNumList.length)){
@@ -114,24 +114,30 @@ function linkZone(zoneId){
 }
 
 var n=0;
-
-var isSetLink=true;
+var isInit=false;
 
 function setLinkZone(){
 	var num=zoneList.length;
+	if(num>1){
+		isInit=false;
+	}
+	
+	if(isInit){
+		return;
+	}
+	
     if(n==num){
        n=0;
     }
     
-    if(isSetLink==true){
-        z=zoneList[n];
-        //alert(num);
-        //alert(n);
-        //alert(z);
-        //alert(z.zoneId);
-    	zoneId=z.zoneId;
-    	linkZone(zoneId);
-    }
+    z=zoneList[n];
+    //alert(num);
+    //alert(n);
+    //alert(z);
+    //alert(z.zoneId);
+	zoneId=z.zoneId;
+	linkZone(zoneId);
+    	
 	n++;
 }
 

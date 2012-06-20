@@ -10,12 +10,14 @@
                 this.splice(index, 1);
             }
         };
-function FireAlarm(id,obj)
+function FireAlarm(id,obj,type)
 {
     //添加属性
     this.ID = id;
     this.TimerID;
     this.Obj=obj;
+    this.Type=type;
+    
     //添加方法
     this.showMessage = function()
     {
@@ -25,7 +27,7 @@ function FireAlarm(id,obj)
     	
     	if(!this.Obj)
     		return;
-    	this.TimerID=setInterval(_Blink(this.Obj),300);
+    	this.TimerID=setInterval(_Blink(this.Obj,this.Type),300);
     }
     this.stopBlink=function(){
     	if(!this.Obj)

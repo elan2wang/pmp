@@ -39,7 +39,8 @@ function list_divice(xml){
 	{   
 	    var thisdevice=devideArr.eq(i);
 		imageurl=thisdevice.attr("imageid").toString();
-		imgid=thisdevice.attr("devicenumber").toString();
+		strTmp=thisdevice.attr("devicenumber").toString();
+		imgid=strTmp.substring(2,strTmp.length);
 		var info=thisdevice.attr("devicetypename").toString();
 		if(imageurl.length<=1){imageurl='0'+imageurl;}
 		divCon.append('<div class="devicePosi" id='+imgid+'><a href="javascript:void(0);" title="'+info+'"><img src="../fireConfig/DevIco/'+imageurl+'.ico" border="0" id='+imgid+'></a></div>');
@@ -48,7 +49,9 @@ function list_divice(xml){
 	}
     
 	$('li div').each(function(i)
-	{
+	{    
+		 var obj=$(this);
+		 
 		 var fire=new FireAlarm($(this).attr('id'),$(this));
 		 objList.push(fire);
 		 createRightMenu(fire);
@@ -68,8 +71,9 @@ function list_divice(xml){
 	thisList=findByZoneId(zoneId,parent.deviceNumList);
 	if(thisList&&thisList.length>0){
 		for(var i=0;i<thisList.length;i++)
-		{
-			findByFireId(thisList[i]).startBlink();
+		{    
+			 obj=findByFireId(thisList[i]);
+			 obj.startBlink();
 		}
 	}
 }
@@ -79,16 +83,26 @@ function list_divice(xml){
  
  //切换显示与否  实现闪烁功能
 
- function Blink(obj){
-  if(obj.find("img").css("visibility") == "visible")
-	  obj.find("img").css("visibility" , "hidden");
-  else
-	  obj.find("img").css("visibility" ,"visible");
+ function Blink(obj,type){
+	  if(obj.find("img").css("visibility") == "visible"){
+		  obj.find("img").css("visibility" , "hidden");
+	  }
+	  else{
+		  //var type=obj.Type;
+		  //alert(type);
+		  if(type=="call"){
+			 obj.find("img").attr("src","../fireConfig/DevIco/callFireInfos.ico");  
+		  }else{
+			 obj.find("img").attr("src","../fireConfig/DevIco/warnFireInfos.ico");
+		  }
+		  obj.find("img").css("visibility" ,"visible");
+	  }
  }
+ 
  //setTimeout 方法不能传递参数  写这个方法  以弥补这个缺陷
- function  _Blink(obj){
+ function  _Blink(obj,type){
 	 return function(){
-		 Blink(obj);
+		 Blink(obj,type);
 	 }
  }
  
@@ -129,12 +143,32 @@ function list_divice(xml){
   function findByFireId(id){
 	  for(var i=0;i<objList.length;i++)
 	  {
-		  if(objList[i].ID==id){
-			  return objList[i];
+		  if(objList[i].ID==id.deviceID){
+			  var type=id.Type;
+			  obj=objList[i];
+			  if(type=="call"){
+				  obj.Type="call";
+			  }
+			  if(type=="warn"){
+				  obj.Type="warn";
+			  }
+			  return obj;
 		  }
 	  }
 	  return null;
   }
+  
+  function findFireAlarmByFireId(id){
+	  for(var i=0;i<objList.length;i++)
+	  {
+		  if(objList[i].ID==id){
+			  obj=objList[i];
+			  return obj;
+		  }
+	  }
+	  return null;
+  }
+  
   //根据zoneID找到相应的数组
   function findByZoneId(zoneId,parentList){
 	  var thisList=new Array();
@@ -142,14 +176,14 @@ function list_divice(xml){
 	  {
 		  if(parentList[i].ID==zoneId)
 		  {
-			  thisList.push(parentList[i].deviceID);
+			  thisList.push(parentList[i]);
 		  }
 	  }
 	  return thisList;
   }
 
   function _stopAlarm(id,clickId){
-	  var fireObj=findByFireId(id);
+	  var fireObj=findFireAlarmByFireId(id);
       fireObj.stopBlink();
       updateFireInfoState(id,clickId);
   }
@@ -161,6 +195,7 @@ function list_divice(xml){
 					url:'fire/updateFireInfoState',
 					data:{'deviceNum':''+deviceNum+'','state':state},
 					success:function(msg){
+						window.parent.makeRequest();
 					},
 					error:function(resut){
 					    alert("处理警报错误!");

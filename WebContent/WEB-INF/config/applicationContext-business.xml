@@ -103,6 +103,7 @@
     <property name="condoFeeService" ref="condoFeeService" />
     <property name="condoFeeItemService" ref="condoFeeItemService" />
     <property name="smsSendService" ref="smsSendService" />
+    <property name="houseOwnerService" ref="houseOwnerService" />
   </bean>
   
   <bean id="smsCompanyAction" class="org.pmp.action.business.SmsCompanyAction">

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>场地信息列表</title>
+<title>消控历史记录列表</title>
 <link href="../Scripts/component/flexigrid-1.1/css/flexigrid.pack.css" rel="stylesheet" type="text/css" />
 <link href="../Scripts/component/easyui/themes/default/easyui.css" rel="stylesheet" type="text/css" />
 <link href="../Scripts/component/easyui/themes/icon.css" rel="stylesheet" type="text/css" />
@@ -19,12 +19,13 @@
 <script type="text/javascript" src="../Scripts/component/flexigrid-1.1/js/flexigrid-new.js"></script>
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
 <script type="text/javascript" src="../Scripts/common/window.js"></script>
-<script type="text/javascript" src="../Scripts/pages/fire/zone_list.js"></script>
+
+<script type="text/javascript" src="../Scripts/pages/fire/fireInfoHistory_list.js"></script>
 </head>
 <body>
 <div class="wrap">      
        <ul class="nav">
-          <li id="tab1" class="active"><a href="javascript:void(0)">场地信息管理</a></li>
+          <li id="tab1" class="active"><a href="javascript:void(0)">消控历史记录</a></li>
        </ul> 
        <div class="content">
            <div class="innercontent">

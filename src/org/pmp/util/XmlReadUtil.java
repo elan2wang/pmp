@@ -25,7 +25,10 @@ public class XmlReadUtil {
 			String deviceNumber = element.getAttributeValue("devicenumber");
 			String typeName = element.getAttributeValue("devicetypename");
 			String mark=element.getAttributeValue("mark");
-			fireDevice.setDeviceNumber(deviceNumber);
+			//int len=deviceNumber.length();
+			//Integer locationCode=Integer.valueOf(deviceNumber.substring(2, 3));
+			//Integer 
+			fireDevice.setDeviceNumber(deviceNumber.substring(2, deviceNumber.length()));
 			fireDevice.setTypeName(typeName);
 			fireDevice.setMark(mark);
 			xmlList.add(fireDevice);

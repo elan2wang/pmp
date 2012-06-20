@@ -113,6 +113,10 @@ public class JsonConvert {
 	    return string2Json(((org.pmp.vo.FixedParkFeeItem)o).getItemName());
 	if (o instanceof org.pmp.vo.SMSCompany)
 	    return string2Json(((org.pmp.vo.SMSCompany)o).getCompany().getComName());
+	if (o instanceof org.pmp.vo.Zone)
+	    return string2Json(((org.pmp.vo.Zone)o).getZoneName());
+	if (o instanceof org.pmp.vo.TbUser)
+	    return string2Json(((org.pmp.vo.TbUser)o).getRealname());
 	
 	/* if none of the above is matched,then throw an exception*/
         throw new RuntimeException("Unsupported type: " + o.getClass().getName());

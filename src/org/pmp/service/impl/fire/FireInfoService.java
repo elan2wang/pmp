@@ -25,9 +25,8 @@ public class FireInfoService implements IFireInfoService {
 	}
 
 	@Override
-	public List<FireInfo> getWarnFireInfos(Map<String, Object> params,
-			List<String> receiveInfos, String order) {
-		return this.fireInfoDAO.getWarnFireInfos(params, receiveInfos, order);
+	public List<FireInfo> getWarnFireInfos(Map<String, Object> params,String order,List<String> receiveInfos) {
+		return this.fireInfoDAO.getWarnFireInfos(params,order,receiveInfos);
 	}
 
 	@Override

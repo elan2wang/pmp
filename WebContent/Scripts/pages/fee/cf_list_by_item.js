@@ -7,8 +7,8 @@ $(function(){
 		url:"loadCondoFeeList_ByCFI?cfiId="+cfiId,
 		dataType:"json",
         colModel:[
-            { display: '房号', name: 'house', width: Width*0.06, sortable:true, align: 'center' },
-            { display: '业主', name: 'owner', width: Width*0.1, sortable:true, align: 'center' },
+            { display: '房号', name: 'house.houseNum', width: Width*0.06, sortable:true, align: 'center' },
+            { display: '业主', name: 'owner.ownerName', width: Width*0.1, sortable:true, align: 'center' },
             { display: '年份', name: 'cfYear', width: Width*0.05, sortable:true, align: 'center' },
             { display: '月份', name: 'cfMonth', width: Width*0.05, sortable:true, align: 'center' },
             { display: '状态', name: 'state', width: Width*0.05, sortable:true, align: 'center' },

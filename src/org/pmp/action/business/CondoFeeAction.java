@@ -17,15 +17,11 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.lang.reflect.Field;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,16 +34,17 @@ import org.pmp.excel.NewCondoFeeExport;
 import org.pmp.excel.NewCondoFeeImport;
 import org.pmp.jms.JmsPublisher;
 import org.pmp.json.Includer;
-import org.pmp.json.MyTypeAdapterFactory;
+import org.pmp.json.MyJson;
 import org.pmp.service.business.ICondoFeeItemService;
 import org.pmp.service.business.ICondoFeeService;
+import org.pmp.service.business.IHouseOwnerService;
 import org.pmp.service.business.ISmsSendService;
 import org.pmp.util.JsonConvert;
 import org.pmp.util.MyfileUtil;
 import org.pmp.util.Pager;
 import org.pmp.util.SessionHandler;
-import org.pmp.vo.Company;
 import org.pmp.vo.CondoFee;
+import org.pmp.vo.Owner;
 import org.pmp.vo.SMSSend;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -67,6 +64,7 @@ public class CondoFeeAction extends ActionSupport{
     private ICondoFeeService condoFeeService;
     private ICondoFeeItemService condoFeeItemService;
     private ISmsSendService smsSendService;
+    private IHouseOwnerService houseOwnerService;
     
     /* used when import new condoFee */
     private File cfFile;
@@ -113,39 +111,6 @@ public class CondoFeeAction extends ActionSupport{
     
     //~ Methods ========================================================================================================
     
-    public void test(CondoFee cf){
-	String[] attrs = {"condoFeeItem.project.proName","house.houseNum","owner.ownerName","cfYear","cfMonth","state","oughtMoney",
-	          "fetchMoney","recordPerson","inputTime","comment"};
-	
-	List<String> show = Arrays.asList(attrs);
-	Includer includer = new Includer(show);
-	
-	MyTypeAdapterFactory factory = new MyTypeAdapterFactory(includer);
-	Map<String, Object> result = new LinkedHashMap<String, Object>();
-	try {
-	    factory.getFields(Class.forName("org.pmp.vo.CondoFee"), cf, result, "");
-	} catch (IllegalArgumentException e) {
-	    logger.debug("IllegalArgumentException");
-	    e.printStackTrace();
-	} catch (IllegalAccessException e) {
-	    logger.debug("IllegalAccessException");
-	    e.printStackTrace();
-	} catch (ClassNotFoundException e) {
-	    logger.debug("ClassNotFoundException");
-	    e.printStackTrace();
-	}
-	logger.debug("result.size="+result.size());
-	for (String key : result.keySet()){
-	    Object obj = result.get(key);
-	    String value = null;
-	    if (obj == null)value="";
-	    else {
-		value=obj.toString();
-	    }
-	    logger.debug(key+":"+value);
-	}
-    }
-
     public void loadCondoFeeList_ByCFI(){
 	/* set query parameters */
 	Pager pager = new Pager(rp,page);
@@ -163,11 +128,13 @@ public class CondoFeeAction extends ActionSupport{
 	List<?> cfList = condoFeeService.loadCondoFeeList_ByCFI(cfiId, params, order, pager);
 	
 	/* transfer list to JsonData */
-	String[] attrs = {"house","owner","cfYear","cfMonth","state","oughtMoney",
+	String[] attrs = {"cfId","house.houseNum","owner.ownerName","cfYear","cfMonth","state","oughtMoney",
 		          "fetchMoney","recordPerson","inputTime","comment"};
 	List<String> show = Arrays.asList(attrs);
-	String data = JsonConvert.list2FlexJson(pager, cfList, "org.pmp.vo.CondoFee", show);
+	Includer includer = new Includer(show);
+	MyJson json = new MyJson(includer);
 	
+	String data = json.toJson(cfList, "", pager);
 	logger.debug(data);
 	JsonConvert.output(data);
     }
@@ -188,11 +155,24 @@ public class CondoFeeAction extends ActionSupport{
 	/* invoke service to get list */
 	List<?> cfList= condoFeeService.loadCondoFeeList_ByHouse(houseId, params, order, pager);
 	
-	String[] attrs = {"cfYear","cfMonth","state","oughtMoney","fetchMoney","inputTime"};
+	String[] attrs = {"cfId","cfYear","cfMonth","state","oughtMoney","fetchMoney","inputTime","comment"};
 	List<String> show = Arrays.asList(attrs);
-	String data = JsonConvert.list2FlexJson(pager, cfList, "org.pmp.vo.CondoFee", show);
+	Includer includer = new Includer(show);
+	MyJson json = new MyJson(includer);
 	
-	logger.debug(data);
+	Owner owner = houseOwnerService.getHouseOwner_ByHouse(houseId).getOwner();
+	String contact = null;
+	if (owner.getMobile()!=null && owner.getHomePhone()!=null){
+	    contact = owner.getMobile()+"/"+owner.getHomePhone();
+	} else if (owner.getMobile()!=null && owner.getHomePhone()==null){
+	    contact = owner.getMobile();
+	} else if (owner.getMobile()==null && owner.getHomePhone()!=null){
+	    contact = owner.getHomePhone();
+	} else {
+	    contact = "无";
+	}
+	String title = "业主姓名："+owner.getOwnerName()+"  联系电话："+contact;
+	String data = json.toJson(cfList, title, pager);
 	JsonConvert.output(data);
     }
     
@@ -213,24 +193,18 @@ public class CondoFeeAction extends ActionSupport{
 	if(month!=null)params.put("cfMonth", month);
 	/* invoke service to get list */
 	List<?> cfList = condoFeeService.loadCondoFeeList_ByCompany(comId, params, order, pager);
-	
-	String[] attrs = {"condoFeeItem","house","owner","cfMonth","state","oughtMoney","fetchMoney","inputTime","comment"};
-	List<String> show = Arrays.asList(attrs);
-	String data = JsonConvert.list2FlexJson(pager, cfList, "org.pmp.vo.CondoFee", show);
-
 	/* get the statistical data */
 	String message = count(cfList);
-	/* create returned Json data */
-	StringBuilder ret = new StringBuilder();
-	ret.append("{\n  "+JsonConvert.toJson("title")+":"+JsonConvert.toJson(message)+",\n");
-	ret.append(data.substring(2));
-	logger.debug(ret.toString());
 	
-	/* test */
-	test((CondoFee)cfList.get(0));
+	String[] attrs = {"cfId","condoFeeItem.project.proName","house.houseNum","owner.ownerName","cfMonth",
+		"state","oughtMoney","fetchMoney","inputTime","comment"};
+	List<String> show = Arrays.asList(attrs);
+	Includer includer = new Includer(show);
+	MyJson json = new MyJson(includer);
 	
-	
-	JsonConvert.output(ret.toString());
+	String data = json.toJson(cfList, message, pager);
+
+	JsonConvert.output(data);
     }
     
     public void loadCondoFeeList_ByProject(){
@@ -250,19 +224,18 @@ public class CondoFeeAction extends ActionSupport{
 	if(month!=null)params.put("cfMonth", month);
 	/* invoke service to get list */
 	List<?> cfList = condoFeeService.loadCondoFeeList_ByProject(proId, params, order, pager);
-	
-	String[] attrs = {"house","owner","state","oughtMoney","fetchMoney","inputTime"};
-	List<String> show = Arrays.asList(attrs);
-	String data = JsonConvert.list2FlexJson(pager, cfList, "org.pmp.vo.CondoFee", show);
-	
 	/* get the statistical data */
 	String message = count(cfList);
-	/* create returned Json data */
-	StringBuilder ret = new StringBuilder();
-	ret.append("{\n  "+JsonConvert.toJson("title")+":"+JsonConvert.toJson(message)+",\n");
-	ret.append(data.substring(2));
-	logger.debug(ret.toString());
-	JsonConvert.output(ret.toString());
+	
+	String[] attrs = {"cfId","condoFeeItem.project.proName","house.houseNum","owner.ownerName",
+		"state","oughtMoney","fetchMoney","cfMonth","inputTime","comment"};
+	List<String> show = Arrays.asList(attrs);
+	Includer includer = new Includer(show);
+	MyJson json = new MyJson(includer);
+	
+	String data = json.toJson(cfList, message, pager);
+
+	JsonConvert.output(data);
     }
     
     public void exportNewCondoFee(){
@@ -488,7 +461,9 @@ public class CondoFeeAction extends ActionSupport{
 	Iterator<?> ite = cfList.iterator();
 	while(ite.hasNext()){
 	    CondoFee cf = (CondoFee)ite.next();
-	    oughtMoney += cf.getOughtMoney();
+	    if (cf.getOughtMoney()!=null){
+		oughtMoney += cf.getOughtMoney();
+	    }
 	    if (cf.getFetchMoney()!=null){
 		fetchMoney += cf.getFetchMoney();
 		fetchItems += 1;
@@ -698,6 +673,14 @@ public class CondoFeeAction extends ActionSupport{
 
     public void setSmsSendService(ISmsSendService smsSendService) {
         this.smsSendService = smsSendService;
+    }
+
+    public IHouseOwnerService getHouseOwnerService() {
+        return houseOwnerService;
+    }
+
+    public void setHouseOwnerService(IHouseOwnerService houseOwnerService) {
+        this.houseOwnerService = houseOwnerService;
     }
 
 

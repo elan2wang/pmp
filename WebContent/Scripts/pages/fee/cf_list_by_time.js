@@ -16,19 +16,20 @@ $(function(){
 		url:url,
 		dataType:"json",
         colModel:[
-            { display: '小区', name: 'condoFeeItem', width: Width*0.15, sortable:true, align: 'center' },
-            { display: '房号', name: 'house', width: Width*0.08, sortable:true, align: 'center' },
-            { display: '业主', name: 'owner', width: Width*0.08, sortable:true, align: 'center' },
+            { display: '小区', name: 'condoFeeItem.project.proName', width: Width*0.15, sortable:true, align: 'center' },
+            { display: '房号', name: 'house.houseNum', width: Width*0.08, sortable:true, align: 'center' },
+            { display: '业主', name: 'owner.ownerName', width: Width*0.08, sortable:true, align: 'center' },
             { display: '月份', name: 'cfMonth', width: Width*0.04, sortable:true, align: 'center' },
             { display: '状态', name: 'state', width: Width*0.07, sortable:true, align: 'center' },
             { display: '应收金额', name: 'oughtMoney', width: Width*0.07, sortable:true, align: 'center' },
             { display: '实收金额', name: 'fetchMoney', width: Width*0.07, sortable:true, align: 'center' },
-            { display: '录入时间', name: 'inputTime', width: Width*0.12, sortable:true, align: 'center' },
+            { display: '录入时间', name: 'inputTime', width: Width*0.1, sortable:true, align: 'center' },
             { display: '备注', name: 'comment', width: Width*0.16, sortable:true, align: 'center' }
         ],
 		searchitems:[
- 		    { display: '房号', name: 'house', isdefault:false },
- 		    { display: '业主', name: 'owner', isdefault:false },
+		    { display: '小区', name: 'condoFeeItem.project.proName', isdefault:false },
+ 		    { display: '房号', name: 'house.houseNum', isdefault:false },
+ 		    { display: '业主', name: 'owner.ownerName', isdefault:false },
  		    { display: '状态', name: 'state', isdefault:true },
  		    { display: '录入时间', name: 'inputTime', isDefault:false}
 		],
