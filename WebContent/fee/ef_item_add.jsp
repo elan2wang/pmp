@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
 <script type="text/javascript" src="../Scripts/common/window.js"></script>
 <script type="text/javascript" src="../Scripts/common/select.js" ></script>
-<script type="text/javascript" src="../Scripts/pages/electricfee/ef_item_add.js" ></script>
+<script type="text/javascript" src="../Scripts/pages/fee/ef_item_add.js" ></script>
 </head>
 <body>
 <div class="wrap">
@@ -97,7 +97,11 @@
 	          <td width="20%" height="25" align="center" valign="middle"></td>
 	      </tr>
 	      <tr style="background-color:#FFC;">
-	          <td height="25" align="center" valign="middle"><input name="elevatortableNum" class="textbox1" id="elevatortableNum" style="width:60px" /></td>
+	          <td height="25" align="center" valign="middle">
+	                  <select id="buildNum" name="buildNum">
+	                          <s:action name="" executeResult="true" namespace="/fee" />
+	                  </select>
+	          </td>
               <td height="25" align="center" valign="middle"><input name="elevatorlastDegree" type="text" class="textbox1" id="elevatorlastDegree" style="width:60px"/></td>
               <td height="25" align="center" valign="middle"><input name="elevatornowDegree" type="text" class="textbox1" id="elevatornowDegree" style="width:60px"/></td>
               <td height="25" align="center" valign="middle"><input name="elevatordegreeFee" type="text" class="textbox1" id="elevatordegreeFee" style="width:60px"/></td>

@@ -86,19 +86,19 @@ function appendRowElev(){
 	table2height+=80;
 	$("#elevatorHeight").css("height",table2height+"px");
 	objtb=document.getElementById("elevatorList");
-	objNum=document.getElementById("elevatortableNum");
+	objNum=document.getElementById("buildNum");
 	objLast=document.getElementById("elevatorlastDegree");
 	objNow=document.getElementById("elevatornowDegree");
 	objFee=document.getElementById("elevatordegreeFee");
 	isnum1=/^[1-9]d*.d*|0.d*[1-9]d*|0?.0+|0$/;
 	isnum2=/^[1-9]d*$/;
 	ismoney=/^[0-9]+(.[0-9]{1,2})?$/;
-	if(isnum1.test(objNum.value)==false&&isnum2.test(objNum.value)==false){
+	/*if(isnum1.test(objNum.value)==false&&isnum2.test(objNum.value)==false){
 		alert("楼号不正确");
 		objNum.focus();
 		return false;
 	}
-	else if(isnum1.test(objLast.value)==false&&isnum2.test(objLast.value)==false){
+	else */if(isnum1.test(objLast.value)==false&&isnum2.test(objLast.value)==false){
 		alert("上次电梯表度数不正确");
 		objLast.focus();
 		return false;
@@ -123,9 +123,9 @@ function appendRowElev(){
 		newTd0.style.height="25px";
 		newTd1.style.height="25px";
 		newTd1.colSpan="4";
-		newTd0.innerHTML='<input type="hidden" name="builId" value="'+objNum.value+'"/>'+objNum.value;
+		newTd0.innerHTML='<input type="hidden" name="'+objNum.value+'" value="'+objNum.value+'"/>'+objNum.value;
 		newTd1.innerHTML='<div><table id="buidingTable'+objNum.value+'" width="100%" border="0" align="center" cellpadding="0" cellspacing="0">'+
-		    '<tr><td width="25%" style="height:25px">'+objLast.value+'</td><td width="25%">'+objNow.value+'</td><td width="25%">'+objFee.value+'</td><td width="25%"><a href="javascript:void(0)" onclick="javascript:removeRowBuild(this)" style="color:red;text-decoration:none;">删除</a></td></tr>'+
+		    '<tr><td width="25%" style="height:25px"><input type="hidden" name="lastdg" value="'+objLast.value+'"/>'+objLast.value+'</td><td width="25%"><input type="hidden" name="Nowdg" value="'+objNow.value+'"/>'+objNow.value+'</td><td width="25%"><input type="hidden" name="Feedg" value="'+objFee.value+'"/>'+objFee.value+'</td><td width="25%"><a href="javascript:void(0)" onclick="javascript:removeRowBuild(this)" style="color:red;text-decoration:none;">删除</a></td></tr>'+
 			'<tr><td style="height:25px">起始楼层</td><td>终止楼层</td><td>比例</td><td>楼层分摊</td></tr>'+
 			'<tr><td style="height:25px"><input type="text" style="width:80px"/></td><td><input type="text" style="width:80px" /></td><td><input type="text" style="width:80px"/></td><td><input type="button" value="添加" onclick="appendRowBuild(this)"/></td></tr>'+
 			'</table></div>';

@@ -24,44 +24,6 @@
 			length="1" />
 		<sql-type jdbc-type="VARCHAR" hibernate-type="string" />
 	</type-mapping>
-	<table-filter match-name="tb_ElectricFee" match-catalog="db_pmp2"
-		match-schema="dbo" package="org.pmp.vo">
-	</table-filter>
-	<table-filter match-name="tb_ElectricFeeCharge"
-		match-catalog="db_pmp2" match-schema="dbo" package="org.pmp.vo">
-	</table-filter>
-	<table-filter match-name="tb_ElectricFeeItem"
-		match-catalog="db_pmp2" match-schema="dbo" package="org.pmp.vo">
-	</table-filter>
-	<table-filter match-name="tb_LiftMeterItem" match-catalog="db_pmp2"
-		match-schema="dbo" package="org.pmp.vo">
-	</table-filter>
-	<table-filter match-name="tb_OperateDetail" match-catalog="db_pmp2"
-		match-schema="dbo" package="org.pmp.vo">
-	</table-filter>
-	<table-filter match-name="tb_OwnerRepair" match-catalog="db_pmp2"
-		match-schema="dbo" package="org.pmp.vo">
-	</table-filter>
-	<table-filter match-name="tb_ProMeterItem" match-catalog="db_pmp2"
-		match-schema="dbo" package="org.pmp.vo">
-	</table-filter>
-	<table-filter match-name="tb_RepairAttach" match-catalog="db_pmp2"
-		match-schema="dbo" package="org.pmp.vo">
-	</table-filter>
-	<table-filter match-name="tb_RepairFee" match-catalog="db_pmp2"
-		match-schema="dbo" package="org.pmp.vo">
-	</table-filter>
-	<table-filter match-name="tb_BuilFeeRate" match-catalog="db_pmp2"
-		match-schema="dbo" package="org.pmp.vo">
-	</table-filter>
-	<table catalog="db_pmp2" schema="dbo" name="tb_BuilFeeRate" class="BuilFeeRate"></table>
-	<table catalog="db_pmp2" schema="dbo" name="tb_RepairAttach" class="RepairAttach"></table>
-	<table catalog="db_pmp2" schema="dbo" name="tb_LiftMeterItem" class="LiftMeterItem"></table>
-	<table catalog="db_pmp2" schema="dbo" name="tb_ElectricFee" class="ElectricFee"></table>
-	<table catalog="db_pmp2" schema="dbo" name="tb_OwnerRepair" class="OwnerRepair"></table>
-	<table catalog="db_pmp2" schema="dbo" name="tb_ElectricFeeItem" class="ElectricFeeItem"></table>
-	<table catalog="db_pmp2" schema="dbo" name="tb_ProMeterItem" class="ProMeterItem"></table>
-	<table catalog="db_pmp2" schema="dbo" name="tb_OperateDetail" class="OperateDetail"></table>
-	<table catalog="db_pmp2" schema="dbo" name="tb_RepairFee" class="RepairFee"></table>
-	<table catalog="db_pmp2" schema="dbo" name="tb_ElectricFeeCharge" class="ElectricFeeCharge"></table>
+	
+	
 </hibernate-reverse-engineering>
