@@ -51,7 +51,7 @@ function makeRequest(){
 					time=content["receiveTime"];
 					var zone=new ZoneFireInfo(content["zoneId"],content["deviceNumber"],'call');
 					setDeviceNum(zone);zone=null;
-					 $("#alarm_data").append("<p id="+devices+"><a href='javascript:linkZone("+zoneID+");'>警报数据:  场地ID "+zoneID+"  设备ID "+devices+" 时间："+time+"</a></p>");
+					 $("#alarm_data").append("<p id="+devices+"><a href='javascript:linkZone("+zoneID+");'>报警:&nbsp;&nbsp;场地ID "+zoneID+"  设备ID "+devices+" 时间："+time+"</a></p>");
 					});
 				$.each(data.warnFireInfos, function( i,content ){
 					devices=content["deviceNumber"];
@@ -59,7 +59,7 @@ function makeRequest(){
 					time=content["receiveTime"];
 					var zone=new ZoneFireInfo(content["zoneId"],content["deviceNumber"],'warn');
 					setDeviceNum(zone);zone=null;
-					$("#abnormal_data").append("<p id="+devices+"><a href='javascript:linkZone("+zoneID+");'>异常数据:  场地ID "+zoneID+"  设备ID "+devices+"  时间："+time+"</a></p>");
+					$("#abnormal_data").append("<p id="+devices+"><a href='javascript:linkZone("+zoneID+");'>异常:&nbsp;&nbsp;场地ID "+zoneID+"  设备ID "+devices+"  时间："+time+"</a></p>");
 				});
 				
 				if($("#alarm").attr("src")==""&&data.callFireInfos.length>0)

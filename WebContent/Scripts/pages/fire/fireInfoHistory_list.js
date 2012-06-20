@@ -9,13 +9,13 @@ $(function(){
 		url:"fire/loadFireInfoBakList",
 		dataType:"json",
         colModel:[
-            { display: '所属场地', name: 'zone', width: Width*0.1, sortable:true, align: 'center' },
+            { display: '所属场地', name: 'zone.zoneName', width: Width*0.1, sortable:true, align: 'center' },
             { display: '设备编号', name: 'deviceNumber', width: Width*0.1, sortable:true, align: 'center' },
             { display: '接受数据时间', name: 'receiveTime', width: Width*0.2, sortable:true, align: 'center' },
             { display: '接受数据内容', name: 'receiveInfo', width: Width*0.1, sortable:true, align: 'center' },
             { display: '处理状态', name: 'state', width: Width*0.1, sortable:true, align: 'center' },
             { display: '处理时间', name: 'disposeTime', width: Width*0.2, sortable:true, align: 'center' },
-            { display: '处理人', name: 'tbUser', width: Width*0.1, sortable:true, align: 'center' }
+            { display: '处理人', name: 'tbUser.realname', width: Width*0.1, sortable:true, align: 'center' }
         ],
         buttons:[
                  { name: '删除历史记录', bclass:'delete', onpress: ownerDelete }

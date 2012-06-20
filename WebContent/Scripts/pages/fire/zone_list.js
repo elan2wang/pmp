@@ -11,7 +11,7 @@ $(function(){
 		dataType:"json",
         colModel:[
             { display: '场地名称', name: 'zoneName', width: Width*0.1, sortable:true, align: 'center' },
-            { display: '所属小区', name: 'project', width: Width*0.1, sortable:true, align: 'center' },
+            { display: '所属小区', name: 'project.proName', width: Width*0.1, sortable:true, align: 'center' },
             { display: '类型', name: 'zoneType', width: Width*0.1, sortable:true, align: 'center' },
             { display: '图片地址', name: 'zoneImgUrl', width: Width*0.1, sortable:true, align: 'center' },
             { display: '配置文件地址', name: 'zoneConfigUrl', width: Width*0.1, sortable:true, align: 'center' },

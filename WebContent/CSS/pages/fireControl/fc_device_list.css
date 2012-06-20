@@ -23,14 +23,14 @@ body{
 }
 .wrap .bottom_left{
 	float:left;
-	height:100px;
+	height:55px;
 	border-right:1px solid lightblue;
 	width:50%;
 	overflow-y:scroll;
 }
 .wrap .bottom_right{
 	float:left;
-	height:100px;
+	height:55px;
 	width:49%;
 	overflow-y:scroll;
 }
@@ -38,7 +38,7 @@ body{
 	border:1px solid lightblue;
 	margin:10px;
 
-	height:100px;
+	height:58px;
 	
 }
 .wrap .bottom a{

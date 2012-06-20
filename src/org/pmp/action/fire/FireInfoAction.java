@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.pmp.json.Includer;
+import org.pmp.json.MyJson;
 import org.pmp.service.business.IProjectService;
 import org.pmp.service.fire.IFireInfoBakService;
 import org.pmp.service.fire.IFireInfoService;
@@ -136,14 +138,15 @@ public class FireInfoAction extends ActionSupport{
 		 
 		 List<FireInfoBak> fireInfoBaks=fireInfoBakService.loadFireInfoBakListByProIdList(proIdList, params, order, pager);
          
-		 String[] attrs = {"zone","deviceNumber","receiveTime","receiveInfo","state","disposeTime","tbUser"};
+		 String[] attrs = {"fireId","zone.zoneName","deviceNumber","receiveTime","receiveInfo","state","disposeTime","tbUser.realname"};
 		 
 		 List<String> show = Arrays.asList(attrs);
 		 
-		 String data = JsonConvert.list2FlexJson(pager, fireInfoBaks, "org.pmp.vo.FireInfoBak", show);
-		 
+		 Includer includer = new Includer(show);
+		 MyJson json = new MyJson(includer);
+	     
+		 String data = json.toJson(fireInfoBaks, "", pager);
 		 logger.debug(data);
-		 
 		 JsonConvert.output(data);
 	}
 	

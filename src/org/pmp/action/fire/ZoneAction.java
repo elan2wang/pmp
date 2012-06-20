@@ -20,6 +20,8 @@ import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.jdom.JDOMException;
 import org.pmp.dao.fire.IZoneDAO;
+import org.pmp.json.Includer;
+import org.pmp.json.MyJson;
 import org.pmp.service.business.IProjectService;
 import org.pmp.service.fire.IFireDeviceService;
 import org.pmp.service.fire.IFireInfoService;
@@ -136,7 +138,7 @@ public class ZoneAction extends ActionSupport{
 		 } else{
 		       order = "order by zoneId desc";
 		 }
-		 
+         
 		 List<Integer> proIdList=new ArrayList();
 		 
     	 if(obj instanceof Company){
@@ -156,14 +158,15 @@ public class ZoneAction extends ActionSupport{
     	 
 		 List<Zone> zoneList=zoneService.loadZoneListByProIdList(proIdList,params,order,pager);
 		 
-		 String[] attrs = {"zoneName","project","zoneType","zoneImgUrl","zoneConfigUrl","zoneDesc"};
+		 String[] attrs = {"zoneId","zoneName","project.proName","zoneType","zoneImgUrl","zoneConfigUrl","zoneDesc"};
 		 
 		 List<String> show = Arrays.asList(attrs);
 		 
-		 String data = JsonConvert.list2FlexJson(pager, zoneList, "org.pmp.vo.Zone", show);
+		 Includer includer = new Includer(show);
+		 MyJson json = new MyJson(includer);
 		
+		 String data = json.toJson(zoneList, "", pager);
 		 logger.debug(data);
-		 
 		 JsonConvert.output(data);
     }
 
