@@ -39,10 +39,10 @@ function appendRow(){
 		newTr.style.textAlign="center";
 		newTr.id="td"+rowIndex;
 		newTd0.style.height="25px";
-		newTd0.innerHTML="<input name=\"mtNum"+rowIndex+"\" type=\"hidden\" id=\"mtNum"+rowIndex+"\" value=\""+objNum.value+"\"/>"+objNum.value;
-		newTd1.innerHTML="<input name=\"mtLast"+rowIndex+"\" type=\"hidden\" id=\"mtLast"+rowIndex+"\" value=\""+objLast.value+"\"/>"+objLast.value;
-		newTd2.innerHTML="<input name=\"mtNow"+rowIndex+"\" type=\"hidden\" id=\"mtNow"+rowIndex+"\" value=\""+objNow.value+"\"/>"+objNow.value;
-		newTd3.innerHTML="<input name=\"mtFee"+rowIndex+"\" type=\"hidden\" id=\"mtFee"+rowIndex+"\" value=\""+objFee.value+"\"/>"+objFee.value;
+		newTd0.innerHTML="<input name=\"proMeterItem.pmNum\" type=\"hidden\" id=\"mtNum"+rowIndex+"\" value=\""+objNum.value+"\"/>"+objNum.value;
+		newTd1.innerHTML="<input name=\"proMeterItem.beginDegree\" type=\"hidden\" id=\"mtLast"+rowIndex+"\" value=\""+objLast.value+"\"/>"+objLast.value;
+		newTd2.innerHTML="<input name=\"proMeterItem.endDegree\" type=\"hidden\" id=\"mtNow"+rowIndex+"\" value=\""+objNow.value+"\"/>"+objNow.value;
+		newTd3.innerHTML="<input name=\"proMeterItem.price\" type=\"hidden\" id=\"mtFee"+rowIndex+"\" value=\""+objFee.value+"\"/>"+objFee.value;
 		newTd4.innerHTML="<a href=\"javascript:removeRow("+rowIndex+")\" style=\"color:red;text-decoration:none;\">删除</a>";
 		rowIndex++;
 		table1height+=25;
@@ -119,9 +119,9 @@ function appendRowElev(){
 		newTd0.style.height="25px";
 		newTd1.style.height="25px";
 		newTd1.colSpan="4";
-		newTd0.innerHTML='<input type="hidden" name="buildingNum'+rowIndex2+'" value="'+objNum.value+'"/>'+objNum.value;
+		newTd0.innerHTML='<input type="hidden" name="builId" value="'+objNum.value+'"/>'+objNum.value;
 		newTd1.innerHTML='<div><table id="buidingTable'+objNum.value+'" width="100%" border="0" align="center" cellpadding="0" cellspacing="0">'+
-		'<tr><td width="25%" style="height:25px">'+objLast.value+'</td><td width="25%">'+objNow.value+'</td><td width="25%">'+objFee.value+'</td><td width="25%"><a href="javascript:void(0)" onclick="javascript:removeRowBuild(this)" style="color:red;text-decoration:none;">删除</a></td></tr>'+
+		    '<tr><td width="25%" style="height:25px">'+objLast.value+'</td><td width="25%">'+objNow.value+'</td><td width="25%">'+objFee.value+'</td><td width="25%"><a href="javascript:void(0)" onclick="javascript:removeRowBuild(this)" style="color:red;text-decoration:none;">删除</a></td></tr>'+
 			'<tr><td style="height:25px">起始楼层</td><td>终止楼层</td><td>比例</td><td>楼层分摊</td></tr>'+
 			'<tr><td style="height:25px"><input type="text" style="width:80px"/></td><td><input type="text" style="width:80px" /></td><td><input type="text" style="width:80px"/></td><td><input type="button" value="添加" onclick="appendRowBuild(this)"/></td></tr>'+
 			'</table></div>';

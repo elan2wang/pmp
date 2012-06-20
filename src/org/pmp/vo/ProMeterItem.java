@@ -9,6 +9,7 @@ public class ProMeterItem implements java.io.Serializable {
 
     private Integer pmiId;
     private ElectricFeeItem electricFeeItem;
+    private String pmNum;
     private Double beginDegree;
     private Double endDegree;
     private Double price;
@@ -22,11 +23,12 @@ public class ProMeterItem implements java.io.Serializable {
 	this.pmiId = pmiId;
     }
 
-    public ProMeterItem(Integer pmiId, ElectricFeeItem electricFeeItem,
+    public ProMeterItem(Integer pmiId, ElectricFeeItem electricFeeItem,String pmNum,
 	    Double beginDegree, Double endDegree, Double price,
 	    Double totalMoney, String comment) {
 	this.pmiId = pmiId;
 	this.electricFeeItem = electricFeeItem;
+	this.pmNum = pmNum;
 	this.beginDegree = beginDegree;
 	this.endDegree = endDegree;
 	this.price = price;
@@ -48,6 +50,14 @@ public class ProMeterItem implements java.io.Serializable {
 
     public void setElectricFeeItem(ElectricFeeItem electricFeeItem) {
 	this.electricFeeItem = electricFeeItem;
+    }
+
+    public String getPmNum() {
+        return pmNum;
+    }
+
+    public void setPmNum(String pmNum) {
+        this.pmNum = pmNum;
     }
 
     public Double getBeginDegree() {
