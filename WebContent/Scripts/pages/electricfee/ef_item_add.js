@@ -93,8 +93,12 @@ function appendRowElev(){
 	isnum1=/^[1-9]d*.d*|0.d*[1-9]d*|0?.0+|0$/;
 	isnum2=/^[1-9]d*$/;
 	ismoney=/^[0-9]+(.[0-9]{1,2})?$/;
-	objNum.value=rowIndex2;
-	if(isnum1.test(objLast.value)==false&&isnum2.test(objLast.value)==false){
+	if(isnum1.test(objNum.value)==false&&isnum2.test(objNum.value)==false){
+		alert("楼号不正确");
+		objNum.focus();
+		return false;
+	}
+	else if(isnum1.test(objLast.value)==false&&isnum2.test(objLast.value)==false){
 		alert("上次电梯表度数不正确");
 		objLast.focus();
 		return false;
@@ -128,7 +132,7 @@ function appendRowElev(){
 		rowIndex2++;
 		
 		updateRow();
-		objNum.innerHTML=rowIndex;
+		objNum.innerHTML="";
 		objLast.value="";
 		objNow.value="";
 		objFee.value="";
@@ -159,20 +163,20 @@ function appendRowBuild(the){
 	   var firstFloor=inputs[0];
 	   var lastFloor=inputs[1];
 	   var rate=inputs[2];
-	   isnum1=/^[1-9]d*.d*|0.d*[1-9]d*|0?.0+|0$/;
-	   isnum2=/^[1-9]d*$/;
-	   if(isnum1.test(firstFloor.value)==false&&isnum2.test(firstFloor.value)==false){
+	   isnum2=/^[1-9]\d*$/;
+	   israte=/^[0](.[0-9]{1,2})?$/;
+	   if(isnum2.test(firstFloor.value)==false){
 			alert("起始楼层数不正确");
 			objLast.focus();
 			return false;
 		}
-		else if(isnum1.test(lastFloor.value)==false&&isnum2.test(lastFloor.value)==false){
+		else if(isnum2.test(lastFloor.value)==false){
 			alert("终止楼层数不正确");
 			objNow.focus();
 			return false;
 		}
-		else if(isnum1.test(lastFloor.value)==false&&isnum2.test(lastFloor.value)==false){
-			alert("比例不正确");
+		else if(israte.test(rate.value)==false){
+			alert("比例不正确,应该是0-1的小数 比如0.5");
 			objNow.focus();
 			return false;
 		}

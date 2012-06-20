@@ -56,7 +56,7 @@ function openAttach(obj){
 function printAttach(obj){
 	alert("print Attachment");
 	url="mt_manage_print.jsp?id="+obj.attr("id").substr(3);
-	window.open(url);
+	window.open(url);//打开另外一个链接
 }
 function deleteMaintain(){
 	var rowid,idString="";

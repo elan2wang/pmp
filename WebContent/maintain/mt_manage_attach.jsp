@@ -4,6 +4,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="../Scripts/component/AjaxFileUploader/ajaxfileupload.js"></script>
+<script type="text/javascript" src="../Scripts/pages/maintain/mt_manage_attach.js"></script>
 <title>维修单附件</title>
 <script language="javascript">
    
@@ -35,17 +37,22 @@
           <td height="30" colspan="3" align="center" valign="middle"><strong>附件上传</strong>（限doc,docx,pdf,xls,xlsx,jpg,gif格式，5M大小）</td>
           </tr>
         <tr>
-          <td width="280" height="28" align="center" valign="middle"><input type="file" ID="FileUpload1"/></td>
-          <td align="center" valign="middle"><input type="button" id="bt_upload"  value="上传" /></td>
+          <td width="280" height="28" align="center" valign="middle"><input type="file" id="refFile"/></td>
+          <td align="center" valign="middle"><input type="button" id="bt_upload" onclick="uploadAttach()" value="上传" /></td>
         </tr>        
         <tr>
           <td height="30" colspan="3" align="center" valign="middle"><strong>已上传附件</strong></td>
         </tr>
         <tr>
           <td height="125" colspan="3" align="center" valign="middle">
-          <div style="width:100%; height:125px; overflow-y:auto;">
-          <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table1" style="border:0px;">
-        
+          <div style="width:100%; height:25px; overflow-y:auto;">
+          <table id="uploadedList" width="100%" border="0" cellpadding="0" cellspacing="0" class="table1" style="border:0px;">
+            <tr>
+              <td>文件名称</td>
+              <td><div style="display:none">文件id</div>
+                <a href="javascript:void(0)" onclick="javascript:removeRow(this)" style="color:red;text-decoration:none;">删除</a>
+              </td>
+            </tr>
           </table>
           </div>
           </td>
