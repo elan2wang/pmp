@@ -42,6 +42,10 @@ $(function(){
      	    { display: '用户组', name : 'tbGroup.groupName' },
      	    { display: '角色', name : 'tbRole.roleName' }
      	],
+     	searchQueryStrs:[
+     	                 {name:'username',queryStrName:'userNameStr'},
+     	                {name:'realname',queryStrName:'realNameStr'}
+     	],
      	showSearch:true,
 		height:Height*0.82,
         showcheckbox:true,
