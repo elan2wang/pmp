@@ -9,6 +9,7 @@ public class BuilFeeRate implements java.io.Serializable {
 
     private Integer bfrId;
     private Building building;
+    private ElectricFeeItem electricFeeItem;
     private Integer beginFloor;
     private Integer endFloor;
     private Double rate;
@@ -22,9 +23,10 @@ public class BuilFeeRate implements java.io.Serializable {
     }
 
     public BuilFeeRate(Integer bfrId, Building building, Integer beginFloor,
-	    Integer endFloor, double rate) {
+	    Integer endFloor, double rate,ElectricFeeItem electricFeeItem) {
 	this.bfrId = bfrId;
 	this.building = building;
+	this.electricFeeItem = electricFeeItem;
 	this.beginFloor = beginFloor;
 	this.endFloor = endFloor;
 	this.rate = rate;
@@ -60,6 +62,14 @@ public class BuilFeeRate implements java.io.Serializable {
 
     public void setBuilding(Building building) {
         this.building = building;
+    }
+
+    public ElectricFeeItem getElectricFeeItem() {
+        return electricFeeItem;
+    }
+
+    public void setElectricFeeItem(ElectricFeeItem electricFeeItem) {
+        this.electricFeeItem = electricFeeItem;
     }
 
     public Double getRate() {

@@ -21,7 +21,7 @@ import org.pmp.vo.BuilFeeRate;
  * @version 1.0
  * @update TODO
  */
-public interface IBuilFeeRate {
+public interface IBuilFeeRateDAO {
     public void batchSaveBuilFeeRate(List<BuilFeeRate> list);
     
     public List<BuilFeeRate> loadBuilFeeRateList_ByEFIandBuilID(Integer efiId, Integer builId);

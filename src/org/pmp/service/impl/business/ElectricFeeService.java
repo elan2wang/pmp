@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.pmp.dao.business.IElectricFeeDAO;
 import org.pmp.service.business.IElectricFeeService;
 import org.pmp.util.Pager;
 import org.pmp.vo.ElectricFee;
@@ -31,7 +32,7 @@ public class ElectricFeeService implements IElectricFeeService {
     private static Logger logger = Logger.getLogger(ElectricFeeService.class.getName());
 
     //~ Instance Fields ================================================================================================
-
+    private IElectricFeeDAO electricFeeDAO;
     //~ Methods ========================================================================================================
 
     /**
@@ -39,8 +40,7 @@ public class ElectricFeeService implements IElectricFeeService {
      */
     @Override
     public void generateElectricFee(Integer efiId) {
-	// TODO Auto-generated method stub
-
+	electricFeeDAO.generateElectricFee(efiId);
     }
 
     /**
@@ -48,8 +48,7 @@ public class ElectricFeeService implements IElectricFeeService {
      */
     @Override
     public void batchEditElectricFee(List<ElectricFee> list) {
-	// TODO Auto-generated method stub
-
+	electricFeeDAO.batchUpdateElectricFee(list);
     }
 
     /**
@@ -57,8 +56,7 @@ public class ElectricFeeService implements IElectricFeeService {
      */
     @Override
     public void batchDeleteElectricFee(List<ElectricFee> list) {
-	// TODO Auto-generated method stub
-
+	electricFeeDAO.batchDeleteElectricFee(list);
     }
 
     /**
@@ -67,8 +65,7 @@ public class ElectricFeeService implements IElectricFeeService {
     @Override
     public List<ElectricFee> loadElectricFeeList_ByEFI(Integer efiId,
 	    Map<String, Object> params, String order, Pager pager) {
-	// TODO Auto-generated method stub
-	return null;
+	return electricFeeDAO.loadElectricFeeList_ByEFI(efiId, params, order, pager);
     }
 
     /**
@@ -77,8 +74,7 @@ public class ElectricFeeService implements IElectricFeeService {
     @Override
     public List<ElectricFee> loadElectricFeeList_ByCompany(Integer comId,
 	    Map<String, Object> params, String order, Pager pager) {
-	// TODO Auto-generated method stub
-	return null;
+	return electricFeeDAO.loadElectricFeeList_ByCompany(comId, params, order, pager);
     }
 
     /**
@@ -87,9 +83,16 @@ public class ElectricFeeService implements IElectricFeeService {
     @Override
     public List<ElectricFee> loadElectricFeeList_ByProject(Integer proId,
 	    Map<String, Object> params, String order, Pager pager) {
-	// TODO Auto-generated method stub
-	return null;
+	return electricFeeDAO.loadElectricFeeList_ByProject(proId, params, order, pager);
     }
     //~ Getters and Setters ============================================================================================
+
+    public IElectricFeeDAO getElectricFeeDAO() {
+        return electricFeeDAO;
+    }
+
+    public void setElectricFeeDAO(IElectricFeeDAO electricFeeDAO) {
+        this.electricFeeDAO = electricFeeDAO;
+    }
 
 }

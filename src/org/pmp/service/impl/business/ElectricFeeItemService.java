@@ -15,6 +15,8 @@ package org.pmp.service.impl.business;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.pmp.dao.business.IElectricFeeDAO;
+import org.pmp.dao.business.IElectricFeeItemDAO;
 import org.pmp.service.business.IElectricFeeItemService;
 import org.pmp.util.Pager;
 import org.pmp.vo.ElectricFeeItem;
@@ -30,7 +32,9 @@ public class ElectricFeeItemService implements IElectricFeeItemService {
     private static Logger logger = Logger.getLogger(ElectricFeeItem.class.getName());
 
     //~ Instance Fields ================================================================================================
-
+    private IElectricFeeItemDAO electricFeeItemDAO;
+    private IElectricFeeDAO electricFeeDAO;
+    
     //~ Methods ========================================================================================================
 
     /**
@@ -38,7 +42,7 @@ public class ElectricFeeItemService implements IElectricFeeItemService {
      */
     @Override
     public void addElectricFeeItem(ElectricFeeItem instance) {
-	// TODO Auto-generated method stub
+	electricFeeItemDAO.saveElectricFeeItem(instance);
 
     }
 
@@ -47,8 +51,7 @@ public class ElectricFeeItemService implements IElectricFeeItemService {
      */
     @Override
     public void deleteElectricFeeItem(ElectricFeeItem instance) {
-	// TODO Auto-generated method stub
-
+	electricFeeItemDAO.deleteElectricFeeItem(instance);
     }
 
     /**
@@ -56,8 +59,7 @@ public class ElectricFeeItemService implements IElectricFeeItemService {
      */
     @Override
     public org.pmp.vo.ElectricFeeItem getElectricFeeItemByID(Integer efiId) {
-	// TODO Auto-generated method stub
-	return null;
+	return electricFeeItemDAO.getElectricFeeItemByID(efiId);
     }
 
     /**
@@ -66,10 +68,25 @@ public class ElectricFeeItemService implements IElectricFeeItemService {
     @Override
     public List<org.pmp.vo.ElectricFeeItem> loadElectricFeeItemList_ByCompany(
 	    Integer comId, String order, Pager pager) {
-	// TODO Auto-generated method stub
-	return null;
+	return electricFeeItemDAO.loadElectricFeeItemList_ByCompany(comId, order, pager);
     }
 
     //~ Getters and Setters ============================================================================================
+
+    public IElectricFeeItemDAO getElectricFeeItemDAO() {
+        return electricFeeItemDAO;
+    }
+
+    public void setElectricFeeItemDAO(IElectricFeeItemDAO electricFeeItemDAO) {
+        this.electricFeeItemDAO = electricFeeItemDAO;
+    }
+
+    public IElectricFeeDAO getElectricFeeDAO() {
+        return electricFeeDAO;
+    }
+
+    public void setElectricFeeDAO(IElectricFeeDAO electricFeeDAO) {
+        this.electricFeeDAO = electricFeeDAO;
+    }
 
 }
