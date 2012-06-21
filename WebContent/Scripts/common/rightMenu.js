@@ -76,9 +76,9 @@ $.fn.extend(
 												
 												if(mh<h+my){my=mh-h;}//超 高
 												
-												if(mw<w+mx){mx=mw-w;}//超 宽
+												//if(mw<w+mx){mx=mw-w;}//超 宽
 												
-											//	$("#"+id).hide().css({top:my,left:mx}).show();
+												$("#"+id).hide().css({top:my,left:mx}).show();
 						
 						                    }
 				

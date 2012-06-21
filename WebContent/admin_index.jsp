@@ -44,7 +44,6 @@ a{
        </div>
        <div class="clear"></div>
    </div><!-- 结束标签 class="index_top"-->
-   <div class="clear"></div>
    <div id="index_main" class="index_main">
        <div class="index_main_top"><img src="Images/blank11.gif" width="6" height="6" /></div>
        <div class="index_main_left">

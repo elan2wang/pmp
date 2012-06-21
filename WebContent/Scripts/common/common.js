@@ -23,11 +23,23 @@ else
 
 //更改content的高度
 function ChangeHeight(width,height,classname){
-	//alert("进来了+"+height+document.getElementsByClassName("left_main"));
 	var arr=getElementsByClassName(classname);
+	var h=0;
+	if(nv.userAgent.indexOf("MSIE")>=1)
+	{
+		h=52;
+	}
+	else if(nv.userAgent.indexOf("Firefox")>=1)
+	{
+		h=47;
+	}
+	else
+	{
+		h=47;
+	}
 	for(var i=0;i<arr.length;i++)
 	{
-		arr[i].style.height=(height-47)+'px';
+		arr[i].style.height=(height-h)+'px';
 	}
 }
 function getElementsByClassName(className){

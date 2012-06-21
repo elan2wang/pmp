@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
 <script type="text/javascript" src="../Scripts/common/window.js"></script>
 <script type="text/javascript" src="../Scripts/pages/fix/fix_owner_list.js"></script>
-<script type="text/javascript" src="../Scripts/pages/fix/fix_owner_add.js"></script>
+
 <title>物业费管理</title>
 </head>
 <body>
@@ -27,7 +27,7 @@
   <div class="content_main">
       <table id="managelist">
       </table>
-      <div id="newMaintain" class="easyui-window" href="mt_manage_add.jsp" title="添加维修单" iconCls="icon-save" style="width:600px;height:350px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
+      <div id="newMaintain" class="easyui-window" href="fix_owner_edit.jsp" title="添加维修单" iconCls="icon-save" style="width:600px;height:350px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
   	  </div>
   	  <div id="editMaintain" class="easyui-window" href="" title="编辑维修单" iconCls="icon-save" style="width:310px;height:350px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
   	  </div>
