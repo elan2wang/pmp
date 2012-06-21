@@ -91,13 +91,13 @@ public class ElectricFeeItemAction extends ActionSupport {
 	//创建并保存小区电表记录对象
 	for(int i=0;i<pmNum.length;i++){
 	    ProMeterItem pmi = new ProMeterItem();
-	    beginDegree = Double.parseDouble(pmBeginDegree[i].toString());
-	    endDegree = Double.parseDouble(pmEndDegree[i].toString());
-	    price = Double.parseDouble(pmPrice[i].toString());
+	    beginDegree = Double.parseDouble(pmBeginDegree[i].trim());
+	    endDegree = Double.parseDouble(pmEndDegree[i].trim());
+	    price = Double.parseDouble(pmPrice[i].trim());
 	    pmi.setBeginDegree(beginDegree);
 	    pmi.setEndDegree(endDegree);
 	    pmi.setPrice(price);
-	    pmi.setPmNum(pmNum[i].toString());
+	    pmi.setPmNum(pmNum[i].trim());
 	    pmi.setElectricFeeItem(electricFeeItem);
 	    pmi.setTotalMoney((endDegree-beginDegree)*price);
 	    pmiList.add(pmi);
@@ -108,9 +108,9 @@ public class ElectricFeeItemAction extends ActionSupport {
 	for(int i=0;i<builId.length;i++){
 	    LiftMeterItem lmi = new LiftMeterItem();
 	    lmi.setBuilding(buildingService.getBuildingById(builId[i]));
-	    beginDegree = Double.parseDouble(lmBeginDegree[i].toString());
-	    endDegree = Double.parseDouble(lmEndDegree[i].toString());
-	    price = Double.parseDouble(lmPrice[i].toString());
+	    beginDegree = Double.parseDouble(lmBeginDegree[i].trim());
+	    endDegree = Double.parseDouble(lmEndDegree[i].trim());
+	    price = Double.parseDouble(lmPrice[i].trim());
 	    lmi.setBeginDegree(beginDegree);
 	    lmi.setEndDegree(endDegree);
 	    lmi.setPrice(price);
@@ -123,9 +123,9 @@ public class ElectricFeeItemAction extends ActionSupport {
 	//创建并保存楼层段收费倍率对象
 	for(int i=0;i<bfrBuilId.length;i++){
 	   BuilFeeRate bfr = new BuilFeeRate();
-	   bfr.setBeginFloor(Integer.parseInt(beginFloor[i].toString()));
-	   bfr.setEndFloor(Integer.parseInt(endFloor[i].toString()));
-	   bfr.setRate(Double.parseDouble(rate[i].toString()));
+	   bfr.setBeginFloor(beginFloor[i]);
+	   bfr.setEndFloor(endFloor[i]);
+	   bfr.setRate(Double.parseDouble(rate[i].trim()));
 	   bfr.setBuilding(buildingService.getBuildingById(bfrBuilId[i]));
 	   bfr.setElectricFeeItem(electricFeeItem);
 	   bfrList.add(bfr);

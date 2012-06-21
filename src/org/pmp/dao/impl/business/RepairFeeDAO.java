@@ -72,7 +72,7 @@ public class RepairFeeDAO extends BaseDAO implements IRepairFeeDAO {
     @Override
     public List<RepairFee> loadRepairFeeList_ByOP(Integer opId) {
 	String debugMsg = "load repairFee list by OwnerRepair, opId="+opId;
-	String hql = "from RepairFee where ownerRepair.opId="+opId+" order by opId desc";
+	String hql = "from RepairFee where ownerRepair.opId="+opId+" order by rfId desc";
 	List<RepairFee> list = null;
 	try {
 	    list = (List<RepairFee>) loadListByCondition(hql, new Pager(1000,1), debugMsg);

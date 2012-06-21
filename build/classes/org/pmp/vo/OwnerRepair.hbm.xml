@@ -11,6 +11,12 @@
         <many-to-one name="houseOwner" class="org.pmp.vo.House" fetch="select" lazy="false">
             <column name="HO_ID" />
         </many-to-one>
+        <property name="applyPerson" type="string">
+            <column name="Apply_Person" length="50" />
+        </property>
+        <property name="contactPhone" type="string">
+            <column name="Contact_Phone" length="50" />
+        </property>
         <property name="opNum" type="string">
             <column name="OP_Num" length="20" />
         </property>

@@ -22,7 +22,10 @@
   <bean id="builFeeRateDAO" class="org.pmp.dao.impl.business.BuilFeeRateDAO" parent="baseDAO"/>
   <bean id="electricFeeItemDAO" class="org.pmp.dao.impl.business.ElectricFeeItemDAO" parent="baseDAO"/>
   <bean id="electricFeeDAO" class="org.pmp.dao.impl.business.ElectricFeeDAO" parent="baseDAO"/>
-  
+  <bean id="ownerRepairDAO" class="org.pmp.dao.impl.business.OwnerRepairDAO" parent="baseDAO"/>
+  <bean id="repairFeeDAO" class="org.pmp.dao.impl.business.RepairFeeDAO" parent="baseDAO"/>
+  <bean id="repairAttachDAO" class="org.pmp.dao.impl.business.RepairAttachDAO" parent="baseDAO"/>
+  <bean id="operateDetailDAO" class="org.pmp.dao.impl.business.OperateDetailDAO" parent="baseDAO"/>
 
   
   <!-- Service Declare ==========================================================================================-->
@@ -99,6 +102,22 @@
     <property name="electricFeeDAO" ref="electricFeeDAO" />
   </bean>
   
+  <bean id="ownerRepairService" class="org.pmp.service.impl.business.OwnerRepairService">
+    <property name="ownerRepairDAO" ref="ownerRepairDAO" />
+  </bean>
+  
+  <bean id="repairFeeService" class="org.pmp.service.impl.business.RepairFeeService">
+    <property name="repairFeeDAO" ref="repairFeeDAO" />
+  </bean>
+  
+  <bean id="repairAttachService" class="org.pmp.service.impl.business.RepairAttachService">
+    <property name="repairAttachDAO" ref="repairAttachDAO" />
+  </bean>
+  
+  <bean id="operateDetailService" class="org.pmp.service.impl.business.OperateDetailService">
+    <property name="operateDetailDAO" ref="operateDetailDAO" />
+  </bean>
+  
   <!-- Action Declare =====================================================================================-->
   <bean id="companyAction" class="org.pmp.action.business.CompanyAction">
     <property name="companyService" ref="companyService" />
@@ -172,4 +191,10 @@
     <property name="buildingService" ref="buildingService" />
     <property name="projectService" ref="projectService" />
   </bean>
+  
+  <bean id="ownerRepairAction" class="org.pmp.action.business.OwnerRepairAction">
+    <property name="ownerRepairService" ref="ownerRepairService" />
+    <property name="houseOwnerService" ref="houseOwnerService" />
+  </bean>
+  
 </beans>

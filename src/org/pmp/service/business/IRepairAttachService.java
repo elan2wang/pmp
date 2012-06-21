@@ -1,6 +1,6 @@
 /**
  * Author            : Elan
- * Created On        : 2012-6-21 下午03:17:45
+ * Created On        : 2012-6-21 下午04:09:05
  * 
  * Copyright 2012.  All rights reserved. 
  *
@@ -10,7 +10,7 @@
  * ----------    -------------  --------------------------------------------
  * 
  */
-package org.pmp.dao.business;
+package org.pmp.service.business;
 
 import java.util.List;
 
@@ -21,8 +21,8 @@ import org.pmp.vo.RepairAttach;
  * @version 1.0
  * @update TODO
  */
-public interface IRepairAttachDAO {
-    public void saveRepairAttach(RepairAttach instance);
+public interface IRepairAttachService {
+    public void addRepairAttach(RepairAttach instance);
     
     public void deleteRepairAttach(RepairAttach instance);
     
