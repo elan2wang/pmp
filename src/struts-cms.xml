@@ -76,6 +76,10 @@
 		<result name="success">/cms/projectSelect.jsp</result>
 	</action>
 	
+    <action name="getOnlyProjectBySessionHander" class="org.pmp.action.business.ProjectAction" method="getProjectBySessionHander">
+		<result name="success">/cms/projectOnlySelect.jsp</result>
+	</action>
+	
 	<action name="update_Project" class="org.pmp.action.business.ProjectAction" method="updateProject">
 		<result name="success">/cms/project_list.jsp</result>
 	</action>

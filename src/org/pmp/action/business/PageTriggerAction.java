@@ -28,6 +28,7 @@ import org.pmp.service.business.IProjectService;
 import org.pmp.util.JsonConvert;
 import org.pmp.util.Pager;
 import org.pmp.util.SessionHandler;
+import org.pmp.vo.Building;
 import org.pmp.vo.Company;
 import org.pmp.vo.Project;
 
@@ -84,6 +85,18 @@ public class PageTriggerAction extends ActionSupport{
 	String data = JsonConvert.list2Json(buildingList, "org.pmp.vo.Building", show);
 	JsonConvert.output(data);
     }
+    
+    public void getBuilInfo(){
+	Building buil = buildingService.getBuildingById(builId);
+	StringBuilder info = new StringBuilder();
+	info.append("共"+buil.getFloorCount()+"层,每层"+buil.getUnitCount()+"单元");
+	if (buil.getSkipFloor()!=null && !buil.getSkipFloor().equals("")){
+	    info.append(",跳过"+buil.getSkipFloor()+"层");
+	}
+	String data = "{\"info\":\""+info+"\"}";
+	JsonConvert.output(data);
+    }
+    
     //~ Getters and Setters ============================================================================================
 
     public IProjectService getProjectService() {

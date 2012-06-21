@@ -20,7 +20,7 @@
 	                              <div>
 		                              <span >所在小区：</span>
 		                              <span>
-	                                     <s:action name="getProjectBySessionHander" namespace="/cms" executeResult="true"/>
+	                                     <s:action name="getOnlyProjectBySessionHander" namespace="/cms" executeResult="true"/>
 	                                  </span>
                                   </div>
 	                </div>
