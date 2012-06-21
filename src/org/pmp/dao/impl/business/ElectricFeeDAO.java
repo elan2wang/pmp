@@ -12,10 +12,14 @@
  */
 package org.pmp.dao.impl.business;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.hibernate.jdbc.Work;
 import org.pmp.dao.admin.BaseDAO;
 import org.pmp.dao.business.IElectricFeeDAO;
 import org.pmp.util.Pager;
@@ -39,9 +43,18 @@ public class ElectricFeeDAO extends BaseDAO implements IElectricFeeDAO {
      * @see org.pmp.dao.business.IElectricFeeDAO#generateElectricFee(java.lang.Integer)
      */
     @Override
-    public void generateElectricFee(Integer efiId) {
-	// TODO Auto-generated method stub
-
+    public void generateElectricFee(final Integer efiId) {
+	logger.debug("begin to generate electricFee with efiId="+efiId);
+	Work work = new Work(){
+            public void execute(Connection connection)throws SQLException{
+                String procedure = "{call ef_generate(?) }";
+                CallableStatement cstmt = connection.prepareCall(procedure);
+                cstmt.setInt(1, efiId);
+                cstmt.executeUpdate();
+            }
+        };
+        executeWork(work);
+        logger.debug("successfully generate electricFee with efiId="+efiId);
     }
 
     /**

@@ -26,10 +26,10 @@ import org.pmp.vo.LiftMeterItem;
  * @version 1.0
  * @update TODO
  */
-public class LiftMeterDAO extends BaseDAO implements ILiftMeterItemDAO {
+public class LiftMeterItemDAO extends BaseDAO implements ILiftMeterItemDAO {
 
     //~ Static Fields ==================================================================================================
-    private static Logger logger = Logger.getLogger(LiftMeterDAO.class.getName());
+    private static Logger logger = Logger.getLogger(LiftMeterItemDAO.class.getName());
 
     //~ Instance Fields ================================================================================================
 

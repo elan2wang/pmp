@@ -4,7 +4,7 @@
   xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
   
-  <!-- DAO Declare -->
+  <!-- DAO Declare ==============================================================================================-->
   <bean id="companyDAO" class="org.pmp.dao.impl.business.CompanyDAO" parent="baseDAO"/>
   <bean id="projectDAO" class="org.pmp.dao.impl.business.ProjectDAO" parent="baseDAO"/>
   <bean id="condoFeeItemDAO" class="org.pmp.dao.impl.business.CondoFeeItemDAO" parent="baseDAO"/>
@@ -17,8 +17,15 @@
   <bean id="houseOwnerDAO" class="org.pmp.dao.impl.business.HouseOwnerDAO" parent="baseDAO"/>
   <bean id="memberDAO" class="org.pmp.dao.impl.business.MemberDAO" parent="baseDAO"/>
   <bean id="smsSendDAO" class="org.pmp.dao.impl.business.SmsSendDAO" parent="baseDAO"/>
+  <bean id="liftMeterItemDAO" class="org.pmp.dao.impl.business.LiftMeterItemDAO" parent="baseDAO"/>
+  <bean id="proMeterItemDAO" class="org.pmp.dao.impl.business.ProMeterItemDAO" parent="baseDAO"/>
+  <bean id="builFeeRateDAO" class="org.pmp.dao.impl.business.BuilFeeRateDAO" parent="baseDAO"/>
+  <bean id="electricFeeItemDAO" class="org.pmp.dao.impl.business.ElectricFeeItemDAO" parent="baseDAO"/>
+  <bean id="electricFeeDAO" class="org.pmp.dao.impl.business.ElectricFeeDAO" parent="baseDAO"/>
   
-  <!-- Service Declare -->
+
+  
+  <!-- Service Declare ==========================================================================================-->
   <bean id="companyService" class="org.pmp.service.impl.business.CompanyService">
   	<property name="companyDAO" ref="companyDAO" />
   </bean>
@@ -71,7 +78,28 @@
     <property name="smsSendDAO" ref="smsSendDAO" />
   </bean>
   
-  <!-- Action Declare -->
+  <bean id="proMeterItemService" class="org.pmp.service.impl.business.ProMeterItemService">
+    <property name="proMeterItemDAO" ref="proMeterItemDAO" />
+  </bean>
+  
+  <bean id="liftMeterItemService" class="org.pmp.service.impl.business.LiftMeterItemService">
+    <property name="liftMeterItemDAO" ref="liftMeterItemDAO" />
+  </bean>
+  
+  <bean id="builFeeRateService" class="org.pmp.service.impl.business.BuilFeeRateService">
+    <property name="builFeeRateDAO" ref="builFeeRateDAO" />
+  </bean>
+  
+  <bean id="electricFeeItemService" class="org.pmp.service.impl.business.ElectricFeeItemService">
+    <property name="electricFeeItemDAO" ref="electricFeeItemDAO" />
+    <property name="electricFeeDAO" ref="electricFeeDAO" />
+  </bean>
+  
+  <bean id="electricFeeService" class="org.pmp.service.impl.business.ElectricFeeService">
+    <property name="electricFeeDAO" ref="electricFeeDAO" />
+  </bean>
+  
+  <!-- Action Declare =====================================================================================-->
   <bean id="companyAction" class="org.pmp.action.business.CompanyAction">
     <property name="companyService" ref="companyService" />
   </bean>
@@ -134,5 +162,14 @@
     <property name="ownerService" ref="ownerService" />
     <property name="userService" ref="userService" />
     <property name="smsSendService" ref="smsSendService" />
+  </bean>
+  
+  <bean id="electricFeeItemAction" class="org.pmp.action.business.ElectricFeeItemAction">
+    <property name="liftMeterItemService" ref="liftMeterItemService" />
+    <property name="proMeterItemService" ref="proMeterItemService" />
+    <property name="builFeeRateService" ref="builFeeRateService" />
+    <property name="electricFeeItemService" ref="electricFeeItemService" />
+    <property name="buildingService" ref="buildingService" />
+    <property name="projectService" ref="projectService" />
   </bean>
 </beans>

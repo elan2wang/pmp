@@ -18,8 +18,8 @@
 <script language="javascript" type="text/javascript" src="../Scripts/component/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
 <script type="text/javascript" src="../Scripts/common/window.js"></script>
-<script type="text/javascript" src="../Scripts/pages/maintain/mt_manage_list.js"></script>
-<script type="text/javascript" src="../Scripts/pages/maintain/mt_manage_add.js"></script>
+<script type="text/javascript" src="../Scripts/pages/fix/fix_owner_list.js"></script>
+<script type="text/javascript" src="../Scripts/pages/fix/fix_owner_add.js"></script>
 <title>物业费管理</title>
 </head>
 <body>

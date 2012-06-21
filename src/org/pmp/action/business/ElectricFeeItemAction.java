@@ -12,14 +12,27 @@
  */
 package org.pmp.action.business;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import org.apache.log4j.Logger;
-import org.pmp.service.impl.business.ElectricFeeItemService;
+import org.pmp.service.business.IBuilFeeRateService;
+import org.pmp.service.business.IBuildingService;
+import org.pmp.service.business.IElectricFeeItemService;
+import org.pmp.service.business.IElectricFeeService;
+import org.pmp.service.business.ILiftMeterItemService;
+import org.pmp.service.business.IProMeterItemService;
+import org.pmp.service.business.IProjectService;
+import org.pmp.util.SessionHandler;
 import org.pmp.vo.BuilFeeRate;
 import org.pmp.vo.ElectricFeeItem;
 import org.pmp.vo.LiftMeterItem;
 import org.pmp.vo.ProMeterItem;
+import org.pmp.vo.Project;
 
 import com.opensymphony.xwork2.ActionSupport;
+
 
 /**
  * @author Elan
@@ -32,11 +45,20 @@ public class ElectricFeeItemAction extends ActionSupport {
     private static Logger logger = Logger.getLogger(ElectricFeeItemAction.class.getName());
     
     //~ Instance Fields ================================================================================================
-    private ElectricFeeItemService electricFeeItemService;
+    private IElectricFeeItemService electricFeeItemService;
+    private IElectricFeeService electricFeeService;
+    private IProMeterItemService proMeterItemService;
+    private ILiftMeterItemService liftMeterItemService;
+    private IBuilFeeRateService builFeeRateService;
+    private IBuildingService buildingService;
+    private IProjectService projectService;
+    
     private ElectricFeeItem electricFeeItem;
     private Integer proId;
+    
+    /* used when ef_item_add */
     private Integer[] builId;
-    private Integer[] pmNum;
+    private String[] pmNum;
     private String[] pmBeginDegree;
     private String[] pmEndDegree;
     private String[] pmPrice;
@@ -47,25 +69,129 @@ public class ElectricFeeItemAction extends ActionSupport {
     private Integer[] beginFloor;
     private Integer[] endFloor;
     private String[] rate;
+    /* ========================= */
     
     //~ Methods ========================================================================================================
     public String addElectricFeeItem(){
+	List<ProMeterItem> pmiList = new ArrayList<ProMeterItem>();
+	List<LiftMeterItem> lmiList = new ArrayList<LiftMeterItem>();
+	List<BuilFeeRate> bfrList = new ArrayList<BuilFeeRate>();
+	//创建并保存电费项目对象
+	electricFeeItem.setGeneratePerson(SessionHandler.getUser().getUsername());
+	electricFeeItem.setGenerateTime(new Date());
+	Project pro = projectService.getProjectByID(proId);
+	electricFeeItem.setProject(projectService.getProjectByID(proId));
+	electricFeeItem.setItemName(pro.getProName()+electricFeeItem.getBeginDate().toString().substring(0, 10)+"-"+
+		electricFeeItem.getEndDate().toString().substring(0,10)+"的公摊电费");
+	electricFeeItemService.addElectricFeeItem(electricFeeItem);
 	
+	Double beginDegree = 0.0;
+	Double endDegree = 0.0;
+	Double price = 0.0;
+	//创建并保存小区电表记录对象
+	for(int i=0;i<pmNum.length;i++){
+	    ProMeterItem pmi = new ProMeterItem();
+	    beginDegree = Double.parseDouble(pmBeginDegree[i].toString());
+	    endDegree = Double.parseDouble(pmEndDegree[i].toString());
+	    price = Double.parseDouble(pmPrice[i].toString());
+	    pmi.setBeginDegree(beginDegree);
+	    pmi.setEndDegree(endDegree);
+	    pmi.setPrice(price);
+	    pmi.setPmNum(pmNum[i].toString());
+	    pmi.setElectricFeeItem(electricFeeItem);
+	    pmi.setTotalMoney((endDegree-beginDegree)*price);
+	    pmiList.add(pmi);
+	}
+	proMeterItemService.batchAddProMeterItem(pmiList);
+	
+	//创建并保存电梯电表记录对象
+	for(int i=0;i<builId.length;i++){
+	    LiftMeterItem lmi = new LiftMeterItem();
+	    lmi.setBuilding(buildingService.getBuildingById(builId[i]));
+	    beginDegree = Double.parseDouble(lmBeginDegree[i].toString());
+	    endDegree = Double.parseDouble(lmEndDegree[i].toString());
+	    price = Double.parseDouble(lmPrice[i].toString());
+	    lmi.setBeginDegree(beginDegree);
+	    lmi.setEndDegree(endDegree);
+	    lmi.setPrice(price);
+	    lmi.setTotalMoney((endDegree-beginDegree)*price);
+	    lmi.setElectricFeeItem(electricFeeItem);
+	    lmiList.add(lmi);
+	}
+	liftMeterItemService.batchAddLiftMeterItem(lmiList);
+	
+	//创建并保存楼层段收费倍率对象
+	for(int i=0;i<bfrBuilId.length;i++){
+	   BuilFeeRate bfr = new BuilFeeRate();
+	   bfr.setBeginFloor(Integer.parseInt(beginFloor[i].toString()));
+	   bfr.setEndFloor(Integer.parseInt(endFloor[i].toString()));
+	   bfr.setRate(Double.parseDouble(rate[i].toString()));
+	   bfr.setBuilding(buildingService.getBuildingById(bfrBuilId[i]));
+	   bfr.setElectricFeeItem(electricFeeItem);
+	   bfrList.add(bfr);
+	}
+	builFeeRateService.batchAddBuilFeeRate(bfrList);
+	
+	//生成电费清单
+	electricFeeService.generateElectricFee(electricFeeItem.getEfiId());
 	
 	return SUCCESS;
     }
     //~ Getters and Setters ============================================================================================
 
-
-    public ElectricFeeItemService getElectricFeeItemService() {
+    public IElectricFeeItemService getElectricFeeItemService() {
         return electricFeeItemService;
     }
 
     public void setElectricFeeItemService(
-    	ElectricFeeItemService electricFeeItemService) {
+    	IElectricFeeItemService electricFeeItemService) {
         this.electricFeeItemService = electricFeeItemService;
     }
 
+    public IProMeterItemService getProMeterItemService() {
+        return proMeterItemService;
+    }
+
+    public IElectricFeeService getElectricFeeService() {
+        return electricFeeService;
+    }
+    public void setElectricFeeService(IElectricFeeService electricFeeService) {
+        this.electricFeeService = electricFeeService;
+    }
+    public void setProMeterItemService(IProMeterItemService proMeterItemService) {
+        this.proMeterItemService = proMeterItemService;
+    }
+
+    public ILiftMeterItemService getLiftMeterItemService() {
+        return liftMeterItemService;
+    }
+
+    public void setLiftMeterItemService(ILiftMeterItemService liftMeterItemService) {
+        this.liftMeterItemService = liftMeterItemService;
+    }
+
+    public IBuilFeeRateService getBuilFeeRateService() {
+        return builFeeRateService;
+    }
+
+    public void setBuilFeeRateService(IBuilFeeRateService builFeeRateService) {
+        this.builFeeRateService = builFeeRateService;
+    }
+
+    public IBuildingService getBuildingService() {
+        return buildingService;
+    }
+
+    public void setBuildingService(IBuildingService buildingService) {
+        this.buildingService = buildingService;
+    }
+
+    public IProjectService getProjectService() {
+        return projectService;
+    }
+    public void setProjectService(IProjectService projectService) {
+        this.projectService = projectService;
+    }
     public Integer getProId() {
         return proId;
     }
@@ -83,12 +209,12 @@ public class ElectricFeeItemAction extends ActionSupport {
     }
 
 
-    public Integer[] getPmNum() {
+    public String[] getPmNum() {
         return pmNum;
     }
 
 
-    public void setPmNum(Integer[] pmNum) {
+    public void setPmNum(String[] pmNum) {
         this.pmNum = pmNum;
     }
 

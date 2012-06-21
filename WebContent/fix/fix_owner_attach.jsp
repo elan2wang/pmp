@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript" src="../Scripts/component/AjaxFileUploader/ajaxfileupload.js"></script>
-<script type="text/javascript" src="../Scripts/pages/maintain/mt_manage_attach.js"></script>
+<script type="text/javascript" src="../Scripts/pages/fix/fix_owner_attach.js"></script>
 <title>维修单附件</title>
 <script language="javascript">
    

@@ -16,7 +16,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.pmp.dao.admin.BaseDAO;
-import org.pmp.dao.business.IBuilFeeRate;
+import org.pmp.dao.business.IBuilFeeRateDAO;
 import org.pmp.vo.BuilFeeRate;
 
 /**
@@ -24,7 +24,7 @@ import org.pmp.vo.BuilFeeRate;
  * @version 1.0
  * @update TODO
  */
-public class BuilFeeRateDAO extends BaseDAO implements IBuilFeeRate {
+public class BuilFeeRateDAO extends BaseDAO implements IBuilFeeRateDAO {
 
     //~ Static Fields ==================================================================================================
     private static Logger logger = Logger.getLogger(BuilFeeRateDAO.class.getName());
@@ -35,7 +35,7 @@ public class BuilFeeRateDAO extends BaseDAO implements IBuilFeeRate {
 
     
     /**
-     * @see org.pmp.dao.business.IBuilFeeRate#batchSaveBuilFeeRate(java.util.List)
+     * @see org.pmp.dao.business.IBuilFeeRateDAO#batchSaveBuilFeeRate(java.util.List)
      */
     @Override
     public void batchSaveBuilFeeRate(List<BuilFeeRate> list) {
@@ -52,7 +52,7 @@ public class BuilFeeRateDAO extends BaseDAO implements IBuilFeeRate {
     }
 
     /**
-     * @see org.pmp.dao.business.IBuilFeeRate#loadBuilFeeRateList_ByEFIandBuilID(java.lang.Integer, java.lang.Integer)
+     * @see org.pmp.dao.business.IBuilFeeRateDAO#loadBuilFeeRateList_ByEFIandBuilID(java.lang.Integer, java.lang.Integer)
      */
     @Override
     public List<BuilFeeRate> loadBuilFeeRateList_ByEFIandBuilID(Integer efiId,
