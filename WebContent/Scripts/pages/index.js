@@ -13,11 +13,10 @@
 	    var nv=navigator;
     	var width=document.documentElement.clientWidth;
     	var height=document.documentElement.clientHeight;
-    	//alert("width:"+width+"height:"+height);
     	var contentobj=document.getElementById("index_main");
     	if(nv.userAgent.indexOf("MSIE")>=1)
     	{
-    		contentobj.style.height=(height-97)+'px';
+    		contentobj.style.height=(height-96)+'px';
     	}
     	else if(nv.userAgent.indexOf("Firefox")>=1)
     	{
@@ -25,7 +24,7 @@
     	}
     	else
     	{
-    		contentobj.style.height=(height-97)+'px';
+    		contentobj.style.height=(height-102)+'px';
     	}
     	var list=getElementsByClassName("LMIitem");
     	var Height=parseInt(contentobj.style.height)-30*parseInt(list.length);
