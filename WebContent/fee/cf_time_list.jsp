@@ -39,7 +39,7 @@
    ChangeHeight(Width2,Height2,'innercontent');
    ChangeHeight(Width2,Height2,'left_main');
    ChangeHeight(Width2,Height2,'middle');
-   ChangeHeight(Width2,Height2,'right_main');
+   ChangeHeight(Width2,Height2-60,'right_main');
   </script>
 </body>
 </html>

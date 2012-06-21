@@ -7,7 +7,7 @@
 		<!-- length, scale and precision can be used to specify the mapping precisely -->
 		<!-- the type-mappings are ordered. This mapping will be consulted last, 
 			thus overridden by the previous one if precision=1 for the column -->
-			
+
 		<sql-type jdbc-type="DATE" hibernate-type="date" />
 		<sql-type jdbc-type="TIME" hibernate-type="time" />
 		<sql-type jdbc-type="TIMESTAMP" hibernate-type="timestamp" />
@@ -24,4 +24,6 @@
 			length="1" />
 		<sql-type jdbc-type="VARCHAR" hibernate-type="string" />
 	</type-mapping>
+	
+	
 </hibernate-reverse-engineering>

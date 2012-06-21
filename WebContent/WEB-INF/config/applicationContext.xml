@@ -62,6 +62,16 @@
         <value>org/pmp/vo/FireInfo.hbm.xml</value>
         <value>org/pmp/vo/FireDevice.hbm.xml</value>
         <value>org/pmp/vo/FireInfoBak.hbm.xml</value>
+        <value>org/pmp/vo/BuilFeeRate.hbm.xml</value>
+        <value>org/pmp/vo/ElectricFee.hbm.xml</value>
+        <value>org/pmp/vo/ElectricFeeCharge.hbm.xml</value>
+        <value>org/pmp/vo/ElectricFeeItem.hbm.xml</value>
+        <value>org/pmp/vo/LiftMeterItem.hbm.xml</value>
+        <value>org/pmp/vo/OperateDetail.hbm.xml</value>
+        <value>org/pmp/vo/OwnerRepair.hbm.xml</value>
+        <value>org/pmp/vo/ProMeterItem.hbm.xml</value>
+        <value>org/pmp/vo/RepairAttach.hbm.xml</value>
+        <value>org/pmp/vo/RepairFee.hbm.xml</value>
       </list>
     </property>
   </bean>

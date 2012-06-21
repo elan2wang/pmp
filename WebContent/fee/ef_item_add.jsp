@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
 <script type="text/javascript" src="../Scripts/common/window.js"></script>
 <script type="text/javascript" src="../Scripts/common/select.js" ></script>
-<script type="text/javascript" src="../Scripts/pages/electricfee/ef_item_add.js" ></script>
+<script type="text/javascript" src="../Scripts/pages/fee/ef_item_add.js" ></script>
 </head>
 <body>
 <div class="wrap">
@@ -36,13 +36,11 @@
 	<fieldset class="add_fieldset">
 	  <legend class="add_legend">第二步：选择时间</legend>
 	  <div class="timeSelect">
-	   <span>上次创建时间：</span>
-	   <span><input type="text" name="lastTime" readonly="readonly" style="cursor:pointer;" onfocus="WdatePicker()"/> </span> 
-	   <span style="display:inline-block;padding-left:30px">本次创建时间：</span>
-	   <span><input type="text" name="nowTime" readonly="readonly" style="cursor:pointer;" onfocus="WdatePicker()"/></span>
+	   <span>上期时间：</span>
+	   <span><input type="text" name="electricFeeItem.beginDate" readonly="readonly" style="cursor:pointer;" onfocus="WdatePicker()"/> </span> 
+	   <span style="display:inline-block;padding-left:30px">本期时间：</span>
+	   <span><input type="text" name="electricFeeItem.endDate" readonly="readonly" style="cursor:pointer;" onfocus="WdatePicker()"/></span>
 	  </div>
-	  
-	  
 	</fieldset><br/>
 	<fieldset class="add_fieldset">
 	  <legend class="add_legend">第三步：编辑总表信息</legend>
@@ -51,9 +49,9 @@
 	    <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0" class="table1">
 	      <tr>
 	          <td width="20%" height="25" align="center" valign="middle">编号</td>
-	          <td width="20%" height="25" align="center" valign="middle">上次度数</td>
-	          <td width="20%" height="25" align="center" valign="middle">本次度数</td>
-	          <td width="20%" height="25" align="center" valign="middle">应缴电费</td>
+	          <td width="20%" height="25" align="center" valign="middle">上期度数</td>
+	          <td width="20%" height="25" align="center" valign="middle">本期度数</td>
+	          <td width="20%" height="25" align="center" valign="middle">单价</td>
 	          <td width="20%" height="25" align="center" valign="middle"></td>
 	      </tr>
 	      <tr style="background-color:#FFC;">
@@ -93,13 +91,17 @@
 	    <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0" class="table1">
 	      <tr>
 	          <td width="20%" height="25" align="center" valign="middle">楼号</td>
-	          <td width="20%" height="25" align="center" valign="middle">上次电梯表度数</td>
-	          <td width="20%" height="25" align="center" valign="middle">本次电梯度数</td>
-	          <td width="20%" height="25" align="center" valign="middle">应缴电费</td>
+	          <td width="20%" height="25" align="center" valign="middle">上期度数</td>
+	          <td width="20%" height="25" align="center" valign="middle">本期度数</td>
+	          <td width="20%" height="25" align="center" valign="middle">单价</td>
 	          <td width="20%" height="25" align="center" valign="middle"></td>
 	      </tr>
 	      <tr style="background-color:#FFC;">
-	          <td height="25" align="center" valign="middle"><input name="elevatortableNum" class="textbox1" id="elevatortableNum" style="width:60px" /></td>
+	          <td height="25" align="center" valign="middle">
+	                  <select id="buildNum" name="buildNum">
+	                          <s:action name="" executeResult="true" namespace="/fee" />
+	                  </select>
+	          </td>
               <td height="25" align="center" valign="middle"><input name="elevatorlastDegree" type="text" class="textbox1" id="elevatorlastDegree" style="width:60px"/></td>
               <td height="25" align="center" valign="middle"><input name="elevatornowDegree" type="text" class="textbox1" id="elevatornowDegree" style="width:60px"/></td>
               <td height="25" align="center" valign="middle"><input name="elevatordegreeFee" type="text" class="textbox1" id="elevatordegreeFee" style="width:60px"/></td>
@@ -111,12 +113,11 @@
 	         <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0" class="table1" id="elevatorList">
                <tr>
 	              <td width="20%" height="25" align="center" valign="middle">楼号</td>
-	              <td width="20%" height="25" align="center" valign="middle">上次度数</td>
-	              <td width="20%" height="25" align="center" valign="middle">本次度数</td>
-	              <td width="20%" height="25" align="center" valign="middle">应缴电费</td>
+	              <td width="20%" height="25" align="center" valign="middle">上期度数</td>
+	              <td width="20%" height="25" align="center" valign="middle">本期度数</td>
+	              <td width="20%" height="25" align="center" valign="middle">单价</td>
 	              <td width="20%" height="25" align="center" valign="middle"></td>
 	             </tr>
-	             
                 </table>
            </div>
 	  </div>
