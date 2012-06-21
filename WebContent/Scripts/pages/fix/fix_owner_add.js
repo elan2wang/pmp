@@ -32,95 +32,9 @@ function to(page){
 		objTab2.className="ModuleTap";		
 	}
 }
-function inputEnable(){
-	objReprContent=document.getElementById("ReprContent");
-	objOtherContent=document.getElementById("OtherContent");
-	if(objReprContent[objReprContent.length-1].selected==true){
-		objOtherContent.disabled=false;
-		objOtherContent.focus();
-	}
-	else{
-		objOtherContent.disabled=true;
-	}
-}
 
-var rowIndex=1;
-function appendRow(){
-	objtb=document.getElementById("tbProjList");
-	objName=document.getElementById("mtName");
-	objNum=document.getElementById("mtNum");
-	objPrice=document.getElementById("mtPrice");
-	objNote=document.getElementById("mtNote");
-	isnum1=/^[1-9]d*.d*|0.d*[1-9]d*|0?.0+|0$/;
-	isnum2=/^[1-9]d*$/;
-	ismoney=/^[0-9]+(.[0-9]{1,2})?$/;
-	if(objName.value==""){
-		alert("材料名称不能为空");
-		objName.focus();
-		return false;
-	}
-	else if(isnum1.test(objNum.value)==false&&isnum2.test(objNum.value)==false){
-		alert("材料数量不正确");
-		objNum.focus();
-		return false;
-	}
-	else if(ismoney.test(objPrice.value)==false){
-		alert("材料金额不正确");
-		objPrice.focus();
-		return false;
-	}
-	else if(objNote.value.length>120){
-		alert("备注信息过长，请限制在120字以内");
-		objPrice.focus();
-		return false;
-	}
-	else{
-		var newTr = objtb.insertRow(0);
-		var newTd0 = newTr.insertCell(0);
-		var newTd1 = newTr.insertCell(1);
-		var newTd2 = newTr.insertCell(2);
-		var newTd3 = newTr.insertCell(3);
-		var newTd4 = newTr.insertCell(4);
-		newTr.style.verticalAlign="middle";
-		newTr.style.textAlign="center";
-		newTr.id="td"+rowIndex;
-		newTd0.style.height="25px";
-		newTd0.innerHTML="<input name=\"mtName"+rowIndex+"\" type=\"hidden\" id=\"mtName"+rowIndex+"\" value=\""+objName.value+"\"/>"+objName.value;
-		newTd1.innerHTML="<input name=\"mtNum"+rowIndex+"\" type=\"hidden\" id=\"mtNum"+rowIndex+"\" value=\""+objNum.value+"\"/>"+objNum.value;
-		newTd2.innerHTML="<input name=\"mtPrice"+rowIndex+"\" type=\"hidden\" id=\"mtPrice"+rowIndex+"\" value=\""+objPrice.value+"\"/>"+objPrice.value;
-		newTd3.align="center";
-		newTd3.innerHTML="<div style=\"width:180px\">"+objNote.value+"</div><input name=\"mtNote"+rowIndex+"\" type=\"hidden\" id=\"mtNote"+rowIndex+"\" value=\""+objNote.value+"\"/>";
-		newTd4.innerHTML="<a href=\"javascript:removeRow("+rowIndex+")\" style=\"color:red;text-decoration:none;\">删除</a>";
-		rowIndex++;
-		updateRow();
-		objName.value="";
-		objNum.value="";
-		objPrice.value="";
-		objNote.value="";
-		objName.focus();
-	}
-}
-function removeRow(index){
-	objtb=document.getElementById("tbProjList");
-	var arrTR=objtb.getElementsByTagName("tr");
-	for(x=0;x<arrTR.length;x++){
-		if(arrTR[x].id=="td"+index){
-			objtb.deleteRow(x);
-		}
-	}
-	updateRow();
-}
-function updateRow(){
-	objtb=document.getElementById("tbProjList");
-	var arrINPUT=objtb.getElementsByTagName("input");
-	var strINPUT=arrINPUT[0].id;
-	for(y=1;y<arrINPUT.length-2;y++){
-		strINPUT=strINPUT+","+arrINPUT[y].id;
-	}
-	document.getElementById("inputArr").value=strINPUT;
-	//alert(document.getElementById("inputArr").value);
-	//workerPrice和inputArr两个空间名也会跟在后面上传
-}
+
+
 function intRO(){
 	document.getElementById("fdReportDate").readOnly=true;
 	document.getElementById("fdApDate").readOnly=true;
@@ -148,8 +62,7 @@ function formchk(){
 	obj8=document.getElementById("fdApDate");
 	obj9=document.getElementById("fdApTime");
 	obj10=document.getElementById("ReprContent");
-	obj11=document.getElementById("OtherContent");
-	obj12=document.getElementById("fdRPDetail");
+	obj11=document.getElementById("fdRPDetail");
 	var isPhonePattern = /\d{3}-\d{8}|\d{4}-\d{7}/;
 	var isMobilePattern = /^(13|15|18)[0-9]{9}$/;
 	if(obj1.value=="请选择楼号"){
@@ -197,15 +110,11 @@ function formchk(){
 		return false;
 	}
 	if(obj10.value=="no"){
-		alert("请选择维修内容");
+		alert("请选择维修类型");
 		return false;
 	}
-	if(obj10.value=="" && strim(obj11.value)==""){
-		alert("请输入维修内容");
-		obj11.focus();
-		return false;
-	}
-	if(strim(obj12.value)==""){
+	
+	if(strim(obj11.value)==""){
 		alert("请输入详细情况");
 		obj12.focus();
 		return false;

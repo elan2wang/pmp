@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="../Scripts/pages/fix/fix_owner_add.js"></script>
 <style type="text/css">
 .textbox{
 	width:90px;
@@ -31,7 +32,7 @@
       <div id="P1">
       <table width="547" border="0" align="center" cellpadding="0" cellspacing="0" class="table1">
         <tr>
-          <td height="30" colspan="6" align="center" valign="middle"><strong>业主基本信息
+          <td height="30" colspan="6" align="center" valign="middle"><strong>业主基本信息（新建必填）
               
           </strong></td>
           </tr>
@@ -125,19 +126,14 @@
         </tr>
         <tr>
           <td width="80" height="50" align="center" valign="middle">维修类型：</td>
-          <td colspan="2" align="left" valign="middle"><table width="100%" border="0" cellpadding="0" cellspacing="0" class="pinfen">
-            <tr>
-              <td height="25"><select name="ReprContent" class="selectbox" id="ReprContent"  style="width:155px" onchange="inputEnable();">
+          <td colspan="2" align="left" valign="middle">
+              <select name="ReprContent" class="selectbox" id="ReprContent"  style="width:170px" >
                 <option value="no" selected="selected">请选择或输入</option>
                
                   <option disabled="disabled">------------</option>
                   <option value="OtherContent">其它（手工输入）</option>
-                </select></td>
-            </tr>
-            <tr>
-              <td height="25"><input name="OtherContent" type="text" disabled="disabled"  class="textbox1" id="OtherContent" style="width:150px"/></td>
-            </tr>
-          </table></td>
+                </select>
+          </td>
           <td align="center" valign="middle">详细情况：</td>
           <td colspan="2" align="left" valign="middle"><textarea name="fdRPDetail" style="height:40px;width:170px;"  class="textbox1" id="fdRPDetail"></textarea></td>
           </tr>
@@ -146,18 +142,18 @@
           </tr>
         <tr>
           <td height="30" align="center" valign="middle">维修员：</td>
-          <td colspan="2" align="left" valign="middle"><input name="fdWorker" type="text" class="textbox1"  id="fdWorker" /></td>
+          <td colspan="2" align="left" valign="middle"><input name="fdWorker" type="text" class="textbox1"  id="fdWorker"  style="width:170px" /></td>
           <td align="center" valign="middle">是否派单：</td>
-          <td colspan="2" align="left" valign="middle"><select name="fdState" class="selectbox"  style="width:95px;" id="fdState">
+          <td colspan="2" align="left" valign="middle"><select name="fdState" class="selectbox"  style="width:170px" id="fdState">
             <option value="未派单">未派单</option>
             <option value="已派单">已派单</option>
           </select></td>
         </tr>
         <tr>
           <td width="80" height="30" align="center" valign="middle">完工日期：</td>
-          <td colspan="2" align="left" valign="middle"><input name="fdFinDate" type="text"   class="textbox1" id="fdFinDate" readonly="readonly" style="cursor:pointer;" onfocus="WdatePicker()"/></td>
+          <td colspan="2" align="left" valign="middle"><input name="fdFinDate" type="text"   class="textbox1" id="fdFinDate" readonly="readonly"  onfocus="WdatePicker()" style="width:170px"/></td>
           <td align="center" valign="middle">完工时间：</td>
-          <td colspan="2" align="left" valign="middle"><select name="fdFinTime"  class="selectbox" style="width:95px;" id="fdFinTime" >
+          <td colspan="2" align="left" valign="middle"><select name="fdFinTime"  class="selectbox" style="width:170px" id="fdFinTime" >
           <option value="" selected="selected">请选择时间</option>
          
             <option value="0:00" >0:00</option>
@@ -231,14 +227,15 @@
           </tr>
         <tr>
           <td height="30" colspan="6" align="center" valign="middle"><strong>材料/费用清单</strong></td>
-          </tr>
+        </tr>
         <tr>
-          <td height="150" colspan="6" align="center" valign="middle"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <td height="150" style="border-width:0 0 1px 0" colspan="6" align="center" valign="middle">
+          <table width="100%" border="0" cellspacing="0"  cellpadding="0">
             <tr>
-              <td width="120" height="25" align="center" valign="middle"><strong>材料名称</strong></td>
-              <td width="60" align="center" valign="middle"><strong>数量</strong></td>
-              <td width="100" align="center" valign="middle"><strong>金额</strong></td>
-              <td width="190" align="center" valign="middle"><strong>备注</strong></td>
+              <td style="width:120px;height:25px" align="center" valign="middle"><strong>材料名称</strong></td>
+              <td style="width:60px" align="center" valign="middle"><strong>数量</strong></td>
+              <td style="width:100px" align="center" valign="middle"><strong>金额</strong></td>
+              <td style="width:190px" align="center" valign="middle"><strong>备注</strong></td>
               <td align="center" valign="middle"><strong>操作</strong></td>
             </tr>
             <tr style="background-color:#FFC;">
@@ -249,32 +246,38 @@
               <td align="center" valign="middle"><input type="button" name="button" id="button" value="新增" onclick="appendRow();"/></td>
             </tr>
             <tr>
-              <td height="25" colspan="5" align="center" valign="middle">
-              <div style="width:100%; height:150px; overflow-y:auto;">
-                <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" id="tbProjList">
+              <td height="25" style="border-width:0 0 1px 0" colspan="5" align="center" valign="middle">
+              <div id="feeList" style="width:100%; height:50px; overflow-y:auto;">
+                <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0"  id="tbProjList">
                 <tr>
-                  <td width="120" height="25" align="center" valign="middle">工时费</td>
-                  <td width="60" align="center" valign="middle">-</td>
-                  <td width="100" align="center" valign="middle"><input name="workerPrice" type="text" class="textbox1" id="workerPrice"  style="width:40px"/></td>
-                  <td width="190" align="center" valign="middle"><div style="width:180px">含所有非材料费用</div></td>
-                  <td align="center" valign="middle"><input type="hidden" name="inputArr" id="inputArr"  /></td>
+                  <td style="width:120px;height:25px" align="center" valign="middle"><input type="hidden" name="" value="工时费">工时费</td>
+                  <td style="width:60px"  height="25" align="center" valign="middle">-</td>
+                  <td style="width:100px" height="25" align="center" valign="middle"><input name="workerPrice" type="text" class="textbox1" id="workerPrice"  style="width:40px"/></td>
+                  <td style="width:190px" height="25" align="center" valign="middle"><div style="width:180px"><input type="hidden" name="" value="含所有非材料费用">含所有非材料费用</div></td>
+                  <td align="center" height="25" valign="middle"><input type="hidden" name="inputArr" id="inputArr"  />.</td>
                 </tr>
                 </table>
               </div>
               </td>
               </tr>
             <tr>
-              <td align="center" valign="middle" colspan="5" >历史操作记录</td>
+             <td height="30" colspan="5" align="center" valign="middle"><strong>历史操作记录</strong></td>
            </tr>
            <tr>
-              <td align="center" valign="middle" colspan="5" style="padding-top:5px; padding-bottom:5px; "><div id="operation_history" name="operation_history"></div></td>
+              <td height="30" colspan="1" align="center" valign="middle"><strong>操作时间</strong></td>
+              <td height="30" colspan="2" align="center" valign="middle"><strong>操作人员</strong></td>
+              <td height="30" colspan="2" align="center" valign="middle"><strong>操作详情</strong></td>
            </tr>
            <tr>
-              <td align="center" valign="middle" colspan="5" >新增操作记录</td>
+              <td height="30" colspan="1" align="center" valign="middle">1</td>
+              <td height="30" colspan="2" align="center" valign="middle">1</td>
+              <td height="30" colspan="2" align="center" valign="middle">1</td>
            </tr>
            <tr>
-              <td align="center" valign="middle" colspan="5" style="padding-top:5px; padding-bottom:5px; "><textarea name="record" style="display:inline-block;width:90%;"></textarea></td>
+              <td height="30" colspan="1" align="center" valign="middle">本次操作详情</td>
+              <td height="30" colspan="4" align="center" valign="middle"><textarea name="" style="height:40px;width:420px;"></textarea></td>
            </tr>
+          
           </table></td>
         </tr>
       </table>
@@ -282,9 +285,11 @@
       <div id="P2" style="display:;"></div>
       </td>
     </tr>
- 
     <tr>
-      <td align="center" valign="middle" style="padding-top:5px; padding-bottom:5px; "><input type="submit" name="button2" id="button2" value="保 存"  /></td>
+      <td  colspan="2" align="center" valign="middle" style="padding-top:5px; padding-bottom:5px; ">
+      <input type="submit" name="button2" id="button2" value="保 存"  /><span style="display:inline-block;width:20px"></span>
+      <input type="button" name="button3" id="button3" value="取消"  />
+      </td>
     </tr>
   </table>
 </form>
