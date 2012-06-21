@@ -585,8 +585,21 @@
 				});
 			},
 			doSearch: function () {
-				p.query = $('input[name=q]', g.sDiv).val();
-				p.qtype = $('select[name=qtype]', g.sDiv).val();
+				if(p.searchQueryStrs){
+					 var queryStrs=p.searchQueryStrs;
+					 var queryArr="";
+					 var typeArr="";
+					 for(s=0;s<queryStrs.length;s++){
+						 var qs=queryStrs[s];
+						 queryArr+=$('input[name='+qs.queryStrName+']', g.sDiv).val()+",";
+						 typeArr+=$('select[name='+qs.selectName+']', g.sDiv).val()+",";
+						 qs=null;
+					 }
+					 queryArr=queryArr.substring(0,queryArr.length-1);
+					 typeArr=typeArr.substring(0,typeArr.length-1)
+				     p.query = queryArr;
+				     p.qtype =  typeArr;
+				}
 				p.newp = 1;
 				this.populate();
 			},
@@ -1130,20 +1143,29 @@
 				if (p.qtype == '') {
 					p.qtype = sitems[0].name;
 				}
-				$(g.sDiv).append("<div class='sDiv2'>" + p.findtext + 
-						" <input type='text' value='" + p.query +"' size='30' name='q' class='qsbox' /> "+
-						" <select name='qtype'>" + sopt + "</select></div>");
-				//Split into separate selectors because of bug in jQuery 1.3.2
-				$('input[name=q]', g.sDiv).keydown(function (e) {
-					if (e.keyCode == 13) {
-						g.doSearch();
-					}
-				});
-				$('select[name=qtype]', g.sDiv).keydown(function (e) {
-					if (e.keyCode == 13) {
-						g.doSearch();
-					}
-				});
+				//change by Chrussy 2012.06.21
+				if(p.searchQueryStrs){
+					var queryStrs=p.searchQueryStrs;
+					var querHtmlStr="<div class='sDiv2'>"+ p.findtext;
+				    for (var s = 0; s < queryStrs.length; s++){
+				    	var qs=queryStrs[s];
+				    	querHtmlStr+= " <select name='"+qs.selectName+"'>" + sopt + "</select>"+
+				    	" <input type='text' value='" + p.query +"' size='20' name='"+qs.queryStrName+"' class='qsbox' /> ";
+				    	qs=null;
+				    }
+				    querHtmlStr+="</div>";
+				    $(g.sDiv).append(querHtmlStr);
+				    
+				    for (var s = 0; s < queryStrs.length; s++){
+				    	var qs=queryStrs[s];
+				        $('input[name='+qs.queryStrName+']', g.sDiv).keydown(function (e) {
+						   if (e.keyCode == 13) {
+							  g.doSearch();
+						   }
+					    });
+				       qs=null;
+				    }
+				}
 				$('input[value=Clear]', g.sDiv).click(function () {
 					$('input[name=q]', g.sDiv).val('');
 					p.query = '';

@@ -18,6 +18,7 @@
 			operation:false,
 			operationcontent:'',
 			operationWidth: 22,
+			showSearch:false,
 			minwidth: 30, //min width of columns
 			minheight: 80, //min height of columns
 			resizable: true, //allow table resizing
@@ -31,16 +32,16 @@
 			total: 1, //total pages
 			useRp: true, //use the results per page select box
 			rp: 15, //results per page
-			rpOptions: [10, 15, 20, 30, 50], //allowed per-page values 
+			rpOptions: [10, 15, 20, 30, 50, 1000], //allowed per-page values 
 			title: false,
-			pagestat: 'Displaying {from} to {to} of {total} items',
-			pagetext: 'Page',
-			outof: 'of',
-			findtext: 'Find',
-			procmsg: 'Processing, please wait ...',
+			pagestat: '显示{from} - {to}条,共 {total}条记录',
+			pagetext: '页',
+			outof: '共',
+			findtext: '查找',
+			procmsg: '正在处理,请等待 ...',
 			query: '',
 			qtype: '',
-			nomsg: 'No items',
+			nomsg: '无符合条件的记录',
 			minColToggle: 1, //minimum allowed column to be hidden
 			showToggleBtn: true, //show or hide column toggle popup
 			hideOnSubmit: true,
@@ -343,6 +344,7 @@
 				//build new body
 				var tbody = document.createElement('tbody');
 				if (p.dataType == 'json') {
+					$('.ftitle', g.mDiv).html(data.title);
 					$.each(data.rows, function (i, row) {
 						var tr = document.createElement('tr');
 						if (i % 2 && p.striped) {
@@ -365,9 +367,8 @@
 								var idx = $(this).attr('axis').substr(3);
 								td.align = this.align;
 								// If the json elements aren't named (which is typical), use numeric order
-								var rowcell=p.showcheckbox?row.cell[--idx]:row.cell[idx];
-								if (typeof rowcell != "undefined") {
-									td.innerHTML = (rowcell != null) ? rowcell : '';//null-check for Opera-browser
+								if (typeof row.cell[idx] != "undefined") {
+									td.innerHTML = (row.cell[idx] != null) ? row.cell[idx] : '';//null-check for Opera-browser
 								} else {
 									td.innerHTML = p.showcheckbox?row.cell[p.colModel[--idx].name]:row.cell[p.colModel[idx].name];
 								}
@@ -379,7 +380,7 @@
 						$('thead tr:first th[type="operation"]', g.hDiv).each(function () {
 							var td = document.createElement('td');
 							td.align = this.align;
-							td.innerHTML=p.operationcontent;
+							td.innerHTML=p.operationcontent;;
 							$(td).attr('abbr', $(this).attr('abbr'));
 							$(tr).append(td);
 							td = null;
@@ -435,7 +436,7 @@
 						$('thead tr:first th[type="operation"]', g.hDiv).each(function () {
 							var td = document.createElement('td');
 							td.align = this.align;
-							td.innerHTML="";
+							td.innerHTML=p.operationcontent;;
 							$(td).attr('abbr', $(this).attr('abbr'));
 							$(tr).append(td);
 							td = null;
@@ -584,8 +585,19 @@
 				});
 			},
 			doSearch: function () {
-				p.query = $('input[name=q]', g.sDiv).val();
-				p.qtype = $('select[name=qtype]', g.sDiv).val();
+				if(p.searchQueryStrs){
+					 var queryStrs=p.searchQueryStrs;
+					 var queryArr="";
+					 var typeArr="";
+					 for(s=0;s<queryStrs.length;s++){
+						 var qs=queryStrs[s];
+						 queryArr+=$('input[name='+qs.queryStrName+']', g.sDiv).val()+",";
+						 typeArr+=$('select[name='+qs.selectName+']', g.sDiv).val()+",";
+						 qs=null;
+					 }
+				p.query = queryArr;
+				p.qtype =  typeArr;
+				}
 				p.newp = 1;
 				this.populate();
 			},
@@ -767,11 +779,11 @@
 				$(tr).append(th);
 			}
 			if(p.operation){
-			   var opth=document.createElement('th');
-			   opth.innerHTML = "操作";
-			   $(opth).attr({'axis': 'col' + i,"type":"operation",width: p.operationWidth,"align":"center" });
-               $(tr).append(opth);
-			}
+				   var opth=document.createElement('th');
+				   opth.innerHTML = "操作";
+				   $(opth).attr({'axis': 'col' + i,'type':'operation','width': p.operationWidth,'align':'center' });
+	               $(tr).append(opth);
+				}
 			$(thead).append(tr);
 			$(t).prepend(thead);
 		} // end if p.colmodel
@@ -793,6 +805,12 @@
 		if (!p.usepager) {
 			g.pDiv.style.display = 'none';
 		}
+		//add by Chrussy
+		if(p.showSearch){
+		  g.sDiv.style.display = 'block';
+		}
+		
+		//end
 		g.hTable = document.createElement('table');
 		g.gDiv.className = 'flexigrid';
 		if (p.width != 'auto') {
@@ -1123,27 +1141,40 @@
 				if (p.qtype == '') {
 					p.qtype = sitems[0].name;
 				}
-				$(g.sDiv).append("<div class='sDiv2'>" + p.findtext + 
-						" <input type='text' value='" + p.query +"' size='30' name='q' class='qsbox' /> "+
-						" <select name='qtype'>" + sopt + "</select></div>");
+				//change by Chrussy 2012.06.21
+				if(p.searchQueryStrs){
+					var queryStrs=p.searchQueryStrs;
+					var querHtmlStr="<div class='sDiv2'>"+ p.findtext;
+				    for (var s = 0; s < queryStrs.length; s++){
+				    	var qs=queryStrs[s];
+				    	querHtmlStr+= " <select name='"+qs.selectName+"'>" + sopt + "</select>"+
+				    	" <input type='text' value='" + p.query +"' size='20' name='"+qs.queryStrName+"' class='qsbox' /> ";
+				    	qs=null;
+				    }
+				    querHtmlStr+="</div>";
+				    $(g.sDiv).append(querHtmlStr);
+				    
+				    for (var s = 0; s < queryStrs.length; s++){
+				    	var qs=queryStrs[s];
+				        $('input[name='+qs.queryStrName+']', g.sDiv).keydown(function (e) {
+						   if (e.keyCode == 13) {
+							  g.doSearch();
+						   }
+					    });
+				       qs=null;
+				    }
+				}
 				//Split into separate selectors because of bug in jQuery 1.3.2
-				$('input[name=q]', g.sDiv).keydown(function (e) {
+				/*$('input[name=q]', g.sDiv).keydown(function (e) {
 					if (e.keyCode == 13) {
 						g.doSearch();
 					}
 				});
-				//add by chrussy
-				$('select[name=qtype]', g.sDiv).change(function (e) {
-					//if (e.keyCode == 13) {
-						g.doSearch();
-					//}
-				});
-				//end
 				$('select[name=qtype]', g.sDiv).keydown(function (e) {
 					if (e.keyCode == 13) {
 						g.doSearch();
 					}
-				});
+				});*/
 				$('input[value=Clear]', g.sDiv).click(function () {
 					$('input[name=q]', g.sDiv).val('');
 					p.query = '';
@@ -1156,7 +1187,10 @@
 		// add title
 		if (p.title) {
 			g.mDiv.className = 'mDiv';
-			g.mDiv.innerHTML = '<div class="ftitle">' + p.title + '</div>';
+			//g.mDiv.innerHTML = '<div class="ftitle">' + p.title + '</div>';
+			//change by Chrussy
+			g.mDiv.innerHTML = '<div class="ftitle"></div>';
+			//end
 			$(g.gDiv).prepend(g.mDiv);
 			if (p.showTableToggleBtn) {
 				$(g.mDiv).append('<div class="ptogtitle" title="Minimize/Maximize Table"><span></span></div>');

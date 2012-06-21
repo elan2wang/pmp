@@ -1,7 +1,7 @@
 var rowIndex=1;
 var rowIndex2=1;
-var table1height=80;
-var table2height=100;
+var table1height=50;
+var table2height=25;
 
 $(function(){
 	var project=document.getElementById("proId");
@@ -27,7 +27,6 @@ function projectChanged()
 }
 
 function appendRow(){
-	$("#electricHeight").css("height",table1height+"px");
 	objtb=document.getElementById("electricList");
 	objNum=document.getElementById("tableNum");
 	objLast=document.getElementById("lastDegree");
@@ -36,7 +35,6 @@ function appendRow(){
 	isnum1=/^[1-9]d*.d*|0.d*[1-9]d*|0?.0+|0$/;
 	isnum2=/^[1-9]d*$/;
 	ismoney=/^[0-9]+(.[0-9]{1,2})?$/;
-	objNum.value=rowIndex;
 	if(isnum1.test(objLast.value)==false&&isnum2.test(objLast.value)==false){
 		alert("上期度数不正确");
 		objLast.focus();
@@ -70,6 +68,7 @@ function appendRow(){
 		newTd4.innerHTML="<a href=\"javascript:removeRow("+rowIndex+")\" style=\"color:red;text-decoration:none;\">删除</a>";
 		rowIndex++;
 		table1height+=25;
+		$("#electricHeight").css("height",table1height+"px");
 		updateRow();
 		objNum.innerHTML=rowIndex;
 		objLast.value="";
@@ -88,36 +87,42 @@ function removeRow(index){
 		}
 	}
 	updateRow();
+	$("#electricHeight").css("height",table1height+"px");
 }
 function updateRow(){
 	objtb=document.getElementById("electricList");
 	var beginDegree=0;
 	var endDegree=0;
-	var rate = 0;
+	var price = 0;
 	var totalMoney=0;
 	var totalDegree=0;
 	var arrTR=objtb.getElementsByTagName("tr");
 	for(x=1;x<arrTR.length-1;x++){
-		endDegree=parseFloat(arrTR[x].getElementsByTagName("td")[2].getElementsByTagName("input")[0].value)
+		endDegree=parseFloat(arrTR[x].getElementsByTagName("td")[2].getElementsByTagName("input")[0].value);
 		beginDegree=parseFloat(arrTR[x].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value);
 		totalDegree += endDegree-beginDegree;
-		rate=parseFloat(arrTR[x].getElementsByTagName("td")[3].getElementsByTagName("input")[0].value);
-		totalMoney += totalDegree * rate;
+		price=parseFloat(arrTR[x].getElementsByTagName("td")[3].getElementsByTagName("input")[0].value);
+		totalMoney +=(endDegree-beginDegree) * price;
 	}
-	document.getElementById("totalDegree").innerHTML=""+totalDegree;
-	document.getElementById("totalMoney").innerHTML=""+totalMoney;
-	document.getElementById("electricFeeItem.totalMoney").value=totalMoney;
+	document.getElementById("totalDegree").innerHTML=""+totalDegree.toFixed(2);
+	document.getElementById("totalMoney").innerHTML=""+totalMoney.toFixed(2);
+	document.getElementById("electricFeeItem.totalMoney").value=totalMoney.toFixed(2);//
 }
 //--------------------------------------
 //----电梯表增加一行
+function updateElev(money){
+	var temp=document.getElementById("electricFeeItem.totalMoney").value;
+	var totalmoney=parseFloat(temp)+parseFloat(money);
+	document.getElementById("electricFeeItem.totalMoney").value=totalmoney.toFixed(2);
+}
 function appendRowElev(){
-	table2height+=80;
-	$("#elevatorHeight").css("height",table2height+"px");
+	
 	objtb=document.getElementById("elevatorList");
 	objNum=document.getElementById("builNum");
 	objLast=document.getElementById("elevatorlastDegree");
 	objNow=document.getElementById("elevatornowDegree");
 	objFee=document.getElementById("elevatordegreeFee");
+	
 	isnum1=/^[1-9]d*.d*|0.d*[1-9]d*|0?.0+|0$/;
 	isnum2=/^[1-9]d*$/;
 	ismoney=/^[0-9]+(.[0-9]{1,2})?$/;
@@ -137,6 +142,10 @@ function appendRowElev(){
 		return false;
 	}
 	else{
+		table2height+=75;
+		$("#elevatorHeight").css("height",table2height+"px");
+		//更新隐藏域
+		updateElev(objFee.value);
 		//获取楼宇信息
 		var builInfo='';
 		$.ajax({
@@ -153,9 +162,10 @@ function appendRowElev(){
 				newTr.id="td"+rowIndex;
 				newTd0.style.height="25px";
 				newTd1.style.height="25px";
+				newTd1.style.borderWidth="0px";
 				newTd1.colSpan="4";
 				newTd0.innerHTML='<input type="hidden" name="builId" value="'+objNum.value+'"/>'+objNum.options[objNum.selectedIndex].text+'号楼,'+builInfo;
-				newTd1.innerHTML='<div><table id="buidingTable'+objNum.value+'" width="100%" border="0" align="center" cellpadding="0" cellspacing="0">'+
+				newTd1.innerHTML='<div style="height:75px"><table id="buidingTable'+objNum.value+'" width="100%" border="0" align="center" cellpadding="0" cellspacing="0">'+
 				    '<tr><td width="25%" style="height:25px"><input type="hidden" name="lmBeginDegree" value="'+objLast.value+'"/>'+objLast.value+'</td><td width="25%"><input type="hidden" name="lmEndDegree" value="'+objNow.value+'"/>'+objNow.value+'</td><td width="25%"><input type="hidden" name="lmPrice" value="'+objFee.value+'"/>'+objFee.value+'</td><td width="25%"><a href="javascript:void(0)" onclick="javascript:removeRowBuild(this)" style="color:red;text-decoration:none;">删除</a></td></tr>'+
 					'<tr><td style="height:25px">起始楼层</td><td>终止楼层</td><td>比例</td><td></td></tr>'+
 					'<tr style="background-color:#FFC;"><td style="height:25px"><input type="text" style="width:80px"/></td><td><input type="text" style="width:80px" /></td><td><input type="text" style="width:80px"/></td><td><input type="button" value="添加" onclick="appendRowBuild(this)"/></td></tr>'+
@@ -170,26 +180,19 @@ function appendRowElev(){
 		});
 	}
 }
-function removeRowElev(index){
-	objtb=document.getElementById("electricList");
-	var arrTR=objtb.getElementsByTagName("tr");
-	for(x=0;x<arrTR.length;x++){
-		if(arrTR[x].id=="td"+index){
-			objtb.deleteRow(x);
-			table2height-=50;
-		}
-	}
-}
+
 function removeRowBuild(the){
+	tableObj=$(the).parent().parent().parent().parent();
+	 var h=tableObj.parent().css("height");
+	table2height-=parseInt(h);
+	$("#elevatorHeight").css("height",table2height+"px");
 	$(the).parent().parent().parent().parent().parent().parent().parent().remove();
 }
 //-----------------------------------
 //---------楼号表增加一行----
 function appendRowBuild(the){
 	   tableObj=$(the).parent().parent().parent().parent();
-	   height=(tableObj.find("tr").length+1)*25;
-	   $("#elevatorHeight").css("height",(table2height+=25)+"px");
-	   tableObj.parent().css("height",height+"px");
+	   
 	   var inputs=$(the).parent().parent().find("input");
 	   var firstFloor=inputs[0];
 	   var lastFloor=inputs[1];
@@ -214,9 +217,12 @@ function appendRowBuild(the){
 		
 	   //添加一行
 		else{
+		   height=(tableObj.find("tr").length+1)*25;
+		   $("#elevatorHeight").css("height",(table2height+=25)+"px");
+		   tableObj.parent().css("height",height+"px");
 	       var newTr = $(tableObj)[0].insertRow(3);
 	       var bfrBuilId = (tableObj.parent().parent().prev().find("input"))[0].value;
-	       alert(bfrBuilId);
+	       //alert(bfrBuilId);
 	       var newTd0 = newTr.insertCell(0);
 	       var newTd1 = newTr.insertCell(1);
 	       var newTd2 = newTr.insertCell(2);
@@ -232,7 +238,11 @@ function appendRowBuild(the){
 	       rate.value="";
 		}
 }
+
 function removeRowCommon(the){
-	
+	tableObj=$(the).parent().parent().parent().parent();
+    height=(tableObj.find("tr").length-1)*25;
+	$("#elevatorHeight").css("height",(table2height-=25)+"px");
+	tableObj.parent().css("height",height+"px");
 	$(the).parent().parent().remove();
 }

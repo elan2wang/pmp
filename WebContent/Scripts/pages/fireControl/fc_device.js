@@ -217,7 +217,7 @@ function list_divice(xml){
  //全屏显示功能
   function FullScreen(self){
 	  
-	  var frame=document.getElementById("fc_device");
+	  var frame=parent.document.getElementById("fc_device");
 	  if(self.innerHTML=="全屏显示"){
 	      frame.style.position= "absolute";
 	      frame.style.left="0px";

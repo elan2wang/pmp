@@ -45,7 +45,7 @@
 	<fieldset class="add_fieldset">
 	  <legend class="add_legend">第三步：编辑总表信息</legend>
 	  <div class="tableDiv">
-	    <div style="width:600px;height:60px">
+	    <div style="width:600px;height:50px">
 	    <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0" class="table1">
 	      <tr>
 	          <td width="20%" height="25" align="center" valign="middle">编号</td>
@@ -55,7 +55,7 @@
 	          <td width="20%" height="25" align="center" valign="middle"></td>
 	      </tr>
 	      <tr style="background-color:#FFC;">
-	          <td height="25" align="center" valign="middle"><label name="tableNum" class="textbox1" id="tableNum" style="width:60px">1</label></td>
+	          <td height="25" align="center" valign="middle"><input name="tableNum" class="textbox1" id="tableNum" style="width:60px"/></td>
               <td height="25" align="center" valign="middle"><input name="lastDegree" type="text" class="textbox1" id="lastDegree" style="width:60px"/></td>
               <td height="25" align="center" valign="middle"><input name="nowDegree" type="text" class="textbox1" id="nowDegree" style="width:60px"/></td>
               <td height="25" align="center" valign="middle"><input name="degreeFee" type="text" class="textbox1" id="degreeFee" style="width:60px"/></td>
@@ -63,7 +63,7 @@
           </tr>
 	    </table>
 	    </div>
-	     <div id="electricHeight" style="width:600px; height:80px; overflow-y:auto;">
+	     <div id="electricHeight" style="width:600px; height:50px; overflow-y:auto;">
 	         <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0" class="table1" id="electricList">
                <tr>
 	              <td width="20%" height="25" align="center" valign="middle"></td>
@@ -108,7 +108,7 @@
           </tr>
 	    </table>
 	    </div>
-	     <div id="elevatorHeight" style="width:600px; height:80px; overflow-y:auto;">
+	     <div id="elevatorHeight" style="width:600px; height:25px; overflow-y:auto;">
 	         <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0" class="table1" id="elevatorList">
                <tr>
 	              <td width="20%" height="25" align="center" valign="middle">楼号</td>

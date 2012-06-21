@@ -34,8 +34,6 @@ return{x:ev.clientX,y:ev.clientY+$(document).scrollTop()};
 
 }
 
- 
-
 $.fn.extend(
 						{
 								RightMenu: function(id,options){
@@ -80,7 +78,7 @@ $.fn.extend(
 												
 												if(mw<w+mx){mx=mw-w;}//超 宽
 												
-												$("#"+id).hide().css({top:my,left:mx}).show();
+											//	$("#"+id).hide().css({top:my,left:mx}).show();
 						
 						                    }
 				
