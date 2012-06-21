@@ -5,13 +5,22 @@
   
   <package name="fee" extends="struts-default" namespace="/fee">
     
+    <!-- page tag triggered actions ======================================================================================= -->
+    <action name="select_project" class="org.pmp.action.business.PageTriggerAction" method="selectProject_ByAuth" >
+      <result name="success">/fee/select_pros.jsp</result>
+    </action>
+    
+    <action name="select_building" class="org.pmp.action.business.PageTriggerAction" method="selectBuilding_ByPro" />
+    <action name="getBuilInfo" class="org.pmp.action.business.PageTriggerAction" method="getBuilInfo" />
+    <!-- page tag triggered actions ================================================================================================ -->
+    
     <!-- tree related actions -->
     <action name="houseTree" class="org.pmp.action.business.TreeAction" method="houseTree" />
 
     <action name="monthTree" class="org.pmp.action.business.TreeAction" method="monthTree" />
     
     <action name="itemTree" class="org.pmp.action.business.TreeAction" method="condoFeeItemTree" />
-    <!-- tree related actions end ================================================================== -->
+    <!-- tree related actions end =================================================================================================== -->
     
     <!-- CondoFee item related actions -->
     <action name="cf_item_preview" class="org.pmp.action.business.CondoFeeItemAction" method="previewItemInfo" />
@@ -23,8 +32,7 @@
     </action>
     
     <action name="cf_item_delete" class="org.pmp.action.business.CondoFeeItemAction" method="deleteCondoFeeItem" />
-    
-    <!-- CondoFee item related actions =============================================================================== -->
+    <!-- CondoFee item related actions ============================================================================================== -->
     
     <!-- CondoFee Related actions -->
     <action name="loadCondoFeeList_ByCFI" class="org.pmp.action.business.CondoFeeAction" method="loadCondoFeeList_ByCFI" />
@@ -57,14 +65,18 @@
       <result name="audit">/fee/cf_audit.jsp</result>
       <result name="success" type="chain">loadCondoFeeList_ByHouse</result>
     </action>
-    <!-- CondoFee Related actions ======================================================================== -->
+    <!-- CondoFee Related actions =================================================================================================== -->
 
-    <!-- page tag triggered actions ====================================================================== -->
-    <action name="select_project" class="org.pmp.action.business.PageTriggerAction" method="selectProject_ByAuth" >
-      <result name="success">/fee/pro_options.jsp</result>
+
+    <!-- ElectricFeeItem Related actions ============================================================================================ -->
+    <action name="ef_item_add" class="org.pmp.action.business.ElectricFeeItemAction" method="addElectricFeeItem">
+      <result name="success">/fee/ef_item_add.jsp</result>
     </action>
     
-    <!-- TimeParkFee related actions -->
+    <!-- ElectricFeeItem Related actions ============================================================================================ -->
+    
+    
+    <!-- TimeParkFee related actions ================================================================================================ -->
     <action name="addTimeParkFee" class="org.pmp.action.business.TimeParkFeeAction" method="addTimeParkFee">
       <result name="success" type="chain">loadTimeParkFeeByProject</result>
     </action>
@@ -75,6 +87,7 @@
     </action>
     
     <action name="loadTimeParkFeeByProject" class="org.pmp.action.business.TimeParkFeeAction" method="loadTimeParkFeeByProject" />
+    <!-- TimeParkFee related actions ================================================================================================ -->
     
   </package>
 </struts>

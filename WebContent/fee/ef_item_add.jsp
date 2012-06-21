@@ -24,11 +24,11 @@
 <body>
 <div class="wrap">
   <div class="content_main" style='font-family:"微软雅黑","黑体","宋体";overflow:auto'>
-    <form name="form" id="form" action="cf_item_add" method="POST"><br/>
+    <form name="form" id="form" action="ef_item_add" method="POST"><br/>
 	<fieldset class="add_fieldset">
 	  <legend class="add_legend">第一步：选择物业项目</legend>
 	  <div class="selectdiv">
-	     <select id="ProId" name="ProId">
+	     <select id="proId" name="proId" onchange="projectChanged()">
 	     <s:action name="select_project" executeResult="true" namespace="/fee" />
 	     </select>
 	  </div>
@@ -69,15 +69,15 @@
 	              <td width="20%" height="25" align="center" valign="middle"></td>
 	              <td width="20%" height="25" align="center" valign="middle">上次度数</td>
 	              <td width="20%" height="25" align="center" valign="middle">本次度数</td>
-	              <td width="20%" height="25" align="center" valign="middle">应缴电费</td>
+	              <td width="20%" height="25" align="center" valign="middle">单价</td>
 	              <td width="20%" height="25" align="center" valign="middle"></td>
 	             </tr>
 	              <tr>
-	              <td width="20%" height="25" align="center" valign="middle" >总计</td>
-	              <td width="20%" height="25" align="center" valign="middle" name="totalLast" id="totalLast"></td>
-	              <td width="20%" height="25" align="center" valign="middle" name="totalNow" id="totalNow"></td>
-	              <td width="20%" height="25" align="center" valign="middle" name="totalFee" id="totalFee"></td>
-	              <td width="20%" height="25" align="center" valign="middle"></td>
+	              <td width="20%" height="25" align="center" valign="middle" >总度数</td>
+	              <td width="20%" height="25" align="center" valign="middle" name="totalDegree" id="totalDegree"></td>
+	              <td width="20%" height="25" align="center" valign="middle" >总金额</td>
+	              <td width="20%" height="25" align="center" valign="middle" name="totalMoney" id="totalMoney"></td>
+	              <td width="20%" height="25" align="center" valign="middle"><input type="hidden" name="electricFeeItem.totalMoney" id="electricFeeItem.totalMoney"></td>
 	             </tr>
                 </table>
            </div>
@@ -98,8 +98,7 @@
 	      </tr>
 	      <tr style="background-color:#FFC;">
 	          <td height="25" align="center" valign="middle">
-	                  <select id="buildNum" name="buildNum">
-	                          <s:action name="" executeResult="true" namespace="/fee" />
+	                  <select id="builNum" name="builNum">
 	                  </select>
 	          </td>
               <td height="25" align="center" valign="middle"><input name="elevatorlastDegree" type="text" class="textbox1" id="elevatorlastDegree" style="width:60px"/></td>
@@ -133,7 +132,7 @@
 	  </div>
 	</fieldset>
 	<div style="padding-left:20px;margin-top:10px">
-	<input type="button" id="submitbtn" value="确认创建"  onclick="return FormCheck();" disabled="disabled"/>
+	<input type="submit" id="submitbtn" value="确认创建"  onclick="return FormCheck();"/>
 	<input type="reset" value="取消创建" onclick="cancel_item()" /><br/>
 	</div>
     </form>
