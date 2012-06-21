@@ -12,6 +12,8 @@ public class FireInfo implements java.io.Serializable {
     private Integer fireId;
     private Zone zone;
     private String deviceNumber;
+    
+    
     private Date receiveTime;
     private String receiveInfo;
     private Integer state;

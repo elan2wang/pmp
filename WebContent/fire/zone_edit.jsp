@@ -23,7 +23,7 @@
 	                              <div>
 		                              <span >所在小区：</span>
 		                              <span>
-	                                     <s:action name="getProjectBySessionHander" namespace="/cms" executeResult="true"/>
+	                                     <s:action name="getOnlyProjectBySessionHander" namespace="/cms" executeResult="true"/>
 	                                     <input type="hidden" id="proId" name="proId" value="${zone.project.proId}"/> 
 	                                  </span>
                                   </div>
