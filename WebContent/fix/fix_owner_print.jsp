@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>维修单打印</title>
-<link href="CSS/iBox.css" rel="stylesheet" type="text/css" />
+<link href="../CSS/common/iBox.css" rel="stylesheet" type="text/css" />
 
 <script language=javascript>
 

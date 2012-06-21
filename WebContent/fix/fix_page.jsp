@@ -12,24 +12,24 @@
 <script type="text/javascript" src="../Scripts/jquery-1.7.1.js" ></script>
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
 <script type="text/javascript" src="../Scripts/common/window.js"></script>
-<script type="text/javascript" src="../Scripts/pages/maintain/mt_page.js"></script>
+<script type="text/javascript" src="../Scripts/pages/fix/fix_page.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
 <div class="wrap">
   <ul class="nav">
-     <li id="tab1" class="active"><a href="javascript:void(0)">维修服务管理</a></li>
+     <li id="tab1" class="active"><a href="javascript:void(0)">业主报修管理</a></li>
      <li id="tab2"><a href="javascript:void(0)">公共维修保养</a></li>
   </ul>
   <div class="content" style="height:570px;">
-    <!-- 维修服务管理  -->
+    <!-- 业主报修管理  -->
     <div class="innercontent" style="height:100%">
-      <iframe id="mt_manage" name="mt_manage" frameborder="0" scrolling="auto" style="width:100%; height:100%" src="" >
+      <iframe id="fix_owner" name="fix_owner" frameborder="0" scrolling="auto" style="width:100%; height:100%" src="" >
       </iframe>
     </div>
     <!-- 公共维修保养  -->
     <div class="innercontent" style="height:100%">
-      <iframe id="mt_public" name="mt_public" frameborder="0" scrolling="auto" style="width:100%; height:100%" src="" >
+      <iframe id="fix_public" name="fix_public" frameborder="0" scrolling="auto" style="width:100%; height:100%" src="" >
       </iframe>
     </div>
 
