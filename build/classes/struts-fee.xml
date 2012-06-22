@@ -19,7 +19,10 @@
 
     <action name="monthTree" class="org.pmp.action.business.TreeAction" method="monthTree" />
     
-    <action name="itemTree" class="org.pmp.action.business.TreeAction" method="condoFeeItemTree" />
+    <action name="cfItemTree" class="org.pmp.action.business.TreeAction" method="condoFeeItemTree" />
+    
+    <action name="efItemTree" class="org.pmp.action.business.TreeAction" method="electricFeeItemTree" />
+    
     <!-- tree related actions end =================================================================================================== -->
     
     <!-- CondoFee item related actions -->

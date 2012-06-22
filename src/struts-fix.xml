@@ -35,6 +35,8 @@
       <result name="success">/fix/fix_owner_print.jsp</result>
     </action>
     
+    <action name="deleteOwnerRepair" class="org.pmp.action.business.OwnerRepairAction" method="deleteOwnerRepair" />
+    
     <action name="deleteRepairFee" class="org.pmp.action.business.OwnerRepairAction" method="deleteRepairFee" />
     
     <!--owner repair related actions ====================================================================================== -->

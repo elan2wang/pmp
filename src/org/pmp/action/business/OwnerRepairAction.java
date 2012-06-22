@@ -63,6 +63,7 @@ public class OwnerRepairAction extends ActionSupport{
     private Integer houseId;
     private Integer opId;
     private Integer rfId;
+    private String idStr;
     
     /* 对应表单的费用项 */
     private String[] itemName;
@@ -183,7 +184,6 @@ public class OwnerRepairAction extends ActionSupport{
 	Object refDomain = SessionHandler.getUserRefDomain();
 	if (refDomain instanceof Company){
 	    Integer comId = ((Company)refDomain).getComId();
-	    logger.debug(comId);
 	    list = ownerRepairService.loadOwnerRepairList_ByCompany(comId, params, order, pager);
 	    logger.debug("list.size="+list.size());
 	} else if(refDomain instanceof Project){
@@ -204,6 +204,16 @@ public class OwnerRepairAction extends ActionSupport{
 	json.output(data);
     }
     
+    public void deleteOwnerRepair(){
+	List<OwnerRepair> list = new ArrayList<OwnerRepair>();
+	String[] checkedID = idStr.split(",");
+	for (int i=0;i<checkedID.length;i++){
+	    OwnerRepair op = ownerRepairService.getOwnerRepair_ByID(Integer.parseInt(checkedID[i]));
+	    list.add(op);
+	}
+	ownerRepairService.batchDeleteOwnerRepair(list);
+    }
+    
     public void deleteRepairFee(){
 	repairFeeService.deleteRepairFee(repairFeeService.getRepairFee_ByID(rfId));
     }
@@ -211,7 +221,13 @@ public class OwnerRepairAction extends ActionSupport{
     private void setParams(Map<String,Object> params){
 	String[] qtypes = qtype.split(",");
 	String[] querys = query.split(",");
+	for(int i=0;i<qtypes.length;i++){
+	    if (!querys[i].equals("null")){
+		params.put(qtypes[i], querys[i]);
+	    }
+	}
     }
+    
     //~ Getters and Setters ============================================================================================
     public IOwnerRepairService getOwnerRepairService() {
         return ownerRepairService;
@@ -288,6 +304,14 @@ public class OwnerRepairAction extends ActionSupport{
 
     public void setRfId(Integer rfId) {
         this.rfId = rfId;
+    }
+
+    public String getIdStr() {
+        return idStr;
+    }
+
+    public void setIdStr(String idStr) {
+        this.idStr = idStr;
     }
 
     public String[] getItemName() {

@@ -589,14 +589,17 @@
 					 var queryStrs=p.searchQueryStrs;
 					 var queryArr="";
 					 var typeArr="";
+					 alert(queryStrs.length);
 					 for(s=0;s<queryStrs.length;s++){
 						 var qs=queryStrs[s];
-						 queryArr+=$('input[name='+qs.queryStrName+']', g.sDiv).val()+",";
+						 var value=$('input[name='+qs.queryStrName+']', g.sDiv).val();
+						 alert(value);
+						 queryArr+=(value==undefined?"null":value)+",";
 						 typeArr+=$('select[name='+qs.selectName+']', g.sDiv).val()+",";
 						 qs=null;
 					 }
 					 queryArr=queryArr.substring(0,queryArr.length-1);
-					 typeArr=typeArr.substring(0,typeArr.length-1)
+					 typeArr=typeArr.substring(0,typeArr.length-1);
 				     p.query = queryArr;
 				     p.qtype =  typeArr;
 				}

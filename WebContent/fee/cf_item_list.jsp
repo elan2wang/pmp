@@ -19,12 +19,15 @@
 <script type="text/javascript" src="../Scripts/common/window.js"></script>
 <title>物业费管理</title>
 </head>
-<body>
+<body onload="load_data('cfItemTree','cf_list_by_item.jsp','condoFeeList')">
 <div class="wrap">
   <div class="content_main">
     <div class="left_main" style="float:left">
       <div class="left_main_content">
-      <%@ include file="item_tree.jsp" %>
+        <div class="dtree">
+	    <p><a href="javascript: d.openAll();">全部展开</a> | <a href="javascript: d.closeAll();">全部关闭</a></p>
+		</div>
+		<div id="tree"></div>
       </div>
     </div>
     <div class="middle"></div>
