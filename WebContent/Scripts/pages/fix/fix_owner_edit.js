@@ -68,9 +68,13 @@ function appendRow(){
 		newTr.style.textAlign="center";
 		newTr.id="td"+rowIndex;
 		newTd0.style.height="25px";
+		newTd0.style.witdth="120px";
 		newTd0.innerHTML="<input name=\"itemName\" type=\"hidden\" id=\"mtName"+rowIndex+"\" value=\""+objName.value+"\"/>"+objName.value;
+		newTd0.style.witdth="60px";
 		newTd1.innerHTML="<input name=\"itemAmount\" type=\"hidden\" id=\"mtNum"+rowIndex+"\" value=\""+objNum.value+"\"/>"+objNum.value;
+		newTd0.style.witdth="100px";
 		newTd2.innerHTML="<input name=\"itemMoney\" type=\"hidden\" id=\"mtPrice"+rowIndex+"\" value=\""+objPrice.value+"\"/>"+objPrice.value;
+		newTd0.style.witdth="190px";
 		newTd3.align="center";
 		newTd3.innerHTML="<div style=\"width:180px\">"+objNote.value+"</div><input name=\"itemComment\" type=\"hidden\" id=\"mtNote"+rowIndex+"\" value=\""+objNote.value+"\"/>";
 		newTd4.innerHTML="<a href=\"javascript:removeRow("+rowIndex+")\" style=\"color:red;text-decoration:none;\">删除</a>";
@@ -107,22 +111,12 @@ function updateRow(){
 	//alert(document.getElementById("inputArr").value);
 	//workerPrice和inputArr两个空间名也会跟在后面上传
 }
-function intRO(){
-	document.getElementById("fdReportDate").readOnly=true;
-	document.getElementById("fdApDate").readOnly=true;
-	document.getElementById("fdFinDate").readOnly=true;
-}
-function intTime(){
-	for(i=0;i<24;i++){
-		document.write("<option value=\""+i+":00\">"+i+":00</option>\n");
-		document.write("<option value=\""+i+":30\">"+i+":30</option>\n");
-	}
-}
+
 //===========================================
 //以下表单检测
 function strim(str){
-		return str.replace(/(^\s*)|(\s*$)/g,""); 
-	}
+	return str.replace(/(^\s*)|(\s*$)/g,""); 
+}
 function formchk(){
 	obj1=document.getElementById("YZBuilding");
 	obj2=document.getElementById("YZunit");

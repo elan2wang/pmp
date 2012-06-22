@@ -41,7 +41,7 @@ public class RepairFeeDAO extends BaseDAO implements IRepairFeeDAO {
     @Override
     public void batchSaveRepairFee(List<RepairFee> list) {
 	/* list.size will not be greater than 10, so we can use for cyclic sentence */
-	String debugMsg = "save LiftMeterItem";
+	String debugMsg = "save RepairFee";
 	try {
 	    for(RepairFee rf : list){
 		saveInstance(rf, debugMsg);

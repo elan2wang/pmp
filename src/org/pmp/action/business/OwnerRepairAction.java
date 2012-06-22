@@ -98,45 +98,57 @@ public class OwnerRepairAction extends ActionSupport{
 	OwnerRepair ownerRepair = ownerRepairService.getOwnerRepair_ByID(opId);
 	List<OperateDetail> odList = operateDetailService.loadOperateDetailList_ByOP(opId);
 	List<RepairFee> rfList = repairFeeService.loadRepairFeeList_ByOP(opId);
-	Double laborFee = 0.0;
-	for(RepairFee rf : rfList){
-	    
-	}
 	
 	HttpServletRequest request = ServletActionContext.getRequest();
 	request.setAttribute("ownerRepair", ownerRepair);
 	request.setAttribute("odList", odList);
 	request.setAttribute("rfList", rfList);
+	if(rfList.size()==0){
+	    request.setAttribute("showLaborFee","true");
+	} else {
+	    request.setAttribute("showLaborFee","false");
+	}
 	return SUCCESS;
     }
     
     public String editOwnerRepair(){
 	//新增维修收费项目
-	List<RepairFee> rfList = new ArrayList<RepairFee>();
-	Double materialFee = 0.0;
-	for(int i=0;i<itemName.length;i++){
-	    RepairFee rf = new RepairFee();
-	    rf.setRfName(itemName[i].trim());
-	    rf.setAmount(itemAmount[i]);
-	    rf.setMoney(Double.parseDouble(itemMoney[i].trim()));
-	    rf.setComment(itemComment[i].trim());
-	    rf.setOwnerRepair(ownerRepair);
-	    rfList.add(rf);
-	    //计算人工费和材料费
-	    if(itemName[i].equals("人工费")){
-		ownerRepair.setLaborFee(Double.parseDouble(itemMoney[i].trim()));
-	    } else {
-		materialFee += Double.parseDouble(itemMoney[i].trim());
+	if(itemName!=null){
+	    List<RepairFee> rfList = new ArrayList<RepairFee>();
+	    Double materialFee = 0.0;
+	    Double laborFee = 0.0;
+	    for(int i=0;i<itemName.length;i++){
+	        RepairFee rf = new RepairFee();
+		rf.setRfName(itemName[i].trim());
+		rf.setAmount(itemAmount[i]);
+		rf.setMoney(Double.parseDouble(itemMoney[i].trim()));
+		rf.setComment(itemComment[i].trim());
+		rf.setOwnerRepair(ownerRepair);
+	        rfList.add(rf);
+		//计算人工费和材料费
+		if(itemName[i].equals("人工费")){
+	            laborFee += Double.parseDouble(itemMoney[i].trim());
+		} else {
+		    materialFee += Double.parseDouble(itemMoney[i].trim());
+		}
 	    }
+	    repairFeeService.batchAddRepairFee(rfList);
+	    //修改维修单的费用信息
+	    ownerRepair.setLaborFee(laborFee+ownerRepair.getLaborFee());
+	    ownerRepair.setMaterialFee(materialFee+ownerRepair.getMaterialFee());
+	    ownerRepair.setTotalFee(ownerRepair.getLaborFee()+materialFee);
+	} else {
+	    //修改维修单的费用信息
+	    ownerRepair.setLaborFee(ownerRepair.getLaborFee());
+	    ownerRepair.setMaterialFee(ownerRepair.getMaterialFee());
+	    ownerRepair.setTotalFee(ownerRepair.getTotalFee());
 	}
-	repairFeeService.batchAddRepairFee(rfList);
 	
 	//修改维修单信息
-	ownerRepair.setMaterialFee(materialFee);
-	ownerRepair.setTotalFee(ownerRepair.getLaborFee()+materialFee);
 	logger.debug("opId="+ownerRepair.getOpId());
 	OwnerRepair repair = ownerRepairService.getOwnerRepair_ByID(ownerRepair.getOpId());
 	ownerRepair.setHouseOwner(repair.getHouseOwner());
+	
 	ownerRepairService.editOwnerRepair(ownerRepair);
 	
 	//新增操作记录

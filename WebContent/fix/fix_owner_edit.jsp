@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="../Scripts/pages/fix/fix_owner_add.js"></script>
+<script type="text/javascript" src="../Scripts/pages/fix/fix_owner_edit.js"></script>
 <style type="text/css">
 .textbox{
 	width:90px;
@@ -105,7 +105,7 @@
         </tr>
         <tr>
           <td height="30" align="center" valign="middle">业主验收：</td>
-          <td colspan="2" align="left" valign="middle"><input type="checkbox" name="ownerRepair.accepted" id="checkbox" /></td>
+          <td colspan="2" align="left" valign="middle"><input type="checkbox" name="ownerRepair.accepted" id="checkbox" value="true" /></td>
           <td rowspan="2" align="center" valign="middle">业主评价：</td>
           <td colspan="2" rowspan="2" align="left" valign="middle"><textarea name="ownerRepair.evaluateDetail" style="height:40px;width:170px;font-size:11.5px" class="textbox1"  id="fdYZComment" >${ownerRepair.evaluateDetail }</textarea></td>
         </tr>
@@ -136,24 +136,25 @@
               <td align="center" valign="middle"><strong>操作</strong></td>
             </tr>
             <tr style="background-color:#FFC;">
-              <td height="25" align="center" valign="middle"><input name="mtName" type="text" class="textbox1" id="mtName" /></td>
+              <td height="25" align="center" valign="middle"><input name="mtName" type="text" class="textbox1" id="mtName" <c:if test="${showLaborFee == 'true' }">value="人工费"</c:if> /></td>
               <td height="25" align="center" valign="middle"><input name="mtNum" type="text" class="textbox1" id="mtNum" style="width:40px"/></td>
               <td height="25" align="center" valign="middle"><input name="mtPrice" type="text" class="textbox1" id="mtPrice" style="width:40px"/></td>
-              <td height="25" align="center" valign="middle"><input name="mtNote" type="text" class="textbox1" id="mtNote" style="width:120px"/></td>
+              <td height="25" align="center" valign="middle"><input name="mtNote" type="text" class="textbox1" id="mtNote" <c:if test="${showLaborFee == 'true' }">value="含所有非材料费用"</c:if> style="width:120px"/></td>
               <td align="center" valign="middle"><input type="button" name="button" id="button" value="新增" onclick="appendRow();"/></td>
             </tr>
             <tr>
               <td height="25" colspan="5" align="center" valign="middle">
               <div id="feeList" style="width:100%; height:50px; overflow-y:auto;">
                 <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0"  id="tbProjList">
-                
+                <c:forEach var="item" items="${rfList }">
                 <tr>
-                  <td style="width:120px;height:25px" align="center" valign="middle"><input type="hidden" name="itemName" value="工时费" />工时费</td>
-                  <td style="width:60px"  height="25" align="center" valign="middle"><input type="hidden" name="itemAmount" value="1" />-</td>
-                  <td style="width:100px" height="25" align="center" valign="middle"><input type="text" name="itemMoney" class="textbox1" id="workerPrice" style="width:40px" value="${laborFee }"/></td>
-                  <td style="width:190px" height="25" align="center" valign="middle"><div style="width:180px"><input type="hidden" name="itemComment" value="含所有非材料费用">含所有非材料费用</div></td>
-                  <td align="center" height="25" valign="middle"><input type="hidden" name="inputArr" id="inputArr"  />.</td>
+                  <td style="width:120px; height:25px" align="center" valign="middle"><input type="hidden" name="rfId" value="${item.rfId }" />${item.rfName }</td>
+                  <td style="width:60px"  height="25" align="center" valign="middle">${item.amount }</td>
+                  <td style="width:100px" height="25" align="center" valign="middle">${item.money }</td>
+                  <td style="width:190px" height="25" align="center" valign="middle"><div style="width:180px">${item.comment }</div></td>
+                  <td align="center" height="25" valign="middle"><a href="javascript:removeRow()" style="color:red;text-decoration:none;">删除</a></td>
                 </tr>
+                </c:forEach>
                 </table>
               </div>
               </td>
