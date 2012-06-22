@@ -23,22 +23,33 @@ document.onmousedown=mouseMove;//记录鼠标位置
 });
 
 var mx=0,my=0;
-
+var nv1=navigator;
 function mouseMove(ev){
 	Ev=ev||window.event;
 	var mousePos=mouseCoords(Ev);
-	mx=mousePos.x;my=mousePos.y;
+	
+	if(nv1.userAgent.indexOf("MSIE")>=1)
+	{
+		mx=mousePos.x+$(document).scrollLeft();
+		my=mousePos.y+$(document).scrollTop();
+	}
+	else if(nv1.userAgent.indexOf("Firefox")>=1)
+	{
+		mx=mousePos.x;
+		my=mousePos.y;
+	}
+	else
+	{
+		mx=mousePos.x;
+	    my=mousePos.y;
+	}
 } 
 
 function mouseCoords(ev){
      if(ev.pageX||ev.pageY){
-    	 //alert(ev.pageX+" Y "+ev.pageY);
-    	 //return{x:ev.pageX,y:ev.pageY};
-    	 return{x:ev.pageX+document.body.scrollLeft,y:ev.pageY+document.body.scrollLeft};
+    	 return{x:ev.pageX,y:ev.pageY};
       }
-
-     return{x:ev.clientX+$(document).scrollTop(),y:ev.clientY+$(document).scrollTop()};
-
+     return{x:ev.clientX,y:ev.clientY};
 }
 
 $.fn.extend(
@@ -81,7 +92,7 @@ $.fn.extend(
 												
 												mh=(mhh>mbh)?mhh:mbh;//最大高度 比较html与body的高度
 												
-												if(mh<h+my){my=mh-h;}//超 高
+												//if(mh<h+my){my=mh-h;}//超 高
 												
 												//if(mw<w+mx){mx=mw-w;}//超 宽
 												

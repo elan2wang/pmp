@@ -31,9 +31,8 @@
 <form action="" method="post"  name="form1" id="form1" >
   <table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>
-      <td style="padding-top:5px; padding-bottom:5px; border-bottom:1px #6c92ad solid;">
-      <div id="P1">
-      <table width="380" border="0" align="center" cellpadding="0" cellspacing="0" class="table1">
+      <td style="">
+      <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0" class="table1">
         <tr>
           <td height="30" colspan="3" align="center" valign="middle"><strong>附件上传</strong>（限doc,docx,pdf,xls,xlsx,jpg,gif格式，5M大小）</td>
           </tr>
@@ -49,11 +48,18 @@
         </tr>
         <tr>
           <td height="125" colspan="3" align="center" valign="middle">
-          <div style="width:100%; height:25px; overflow-y:auto;">
+          <div style="width:100%; height:auto; overflow-y:auto;">
           <table id="uploadedList" width="100%" border="0" cellpadding="0" cellspacing="0" class="table1" style="border:0px;">
+            <tr>
+              <td width="60%" ><strong>文件名称</strong></td>
+              <td width="15%" ><strong>上传时间</strong></td>
+              <td width="15%" ><strong>上传人员</strong></td>
+              <td width="10%" ></td>
+            </tr>
             <c:forEach var="item" items="${raList }">
             <tr>
-              <td><a href="${item.attachUrl }">${item.attachName }</a></td>
+              <td ><a href="${item.attachUrl }">${item.attachName }</a></td>
+              <td></td><td>
               <td><div style="display:none">${item.raId }</div>
                 <a href="javascript:void(0)" onclick="javascript:removeRow(this)" style="color:red;text-decoration:none;">删除</a>
               </td>
@@ -64,8 +70,7 @@
           </td>
           </tr>
       </table>
-      </div>
-      <div id="P2" style="display:;"></div>
+     
       </td>
     </tr>
   </table>

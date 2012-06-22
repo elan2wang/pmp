@@ -152,7 +152,7 @@
                   <td style="width:60px"  height="25" align="center" valign="middle">${item.amount }</td>
                   <td style="width:100px" height="25" align="center" valign="middle">${item.money }</td>
                   <td style="width:190px" height="25" align="center" valign="middle"><div style="width:180px">${item.comment }</div></td>
-                  <td align="center" height="25" valign="middle"><a href="javascript:deleteFee(this)" style="color:red;text-decoration:none;">删除</a></td>
+                  <td align="center" height="25" valign="middle"><a href="javascript:void(0);" onclick="deleteFee(this)" style="color:red;text-decoration:none;">删除</a></td>
                 </tr>
                 </c:forEach>
                 </table>
