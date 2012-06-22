@@ -81,7 +81,7 @@ function openAttach(obj){
 }
 
 function printOwnerRepair(obj){
-	url="printOwnerRepair?id="+obj.attr("id").substr(3);
+	url="printOwnerRepair?opId="+obj.attr("id").substr(3);
 	window.open(url);
 }
 		
