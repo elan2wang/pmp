@@ -47,7 +47,7 @@
 	                   <div><span >描述：</span><span><input name="zone.zoneDesc" type="text" class="textbox" id="zone.zoneDesc"  value="${zone.zoneDesc}"/></span></div>
 	                </div>
 	                <div class="rowStyle">
-	                   <div style=" margin-left:100px;margin-top:20px"><span><input type="submit" value="修改"></span></div>
+	                   <div style="text-align:center;margin-top:20px"><span><input type="submit" value="修改" style="width:100px"></span></div>
 	                </div>
 	            </form>
 	      </div>

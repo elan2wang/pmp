@@ -43,7 +43,7 @@
 	                   <div><span >描述：</span><span><input name="zone.zoneDesc" type="text" class="textbox" id="project.proName" /></span></div>
 	                </div>
 	                <div class="rowStyle">
-	                   <div style=" margin-left:100px;margin-top:20px"><span><input type="submit" value="添加"></span></div>
+	                   <div style=" text-align:center;margin-top:20px"><span><input type="submit" value="添加" style="width:100px"></span></div>
 	                </div> 
 	                
 	            </form>
