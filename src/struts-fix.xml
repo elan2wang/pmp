@@ -31,7 +31,21 @@
     
     <action name="loadOwnerRepairList" class="org.pmp.action.business.OwnerRepairAction" method="loadOwnerRepairList" />
     
+    <action name="printOwnerRepair" class="org.pmp.action.business.OwnerRepairAction" method="getOwnerRepairByID">
+      <result name="success">/fix/fix_owner_print.jsp</result>
+    </action>
+    
     <!--owner repair related actions ====================================================================================== -->
+    
+    <!-- owner repair attach related actions ====================================================================================== -->
+    <action name="addRepairAttach" class="org.pmp.action.business.RepairAttachAction" method="addRepairAttach" />
+    
+    <action name="deleteRepairAttach" class="org.pmp.action.business.RepairAttachAction" method="deleteRepairAttach" />
+    
+    <action name="loadRepairAttachList" class="org.pmp.action.business.RepairAttachAction" method="loadRepairAttachList">
+      <result name="success">/fix/fix_owner_attach.jsp</result>
+    </action>
+    <!-- owner repair attach related actions ====================================================================================== -->
     
   </package>
   

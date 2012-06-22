@@ -43,6 +43,8 @@ public class MyfileUtil {
 	filetypes.add("zip");
 	filetypes.add("txt");
 	filetypes.add("pdf");
+	filetypes.add("jpg");
+	filetypes.add("gif");
 	
 	String postfix = getPostfix(filename);
 	return filetypes.contains(postfix) ? true : false;
