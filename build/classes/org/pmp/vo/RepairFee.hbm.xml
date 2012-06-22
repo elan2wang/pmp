@@ -6,7 +6,7 @@
     <class name="org.pmp.vo.RepairFee" table="tb_RepairFee" schema="dbo" catalog="db_pmp2">
         <id name="rfId" type="integer">
             <column name="RF_ID" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
         <many-to-one name="ownerRepair" class="org.pmp.vo.OwnerRepair" fetch="select" lazy="false">
             <column name="OP_ID" />
