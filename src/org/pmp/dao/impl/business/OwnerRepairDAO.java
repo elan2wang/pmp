@@ -19,6 +19,8 @@ import org.apache.log4j.Logger;
 import org.pmp.dao.admin.BaseDAO;
 import org.pmp.dao.business.IOwnerRepairDAO;
 import org.pmp.util.Pager;
+import org.pmp.util.ParamsToString;
+import org.pmp.vo.CondoFee;
 import org.pmp.vo.OwnerRepair;
 
 /**
@@ -72,13 +74,46 @@ public class OwnerRepairDAO extends BaseDAO implements IOwnerRepairDAO {
     }
 
     /**
+     * @see org.pmp.dao.business.IOwnerRepairDAO#getOwnerRepair_ByID(java.lang.Integer)
+     */
+    @Override
+    public OwnerRepair getOwnerRepair_ByID(Integer opId) {
+	String debugMsg = "get ownerRepair by id, opId="+opId;
+	String hql = "from OwnerRepair where opId="+opId;
+	OwnerRepair instance = null;
+	try {
+	    instance = (OwnerRepair)getInstance(hql, debugMsg);
+	} catch (RuntimeException e){
+	    throw e;
+	}
+	return instance;
+    }
+    
+    /**
      * @see org.pmp.dao.business.IOwnerRepairDAO#loadOwnerRepairList_ByCompany(java.lang.Integer, java.util.Map, java.lang.String, org.pmp.util.Pager)
      */
     @Override
     public List<OwnerRepair> loadOwnerRepairList_ByCompany(Integer comId,
 	    Map<String, Object> params, String order, Pager pager) {
-	// TODO Auto-generated method stub
-	return null;
+	List<OwnerRepair> list = null;
+	String debugMsg = "load ownerRepair list by company, comId="+comId;
+	StringBuilder hql = new StringBuilder();
+	hql.append("from OwnerRepair where houseOwner.house.houseId in (select houseId from House where building.builId in (" +
+		   "select builId from Building where project.proId in (select proId from Project where company.comId="+comId+")))");
+	hql.append(ParamsToString.toString(params));
+	if (order==null){
+	    hql.append(" order by applyTime desc");
+	} else {
+	    hql.append(" "+order);
+	}
+	logger.debug(hql);
+	try {
+	    list = (List<OwnerRepair>) loadListByCondition(hql.toString(),pager,debugMsg);
+	} catch (RuntimeException e){
+	    throw e;
+	}
+	
+	return list;
     }
 
     /**
@@ -87,7 +122,25 @@ public class OwnerRepairDAO extends BaseDAO implements IOwnerRepairDAO {
     @Override
     public List<OwnerRepair> loadOwnerRepairList_ByProject(Integer proId,
 	    Map<String, Object> params, String order, Pager pager) {
-	// TODO Auto-generated method stub
-	return null;
+	List<OwnerRepair> list = null;
+	String debugMsg = "load ownerRepair list by project, proId="+proId;
+	StringBuilder hql = new StringBuilder();
+	hql.append("from OwnerRepair where houseOwner.house.houseId in (select houseId from House where building.builId in (" +
+		   "select builId from Building where project.proId="+proId+"))");
+	hql.append(ParamsToString.toString(params));
+	if (order==null){
+	    hql.append(" order by applyTime desc");
+	} else {
+	    hql.append(" "+order);
+	}
+	logger.debug(hql);
+	try {
+	    list = (List<OwnerRepair>) loadListByCondition(hql.toString(),pager,debugMsg);
+	} catch (RuntimeException e){
+	    throw e;
+	}
+	
+	return list;
     }
+
 }

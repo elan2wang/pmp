@@ -27,9 +27,9 @@
   <div class="content_main">
       <table id="managelist">
       </table>
-      <div id="newMaintain" class="easyui-window" href="fix_owner_edit.jsp" title="添加维修单" iconCls="icon-save" style="width:600px;height:350px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
+      <div id="newOwnerRepair" class="easyui-window" href="fix_owner_add.jsp" title="添加维修单" iconCls="icon-save" style="width:600px;height:250px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
   	  </div>
-  	  <div id="editMaintain" class="easyui-window" href="" title="编辑维修单" iconCls="icon-save" style="width:310px;height:350px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
+  	  <div id="editOwnerRepair" class="easyui-window" href="" title="编辑维修单" iconCls="icon-save" style="width:600px;height:400px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
   	  </div>
   	  <div id="openAttach" class="easyui-window" href="" title="上传附件" iconCls="icon-save" style="width:310px;height:350px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
   	  </div>

@@ -11,7 +11,7 @@
         <many-to-one name="building" class="org.pmp.vo.Building" fetch="select" lazy="false">
             <column name="Buil_ID" />
         </many-to-one>
-        <many-to-one name="electricFeeItem" class="org.pmp.vo.ElectricFeeItem" fetch="select">
+        <many-to-one name="electricFeeItem" class="org.pmp.vo.ElectricFeeItem" fetch="select" lazy="false">
             <column name="EFI_ID" />
         </many-to-one>
         <property name="beginFloor" type="integer">

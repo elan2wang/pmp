@@ -4,6 +4,35 @@
   <constant name="struts.i18n.encoding" value="UTF-8" />
   
   <package name="fix" extends="struts-default" namespace="/fix">
+    <!-- page tag triggered actions ======================================================================================= -->
+    <action name="select_project" class="org.pmp.action.business.PageTriggerAction" method="selectProject_ByAuth" >
+      <result name="success">/fee/select_pros.jsp</result>
+    </action>
+    
+    <action name="select_building" class="org.pmp.action.business.PageTriggerAction" method="selectBuilding_ByPro" />
+    
+    <action name="select_house" class="org.pmp.action.business.PageTriggerAction" method="selectHouse_ByBuil" />
+    
+    <action name="get_houseOwner_info" class="org.pmp.action.business.PageTriggerAction" method="getHouseOwnerInfo" />
+    <!-- page tag triggered actions ======================================================================================= -->
+    
+    <!--owner repair related actions ====================================================================================== -->
+    <action name="fix_owner_add" class="org.pmp.action.business.OwnerRepairAction" method="addOwnerRepair">
+      <result name="success">/fix/fix_owner_list.jsp</result>
+    </action>
+    
+    <action name="getOwnerRepairByID" class="org.pmp.action.business.OwnerRepairAction" method="getOwnerRepairByID">
+      <result name="success">/fix/fix_owner_edit.jsp</result>
+    </action>
+    
+    <action name="fix_owner_edit" class="org.pmp.action.business.OwnerRepairAction" method="editOwnerRepair">
+      <result name="success">/fix/fix_owner_list.jsp</result>
+    </action>
+    
+    <action name="loadOwnerRepairList" class="org.pmp.action.business.OwnerRepairAction" method="loadOwnerRepairList" />
+    
+    <!--owner repair related actions ====================================================================================== -->
+    
   </package>
   
 </struts>

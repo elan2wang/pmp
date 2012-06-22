@@ -1,15 +1,4 @@
-//公共函数
-
-    //根据小区 获取楼宇信息
-function getBuilding(){}
-   
-
-    //根据楼号 获取户信息
-function getUnit(){
-	
-}
-
-    
+  
 //-------------------------------------------------------
 
 //=======================================================
@@ -79,11 +68,11 @@ function appendRow(){
 		newTr.style.textAlign="center";
 		newTr.id="td"+rowIndex;
 		newTd0.style.height="25px";
-		newTd0.innerHTML="<input name=\"mtName"+rowIndex+"\" type=\"hidden\" id=\"mtName"+rowIndex+"\" value=\""+objName.value+"\"/>"+objName.value;
-		newTd1.innerHTML="<input name=\"mtNum"+rowIndex+"\" type=\"hidden\" id=\"mtNum"+rowIndex+"\" value=\""+objNum.value+"\"/>"+objNum.value;
-		newTd2.innerHTML="<input name=\"mtPrice"+rowIndex+"\" type=\"hidden\" id=\"mtPrice"+rowIndex+"\" value=\""+objPrice.value+"\"/>"+objPrice.value;
+		newTd0.innerHTML="<input name=\"itemName\" type=\"hidden\" id=\"mtName"+rowIndex+"\" value=\""+objName.value+"\"/>"+objName.value;
+		newTd1.innerHTML="<input name=\"itemAmount\" type=\"hidden\" id=\"mtNum"+rowIndex+"\" value=\""+objNum.value+"\"/>"+objNum.value;
+		newTd2.innerHTML="<input name=\"itemMoney\" type=\"hidden\" id=\"mtPrice"+rowIndex+"\" value=\""+objPrice.value+"\"/>"+objPrice.value;
 		newTd3.align="center";
-		newTd3.innerHTML="<div style=\"width:180px\">"+objNote.value+"</div><input name=\"mtNote"+rowIndex+"\" type=\"hidden\" id=\"mtNote"+rowIndex+"\" value=\""+objNote.value+"\"/>";
+		newTd3.innerHTML="<div style=\"width:180px\">"+objNote.value+"</div><input name=\"itemComment\" type=\"hidden\" id=\"mtNote"+rowIndex+"\" value=\""+objNote.value+"\"/>";
 		newTd4.innerHTML="<a href=\"javascript:removeRow("+rowIndex+")\" style=\"color:red;text-decoration:none;\">删除</a>";
 		rowIndex++;
 		updateRow();

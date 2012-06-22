@@ -30,6 +30,8 @@ public interface IOwnerRepairService {
     
     public void batchDeleteOwnerRepair(List<OwnerRepair> list);
     
+    public OwnerRepair getOwnerRepair_ByID(Integer opId);
+    
     public List<OwnerRepair> loadOwnerRepairList_ByCompany(Integer comId, Map<String, Object> params, String order, Pager pager);
     
     public List<OwnerRepair> loadOwnerRepairList_ByProject(Integer proId, Map<String, Object> params, String order, Pager pager);

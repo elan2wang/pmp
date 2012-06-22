@@ -1,14 +1,56 @@
 //公共函数
 
-    //根据小区 获取楼宇信息
-function getBuilding(){}
-   
-
-    //根据楼号 获取户信息
-function getUnit(){
-	
+//根据小区 获取楼宇信息
+function getBuilding(){
+	var proId = $('#projectId').val();
+	var builId=$('#builId'); 
+	builId.find('option').remove();
+	builId.append('<option value="null2">请选择楼宇</option>');
+	$('#houseId').find('option').remove();
+	$('#houseId').append('<option value="null3">请选择房号</option>');
+	$.ajax({
+		type: "POST",
+		url: "select_building?proId="+proId,
+		dataType: "json",
+		success: function(data){
+			$.each( data.Rows , function(commentIndex, comment) {				
+				builId.append('<option value="'+comment['builId']+'">'+comment['builNum']+'</option>');
+		    });
+		}
+	});
 }
 
+//根据楼号 获取房屋信息
+function getHouse(){
+	var builId = $('#builId').val();
+	var selector=$('#houseId'); 
+	selector.find('option').remove();
+	selector.append('<option value="null3">请选择房号</option>');
+	$.ajax({
+		type: "POST",
+		url: "select_house?builId="+builId,
+		dataType: "json",
+		success: function(data){
+			$.each( data.Rows , function(commentIndex, comment) {				
+		        selector.append('<option value="'+comment['houseId']+'">'+comment['houseNum']+'</option>');
+		    });
+		}
+	});
+}
+
+//根据房号获取用户信息
+function getOwner(){
+	var houseId = $('#houseId').val();
+	$.ajax({
+		type: "POST",
+		url: "get_houseOwner_info?houseId="+houseId,
+		dataType: "json",
+		success: function(data){
+			$('#applyPerson').val(data.ownerName);
+			$('#contactPhone').val(data.contactPhone);
+		}
+	});
+}
     
 //-------------------------------------------------------
 
@@ -33,24 +75,11 @@ function to(page){
 	}
 }
 
-
-
-function intRO(){
-	document.getElementById("fdReportDate").readOnly=true;
-	document.getElementById("fdApDate").readOnly=true;
-	document.getElementById("fdFinDate").readOnly=true;
-}
-function intTime(){
-	for(i=0;i<24;i++){
-		document.write("<option value=\""+i+":00\">"+i+":00</option>\n");
-		document.write("<option value=\""+i+":30\">"+i+":30</option>\n");
-	}
-}
 //===========================================
 //以下表单检测
 function strim(str){
-		return str.replace(/(^\s*)|(\s*$)/g,""); 
-	}
+    return str.replace(/(^\s*)|(\s*$)/g,""); 
+}
 function formchk(){
 	obj1=document.getElementById("YZBuilding");
 	obj2=document.getElementById("YZunit");

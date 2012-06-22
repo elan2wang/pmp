@@ -80,7 +80,7 @@ function buildingChanged(houseid,houseNum){
 	var buildingId = document.getElementById("buildingId").value;
 	$.ajax({
 		type: "POST",
-		url: "selectHouse_ByBuil?builId="+buildingId,
+		url: "selectHouse_ByBuil?builId="+buildingId+"&isEmpty=1",
 		dataType:"json",
 		success:function(data){
 			var houseId=$('#houseId');

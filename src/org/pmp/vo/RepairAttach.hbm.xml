@@ -8,7 +8,7 @@
             <column name="RA_ID" />
             <generator class="identity" />
         </id>
-        <many-to-one name="ownerRepair" class="org.pmp.vo.OwnerRepair" fetch="select">
+        <many-to-one name="ownerRepair" class="org.pmp.vo.OwnerRepair" fetch="select" lazy="false">
             <column name="OP_ID" />
         </many-to-one>
         <property name="attachName" type="string">

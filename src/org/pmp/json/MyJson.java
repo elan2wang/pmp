@@ -100,6 +100,17 @@ public class MyJson {
             e.printStackTrace();  
         } 
     }
+    
+    public static void print(String data){
+	try {    
+            HttpServletResponse response = ServletActionContext.getResponse();  
+            response.setContentType("application/json;charset=UTF-8");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().println(data);
+        } catch (IOException e) {                     
+            e.printStackTrace();  
+        } 
+    }
     //~ Getters and Setters ============================================================================================
     public Includer getIncluder() {
         return includer;

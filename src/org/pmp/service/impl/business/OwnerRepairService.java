@@ -61,6 +61,16 @@ public class OwnerRepairService implements IOwnerRepairService {
 	ownerRepairDAO.batchDeleteOwnerRepair(list);
     }
 
+
+    /**
+     * @see org.pmp.service.business.IOwnerRepairService#getOwnerRepair_ByID(java.lang.Integer)
+     */
+    @Override
+    public OwnerRepair getOwnerRepair_ByID(Integer opId) {
+	return ownerRepairDAO.getOwnerRepair_ByID(opId);
+    }
+
+    
     /**
      * @see org.pmp.service.business.IOwnerRepairService#loadOwnerRepairList_ByCompany(java.lang.Integer, java.util.Map, java.lang.String, org.pmp.util.Pager)
      */
