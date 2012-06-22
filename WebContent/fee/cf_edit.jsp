@@ -12,15 +12,17 @@
 <body>
 <div class="window_content">
 <form name="form1" id="form1" action="cf_edit" method="post">
-<table cellpadding="2px" cellspacing="2px" border="0" style="bottom-border:1px,dash">
+<table class="tableid" id="tableedit" cellpadding="2px" cellspacing="2px" border="0" style="bottom-border:1px,dash">
 <tr>
+  <th style="width:40px;"><input type="checkbox" name="ids" value="${item.cfId }" checked="checked" onclick="selectAllOrNone(this)"></th>
   <th style="width:40px;">序号</th>
   <th style="width:40px;">房号</th><th style="width:40px;">业主</th>
   <th style="width:60px;">时间</th><th style="width:80px;">应收金额(元)</th>
 </tr>
 <c:forEach var="item" items="${cfList }" varStatus="status">
 <tr class="item">
-  <td><input type="checkbox" name="ids" value="${item.cfId }" checked="checked">${status.count }</td>
+  <td><input type="checkbox" name="ids" value="${item.cfId }" checked="checked"></td>
+  <td>${status.count }</td>
   <td>${item.house.houseNum }</td>
   <td>${item.owner.ownerName }</td>
   <td>${item.cfYear }-${item.cfMonth }</td>
@@ -28,7 +30,9 @@
 </tr>
 </c:forEach>
 </table>
-<input type="submit" value="提交" />&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="取消" />
+<div style="text-align:center;margin-top:20px">
+<input type="submit" value="确认" />&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="取消" />
+</div>
 </form>
 </div>   
 </body>

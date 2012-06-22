@@ -49,10 +49,16 @@
         </tr>
         <tr>
           <td height="125" colspan="3" align="center" valign="middle">
-          <div style="width:100%; height:25px; overflow-y:auto;">
+          <div style="width:100%; height:auto; overflow-y:auto;">
           <table id="uploadedList" width="100%" border="0" cellpadding="0" cellspacing="0" class="table1" style="border:0px;">
+            <tr>
+              <td width="23.3%" ><strong>上传时间</strong></td>
+              <td width="63.3%" ><strong>文件名称</strong></td>
+              <td width="13.3%" ></td>
+            </tr>
             <c:forEach var="item" items="${raList }">
             <tr>
+              <td ></td>
               <td><a href="${item.attachUrl }">${item.attachName }</a></td>
               <td><div style="display:none">${item.raId }</div>
                 <a href="javascript:void(0)" onclick="javascript:removeRow(this)" style="color:red;text-decoration:none;">删除</a>

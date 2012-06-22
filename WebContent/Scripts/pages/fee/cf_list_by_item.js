@@ -159,3 +159,17 @@ function cfAudit(){
 		}
 	});
 }
+
+function selectAllOrNone(the){
+	var checks=$(the).parent().parent().parent().find(":checkbox");
+	if($(the).attr("checked")){
+		checks.each(function(){
+			$(this).attr("checked",true);
+		});
+	}
+	else{
+		checks.each(function(){
+			$(this).attr("checked",false);
+		});
+	}	
+}

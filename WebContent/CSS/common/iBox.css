@@ -54,3 +54,6 @@
 	border:solid #000;
 	border-width:0 1px 1px 0;
 }
+.tableid{margin:0;border-color:#999999; width:100%; border-width:1px; border-collapse:collapse;border-style:solid;}
+.tableid td{ background-color:#FFFFFF; border-color:#000; border-width:1px; border-style:solid; text-align:center; padding:2px 0;font-size:12px;}
+.tableid th{ background-color:#FFFFFF; border-color:#000; border-width:1px; border-style:solid; text-align:center; padding:2px 0;font-size:12px;}

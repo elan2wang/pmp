@@ -34,10 +34,12 @@ function mouseCoords(ev){
      if(ev.pageX||ev.pageY){
     	 //alert(ev.pageX+" Y "+ev.pageY);
     	 //return{x:ev.pageX,y:ev.pageY};
-    	 return{x:ev.pageX+document.body.scrollLeft,y:ev.pageY+document.body.scrollLeft};
+    	// alert("11");
+    	// alert($(document).scrollLeft()+" Y "+$(document).scrollTop());
+    	 return{x:ev.pageX+$(document).scrollLeft(),y:ev.pageY+2*$(document).scrollTop()};
       }
 
-     return{x:ev.clientX+$(document).scrollTop(),y:ev.clientY+$(document).scrollTop()};
+     return{x:ev.clientX+$(document).scrollLeft(),y:ev.clientY+2*$(document).scrollTop()};
 
 }
 
