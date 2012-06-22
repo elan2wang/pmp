@@ -39,7 +39,7 @@
         <tr>
           <td height="30" align="center" valign="middle">小&nbsp;&nbsp;&nbsp;&nbsp;区：</td>
           <td align="left" valign="middle">
-          <select name="project" class="selectbox"  style="width:95px;" id="projectId" onchange="getBuilding()">
+          <select name="project" id="project" class="selectbox"  style="width:95px;" id="projectId" onchange="getBuilding()">
               <option value="null1">请选择小区</option>
               <s:action name="select_project" executeResult="true" namespace="/fix" />
           </select>
@@ -58,22 +58,22 @@
         </tr>
         <tr>
           <td width="80" height="30" align="center" valign="middle">报&nbsp;修&nbsp;人：</td>
-          <td width="100" align="left" valign="middle"><input name="ownerRepair.applyPerson" type="text" class="textbox1" id="applyPerson"  /></td>
+          <td width="100" align="left" valign="middle"><input name="ownerRepair.applyPerson" type="text" class="textbox1" id="ownerRepair.applyPerson"  /></td>
           <td width="80" align="center" valign="middle">联系电话：</td>
-          <td width="100" align="left" valign="middle"><input name="ownerRepair.contactPhone" type="text" class="textbox1" id="contactPhone"  /></td>
+          <td width="100" align="left" valign="middle"><input name="ownerRepair.contactPhone" type="text" class="textbox1" id="ownerRepair.contactPhone"  /></td>
           <td width="80" align="center" valign="middle">报修时间：</td>
-          <td width="100" align="left" valign="middle"><input name="ownerRepair.applyTime" type="text" class="textbox1"  id="fdReportDate" readonly="readonly" style="cursor:pointer;" onfocus="WdatePicker()" /></td>
+          <td width="100" align="left" valign="middle"><input name="ownerRepair.applyTime" type="text" class="textbox1"  id="ownerRepair.applyTime" readonly="readonly" style="cursor:pointer;" onfocus="WdatePicker()" /></td>
         </tr>
         <tr>
           <td height="30" colspan="6" align="center" valign="middle"><strong>维修项目信息（新建必填）</strong></td>
           </tr>
         <tr>
           <td width="80" height="30" align="center" valign="middle">维修单号：</td>
-          <td align="left" valign="middle"><input name="ownerRepair.opNum" type="text" class="textbox1"  id="fdID" onblur="ajaxRequest_SN();"/></td>
+          <td align="left" valign="middle"><input name="ownerRepair.opNum" type="text" class="textbox1"  id="ownerRepair.opNum" onblur="ajaxRequest_SN();"/></td>
           <td align="center" valign="middle">预约日期：</td>
-          <td align="left" valign="middle"><input name="ownerRepair.orderDate" type="text" class="textbox" id="fdApDate"  readonly="readonly" style="cursor:pointer;" onfocus="WdatePicker()" /></td>
+          <td align="left" valign="middle"><input name="ownerRepair.orderDate" type="text" class="textbox" id="ownerRepair.orderDate"  readonly="readonly" style="cursor:pointer;" onfocus="WdatePicker()" /></td>
           <td align="center" valign="middle">预约时间：</td>
-          <td align="left" valign="middle"><select name="ownerRepair.orderTime" class="selectbox" style="width:95px;"  id="fdApTime">
+          <td align="left" valign="middle"><select name="ownerRepair.orderTime" class="selectbox" style="width:95px;"  id="ownerRepair.orderTime">
             <option value="" selected="selected" >请选择时间</option>
             <c:forEach var="clock" begin="0" end="23" step="1">
               <option value="${clock }:00">${clock }:00</option>
@@ -84,13 +84,13 @@
         <tr>
           <td width="80" height="50" align="center" valign="middle">维修类型：</td>
           <td colspan="2" align="left" valign="middle">
-              <select name="ownerRepair.repairType" class="selectbox" id="ReprContent"  style="width:170px" >
+              <select name="ownerRepair.repairType" class="selectbox" id="wnerRepair.repairType"  style="width:170px" >
                 <option value="有偿维修服务" selected="selected">有偿维修服务</option>
                 <option value="保修期内维修">保修期内维修</option>
                 </select>
           </td>
           <td align="center" valign="middle">详细情况：</td>
-          <td colspan="2" align="left" valign="middle"><textarea name="ownerRepair.repairDetail" style="height:40px;width:170px;font-size:1l.5px"  class="textbox1" id="fdRPDetail"></textarea></td>
+          <td colspan="2" align="left" valign="middle"><textarea name="ownerRepair.repairDetail" style="height:40px;width:170px;font-size:1l.5px"  class="textbox1" id="ownerRepair.repairDetail"></textarea></td>
           </tr>
       </table>
       </div>
@@ -99,7 +99,7 @@
     </tr>
     <tr>
       <td  colspan="2" align="center" valign="middle" style="padding-top:5px; padding-bottom:5px; ">
-      <input type="submit" name="button2" id="button2" value="保 存"  /><span style="display:inline-block;width:20px"></span>
+      <input type="submit" name="button2" id="button2"  value="保 存"  /><span style="display:inline-block;width:20px"></span>
       <input type="button" name="button3" id="button3" value="取消"  />
       </td>
     </tr>
