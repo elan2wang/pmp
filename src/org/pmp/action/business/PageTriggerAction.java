@@ -112,11 +112,9 @@ public class PageTriggerAction extends ActionSupport{
 	StringBuilder data = new StringBuilder();
 	data.append("{\"hoId\":\""+ho.getHoId()+"\",\"ownerName\":\""+owner.getOwnerName()+"\",");
 	String contact;
-	if (owner.getMobile()!=null && owner.getHomePhone()!=null){
-	    contact = owner.getMobile()+"/"+owner.getHomePhone();
-	} else if (owner.getMobile()!=null && owner.getHomePhone()==null){
+	if (owner.getMobile()!=null){
 	    contact = owner.getMobile();
-	} else if (owner.getMobile()==null && owner.getHomePhone()!=null){
+	} else if (owner.getHomePhone()!=null){
 	    contact = owner.getHomePhone();
 	} else {
 	    contact = "";

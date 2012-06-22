@@ -58,9 +58,9 @@
         </tr>
         <tr>
           <td width="80" height="30" align="center" valign="middle">报&nbsp;修&nbsp;人：</td>
-          <td width="100" align="left" valign="middle"><input name="ownerRepair.applyPerson" type="text" class="textbox1" id="ownerRepair.applyPerson"  /></td>
+          <td width="100" align="left" valign="middle"><input name="ownerRepair.applyPerson" type="text" class="textbox1" id="applyPerson"  /></td>
           <td width="80" align="center" valign="middle">联系电话：</td>
-          <td width="100" align="left" valign="middle"><input name="ownerRepair.contactPhone" type="text" class="textbox1" id="ownerRepair.contactPhone"  /></td>
+          <td width="100" align="left" valign="middle"><input name="ownerRepair.contactPhone" type="text" class="textbox1" id="contactPhone"  /></td>
           <td width="80" align="center" valign="middle">报修时间：</td>
           <td width="100" align="left" valign="middle"><input name="ownerRepair.applyTime" type="text" class="textbox1"  id="ownerRepair.applyTime" readonly="readonly" style="cursor:pointer;" onfocus="WdatePicker()" /></td>
         </tr>

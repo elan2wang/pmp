@@ -51,6 +51,23 @@ public class RepairFeeDAO extends BaseDAO implements IRepairFeeDAO {
 	}
 
     }
+    
+    /**
+     * @see org.pmp.dao.business.IRepairFeeDAO#getRepairFee_ByID(java.lang.Integer)
+     */
+    @Override
+    public RepairFee getRepairFee_ByID(Integer rfId) {
+	String debugMsg = "get repairFee by id, rfId="+rfId;
+	String hql = "from RepairFee where rfId="+rfId;
+	RepairFee instance = null;
+	try {
+	    instance = (RepairFee)getInstance(hql,debugMsg);
+	} catch (RuntimeException e){
+	    throw e;
+	}
+	return instance;
+    }
+
 
     /**
      * @see org.pmp.dao.business.IRepairFeeDAO#deleteRepairFee(org.pmp.vo.RepairFee)
@@ -82,4 +99,5 @@ public class RepairFeeDAO extends BaseDAO implements IRepairFeeDAO {
 	return list;
     }
 
+    
 }
