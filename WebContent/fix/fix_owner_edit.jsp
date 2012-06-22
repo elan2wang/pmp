@@ -145,14 +145,14 @@
             <tr>
               <td height="25" colspan="5" align="center" valign="middle">
               <div id="feeList" style="width:100%;height:auto; overflow-y:auto;">
-                <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0"  id="tbProjList">
+                <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0"  id="repairFeeList">
                 <c:forEach var="item" items="${rfList }">
                 <tr>
                   <td style="width:120px; height:25px" align="center" valign="middle"><input type="hidden" name="rfId" value="${item.rfId }" />${item.rfName }</td>
                   <td style="width:60px"  height="25" align="center" valign="middle">${item.amount }</td>
                   <td style="width:100px" height="25" align="center" valign="middle">${item.money }</td>
                   <td style="width:190px" height="25" align="center" valign="middle"><div style="width:180px">${item.comment }</div></td>
-                  <td align="center" height="25" valign="middle"><a href="javascript:removeRow()" style="color:red;text-decoration:none;">删除</a></td>
+                  <td align="center" height="25" valign="middle"><a href="javascript:deleteFee(this)" style="color:red;text-decoration:none;">删除</a></td>
                 </tr>
                 </c:forEach>
                 </table>

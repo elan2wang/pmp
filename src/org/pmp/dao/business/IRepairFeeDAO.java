@@ -24,6 +24,8 @@ import org.pmp.vo.RepairFee;
 public interface IRepairFeeDAO {
     public void batchSaveRepairFee(List<RepairFee> list);
     
+    public RepairFee getRepairFee_ByID(Integer rfId);
+    
     public void deleteRepairFee(RepairFee instance);
     
     public List<RepairFee> loadRepairFeeList_ByOP(Integer opId);

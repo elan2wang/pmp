@@ -1,14 +1,7 @@
-  
-//-------------------------------------------------------
-
-//=======================================================
-
-
-
 var rowIndex=1;
 tableheight=0;
 function appendRow(){
-	objtb=document.getElementById("tbProjList");
+	objtb=document.getElementById("repairFeeList");
 	objName=document.getElementById("mtName");
 	objNum=document.getElementById("mtNum");
 	objPrice=document.getElementById("mtPrice");
@@ -69,8 +62,10 @@ function appendRow(){
 		objName.focus();
 	}
 }
+
+//删除还未提交到数据库的费用记录
 function removeRow(index){
-	objtb=document.getElementById("tbProjList");
+	objtb=document.getElementById("repairFeeList");
 	var arrTR=objtb.getElementsByTagName("tr");
 	for(x=0;x<arrTR.length;x++){
 		if(arrTR[x].id=="td"+index){
@@ -82,8 +77,28 @@ function removeRow(index){
 	tableheight-=26;
 	document.getElementById("feeList").style.height=tableheight+"px";
 }
+
+//删除已经提交到数据库的费用记录
+//the 表示当前标签，rfId表示费用记录的编号
+function deleteFee(the){
+	var rfId = $(the).parent().parent().find(':hidden').eq(0).val();
+	alert(rfId);
+	$.ajax({
+		type: "POST",
+		url: "deleteRepairFee?rfId=6",
+		dataType: "json",
+		success: function(data){
+			alert("删除成功");
+			//移除当前<tr></tr>
+			height=($('#repairFeeList').find("tr").length-1)*25;
+			$(the).parent().parent().remove();
+			$("#feeList").css("height",height+"px");
+		}
+	});
+}
+
 function updateRow(){
-	objtb=document.getElementById("tbProjList");
+	objtb=document.getElementById("repairFeeList");
 	var arrINPUT=objtb.getElementsByTagName("input");
 	var strINPUT=arrINPUT[0].id;
 	for(y=1;y<arrINPUT.length-2;y++){
@@ -100,8 +115,6 @@ function strim(str){
 	return str.replace(/(^\s*)|(\s*$)/g,""); 
 }
 function formchk(){
-	
-	
 	obj5=document.getElementById("ownerRepair.contactPhone");
 	obj8=document.getElementById("ownerRepair.orderDate");
 	obj9=document.getElementById("ownerRepair.orderTime");

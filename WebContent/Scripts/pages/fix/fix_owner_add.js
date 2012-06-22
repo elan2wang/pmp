@@ -46,8 +46,8 @@ function getOwner(){
 		url: "get_houseOwner_info?houseId="+houseId,
 		dataType: "json",
 		success: function(data){
-			$('#ownerRepair.applyPerson').val(data.ownerName);
-			$('#ownerRepair.contactPhone').val(data.contactPhone);
+			$('#applyPerson').val(data.ownerName);
+			$('#contactPhone').val(data.contactPhone);
 		}
 	});
 }

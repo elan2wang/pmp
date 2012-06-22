@@ -123,7 +123,7 @@
       <tr>
         <td height="30" align="center" valign="middle">服务态度：</td>
         <td colspan="2" align="left" valign="middle" style="font-size:12px">
-        <input type="checkbox">满意  <input type="checkbox">一般<br><input type="checkbox">不满意
+        <input type="checkbox">满意  <input type="checkbox">一般<input type="checkbox">不满意
         </td>
       </tr>
       <tr>

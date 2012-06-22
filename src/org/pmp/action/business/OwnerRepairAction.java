@@ -62,6 +62,7 @@ public class OwnerRepairAction extends ActionSupport{
     
     private Integer houseId;
     private Integer opId;
+    private Integer rfId;
     
     /* 对应表单的费用项 */
     private String[] itemName;
@@ -83,6 +84,10 @@ public class OwnerRepairAction extends ActionSupport{
 	/* 创建维修单 */
 	ownerRepair.setHouseOwner(houseOwnerService.getHouseOwner_ByHouse(houseId));
 	ownerRepair.setState("等待派单");
+	ownerRepair.setAccepted(false);
+	ownerRepair.setLaborFee(0.0);
+	ownerRepair.setMaterialFee(0.0);
+	ownerRepair.setTotalFee(0.0);
 	ownerRepairService.addOwnerRepair(ownerRepair);
 	/* 创建操作记录 */
 	OperateDetail operate = new OperateDetail();
@@ -112,6 +117,8 @@ public class OwnerRepairAction extends ActionSupport{
     }
     
     public String editOwnerRepair(){
+	logger.debug("opId="+ownerRepair.getOpId());
+	OwnerRepair repair = ownerRepairService.getOwnerRepair_ByID(ownerRepair.getOpId());
 	//新增维修收费项目
 	if(itemName!=null){
 	    List<RepairFee> rfList = new ArrayList<RepairFee>();
@@ -134,21 +141,19 @@ public class OwnerRepairAction extends ActionSupport{
 	    }
 	    repairFeeService.batchAddRepairFee(rfList);
 	    //修改维修单的费用信息
-	    ownerRepair.setLaborFee(laborFee+ownerRepair.getLaborFee());
-	    ownerRepair.setMaterialFee(materialFee+ownerRepair.getMaterialFee());
-	    ownerRepair.setTotalFee(ownerRepair.getLaborFee()+materialFee);
+	    logger.debug("getLaborFee="+repair.getLaborFee());
+	    ownerRepair.setLaborFee(laborFee+repair.getLaborFee());
+	    ownerRepair.setMaterialFee(materialFee+repair.getMaterialFee());
+	    ownerRepair.setTotalFee(repair.getLaborFee()+materialFee);
 	} else {
 	    //修改维修单的费用信息
-	    ownerRepair.setLaborFee(ownerRepair.getLaborFee());
-	    ownerRepair.setMaterialFee(ownerRepair.getMaterialFee());
-	    ownerRepair.setTotalFee(ownerRepair.getTotalFee());
+	    ownerRepair.setLaborFee(repair.getLaborFee());
+	    ownerRepair.setMaterialFee(repair.getMaterialFee());
+	    ownerRepair.setTotalFee(repair.getTotalFee());
 	}
 	
 	//修改维修单信息
-	logger.debug("opId="+ownerRepair.getOpId());
-	OwnerRepair repair = ownerRepairService.getOwnerRepair_ByID(ownerRepair.getOpId());
 	ownerRepair.setHouseOwner(repair.getHouseOwner());
-	
 	ownerRepairService.editOwnerRepair(ownerRepair);
 	
 	//新增操作记录
@@ -197,6 +202,10 @@ public class OwnerRepairAction extends ActionSupport{
 	
 	String data = json.toJson(list, "", pager);
 	json.output(data);
+    }
+    
+    public void deleteRepairFee(){
+	repairFeeService.deleteRepairFee(repairFeeService.getRepairFee_ByID(rfId));
     }
     
     private void setParams(Map<String,Object> params){
@@ -271,6 +280,14 @@ public class OwnerRepairAction extends ActionSupport{
 
     public void setOpId(Integer opId) {
         this.opId = opId;
+    }
+
+    public Integer getRfId() {
+        return rfId;
+    }
+
+    public void setRfId(Integer rfId) {
+        this.rfId = rfId;
     }
 
     public String[] getItemName() {

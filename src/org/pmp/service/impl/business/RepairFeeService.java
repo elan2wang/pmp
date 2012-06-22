@@ -44,6 +44,14 @@ public class RepairFeeService implements IRepairFeeService {
     }
 
     /**
+     * @see org.pmp.service.business.IRepairFeeService#getRepairFee_ByID(java.lang.Integer)
+     */
+    @Override
+    public RepairFee getRepairFee_ByID(Integer rfId) {
+	return repairFeeDAO.getRepairFee_ByID(rfId);
+    }
+
+    /**
      * @see org.pmp.service.business.IRepairFeeService#deleteRepairFee(org.pmp.vo.RepairFee)
      */
     @Override
@@ -69,4 +77,5 @@ public class RepairFeeService implements IRepairFeeService {
         this.repairFeeDAO = repairFeeDAO;
     }
 
+   
 }
