@@ -81,18 +81,15 @@ function removeRow(index){
 //删除已经提交到数据库的费用记录
 //the 表示当前标签，rfId表示费用记录的编号
 function deleteFee(the){
-	var rfId = $(the).parent().parent().find(':hidden').eq(0).val();
-	alert(rfId);
+	var rfId = $(the).parent().parent().find('input').eq(0).val();
 	$.ajax({
 		type: "POST",
-		url: "deleteRepairFee?rfId=6",
+		url: "deleteRepairFee?rfId="+rfId,
 		dataType: "json",
 		success: function(data){
 			alert("删除成功");
 			//移除当前<tr></tr>
-			height=($('#repairFeeList').find("tr").length-1)*25;
 			$(the).parent().parent().remove();
-			$("#feeList").css("height",height+"px");
 		}
 	});
 }
