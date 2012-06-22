@@ -2,25 +2,7 @@
 //-------------------------------------------------------
 
 //=======================================================
-//材料费用清单控制
-function to(page){
-	objP1=document.getElementById("P1");
-	objP2=document.getElementById("P2");
-	objTab1=document.getElementById("Tab1");
-	objTab2=document.getElementById("Tab2");
-	if(page=="P2"){
-		objP1.style.display="none";
-		objP2.style.display="block";
-		objTab1.className="ModuleTap";
-		objTab2.className="ModuleTapOn";		
-	}
-	if(page=="P1"){
-		objP1.style.display="block";
-		objP2.style.display="none";
-		objTab1.className="ModuleTapOn";
-		objTab2.className="ModuleTap";		
-	}
-}
+
 
 
 var rowIndex=1;
@@ -68,13 +50,13 @@ function appendRow(){
 		newTr.style.textAlign="center";
 		newTr.id="td"+rowIndex;
 		newTd0.style.height="25px";
-		newTd0.style.witdth="120px";
+		newTd0.style.width="120px";
 		newTd0.innerHTML="<input name=\"itemName\" type=\"hidden\" id=\"mtName"+rowIndex+"\" value=\""+objName.value+"\"/>"+objName.value;
-		newTd0.style.witdth="60px";
+		newTd1.style.width="60px";
 		newTd1.innerHTML="<input name=\"itemAmount\" type=\"hidden\" id=\"mtNum"+rowIndex+"\" value=\""+objNum.value+"\"/>"+objNum.value;
-		newTd0.style.witdth="100px";
+		newTd2.style.width="100px";
 		newTd2.innerHTML="<input name=\"itemMoney\" type=\"hidden\" id=\"mtPrice"+rowIndex+"\" value=\""+objPrice.value+"\"/>"+objPrice.value;
-		newTd0.style.witdth="190px";
+		newTd3.style.width="190px";
 		newTd3.align="center";
 		newTd3.innerHTML="<div style=\"width:180px\">"+objNote.value+"</div><input name=\"itemComment\" type=\"hidden\" id=\"mtNote"+rowIndex+"\" value=\""+objNote.value+"\"/>";
 		newTd4.innerHTML="<a href=\"javascript:removeRow("+rowIndex+")\" style=\"color:red;text-decoration:none;\">删除</a>";
@@ -118,56 +100,46 @@ function strim(str){
 	return str.replace(/(^\s*)|(\s*$)/g,""); 
 }
 function formchk(){
-	obj1=document.getElementById("YZBuilding");
-	obj2=document.getElementById("YZunit");
-	obj3=document.getElementById("YZroom");
-	obj4=document.getElementById("fdName");
-	obj5=document.getElementById("fdPhone");
-	obj6=document.getElementById("fdReportDate");
-	obj7=document.getElementById("fdID");
-	obj8=document.getElementById("fdApDate");
-	obj9=document.getElementById("fdApTime");
-	obj10=document.getElementById("ReprContent");
-	obj11=document.getElementById("OtherContent");
-	obj12=document.getElementById("fdRPDetail");
+	
+	
+	obj5=document.getElementById("ownerRepair.contactPhone");
+	obj8=document.getElementById("ownerRepair.orderDate");
+	obj9=document.getElementById("ownerRepair.orderTime");
+	obj11=document.getElementById("ownerRepair.repairDetail");
 	var isPhonePattern = /\d{3}-\d{8}|\d{4}-\d{7}/;
 	var isMobilePattern = /^(13|15|18)[0-9]{9}$/;
-	if(obj1.value=="请选择楼号"){
-		alert("请选择楼号");
-		return false;
-	}
-	if(obj2.value=="null"){
-		alert("请选择单元");
-		return false;
-	}
-	if(obj3.value=="null"){
-		alert("请选择户号");
-		return false;
-	}
-	if(strim(obj4.value)==""){
-		alert("请输入业主姓名");
-		obj4.focus();
-		return false;
-	}
+	var isotherPatten=/^\d*$/;
+	
 	if(strim(obj5.value)==""){
 		alert("请输入联系电话");
 		obj5.focus();
 		return false;
 	}
-	if(isPhonePattern.test(obj5.value)==false && isMobilePattern.test(obj5.value)==false){
-		alert("请输入正确的联系电话，如：\n手机：13855556666\n固话：0571-58586666");
-		obj5.select();
-		return false;
+	if(strim(obj5.value)!=""){
+		var phonevalue=obj5.value;
+		var wrong='';
+		if(phonevalue.indexOf(",")>0){
+			var strs=phonevalue.split(',');
+			for(var i=0;i<strs.length;i++){
+				if(isPhonePattern.test(strs[i])==false && isMobilePattern.test(strs[i])==false&&isotherPatten.test(strs[i])==false){
+					wrong+=strs[i]+",";
+				};
+			}
+			wrong=wrong.substring(0,wrong.length-1);
+			if(wrong.length>0){
+				alert(wrong+"输入错误，正确：\n手机：13855556666\n固话：0571-58586666\n其他：123456");
+			   obj5.select();
+			  return false;
+			}
+		}
+		else{
+			if(isPhonePattern.test(phonevalue)==false && isMobilePattern.test(phonevalue)==false&&isotherPatten.test(phonevalue)==false){
+				alert("请输入正确的联系电话，如：\n手机：13855556666\n固话：0571-58586666 \n其他：123456\n多个电话请用,号隔开" );
+				return false;
+			};	
+		}
 	}
-	if(obj6.value==""){
-		alert("请选择报修时间");
-		return false;
-	}
-	if(strim(obj7.value)==""){
-		alert("请输入维修单号");
-		obj7.focus();
-		return false;
-	}
+	
 	if(obj8.value==""){
 		alert("请选择预约日期");
 		return false;
@@ -176,15 +148,7 @@ function formchk(){
 		alert("请选择预约时间");
 		return false;
 	}
-	if(obj10.value=="no"){
-		alert("请选择维修内容");
-		return false;
-	}
-	if(obj10.value=="" && strim(obj11.value)==""){
-		alert("请输入维修内容");
-		obj11.focus();
-		return false;
-	}
+	
 	if(strim(obj12.value)==""){
 		alert("请输入详细情况");
 		obj12.focus();

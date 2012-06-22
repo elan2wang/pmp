@@ -37,7 +37,7 @@ function mouseCoords(ev){
     	 return{x:ev.pageX+document.body.scrollLeft,y:ev.pageY+document.body.scrollLeft};
       }
 
-     return{x:ev.clientX,y:ev.clientY+$(document).scrollTop()};
+     return{x:ev.clientX+$(document).scrollTop(),y:ev.clientY+$(document).scrollTop()};
 
 }
 

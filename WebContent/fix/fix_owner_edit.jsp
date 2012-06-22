@@ -47,7 +47,7 @@
           <td width="80" height="30" align="center" valign="middle">报&nbsp;修&nbsp;人：</td>
           <td width="100" align="left" valign="middle"><input name="ownerRepair.applyPerson" type="hidden" class="textbox1" id="fdName" value="${ownerRepair.applyPerson }"/>${ownerRepair.applyPerson }</td>
           <td width="80" align="center" valign="middle">联系电话：</td>
-          <td width="100" align="left" valign="middle"><input name="ownerRepair.contactPhone" type="text" class="textbox1" id="fdPhone" value="${ownerRepair.contactPhone }"/></td>
+          <td width="100" align="left" valign="middle"><input name="ownerRepair.contactPhone" id="ownerRepair.contactPhone" type="text" class="textbox1" id="fdPhone" value="${ownerRepair.contactPhone }"/></td>
           <td width="80" align="center" valign="middle">报修时间：</td>
           <td width="100" align="left" valign="middle"><input name="ownerRepair.applyTime" type="hidden" class="textbox1" id="fdReportDate" value="<fmt:formatDate value="${ownerRepair.applyTime}" type="both" pattern="yyyy-MM-dd"/>"/><fmt:formatDate value="${ownerRepair.applyTime}" type="both" pattern="yyyy-MM-dd"/></td>
         </tr>
@@ -58,9 +58,9 @@
           <td width="80" height="30" align="center" valign="middle">维修单号：</td>
           <td align="left" valign="middle"><input name="ownerRepair.opNum" type="hidden" class="textbox1" id="fdID" value="${ownerRepair.opNum }"/>${ownerRepair.opNum }</td>
           <td align="center" valign="middle">预约日期：</td>
-          <td align="left" valign="middle"><input name="ownerRepair.orderDate" type="text" class="textbox" id="fdApDate"  readonly="readonly" style="cursor:pointer;" onfocus="WdatePicker()" value="<fmt:formatDate value="${ownerRepair.orderDate}" type="both" pattern="yyyy-MM-dd"/>"/></td>
+          <td align="left" valign="middle"><input name="ownerRepair.orderDate" id="ownerRepair.orderDate" type="text" class="textbox" id="fdApDate"  readonly="readonly" style="cursor:pointer;" onfocus="WdatePicker()" value="<fmt:formatDate value="${ownerRepair.orderDate}" type="both" pattern="yyyy-MM-dd"/>"/></td>
           <td align="center" valign="middle">预约时间：</td>
-          <td align="left" valign="middle"><select name="ownerRepair.orderTime" class="selectbox" style="width:95px;" id="fdApTime">
+          <td align="left" valign="middle"><select name="ownerRepair.orderTime" id="ownerRepair.orderTime" class="selectbox" style="width:95px;" id="fdApTime">
             <option value="">请选择时间</option>
             <c:forEach var="clock" begin="0" end="23" step="1">
               <option value="${clock }:00" <c:if test="${ownerRepair.orderTime==':00' }">selected="selected"</c:if>>${clock }:00</option>
@@ -144,7 +144,7 @@
             </tr>
             <tr>
               <td height="25" colspan="5" align="center" valign="middle">
-              <div id="feeList" style="width:100%; height:50px; overflow-y:auto;">
+              <div id="feeList" style="width:100%;height:auto; overflow-y:auto;">
                 <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0"  id="tbProjList">
                 <c:forEach var="item" items="${rfList }">
                 <tr>
@@ -176,7 +176,7 @@
            </c:forEach>
            <tr>
               <td height="30" colspan="1" align="center" valign="middle">本次操作详情</td>
-              <td height="30" colspan="4" align="center" valign="middle"><textarea name="operateDetail.operateDetail" style="height:40px;width:415px;"></textarea></td>
+              <td height="30" colspan="4" align="center" valign="middle"><textarea name="operateDetail.operateDetail" style="height:40px;width:410px;" class="textbox1"></textarea></td>
            </tr>
           </table></td>
         </tr>
@@ -187,7 +187,7 @@
     </tr>
     <tr>
       <td  colspan="2" align="center" valign="middle" style="padding-top:5px; padding-bottom:5px; ">
-      <input type="submit" name="button2" id="button2" value="保 存"  /><span style="display:inline-block;width:20px"></span>
+      <input type="submit" name="button2" id="button2"  value="保 存"  /><span style="display:inline-block;width:20px"></span>
       <input type="button" name="button3" id="button3" value="取消"  />
       </td>
     </tr>
