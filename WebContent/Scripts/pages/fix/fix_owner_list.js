@@ -18,10 +18,9 @@ $(function(){
     	    { display: '费用合计',name:'totalFee', width: Width*0.05, align: 'center' }
     	],
         buttons : [
-            {name: '添加维修单', bclass: 'add', onpress : addMaintain},
-            {name: '删除维修单', bclass: 'delete', onpress : deleteMaintain},
-            {name: '导出维修单', bclass: 'excel', onpress : deleteMaintain},
-		    {separator: true}
+            {name: '添加维修单', bclass: 'add', onpress : addOwnerRepair},
+            {separator: true},
+            {name: '删除维修单', bclass: 'delete', onpress : deleteOwnerRepair}
 	    ],
 	    searchitems:[
 	        { display: '报修人', name: 'mtManager', isDefault:true },
@@ -35,31 +34,16 @@ $(function(){
 	    useRp: true,
 	    rp: 15,
 	    operation:true,
-	    operationcontent:'<a href="javascript:void(0)" onclick="openEditMaintain($(this).parent().parent().parent())">编辑</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href=\"javascript:void(0)\" onclick=\"openAttach($(this).parent().parent().parent());\">附件</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a  href=\"javascript:void(0)\" onclick=\"printAttach($(this).parent().parent().parent());\">打印</a>',
+	    operationcontent:'<a href="javascript:void(0)" onclick="openEditOwnerRepair($(this).parent().parent().parent())">编辑</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href=\"javascript:void(0)\" onclick=\"openAttach($(this).parent().parent().parent());\">附件</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a  href=\"javascript:void(0)\" onclick=\"printOwnerRepair($(this).parent().parent().parent());\">打印</a>',
 	    operationWidth: Width*0.1
 	});
 });
 
-function addMaintain(){
+function addOwnerRepair(){
 	$('#newOwnerRepair').window('open');
 }
 
-function openEditMaintain(obj){
-	var id=parseInt(obj.attr("id").substr(3));
-	var url = 'getOwnerRepairByID?opId='+id;
-	openEditWindow("#editOwnerRepair",url);
-}
-function openAttach(obj){
-	var id=parseInt(obj.attr("id").substr(3));
-	var url = 'getMaintainByID?comid='+id;
-	openEditWindow("#openAttach",url);
-}
-function printAttach(obj){
-	alert("print Attachment");
-	url="mt_manage_print.jsp?id="+obj.attr("id").substr(3);
-	window.open(url);//打开另外一个链接
-}
-function deleteMaintain(){
+function deleteOwnerRepair(){
 	var rowid,idString="";
 	$("#houselist td input:checked").each(function(){
 		rowid=$(this).parent().parent().parent().attr("id");
@@ -83,4 +67,21 @@ function deleteMaintain(){
 	  }
 	});
 }			
+
+function openEditOwnerRepair(obj){
+	var id=parseInt(obj.attr("id").substr(3));
+	var url = 'getOwnerRepairByID?opId='+id;
+	openEditWindow("#editOwnerRepair",url);
+}
+
+function openAttach(obj){
+	var id=parseInt(obj.attr("id").substr(3));
+	var url = 'loadRepairAttachList?opId='+id;
+	openEditWindow("#openAttach",url);
+}
+
+function printOwnerRepair(obj){
+	url="printOwnerRepair?id="+obj.attr("id").substr(3);
+	window.open(url);
+}
 		

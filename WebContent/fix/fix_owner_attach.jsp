@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -37,7 +38,10 @@
           <td height="30" colspan="3" align="center" valign="middle"><strong>附件上传</strong>（限doc,docx,pdf,xls,xlsx,jpg,gif格式，5M大小）</td>
           </tr>
         <tr>
-          <td width="280" height="28" align="center" valign="middle"><input type="file" id="refFile"/></td>
+          <td width="280" height="28" align="center" valign="middle">
+          <input type="hidden" name="opId" id="opId" value="2" />
+          <input type="file" id="raFile" name="raFile" />
+          </td>
           <td align="center" valign="middle"><input type="button" id="bt_upload" onclick="uploadAttach()" value="上传" /></td>
         </tr>        
         <tr>
@@ -47,12 +51,14 @@
           <td height="125" colspan="3" align="center" valign="middle">
           <div style="width:100%; height:25px; overflow-y:auto;">
           <table id="uploadedList" width="100%" border="0" cellpadding="0" cellspacing="0" class="table1" style="border:0px;">
+            <c:forEach var="item" items="${raList }">
             <tr>
-              <td>文件名称</td>
-              <td><div style="display:none">文件id</div>
+              <td><a href="${item.attachUrl }">${item.attachName }</a></td>
+              <td><div style="display:none">${item.raId }</div>
                 <a href="javascript:void(0)" onclick="javascript:removeRow(this)" style="color:red;text-decoration:none;">删除</a>
               </td>
             </tr>
+            </c:forEach>
           </table>
           </div>
           </td>

@@ -36,6 +36,7 @@ import org.pmp.vo.Company;
 import org.pmp.vo.OperateDetail;
 import org.pmp.vo.OwnerRepair;
 import org.pmp.vo.Project;
+import org.pmp.vo.RepairAttach;
 import org.pmp.vo.RepairFee;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -53,7 +54,6 @@ public class OwnerRepairAction extends ActionSupport{
     //~ Instance Fields ================================================================================================
     private IOwnerRepairService ownerRepairService;
     private IRepairFeeService repairFeeService;
-    private IRepairAttachService repairAttachService;
     private IOperateDetailService operateDetailService;
     private IHouseOwnerService houseOwnerService;
     
@@ -230,14 +230,6 @@ public class OwnerRepairAction extends ActionSupport{
 
     public void setRepairFeeService(IRepairFeeService repairFeeService) {
         this.repairFeeService = repairFeeService;
-    }
-
-    public IRepairAttachService getRepairAttachService() {
-        return repairAttachService;
-    }
-
-    public void setRepairAttachService(IRepairAttachService repairAttachService) {
-        this.repairAttachService = repairAttachService;
     }
 
     public IOperateDetailService getOperateDetailService() {

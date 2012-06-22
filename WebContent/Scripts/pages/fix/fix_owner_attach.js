@@ -1,7 +1,11 @@
+$(function(){
+	var opId = getQueryString("opId");
+	//$('#opId').val(opId);
+});
 
 function uploadAttach(){
-	var filename=$('#refFile').val();
-	if($('#refFile').val()==""){
+	var filename=$('#raFile').val();
+	if($('#raFile').val()==""){
 		alert("请选择上传的文件");
 		return false;
 	}
@@ -12,39 +16,32 @@ function uploadAttach(){
 		$(this).hide();
 	});
 	
-	$.ajaxFileUpload
-	(
-		{
-			url:'new_buil_import', 
-			secureuri:false,
-			fileElementId:'refFile',
-			dataType: 'json',
-			success: function (data, status)
-			{
-				if(typeof(data.error) != 'undefined')
-				{
-					if(data.error != '')
-					{
-						alert(data.msg);
-						$('#msg').html(data.msg);
-					}else
-					{
-						$('#msg').html(data.msg);
-					}
+	$.ajaxFileUpload({
+		url:'addRepairAttach?opId='+$('#opId').val(), 
+		secureuri:false,
+		fileElementId:'raFile',
+		dataType: 'json',
+		success: function (data, status){
+			if(typeof(data.result) != 'undefined'){
+				if(data.result != 'error'){
+					$('#msg').html(data.msg);
+				}else {
+					alert(data.message);
+					appendRow(filename);
 				}
-			},
-			error: function (data, status, e)
-			{
-				alert(filename);
-				appendRow(filename);
 			}
+		},
+		error: function (data, status, e){
+			alert("上传出错了");
 		}
-	);
+	});
 	
 	return false;
 }
-///----------------------\
-//------已上传文件列表
+
+function appendRow(){
+	
+}
 
 function removeRow(the){
 	var id=parseInt($(the).prev().html());//获取文件id号
@@ -60,5 +57,4 @@ function removeRow(the){
 			}
 		}
 	});
-	
 }

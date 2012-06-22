@@ -196,8 +196,12 @@
     <property name="ownerRepairService" ref="ownerRepairService" />
     <property name="houseOwnerService" ref="houseOwnerService" />
     <property name="repairFeeService" ref="repairFeeService" />
-    <property name="repairAttachService" ref="repairAttachService" />
     <property name="operateDetailService" ref="operateDetailService" />
+  </bean>
+  
+  <bean id="RepairAttachAction" class="org.pmp.action.business.RepairAttachAction">
+    <property name="ownerRepairService" ref="ownerRepairService" />
+    <property name="repairAttachService" ref="repairAttachService" />
   </bean>
   
 </beans>
