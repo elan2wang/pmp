@@ -79,7 +79,7 @@ function removeRow(index){
 }
 
 //删除已经提交到数据库的费用记录
-//the 表示当前标签，rfId表示费用记录的编号
+//the 表示当前标签
 function deleteFee(the){
 	var rfId = $(the).parent().parent().find('input').eq(0).val();
 	$.ajax({

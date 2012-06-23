@@ -31,6 +31,16 @@ public class OwnerRepair implements java.io.Serializable {
     private Double totalFee;
     private Boolean payed;
 
+    public String toString(){
+	StringBuilder sb = new StringBuilder();
+	sb.append("[opId:"+opId+",houseOwner:"+houseOwner+",applyPerson:"+applyPerson+",contactPhone:"+contactPhone+",opNum"+opNum+
+		",applyTime:"+applyTime+",orderDate:"+orderDate+",orderTime:"+orderTime+",repairType:"+repairType+
+		",repairDetail:"+repairDetail+",repairPerson:"+repairPerson+",state:"+state+",finishDate"+finishDate+
+		",finishTime:"+finishTime+",accepted:"+accepted+",evaluate:"+evaluate+",evaluateDetail:"+evaluateDetail+
+		",laborFee:"+laborFee+",materialFee:"+materialFee+",totalFee:"+totalFee+",payed:"+payed+"]");
+	return sb.toString();
+    }
+    
     public OwnerRepair() {
     }
 
@@ -164,7 +174,7 @@ public class OwnerRepair implements java.io.Serializable {
 	this.finishTime = finishTime;
     }
 
-    public Boolean isAccepted() {
+    public Boolean getAccepted() {
 	return this.accepted;
     }
 
@@ -212,7 +222,7 @@ public class OwnerRepair implements java.io.Serializable {
 	this.totalFee = totalFee;
     }
 
-    public Boolean isPayed() {
+    public Boolean getPayed() {
 	return this.payed;
     }
 

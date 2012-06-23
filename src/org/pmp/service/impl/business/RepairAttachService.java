@@ -44,6 +44,14 @@ public class RepairAttachService implements IRepairAttachService {
     }
 
     /**
+     * @see org.pmp.service.business.IRepairAttachService#getRepairAttach_ByID(java.lang.Integer)
+     */
+    @Override
+    public RepairAttach getRepairAttach_ByID(Integer raId) {
+	return repairAttachDAO.getRepairAttach_ByID(raId);
+    }
+    
+    /**
      * @see org.pmp.service.business.IRepairAttachService#deleteRepairAttach(org.pmp.vo.RepairAttach)
      */
     @Override

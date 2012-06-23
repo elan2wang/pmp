@@ -31,7 +31,7 @@
   	  </div>
   	  <div id="editOwnerRepair" class="easyui-window" href="" title="编辑维修单" iconCls="icon-save" style="width:600px;height:400px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
   	  </div>
-  	  <div id="openAttach" class="easyui-window" href="" title="上传附件" iconCls="icon-save" style="width:500px;height:300px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
+  	  <div id="openAttach" class="easyui-window" href="" title="上传附件" iconCls="icon-save" style="width:500px;height:200px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
   	  </div>
   </div>
 </div>

@@ -1,10 +1,4 @@
-$(function(){
-	var opId = getQueryString("opId");
-	//$('#opId').val(opId);
-});
-
 function uploadAttach(){
-	var filename=$('#raFile').val();
 	if($('#raFile').val()==""){
 		alert("请选择上传的文件");
 		return false;
@@ -15,19 +9,18 @@ function uploadAttach(){
 	.ajaxComplete(function(){
 		$(this).hide();
 	});
-	
+	var opId=$('#opId').val();
 	$.ajaxFileUpload({
-		url:'addRepairAttach?opId='+$('#opId').val(), 
+		url:'addRepairAttach?opId='+opId, 
 		secureuri:false,
 		fileElementId:'raFile',
 		dataType: 'json',
 		success: function (data, status){
 			if(typeof(data.result) != 'undefined'){
-				if(data.result != 'error'){
-					$('#msg').html(data.msg);
-				}else {
+				if(data.result == 'success'){
 					alert(data.message);
-					appendRow(filename);
+				}else {
+					alert("上传失败,"+data.message);
 				}
 			}
 		},
@@ -35,26 +28,20 @@ function uploadAttach(){
 			alert("上传出错了");
 		}
 	});
-	
 	return false;
 }
 
-function appendRow(){
-	
-}
-
-function removeRow(the){
-	var id=parseInt($(the).prev().html());//获取文件id号
+//the 表示当前标签
+function deleteAttach(the){
+	var raId = $(the).prev().html();
 	$.ajax({
-		type: 'POST',
-		url: 'sms_inform?houseId='+houseId,
+		type: "POST",
+		url: "deleteRepairAttach?raId="+raId,
+		dataType: "json",
 		success: function(data){
-			if(data.result=='success'){
-				$(the).parent().parent().remove();//页面上删除某一行
-			}
-			else{
-				
-			}
+			alert("删除成功");
+			//移除当前<tr></tr>
+			$(the).parent().parent().remove();
 		}
 	});
 }

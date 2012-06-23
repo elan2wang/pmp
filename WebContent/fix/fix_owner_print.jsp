@@ -55,15 +55,14 @@ font-size:13px;
 <!--startprint-->
 
 <table  width="100%" border="0" cellspacing="0" cellpadding="0">
- 
   <tr>
-    <td align="center" valign="middle"><h1>维修单</h1></td>
+    <td height="40" align="center" valign="middle" style="font-size:20px"><strong>维修单</strong></td>
   </tr>
   <tr>
-    <td height="35" align="center" valign="middle" style="font-size:16px;">服务中心：_________________　　　　　　　　　　　　　NO:__________</td>
+    <td height="25" align="center" valign="middle" style="font-size:14px;">服务中心：_________________　　      　　　　　　　NO:__________</td>
   </tr>
   <tr>
-    <td align="center" valign="middle"><table class="tableid" style="width:40%;" border="0" align="center" cellpadding="0" cellspacing="0" >
+    <td align="center" valign="middle"><table class="tableid" style="width:40%" border="0" align="center" cellpadding="0" cellspacing="0" >
       <tr>
         <td height="30" colspan="6" align="center" valign="middle"><strong>业主基本信息</strong></td>
       </tr>
@@ -76,7 +75,7 @@ font-size:13px;
           <td align="center" valign="middle">${ownerRepair.houseOwner.house.houseNum }</td>
         </tr>
       <tr>
-        <td width="80" height="30" align="center" valign="middle">报&nbsp;修&nbsp;人：</td>
+          <td width="80" height="30" align="center" valign="middle">报&nbsp;修&nbsp;人：</td>
           <td width="100" align="center" valign="middle">${ownerRepair.applyPerson }</td>
           <td width="80" align="center" valign="middle">联系电话：</td>
           <td width="100" align="center" valign="middle">${ownerRepair.contactPhone }</td>
@@ -131,7 +130,7 @@ font-size:13px;
         <td height="30" colspan="6" align="center" valign="middle"><strong>材料/费用清单（业主未结单）</strong></td>
       </tr>
       <tr>
-        <td height="150" colspan="6" align="center" valign="middle"><table class="tableid" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <td height="auto" colspan="6" align="center" valign="middle"><table class="tableid" width="100%" border="0" cellspacing="0" cellpadding="0">
           <tr>
             <td width="120" height="25" align="center" valign="middle"><strong>材料名称</strong></td>
             <td width="60" align="center" valign="middle"><strong>数量</strong></td>

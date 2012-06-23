@@ -22,7 +22,6 @@
     <action name="cfItemTree" class="org.pmp.action.business.TreeAction" method="condoFeeItemTree" />
     
     <action name="efItemTree" class="org.pmp.action.business.TreeAction" method="electricFeeItemTree" />
-    
     <!-- tree related actions end =================================================================================================== -->
     
     <!-- CondoFee item related actions -->

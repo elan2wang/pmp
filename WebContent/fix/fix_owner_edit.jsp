@@ -105,7 +105,7 @@
         </tr>
         <tr>
           <td height="30" align="center" valign="middle">业主验收：</td>
-          <td colspan="2" align="left" valign="middle"><input type="checkbox" name="ownerRepair.accepted" id="checkbox" value="true" /></td>
+          <td colspan="2" align="left" valign="middle"><input type="checkbox" name="ownerRepair.accepted" id="ownerRepair.accepted" value="true" <c:if test="${ownerRepair.accepted==true }">checked="checked"</c:if> /></td>
           <td rowspan="2" align="center" valign="middle">业主评价：</td>
           <td colspan="2" rowspan="2" align="left" valign="middle"><textarea name="ownerRepair.evaluateDetail" style="height:40px;width:170px;font-size:11.5px" class="textbox1"  id="fdYZComment" >${ownerRepair.evaluateDetail }</textarea></td>
         </tr>

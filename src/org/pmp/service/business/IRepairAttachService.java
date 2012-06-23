@@ -24,6 +24,8 @@ import org.pmp.vo.RepairAttach;
 public interface IRepairAttachService {
     public void addRepairAttach(RepairAttach instance);
     
+    public RepairAttach getRepairAttach_ByID(Integer raId);
+    
     public void deleteRepairAttach(RepairAttach instance);
     
     public List<RepairAttach> loadRepairAttachList_ByOP(Integer opId);

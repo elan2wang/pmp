@@ -145,7 +145,7 @@ public class OwnerRepairAction extends ActionSupport{
 	    logger.debug("getLaborFee="+repair.getLaborFee());
 	    ownerRepair.setLaborFee(laborFee+repair.getLaborFee());
 	    ownerRepair.setMaterialFee(materialFee+repair.getMaterialFee());
-	    ownerRepair.setTotalFee(repair.getLaborFee()+materialFee);
+	    ownerRepair.setTotalFee(ownerRepair.getLaborFee()+ownerRepair.getMaterialFee());
 	} else {
 	    //修改维修单的费用信息
 	    ownerRepair.setLaborFee(repair.getLaborFee());
@@ -172,7 +172,7 @@ public class OwnerRepairAction extends ActionSupport{
 	/* 设置查询条件  */
 	Map<String, Object> params = new HashMap<String, Object>();
 	String order ;
-	setParams(params);
+	//setParams(params);
 	if (!sortname.equals("undefined")&&!sortorder.equals("undefined")){
 	    order= "order by "+sortname+" "+sortorder;
 	} else{

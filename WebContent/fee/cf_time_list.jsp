@@ -16,6 +16,9 @@
 <script type="text/javascript" src="../Scripts/component/flexigrid-1.1/js/flexigrid.js"></script>
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
 <script type="text/javascript" src="../Scripts/common/window.js"></script>
+<script src="../Scripts/component/dtree/dtree.js"  type="text/javascript" ></script>
+<script src="../Scripts/pages/fee/load_tree.js"  type="text/javascript" ></script>
+
 <title>物业费管理</title>
 </head>
 <body onload="load_data('monthTree','cf_list_by_time.jsp','condoFeeList')">
