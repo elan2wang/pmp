@@ -5,11 +5,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="../Scripts/component/easyui/themes/default/easyui.css" rel="stylesheet" type="text/css" />
-<link href="../Scripts/component/flexigrid-1.1/css/flexigrid.pack.css" rel="stylesheet" type="text/css" />
-<link href="../Scripts/component/easyui/themes/icon.css" rel="stylesheet" type="text/css" />
 <link href="../CSS/common/common.css" rel="stylesheet" type="text/css" />
-<link href="../CSS/common/fee_tab.css" rel="stylesheet" type="text/css" />
+<link href="../CSS/common/tab.css" rel="stylesheet" type="text/css" />
 <link href="../CSS/pages/fee/cf_list2.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="../Scripts/jquery-1.7.1.js" ></script>
@@ -21,10 +18,10 @@
 <body>
 <div class="wrap">
   <ul class="nav">
-    <li id="tab1"><a href="#">电费历史</a></li>
-    <li id="tab2" class="active"><a href="#">电费创建</a></li>
-    <li id="tab3"><a href="#">业主视图</a></li>
-    <li id="tab4"><a href="#">电费项目清单</a></li>
+    <li id="tab1" ><a href="javascript:void(0)">电费历史</a></li>
+    <li id="tab2" class="active"><a href="javascript:void(0)">电费创建</a></li>
+    <li id="tab3"><a href="javascript:void(0)">业主视图</a></li>
+    <li id="tab4"><a href="javascript:void(0)">电费项目清单</a></li>
   </ul>
   <div class="content" style="height:570px;">
     <!-- 物业费历史记录页面  -->

@@ -20,6 +20,7 @@ function load_data(action,url,target){
 						comment['target'], comment['icon'], comment['iconOpen'], comment['open']);
 			});
 			document.getElementById("tree").innerHTML=d.toString();
+			controlLength('tree');
 		}
 	});
 }

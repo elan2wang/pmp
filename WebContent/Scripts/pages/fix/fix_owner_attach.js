@@ -3,6 +3,8 @@ function uploadAttach(){
 		alert("请选择上传的文件");
 		return false;
 	}
+	
+	
 	$("#loading").ajaxStart(function(){
 		$(this).show();
 	})
@@ -19,6 +21,7 @@ function uploadAttach(){
 			if(typeof(data.result) != 'undefined'){
 				if(data.result == 'success'){
 					alert(data.message);
+					$("#openAttach").window('refresh');
 				}else {
 					alert("上传失败,"+data.message);
 				}
