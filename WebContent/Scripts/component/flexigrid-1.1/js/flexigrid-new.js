@@ -591,9 +591,12 @@
 					 var typeArr="";
 					 for(s=0;s<queryStrs.length;s++){
 						 var qs=queryStrs[s];
-						 queryArr+=$('input[name='+qs.queryStrName+']', g.sDiv).val()+",";
+						 var value=$('input[name='+qs.queryStrName+']', g.sDiv).val();
+						 queryArr+=(value=="")?"null":value;
+						 queryArr+=",";
 						 typeArr+=$('select[name='+qs.selectName+']', g.sDiv).val()+",";
 						 qs=null;
+						 value=null;
 					 }
 					 queryArr=queryArr.substring(0,queryArr.length-1);
 					 typeArr=typeArr.substring(0,typeArr.length-1)
@@ -1146,15 +1149,15 @@
 				//change by Chrussy 2012.06.21
 				if(p.searchQueryStrs){
 					var queryStrs=p.searchQueryStrs;
-					var querHtmlStr="<div class='sDiv2'>"+ p.findtext;
+					var queryHtmlStr="<div class='sDiv2'>"+ p.findtext;
 				    for (var s = 0; s < queryStrs.length; s++){
 				    	var qs=queryStrs[s];
-				    	querHtmlStr+= " <select name='"+qs.selectName+"'>" + sopt + "</select>"+
+				    	queryHtmlStr+= " <select name='"+qs.selectName+"'>" + sopt + "</select>"+
 				    	" <input type='text' value='" + p.query +"' size='20' name='"+qs.queryStrName+"' class='qsbox' /> ";
 				    	qs=null;
 				    }
-				    querHtmlStr+="</div>";
-				    $(g.sDiv).append(querHtmlStr);
+				    queryHtmlStr+="</div>";
+				    $(g.sDiv).append(queryHtmlStr);
 				    
 				    for (var s = 0; s < queryStrs.length; s++){
 				    	var qs=queryStrs[s];
