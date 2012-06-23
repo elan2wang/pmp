@@ -20,6 +20,9 @@
 <script src="../Scripts/component/dtree/dtree.js"  type="text/javascript" ></script>
 <script src="../Scripts/pages/fee/load_tree.js"  type="text/javascript" ></script>
 <title>电费管理</title>
+<style>
+a{color:black}
+</style>
 </head>
 <body onload="load_data('efItemTree','ef_list_by_item.jsp','electricFeeList')">
 <div class="wrap">
@@ -41,9 +44,9 @@
   <script type="text/javascript">
    var Width2=document.documentElement.clientWidth;
    var Height2=document.documentElement.clientHeight;
-   ChangeHeight(Width2,Height2-40,'left_main');
-   ChangeHeight(Width2,Height2-40,'middle');
-   ChangeHeight(Width2,Height2-40,'right_main');
+   ChangeHeight(Width2,Height2+40,'left_main');
+   ChangeHeight(Width2,Height2+40,'middle');
+   ChangeHeight(Width2,Height2+40,'right_main');
   </script>
 </body>
 </html>

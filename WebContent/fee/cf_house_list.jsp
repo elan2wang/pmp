@@ -42,11 +42,11 @@ a{color:black}
   </div>
 </div>
   <script type="text/javascript">
-   var Width2=document.documentElement.clientWidth;
-   var Height2=document.documentElement.clientHeight;
-   ChangeHeight(Width2,Height2-40,'left_main');
-   ChangeHeight(Width2,Height2-40,'middle');
-   ChangeHeight(Width2,Height2-40,'right_main');
+   var Height2=parseInt(document.documentElement.clientHeight);
+   var Width2=parseInt(document.documentElement.clientWidth);
+   ChangeHeight(Width2,Height2+40,'left_main');
+   ChangeHeight(Width2,Height2+40,'middle');
+   ChangeHeight(Width2,Height2+40,'right_main');
   </script>
 </body>
 </html>

@@ -24,7 +24,6 @@
 </head>
 <body>
 <div class="wrap">
-  <div class="content_main">
       <table id="ownerRepairList">
       </table>
       <div id="newOwnerRepair" class="easyui-window" href="fix_owner_add.jsp" title="添加维修单" iconCls="icon-save" style="width:600px;height:250px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
@@ -33,16 +32,7 @@
   	  </div>
   	  <div id="openAttach" class="easyui-window" href="" title="上传附件" iconCls="icon-save" style="width:500px;height:200px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
   	  </div>
-  </div>
+
 </div>
-  <script type="text/javascript">
-   var Width2=document.documentElement.clientWidth;
-   var Height2=document.documentElement.clientHeight;
-   ChangeHeight(Width2,Height2,'content');
-   ChangeHeight(Width2,Height2,'innercontent');
-   ChangeHeight(Width2,Height2,'left_main');
-   ChangeHeight(Width2,Height2,'middle');
-   ChangeHeight(Width2,Height2,'right_main');
-  </script>
 </body>
 </html>

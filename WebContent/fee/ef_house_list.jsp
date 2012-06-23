@@ -19,7 +19,9 @@
 <script type="text/javascript" src="../Scripts/common/window.js"></script>
 <script src="../Scripts/component/dtree/dtree.js"  type="text/javascript" ></script>
 <script src="../Scripts/pages/fee/load_tree.js"  type="text/javascript" ></script>
-
+<style>
+a{color:black}
+</style>
 <title>电费缴费管理</title>
 </head>
 <body onload="load_data('houseTree','ef_list_by_house.jsp','electricFeeList')">
@@ -42,9 +44,9 @@
   <script type="text/javascript">
    var Width2=document.documentElement.clientWidth;
    var Height2=document.documentElement.clientHeight;
-   ChangeHeight(Width2,Height2-40,'left_main');
-   ChangeHeight(Width2,Height2-40,'middle');
-   ChangeHeight(Width2,Height2-40,'right_main');
+   ChangeHeight(Width2,Height2+40,'left_main');
+   ChangeHeight(Width2,Height2+40,'middle');
+   ChangeHeight(Width2,Height2+40,'right_main');
   </script>
 </body>
 </html>

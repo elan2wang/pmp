@@ -9,8 +9,8 @@
 function pageInt() {
     objP1 = document.getElementById("P1");
     objP2 = document.getElementById("P2");
-    objTab1 = document.getElementById("Tab1");
-    objTab2 = document.getElementById("Tab2");
+    objTab1 = document.getElementById("Tab21");
+    objTab2 = document.getElementById("Tab22");
     objP1.style.display = "none";
     objP2.style.display = "none";
     objTab1.className = "ModuleTap";
@@ -19,8 +19,8 @@ function pageInt() {
 function to(page) {
     objP1 = document.getElementById("P1");
     objP2 = document.getElementById("P2");
-    objTab1 = document.getElementById("Tab1");
-    objTab2 = document.getElementById("Tab2");
+    objTab1 = document.getElementById("Tab21");
+    objTab2 = document.getElementById("Tab22");
     if (page == "P2") {
         pageInt();
         objP2.style.display = "block";

@@ -25,13 +25,13 @@
 </head>
 <body >
 <div class="wrap">
-  <div class="content_main">
+  
 	<table id="projectlist">
 	</table>
 	<div id="proImport" class="easyui-window" href="pro_import.jsp" title="项目导入" iconCls="icon-save" style="width:350px;height:200px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
 	<div id="newPro" class="easyui-window" href="project_add.jsp?" title="添加新项目" iconCls="icon-save" style="width:300px;height:400px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
 	<div id="editPro" class="easyui-window"  title="编辑项目"  iconCls="icon-save" style="width:300px;height:400px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
-  </div>
+  
 </div>
 </body>
 </html>

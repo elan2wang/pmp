@@ -48,5 +48,6 @@
     </div>
   </div>
 </div>
+<script type="text/javascript" src="../Scripts/common/changeSize.js"></script>
 </body>
 </html>
