@@ -20,11 +20,15 @@
 <script src="../Scripts/component/dtree/dtree.js"  type="text/javascript" ></script>
 <script src="../Scripts/pages/fee/load_tree.js"  type="text/javascript" ></script>
 <title>物业费管理</title>
+<style>
+a{color:black}
+</style>
+
 </head>
-<body onload="load_data('cfItemTree','cf_list_by_item.jsp','condoFeeList')">
+<body onload="load_data('cfItemTree','cf_list_by_item.jsp','condoFeeList');">
 <div class="wrap">
   <div class="content_main">
-    <div class="left_main" style="float:left">
+    <div class="left_main" style="float:left;width:20%" >
       <div class="left_main_content">
         <div class="dtree">
 	    <p><a href="javascript: d.openAll();">全部展开</a> | <a href="javascript: d.closeAll();">全部关闭</a></p>
@@ -32,8 +36,8 @@
 		<div id="tree"></div>
       </div>
     </div>
-    <div class="middle"></div>
-    <div id="right_main" class="right_main" style="float:left;display:block">
+    <div class="middle" style="width:0.5%"></div>
+    <div id="right_main" class="right_main" style="float:left;display:block;width:79%">
       <iframe name="condoFeeList" id="condoFeeList" frameborder="0" scrolling="auto" width="100%" height="100%" style="margin:0px;padding:0px"></iframe>
     </div>
   </div>

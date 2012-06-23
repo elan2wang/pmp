@@ -604,6 +604,10 @@
 				     p.query = queryArr;
 				     p.qtype =  typeArr;
 				}
+				else{
+					p.query = $('input[name=q]', g.sDiv).val();
+					p.qtype = $('select[name=qtype]', g.sDiv).val();
+				}
 				p.newp = 1;
 				this.populate();
 			},
@@ -1169,6 +1173,18 @@
 					    });
 				       qs=null;
 				    }
+				}else{
+					$(g.sDiv).append("<div class='sDiv2'>" + p.findtext + 
+							" <select name='qtype'>" + sopt + "</select>"+
+							" <input type='text' value='" + p.query +"' size='20' name='q' class='qsbox' /></div> ");
+							
+					//Split into separate selectors because of bug in jQuery 1.3.2
+					$('input[name=q]', g.sDiv).keydown(function (e) {
+						if (e.keyCode == 13) {
+							g.doSearch();
+						}
+					});
+					
 				}
 				$('input[value=Clear]', g.sDiv).click(function () {
 					$('input[name=q]', g.sDiv).val('');

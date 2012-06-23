@@ -90,3 +90,17 @@ function getQueryString(name) {
 
 //存放火灾警报的数组
 var objList=new Array();
+
+
+function controlLength(id){
+	
+	var arr=$("#"+id).find("#dd0").children().find(".dTreeNode").find("a");
+	var strHtml="";
+	$(arr).each(function(){
+		strHtml=$(this).html();
+		if(strHtml.length>10){
+			strHtml=strHtml.substring(0,10)+"...";
+		}
+		$(this).html(strHtml);
+	});
+}

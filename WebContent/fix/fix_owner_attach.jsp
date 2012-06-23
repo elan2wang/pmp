@@ -29,7 +29,8 @@
 </style>
 </head>
 <body>
-<form action="" method="post"  name="form1" id="form1" >
+<div id="sessionUsername" style="display:none">nameSession</div>
+<form action="" method="post"  name="form1" id="form1"  >
   <table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>
       <td style="">
