@@ -116,14 +116,14 @@ font-size:13px;
       </tr>
       <tr>
         <td height="30" align="center" valign="middle">业主验收：</td>
-        <td colspan="2" align="center" valign="middle"></td>
+        <td colspan="2" align="center" valign="middle"><input type="checkbox" name="ownerRepair.accepted">（验收后打钩）</td>
         <td rowspan="2" align="center" valign="middle">业主评价：</td>
         <td colspan="2" rowspan="2" align="center" valign="middle">${ownerRepair.evaluateDetail }</td>
       </tr>
       <tr>
         <td height="30" align="center" valign="middle">服务态度：</td>
         <td colspan="2" align="left" valign="middle" style="font-size:12px">
-        <input type="checkbox">满意  <input type="checkbox">一般<input type="checkbox">不满意
+        <input type="checkbox" <c:if test="${ownerRepair.evaluate=='满意' }">checked="checked"</c:if>>满意  <input type="checkbox" <c:if test="${ownerRepair.evaluate=='一般' }">checked="checked"</c:if>>一般<input type="checkbox" <c:if test="${ownerRepair.evaluate=='不满意' }">checked="checked"</c:if>>不满意
         </td>
       </tr>
       <tr>

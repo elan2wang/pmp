@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -98,8 +99,8 @@
           <td colspan="2" align="left" valign="middle"><select name="ownerRepair.finishTime"  class="selectbox" style="width:170px" id="fdFinTime" >
             <option value="">请选择时间</option>
             <c:forEach var="clock" begin="0" end="23" step="1">
-              <option value="${clock }:00" <c:if test="${ownerRepair.orderTime==':00' }">selected="selected"</c:if>>${clock }:00</option>
-              <option value="${clock }:30" <c:if test="${ownerRepair.orderTime==':30' }">selected="selected"</c:if>>${clock }:30</option>
+              <option value="${clock }:00" <c:if test="${fn:split(ownerRepair.orderTime,':')[0]==clock && fn:split(ownerRepair.orderTime,':')[1]=='00' }">selected="selected"</c:if>>${clock }:00</option>
+              <option value="${clock }:30" <c:if test="${fn:split(ownerRepair.orderTime,':')[0]==clock && fn:split(ownerRepair.orderTime,':')[1]=='30' }">selected="selected"</c:if>>${clock }:30</option>
             </c:forEach>
           </select></td>
         </tr>
@@ -148,11 +149,11 @@
                 <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0"  id="repairFeeList">
                 <c:forEach var="item" items="${rfList }">
                 <tr>
-                  <td style="width:120px; height:25px" align="center" valign="middle"><input type="hidden" name="rfId" value="${item.rfId }" />${item.rfName }</td>
+                  <td style="width:120px; height:25px" align="center" valign="middle">${item.rfName }</td>
                   <td style="width:60px"  height="25" align="center" valign="middle">${item.amount }</td>
                   <td style="width:100px" height="25" align="center" valign="middle">${item.money }</td>
                   <td style="width:190px" height="25" align="center" valign="middle"><div style="width:180px">${item.comment }</div></td>
-                  <td align="center" height="25" valign="middle"><a href="javascript:void(0);" onclick="deleteFee(this)" style="color:red;text-decoration:none;">删除</a></td>
+                  <td align="center" height="25" valign="middle"><div style="display:none">${item.rfId }</div><a href="javascript:void(0);" onclick="deleteFee(this)" style="color:red;text-decoration:none;">删除</a></td>
                 </tr>
                 </c:forEach>
                 </table>
@@ -176,7 +177,7 @@
            </c:forEach>
            <tr>
               <td height="30" colspan="1" align="center" valign="middle">本次操作详情</td>
-              <td height="30" colspan="4" align="center" valign="middle"><textarea name="operateDetail.operateDetail" style="height:40px;width:410px;" class="textbox1"></textarea></td>
+              <td height="30" colspan="4" align="center" valign="middle"><textarea name="operateDetail.operateDetail" id="operateDetail.operateDetail" style="height:40px;width:410px;" class="textbox1"></textarea></td>
            </tr>
           </table></td>
         </tr>
@@ -188,7 +189,7 @@
     <tr>
       <td  colspan="2" align="center" valign="middle" style="padding-top:5px; padding-bottom:5px; ">
       <input type="submit" name="button2" id="button2"  value="保 存"  /><span style="display:inline-block;width:20px"></span>
-      <input type="button" name="button3" id="button3" value="取消"  />
+      <input type="button" name="button3" id="button3" value="取消" onclick="closeWindow('#editOwnerRepair')" />
       </td>
     </tr>
   </table>

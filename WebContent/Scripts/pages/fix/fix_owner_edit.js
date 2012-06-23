@@ -81,7 +81,7 @@ function removeRow(index){
 //删除已经提交到数据库的费用记录
 //the 表示当前标签
 function deleteFee(the){
-	var rfId = $(the).parent().parent().find('input').eq(0).val();
+	var rfId = $(the).prev().html();
 	$.ajax({
 		type: "POST",
 		url: "deleteRepairFee?rfId="+rfId,
@@ -106,27 +106,24 @@ function updateRow(){
 	//workerPrice和inputArr两个空间名也会跟在后面上传
 }
 
-//===========================================
-//以下表单检测
+/* 以下函数用户表单检测 */
 function strim(str){
 	return str.replace(/(^\s*)|(\s*$)/g,""); 
 }
 function formchk(){
-	obj5=document.getElementById("ownerRepair.contactPhone");
-	obj8=document.getElementById("ownerRepair.orderDate");
-	obj9=document.getElementById("ownerRepair.orderTime");
-	obj11=document.getElementById("ownerRepair.repairDetail");
+	contactPhone=document.getElementById("ownerRepair.contactPhone");
+	operateDetail=document.getElementById("operateDetail.operateDetail");
 	var isPhonePattern = /\d{3}-\d{8}|\d{4}-\d{7}/;
 	var isMobilePattern = /^(13|15|18)[0-9]{9}$/;
 	var isotherPatten=/^\d*$/;
 	
-	if(strim(obj5.value)==""){
+	if(strim(contactPhone.value)==""){
 		alert("请输入联系电话");
 		obj5.focus();
 		return false;
 	}
-	if(strim(obj5.value)!=""){
-		var phonevalue=obj5.value;
+	if(strim(contactPhone.value)!=""){
+		var phonevalue=contactPhone.value;
 		var wrong='';
 		if(phonevalue.indexOf(",")>0){
 			var strs=phonevalue.split(',');
@@ -138,8 +135,8 @@ function formchk(){
 			wrong=wrong.substring(0,wrong.length-1);
 			if(wrong.length>0){
 				alert(wrong+"输入错误，正确：\n手机：13855556666\n固话：0571-58586666\n其他：123456");
-			   obj5.select();
-			  return false;
+				contactPhone.select();
+			    return false;
 			}
 		}
 		else{
@@ -150,20 +147,12 @@ function formchk(){
 		}
 	}
 	
-	if(obj8.value==""){
-		alert("请选择预约日期");
-		return false;
-	}
-	if(obj9.value=="null"){
-		alert("请选择预约时间");
+	if(strim(operateDetail.value)==""){
+		alert("您尚未填写操作详情，请填写后提交");
+		operateDetail.focus();
 		return false;
 	}
 	
-	if(strim(obj12.value)==""){
-		alert("请输入详细情况");
-		obj12.focus();
-		return false;
-	}
 	else{
 		return true;
 	}

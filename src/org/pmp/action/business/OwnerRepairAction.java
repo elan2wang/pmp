@@ -215,7 +215,18 @@ public class OwnerRepairAction extends ActionSupport{
     }
     
     public void deleteRepairFee(){
-	repairFeeService.deleteRepairFee(repairFeeService.getRepairFee_ByID(rfId));
+	//删除维修费用
+	RepairFee rf = repairFeeService.getRepairFee_ByID(rfId);
+	repairFeeService.deleteRepairFee(rf);
+	//更新维修单的总费用、人工费或材料费
+	OwnerRepair op = rf.getOwnerRepair();
+	if(rf.getRfName().equals("人工费")){
+	    op.setLaborFee(op.getLaborFee()-rf.getMoney());
+	} else {
+	    op.setMaterialFee(op.getMaterialFee()-rf.getMoney());
+	}
+	op.setTotalFee(op.getTotalFee()-rf.getMoney());
+	ownerRepairService.editOwnerRepair(op);
     }
     
     private void setParams(Map<String,Object> params){
