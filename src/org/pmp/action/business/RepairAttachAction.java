@@ -86,12 +86,13 @@ public class RepairAttachAction extends ActionSupport {
     }
     
     public void deleteRepairAttach(){
-	
+	repairAttachService.deleteRepairAttach(repairAttachService.getRepairAttach_ByID(raId));
     }
     
     public String loadRepairAttachList(){
 	List<RepairAttach> raList = repairAttachService.loadRepairAttachList_ByOP(opId);
 	HttpServletRequest request = ServletActionContext.getRequest();
+	request.setAttribute("opId", opId);
 	request.setAttribute("raList", raList);
 	return SUCCESS;
     }

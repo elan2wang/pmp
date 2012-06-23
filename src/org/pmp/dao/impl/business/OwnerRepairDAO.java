@@ -12,10 +12,14 @@
  */
 package org.pmp.dao.impl.business;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.hibernate.jdbc.Work;
 import org.pmp.dao.admin.BaseDAO;
 import org.pmp.dao.business.IOwnerRepairDAO;
 import org.pmp.util.Pager;
@@ -68,9 +72,21 @@ public class OwnerRepairDAO extends BaseDAO implements IOwnerRepairDAO {
      * @see org.pmp.dao.business.IOwnerRepairDAO#batchDeleteOwnerRepair(java.util.List)
      */
     @Override
-    public void batchDeleteOwnerRepair(List<OwnerRepair> list) {
-	// TODO Auto-generated method stub
-
+    public void batchDeleteOwnerRepair(final List<OwnerRepair> list) {
+	logger.debug("begin to batch delete OwnerRepair");
+	logger.debug("list.size="+list.size());
+	Work work = new Work(){
+	    public void execute(Connection connection)throws SQLException{
+		String sql = "delete tb_OwnerRepair where OP_ID=?";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		for (int i=0;i<list.size();i++){
+		    stmt.setInt(1, list.get(i).getOpId());
+		    stmt.executeUpdate();
+		}
+	    }
+	};
+	executeWork(work);
+	logger.debug("successfully batch delete OwnerRepair");
     }
 
     /**

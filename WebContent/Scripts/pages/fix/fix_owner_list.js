@@ -1,21 +1,21 @@
 // JavaScript Document
 
 $(function(){
-    $('#managelist').flexigrid({
+    $('#ownerRepairList').flexigrid({
     	url:"loadOwnerRepairList",
     	dataType:"json",
     	colModel: [
-    	    { display: '单号',name:'opNum', width: Width*0.035, align: 'center' },
-    	    { display: '小区', name:'houseOwner.house.building.project.proName',width: Width*0.08, align: 'center' },
-    	    { display: '房号', name:'houseOwner.house.houseNum',width: Width*0.05, align: 'center' },
-    	    { display: '报修人',name:'applyPerson', width: Width*0.05,align: 'center' },
-    	    { display: '联系方式',name:'contactPhone', width: Width*0.15, align: 'center' },
-    	    { display: '报修类型',name:'repairType', width: Width*0.08, align: 'center' },
-    	    { display: '报修时间)',name:'applyTime', width: Width*0.08, align: 'center' },
-    	    { display: '状态',name:'state', width: Width*0.08, align: 'center'},
-    	    { display: '人工费',name:'laborFee', width: Width*0.05, align: 'center' },
-    	    { display: '材料费',name:'materialFee', width: Width*0.05, align: 'center' },
-    	    { display: '费用合计',name:'totalFee', width: Width*0.05, align: 'center' }
+    	    { display: '单号',name:'opNum', width: Width*0.035, sortable:true, align: 'center' },
+    	    { display: '小区', name:'houseOwner.house.building.project.proName',width: Width*0.08, sortable:true, align: 'center' },
+    	    { display: '房号', name:'houseOwner.house.houseNum',width: Width*0.05, sortable:true, align: 'center' },
+    	    { display: '报修人',name:'applyPerson', width: Width*0.05, sortable:true, align: 'center' },
+    	    { display: '联系方式',name:'contactPhone', width: Width*0.15, sortable:true, align: 'center' },
+    	    { display: '报修类型',name:'repairType', width: Width*0.08, sortable:true, align: 'center' },
+    	    { display: '报修时间)',name:'applyTime', width: Width*0.08, sortable:true, align: 'center' },
+    	    { display: '状态',name:'state', width: Width*0.08, sortable:true, align: 'center'},
+    	    { display: '人工费',name:'laborFee', width: Width*0.05, sortable:true, align: 'center' },
+    	    { display: '材料费',name:'materialFee', width: Width*0.05, sortable:true, align: 'center' },
+    	    { display: '费用合计',name:'totalFee', width: Width*0.05, sortable:true, align: 'center' }
     	],
         buttons : [
             {name: '添加维修单', bclass: 'add', onpress : addOwnerRepair},
@@ -23,10 +23,14 @@ $(function(){
             {name: '删除维修单', bclass: 'delete', onpress : deleteOwnerRepair}
 	    ],
 	    searchitems:[
-	        { display: '报修人', name: 'mtManager', isDefault:true },
-	        { display: '地址', name: 'mtAdress', isDefault:true },
-	        { display: '报修内容', name: 'mtContent', isDefault:true }
+	        { display: '小区', name: 'houseOwner.house.building.project.proName', isDefault:false },
+	        { display: '报修类型', name: 'repairType', isDefault:true },
+	        { display: '状态', name: 'state', isDefault:false }
 	    ],
+	    searchQueryStrs:[
+            {selectName:'qtype1',queryStrName:'query1'},
+            {selectName:'qtype2',queryStrName:'query1'}
+     	],
         height:Height*0.82,
         showcheckbox:true,
         showSearch:true,
@@ -45,7 +49,7 @@ function addOwnerRepair(){
 
 function deleteOwnerRepair(){
 	var rowid,idString="";
-	$("#houselist td input:checked").each(function(){
+	$("#ownerRepairList td input:checked").each(function(){
 		rowid=$(this).parent().parent().parent().attr("id");
 		rowid=rowid.substr(3);
 		idString+=rowid+",";
@@ -59,7 +63,7 @@ function deleteOwnerRepair(){
 	if(!confirm("您将删除该维修单,确定删除吗？"))return;
 	$.ajax({
 	  type: "POST",
-	  url: 'deleteMaintain?idStr='+idString,
+	  url: 'deleteOwnerRepair?idStr='+idString,
 	  dataType: "json",
 	  success : function(data){
 		  alert("选中的维修单删除成功");

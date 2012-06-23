@@ -55,15 +55,14 @@ font-size:13px;
 <!--startprint-->
 
 <table  width="100%" border="0" cellspacing="0" cellpadding="0">
- 
   <tr>
-    <td align="center" valign="middle"><h1>维修单</h1></td>
+    <td height="40" align="center" valign="middle" style="font-size:20px"><strong>维修单</strong></td>
   </tr>
   <tr>
-    <td height="35" align="center" valign="middle" style="font-size:16px;">服务中心：_________________　　　　　　　　　　　　　NO:__________</td>
+    <td height="25" align="center" valign="middle" style="font-size:14px;">服务中心：_________________　　      　　　　　　　NO:__________</td>
   </tr>
   <tr>
-    <td align="center" valign="middle"><table class="tableid" style="width:40%;" border="0" align="center" cellpadding="0" cellspacing="0" >
+    <td align="center" valign="middle"><table class="tableid" style="width:40%" border="0" align="center" cellpadding="0" cellspacing="0" >
       <tr>
         <td height="30" colspan="6" align="center" valign="middle"><strong>业主基本信息</strong></td>
       </tr>
@@ -76,7 +75,7 @@ font-size:13px;
           <td align="center" valign="middle">${ownerRepair.houseOwner.house.houseNum }</td>
         </tr>
       <tr>
-        <td width="80" height="30" align="center" valign="middle">报&nbsp;修&nbsp;人：</td>
+          <td width="80" height="30" align="center" valign="middle">报&nbsp;修&nbsp;人：</td>
           <td width="100" align="center" valign="middle">${ownerRepair.applyPerson }</td>
           <td width="80" align="center" valign="middle">联系电话：</td>
           <td width="100" align="center" valign="middle">${ownerRepair.contactPhone }</td>
@@ -117,21 +116,21 @@ font-size:13px;
       </tr>
       <tr>
         <td height="30" align="center" valign="middle">业主验收：</td>
-        <td colspan="2" align="center" valign="middle"></td>
+        <td colspan="2" align="center" valign="middle"><input type="checkbox" name="ownerRepair.accepted">（验收后打钩）</td>
         <td rowspan="2" align="center" valign="middle">业主评价：</td>
         <td colspan="2" rowspan="2" align="center" valign="middle">${ownerRepair.evaluateDetail }</td>
       </tr>
       <tr>
         <td height="30" align="center" valign="middle">服务态度：</td>
         <td colspan="2" align="left" valign="middle" style="font-size:12px">
-        <input type="checkbox">满意  <input type="checkbox">一般<input type="checkbox">不满意
+        <input type="checkbox" <c:if test="${ownerRepair.evaluate=='满意' }">checked="checked"</c:if>>满意  <input type="checkbox" <c:if test="${ownerRepair.evaluate=='一般' }">checked="checked"</c:if>>一般<input type="checkbox" <c:if test="${ownerRepair.evaluate=='不满意' }">checked="checked"</c:if>>不满意
         </td>
       </tr>
       <tr>
         <td height="30" colspan="6" align="center" valign="middle"><strong>材料/费用清单（业主未结单）</strong></td>
       </tr>
       <tr>
-        <td height="150" colspan="6" align="center" valign="middle"><table class="tableid" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <td height="auto" colspan="6" align="center" valign="middle"><table class="tableid" width="100%" border="0" cellspacing="0" cellpadding="0">
           <tr>
             <td width="120" height="25" align="center" valign="middle"><strong>材料名称</strong></td>
             <td width="60" align="center" valign="middle"><strong>数量</strong></td>

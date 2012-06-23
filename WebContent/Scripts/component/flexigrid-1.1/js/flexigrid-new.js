@@ -589,6 +589,7 @@
 					 var queryStrs=p.searchQueryStrs;
 					 var queryArr="";
 					 var typeArr="";
+					 alert(queryStrs.length);
 					 for(s=0;s<queryStrs.length;s++){
 						 var qs=queryStrs[s];
 						 var value=$('input[name='+qs.queryStrName+']', g.sDiv).val();
@@ -599,7 +600,7 @@
 						 value=null;
 					 }
 					 queryArr=queryArr.substring(0,queryArr.length-1);
-					 typeArr=typeArr.substring(0,typeArr.length-1)
+					 typeArr=typeArr.substring(0,typeArr.length-1);
 				     p.query = queryArr;
 				     p.qtype =  typeArr;
 				}

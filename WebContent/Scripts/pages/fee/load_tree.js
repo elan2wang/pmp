@@ -7,10 +7,10 @@
  */ 
 
 var d = new dTree("d");
-function load_data(url){
+function load_data(action,url,target){
 	$.ajax({
 		type: "POST",
-		url: url,
+		url: action+"?url="+url+"&target="+target,
 		dataType: "json",
 		success: function(data){
 			d.clearCookie();

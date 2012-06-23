@@ -49,6 +49,22 @@ public class RepairAttachDAO extends BaseDAO implements IRepairAttachDAO {
     }
 
     /**
+     * @see org.pmp.dao.business.IRepairAttachDAO#getRepairAttach_ByID(java.lang.Integer)
+     */
+    @Override
+    public RepairAttach getRepairAttach_ByID(Integer raId) {
+	String debugMsg = "get repairAttach by id, raId="+raId;
+	String hql = "from RepairAttach where raId="+raId;
+	RepairAttach ra = null;
+	try {
+	    ra = (RepairAttach)getInstance(hql,debugMsg);
+	} catch (RuntimeException e){
+	    throw e;
+	}
+	return ra;
+    }
+
+    /**
      * @see org.pmp.dao.business.IRepairAttachDAO#deleteRepairAttach(org.pmp.vo.RepairAttach)
      */
     @Override
