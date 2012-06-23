@@ -21,6 +21,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.pmp.service.business.IBuildingService;
 import org.pmp.service.business.ICondoFeeItemService;
+import org.pmp.service.business.IElectricFeeItemService;
 import org.pmp.service.business.IHouseService;
 import org.pmp.service.business.IProjectService;
 import org.pmp.service.fire.IZoneService;
@@ -30,6 +31,7 @@ import org.pmp.util.SessionHandler;
 import org.pmp.vo.Building;
 import org.pmp.vo.Company;
 import org.pmp.vo.CondoFeeItem;
+import org.pmp.vo.ElectricFeeItem;
 import org.pmp.vo.House;
 import org.pmp.vo.Project;
 import org.pmp.vo.Zone;
@@ -50,6 +52,7 @@ public class TreeAction extends ActionSupport{
     private IBuildingService buildingService;
     private IHouseService houseService;
     private ICondoFeeItemService condoFeeItemService;
+    private IElectricFeeItemService electricFeeItemService;
     private IZoneService zoneService;
     
     private String target;
@@ -101,7 +104,7 @@ public class TreeAction extends ActionSupport{
 	JsonConvert.output(data);
     }
     
-    public void monthTree(){
+    public void condoFeeTimeTree(){
 	/* get current user's refDomain */
 	Object obj = SessionHandler.getUserRefDomain();
         /* tree nodes */
@@ -125,14 +128,14 @@ public class TreeAction extends ActionSupport{
 	    Integer pid=index-1;
 	    Integer month = 13;
 	    while(month-- > 1){
-		StringBuilder url = new StringBuilder();
+		StringBuilder url1 = new StringBuilder();
 		if (obj instanceof Project){
-		    url.append(url+"?proId="+((Project)obj).getProId());
+		    url1.append(url+"?proId="+((Project)obj).getProId());
 		} else if (obj instanceof Company){
-		    url.append(url+"?comId="+((Company)obj).getComId());
+		    url1.append(url+"?comId="+((Company)obj).getComId());
 		}
 		nodes.add(JsonConvert.toJsonTreeNode(index++, pid, month+"月份清单", 
-			url.append("&year="+year+"&month="+month).toString(),"", target, "", "", false));
+			url1.append("&year="+year+"&month="+month).toString(),"", target, "", "", false));
 	    }
 	}
 	String data = JsonConvert.toJsonTree(nodes);
@@ -167,6 +170,41 @@ public class TreeAction extends ActionSupport{
 	    while(ite3.hasNext()){
 		CondoFeeItem cfi = (CondoFeeItem)ite3.next();
 		nodes.add(JsonConvert.toJsonTreeNode(index++, pid, cfi.getItemName(), url+"?cfiId="+cfi.getCfiId(),
+			    "", target, "", "", false));
+	    }
+	}
+	String data = JsonConvert.toJsonTree(nodes);
+	logger.debug(data);
+	JsonConvert.output(data);
+    }
+    
+    public void electricFeeItemTree(){
+	List<String> nodes = new ArrayList<String>();
+	Company company = (Company)SessionHandler.getUserRefDomain();
+	Pager pager = new Pager(10000,1);
+	Integer comId = company.getComId();
+	List<ElectricFeeItem> efiList = electricFeeItemService.loadElectricFeeItemList_ByCompany(comId, "", pager);
+	List<Project> proList = new ArrayList<Project>();
+	Iterator<?> ite = efiList.iterator();
+	while(ite.hasNext()){
+	    Project pro = ((ElectricFeeItem)ite.next()).getProject();
+	    if(!proList.contains(pro)){
+		proList.add(pro);
+	    }
+	}
+	Integer index = 1;
+	Iterator<Project> ite2 = proList.iterator();
+	while(ite2.hasNext()){
+	    Project pro = ite2.next();
+	    /* add the first level node project */
+	    nodes.add(JsonConvert.toJsonTreeNode(index++, 0, pro.getProName(), "",
+		    "", "", "../Images/dtree/pro.jpg", "../Images/dtree/pro.jpg", false));
+	    List<?> efiList2 = electricFeeItemService.loadElectricFeeItemList_ByProject(pro.getProId(), "", pager);
+	    Iterator<?> ite3 = efiList2.iterator();
+	    Integer pid = index-1;
+	    while(ite3.hasNext()){
+		ElectricFeeItem efi = (ElectricFeeItem)ite3.next();
+		nodes.add(JsonConvert.toJsonTreeNode(index++, pid, efi.getItemName(), url+"?efiId="+efi.getEfiId(),
 			    "", target, "", "", false));
 	    }
 	}
@@ -252,6 +290,15 @@ public class TreeAction extends ActionSupport{
 
     public void setCondoFeeItemService(ICondoFeeItemService condoFeeItemService) {
         this.condoFeeItemService = condoFeeItemService;
+    }
+
+	public IElectricFeeItemService getElectricFeeItemService() {
+        return electricFeeItemService;
+    }
+
+    public void setElectricFeeItemService(
+    	IElectricFeeItemService electricFeeItemService) {
+        this.electricFeeItemService = electricFeeItemService;
     }
 
 	public IZoneService getZoneService() {

@@ -70,6 +70,16 @@ public class ElectricFeeItemService implements IElectricFeeItemService {
 	    Integer comId, String order, Pager pager) {
 	return electricFeeItemDAO.loadElectricFeeItemList_ByCompany(comId, order, pager);
     }
+    
+    /**
+     * @see org.pmp.service.business.IElectricFeeItemService#loadElectricFeeItemList_ByProject(java.lang.Integer, java.lang.String, org.pmp.util.Pager)
+     */
+    @Override
+    public List<ElectricFeeItem> loadElectricFeeItemList_ByProject(
+	    Integer proId, String order, Pager pager) {
+	return electricFeeItemDAO.loadElectricFeeItemList_ByProject(proId, order, pager);
+    }
+
 
     //~ Getters and Setters ============================================================================================
 
@@ -89,4 +99,5 @@ public class ElectricFeeItemService implements IElectricFeeItemService {
         this.electricFeeDAO = electricFeeDAO;
     }
 
+    
 }

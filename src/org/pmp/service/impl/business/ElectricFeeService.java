@@ -85,6 +85,17 @@ public class ElectricFeeService implements IElectricFeeService {
 	    Map<String, Object> params, String order, Pager pager) {
 	return electricFeeDAO.loadElectricFeeList_ByProject(proId, params, order, pager);
     }
+    
+    /**
+     * @see org.pmp.service.business.IElectricFeeService#loadElectricFeeList_ByHouse(java.lang.Integer, java.util.Map, java.lang.String, org.pmp.util.Pager)
+     */
+    @Override
+    public List<ElectricFee> loadElectricFeeList_ByHouse(Integer houseId,
+	    Map<String, Object> params, String order, Pager pager) {
+	return electricFeeDAO.loadElectricFeeList_ByHouse(houseId, params, order, pager);
+    }
+
+    
     //~ Getters and Setters ============================================================================================
 
     public IElectricFeeDAO getElectricFeeDAO() {
@@ -95,4 +106,5 @@ public class ElectricFeeService implements IElectricFeeService {
         this.electricFeeDAO = electricFeeDAO;
     }
 
+   
 }

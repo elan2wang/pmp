@@ -61,11 +61,13 @@
           <td align="center" valign="middle">预约日期：</td>
           <td align="left" valign="middle"><input name="ownerRepair.orderDate" id="ownerRepair.orderDate" type="text" class="textbox" id="fdApDate"  readonly="readonly" style="cursor:pointer;" onfocus="WdatePicker()" value="<fmt:formatDate value="${ownerRepair.orderDate}" type="both" pattern="yyyy-MM-dd"/>"/></td>
           <td align="center" valign="middle">预约时间：</td>
-          <td align="left" valign="middle"><select name="ownerRepair.orderTime" id="ownerRepair.orderTime" class="selectbox" style="width:95px;" id="fdApTime">
+          <td align="left" valign="middle">
+          <div style="display:none" id="orderTime">${ownerRepair.orderTime }</div>
+          <select name="ownerRepair.orderTime" id="ownerRepair.orderTime" class="selectbox" style="width:95px;" id="fdApTime">
             <option value="">请选择时间</option>
             <c:forEach var="clock" begin="0" end="23" step="1">
-              <option value="${clock }:00" <c:if test="${ownerRepair.orderTime==':00' }">selected="selected"</c:if>>${clock }:00</option>
-              <option value="${clock }:30" <c:if test="${ownerRepair.orderTime==':30' }">selected="selected"</c:if>>${clock }:30</option>
+              <option value="${clock }:00">${clock }:00</option>
+              <option value="${clock }:30">${clock }:30</option>
             </c:forEach>
           </select></td>
         </tr>
@@ -96,11 +98,13 @@
           <td width="80" height="30" align="center" valign="middle">完工日期：</td>
           <td colspan="2" align="left" valign="middle"><input name="ownerRepair.finishDate" type="text"   class="textbox1" id="fdFinDate" readonly="readonly"  onfocus="WdatePicker()" style="width:170px" value="<fmt:formatDate value="${ownerRepair.finishDate}" type="both" pattern="yyyy-MM-dd"/>"/></td>
           <td align="center" valign="middle">完工时间：</td>
-          <td colspan="2" align="left" valign="middle"><select name="ownerRepair.finishTime"  class="selectbox" style="width:170px" id="fdFinTime" >
+          <td colspan="2" align="left" valign="middle">
+          <div style="display:none" id="finishTime">${ownerRepair.finishTime }</div>
+          <select name="ownerRepair.finishTime"  class="selectbox" style="width:170px" id="ownerRepair.finishTime" >
             <option value="">请选择时间</option>
             <c:forEach var="clock" begin="0" end="23" step="1">
-              <option value="${clock }:00" <c:if test="${fn:split(ownerRepair.orderTime,':')[0]==clock && fn:split(ownerRepair.orderTime,':')[1]=='00' }">selected="selected"</c:if>>${clock }:00</option>
-              <option value="${clock }:30" <c:if test="${fn:split(ownerRepair.orderTime,':')[0]==clock && fn:split(ownerRepair.orderTime,':')[1]=='30' }">selected="selected"</c:if>>${clock }:30</option>
+              <option value="${clock }:00">${clock }:00</option>
+              <option value="${clock }:30">${clock }:30</option>
             </c:forEach>
           </select></td>
         </tr>

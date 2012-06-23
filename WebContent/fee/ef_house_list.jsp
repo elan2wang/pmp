@@ -17,6 +17,9 @@
 <script type="text/javascript" src="../Scripts/component/flexigrid-1.1/js/flexigrid.js"></script>
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
 <script type="text/javascript" src="../Scripts/common/window.js"></script>
+<script src="../Scripts/component/dtree/dtree.js"  type="text/javascript" ></script>
+<script src="../Scripts/pages/fee/load_tree.js"  type="text/javascript" ></script>
+
 <title>电费缴费管理</title>
 </head>
 <body onload="load_data('houseTree','ef_list_by_house.jsp','electricFeeList')">

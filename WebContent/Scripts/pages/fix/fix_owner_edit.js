@@ -1,3 +1,22 @@
+//页面加载后修改orderTime和finishTime两个下拉框的选中值
+$(function(){
+	var orderTime = $('#orderTime').html();
+	var finishTime = $('#finishTime').html();
+	var orderTimeSelect = document.getElementById('ownerRepair.orderTime');
+	var finishTimeSelect = document.getElementById('ownerRepair.finishTime');
+	UpdateSelectedItem(orderTimeSelect, orderTime);
+	UpdateSelectedItem(finishTimeSelect, finishTime);
+});
+
+function UpdateSelectedItem(objSelect, objItemValue) {
+    for (var i = 0; i < objSelect.options.length; i++) {
+        if (objSelect.options[i].value == objItemValue) {
+	        objSelect.options[i].selected = true; 
+            break;       
+        }       
+    } 
+}    
+
 var rowIndex=1;
 tableheight=0;
 function appendRow(){

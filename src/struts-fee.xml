@@ -17,7 +17,7 @@
     <!-- tree related actions -->
     <action name="houseTree" class="org.pmp.action.business.TreeAction" method="houseTree" />
 
-    <action name="monthTree" class="org.pmp.action.business.TreeAction" method="monthTree" />
+    <action name="cfTimeTree" class="org.pmp.action.business.TreeAction" method="condoFeeTimeTree" />
     
     <action name="cfItemTree" class="org.pmp.action.business.TreeAction" method="condoFeeItemTree" />
     
@@ -76,6 +76,13 @@
     </action>
     
     <!-- ElectricFeeItem Related actions ============================================================================================ -->
+    
+    <!-- ElectricFee Related actions ============================================================================================ -->
+    <action name="loadElectricFeeList_ByEFI" class="org.pmp.action.business.ElectricFeeAction" method="loadElectricFeeList_ByEFI" />
+    
+    <action name="loadElectricFeeList_ByHouse" class="org.pmp.action.business.ElectricFeeAction" method="loadElectricFeeList_ByHouse" />
+    
+    <!-- ElectricFee Related actions ============================================================================================ -->
     
     
     <!-- TimeParkFee related actions ================================================================================================ -->

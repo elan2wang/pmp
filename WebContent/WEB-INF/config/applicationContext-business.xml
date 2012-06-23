@@ -192,6 +192,11 @@
     <property name="projectService" ref="projectService" />
   </bean>
   
+  <bean id="electricFeeAction" class="org.pmp.action.business.ElectricFeeAction">
+    <property name="electricFeeService" ref="electricFeeService" />
+    <property name="houseOwnerService" ref="houseOwnerService" />
+  </bean>
+  
   <bean id="ownerRepairAction" class="org.pmp.action.business.OwnerRepairAction">
     <property name="ownerRepairService" ref="ownerRepairService" />
     <property name="houseOwnerService" ref="houseOwnerService" />

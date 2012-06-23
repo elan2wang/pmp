@@ -101,4 +101,27 @@ public class ElectricFeeItemDAO extends BaseDAO implements IElectricFeeItemDAO {
 	return efiList;
     }
 
+    /**
+     * @see org.pmp.dao.business.IElectricFeeItemDAO#loadElectricFeeItemList_ByProject(java.lang.Integer, java.lang.String, org.pmp.util.Pager)
+     */
+    @Override
+    public List<ElectricFeeItem> loadElectricFeeItemList_ByProject(
+	    Integer proId, String order, Pager pager) {
+	String debugMsg = "load electricFeeItem list by project, proId="+proId;
+	StringBuilder hql = new StringBuilder();
+	hql.append("from ElectricFeeItem where project.proId="+proId);
+	if(order != null){
+	    hql.append(" "+order);
+	} else {
+	    hql.append(" order by efiId desc");
+	}
+	List<ElectricFeeItem> efiList = null;
+	try {
+	    efiList = (List<ElectricFeeItem>) loadListByCondition(hql.toString(), pager, debugMsg);
+	} catch (RuntimeException e){
+	    throw e;
+	}
+	return efiList;
+    }
+
 }
