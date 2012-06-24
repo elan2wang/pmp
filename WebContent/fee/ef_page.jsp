@@ -18,18 +18,11 @@
 <body>
 <div class="wrap">
   <ul class="nav">
-    <li id="tab1" ><a href="javascript:void(0)">电费历史</a></li>
-    <li id="tab2" class="active"><a href="javascript:void(0)">电费创建</a></li>
-    <li id="tab3"><a href="javascript:void(0)">业主视图</a></li>
-    <li id="tab4"><a href="javascript:void(0)">电费项目清单</a></li>
+    <li id="tab1" class="active"><a href="javascript:void(0)">电费创建</a></li>
+    <li id="tab2"><a href="javascript:void(0)">业主视图</a></li>
+    <li id="tab3"><a href="javascript:void(0)">电费项目清单</a></li>
   </ul>
   <div class="content" style="height:570px;">
-    <!-- 物业费历史记录页面  -->
-    <div class="innercontent" style="height:100%">
-      <iframe id="ef_time_list" name="ef_time_list" frameborder="0" scrolling="auto" style="width:100%; height:100%" src="" >
-      </iframe>
-    </div>
-    
     <!-- 电费创建视图  -->
     <div class="innercontent" style="height:100%">
       <iframe id="ef_item_add" name="ef_item_add" frameborder="0" scrolling="auto" style="width:100%; height:100%" src="" >
@@ -41,6 +34,7 @@
       <iframe id="ef_house_list" name="ef_house_list" frameborder="0" scrolling="auto" style="width:100%; height:100%" src="" >
       </iframe>
     </div>
+    
     <!-- 历史电费项目视图  -->
     <div class="innercontent" style="height:100%">
       <iframe id="ef_item_list" name="ef_item_list" frameborder="0" scrolling="auto" style="width:100%; height:100%" src="" >

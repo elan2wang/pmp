@@ -3,7 +3,7 @@
  * email： shohokh@gmail.com
  * create:   2012-6-23
  * 
- * this script is used by the ef_list_by_item.jsp
+ * this script is used by the ef_list_by_house.jsp
  */ 
 
 $(function(){

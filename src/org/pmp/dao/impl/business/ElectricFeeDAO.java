@@ -59,6 +59,24 @@ public class ElectricFeeDAO extends BaseDAO implements IElectricFeeDAO {
         logger.debug("successfully generate electricFee with efiId="+efiId);
     }
 
+
+    /**
+     * @see org.pmp.dao.business.IElectricFeeDAO#getElectricFee_ByID(java.lang.Integer)
+     */
+    @Override
+    public ElectricFee getElectricFee_ByID(Integer efId) {
+	String debugMsg = "get ElectricFee by ID,efId="+efId;
+	String hql = "from ElectricFee where efId="+efId;
+	ElectricFee ef = null;
+	try {
+	    ef = (ElectricFee)getInstance(hql,debugMsg);
+	} catch(RuntimeException e){
+	    throw e;
+	}
+	return ef;
+    }
+
+   
     /**
      * @see org.pmp.dao.business.IElectricFeeDAO#batchUpdateElectricFee(java.util.List)
      */
@@ -195,6 +213,5 @@ public class ElectricFeeDAO extends BaseDAO implements IElectricFeeDAO {
 	return list;
     }
 
-   
     
 }

@@ -44,6 +44,15 @@ public class ElectricFeeService implements IElectricFeeService {
     }
 
     /**
+     * @see org.pmp.service.business.IElectricFeeService#getElectricFee_ByID(java.lang.Integer)
+     */
+    @Override
+    public ElectricFee getElectricFee_ByID(Integer efId) {
+	return electricFeeDAO.getElectricFee_ByID(efId);
+    }
+
+    
+    /**
      * @see org.pmp.service.business.IElectricFeeService#batchEditElectricFee(java.util.List)
      */
     @Override
@@ -106,5 +115,6 @@ public class ElectricFeeService implements IElectricFeeService {
         this.electricFeeDAO = electricFeeDAO;
     }
 
+    
    
 }

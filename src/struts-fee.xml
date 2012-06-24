@@ -75,12 +75,22 @@
       <result name="success">/fee/ef_item_add.jsp</result>
     </action>
     
+    <action name="ef_item_delete" class="org.pmp.action.business.ElectricFeeItemAction" method="deleteElectricFeeItem" />
     <!-- ElectricFeeItem Related actions ============================================================================================ -->
     
     <!-- ElectricFee Related actions ============================================================================================ -->
     <action name="loadElectricFeeList_ByEFI" class="org.pmp.action.business.ElectricFeeAction" method="loadElectricFeeList_ByEFI" />
     
     <action name="loadElectricFeeList_ByHouse" class="org.pmp.action.business.ElectricFeeAction" method="loadElectricFeeList_ByHouse" />
+    
+    <action name="ef_edit" class="org.pmp.action.business.ElectricFeeAction" method="efEdit" />
+    
+    <action name="ef_delete" class="org.pmp.action.business.ElectricFeeAction" method="efDelete" />
+    
+    <action name="selectElectricFee" class="org.pmp.action.business.ElectricFeeAction" method="selectElectricFee">
+      <result name="edit">/fee/ef_edit.jsp</result>
+      <result name="success" type="chain">loadCondoFeeList_ByHouse</result>
+    </action>
     
     <!-- ElectricFee Related actions ============================================================================================ -->
     

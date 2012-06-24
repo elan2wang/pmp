@@ -26,6 +26,8 @@ import org.pmp.vo.ElectricFee;
 public interface IElectricFeeDAO {
     public void generateElectricFee(Integer efiId);
     
+    public ElectricFee getElectricFee_ByID(Integer efId);
+    
     public void batchUpdateElectricFee(List<ElectricFee> list);
     
     public void batchDeleteElectricFee(List<ElectricFee> list);
