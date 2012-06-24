@@ -24,7 +24,6 @@
 
 <body>
 <div class="wrap">
-  <div class="content_main">
     <div id="top_info" style="display:none;" >
        <div class="grid_top"> 
          <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onClick="openAddWindow('#newBuild')">添加新楼宇</a>
@@ -35,7 +34,7 @@
     <input type="hidden" id="buildingId" name="buildingId" value="" /> 
     <div id="newBuild" class="easyui-window" href="building_add.jsp" title="添加新楼宇" iconCls="icon-save" style="width:330px;height:380px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
     <div id="editBuild" class="easyui-window"  title="编辑楼宇"  iconCls="icon-save" style="width:330px;height:380px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
-  </div>
+  
 </div>
 </body>
 </html>

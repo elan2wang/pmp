@@ -35,7 +35,7 @@ $(function(){
 		    { display: '房号', name: 'houseNum', isDefault:true }
 		],
 		showSearch:true,
-		height:Height*0.79,
+		height:Height*0.78,
         showcheckbox:true,
         nomsg: '没有符合条件的业主记录',
         usepager:true,

@@ -40,30 +40,29 @@
     <div class="content" style="height:560px;">
         <!-- 物业项目管理TAB -->
         <div class="innercontent" style="height:100%">
+           <div class="content_main">
            <iframe id="projectFrame" name="houseFrame" frameborder="0" scrolling="auto" style="width:100%; height:100%" src="" >
            </iframe>
+           </div>
         </div>
        
        <!-- 楼宇信息管理TAB -->
 	    <div class="innercontent" style="height:100%">
+	     <div class="content_main">
 	       <iframe id="buildingFrame" name="buildingFrame" frameborder="0" scrolling="auto" style="width:100%; height:100%" src="" >
 	       </iframe>
+	      </div>
 	    </div>
 	    <!-- 房产信息管理TAB -->
 	    <div class="innercontent" style="height:100%">
+	        <div class="content_main">
 	       <iframe id="houseFrame" name="houseFrame" frameborder="0" scrolling="auto" style="width:100%; height:100%" src="" >
 	       </iframe>
+	       </div>
 	    </div>
     </div>
     
 </div>
-
-<script type="text/javascript">
- var Width2=document.documentElement.clientWidth;
- var Height2=document.documentElement.clientHeight;
- ChangeHeight(Width2,Height2,'content');
- ChangeHeight(Width2,Height2,'innercontent');
- ChangeHeight(Width2,Height2-4,'content_main');
-</script>
+<script type="text/javascript" src="../Scripts/common/changeSize.js"></script>
 </body>
 </html>

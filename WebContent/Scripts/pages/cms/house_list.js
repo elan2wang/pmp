@@ -32,7 +32,7 @@ $(function(){
  		     { display: '房号', name: 'houseNum', isDefault:true },
  		     { display: '是否空置', name: 'isempty', isDefault:false }
  		 ],
-         height:Height*0.84,
+         height:Height*0.87,
          showSearch:true,
          showcheckbox:true,
          usepager: true,

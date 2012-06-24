@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="../CSS/common/common.css" rel="stylesheet" type="text/css" />
-<link href="../CSS/common/fee_tab.css" rel="stylesheet" type="text/css" />
+<link href="../CSS/common/tab.css" rel="stylesheet" type="text/css" />
 <link href="../CSS/pages/fee/cf_list2.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="../Scripts/jquery-1.7.1.js" ></script>
@@ -24,16 +24,18 @@
   <div class="content" style="height:570px;">
     <!-- 业主报修管理  -->
     <div class="innercontent" style="height:100%">
+      <div class="content_main">
       <iframe id="fix_owner" name="fix_owner" frameborder="0" scrolling="auto" style="width:100%; height:100%" src="" >
       </iframe>
+      </div>
     </div>
     <!-- 公共维修保养  -->
     <div class="innercontent" style="height:100%">
       <iframe id="fix_public" name="fix_public" frameborder="0" scrolling="auto" style="width:100%; height:100%" src="" >
       </iframe>
     </div>
-
   </div>
 </div>
+<script type="text/javascript" src="../Scripts/common/changeSize.js"></script>
 </body>
 </html>

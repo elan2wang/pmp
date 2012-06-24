@@ -141,9 +141,7 @@
   <script type="text/javascript">
    var Width2=document.documentElement.clientWidth;
    var Height2=document.documentElement.clientHeight;
-   ChangeHeight(Width2,Height2,'content');
-   ChangeHeight(Width2,Height2,'innercontent');
-   ChangeHeight(Width2,Height2,'content_main');
+   ChangeHeight(Width2,Height2+30,'content_main');
   </script>
 </body>
 </html>

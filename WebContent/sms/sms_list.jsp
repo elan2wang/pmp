@@ -13,10 +13,7 @@
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
 <script type="text/javascript" src="../Scripts/pages/sms/sms_list.js"></script>
 </head>
-<body style="height:100%">
-<div class="content_main">
 <table id="smsHistory">
 </table>
-</div>
 </body>
 </html>
