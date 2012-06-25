@@ -11,6 +11,8 @@ public class OwnerRepair implements java.io.Serializable {
 
     private Integer opId;
     private HouseOwner houseOwner;
+    private String applyPerson;
+    private String contactPhone;
     private String opNum;
     private Date applyTime;
     private Date orderDate;
@@ -29,6 +31,16 @@ public class OwnerRepair implements java.io.Serializable {
     private Double totalFee;
     private Boolean payed;
 
+    public String toString(){
+	StringBuilder sb = new StringBuilder();
+	sb.append("[opId:"+opId+",houseOwner:"+houseOwner+",applyPerson:"+applyPerson+",contactPhone:"+contactPhone+",opNum"+opNum+
+		",applyTime:"+applyTime+",orderDate:"+orderDate+",orderTime:"+orderTime+",repairType:"+repairType+
+		",repairDetail:"+repairDetail+",repairPerson:"+repairPerson+",state:"+state+",finishDate"+finishDate+
+		",finishTime:"+finishTime+",accepted:"+accepted+",evaluate:"+evaluate+",evaluateDetail:"+evaluateDetail+
+		",laborFee:"+laborFee+",materialFee:"+materialFee+",totalFee:"+totalFee+",payed:"+payed+"]");
+	return sb.toString();
+    }
+    
     public OwnerRepair() {
     }
 
@@ -41,7 +53,7 @@ public class OwnerRepair implements java.io.Serializable {
 	    String repairType, String repairDetail, String repairPerson,
 	    String state, Date finishDate, String finishTime, Boolean accepted,
 	    String evaluate, String evaluateDetail, Double laborFee,
-	    Double materialFee, Double totalFee, Boolean payed) {
+	    Double materialFee, Double totalFee, Boolean payed, String applyPerson, String contactPhone) {
 	this.opId = opId;
 	this.houseOwner = houseOwner;
 	this.opNum = opNum;
@@ -61,6 +73,8 @@ public class OwnerRepair implements java.io.Serializable {
 	this.materialFee = materialFee;
 	this.totalFee = totalFee;
 	this.payed = payed;
+	this.applyPerson = applyPerson;
+	this.contactPhone = contactPhone;
     }
 
     public Integer getOpId() {
@@ -160,7 +174,7 @@ public class OwnerRepair implements java.io.Serializable {
 	this.finishTime = finishTime;
     }
 
-    public Boolean isAccepted() {
+    public Boolean getAccepted() {
 	return this.accepted;
     }
 
@@ -208,12 +222,28 @@ public class OwnerRepair implements java.io.Serializable {
 	this.totalFee = totalFee;
     }
 
-    public Boolean isPayed() {
+    public Boolean getPayed() {
 	return this.payed;
     }
 
     public void setPayed(Boolean payed) {
 	this.payed = payed;
+    }
+
+    public String getApplyPerson() {
+        return applyPerson;
+    }
+
+    public void setApplyPerson(String applyPerson) {
+        this.applyPerson = applyPerson;
+    }
+
+    public String getContactPhone() {
+        return contactPhone;
+    }
+
+    public void setContactPhone(String contactPhone) {
+        this.contactPhone = contactPhone;
     }
 
 }

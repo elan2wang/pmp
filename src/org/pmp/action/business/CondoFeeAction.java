@@ -136,7 +136,7 @@ public class CondoFeeAction extends ActionSupport{
 	
 	String data = json.toJson(cfList, "", pager);
 	logger.debug(data);
-	JsonConvert.output(data);
+	json.output(data);
     }
     
     public void loadCondoFeeList_ByHouse(){
@@ -173,7 +173,7 @@ public class CondoFeeAction extends ActionSupport{
 	}
 	String title = "业主姓名："+owner.getOwnerName()+"  联系电话："+contact;
 	String data = json.toJson(cfList, title, pager);
-	JsonConvert.output(data);
+	json.output(data);
     }
     
     public void loadCondoFeeList_ByCompany(){
@@ -204,7 +204,7 @@ public class CondoFeeAction extends ActionSupport{
 	
 	String data = json.toJson(cfList, message, pager);
 
-	JsonConvert.output(data);
+	json.output(data);
     }
     
     public void loadCondoFeeList_ByProject(){
@@ -235,7 +235,7 @@ public class CondoFeeAction extends ActionSupport{
 	
 	String data = json.toJson(cfList, message, pager);
 
-	JsonConvert.output(data);
+	json.output(data);
     }
     
     public void exportNewCondoFee(){

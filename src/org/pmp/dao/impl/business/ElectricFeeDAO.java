@@ -14,6 +14,7 @@ package org.pmp.dao.impl.business;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,7 @@ import org.hibernate.jdbc.Work;
 import org.pmp.dao.admin.BaseDAO;
 import org.pmp.dao.business.IElectricFeeDAO;
 import org.pmp.util.Pager;
+import org.pmp.util.ParamsToString;
 import org.pmp.vo.ElectricFee;
 
 /**
@@ -62,7 +64,7 @@ public class ElectricFeeDAO extends BaseDAO implements IElectricFeeDAO {
      */
     @Override
     public void batchUpdateElectricFee(List<ElectricFee> list) {
-	// TODO Auto-generated method stub
+	
 
     }
 
@@ -70,9 +72,21 @@ public class ElectricFeeDAO extends BaseDAO implements IElectricFeeDAO {
      * @see org.pmp.dao.business.IElectricFeeDAO#batchDeleteElectricFee(java.util.List)
      */
     @Override
-    public void batchDeleteElectricFee(List<ElectricFee> list) {
-	// TODO Auto-generated method stub
-
+    public void batchDeleteElectricFee(final List<ElectricFee> list) {
+	logger.debug("begin to batch delete ElectricFee");
+	logger.debug("list.size="+list.size());
+	Work work = new Work(){
+	    public void execute(Connection connection)throws SQLException{
+		String sql = "delete tb_OwnerRepair where EF_ID=?";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		for (int i=0;i<list.size();i++){
+		    stmt.setInt(1, list.get(i).getEfId());
+		    stmt.executeUpdate();
+		}
+	    }
+	};
+	executeWork(work);
+	logger.debug("successfully batch delete ElectricFee");
     }
 
     /**
@@ -81,8 +95,24 @@ public class ElectricFeeDAO extends BaseDAO implements IElectricFeeDAO {
     @Override
     public List<ElectricFee> loadElectricFeeList_ByEFI(Integer efiId,
 	    Map<String, Object> params, String order, Pager pager) {
-	// TODO Auto-generated method stub
-	return null;
+	List<ElectricFee> list = null;
+	String debugMsg = "load ElectricFee list by electricFeeItem, efiId="+efiId;
+	StringBuilder hql = new StringBuilder();
+	hql.append("from ElectricFee where electricFeeItem.efiId="+efiId);
+	hql.append(ParamsToString.toString(params));
+	if (order==null){
+	    hql.append(" order by houseOwner.house.houseNum assc");
+	} else {
+	    hql.append(" "+order);
+	}
+	logger.debug(hql);
+	try {
+	    list = (List<ElectricFee>) loadListByCondition(hql.toString(),pager,debugMsg);
+	} catch (RuntimeException e){
+	    throw e;
+	}
+	
+	return list;
     }
 
     /**
@@ -91,8 +121,25 @@ public class ElectricFeeDAO extends BaseDAO implements IElectricFeeDAO {
     @Override
     public List<ElectricFee> loadElectricFeeList_ByCompany(Integer comId,
 	    Map<String, Object> params, String order, Pager pager) {
-	// TODO Auto-generated method stub
-	return null;
+	List<ElectricFee> list = null;
+	String debugMsg = "load ElectricFee list by Company, comId="+comId;
+	StringBuilder hql = new StringBuilder();
+	hql.append("from ElectricFee where houseOwner.house.houseId in (select houseId from House where building.builId in (" +
+		   "select builId from Building where project.proId in (select proId from Project where company.comId="+comId+")))");
+	hql.append(ParamsToString.toString(params));
+	if (order==null){
+	    hql.append(" order by houseOwner.house.houseNum assc");
+	} else {
+	    hql.append(" "+order);
+	}
+	logger.debug(hql);
+	try {
+	    list = (List<ElectricFee>) loadListByCondition(hql.toString(),pager,debugMsg);
+	} catch (RuntimeException e){
+	    throw e;
+	}
+	
+	return list;
     }
 
     /**
@@ -101,8 +148,51 @@ public class ElectricFeeDAO extends BaseDAO implements IElectricFeeDAO {
     @Override
     public List<ElectricFee> loadElectricFeeList_ByProject(Integer proId,
 	    Map<String, Object> params, String order, Pager pager) {
-	// TODO Auto-generated method stub
-	return null;
+	List<ElectricFee> list = null;
+	String debugMsg = "load ElectricFee list by Project, proId="+proId;
+	StringBuilder hql = new StringBuilder();
+	hql.append("from ElectricFee where houseOwner.house.houseId in (select houseId from House where building.builId in (" +
+		   "select builId from Building where project.proId="+proId+"))");
+	hql.append(ParamsToString.toString(params));
+	if (order==null){
+	    hql.append(" order by houseOwner.house.houseNum assc");
+	} else {
+	    hql.append(" "+order);
+	}
+	logger.debug(hql);
+	try {
+	    list = (List<ElectricFee>) loadListByCondition(hql.toString(),pager,debugMsg);
+	} catch (RuntimeException e){
+	    throw e;
+	}
+	
+	return list;
+    }
+
+    /**
+     * @see org.pmp.dao.business.IElectricFeeDAO#loadElectricFeeList_ByHouse(java.lang.Integer, java.util.Map, java.lang.String, org.pmp.util.Pager)
+     */
+    @Override
+    public List<ElectricFee> loadElectricFeeList_ByHouse(Integer houseId,
+	    Map<String, Object> params, String order, Pager pager) {
+	List<ElectricFee> list = null;
+	String debugMsg = "load ElectricFee list by house, houseId="+houseId;
+	StringBuilder hql = new StringBuilder();
+	hql.append("from ElectricFee where houseOwner.house.houseId="+houseId);
+	hql.append(ParamsToString.toString(params));
+	if (order==null){
+	    hql.append(" order by houseOwner.house.houseNum assc");
+	} else {
+	    hql.append(" "+order);
+	}
+	logger.debug(hql);
+	try {
+	    list = (List<ElectricFee>) loadListByCondition(hql.toString(),pager,debugMsg);
+	} catch (RuntimeException e){
+	    throw e;
+	}
+	
+	return list;
     }
 
    

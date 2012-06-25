@@ -4,12 +4,12 @@ $(function(){
 	var coefficient;//表格高度系数
 	if(parent.document.getElementById("frame.pageType").value=="all"){	
 		proId = 0;
-		coefficient=0.89;
+		coefficient=0.95;
 	}
 	else{
 		proId=parseInt(parent.document.getElementById("frame.pageId").value);
 		$('#top_info').css('display','block');
-		coefficient=0.84;
+		coefficient=0.87;
 	}
     $('#buildinglist').flexigrid({
     	url:"building_listBySessionHandler?"+"projectId="+proId,

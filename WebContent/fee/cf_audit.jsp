@@ -8,12 +8,33 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link href="../CSS/common/iBox.css" rel="stylesheet" type="text/css" />
+<script>
+$(function(){
+	$("#all").click(function(){
+		var checks=$(".tableid").find(":checkbox");
+		if($(this).attr("checked")){
+			checks.each(function(){
+				$(this).attr("checked",true);
+			});
+		}
+		else{
+			checks.each(function(){
+				$(this).attr("checked",false);
+			});
+		}	
+	});
+	
+});
+</script>
 </head>
+
 <body>
 <div class="window_content">
 <form name="form1" id="form1" action="cf_audit" method="post">
-<table cellpadding="2px" cellspacing="2px" border="0">
+<table class="tableid"  id="audittable">
 <tr>
+  <th style="width:40px;"><input  type="checkbox" name="ids" value="${item.cfId }" checked="checked" onclick="selectAllOrNone(this)"></th>
   <th style="width:40px;">序号</th>
   <th style="width:40px;">房号</th><th style="width:40px;">业主</th>
   <th style="width:50px;">时间</th><th style="width:50px;">应收(元)</th>
@@ -22,7 +43,8 @@
 </tr>
 <c:forEach var="item" items="${cfList }" varStatus="status">
 <tr class="item">
-  <td><input type="checkbox" name="ids" value="${item.cfId }" checked="checked">${status.count }</td>
+  <td><input type="checkbox" name="ids" value="${item.cfId }" checked="checked"></td>
+  <td>${status.count }</td>
   <td>${item.house.houseNum }</td>
   <td>${item.owner.ownerName }</td>
   <td>${item.cfYear }-${item.cfMonth }</td>
@@ -30,11 +52,13 @@
   <td>${item.fetchMoney }</td>
   <td>${item.recordPerson }</td>
   <td><fmt:formatDate value="${item.inputTime }" type="both" pattern="yyyy-MM-dd"/></td>
-  <td><select name="state"><option value="pass">通过</option><option value="denied" selected="selected">有误</option></select></td>
+  <td><select name="state"><option value="pass" selected="selected">通过</option><option value="denied" >有误</option></select></td>
 </tr>
 </c:forEach>
 </table>
+<div style="text-align:center;margin-top:20px">
 <input type="submit" value="确认" />&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="取消" />
+</div>
 </form>
 </div>   
 </body>

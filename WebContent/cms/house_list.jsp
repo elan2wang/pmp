@@ -26,11 +26,10 @@
 <body>
 
 <div class="wrap">
-  <div class="content_main">
     <table id="houselist">
     </table>
     <div id="editHouse" class="easyui-window"  title="编辑房屋" iconCls="icon-save" style="width:350px;height:330px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
-  </div>
+  
 </div>
 </body>
 </html>

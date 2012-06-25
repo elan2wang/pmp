@@ -32,6 +32,8 @@ public interface IElectricFeeDAO {
     
     public List<ElectricFee> loadElectricFeeList_ByEFI(Integer efiId,  Map<String,Object>params,String order,Pager pager);
     
+    public List<ElectricFee> loadElectricFeeList_ByHouse(Integer houseId,  Map<String,Object>params,String order,Pager pager);
+    
     public List<ElectricFee> loadElectricFeeList_ByCompany(Integer comId,  Map<String,Object>params,String order,Pager pager);
     
     public List<ElectricFee> loadElectricFeeList_ByProject(Integer proId,  Map<String,Object>params,String order,Pager pager);

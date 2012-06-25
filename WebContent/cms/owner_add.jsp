@@ -8,6 +8,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>无标题文档</title>
+<style type="text/css">
+.textbox{
+	width:90px;
+	height:14px;
+}
+.textbox1 {	width:90px;
+	height:14px;
+}
+.pinfen{
+	border:0px;	
+}
+.pinfen td{
+	border:0px;	
+}
+
+</style>
 </head>
 
 <body>
@@ -18,8 +34,8 @@
       <td height="25"><table width="100%" border="0" cellpadding="0" cellspacing="0">
         <tr>
           <td width="20" height="25" class="TopNav">&nbsp;</td>
-          <td width="80" height="25" align="center" valign="middle" class="ModuleTapOn" id="Tab1">1：业主信息</td>
-          <td width="80" align="center" valign="middle" class="ModuleTap" id="Tab2">2：成员信息</td>
+          <td width="80" height="25" align="center" valign="middle" class="ModuleTapOn" id="Tab21">1：业主信息</td>
+          <td width="80" align="center" valign="middle" class="ModuleTap" id="Tab22">2：成员信息</td>
           <td class="TopNav">&nbsp;</td>
         </tr>
       </table></td>

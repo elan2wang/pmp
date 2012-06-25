@@ -28,5 +28,5 @@ public interface IElectricFeeItemService {
     
     public ElectricFeeItem getElectricFeeItemByID(Integer efiId);
     public List<ElectricFeeItem> loadElectricFeeItemList_ByCompany(Integer comId, String order,Pager pager);
-
+    public List<ElectricFeeItem> loadElectricFeeItemList_ByProject(Integer proId, String order,Pager pager);
 }

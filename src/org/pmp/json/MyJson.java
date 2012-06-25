@@ -16,7 +16,10 @@ package org.pmp.json;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
 import org.pmp.util.Pager;
 
 /**
@@ -87,6 +90,27 @@ public class MyJson {
 	return null;
     }
     
+    public void output(String data){
+	try {    
+            HttpServletResponse response = ServletActionContext.getResponse();  
+            response.setContentType("application/json;charset=UTF-8");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().println(data);
+        } catch (IOException e) {                     
+            e.printStackTrace();  
+        } 
+    }
+    
+    public static void print(String data){
+	try {    
+            HttpServletResponse response = ServletActionContext.getResponse();  
+            response.setContentType("application/json;charset=UTF-8");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().println(data);
+        } catch (IOException e) {                     
+            e.printStackTrace();  
+        } 
+    }
     //~ Getters and Setters ============================================================================================
     public Includer getIncluder() {
         return includer;

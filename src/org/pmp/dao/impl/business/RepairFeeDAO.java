@@ -41,7 +41,7 @@ public class RepairFeeDAO extends BaseDAO implements IRepairFeeDAO {
     @Override
     public void batchSaveRepairFee(List<RepairFee> list) {
 	/* list.size will not be greater than 10, so we can use for cyclic sentence */
-	String debugMsg = "save LiftMeterItem";
+	String debugMsg = "save RepairFee";
 	try {
 	    for(RepairFee rf : list){
 		saveInstance(rf, debugMsg);
@@ -51,6 +51,23 @@ public class RepairFeeDAO extends BaseDAO implements IRepairFeeDAO {
 	}
 
     }
+    
+    /**
+     * @see org.pmp.dao.business.IRepairFeeDAO#getRepairFee_ByID(java.lang.Integer)
+     */
+    @Override
+    public RepairFee getRepairFee_ByID(Integer rfId) {
+	String debugMsg = "get repairFee by id, rfId="+rfId;
+	String hql = "from RepairFee where rfId="+rfId;
+	RepairFee instance = null;
+	try {
+	    instance = (RepairFee)getInstance(hql,debugMsg);
+	} catch (RuntimeException e){
+	    throw e;
+	}
+	return instance;
+    }
+
 
     /**
      * @see org.pmp.dao.business.IRepairFeeDAO#deleteRepairFee(org.pmp.vo.RepairFee)
@@ -72,7 +89,7 @@ public class RepairFeeDAO extends BaseDAO implements IRepairFeeDAO {
     @Override
     public List<RepairFee> loadRepairFeeList_ByOP(Integer opId) {
 	String debugMsg = "load repairFee list by OwnerRepair, opId="+opId;
-	String hql = "from RepairFee where ownerRepair.opId="+opId+" order by opId desc";
+	String hql = "from RepairFee where ownerRepair.opId="+opId+" order by rfId desc";
 	List<RepairFee> list = null;
 	try {
 	    list = (List<RepairFee>) loadListByCondition(hql, new Pager(1000,1), debugMsg);
@@ -82,4 +99,5 @@ public class RepairFeeDAO extends BaseDAO implements IRepairFeeDAO {
 	return list;
     }
 
+    
 }

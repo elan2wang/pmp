@@ -9,6 +9,7 @@
 <link href="../CSS/common/tab.css" rel="stylesheet" type="text/css" />
 <link href="../CSS/pages/sms/SMSCenter_send.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="../Scripts/jquery-1.7.1.js" ></script>
+<script type="text/javascript" src="../Scripts/common/common.js"></script>
 <script type="text/javascript" src="../Scripts/pages/sms/sms_center.js"></script>
 
 </head>
@@ -56,17 +57,19 @@
                <input type="hidden" name="smsSend.smssReceiver" id="realReceiverList" />
                </form>
                <div class="SMS_Recv">
-                    <iframe id="SMSlist_Frame" name="SMSlist_Frame" frameborder="0" scrolling="auto" width="100%" height="600"  >
+                    <iframe id="SMSlist_Frame" name="SMSlist_Frame" height="100%" frameborder="0" scrolling="auto" width="100%" height="600"  >
                     </iframe>
                </div>
 	       </div>
             
            <div class="innercontent">
-              <iframe id="SMSsended_Frame" name="SMSsended_Frame" frameborder="0" scrolling="auto" width="100%" height="570"  >
+             <div class="content_main">
+              <iframe id="SMSsended_Frame" name="SMSsended_Frame" height="100%" frameborder="0" scrolling="auto" width="100%" height="570"  >
               </iframe>
+              </div>
            </div>
-  
       </div>
   </div>
+   <script type="text/javascript" src="../Scripts/common/changeSize.js"></script>
 </body>
 </html>

@@ -31,17 +31,13 @@
                    <table id="owner_list">
                    </table>
                    <!-- pop up windows -->
-                   <div id="zoneEdit" href="zone_edit.jsp" class="easyui-window" title="场地信息修改" iconCls="icon-save" style="width:600px;height:410px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
-                   <div id="zoneAdd" href="zone_add.jsp" class="easyui-window" title="添加场地" iconCls="icon-save" style="width:600px;height:410px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
+                   <div id="zoneEdit" href="zone_edit.jsp" class="easyui-window" title="场地信息修改" iconCls="icon-save" style="width:380px;height:310px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
+                   <div id="zoneAdd" href="zone_add.jsp" class="easyui-window" title="添加场地" iconCls="icon-save" style="width:380px;height:310px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
                </div>
            </div>
        </div>
 </div>
- <script type="text/javascript">
-   var Width2=document.documentElement.clientWidth;
-   var Height2=document.documentElement.clientHeight;
-   ChangeHeight(Width2,Height2,'content');
-   ChangeHeight(Width2,Height2,'innercontent');
-  </script>
+
+<script type="text/javascript" src="../Scripts/common/changeSize.js"></script>
 </body>
 </html>

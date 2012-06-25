@@ -19,15 +19,15 @@
       <td height="25"><table width="100%" border="0" cellpadding="0" cellspacing="0">
         <tr>
           <td width="20" height="25" class="TopNav">&nbsp;</td>
-          <td width="80" height="25" align="center" valign="middle" class="ModuleTapOn" id="Tab1">1：业主信息</td>
-          <td width="80" align="center" valign="middle" class="ModuleTap" id="Tab2">2：成员信息</td>
+          <td width="80" height="25" align="center" valign="middle" class="ModuleTapOn" id="eTab1">1：业主信息</td>
+          <td width="80" align="center" valign="middle" class="ModuleTap" id="eTab2">2：成员信息</td>
           <td class="TopNav">&nbsp;</td>
         </tr>
       </table></td>
     </tr>
     <tr>
       <td style="padding-top:5px; padding-bottom:5px; border-bottom:1px #6c92ad solid;">
-      <div id="P1">
+      <div id="eP1">
         <table width="100%" border="0" cellspacing="0" cellpadding="0">
           <tr>
             <td align="center" valign="middle"><table border="0" align="center" cellpadding="2" cellspacing="2" class="table1">
@@ -213,13 +213,13 @@
           </tr>
           <tr>
             <td height="30" align="center" valign="bottom">
-            <input type="button" name="Prev" id="Prev" value="上一步" onclick="to('P1');" disabled="disabled" />
-　                           <input type="button" name="toP2" id="toP2" value="下一步" onclick="FormCheck();" />
+            <input type="button" name="Prev" id="Prev" value="上一步" onclick="eto('eP1');" disabled="disabled" />
+　                           <input type="button" name="toP2" id="toP2" value="下一步" onclick="eFormCheck();" />
             </td>
           </tr>
         </table>
       </div>
-      <div id="P2" style="display:none;">
+      <div id="eP2" style="display:none;">
       <table width="100%" border="0" cellspacing="0" cellpadding="0">
           <tr>
             <td align="center" valign="middle">
@@ -268,7 +268,7 @@
             </td>
           </tr>  
           <tr>
-            <td height="30" align="center" valign="bottom"><input type="button" name="ToP1" id="ToP1" value="上一步" onclick="to('P1');" />
+            <td height="30" align="center" valign="bottom"><input type="button" name="ToP1" id="ToP1" value="上一步" onclick="eto('eP1');" />
             <input type="submit" name="Submit" id="Submit" value="完&nbsp;&nbsp;成"   />
             <input type="button" name="button" id="button" value="关&nbsp;&nbsp;闭" onclick="closeWindow('#ownerEdit')"/>
             </td>
