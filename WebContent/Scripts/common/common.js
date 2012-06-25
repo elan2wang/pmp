@@ -92,14 +92,14 @@ function getQueryString(name) {
 var objList=new Array();
 
 
+//控制树形结构显示的文字长度
 function controlLength(id){
-	
-	var arr=$("#"+id).find("#dd0").children().find(".dTreeNode").find("a");
+	var arr = getElementsByClassName('node');
 	var strHtml="";
 	$(arr).each(function(){
 		strHtml=$(this).html();
-		if(strHtml.length>10){
-			strHtml=strHtml.substring(0,10)+"...";
+		if(strHtml.length>15){
+			strHtml=strHtml.substring(0,15)+"...";
 		}
 		$(this).html(strHtml);
 	});

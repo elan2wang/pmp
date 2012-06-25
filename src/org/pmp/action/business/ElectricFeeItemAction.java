@@ -12,6 +12,7 @@
  */
 package org.pmp.action.business;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -55,6 +56,7 @@ public class ElectricFeeItemAction extends ActionSupport {
     
     private ElectricFeeItem electricFeeItem;
     private Integer proId;
+    private Integer efiId;
     
     /* used when ef_item_add */
     private Integer[] builId;
@@ -81,8 +83,10 @@ public class ElectricFeeItemAction extends ActionSupport {
 	electricFeeItem.setGenerateTime(new Date());
 	Project pro = projectService.getProjectByID(proId);
 	electricFeeItem.setProject(projectService.getProjectByID(proId));
-	electricFeeItem.setItemName(pro.getProName()+electricFeeItem.getBeginDate().toString().substring(0, 10)+"-"+
-		electricFeeItem.getEndDate().toString().substring(0,10)+"的公摊电费");
+	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+	String beginDate = formatter.format(electricFeeItem.getBeginDate());
+	String endDate = formatter.format(electricFeeItem.getEndDate());
+	electricFeeItem.setItemName(pro.getProName()+beginDate+"-"+endDate+"的公摊电费");
 	electricFeeItemService.addElectricFeeItem(electricFeeItem);
 	
 	Double beginDegree = 0.0;
@@ -137,6 +141,11 @@ public class ElectricFeeItemAction extends ActionSupport {
 	
 	return SUCCESS;
     }
+    
+    public void deleteElectricFeeItem(){
+	electricFeeItemService.deleteElectricFeeItem(electricFeeItemService.getElectricFeeItemByID(efiId));
+    }
+    
     //~ Getters and Setters ============================================================================================
 
     public IElectricFeeItemService getElectricFeeItemService() {
@@ -194,6 +203,14 @@ public class ElectricFeeItemAction extends ActionSupport {
     }
     public Integer getProId() {
         return proId;
+    }
+
+    public Integer getEfiId() {
+        return efiId;
+    }
+
+    public void setEfiId(Integer efiId) {
+        this.efiId = efiId;
     }
 
     public void setProId(Integer proId) {

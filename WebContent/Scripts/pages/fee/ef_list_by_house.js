@@ -8,6 +8,7 @@
 
 $(function(){
 	var houseId = getQueryString("houseId");
+	$('#houseId').val(houseId);
 	$('#ef_list').flexigrid({
 		url:"loadElectricFeeList_ByHouse?houseId="+houseId,
 		dataType:"json",
@@ -19,11 +20,11 @@ $(function(){
             { display: '均摊金额合计', name: 'totalMoney', width: Width*0.15, sortable:true, align: 'center' }
         ],
         buttons:[
-            { name: '电费预存', bclass: 'add', onpress: ef_input }
+            { name: '电费预存', bclass: 'add', onpress: efc_Add },
+            { name: '缴费历史', bclass: 'add', onpress: efc_list }
 		],
-		
 		title:true,
-		height:Height*0.84,
+		height:Height*0.98,
         showcheckbox:true,
         usepager:true,
         useRp:true,
@@ -32,6 +33,10 @@ $(function(){
 	});
 });
 
-function ef_input(){
-	alert('预存电费');
+function efc_Add(){
+	openAddWindow('#efcAdd');
+}
+
+function efc_list(){
+	openEditWindow('#efcList','loadElectricFeeChargeList_ByHouse?houseId='+$('#houseId').val());
 }

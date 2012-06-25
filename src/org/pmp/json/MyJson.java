@@ -15,6 +15,7 @@ package org.pmp.json;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -77,6 +78,22 @@ public class MyJson {
     public String toJson(List<?> list, String title, Pager pager) {
 	try {
 	    return jsonFactory.toJson(list, title, pager);
+	} catch (IllegalArgumentException e) {
+	    logger.error("IllegalArgumentException");
+	    e.printStackTrace();
+	} catch (IOException e) {
+	    logger.error("IOException");
+	    e.printStackTrace();
+	} catch (IllegalAccessException e) {
+	    logger.error("IllegalAccessException");
+	    e.printStackTrace();
+	}
+	return null;
+    }
+    
+    public String toJson(Map<String,Object> params){
+	try {
+	    return jsonFactory.toJson(params);
 	} catch (IllegalArgumentException e) {
 	    logger.error("IllegalArgumentException");
 	    e.printStackTrace();

@@ -44,9 +44,9 @@ a{color:black}
   <script type="text/javascript">
    var Width2=document.documentElement.clientWidth;
    var Height2=document.documentElement.clientHeight;
-   ChangeHeight(Width2,Height2+40,'left_main');
-   ChangeHeight(Width2,Height2+40,'middle');
-   ChangeHeight(Width2,Height2+40,'right_main');
+   ChangeHeight(Width2,Height2+37,'left_main');
+   ChangeHeight(Width2,Height2+37,'middle');
+   ChangeHeight(Width2,Height2+37,'right_main');
   </script>
 </body>
 </html>

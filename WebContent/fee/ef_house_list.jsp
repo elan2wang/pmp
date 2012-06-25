@@ -27,7 +27,7 @@ a{color:black}
 <body onload="load_data('houseTree','ef_list_by_house.jsp','electricFeeList')">
 <div class="wrap">
   <div class="content_main">
-    <div class="left_main" style="float:left">
+    <div class="left_main" style="float:left;width:23%">
       <div class="left_main_content">
         <div class="dtree">
 	    <p><a href="javascript: d.openAll();">全部展开</a> | <a href="javascript: d.closeAll();">全部关闭</a></p>
@@ -36,7 +36,7 @@ a{color:black}
       </div>
     </div>
     <div class="middle"></div>
-    <div id="right_main" class="right_main" style="float:left;display:block">
+    <div id="right_main" class="right_main" style="float:left;display:block;width:76%">
       <iframe name="electricFeeList" id="electricFeeList" frameborder="0" scrolling="auto" width="100%" height="100%" style="margin:0px;padding:0px"></iframe>
     </div>
   </div>
@@ -44,9 +44,9 @@ a{color:black}
   <script type="text/javascript">
    var Width2=document.documentElement.clientWidth;
    var Height2=document.documentElement.clientHeight;
-   ChangeHeight(Width2,Height2+40,'left_main');
-   ChangeHeight(Width2,Height2+40,'middle');
-   ChangeHeight(Width2,Height2+40,'right_main');
+   ChangeHeight(Width2,Height2+36,'left_main');
+   ChangeHeight(Width2,Height2+36,'middle');
+   ChangeHeight(Width2,Height2+36,'right_main');
   </script>
 </body>
 </html>

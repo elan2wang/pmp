@@ -121,6 +121,9 @@ public class JsonWriter {
 	    val = value.toString().substring(0, 10);
 	} else if (value instanceof Boolean) {
 	    val = (Boolean)value ? "true" : "false";
+	} else if (value instanceof Double) {
+	    java.text.DecimalFormat   df=new   java.text.DecimalFormat("#.## ");
+	    val = df.format(value).toString();
 	} else {
 	    val = value.toString();
 	}

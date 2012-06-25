@@ -12,6 +12,7 @@ import java.util.Date;
 
 import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
+import org.pmp.constant.SmsState;
 import org.pmp.jms.JmsPublisher;
 import org.pmp.service.business.ISmsSendService;
 import org.pmp.util.SessionHandler;
@@ -52,7 +53,7 @@ public class SmsAdvice {
 	smss.setSmssReceiver(owner.getMobile());
 	smss.setSMSCompany(SessionHandler.getSMSCompany());
 	smss.setSmssPerson(SessionHandler.getUser().getUsername());
-	smss.setSmssState("new");
+	smss.setSmssState(SmsState.NEW);
 	smss.setSmssTime(new Date());
 	contents.append("尊敬的业主:"+owner.getOwnerName()+",您好!感谢您缴纳"+timeStr.deleteCharAt(timeStr.length()-1));
 	contents.append("的物业费,总计:"+fetchMoney.toString()+"元,如果问题请及时联系我们");

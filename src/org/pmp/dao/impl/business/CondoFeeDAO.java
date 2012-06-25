@@ -56,7 +56,7 @@ public class CondoFeeDAO extends BaseDAO implements ICondoFeeDAO {
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		for (int i=0;i<list.size();i++){
 		    stmt.setDouble(1, list.get(i).getOughtMoney());
-		    stmt.setString(2, "input");
+		    stmt.setString(2, list.get(i).getState());
 		    stmt.setInt(3, list.get(i).getCfId());
 		    stmt.executeUpdate();
 		}

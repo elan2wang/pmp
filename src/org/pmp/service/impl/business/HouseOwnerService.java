@@ -13,10 +13,12 @@
 package org.pmp.service.impl.business;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.pmp.dao.business.IHouseOwnerDAO;
 import org.pmp.service.business.IHouseOwnerService;
+import org.pmp.util.Pager;
 import org.pmp.vo.HouseOwner;
 
 /**
@@ -81,6 +83,24 @@ public class HouseOwnerService implements IHouseOwnerService {
 	return houseOwnerDAO.getHouseOwner_ByOwner(ownerId);
     }
 
+    /**
+     * @see org.pmp.service.business.IHouseOwnerService#loadHouseOwnerList_ByPro(java.lang.Integer, java.util.Map, java.lang.String, org.pmp.util.Pager)
+     */
+    @Override
+    public List<HouseOwner> loadHouseOwnerList_ByPro(Integer proId,
+	    Map<String, Object> params, String order, Pager pager) {
+	return houseOwnerDAO.loadHouseOwnerList_ByPro(proId, params, order, pager);
+    }
+
+    /**
+     * @see org.pmp.service.business.IHouseOwnerService#loadHouseOwnerList_ByCom(java.lang.Integer, java.util.Map, java.lang.String, org.pmp.util.Pager)
+     */
+    @Override
+    public List<HouseOwner> loadHouseOwnerList_ByCom(Integer comId,
+	    Map<String, Object> params, String order, Pager pager) {
+	return houseOwnerDAO.loadHouseOwnerList_ByCom(comId, params, order, pager);
+    }
+    
     //~ Getters and Setters ============================================================================================
 
     public IHouseOwnerDAO getHouseOwnerDAO() {
@@ -90,5 +110,7 @@ public class HouseOwnerService implements IHouseOwnerService {
     public void setHouseOwnerDAO(IHouseOwnerDAO houseOwnerDAO) {
         this.houseOwnerDAO = houseOwnerDAO;
     }
+
+    
 
 }

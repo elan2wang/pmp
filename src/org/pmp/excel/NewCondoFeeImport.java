@@ -28,6 +28,7 @@ import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 
 import org.apache.log4j.Logger;
+import org.pmp.constant.CondoFeeState;
 import org.pmp.service.business.ICondoFeeService;
 import org.pmp.util.SpringContextUtil;
 import org.pmp.validate.CondoFeeValidate;
@@ -75,6 +76,7 @@ public class NewCondoFeeImport {
 	            CondoFee item = condoFeeService.getCondoFee_ById(Integer.parseInt(list.get(0).trim()));
 	            if (item != null){
 	        	item.setOughtMoney(Double.parseDouble(list.get(7)));
+	        	item.setState(CondoFeeState.INPUT);
                         cfList.add(item);
 	                /* remove the right row */
 		        logger.debug("j="+j+"   removedRows="+removedRows);

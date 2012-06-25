@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +31,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
+import org.pmp.constant.CondoFeeState;
+import org.pmp.constant.SmsState;
 import org.pmp.excel.NewCondoFeeExport;
 import org.pmp.excel.NewCondoFeeImport;
 import org.pmp.jms.JmsPublisher;
@@ -47,14 +50,13 @@ import org.pmp.vo.CondoFee;
 import org.pmp.vo.Owner;
 import org.pmp.vo.SMSSend;
 
-import com.opensymphony.xwork2.ActionSupport;
 
 /**
  * @author Elan
  * @version 1.0
  * @update TODO
  */
-public class CondoFeeAction extends ActionSupport{
+public class CondoFeeAction extends BaseAction{
     
     //~ Static Fields ==================================================================================================
     private static final long serialVersionUID = -7036535552079642151L;
@@ -100,30 +102,14 @@ public class CondoFeeAction extends ActionSupport{
     /* used when cfAudit */
     private String[] state;
     
-    /* =========FlexiGrid post parameters======= */
-    private Integer page=1;
-    private Integer rp=15;
-    private String sortname;
-    private String sortorder;
-    private String query;
-    private String qtype;
-    /* =========FlexiGrid post parameters======= */
-    
     //~ Methods ========================================================================================================
     
     public void loadCondoFeeList_ByCFI(){
-	/* set query parameters */
-	Pager pager = new Pager(rp,page);
-	String order = null;
-	Map<String,Object> params = new HashMap<String,Object>();
-	if (!qtype.equals("")&&!query.equals("")){
-	    params.put(qtype, query);
-	}
-	if (!sortname.equals("undefined")&&!sortorder.equals("undefined")){
-	    order= "order by "+sortname+" "+sortorder;
-	} else{
-	    order = "order by house asc, cfMonth desc";
-	}
+	Pager pager = getPager();
+	/* set query parameter */
+	Map<String,Object> params = getParams();
+	/* set sorter type */
+	String order = getOrder();
 	/* invoke service to get list */
 	List<?> cfList = condoFeeService.loadCondoFeeList_ByCFI(cfiId, params, order, pager);
 	
@@ -134,24 +120,19 @@ public class CondoFeeAction extends ActionSupport{
 	Includer includer = new Includer(show);
 	MyJson json = new MyJson(includer);
 	
-	String data = json.toJson(cfList, "", pager);
+	String title = count(cfList);
+	
+	String data = json.toJson(cfList, title, pager);
 	logger.debug(data);
 	json.output(data);
     }
     
     public void loadCondoFeeList_ByHouse(){
-	/* set query parameters */
-	Pager pager = new Pager(rp,page);
-	String order = null;
-	Map<String,Object> params = new HashMap<String,Object>();
-	if (!qtype.equals("")&&!query.equals("")){
-	    params.put(qtype, query);
-	}
-	if (!sortname.equals("undefined")&&!sortorder.equals("undefined")){
-	    order= "order by "+sortname+" "+sortorder;
-	} else{
-	    order = "order by cfYear desc,cfMonth desc";
-	}
+	Pager pager = getPager();
+	/* set query parameter */
+	Map<String,Object> params = getParams();
+	/* set sorter type */
+	String order = getOrder();
 	/* invoke service to get list */
 	List<?> cfList= condoFeeService.loadCondoFeeList_ByHouse(houseId, params, order, pager);
 	
@@ -171,26 +152,17 @@ public class CondoFeeAction extends ActionSupport{
 	} else {
 	    contact = "无";
 	}
-	String title = "业主姓名："+owner.getOwnerName()+"  联系电话："+contact;
+	String title = "房号："+owner.getHouseNum()+"&nbsp;&nbsp;&nbsp;&nbsp;业主姓名："+owner.getOwnerName()+"&nbsp;&nbsp;&nbsp;&nbsp;联系电话："+contact;
 	String data = json.toJson(cfList, title, pager);
 	json.output(data);
     }
     
     public void loadCondoFeeList_ByCompany(){
-	/* set query parameters */
-	Pager pager = new Pager(rp,page);
-	String order = null;
-	Map<String,Object> params = new HashMap<String,Object>();
-	if (!qtype.equals("")&&!query.equals("")){
-	    params.put(qtype, query);
-	}
-	if (!sortname.equals("undefined")&&!sortorder.equals("undefined")){
-	    order= "order by "+sortname+" "+sortorder;
-	} else{
-	    order = "order by house.houseId asc,cfMonth desc";
-	}
-	if(year!=null)params.put("cfYear", year);
-	if(month!=null)params.put("cfMonth", month);
+	Pager pager = getPager();
+	/* set query parameter */
+	Map<String,Object> params = getParams();
+	/* set sorter type */
+	String order = getOrder();
 	/* invoke service to get list */
 	List<?> cfList = condoFeeService.loadCondoFeeList_ByCompany(comId, params, order, pager);
 	/* get the statistical data */
@@ -208,20 +180,11 @@ public class CondoFeeAction extends ActionSupport{
     }
     
     public void loadCondoFeeList_ByProject(){
-	/* set query parameters */
-	Pager pager = new Pager(rp,page);
-	String order = null;
-	Map<String,Object> params = new HashMap<String,Object>();
-	if (!qtype.equals("")&&!query.equals("")){
-	    params.put(qtype, query);
-	}
-	if (!sortname.equals("undefined")&&!sortorder.equals("undefined")){
-	    order= "order by "+sortname+" "+sortorder;
-	} else{
-	    order = "order by house.houseId asc,cfMonth desc";
-	}
-	if(year!=null)params.put("cfYear", year);
-	if(month!=null)params.put("cfMonth", month);
+	Pager pager = getPager();
+	/* set query parameter */
+	Map<String,Object> params = getParams();
+	/* set sorter type */
+	String order = getOrder();
 	/* invoke service to get list */
 	List<?> cfList = condoFeeService.loadCondoFeeList_ByProject(proId, params, order, pager);
 	/* get the statistical data */
@@ -259,14 +222,16 @@ public class CondoFeeAction extends ActionSupport{
     }
     
     public void importNewCondoFee() throws IOException{
-        HttpServletRequest request = ServletActionContext.getRequest();
         String message = null;
+        MyJson json = new MyJson();
+        Map<String, Object> params = new LinkedHashMap<String, Object>();
 	if(!MyfileUtil.validate(cfFileFileName,"xls")){
 	    logger.debug("文件格式不对");
 	    String postfix = MyfileUtil.getPostfix(cfFileFileName);
 	    message = postfix+"类型的文件暂不支持，请选择xls类型文件";
-	    request.setAttribute("message", message);
-	    JsonConvert.output("{\"error\":\"filetype_error\",\"msg\":"+JsonConvert.toJson(message)+"}");
+	    params.put("error", "fileType_Error");
+	    params.put("msg", message);
+	    MyJson.print(json.toJson(params));
 	    return;
 	}
 	/* create the dir to store error data */
@@ -289,13 +254,17 @@ public class CondoFeeAction extends ActionSupport{
 	/* if there are some mistakes of the file */
 	if (hasError){
 	    message = "记录有错误,正确数据已导入，请下载错误数据<a href=\""+downLoad+"\">下载</a>";
-	    JsonConvert.output("{\"error\":\"record_error\",\"msg\":"+JsonConvert.toJson(message)+"}");
+	    params.put("error", "record_error");
+	    params.put("msg", message);
+	    MyJson.print(json.toJson(params));
 	    return;
 	}
 	
 	/* data import success */
 	message = "数据导入成功";
-	JsonConvert.output("{\"error\":\"\",\"msg\":"+JsonConvert.toJson(message)+"}");
+	params.put("error", "");
+	params.put("msg", message);
+	MyJson.print(json.toJson(params));
 	return;
     }
 
@@ -323,11 +292,11 @@ public class CondoFeeAction extends ActionSupport{
 	for (int i=0;i<ids.length;i++){
 	    CondoFee cf = condoFeeService.getCondoFee_ById(ids[i]);
 	    cf.setOughtMoney(oughtMoney[i]);
+	    cf.setState(CondoFeeState.INPUT);
 	    cfList.add(cf);
 	}
 	logger.debug("cfList.size="+cfList.size());
 	condoFeeService.batchSetOughtMoney(cfList);
-	
     }
     
     public void cfInput(){
@@ -337,7 +306,7 @@ public class CondoFeeAction extends ActionSupport{
 	    CondoFee cf = condoFeeService.getCondoFee_ById(ids[i]);
 	    cf.setRecordPerson(SessionHandler.getUser().getRealname());
 	    cf.setInputTime(new Date());
-	    cf.setState("payed");
+	    cf.setState(CondoFeeState.PAYED);
 	    cf.setFetchMoney(fetchMoney[i]);
 	    cf.setComment(comment[i]);
 	    cfList.add(cf);
@@ -353,8 +322,8 @@ public class CondoFeeAction extends ActionSupport{
 	    CondoFee cf = condoFeeService.getCondoFee_ById(ids[i]);
 	    cf.setAuditPerson(SessionHandler.getUser().getRealname());
 	    cf.setAuditTime(new Date());
-	    if (state[i].equals("pass")) cf.setState("pass");
-	    else cf.setState("denied");
+	    if (state[i].equals("pass")) cf.setState(CondoFeeState.PASS);
+	    else cf.setState(CondoFeeState.DENIED);
 	    cfList.add(cf);
 	}
 	logger.debug("cfList.size="+cfList.size());
@@ -373,6 +342,7 @@ public class CondoFeeAction extends ActionSupport{
 	condoFeeService.batchDelete(cfList);
     }
     
+    /* 删除、编辑、审核、录入之前判断状态，是否可执行操作 */
     public void preCheck(){
 	/* if action is deleteItem */
 	if (action.equals("deleteItem")){
@@ -380,7 +350,7 @@ public class CondoFeeAction extends ActionSupport{
 	    Iterator<CondoFee> ite = list.iterator();
 	    while(ite.hasNext()){
 		CondoFee cf = ite.next();
-		if(!(cf.getState().equals("new")||cf.getState().equals("input"))){
+		if(!(cf.getState().equals(CondoFeeState.NEW)||cf.getState().equals(CondoFeeState.INPUT))){
 		    JsonConvert.output("{\"result\":\"failed\"}");
 		    return;
 		}
@@ -394,20 +364,20 @@ public class CondoFeeAction extends ActionSupport{
 	for (int i=0;i<checkedID.length;i++){
 	    CondoFee cf = condoFeeService.getCondoFee_ById(Integer.parseInt(checkedID[i]));
 	    if (action.equals("audit")){
-		if(!cf.getState().equals("payed")){
+		if(!cf.getState().equals(CondoFeeState.PAYED)){
 		    logger.debug(cf.getFetchMoney());
 		    JsonConvert.output("{\"result\":\"failed\"}");
                     return;
 		}
 	    }
 	    if (action.equals("deleteList")||action.equals("edit")){
-		if(!(cf.getState().equals("new")||cf.getState().equals("input"))){
+		if(!(cf.getState().equals(CondoFeeState.NEW)||cf.getState().equals(CondoFeeState.INPUT))){
 		    JsonConvert.output("{\"result\":\"failed\"}");
 		    return;
 		}
 	    }
 	    if (action.equals("record")){
-		if(!(cf.getState().equals("input")||cf.getState().equals("denied"))){
+		if(!(cf.getState().equals(CondoFeeState.INPUT)||cf.getState().equals(CondoFeeState.DENIED))){
 		    JsonConvert.output("{\"result\":\"failed\"}");
 		    return;
 		}
@@ -417,10 +387,11 @@ public class CondoFeeAction extends ActionSupport{
 	return;
     }
     
+    /* 短信催缴  */
     public void smsInform(){
 	Pager pager = new Pager(1000,1);
 	Map<String,Object> params = new HashMap<String,Object>();
-	params.put("state", "input");
+	params.put("state", CondoFeeState.INPUT);
 	List<CondoFee> list = condoFeeService.loadCondoFeeList_ByHouse(houseId, params, "", pager);
 	if (list.size()!=0){
 	    /* create a SMSSend instance and set its properties */
@@ -428,7 +399,7 @@ public class CondoFeeAction extends ActionSupport{
 	    smsSend.setSMSCompany(SessionHandler.getSMSCompany());
 	    smsSend.setSmssPerson(SessionHandler.getUser().getUsername());
 	    smsSend.setSmssTime(new Date());
-	    smsSend.setSmssState("new");
+	    smsSend.setSmssState(SmsState.NEW);
 	    smsSend.setSmssReceiver(list.get(0).getOwner().getMobile());
 	    /* generate sms content */
 	    StringBuilder sb = new StringBuilder();
@@ -453,11 +424,14 @@ public class CondoFeeAction extends ActionSupport{
 	
     }
     
+    /* 计算物业费缴费情况，需缴多少、已缴多少 */
     private String count(List<?> cfList){
 	StringBuilder result = new StringBuilder();
 	Double oughtMoney = 0.0;
 	Double fetchMoney = 0.0;
 	Integer fetchItems = 0;
+	Integer noneAuditItems = 0;
+	Integer noneInputItems = 0;
 	Iterator<?> ite = cfList.iterator();
 	while(ite.hasNext()){
 	    CondoFee cf = (CondoFee)ite.next();
@@ -468,11 +442,18 @@ public class CondoFeeAction extends ActionSupport{
 		fetchMoney += cf.getFetchMoney();
 		fetchItems += 1;
 	    }
+	    if (cf.getState().equals(CondoFeeState.PAYED)){
+		noneAuditItems += 1;
+	    } else if (cf.getState().equals(CondoFeeState.INPUT)){
+		noneInputItems += 1;
+	    }
 	}
-	result.append("   总计:"+cfList.size()+" 项        |   已收:"+fetchItems+" 项        |   应收:"+oughtMoney+" 元        |   实收:"+fetchMoney+" 元");
+	result.append("本页："+cfList.size()+"&nbsp;项 &nbsp;&nbsp;&nbsp;&nbsp;已收："+fetchItems+"&nbsp;项, &nbsp;&nbsp;&nbsp;&nbsp;待收："+
+		      noneInputItems+"&nbsp;项 &nbsp;&nbsp;&nbsp;&nbsp;待审核："+noneAuditItems+"&nbsp;项 &nbsp;&nbsp;&nbsp;&nbsp;应收："+
+		      oughtMoney+"&nbsp;元 &nbsp;&nbsp;&nbsp;&nbsp;实收："+fetchMoney+"&nbsp;元");
 	return result.toString();
     }
-    
+
     //~ Getters and Setters ============================================================================================
 
     public ICondoFeeService getCondoFeeService() {
@@ -617,54 +598,6 @@ public class CondoFeeAction extends ActionSupport{
 
     public void setComment(String[] comment) {
         this.comment = comment;
-    }
-
-    public Integer getPage() {
-        return page;
-    }
-
-    public void setPage(Integer page) {
-        this.page = page;
-    }
-
-    public Integer getRp() {
-        return rp;
-    }
-
-    public void setRp(Integer rp) {
-        this.rp = rp;
-    }
-
-    public String getSortname() {
-        return sortname;
-    }
-
-    public void setSortname(String sortname) {
-        this.sortname = sortname;
-    }
-
-    public String getSortorder() {
-        return sortorder;
-    }
-
-    public void setSortorder(String sortorder) {
-        this.sortorder = sortorder;
-    }
-
-    public String getQuery() {
-        return query;
-    }
-
-    public void setQuery(String query) {
-        this.query = query;
-    }
-
-    public String getQtype() {
-        return qtype;
-    }
-
-    public void setQtype(String qtype) {
-        this.qtype = qtype;
     }
 
     public ISmsSendService getSmsSendService() {

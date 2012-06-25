@@ -29,13 +29,12 @@ function new_cf_import(){
 			{
 				if(typeof(data.error) != 'undefined')
 				{
-					if(data.error != '')
-					{
+					if(data.error != ''){
+						$('#msg').html(data.msg);
+					}else {
 						alert(data.msg);
-						$('#msg').html(data.msg);
-					}else
-					{
-						$('#msg').html(data.msg);
+						closeWindow('#cfImport');
+						window.location.href = window.location.href;
 					}
 				}
 			},

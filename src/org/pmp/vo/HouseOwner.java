@@ -8,8 +8,9 @@ package org.pmp.vo;
 public class HouseOwner implements java.io.Serializable {
 
     private Integer hoId;
-    private House house;
+    /* owner 必须在 house 之前申明 */
     private Owner owner;
+    private House house;
 
     public String toString(){
     	StringBuilder sb = new StringBuilder();

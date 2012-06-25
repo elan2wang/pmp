@@ -18,7 +18,6 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +26,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.pmp.excel.OwnerImport;
+import org.pmp.json.Includer;
+import org.pmp.json.MyJson;
 import org.pmp.service.business.IHouseOwnerService;
 import org.pmp.service.business.IMemberService;
 import org.pmp.service.business.IOwnerService;
@@ -43,14 +44,12 @@ import org.pmp.vo.Member;
 import org.pmp.vo.Owner;
 import org.pmp.vo.Project;
 
-import com.opensymphony.xwork2.ActionSupport;
-
 /**
  * @author Elan
  * @version 1.0
  * @update TODO
  */
-public class OwnerAction extends ActionSupport{
+public class OwnerAction extends BaseAction{
 
     //~ Static Fields ==================================================================================================
     private static Logger logger = Logger.getLogger(OwnerAction.class.getName());
@@ -82,14 +81,6 @@ public class OwnerAction extends ActionSupport{
     private String ownerFileFileName;
     private String ownerFileContentType;
     
-    /* =========FlexiGrid post parameters======= */
-    private Integer page=1;
-    private Integer rp=15;
-    private String sortname;
-    private String sortorder;
-    private String query;
-    private String qtype;
-    /* =========FlexiGrid post parameters======= */
     
     //~ Methods ========================================================================================================
     public String addOwner(){
@@ -169,35 +160,30 @@ public class OwnerAction extends ActionSupport{
     }
     
     public void loadOwnerList_ByPro(){
-	/* set query parameters */
-	Pager pager = new Pager(rp,page);
-	String order = null;
-	Map<String,Object> params = new HashMap<String,Object>();
-	if (!qtype.equals("")&&!query.equals("")){
-	    params.put(qtype, query);
-	}
-	if (!sortname.equals("undefined")&&!sortorder.equals("undefined")){
-	    order= "order by "+sortname+" "+sortorder;
-	} else{
-	    order = "order by ownerId desc";
-	}
+	Pager pager = getPager();
+	/* set query parameter */
+	Map<String,Object> params = getParams();
+	/* set sorter type */
+	String order = getOrder();
 	
 	/* retrieve user's refDomain and set proId */
-	List<?> cfList = new ArrayList<Owner>();
+	List<HouseOwner> hoList = new ArrayList<HouseOwner>();
 	Object obj = SessionHandler.getUserRefDomain();
 	if (obj instanceof Project){
-	    cfList = ownerService.loadOwnerList_ByPro(((Project)obj).getProId(), params, order, pager);
+	    hoList = houseOwnerService.loadHouseOwnerList_ByPro(((Project)obj).getProId(), params, order, pager);
 	}
 	if (obj instanceof Company){
-	    cfList = ownerService.loadOwnerList_ByCom(((Company)obj).getComId(), params, order, pager);
+	    hoList = houseOwnerService.loadHouseOwnerList_ByCom(((Company)obj).getComId(), params, order, pager);
 	}
 	
-	String[] attrs = {"ownerName","gender","mobile","houseNum","houseArea","organization"};
+	String[] attrs = {"owner.ownerId","house.building.project.proName","owner.ownerName","owner.gender","owner.mobile","owner.homePhone",
+		          "house.houseNum","house.houseArea","owner.organization"};
 	List<String> show = Arrays.asList(attrs);
-	String data = JsonConvert.list2FlexJson(pager, cfList, "org.pmp.vo.Owner", show);
+	Includer includer = new Includer(show);
+	MyJson json = new MyJson(includer);
+	String data = json.toJson(hoList, "", pager);
 	
-	logger.debug(data);
-	JsonConvert.output(data);
+	MyJson.print(data);
 	
     }
     
@@ -251,54 +237,6 @@ public class OwnerAction extends ActionSupport{
 
     public void setOwnerService(IOwnerService ownerService) {
         this.ownerService = ownerService;
-    }
-
-    public Integer getPage() {
-        return page;
-    }
-
-    public void setPage(Integer page) {
-        this.page = page;
-    }
-
-    public Integer getRp() {
-        return rp;
-    }
-
-    public void setRp(Integer rp) {
-        this.rp = rp;
-    }
-
-    public String getSortname() {
-        return sortname;
-    }
-
-    public void setSortname(String sortname) {
-        this.sortname = sortname;
-    }
-
-    public String getSortorder() {
-        return sortorder;
-    }
-
-    public void setSortorder(String sortorder) {
-        this.sortorder = sortorder;
-    }
-
-    public String getQuery() {
-        return query;
-    }
-
-    public void setQuery(String query) {
-        this.query = query;
-    }
-
-    public String getQtype() {
-        return qtype;
-    }
-
-    public void setQtype(String qtype) {
-        this.qtype = qtype;
     }
 
     public IMemberService getMemberService() {

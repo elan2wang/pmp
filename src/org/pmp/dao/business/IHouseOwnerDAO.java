@@ -8,7 +8,9 @@
 package org.pmp.dao.business;
 
 import java.util.List;
+import java.util.Map;
 
+import org.pmp.util.Pager;
 import org.pmp.vo.HouseOwner;
 
 /**
@@ -25,4 +27,6 @@ public interface IHouseOwnerDAO {
     public HouseOwner getHouseOwner_ByHouse(Integer houseId);
     public HouseOwner getHouseOwner_ByOwner(Integer ownerId);
     
+    public List<HouseOwner> loadHouseOwnerList_ByPro(Integer proId,Map<String,Object> params,String order,Pager pager);
+    public List<HouseOwner> loadHouseOwnerList_ByCom(Integer comId,Map<String,Object> params,String order,Pager pager);
 }

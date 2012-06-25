@@ -13,6 +13,7 @@
 <link href="../Scripts/component/easyui/themes/icon.css" rel="stylesheet" type="text/css" />
 <link href="../CSS/common/common.css" rel="stylesheet" type="text/css" />
 <link href="../CSS/common/tab.css" rel="stylesheet" type="text/css" />
+<link href="../CSS/common/iBox.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="../Scripts/jquery-1.7.1.js" ></script>
 <script type="text/javascript" src="../Scripts/component/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="../Scripts/component/easyui/jquery.easyui.min.js" ></script>
@@ -24,7 +25,10 @@
 <body>
 <table id="ef_list">
 </table>
+<input type="hidden" id="houseId" value="" />
+
 <!-- pop up windows -->
-<div id="efInput" class="easyui-window" title="缴纳电费" iconCls="icon-save" style="width:500px;height:350px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
+<div id="efcAdd" class="easyui-window" href="efc_add.jsp" title="电费预存" iconCls="icon-save" style="width:300px;height:150px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
+<div id="efcList" class="easyui-window" title="缴费历史" iconCls="icon-save" style="width:450px;height:250px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
 </body>
 </html>

@@ -24,10 +24,10 @@
 <body>
 <table id="ef_list">
 </table>
-<input type="hidden" id="cfiId" value="" />
+<input type="hidden" id="efiId" value="" />
 
 <!-- pop up windows -->
-<div id="efEdit" class="easyui-window" title="电费修改" iconCls="icon-save" style="width:350px;height:270px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
+<div id="efEdit" class="easyui-window" title="电费修改" iconCls="icon-save" style="width:420px;height:270px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
 
 </body>
 </html>

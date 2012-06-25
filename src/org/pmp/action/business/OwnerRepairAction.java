@@ -28,7 +28,6 @@ import org.pmp.json.MyJson;
 import org.pmp.service.business.IHouseOwnerService;
 import org.pmp.service.business.IOperateDetailService;
 import org.pmp.service.business.IOwnerRepairService;
-import org.pmp.service.business.IRepairAttachService;
 import org.pmp.service.business.IRepairFeeService;
 import org.pmp.util.Pager;
 import org.pmp.util.SessionHandler;
@@ -36,7 +35,6 @@ import org.pmp.vo.Company;
 import org.pmp.vo.OperateDetail;
 import org.pmp.vo.OwnerRepair;
 import org.pmp.vo.Project;
-import org.pmp.vo.RepairAttach;
 import org.pmp.vo.RepairFee;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -46,7 +44,7 @@ import com.opensymphony.xwork2.ActionSupport;
  * @version 1.0
  * @update TODO
  */
-public class OwnerRepairAction extends ActionSupport{
+public class OwnerRepairAction extends BaseAction{
 
     //~ Static Fields ==================================================================================================
     private static Logger logger = Logger.getLogger(OwnerRepairAction.class
@@ -71,15 +69,6 @@ public class OwnerRepairAction extends ActionSupport{
     private String[] itemMoney;
     private String[] itemComment;
     
-    /* =========FlexiGrid post parameters======= */
-    private Integer page=1;
-    private Integer rp=15;
-    private String sortname;
-    private String sortorder;
-    private String query;
-    private String qtype;
-    /* =========FlexiGrid post parameters======= */
-   
     //~ Methods ========================================================================================================
     public String addOwnerRepair(){
 	/* 创建维修单 */
@@ -167,20 +156,14 @@ public class OwnerRepairAction extends ActionSupport{
     }
     
     public void loadOwnerRepairList(){
-	logger.debug("进入loadOwnerRepairList");
-	List<OwnerRepair> list = new ArrayList<OwnerRepair>();
-	/* 设置查询条件  */
-	Map<String, Object> params = new HashMap<String, Object>();
-	String order ;
-	//setParams(params);
-	if (!sortname.equals("undefined")&&!sortorder.equals("undefined")){
-	    order= "order by "+sortname+" "+sortorder;
-	} else{
-	    order="order by applyTime desc";
-	}
-	Pager pager = new Pager(rp,page);
+	Pager pager = getPager();
+	/* set query parameter */
+	Map<String,Object> params = getParams();
+	/* set sorter type */
+	String order = getOrder();
 	
 	/* 根据用户权限获取数据 */
+	List<OwnerRepair> list = new ArrayList<OwnerRepair>();
 	Object refDomain = SessionHandler.getUserRefDomain();
 	if (refDomain instanceof Company){
 	    Integer comId = ((Company)refDomain).getComId();
@@ -227,16 +210,6 @@ public class OwnerRepairAction extends ActionSupport{
 	}
 	op.setTotalFee(op.getTotalFee()-rf.getMoney());
 	ownerRepairService.editOwnerRepair(op);
-    }
-    
-    private void setParams(Map<String,Object> params){
-	String[] qtypes = qtype.split(",");
-	String[] querys = query.split(",");
-	for(int i=0;i<qtypes.length;i++){
-	    if (!querys[i].equals("null")){
-		params.put(qtypes[i], querys[i]);
-	    }
-	}
     }
     
     //~ Getters and Setters ============================================================================================
@@ -359,54 +332,6 @@ public class OwnerRepairAction extends ActionSupport{
 
     public void setItemAmount(Integer[] itemAmount) {
         this.itemAmount = itemAmount;
-    }
-
-    public Integer getPage() {
-        return page;
-    }
-
-    public void setPage(Integer page) {
-        this.page = page;
-    }
-
-    public Integer getRp() {
-        return rp;
-    }
-
-    public void setRp(Integer rp) {
-        this.rp = rp;
-    }
-
-    public String getSortname() {
-        return sortname;
-    }
-
-    public void setSortname(String sortname) {
-        this.sortname = sortname;
-    }
-
-    public String getSortorder() {
-        return sortorder;
-    }
-
-    public void setSortorder(String sortorder) {
-        this.sortorder = sortorder;
-    }
-
-    public String getQuery() {
-        return query;
-    }
-
-    public void setQuery(String query) {
-        this.query = query;
-    }
-
-    public String getQtype() {
-        return qtype;
-    }
-
-    public void setQtype(String qtype) {
-        this.qtype = qtype;
     }
 
 }

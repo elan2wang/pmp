@@ -11,12 +11,12 @@ $(function(){
             { display: '业主', name: 'owner.ownerName', width: Width*0.1, sortable:true, align: 'center' },
             { display: '年份', name: 'cfYear', width: Width*0.05, sortable:true, align: 'center' },
             { display: '月份', name: 'cfMonth', width: Width*0.05, sortable:true, align: 'center' },
-            { display: '状态', name: 'state', width: Width*0.05, sortable:true, align: 'center' },
+            { display: '状态', name: 'state', width: Width*0.08, sortable:true, align: 'center' },
             { display: '应收金额', name: 'oughtMoney', width: Width*0.06, sortable:true, align: 'center' },
             { display: '实收金额', name: 'fetchMoney', width: Width*0.06, sortable:true, align: 'center' },
             { display: '录入时间', name: 'inputTime', width: Width*0.1, sortable:true, align: 'center' },
             { display: '录入人员', name: 'recordPerson', width: Width*0.1, sortable:true, align: 'center' },
-            { display: '备注', name: 'comment', width: Width*0.2, sortable:true, align: 'center' }
+            { display: '备注', name: 'comment', width: Width*0.15, sortable:true, align: 'center' }
         ],
         buttons:[
 			{ name: '数据导入', bclass:'import', onpress: cfImport },
@@ -30,12 +30,19 @@ $(function(){
 			{ name: '缴费审核', bclass:'check', onpress: cfAudit }
 		],
 		searchitems:[
+			{ display: '业主', name: 'cfYear', isdefault:false },
+			{ display: '房号', name: 'cfYear', isdefault:false },
 		    { display: '年份', name: 'cfYear', isdefault:false },
 		    { display: '月份', name: 'cfMonth', isdefault:false },
 		    { display: '状态', name: 'state', isdefault:true },
 		    { display: '录入时间', name: 'inputTime', isdefault:false },
 		    { display: '录入人员', name: 'recordPerson', isdefault:false }
 		],
+		searchQueryStrs:[
+           {selectName:'qtype1',queryStrName:'query1'},
+           {selectName:'qtype2',queryStrName:'query2'}
+    	],
+    	title:true,
 		showSearch:true,
 		height:Height*0.9,
         showcheckbox:true,

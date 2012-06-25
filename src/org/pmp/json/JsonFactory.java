@@ -81,6 +81,15 @@ public class JsonFactory {
 	out.endObject();
     }
     
+    private void writeObject(JsonWriter out, Map<String,Object> params)throws IOException, IllegalArgumentException, IllegalAccessException{
+	out.beginObject();
+	for (Entry<String,Object> entry : params.entrySet()){
+	    out.name(entry.getKey());
+	    out.value(entry.getValue());
+	}
+	out.endObject();
+    }
+    
     private void writeObjectArray(JsonWriter out, List<?> list)  throws IOException, IllegalArgumentException, IllegalAccessException{
 	if (list == null || list.size() == 0){
 	    out.name("rows").nullValue();
@@ -104,6 +113,11 @@ public class JsonFactory {
 	write(writer, list, title, pager);
     }
     
+    public final void toJson(Writer out, Map<String,Object> params) throws IOException, IllegalArgumentException, IllegalAccessException{
+	JsonWriter writer = new JsonWriter(out);
+	writeObject(writer, params);
+    }
+    
     public final String toJson(Object src) throws IOException, IllegalArgumentException, IllegalAccessException{
 	StringWriter stringWriter = new StringWriter();
 	toJson(stringWriter, src);
@@ -116,4 +130,9 @@ public class JsonFactory {
 	return stringWriter.toString();
     }
     
+    public final String toJson(Map<String,Object> params) throws IOException, IllegalArgumentException, IllegalAccessException{
+	StringWriter stringWriter = new StringWriter();
+	toJson(stringWriter, params);
+	return stringWriter.toString();
+    }
 }

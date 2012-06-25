@@ -8,6 +8,7 @@
 
 $(function(){
 	var efiId = getQueryString("efiId");
+	$('#efiId').val(efiId);
 	$('#ef_list').flexigrid({
 		url:"loadElectricFeeList_ByEFI?efiId="+efiId,
 		dataType:"json",
@@ -24,14 +25,13 @@ $(function(){
             { name: '删除电费记录', bclass: 'delete', onpress: ef_delete },
             { name: '删除电费项目', bclass: 'delete', onpress: efi_delete }
 		],
-		searchItems:[
-		    { display: '小区', name: 'houseOwner.house.building.project.proName',isdefault:true },
+		searchitems:[
 		    { display: '房号', name: 'houseOwner.house.houseNum'},
 		    { display: '业主', name: 'houseOwner.owner.ownerName'}
 		],
 		showSearch:true,
 		title:true,
-		height:Height*0.84,
+		height:Height*0.9,
         showcheckbox:true,
         usepager:true,
         useRp:true,
@@ -59,11 +59,11 @@ function ef_delete(){
 }
 
 function efi_delete(){
-	var efiId = getQueryString("efiId");
+	var efiId = $('#efiId').val();
 	if(!confirm("你将删除编号为:"+efiId+"的项目，及其关联的电费清单"))return;
 	$.ajax({
 		type: 'POST',
-		url: 'ef_item_delete?efiId='+cfiId,
+		url: 'ef_item_delete?efiId='+efiId,
 		success: function(data){
 			alert("电费项目删除成功");
 			window.parent.location.href='ef_item_list.jsp';
@@ -84,4 +84,19 @@ function getSelectedIds(){
 	}
 	idString=idString.substring(0,idString.length-1);
 	return idString;
+}
+
+
+function selectAllOrNone(the){
+	var checks=$(the).parent().parent().parent().find(":checkbox");
+	if($(the).attr("checked")){
+		checks.each(function(){
+			$(this).attr("checked",true);
+		});
+	}
+	else{
+		checks.each(function(){
+			$(this).attr("checked",false);
+		});
+	}	
 }

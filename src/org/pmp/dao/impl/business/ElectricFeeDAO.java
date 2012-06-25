@@ -81,9 +81,24 @@ public class ElectricFeeDAO extends BaseDAO implements IElectricFeeDAO {
      * @see org.pmp.dao.business.IElectricFeeDAO#batchUpdateElectricFee(java.util.List)
      */
     @Override
-    public void batchUpdateElectricFee(List<ElectricFee> list) {
-	
-
+    public void batchUpdateElectricFee(final List<ElectricFee> list) {
+	logger.debug("begin to batch update ElectricFee");
+	logger.debug("list.size="+list.size());
+        Work work = new Work(){
+            public void execute(Connection connection) throws SQLException{
+        	String sql ="update tb_ElectricFee set ProMeterFee=?,LiftMeterFee=?,Total_Money=? where EF_ID=?";
+        	PreparedStatement stmt = connection.prepareStatement(sql);
+        	for (int i=0;i<list.size();i++){
+        	    stmt.setDouble(1, list.get(i).getProMeterFee());
+        	    stmt.setDouble(2, list.get(i).getLiftMeterFee());
+        	    stmt.setDouble(3, list.get(i).getTotalMoney());
+		    stmt.setInt(4, list.get(i).getEfId());
+		    stmt.executeUpdate();
+		}
+            }
+        };
+        executeWork(work);
+	logger.debug("successfully batch update ElectricFee");
     }
 
     /**
@@ -95,7 +110,7 @@ public class ElectricFeeDAO extends BaseDAO implements IElectricFeeDAO {
 	logger.debug("list.size="+list.size());
 	Work work = new Work(){
 	    public void execute(Connection connection)throws SQLException{
-		String sql = "delete tb_OwnerRepair where EF_ID=?";
+		String sql = "delete tb_ElectricFee where EF_ID=?";
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		for (int i=0;i<list.size();i++){
 		    stmt.setInt(1, list.get(i).getEfId());
@@ -119,7 +134,7 @@ public class ElectricFeeDAO extends BaseDAO implements IElectricFeeDAO {
 	hql.append("from ElectricFee where electricFeeItem.efiId="+efiId);
 	hql.append(ParamsToString.toString(params));
 	if (order==null){
-	    hql.append(" order by houseOwner.house.houseNum assc");
+	    hql.append(" order by houseOwner.house.houseNum asc");
 	} else {
 	    hql.append(" "+order);
 	}
@@ -146,7 +161,7 @@ public class ElectricFeeDAO extends BaseDAO implements IElectricFeeDAO {
 		   "select builId from Building where project.proId in (select proId from Project where company.comId="+comId+")))");
 	hql.append(ParamsToString.toString(params));
 	if (order==null){
-	    hql.append(" order by houseOwner.house.houseNum assc");
+	    hql.append(" order by houseOwner.house.houseNum asc");
 	} else {
 	    hql.append(" "+order);
 	}
@@ -173,7 +188,7 @@ public class ElectricFeeDAO extends BaseDAO implements IElectricFeeDAO {
 		   "select builId from Building where project.proId="+proId+"))");
 	hql.append(ParamsToString.toString(params));
 	if (order==null){
-	    hql.append(" order by houseOwner.house.houseNum assc");
+	    hql.append(" order by houseOwner.house.houseNum asc");
 	} else {
 	    hql.append(" "+order);
 	}
@@ -199,7 +214,7 @@ public class ElectricFeeDAO extends BaseDAO implements IElectricFeeDAO {
 	hql.append("from ElectricFee where houseOwner.house.houseId="+houseId);
 	hql.append(ParamsToString.toString(params));
 	if (order==null){
-	    hql.append(" order by houseOwner.house.houseNum assc");
+	    hql.append(" order by houseOwner.house.houseNum asc");
 	} else {
 	    hql.append(" "+order);
 	}

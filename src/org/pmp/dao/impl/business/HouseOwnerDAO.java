@@ -104,5 +104,64 @@ public class HouseOwnerDAO extends BaseDAO implements IHouseOwnerDAO {
 	    throw e;
 	}
     }
+
+    /**
+     * @see org.pmp.dao.business.IHouseOwnerDAO#loadHouseOwnerList_ByPro(java.lang.Integer, java.util.Map, java.lang.String, org.pmp.util.Pager)
+     */
+    @Override
+    public List<HouseOwner> loadHouseOwnerList_ByPro(Integer proId,
+	    Map<String, Object> params, String order, Pager pager) {
+	List<HouseOwner> list = null;
+	String debugMsg = "load HouseOwner list by project, proId="+proId;
+	StringBuilder hql = new StringBuilder();
+	
+	hql.append("from HouseOwner where house.houseId in (" +
+		   "select houseId from House where building.builId in (" +
+		   "select builId from Building where project.proId="+proId+"))");
+	hql.append(ParamsToString.toString(params));
+	if (order==null){
+	    hql.append(" order by house.houseId asc");
+	} else {
+	    hql.append(" "+order);
+	}
+	logger.debug(hql);
+	try {
+	    list = (List<HouseOwner>) loadListByCondition(hql.toString(),pager,debugMsg);
+	} catch (RuntimeException e){
+	    throw e;
+	}
+	
+	return list;
+    }
+
+    /**
+     * @see org.pmp.dao.business.IHouseOwnerDAO#loadHouseOwnerList_ByCom(java.lang.Integer, java.util.Map, java.lang.String, org.pmp.util.Pager)
+     */
+    @Override
+    public List<HouseOwner> loadHouseOwnerList_ByCom(Integer comId,
+	    Map<String, Object> params, String order, Pager pager) {
+	List<HouseOwner> list = null;
+	String debugMsg = "load HouseOwner list by Company, proId="+comId;
+	StringBuilder hql = new StringBuilder();
+	
+	hql.append("from HouseOwner where house.houseId in (" +
+		   "select houseId from House where building.builId in (" +
+		   "select builId from Building where project.proId in (" +
+		   "select proId from Project where company.comId="+comId+")))");
+	hql.append(ParamsToString.toString(params));
+	if (order==null){
+	    hql.append(" order by house.houseId asc");
+	} else {
+	    hql.append(" "+order);
+	}
+	logger.debug(hql);
+	try {
+	    list = (List<HouseOwner>) loadListByCondition(hql.toString(),pager,debugMsg);
+	} catch (RuntimeException e){
+	    throw e;
+	}
+	
+	return list;
+    }
 	
 }

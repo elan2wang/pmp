@@ -34,7 +34,7 @@ $(function(){
 <form name="form1" id="form1" action="cf_audit" method="post">
 <table class="tableid"  id="audittable">
 <tr>
-  <th style="width:40px;"><input  type="checkbox" name="ids" value="${item.cfId }" checked="checked" onclick="selectAllOrNone(this)"></th>
+  <th style="width:40px;"><input  type="checkbox" checked="checked" onclick="selectAllOrNone(this)"></th>
   <th style="width:40px;">序号</th>
   <th style="width:40px;">房号</th><th style="width:40px;">业主</th>
   <th style="width:50px;">时间</th><th style="width:50px;">应收(元)</th>

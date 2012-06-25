@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.pmp.constant.SmsState;
 import org.pmp.jms.JmsPublisher;
 import org.pmp.service.admin.IUserService;
 import org.pmp.service.business.IBuildingService;
@@ -125,7 +126,7 @@ public class SmsAction extends ActionSupport{
 	/* set the smssTime with currentTime */
 	smsSend.setSmssTime(new Date());
 	/* set the smssState to new */
-	smsSend.setSmssState("new");
+	smsSend.setSmssState(SmsState.NEW);
 	smsSendService.addSmsSend(smsSend);
 	
 	/* after saving the smsSend got its id */

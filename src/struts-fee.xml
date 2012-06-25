@@ -95,6 +95,17 @@
     <!-- ElectricFee Related actions ============================================================================================ -->
     
     
+    <!-- ElectricFeeCharge Related actions ============================================================================================ -->
+    <action name="efc_add" class="org.pmp.action.business.ElectricFeeChargeAction" method="addElectricFeeCharge" />
+    
+    <action name="efc_delete" class="org.pmp.action.business.ElectricFeeChargeAction" method="deleteElectricFeeCharge" />
+    
+    <action name="loadElectricFeeChargeList_ByHouse" class="org.pmp.action.business.ElectricFeeChargeAction" method="loadElectricFeeChargeList_ByHouse">
+      <result name="success">/fee/efc_list.jsp</result>
+    </action>
+    <!-- ElectricFeeCharge Related actions ============================================================================================ -->
+    
+    
     <!-- TimeParkFee related actions ================================================================================================ -->
     <action name="addTimeParkFee" class="org.pmp.action.business.TimeParkFeeAction" method="addTimeParkFee">
       <result name="success" type="chain">loadTimeParkFeeByProject</result>

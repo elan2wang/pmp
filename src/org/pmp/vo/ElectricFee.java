@@ -13,7 +13,6 @@ public class ElectricFee implements java.io.Serializable {
     private Double proMeterFee;
     private Double liftMeterFee;
     private Double totalMoney;
-    
     private String comment;
 
     public ElectricFee() {
@@ -60,7 +59,7 @@ public class ElectricFee implements java.io.Serializable {
     }
 
     public Double getProMeterFee() {
-        return proMeterFee;
+        return this.proMeterFee;
     }
 
     public void setProMeterFee(Double proMeterFee) {
@@ -68,7 +67,7 @@ public class ElectricFee implements java.io.Serializable {
     }
 
     public Double getLiftMeterFee() {
-        return liftMeterFee;
+        return this.liftMeterFee;
     }
 
     public void setLiftMeterFee(Double liftMeterFee) {
@@ -76,7 +75,7 @@ public class ElectricFee implements java.io.Serializable {
     }
 
     public Double getTotalMoney() {
-        return totalMoney;
+        return this.totalMoney;
     }
 
     public void setTotalMoney(Double totalMoney) {

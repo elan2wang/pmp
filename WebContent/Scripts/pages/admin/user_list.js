@@ -42,10 +42,6 @@ $(function(){
      	    { display: '用户组', name : 'tbGroup.groupName' },
      	    { display: '角色', name : 'tbRole.roleName' }
      	],
-     	searchQueryStrs:[
-             {selectName:'username',queryStrName:'userNameStr'},
-             {selectName:'realname',queryStrName:'realNameStr'}
-     	],//说明 名字任意取 只要不要重复就可以了
      	showSearch:true,
 		height:Height*0.78,
         showcheckbox:true,

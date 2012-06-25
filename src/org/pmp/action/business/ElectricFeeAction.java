@@ -12,9 +12,11 @@
  */
 package org.pmp.action.business;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -24,23 +26,22 @@ import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.pmp.json.Includer;
 import org.pmp.json.MyJson;
+import org.pmp.service.business.IElectricFeeChargeService;
 import org.pmp.service.business.IElectricFeeItemService;
 import org.pmp.service.business.IElectricFeeService;
 import org.pmp.service.business.IHouseOwnerService;
-import org.pmp.service.impl.business.ElectricFeeItemService;
 import org.pmp.util.Pager;
 import org.pmp.vo.ElectricFee;
+import org.pmp.vo.ElectricFeeCharge;
 import org.pmp.vo.ElectricFeeItem;
 import org.pmp.vo.Owner;
-
-import com.opensymphony.xwork2.ActionSupport;
 
 /**
  * @author Elan
  * @version 1.0
  * @update TODO
  */
-public class ElectricFeeAction extends ActionSupport {
+public class ElectricFeeAction extends BaseAction {
 
     //~ Static Fields ==================================================================================================
     private static Logger logger = Logger.getLogger(ElectricFeeAction.class
@@ -49,6 +50,7 @@ public class ElectricFeeAction extends ActionSupport {
     private IElectricFeeService electricFeeService;
     private IHouseOwnerService houseOwnerService;
     private IElectricFeeItemService electricFeeItemService;
+    private IElectricFeeChargeService electricFeeChargeService;
     
     private Integer efiId;
     private Integer comId;
@@ -60,30 +62,16 @@ public class ElectricFeeAction extends ActionSupport {
     
     private String[] proMeterFee;
     private String[] liftMeterFee;
-    
-    /* =========FlexiGrid post parameters======= */
-    private Integer page=1;
-    private Integer rp=15;
-    private String sortname;
-    private String sortorder;
-    private String query;
-    private String qtype;
-    /* =========FlexiGrid post parameters======= */
-    
+   
     //~ Constructor ====================================================================================================
 
     //~ Methods ========================================================================================================
     public void loadElectricFeeList_ByEFI(){
-	/* set query parameters */
-	Pager pager = new Pager(rp,page);
-	String order = null;
-	Map<String,Object> params = new HashMap<String,Object>();
-	//setParams(params);
-	if (!sortname.equals("undefined")&&!sortorder.equals("undefined")){
-	    order= "order by "+sortname+" "+sortorder;
-	} else{
-	    order = "order by houseOwner.house.houseNum asc";
-	}
+	Pager pager = getPager();
+	/* set query parameter */
+	Map<String,Object> params = getParams();
+	/* set sorter type */
+	String order = getOrder();
 	/* invoke service to get list */
 	List<ElectricFee> efList = electricFeeService.loadElectricFeeList_ByEFI(efiId, params, order, pager);
 	
@@ -104,28 +92,24 @@ public class ElectricFeeAction extends ActionSupport {
     }
     
     public void loadElectricFeeList_ByHouse(){
-	/* set query parameters */
-	Pager pager = new Pager(rp,page);
-	String order = null;
-	Map<String,Object> params = new HashMap<String,Object>();
-	//setParams(params);
-	if (!sortname.equals("undefined")&&!sortorder.equals("undefined")){
-	    order= "order by "+sortname+" "+sortorder;
-	} else{
-	    order = "order by electricFeeItem desc";
-	}
+	Pager pager = getPager();
+	/* set query parameter */
+	Map<String,Object> params = getParams();
+	/* set sorter type */
+	String order = getOrder();
 	/* invoke service to get list */
-	List<?> efList= electricFeeService.loadElectricFeeList_ByHouse(houseId, params, order, pager);
+	List<ElectricFee> efList= electricFeeService.loadElectricFeeList_ByHouse(houseId, params, order, pager);
 	
 	String[] attrs = {"efId","electricFeeItem.beginDate","electricFeeItem.endDate","proMeterFee","liftMeterFee","totalMoney"};
 	List<String> show = Arrays.asList(attrs);
 	Includer includer = new Includer(show);
 	MyJson json = new MyJson(includer);
 	
+	/* 获取业主姓名和联系方式 */
 	Owner owner = houseOwnerService.getHouseOwner_ByHouse(houseId).getOwner();
 	String contact = null;
 	if (owner.getMobile()!=null && owner.getHomePhone()!=null){
-	    contact = owner.getMobile()+"/"+owner.getHomePhone();
+	    contact = owner.getMobile()+" / "+owner.getHomePhone();
 	} else if (owner.getMobile()!=null && owner.getHomePhone()==null){
 	    contact = owner.getMobile();
 	} else if (owner.getMobile()==null && owner.getHomePhone()!=null){
@@ -133,7 +117,25 @@ public class ElectricFeeAction extends ActionSupport {
 	} else {
 	    contact = "无";
 	}
-	String title = "业主姓名："+owner.getOwnerName()+"  联系电话："+contact;
+	/* 计算总共已缴纳的电费 */
+	List<ElectricFeeCharge> list = electricFeeChargeService.loadElectricFeeChargeList_ByHouse(houseId, new HashMap<String,Object>(), "", new Pager(10000,1));
+	Iterator<ElectricFeeCharge> ite = list.iterator();
+	Double totalChargeMoney = 0.0;
+	while(ite.hasNext()){
+	    ElectricFeeCharge efc = ite.next();
+	    totalChargeMoney += efc.getChargeMoney();
+	}
+	/* 计算总共需缴纳的电费 */
+	List<ElectricFee> efList2 = electricFeeService.loadElectricFeeList_ByHouse(houseId, new HashMap<String, Object>(), "", new Pager(10000,1));
+	Iterator<ElectricFee> ite2 = efList2.iterator();
+	Double totalMoney = 0.0;
+	while(ite2.hasNext()){
+	    ElectricFee ef = ite2.next();
+	    totalMoney += ef.getTotalMoney();
+	}
+	DecimalFormat df=new DecimalFormat("#.## ");
+	String title = "业主姓名："+owner.getOwnerName()+",&nbsp;&nbsp;&nbsp;&nbsp;联系电话："+contact+
+	               "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;已缴电费总计："+totalChargeMoney+"元,&nbsp;&nbsp;&nbsp;&nbsp;需缴电费总计："+totalMoney+"元,&nbsp;&nbsp;&nbsp;&nbsp;余额："+df.format(totalChargeMoney-totalMoney)+"元";
 	String data = json.toJson(efList, title, pager);
 	json.output(data);
     }
@@ -152,7 +154,7 @@ public class ElectricFeeAction extends ActionSupport {
 	List<ElectricFee> efList = new ArrayList<ElectricFee>();
 	String[] checkedID = idStr.split(",");
 	for (int i=0;i<checkedID.length;i++){
-	    ElectricFee ef = electricFeeService.getElectricFee_ByID(Integer.parseInt(checkedID[i]));
+	    ElectricFee ef = electricFeeService.getElectricFee_ByID(Integer.parseInt(checkedID[i].trim()));
 	    ef.setProMeterFee(Double.parseDouble(proMeterFee[i].trim()));
 	    ef.setLiftMeterFee(Double.parseDouble(liftMeterFee[i].trim()));
 	    ef.setTotalMoney(ef.getProMeterFee()+ef.getLiftMeterFee());
@@ -161,7 +163,7 @@ public class ElectricFeeAction extends ActionSupport {
 	electricFeeService.batchEditElectricFee(efList);
     }
     
-    public String selectCondoFee(){
+    public String selectElectricFee(){
 	List<ElectricFee> efList = new ArrayList<ElectricFee>();
 	String[] checkedID = idStr.split(",");
 	for (int i=0;i<checkedID.length;i++){
@@ -177,17 +179,7 @@ public class ElectricFeeAction extends ActionSupport {
 	
 	return SUCCESS;
     }
-    
-    private void setParams(Map<String,Object> params){
-	String[] qtypes = qtype.split(",");
-	String[] querys = query.split(",");
-	for(int i=0;i<qtypes.length;i++){
-	    if (!querys[i].equals("null")){
-		params.put(qtypes[i], querys[i]);
-	    }
-	}
-    }
-    
+   
     //~ Getters and Setters ============================================================================================
 
     public IElectricFeeService getElectricFeeService() {
@@ -213,6 +205,15 @@ public class ElectricFeeAction extends ActionSupport {
     public void setElectricFeeItemService(
     	IElectricFeeItemService electricFeeItemService) {
         this.electricFeeItemService = electricFeeItemService;
+    }
+
+    public IElectricFeeChargeService getElectricFeeChargeService() {
+        return electricFeeChargeService;
+    }
+
+    public void setElectricFeeChargeService(
+    	IElectricFeeChargeService electricFeeChargeService) {
+        this.electricFeeChargeService = electricFeeChargeService;
     }
 
     public Integer getEfiId() {
@@ -278,53 +279,4 @@ public class ElectricFeeAction extends ActionSupport {
     public void setLiftMeterFee(String[] liftMeterFee) {
         this.liftMeterFee = liftMeterFee;
     }
-
-    public Integer getPage() {
-        return page;
-    }
-
-    public void setPage(Integer page) {
-        this.page = page;
-    }
-
-    public Integer getRp() {
-        return rp;
-    }
-
-    public void setRp(Integer rp) {
-        this.rp = rp;
-    }
-
-    public String getSortname() {
-        return sortname;
-    }
-
-    public void setSortname(String sortname) {
-        this.sortname = sortname;
-    }
-
-    public String getSortorder() {
-        return sortorder;
-    }
-
-    public void setSortorder(String sortorder) {
-        this.sortorder = sortorder;
-    }
-
-    public String getQuery() {
-        return query;
-    }
-
-    public void setQuery(String query) {
-        this.query = query;
-    }
-
-    public String getQtype() {
-        return qtype;
-    }
-
-    public void setQtype(String qtype) {
-        this.qtype = qtype;
-    }
-
 }

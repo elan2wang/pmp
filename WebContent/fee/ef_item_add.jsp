@@ -26,16 +26,14 @@
   <div class="content_main" style='font-family:"微软雅黑","黑体","宋体";overflow:auto'>
     <form name="form" id="form" action="ef_item_add" method="POST"><br/>
 	<fieldset class="add_fieldset">
-	  <legend class="add_legend">第一步：选择物业项目</legend>
-	  <div class="selectdiv">
+	  <legend class="add_legend">第一步：选择物业项目和时间</legend>
+	  <div class="selectdiv" style="float:left;">
 	     <select id="proId" name="proId" onchange="projectChanged()">
 	     <s:action name="select_project" executeResult="true" namespace="/fee" />
 	     </select>
 	  </div>
-	</fieldset><br/>
-	<fieldset class="add_fieldset">
-	  <legend class="add_legend">第二步：选择时间</legend>
-	  <div class="timeSelect">
+	  <div style="float:left;width:10%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+	  <div class="timeSelect" style="float:left;">
 	   <span>上期时间：</span>
 	   <span><input type="text" name="electricFeeItem.beginDate" readonly="readonly" style="cursor:pointer;" onfocus="WdatePicker()"/> </span> 
 	   <span style="display:inline-block;padding-left:30px">本期时间：</span>
@@ -43,7 +41,7 @@
 	  </div>
 	</fieldset><br/>
 	<fieldset class="add_fieldset">
-	  <legend class="add_legend">第三步：编辑总表信息</legend>
+	  <legend class="add_legend">第二步：添加总表电费</legend>
 	  <div class="tableDiv">
 	    <div style="width:600px;height:50px">
 	    <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0" class="table1">
@@ -85,7 +83,7 @@
 	  
 	</fieldset>
 	<fieldset class="add_fieldset">
-	  <legend class="add_legend">第四步：编辑电梯表信息</legend>
+	  <legend class="add_legend">第三步：添加电梯电费</legend>
 	   <div class="tableDiv">
 	    <div style="width:600px;height:60px">
 	    <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0" class="table1">
@@ -123,12 +121,12 @@
 	 
 	</fieldset>
 	<fieldset class="add_fieldset">
-	  <legend class="add_legend">第五步：预览创建信息</legend>
+	  <legend class="add_legend">第四步：预览创建信息</legend>
 	  <div class="buttongroup">
 	    <input type="button" value="预览创建信息" onclick="preview()" /><br/>
 	  </div>
 	  <div class="buttongroup">
-	  <textarea name="display" id="display" disabled="disabled" rows="2" cols="120" style="font-size:14px;"></textarea><br/>
+	  <textarea name="display" id="display" disabled="disabled" rows="2" cols="115" style="font-size:14px;"></textarea><br/>
 	  </div>
 	</fieldset>
 	<div style="padding-left:20px;margin-top:10px">
@@ -141,7 +139,7 @@
   <script type="text/javascript">
    var Width2=document.documentElement.clientWidth;
    var Height2=document.documentElement.clientHeight;
-   ChangeHeight(Width2,Height2+30,'content_main');
+   ChangeHeight(Width2,Height2+35,'content_main');
   </script>
 </body>
 </html>

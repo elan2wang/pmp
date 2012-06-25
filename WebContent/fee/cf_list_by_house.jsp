@@ -24,6 +24,7 @@
 <body>
 <table id="cf_list">
 </table>
+
 <!-- pop up windows -->
 <div id="cfInput" class="easyui-window" title="物业费录入" iconCls="icon-save" style="width:500px;height:350px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
 </body>
