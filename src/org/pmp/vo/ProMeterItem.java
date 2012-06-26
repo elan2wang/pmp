@@ -16,6 +16,14 @@ public class ProMeterItem implements java.io.Serializable {
     private Double totalMoney;
     private String comment;
 
+    public String toString(){
+    	StringBuffer sb=new StringBuffer();
+    	sb.append("[ "+pmiId+","+electricFeeItem+","+pmNum+","+beginDegree+","+endDegree+","+price);
+    	sb.append(","+totalMoney+","+comment);
+    	sb.append(" ]");
+    	return sb.toString();
+    }
+    
     public ProMeterItem() {
     }
 

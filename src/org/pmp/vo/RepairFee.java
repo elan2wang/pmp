@@ -14,6 +14,13 @@ public class RepairFee implements java.io.Serializable {
     private Double money;
     private String comment;
 
+    public String toString(){
+    	StringBuffer sb=new StringBuffer();
+    	sb.append("[ "+rfId+","+ownerRepair+","+rfName+","+amount+","+money+","+comment);
+    	sb.append(" ]");
+    	return sb.toString();
+    }
+    
     public RepairFee() {
     }
 

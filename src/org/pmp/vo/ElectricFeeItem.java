@@ -21,6 +21,14 @@ public class ElectricFeeItem implements java.io.Serializable {
     private Double totalMoney;
     private String comment;
 
+    public String toString(){
+    	StringBuffer sb=new StringBuffer();
+    	sb.append("[ "+efiId+","+project+","+itemName+","+beginDate+","+endDate+","+generateTime);
+    	sb.append(","+generatePerson+","+totalMoney+","+comment);
+    	sb.append(" ]");
+    	return sb.toString();
+    }
+    
     public ElectricFeeItem() {
     }
 
