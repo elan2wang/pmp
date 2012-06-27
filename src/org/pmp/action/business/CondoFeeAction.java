@@ -161,6 +161,8 @@ public class CondoFeeAction extends BaseAction{
 	Pager pager = getPager();
 	/* set query parameter */
 	Map<String,Object> params = getParams();
+	if(year!=null)params.put("cfYear", year);
+	if(month!=null)params.put("cfMonth", month);
 	/* set sorter type */
 	String order = getOrder();
 	/* invoke service to get list */
@@ -183,6 +185,8 @@ public class CondoFeeAction extends BaseAction{
 	Pager pager = getPager();
 	/* set query parameter */
 	Map<String,Object> params = getParams();
+	if(year!=null)params.put("cfYear", year);
+	if(month!=null)params.put("cfMonth", month);
 	/* set sorter type */
 	String order = getOrder();
 	/* invoke service to get list */

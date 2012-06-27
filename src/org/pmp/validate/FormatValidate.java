@@ -13,7 +13,12 @@ public class FormatValidate {
 	String regex = "^(?:(19|20)\\d{2})-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12][0-9]|3[01])$";
         return match(regex, str.trim());
     }
-	
+
+    public static boolean isYearMonth(String str){
+	String regex = "^((19|20)[0-9]{2})-(0[1-9]|1[0-2])";
+	return match(regex, str.trim());
+    }
+    
     public static boolean isValidInteger(String str){
 	String regex = "\\d+";
 	return match(regex, str.trim());

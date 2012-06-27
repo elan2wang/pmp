@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.pmp.validate.FormatValidate;
 
 /**
  * @author Elan
@@ -39,13 +40,18 @@ public class ParamsToString {
 	    Iterator<String> ite = keys.iterator();
 	    while(ite.hasNext()){
 		String key = ite.next();
-		sb.append(key+"=");
 		Object value = params.get(key);
 		/* transform value to string */
-		if (value instanceof String)
-		    sb.append("'"+value.toString()+"'");
+		if (value instanceof String){
+		    /* if the value is like 2012-06 or 2012-06-07*/
+		    if (FormatValidate.isYearMonth(value.toString())||FormatValidate.isValidDate(value.toString())){
+			sb.append("convert(varchar,"+key+",120) like '%"+value.toString()+"%'");
+		    } else {
+			sb.append(key+" like '%"+value.toString()+"%'");
+		    }
+		}
 		if (value instanceof Number)
-		    sb.append(value);
+		    sb.append(key+" like "+value);
 		/* append link between parameters */
 		sb.append(" and ");
 	    }
