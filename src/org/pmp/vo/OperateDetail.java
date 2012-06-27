@@ -15,6 +15,12 @@ public class OperateDetail implements java.io.Serializable {
     private String operatePerson;
     private String operateDetail;
 
+    public String toString(){
+    	StringBuffer sb=new StringBuffer();
+    	sb.append("[ "+orId+","+ownerRepair+","+operateTime+","+operatePerson+","+operateDetail+" ]");
+    	return sb.toString();
+    }
+    
     public OperateDetail() {
     }
 

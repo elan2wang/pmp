@@ -19,6 +19,14 @@ public class ElectricFeeCharge implements java.io.Serializable {
     private String state;
     private String comment;
 
+    public String toString(){
+    	StringBuffer sb=new StringBuffer();
+    	sb.append("[ "+efcId+","+houseOwner+","+chargeTime+","+chargeMoney+","+inputPerson+","+auditPerson);
+    	sb.append(","+auditTime+","+state+","+comment);
+    	sb.append(" ]");
+    	return sb.toString();
+    }
+    
     public ElectricFeeCharge() {
     }
 

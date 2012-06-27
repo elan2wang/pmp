@@ -16,6 +16,13 @@ public class RepairAttach implements java.io.Serializable {
     private Date uploadTime;
     private String uploadPerson;
 
+    public String toString(){
+    	StringBuffer sb=new StringBuffer();
+    	sb.append("[ "+raId+","+ownerRepair+","+attachName+","+attachUrl+","+uploadTime+","+uploadPerson);
+    	sb.append(" ]");
+    	return sb.toString();
+    }
+    
     public RepairAttach() {
     }
 

@@ -14,6 +14,13 @@ public class BuilFeeRate implements java.io.Serializable {
     private Integer endFloor;
     private Double rate;
 
+    public String toString(){
+    	StringBuffer sb=new StringBuffer();
+    	sb.append("[ "+bfrId+","+building+","+electricFeeItem+","+beginFloor+","+endFloor+","+rate);
+    	sb.append(" ]");
+    	return sb.toString();
+    }
+    
     public BuilFeeRate() {
     }
 
