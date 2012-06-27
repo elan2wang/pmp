@@ -130,8 +130,8 @@ public class ProjectDAO extends BaseDAO implements IProjectDAO {
 				stmt.setInt(7, project.getProHouseCount());
 				stmt.setString(8, project.getProDesc());
 				stmt.setString(9, project.getProType());
-				stmt.setBoolean(10, project.isFireEnabled());
-				stmt.setBoolean(11, project.isEnabled());
+				stmt.setBoolean(10, project.getFireEnabled());
+				stmt.setBoolean(11, project.getEnabled());
 				stmt.executeUpdate();
 			}
 			tx.commit();

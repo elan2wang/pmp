@@ -16,7 +16,7 @@ public class FileUploadUtil {
 		
 		FileInputStream fis = new FileInputStream(uploadFile);
 		
-		uploadFileName=MyfileUtil.createFilename()+"_"+uploadFileName;
+		uploadFileName=MyfileUtil.createFilename()+"."+MyfileUtil.getPostfix(uploadFileName);
 		
 		FileOutputStream fos = new FileOutputStream(uploadDir+File.separator+uploadFileName);
 		

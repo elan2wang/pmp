@@ -1,18 +1,14 @@
 // JavaScript Document
 $(function(){
 	var proId;
-	var coefficient;//表格高度系数
 	if(parent.document.getElementById("frame.pageType").value=="all"){	
 		proId = 0;
-		coefficient=0.95;
 	}
 	else{
 		proId=parseInt(parent.document.getElementById("frame.pageId").value);
-		$('#top_info').css('display','block');
-		coefficient=0.87;
 	}
     $('#buildinglist').flexigrid({
-    	url:"building_listBySessionHandler?"+"projectId="+proId,
+    	url:"loadBuildingList?projectId="+proId,
     	dataType:"json",
 		colModel: [
 			{ display: '小区', name:'project.proName',  width: Width*0.15, sortable:true, align: 'center' },
@@ -23,6 +19,10 @@ $(function(){
 			{ display: '跳过楼层数', name:'skipFloor',  width: Width*0.1, sortable:true, align: 'center' },
 			{ display: '楼宇类型',  name:'builType', width: Width*0.1, sortable:true, align: 'center'}
          ],
+         buttons : [
+	        {name: '添加楼宇', bclass: 'add', onpress : addBuilding},
+		    {separator: true}
+	     ],
          searchitems:[
             { display: '小区', name: 'project.proName', isdefault:false },
             { display: '楼号', name: 'builNum', isdefault:false },
@@ -30,7 +30,7 @@ $(function(){
             { display: '楼层数', name: 'floorCount', isdefault:false },
             { display: '单元层户数', name: 'housesPer', isdefault:false }
          ],
-         height:Height*coefficient,
+         height:Height*0.96,
          showcheckbox:true,
          showSearch:true,
          usepager: true,
@@ -41,16 +41,16 @@ $(function(){
 		 operationWidth: Width*0.22
 	});
 });
-function builImport(){
-	openAddWindow('#builImport');
+
+function addBuilding(){
+	openAddWindow('#newBuild');
 }
 
 function openEditBuild(obj){
 	var id=parseInt(obj.attr("id").substr(3));
-	var url = 'get_building?buildingId='+id;
+	var url = 'getBuilding?buildingId='+id;
 	openEditWindow("#editBuild",url);
 }
-
 
 function deleteBuilding(obj,objid){
 	var id = parseInt(objid.attr("id").substr(3));
@@ -58,13 +58,12 @@ function deleteBuilding(obj,objid){
 	
 	$.ajax({
 		type: "POST",
-        url: 'delete_building?buildingId='+id,
+        url: 'deleteBuilding?buildingId='+id,
         dataType: "json",
         success : function(data){
             obj.hide();
 	    }
     });
-	
 }
 
 function setBuildingId(buidingId){

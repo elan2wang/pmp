@@ -4,7 +4,7 @@ $(function(){
     	url:"loadHistory",
     	dataType:"json",
         colModel: [
-            { display: '所属物业', name:'SMSCompany', width: Width*0.08, sortable:true, align: 'center' },  
+            { display: '所属物业', name:'SMSCompany.company.comName', width: Width*0.08, sortable:true, align: 'center' },  
             { display: '发送时间', name:'smssTime', width: Width*0.07, sortable:true, align: 'center' },
             { display: '状态', name:'smssState', width: Width*0.06, sortable:true, align: 'center' },
             { display: '发送人', name:'smssPerson', width: Width*0.05, sortable:true, align: 'center' },
@@ -19,7 +19,7 @@ $(function(){
  		    { display: '消息内容', name: 'smssContent', isdefault:false }
  		],
  		showSearch:true,
-        height:Height*0.95,
+        height:Height*1.02,
         showcheckbox:true,
         usepager:true,
         useRp:true,

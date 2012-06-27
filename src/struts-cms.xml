@@ -4,7 +4,7 @@
   <constant name="struts.i18n.encoding" value="UTF-8" />
   
   <package name="cms" extends="struts-default" namespace="/cms">
-	<!-- SMS_Company related Actions -->
+	<!-- SMS_Company related Actions ======================================================================================= -->
 	<action name="addSMSCompany" class="org.pmp.action.business.SmsCompanyAction" method="addSMSCompany">
       <result name="success">/cms/smsc_list.jsp</result>
     </action>
@@ -12,109 +12,108 @@
     <action name="getSMSCompany" class="org.pmp.action.business.SmsCompanyAction" method="getSMSCompany">
       <result name="success">/cms/smsc_edit.jsp</result>
     </action>
-    
 
     <action name="editSMSCompany" class="org.pmp.action.business.SmsCompanyAction" method="editSMSCompany">
       <result name="success">/cms/smsc_list.jsp</result>
     </action>
-    
     
     <action name="batchDeleteSMSCompany" class="org.pmp.action.business.SmsCompanyAction" method="batchDeleteSMSCompany" />
     
     <action name="loadSMSCompanyList" class="org.pmp.action.business.SmsCompanyAction" method="loadSMSCompanyList">
       <result name="success">/cms/smsc_list.jsp</result>
     </action>
-    
-	<!-- company related actions -->
-	<action name="select_company_list" class="org.pmp.action.business.CompanyAction" method="select_company_list">
-	</action>
-	<action name="getCompanyByID" class="org.pmp.action.business.CompanyAction" method="getCompanyByID">
+    <!-- SMS_Company related Actions ======================================================================================= -->
+	
+	<!-- company related actions =========================================================================================== -->
+    <action name="getCompany" class="org.pmp.action.business.CompanyAction" method="getCompanyByID">
 	  <result name="success">/cms/cmpy_edit.jsp</result>
 	</action>
-	<action name="checkCompanyByName" class="org.pmp.action.business.CompanyAction" method="checkCompanyByName">
-	</action>
+	
 	<action name="addCompany" class="org.pmp.action.business.CompanyAction" method="addCompany">
 	  <result name="success">/cms/cmpy_list.jsp</result>
 	</action>
-	<action name="updateCompany" class="org.pmp.action.business.CompanyAction" method="updateCompany">
+	
+	<action name="editCompany" class="org.pmp.action.business.CompanyAction" method="editCompany">
 	  <result name="success">/cms/cmpy_list.jsp</result>
 	</action>
+	
 	<action name="deleteCompany" class="org.pmp.action.business.CompanyAction" method="deleteCompany">
 	  <result name="success">/cms/cmpy_list.jsp</result>
 	</action>
-	<action name="cmpy_list" class="org.pmp.action.business.CompanyAction" method="loadCompanyList">
+	
+	<action name="loadCompanyList" class="org.pmp.action.business.CompanyAction" method="loadCompanyList" />
+	
+	<action name="checkCompanyByName" class="org.pmp.action.business.CompanyAction" method="checkCompanyByName" />
+	<!-- company related actions =========================================================================================== -->
+	
+	<!-- project related actions =========================================================================================== -->
+	<action name="addProject" class="org.pmp.action.business.ProjectAction" method="addProject">
+	  <result name="success">/cms/project_list.jsp</result>
 	</action>
 	
-	<action name="companyAction" class="org.pmp.action.business.CompanyAction">
-		<result name="success">/cms/cmpySelect.jsp </result>
-	</action>
-	<action name="building_listBySessionHandler" class="org.pmp.action.business.BuildingAction" method="loadBuildingListBySessionHandler">
-	</action>
-	<action name="project_listBySessionHandler" class="org.pmp.action.business.ProjectAction" method="loadProjectListBySessionHandler">
-	</action>	
-	<action name="deleteProject" class="org.pmp.action.business.ProjectAction" method="deleteProject">
-	</action>
-	<action name="get_building" class="org.pmp.action.business.BuildingAction" method="getBuildingById">
-		<result name="success">/cms/building_edit.jsp</result>
-	</action>
-	<action name="delete_building" class="org.pmp.action.business.BuildingAction" method="deleteBuilding">
+	<action name="editProject" class="org.pmp.action.business.ProjectAction" method="editProject">
+	  <result name="success">/cms/project_list.jsp</result>
 	</action>
 	
-	<action name="saveBuilding" class="org.pmp.action.business.BuildingAction" method="saveBuilding">
-		<result name="success">/cms/building_list.jsp</result>
-	</action>	
-	<action name="updateBuilding" class="org.pmp.action.business.BuildingAction" method="updateBuilding">
-		<result name="success">/cms/building_list.jsp</result>
-	</action>	
-	<action name="checkBuildingByBuilNumAndProjectId" class="org.pmp.action.business.BuildingAction" method="checkBuildingByBuilNumAndProjectId">
-	</action>
-	<action name="get_project" class="org.pmp.action.business.ProjectAction" method="getProjectById">
+	<action name="deleteProject" class="org.pmp.action.business.ProjectAction" method="deleteProject" />
+
+	<action name="getProject" class="org.pmp.action.business.ProjectAction" method="getProjectById">
 		<result name="success">/cms/project_edit.jsp</result>
 	</action>
-
-	<action name="getProjectBySessionHander" class="org.pmp.action.business.ProjectAction" method="getProjectBySessionHander">
-		<result name="success">/cms/projectSelect.jsp</result>
-	</action>
 	
-    <action name="getOnlyProjectBySessionHander" class="org.pmp.action.business.ProjectAction" method="getProjectBySessionHander">
-		<result name="success">/cms/projectOnlySelect.jsp</result>
-	</action>
+	<action name="loadProjectList" class="org.pmp.action.business.ProjectAction" method="loadProjectList" />
 	
-	<action name="update_Project" class="org.pmp.action.business.ProjectAction" method="updateProject">
-		<result name="success">/cms/project_list.jsp</result>
-	</action>
-	
-	<action name="checkProjectByName" class="org.pmp.action.business.ProjectAction" method="checkProjectByName">
-	</action>
-	
-	
-	<action name="projectAction" class="org.pmp.action.business.ProjectAction" method="">
-		<result name="success">/cms/project_list.jsp</result>
-	</action>
-	<action name="house_listBySessionHandler" class="org.pmp.action.business.HouseAction" method="loadHouseListBySessionHandler">
-	</action>
-
-	<action name="getHouseById" class="org.pmp.action.business.HouseAction" method="getHouseById">
-		<result name="success">/cms/house_edit.jsp</result>
-	</action>
-	<action name="updateHouse" class="org.pmp.action.business.HouseAction" method="updateHouse">
-		<result name="success">/cms/house_list.jsp</result>
-	</action>
-	<action name="deleteHouse" class="org.pmp.action.business.HouseAction" method="deleteHouse"></action>
-	
-	<action name="new_house_import" class="org.pmp.action.business.HouseAction" method="uploadFile">
-		<result name="success">/cms/house_list.jsp</result>
-	</action>
+	<action name="isProjectExist" class="org.pmp.action.business.ProjectAction" method="isExist" />
 	
 	<action name="new_pro_import" class="org.pmp.action.business.ProjectAction" method="uploadFile">
 		<result name="success">/cms/project_list.jsp</result>
 	</action>
+	<!-- project related actions =========================================================================================== -->
+	
+	<!-- building related actions ========================================================================================== -->
+	<action name="addBuilding" class="org.pmp.action.business.BuildingAction" method="addBuilding">
+		<result name="success">/cms/building_list.jsp</result>
+	</action>
+	
+	<action name="editBuilding" class="org.pmp.action.business.BuildingAction" method="editBuilding">
+		<result name="success">/cms/building_list.jsp</result>
+	</action>	
+	
+	<action name="deleteBuilding" class="org.pmp.action.business.BuildingAction" method="deleteBuilding" />
+	
+	<action name="getBuilding" class="org.pmp.action.business.BuildingAction" method="getBuildingById">
+		<result name="success">/cms/building_edit.jsp</result>
+	</action>
+	
+	<action name="loadBuildingList" class="org.pmp.action.business.BuildingAction" method="loadBuildingList" />
+	
 	<action name="buildingImport" class="org.pmp.action.business.BuildingAction" method="uploadFile">
 		<result name="success">/cms/project_list.jsp</result>
 	</action>
 	
+	<action name="isBuildingExist" class="org.pmp.action.business.BuildingAction" method="isExist" />
+	<!-- building related actions ========================================================================================== -->
 	
-	<!-- owner related actions -->
+	<!-- house related actions ========================================================================================== -->
+	<action name="editHouse" class="org.pmp.action.business.HouseAction" method="editHouse">
+		<result name="success">/cms/house_list.jsp</result>
+	</action>
+	
+	<action name="deleteHouse" class="org.pmp.action.business.HouseAction" method="deleteHouse" />
+	
+	<action name="getHouse" class="org.pmp.action.business.HouseAction" method="getHouseById">
+		<result name="success">/cms/house_edit.jsp</result>
+	</action>
+	
+	<action name="loadHouseList" class="org.pmp.action.business.HouseAction" method="loadHouseList" />
+	
+	<action name="new_house_import" class="org.pmp.action.business.HouseAction" method="uploadFile">
+		<result name="success">/cms/house_list.jsp</result>
+	</action>
+	<!-- house related actions ========================================================================================== -->
+	
+	
+	<!-- owner related actions ============================================================================================= -->
 	<action name="loadOwnerList_ByPro" class="org.pmp.action.business.OwnerAction" method="loadOwnerList_ByPro" />
     
     <action name="addOwner" class="org.pmp.action.business.OwnerAction" method="addOwner">
@@ -136,12 +135,31 @@
     <action name="deleteOwner" class="org.pmp.action.business.OwnerAction" method="deleteOwner">
       <result name="success">/cms/owner_list.jsp</result>
     </action>
-    
-    <!-- select options related actions  -->
-    
+    <!-- owner related actions ============================================================================================= -->
+	
+	
+    <!-- pager trigger related actions ===================================================================================== -->
     <action name="selectHouse_ByBuil" class="org.pmp.action.business.PageTriggerAction" method="selectHouse_ByBuil" />
     
     <action name="selectBuilding_ByPro" class="org.pmp.action.business.PageTriggerAction" method="selectBuilding_ByPro" />
+    
+    <action name="selectProject_ByAuth" class="org.pmp.action.business.PageTriggerAction" method="selectProject_ByAuth" >
+    	<result name="success">/select_page/project_options.jsp</result>
+	</action>
+	
+    <action name="select_company_list" class="org.pmp.action.business.CompanyAction" method="select_company_list" />
+    
+    	
+	<action name="getProjectBySessionHander" class="org.pmp.action.business.ProjectAction" method="getProjectBySessionHander">
+		<result name="success">/cms/projectSelect.jsp</result>
+	</action>
+	
+    <action name="getOnlyProjectBySessionHander" class="org.pmp.action.business.ProjectAction" method="getProjectBySessionHander">
+		<result name="success">/cms/projectOnlySelect.jsp</result>
+	</action>
+	
+    <!-- pager trigger related actions ===================================================================================== -->
+    
   </package>
 
 </struts>

@@ -110,7 +110,7 @@ public class MyJson {
     public void output(String data){
 	try {    
             HttpServletResponse response = ServletActionContext.getResponse();  
-            response.setContentType("application/json;charset=UTF-8");
+            response.setContentType("text/html;charset=UTF-8");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().println(data);
         } catch (IOException e) {                     
@@ -121,7 +121,7 @@ public class MyJson {
     public static void print(String data){
 	try {    
             HttpServletResponse response = ServletActionContext.getResponse();  
-            response.setContentType("application/json;charset=UTF-8");
+            response.setContentType("text/html;charset=UTF-8");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().println(data);
         } catch (IOException e) {                     

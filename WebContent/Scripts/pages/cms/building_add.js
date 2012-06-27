@@ -6,10 +6,9 @@ $(function()
 	var projectId = parent.document.getElementById("frame.pageId").value;
 	objfc1.value = projectId;
 });
-	function strim(str){
-		return str.replace(/(^\s*)|(\s*$)/g,""); 
-	}
+
 function FormCheck(){
+	objfc0=document.getElementById("building.project.proId");
 	objfc1=document.getElementById("building.builNum");
 	objfc2=document.getElementById("building.unitTag");
 	objfc3=document.getElementById("building.unitCount");
@@ -20,7 +19,11 @@ function FormCheck(){
 	
 	objfc8=document.getElementById("building.project.proId");
 	
-	
+	if(strim(objfc0.value)=="null"){
+		alert("请选择小区");
+		objfc0.focus();
+		return (false);
+	}
 	if(strim(objfc1.value)==""){
 		alert("楼号不能为空");
 		objfc1.focus();
@@ -56,25 +59,23 @@ function FormCheck(){
 	return check_Building(strim(objfc8.value),strim(objfc1.value),objfc1);
 }
 function check_Building(projectId,builNum,objfc1) {
-	var url = "checkBuildingByBuilNumAndProjectId?projectId="+projectId+"&builNum="+builNum;
-    	$.ajax({
-			type: "POST",
-			url: url,
-			dataType:"json",
-			success : function(data){					
-				var result = data["result"];
-				if(result=="Failed")
-				{
-					alert("已存在该楼号，请核对！");
-					objfc1.select();
-					 return false;
-				}
-				else
-				{
-					document.getElementById("form").submit();
-					closeAddNewBuilding();
-					return true;						
-				}
+	var url = "isBuildingExist?projectId="+projectId+"&builNum="+builNum;
+	$.ajax({
+		type: "POST",
+		url: url,
+		dataType:"json",
+		success : function(data){					
+			var result = data["result"];
+			if(result=="Failed"){
+				alert("已存在该楼号，请核对！");
+				objfc1.select();
+				return false;
 			}
-		});    	
+			else{
+				document.getElementById("form").submit();
+				closeAddNewBuilding();
+				return true;						
+			}
+		}
+	});    	
 }

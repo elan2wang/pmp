@@ -218,7 +218,6 @@ public class ElectricFeeDAO extends BaseDAO implements IElectricFeeDAO {
 	} else {
 	    hql.append(" "+order);
 	}
-	logger.debug(hql);
 	try {
 	    list = (List<ElectricFee>) loadListByCondition(hql.toString(),pager,debugMsg);
 	} catch (RuntimeException e){

@@ -34,6 +34,7 @@ import org.pmp.util.Pager;
 import org.pmp.vo.ElectricFee;
 import org.pmp.vo.ElectricFeeCharge;
 import org.pmp.vo.ElectricFeeItem;
+import org.pmp.vo.HouseOwner;
 import org.pmp.vo.Owner;
 
 /**
@@ -105,18 +106,27 @@ public class ElectricFeeAction extends BaseAction {
 	Includer includer = new Includer(show);
 	MyJson json = new MyJson(includer);
 	
+
+	StringBuilder title = new StringBuilder();
 	/* 获取业主姓名和联系方式 */
-	Owner owner = houseOwnerService.getHouseOwner_ByHouse(houseId).getOwner();
-	String contact = null;
-	if (owner.getMobile()!=null && owner.getHomePhone()!=null){
-	    contact = owner.getMobile()+" / "+owner.getHomePhone();
-	} else if (owner.getMobile()!=null && owner.getHomePhone()==null){
-	    contact = owner.getMobile();
-	} else if (owner.getMobile()==null && owner.getHomePhone()!=null){
-	    contact = owner.getHomePhone();
+	HouseOwner ho = houseOwnerService.getHouseOwner_ByHouse(houseId);
+	if (ho==null){
+	    title.append("未入住");
 	} else {
-	    contact = "无";
+	    Owner owner = ho.getOwner();
+	    String contact = null;
+	    if (owner.getMobile()!=null && owner.getHomePhone()!=null){
+		contact = owner.getMobile()+" / "+owner.getHomePhone();
+	    } else if (owner.getMobile()!=null && owner.getHomePhone()==null){
+		contact = owner.getMobile();
+	    } else if (owner.getMobile()==null && owner.getHomePhone()!=null){
+		contact = owner.getHomePhone();
+	    } else {
+		contact = "无";
+	    }
+	    title.append("业主姓名："+owner.getOwnerName()+"&nbsp;&nbsp;&nbsp;&nbsp;联系方式："+contact);
 	}
+	
 	/* 计算总共已缴纳的电费 */
 	List<ElectricFeeCharge> list = electricFeeChargeService.loadElectricFeeChargeList_ByHouse(houseId, new HashMap<String,Object>(), "", new Pager(10000,1));
 	Iterator<ElectricFeeCharge> ite = list.iterator();
@@ -134,9 +144,8 @@ public class ElectricFeeAction extends BaseAction {
 	    totalMoney += ef.getTotalMoney();
 	}
 	DecimalFormat df=new DecimalFormat("#.## ");
-	String title = "业主姓名："+owner.getOwnerName()+",&nbsp;&nbsp;&nbsp;&nbsp;联系电话："+contact+
-	               "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;已缴电费总计："+totalChargeMoney+"元,&nbsp;&nbsp;&nbsp;&nbsp;需缴电费总计："+totalMoney+"元,&nbsp;&nbsp;&nbsp;&nbsp;余额："+df.format(totalChargeMoney-totalMoney)+"元";
-	String data = json.toJson(efList, title, pager);
+	title.append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;已缴电费总计："+totalChargeMoney+"元,&nbsp;&nbsp;&nbsp;&nbsp;需缴电费总计："+totalMoney+"元,&nbsp;&nbsp;&nbsp;&nbsp;余额："+df.format(totalChargeMoney-totalMoney)+"元");
+	String data = json.toJson(efList, title.toString(), pager);
 	json.output(data);
     }
     

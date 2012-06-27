@@ -21,34 +21,27 @@ function owner_import(){
 	//clear msg
 	$('#msg').html("");
 	
-	$.ajaxFileUpload
-	(
-		{
-			url:'ownerImport', 
-			secureuri:false,
-			fileElementId:'ownerFile',
-			dataType: 'json',
-			success: function (data, status)
+	$.ajaxFileUpload({
+		url:'ownerImport', 
+		secureuri:false,
+		fileElementId:'ownerFile',
+		dataType: 'json',
+		success: function (data, status){
+			if(typeof(data.error) != 'undefined')
 			{
-				if(typeof(data.error) != 'undefined')
-				{
-					if(data.error != '')
-					{
-						$('#msg').html(data.msg);
-					}else
-					{
-						$('#ownerImport').window('close');
-						alert(data.msg);
-						window.location.href="owner_list.jsp";
-					}
+				if(data.error != ''){
+					$('#msg').html(data.msg);
+				}else{
+					alert(data.msg);
+					$('#ownerImport').window('close');
+					window.location.href="owner_list.jsp";
 				}
-			},
-			error: function (data, status, e)
-			{
-				alert(e);
 			}
+		},
+		error: function (data, status, e){
+			alert(e);
 		}
-	);
+	});
 	
 	return false;
 }

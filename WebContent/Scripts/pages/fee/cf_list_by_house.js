@@ -30,13 +30,13 @@ $(function(){
 		],
 		title:true,
 		showSearch:true,
-		height:Height*0.84,
+		height:Height*0.96,
         showcheckbox:true,
-        nomsg: '没有符合条件的物业费记录',
         usepager:true,
         useRp:true,
         rp: 15,
-		showTableToggleBtn: true
+		showTableToggleBtn: true,
+        nomsg: '没有符合条件的物业费记录'
 	});
 });
 

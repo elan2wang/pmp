@@ -10,7 +10,7 @@
 
 <body>
 <div class="window_content">
-  <form id="form" name="form" action="projectAction!addProject.action" method="post">
+  <form id="form" name="form" action="addProject" method="post">
      <div class="rowStyle">
         <div><span >项目名称:</span><span><input name="project.proName" type="text" class="textbox" id="project.proName" /></span><span style="color:red">*</span></div>
      </div>
@@ -25,7 +25,7 @@
         </div>
      </div>
      <div class="rowStyle">
-        <div><span >所属地区:</span><span><select id="proDistrict" name="project.proDistrict" onchange="getStreets()" class="selectbox">
+        <div><span >所属地区:</span><span><select id="project.proDistrict" name="project.proDistrict" onchange="getStreets()" class="selectbox">
                             <option selected="selected"  value="">选择地区</option>
                             <option>定海区</option>                                            
                             <option>普陀区</option>

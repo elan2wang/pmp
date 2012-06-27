@@ -114,20 +114,11 @@
 	              <td width="20%" height="25" align="center" valign="middle">本期度数</td>
 	              <td width="20%" height="25" align="center" valign="middle">单价</td>
 	              <td width="20%" height="25" align="center" valign="middle"></td>
-	             </tr>
-                </table>
+	           </tr>
+             </table>
            </div>
 	  </div>
 	 
-	</fieldset>
-	<fieldset class="add_fieldset">
-	  <legend class="add_legend">第四步：预览创建信息</legend>
-	  <div class="buttongroup">
-	    <input type="button" value="预览创建信息" onclick="preview()" /><br/>
-	  </div>
-	  <div class="buttongroup">
-	  <textarea name="display" id="display" disabled="disabled" rows="2" cols="115" style="font-size:14px;"></textarea><br/>
-	  </div>
 	</fieldset>
 	<div style="padding-left:20px;margin-top:10px">
 	<input type="submit" id="submitbtn" value="确认创建"  onclick="return FormCheck();"/>

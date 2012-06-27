@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,19 +12,17 @@
 
 <body>
 <div class="window_content">
-     <form id="form" name="form" action="updateBuilding" method="post">
-      <input type="hidden" id="building.project.proId" name="building.project.proId" value="${building.project.proId}" />
+    <form id="form" name="form" action="editBuilding" method="post">
     <div class="rowStyle">
-       <div><span >楼&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</span><span><input name="building.builNum" type="text" class="textbox" id="building.builNum" value='${building.builNum}' readOnly/></span>
+       <div><span >小&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;区：</span><span><input name="building.project.proId" type="hidden" class="textbox" id="building.project.proId" value='${building.project.proId}'/><input name="building.project.proName" type="text" class="textbox" id="building.project.proName" value='${building.project.proName}'/></span>
        <span style="color:red">*</span></div>
     </div>
     <div class="rowStyle">
-       <input type="hidden" name="building.unitTag2" id="building.unitTag2" value='${building.unitTag}'/>
-       <div><span >单&nbsp;元&nbsp;标识：</span><span><select id="building.unitTag" name="building.unitTag" class="selectbox">
-       	<option selected="selected" value="">请选择单元标识</option>
-       	<option>数字</option>
-       	<option>字母</option>
-       </select>
+       <div><span >楼&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</span><span><input name="building.builNum" type="text" class="textbox" id="building.builNum" value='${building.builNum}' readOnly/></span>
+       <span style="color:red">*</span></div>
+    </div>
+    <div class="rowStyle">
+       <div><span >单元标识：</span><span><input type="text" name="building.unitTag" id="building.unitTag" class="textbox" value='${building.unitTag}' readOnly/>
        </span><span style="color:red">*</span></div>
     </div>
     <div class="rowStyle">
@@ -35,16 +34,16 @@
        <span style="color:red">*</span></div>
     </div>
     <div class="rowStyle">
-       <div><span>单元层户数：</span><span><input name="building.housesPer" type="text" class="textbox" id="building.housesPer" value='${building.housesPer}' readOnly/></span>
+       <div><span>每层户数：</span><span><input name="building.housesPer" type="text" class="textbox" id="building.housesPer" value='${building.housesPer}' readOnly/></span>
        <span style="color:red">*</span></div>
     </div>
     <div class="rowStyle">
-       <div><span >跳过楼层数：</span><span><input name="building.skipFloor" type="text" class="textbox" id="building.skipFloor" value='${building.skipFloor}' readOnly/></span>
+       <div><span >跳过楼层：</span><span><input name="building.skipFloor" type="text" class="textbox" id="building.skipFloor" value='${building.skipFloor}' readOnly/></span>
        <span style="color:red">*</span></div>
     </div>
     <div class="rowStyle">
-       <input type="hidden" name="building.builType2" id="building.builType2" value='${building.builType}'/>
-       <div><span >楼&nbsp;宇&nbsp;类型：</span><span><select id="building.builType" name="building.builType" class="selectbox">
+       <input type="hidden" name="builType" id="builType" value='${building.builType}'/>
+       <div><span >楼宇类型：</span><span><select id="building.builType" name="building.builType" class="selectbox">
                            <option selected="selected" value="">请选择楼宇类型</option>
                            <option>多层（普通）</option>
                            <option>多层（电梯）</option>
@@ -60,16 +59,15 @@
     </div>
     <div class="rowStyle">
        <div>
-         <span >是&nbsp;否&nbsp;启用：</span>
+         <span >是否启用：</span>
          <span>
-          	<input type="hidden" name="building.enabled2" id="building.enabled" value='${building.enabled}'/>
-            <input id="isenabled" name="building.enabled" type="radio" value="true"/><label for="building.enabled">启用</label>
-            <input id="notenabled" type="radio" name="building.enabled" value="false" checked/><label for="building.enabled">不启用</label>
+            <input name="building.enabled" type="radio" value="true" <c:if test="${building.enabled==true }">checked="checked"</c:if> />启用
+            <input name="building.enabled" type="radio" value="false" <c:if test="${building.enabled==false }">checked="checked"</c:if> />不启用
          </span>
        </div>
     </div>
     <div class="rowStyle">
-       <div><span style="">备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：</span><span><textarea name="building.builDesc" style="height:40px;" class="textbox" id="building.builDesc"><s:property value="building.builDesc"/></textarea></span></div>
+       <div><span style="">备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：</span><span><textarea name="building.builDesc" style="height:40px;" class="textbox" id="building.builDesc"><s:property value="building.builDesc"/></textarea></span></div>
     	<input type="hidden" id="building.builId" name="building.builId" value='<s:property value="building.builId"/>'>
     </div>
     <div class="rowStyle">

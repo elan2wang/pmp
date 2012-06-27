@@ -10,7 +10,7 @@ $(function(){
 		return false;
 	});
     $('#cmpylist').flexigrid({
-    	url:"cmpy_list",
+    	url:"loadCompanyList",
     	dataType:"json",
     	colModel: [
     	    { display: '公司名称',name:'comName', width: Width*0.15, align: 'center' },
@@ -47,7 +47,7 @@ function addCompany(){
 
 function openEditCmpy(obj){
 	var id=parseInt(obj.attr("id").substr(3));
-	var url = 'getCompanyByID?comid='+id;
+	var url = 'getCompany?comid='+id;
 	openEditWindow("#editCmpy",url);
 }
 

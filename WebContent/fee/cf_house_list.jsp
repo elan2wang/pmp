@@ -37,16 +37,16 @@ a{color:black}
     </div>
     <div class="middle" style="width:0.5%"></div>
     <div id="right_main" class="right_main" style="float:left;display:block;width:79%">
-      <iframe name="condoFeeList" id="condoFeeList" frameborder="0" scrolling="auto" width="100%" height="100%" style="margin:0px;padding:0px"></iframe>
+      <iframe name="condoFeeList" id="condoFeeList" frameborder="0" scrolling="auto" width="100%" height="100%"></iframe>
     </div>
   </div>
 </div>
   <script type="text/javascript">
    var Height2=parseInt(document.documentElement.clientHeight);
    var Width2=parseInt(document.documentElement.clientWidth);
-   ChangeHeight(Width2,Height2+40,'left_main');
-   ChangeHeight(Width2,Height2+40,'middle');
-   ChangeHeight(Width2,Height2+40,'right_main');
+   ChangeHeight(Width2,Height2+38,'left_main');
+   ChangeHeight(Width2,Height2+38,'middle');
+   ChangeHeight(Width2,Height2+38,'right_main');
   </script>
 </body>
 </html>

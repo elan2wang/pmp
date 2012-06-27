@@ -8,29 +8,28 @@
 package org.pmp.action.business;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 
 import org.apache.log4j.Logger;
+import org.pmp.json.Includer;
+import org.pmp.json.MyJson;
 import org.pmp.service.business.IHouseService;
-import org.pmp.util.JsonConvert;
 import org.pmp.util.Pager;
 import org.pmp.util.SessionHandler;
 import org.pmp.vo.Company;
 import org.pmp.vo.House;
 import org.pmp.vo.Project;
 
-import com.opensymphony.xwork2.ActionSupport;
 
 /**
  * @author Elan
  * @version 1.0
  * @update TODO
  */
-public class HouseAction extends ActionSupport {
+public class HouseAction extends BaseAction {
 	
     private static Logger logger = Logger.getLogger(HouseAction.class.getName());
 	
@@ -46,22 +45,14 @@ public class HouseAction extends ActionSupport {
     private String houseNum;
     
     private String idStr;
-    
-    /* =========FlexiGrid post parameters======= */
-    private Integer page=1;
-    private Integer rp=15;
-    private String sortname;
-    private String sortorder;
-    private String query;
-    private String qtype;
-    /* =========FlexiGrid post parameters======= */
+   
 
-    public String saveHouse(){
+    public String addHouse(){
 	houseService.addHouse(house);
 	return SUCCESS;
     }
 	
-    public String updateHouse(){
+    public String editHouse(){
         houseService.editHouse(house);
         return SUCCESS;
     }
@@ -85,23 +76,17 @@ public class HouseAction extends ActionSupport {
         return SUCCESS;
     }
 	
-    public void loadHouseListBySessionHandler(){
+    public void loadHouseList(){
         List<?> houseList = null;
         houseList = new ArrayList<House>();
         Object obj = SessionHandler.getUserRefDomain();
         //如果是小区管理员，则只显示本小区内的楼宇
 		
-        Pager pager = new Pager(rp,page);
-        String order = null;
-	Map<String,Object> params = new HashMap<String,Object>();
-	if (!qtype.equals("")&&!query.equals("")){
-	    params.put(qtype, query);
-	}
-	if (!sortname.equals("undefined")&&!sortorder.equals("undefined")){
-	    order= "order by "+sortname+" "+sortorder;
-	} else{
-	    order = "order by building.builId asc, houseNum asc";
-	}
+        Pager pager = getPager();
+	/* set query parameter */
+	Map<String,Object> params = getParams();
+	/* set sorter type */
+	String order = getOrder();
 	
         if(buildingId!=0){
             houseList = houseService.loadHouseList_ByBuilding(buildingId, params, order, pager);
@@ -119,28 +104,12 @@ public class HouseAction extends ActionSupport {
             houseList = houseService.loadHouseList_ByProject(projectId, params, order, pager);
         }
         
-        /* convert ugrList instance to JsonData */
-        StringBuilder sb = new StringBuilder();
-        sb.append("{\n");
-        sb.append("  "+JsonConvert.toJson("page")+":\""+JsonConvert.toJson(pager.getCurrentPage())+"\",\n");
-        sb.append("  "+JsonConvert.toJson("total")+":"+JsonConvert.toJson(pager.getRowsCount())+",\n");
-    	sb.append("  "+JsonConvert.toJson("rows")+":[\n");
-        Iterator<?> ite = houseList.iterator();
-        while(ite.hasNext()){
-            House house = (House)ite.next();
-            sb.append("    {"+JsonConvert.toJson("id")+":\""+JsonConvert.toJson(house.getHouseId())+"\",");
-            sb.append(JsonConvert.toJson("cell")+":{");
-            sb.append(JsonConvert.toJson("project")+":"+JsonConvert.toJson(house.getBuilding().getProject().getProName())+",");
-            sb.append(JsonConvert.toJson("houseNum")+":"+JsonConvert.toJson(house.getHouseNum())+",");
-            sb.append(JsonConvert.toJson("houseArea")+":"+JsonConvert.toJson(house.getHouseArea())+",");
-            sb.append(JsonConvert.toJson("houseDesc")+":"+JsonConvert.toJson(house.getHouseDesc())+",");
-            sb.append(JsonConvert.toJson("condoFeeRate")+":"+JsonConvert.toJson(house.getCondoFeeRate())+",");
-            sb.append(JsonConvert.toJson("cycleMonth")+":"+JsonConvert.toJson(house.getCycleMonth())+",");
-            sb.append(JsonConvert.toJson("isempty")+":"+JsonConvert.toJson(house.isIsempty())+"}},\n");
-        }
-        if(houseList.size()!=0)sb.deleteCharAt(sb.length()-2);
-        sb.append("  ]\n}");
-        JsonConvert.output(sb.toString());		
+        String[] attrs = {"houseId","building.project.proName","houseNum","houseArea","isempty","houseDesc"};
+        List<String> show = Arrays.asList(attrs);
+        Includer includer = new Includer(show);
+        MyJson json = new MyJson(includer);
+        String data = json.toJson(houseList, "", pager);
+        MyJson.print(data);
     }
 
     //~ getters and setters ===========================================================================================
@@ -206,54 +175,6 @@ public class HouseAction extends ActionSupport {
 
     public void setHouseNum(String houseNum) {
         this.houseNum = houseNum;
-    }
-
-    public Integer getPage() {
-        return page;
-    }
-
-    public void setPage(Integer page) {
-        this.page = page;
-    }
-
-    public Integer getRp() {
-        return rp;
-    }
-
-    public void setRp(Integer rp) {
-        this.rp = rp;
-    }
-
-    public String getSortname() {
-        return sortname;
-    }
-
-    public void setSortname(String sortname) {
-        this.sortname = sortname;
-    }
-
-    public String getSortorder() {
-        return sortorder;
-    }
-
-    public void setSortorder(String sortorder) {
-        this.sortorder = sortorder;
-    }
-
-    public String getQuery() {
-        return query;
-    }
-
-    public void setQuery(String query) {
-        this.query = query;
-    }
-
-    public String getQtype() {
-        return qtype;
-    }
-
-    public void setQtype(String qtype) {
-        this.qtype = qtype;
     }
 
     public String getIdStr() {

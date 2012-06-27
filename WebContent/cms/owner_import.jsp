@@ -17,6 +17,7 @@
 <input type="file" id="ownerFile" size="25" name="ownerFile" /><input type="button" onclick="owner_import()" value="导入">
 <br><img src='../Images/loading.gif' id='loading' style='display:none'><br>
 <div id="msg" style="color:red;font-size:13px;text-aligan:center"></div>
+<div id="download" style="font-size:12px">请先下载<a href="../file/ownerinfo.xls">《业主信息模板》</a></div>
 </div>
 </body>
 </html>

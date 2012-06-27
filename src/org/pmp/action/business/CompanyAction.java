@@ -7,18 +7,15 @@
  */
 package org.pmp.action.business;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
+import org.pmp.json.MyJson;
 import org.pmp.service.business.ICompanyService;
 import org.pmp.util.Pager;
 import org.pmp.util.JsonConvert;
@@ -26,14 +23,12 @@ import org.pmp.util.SessionHandler;
 import org.pmp.vo.Company;
 import org.pmp.vo.TbRole;
 
-import com.opensymphony.xwork2.ActionSupport;
-
 /**
  * @author Elan
  * @version 1.0
  * @update TODO
  */
-public class CompanyAction extends ActionSupport {
+public class CompanyAction extends BaseAction {
     //~ Static Fields ==================================================================================================
     static Logger logger = Logger.getLogger(CompanyAction.class.getName ());
     //~ Instance Fields ================================================================================================
@@ -45,15 +40,6 @@ public class CompanyAction extends ActionSupport {
     private List<?> companyList;
     private String companyName;
 
-    /* =========FlexiGrid post parameters======= */
-    private Integer page=1;
-    private Integer rp=15;
-    private String sortname;
-    private String sortorder;
-    private String query;
-    private String qtype;
-    /* =========FlexiGrid post parameters======= */
-    
     //~ Methods ========================================================================================================
     public String addCompany(){
 	company.setEnabled(true);
@@ -61,7 +47,7 @@ public class CompanyAction extends ActionSupport {
 	return SUCCESS;
     }
     
-    public String updateCompany(){
+    public String editCompany(){
 	companyService.editCompany(company);
 	return SUCCESS;
     }
@@ -80,8 +66,12 @@ public class CompanyAction extends ActionSupport {
     }
     
     public void loadCompanyList(){
-    	logger.debug("进入loadCompanyList");
-    	Pager pager = new Pager(rp,page);
+	Pager pager = getPager();
+	/* set query parameter */
+	Map<String,Object> params = getParams();
+	/* set sorter type */
+	String order = getOrder();
+	
     	TbRole role = SessionHandler.getUserRole();
     	List<Company> companyList = new ArrayList<Company>();
     	//如果是公司管理员
@@ -90,25 +80,13 @@ public class CompanyAction extends ActionSupport {
     	    Company com = (Company)SessionHandler.getUserRefDomain();
     	    companyList.add(com);
     	}
-    	else if(role.getRoleLevel()==1)
-    	{
-    	    String order = null;
-    	    Map<String,Object> params = new HashMap<String,Object>();
-    	    if (!qtype.equals("")&&!query.equals("")){
-    		params.put(qtype, query);
-    	    }
-    	    if (!sortname.equals("undefined")&&!sortorder.equals("undefined")){
-    		order= "order by "+sortname+" "+sortorder;
-    	    } else{
-    		order = "order by comName asc";
-    	    }
+    	else if(role.getRoleLevel()==1){
     	    companyList = companyService.loadCompanyList_ByChinaMobile(params, order, pager);
     	}
-    	//invoke JsonConvert.list2Jason method to get JsonData
-    	pager.setRowsCount(companyList.size());
-    	String data = JsonConvert.list2FlexJson(pager, companyList, "org.pmp.vo.Company");
-    	logger.debug(data);
-    	JsonConvert.output(data);
+    	
+    	MyJson json = new MyJson();
+    	String data = json.toJson(companyList, "", pager);
+    	MyJson.print(data);
     }
     
     public String getCompanyByID(){
@@ -176,54 +154,6 @@ public class CompanyAction extends ActionSupport {
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
-    }
-
-    public Integer getPage() {
-        return page;
-    }
-
-    public void setPage(Integer page) {
-        this.page = page;
-    }
-
-    public Integer getRp() {
-        return rp;
-    }
-
-    public void setRp(Integer rp) {
-        this.rp = rp;
-    }
-
-    public String getSortname() {
-        return sortname;
-    }
-
-    public void setSortname(String sortname) {
-        this.sortname = sortname;
-    }
-
-    public String getSortorder() {
-        return sortorder;
-    }
-
-    public void setSortorder(String sortorder) {
-        this.sortorder = sortorder;
-    }
-
-    public String getQuery() {
-        return query;
-    }
-
-    public void setQuery(String query) {
-        this.query = query;
-    }
-
-    public String getQtype() {
-        return qtype;
-    }
-
-    public void setQtype(String qtype) {
-        this.qtype = qtype;
     }
 
 }

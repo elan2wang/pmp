@@ -99,7 +99,49 @@ function buildingChanged(houseid,houseNum){
 	});
 }
 
+function strim(str){
+	return str.replace(/(^\s*)|(\s*$)/g,""); 
+}
+
 function FormCheck(){
+	/* 必填字段校验 */
+	var obj1 = document.getElementById("owner.ownerName");
+	var obj2 = document.getElementById("owner.mobile");
+	var obj3 = document.getElementById("houseId");
+	var obj4 = document.getElementById("owner.houseArea");
+	var isMobilePattern = /^(13|15|18)[0-9]{9}$/;
+	var isNumber = /^[1-9][0-9]{1,2}.?[0-9]{1,2}$/;
+	if(strim(obj1.value)==""){
+		alert("用户名不能为空");
+		obj1.focus();
+		return (false);
+	}
+	if(strim(obj2.value)==""){
+		alert("电话号码不能为空");
+		obj2.focus();
+		return (false);
+	}
+	if(isMobilePattern.test(strim(obj2.value))==false){
+		alert("手机号码格式有误");
+		obj2.focus();
+		return (false);
+	}
+	if(obj3.value==null||strim(obj3.value)==""||strim(obj3.value)=="null"){
+		alert("您还没有选择房屋信息");
+		obj3.focus();
+		return (false);
+	}
+	if(strim(obj4.value)==""){
+		alert("房屋面积不能为空");
+		obj4.focus();
+		return (false);
+	}
+	if(isNumber.test(strim(obj4.value))==false){
+		alert("房屋面积格式有误");
+		obj4.focus();
+		return (false);
+	}
+	
 	/* set hidden input projectName */
 	document.getElementById("projectName").value = document.getElementById("projectId").options[document.getElementById("projectId").selectedIndex].text;
 	/* set hidden input buildingNum */
@@ -108,4 +150,5 @@ function FormCheck(){
 	document.getElementById("houseNum").value = document.getElementById("houseId").options[document.getElementById("houseId").selectedIndex].text;
 	
 	to('P2');
+	return true;
 }

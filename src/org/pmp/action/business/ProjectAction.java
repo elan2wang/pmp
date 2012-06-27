@@ -16,7 +16,9 @@ import java.io.OutputStream;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +27,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.pmp.excel.ProjectImport;
+import org.pmp.json.Includer;
+import org.pmp.json.MyJson;
 import org.pmp.service.business.IProjectService;
 import org.pmp.util.JsonConvert;
 import org.pmp.util.MyfileUtil;
@@ -33,35 +37,24 @@ import org.pmp.util.SessionHandler;
 import org.pmp.vo.Company;
 import org.pmp.vo.Project;
 
-import com.opensymphony.xwork2.ActionSupport;
 
 /**
  * @author Elan
  * @version 1.0
  * @update TODO
  */
-public class ProjectAction extends ActionSupport {
+public class ProjectAction extends BaseAction {
     static Logger logger = Logger.getLogger(ProjectAction.class.getName());
 	
     private IProjectService projectService;
     private Project project;
     private Integer projectId;
-    private List projectList;
-    private String projectName;
+    private String proName;
 	
     /* used when uploadFile */
     private File proFile;
     private String proFileFileName;
     private String proFileContentType;
-	
-    /* =========FlexiGrid post parameters======= */
-    private Integer page=1;
-    private Integer rp=15;
-    private String sortname;
-    private String sortorder;
-    private String query;
-    private String qtype;
-    /* =========FlexiGrid post parameters======= */
 	    
     public String addProject(){
         //调用该方法的必定是公司管理员
@@ -76,41 +69,46 @@ public class ProjectAction extends ActionSupport {
         projectService.deleteProject(projectService.getProjectByID(projectId));
     }
 	
-    public String updateProject(){
+    public String editProject(){
+	Project pro = projectService.getProjectByID(project.getProId());
+	project.setCompany(pro.getCompany());
         projectService.editProject(project);
         return SUCCESS;
     }
 	 
-    public void checkProjectByName(){
+    public String getProjectById(){
+        logger.debug("进入方法");
+        project = projectService.getProjectByID(projectId);
+        logger.debug("得到的project为:"+project.toString());
+        return SUCCESS;
+    }
+    
+    public void isExist(){
         try{
-            projectName = new String(projectName.getBytes("ISO-8859-1"),"UTF-8");
-        }catch(Exception e){}
-        Project project = projectService.getProjectByName(projectName);
-        String data = null;
-        if(project!=null){
-            data="{"+JsonConvert.toJson("result")+":"+JsonConvert.toJson("Failed")+"}";
-        }else{
-            data="{"+JsonConvert.toJson("result")+":"+JsonConvert.toJson("Success")+"}";
+            //FireFox的URL默认编码格式为ISO-8859-1
+            String name = new String(proName.getBytes("ISO-8859-1"),"UTF-8");
+            StringBuilder sb = new StringBuilder();
+            Project project = projectService.getProjectByName(name);
+            if(project!=null){
+                sb.append("{\"result\":\"Failed\"}");
+            }else{
+                sb.append("{\"result\":\"Success\"}");
+            }
+            MyJson.print(sb.toString());
+        }catch(Exception e){
+            logger.debug("字符串转换失败："+proName);
         }
-        logger.debug(data);
-        JsonConvert.output(data);
     }
 	 
-    public void loadProjectListBySessionHandler(){
+    public void loadProjectList(){
+        Pager pager = getPager();
+	/* set query parameter */
+	Map<String,Object> params = getParams();
+	/* set sorter type */
+	String order = getOrder();
+
         Object obj = SessionHandler.getUserRefDomain();
-        Pager pager = new Pager(rp,page);
-        String order = null;
-	Map<String,Object> params = new HashMap<String,Object>();
-	if (!qtype.equals("")&&!query.equals("")){
-	    params.put(qtype, query);
-	}
-	if (!sortname.equals("undefined")&&!sortorder.equals("undefined")){
-	    order= "order by "+sortname+" "+sortorder;
-	} else{
-	    order = "order by proDistrict asc, proName asc";
-	}
-	
-        projectList = new ArrayList<Project>();
+        List<Project> projectList = new ArrayList<Project>();
         //如果是小区管理员，则只显示本小区内的项目
         if(obj instanceof Project){
             Project pro = (Project)obj;
@@ -119,19 +117,20 @@ public class ProjectAction extends ActionSupport {
         else if(obj instanceof Company){
             Company com = (Company)obj;
             projectList = projectService.loadProjectList_ByCompany(com.getComId(), params, order, pager);
-        }	
-	
-        //
-	String data = JsonConvert.list2FlexJson(pager, projectList, "org.pmp.vo.Project");
-        logger.debug(data);
-        JsonConvert.output(data);
+        }
+	String[] attrs = {"proId","company.comName","proName","proDistrict","proStreet","proHouseCount","proType",
+		          "proAddress","deliveryTime","proDesc","fireEnabled","enabled"};
+	List<String> show = Arrays.asList(attrs);
+	Includer includer = new Includer(show);
+	MyJson json = new MyJson(includer);
+	String data = json.toJson(projectList, "", pager);
+	MyJson.print(data);
     }
-	
 	
     public String getProjectBySessionHander(){
         Object obj = SessionHandler.getUserRefDomain();
         String objName = obj.getClass().getName();
-        projectList = new ArrayList<Project>();
+        List<Project> projectList = new ArrayList<Project>();
         //如果是小区管理员，则只显示本小区内的业主
         if(objName.equals("org.pmp.vo.Project")){
             Project pro = (Project)obj;
@@ -142,26 +141,26 @@ public class ProjectAction extends ActionSupport {
             Map<String,Object> params = new HashMap<String,Object>();
             String order = "order by proId asc";
             projectList = projectService.loadProjectList_ByCompany(com.getComId(), params, order, pager);
-        }	        
-        return SUCCESS;
-    }
-	
-    public String getProjectById(){
-        logger.debug("进入方法");
-        project = projectService.getProjectByID(projectId);
-        logger.debug("得到的project为:"+project.toString());
-        return SUCCESS;
-    }
-	
-    public void uploadFile()throws IOException{
+        }	    
+        
         HttpServletRequest request = ServletActionContext.getRequest();
+        request.setAttribute("projectList", projectList);
+        return SUCCESS;
+    }
+    
+    public void uploadFile()throws IOException{
+        Map<String,Object> params = new LinkedHashMap<String, Object>();
+        String data = null;
+        MyJson json = new MyJson();
         String message = null;
         if(!MyfileUtil.validate(proFileFileName,"xls")){
             logger.debug("文件格式不对");
             String postfix = MyfileUtil.getPostfix(proFileFileName);
             message = postfix+"类型的文件暂不支持，请选择xls类型文件";
-            request.setAttribute("message", message);
-            JsonConvert.output("{\"error\":\"filetype_error\",\"msg\":"+JsonConvert.toJson(message)+"}");
+            params.put("error", "filetype_error");
+	    params.put("msg", message);
+	    data = json.toJson(params);
+	    MyJson.print(data);
             return;
         }
         /* create the dir to store error data */
@@ -185,119 +184,76 @@ public class ProjectAction extends ActionSupport {
         /* if there are some mistakes of the file */
         if (hasError){
             message = "记录有错误,正确数据已导入，请下载错误数据<a href=\""+downLoad+"\">下载</a>";
-            JsonConvert.output("{\"error\":\"record_error\",\"msg\":"+JsonConvert.toJson(message)+"}");
+            params.put("error", "record_error");
+	    params.put("msg", message);
+	    data = json.toJson(params);
+	    MyJson.print(data);
             return;
         }
 			
         /* data import success */
         message = "数据导入成功";
-        JsonConvert.output("{\"error\":\"\",\"msg\":"+JsonConvert.toJson(message)+"}");
+        params.put("error", "");
+	params.put("msg", message);
+        data = json.toJson(params);
+        MyJson.print(data);
         return;
     }
-	
+
     //~ setters and getters ===================================================================================================
-	public void setProjectService(IProjectService projectService) {
-		this.projectService = projectService;
-	}
-	
-	public Integer getPage() {
-		return page;
-	}
-	
-	public void setPage(Integer page) {
-		this.page = page;
-	}
-	
-	public Project getProject() {
-		return project;
-	}
-	public void setProject(Project project) {
-		this.project = project;
-	}
-	public Integer getProjectId() {
-		return projectId;
-	}
-	public void setProjectId(Integer projectId) {
-		this.projectId = projectId;
-	}
-	public String getProjectName() {
-		return projectName;
-	}
-	public void setProjectName(String projectName) {
-		this.projectName = projectName;
-	}
-	public List getProjectList() {
-		return projectList;
-	}
-	public void setProjectList(List projectList) {
-		this.projectList = projectList;
-	}
-	
-	public File getProFile() {
-		return proFile;
-	}
+    public IProjectService getProjectService() {
+        return projectService;
+    }
 
-	public void setProFile(File proFile) {
-		this.proFile = proFile;
-	}
+    public void setProjectService(IProjectService projectService) {
+        this.projectService = projectService;
+    }
 
-	public String getProFileFileName() {
-		return proFileFileName;
-	}
+    public Project getProject() {
+        return project;
+    }
 
-	public void setProFileFileName(String proFileFileName) {
-		this.proFileFileName = proFileFileName;
-	}
+    public void setProject(Project project) {
+        this.project = project;
+    }
 
-	public String getProFileContentType() {
-		return proFileContentType;
-	}
+    public String getProName() {
+        return proName;
+    }
 
-	public void setProFileContentType(String proFileContentType) {
-		this.proFileContentType = proFileContentType;
-	}
+    public void setProName(String proName) {
+        this.proName = proName;
+    }
 
-	public Integer getRp() {
-	    return rp;
-	}
+    public Integer getProjectId() {
+        return projectId;
+    }
 
-	public void setRp(Integer rp) {
-	    this.rp = rp;
-	}
+    public void setProjectId(Integer projectId) {
+        this.projectId = projectId;
+    }
 
-	public IProjectService getProjectService() {
-	    return projectService;
-	}
+    public File getProFile() {
+        return proFile;
+    }
 
-	public String getSortname() {
-	    return sortname;
-	}
+    public void setProFile(File proFile) {
+        this.proFile = proFile;
+    }
 
-	public void setSortname(String sortname) {
-	    this.sortname = sortname;
-	}
+    public String getProFileFileName() {
+        return proFileFileName;
+    }
 
-	public String getSortorder() {
-	    return sortorder;
-	}
+    public void setProFileFileName(String proFileFileName) {
+        this.proFileFileName = proFileFileName;
+    }
 
-	public void setSortorder(String sortorder) {
-	    this.sortorder = sortorder;
-	}
+    public String getProFileContentType() {
+        return proFileContentType;
+    }
 
-	public String getQuery() {
-	    return query;
-	}
-
-	public void setQuery(String query) {
-	    this.query = query;
-	}
-
-	public String getQtype() {
-	    return qtype;
-	}
-
-	public void setQtype(String qtype) {
-	    this.qtype = qtype;
-	}
+    public void setProFileContentType(String proFileContentType) {
+        this.proFileContentType = proFileContentType;
+    }
 }

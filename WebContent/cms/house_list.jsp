@@ -28,8 +28,7 @@
 <div class="wrap">
     <table id="houselist">
     </table>
-    <div id="editHouse" class="easyui-window"  title="编辑房屋" iconCls="icon-save" style="width:350px;height:330px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
-  
+    <div id="editHouse" class="easyui-window"  title="编辑房屋" iconCls="icon-save" style="width:350px;height:310px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
 </div>
 </body>
 </html>

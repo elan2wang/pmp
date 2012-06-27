@@ -12,7 +12,7 @@
 
 <body>
 <div class="window_content">
-<form id="form2" method="post" action="updateCompany">
+<form id="form2" method="post" action="editCompany">
     <div class="rowStyle" style="display:none">
        <div><span >公司编号：</span><span><input name="company.comId" type="text" class="textbox" id="company.comId" value="${company.comId }"/></span></div>
     </div>

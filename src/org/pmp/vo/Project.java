@@ -137,19 +137,27 @@ public class Project implements java.io.Serializable {
 	this.proType = proType;
     }
 
-    public boolean isFireEnabled() {
-	return this.fireEnabled;
-    }
-
     public void setFireEnabled(boolean fireEnabled) {
 	this.fireEnabled = fireEnabled;
     }
 
-    public boolean isEnabled() {
-	return this.enabled;
-    }
-
     public void setEnabled(boolean enabled) {
 	this.enabled = enabled;
+    }
+
+    public Boolean getFireEnabled() {
+        return fireEnabled;
+    }
+
+    public void setFireEnabled(Boolean fireEnabled) {
+        this.fireEnabled = fireEnabled;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 }

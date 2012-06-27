@@ -17,7 +17,7 @@ function grid(url){
 			{ name: '取消', bclass: 'delete', onpress : closeFrame},
 			{ separator: true },      
 	    ],
-	    height: Height*0.76,
+	    height: Height*0.81,
  		showSearch:true,
  		showcheckbox:true,
  		usepager: true,

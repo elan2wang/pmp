@@ -8,12 +8,15 @@
 package org.pmp.action.business;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
+import org.pmp.json.Includer;
+import org.pmp.json.MyJson;
 import org.pmp.service.business.ICompanyService;
 import org.pmp.service.business.ISmsCompanyService;
 import org.pmp.util.JsonConvert;
@@ -23,14 +26,13 @@ import org.pmp.vo.Company;
 import org.pmp.vo.SMSCompany;
 import org.pmp.vo.TbRole;
 
-import com.opensymphony.xwork2.ActionSupport;
 
 /**
  * @author Elan
  * @version 1.0
  * @update TODO
  */
-public class SmsCompanyAction extends ActionSupport {
+public class SmsCompanyAction extends BaseAction {
 
     private static final long serialVersionUID = 4641286597063236773L;
     //~ Static Fields ==================================================================================================
@@ -44,15 +46,6 @@ public class SmsCompanyAction extends ActionSupport {
     private Integer smscId;
     /* used when batchDeleteSMSCompany */
     private String idStr;
-    
-    /* =========FlexiGrid post parameters======= */
-    private Integer page=1;
-    private Integer rp=15;
-    private String sortname;
-    private String sortorder;
-    private String query;
-    private String qtype;
-    /* =========FlexiGrid post parameters======= */
     
     //~ Constructor ====================================================================================================
 
@@ -109,9 +102,12 @@ public class SmsCompanyAction extends ActionSupport {
     	else
     	    smsCompanyList = new ArrayList<SMSCompany>();
 	
-    	String data = JsonConvert.list2FlexJson(pager, smsCompanyList, "org.pmp.vo.SMSCompany");
-	logger.debug(data);
-	JsonConvert.output(data);
+    	String[] attrs= {"smscId","company.comName","smscName","smsUpUrl","smsDownUrl","username","extendCode"};
+    	List<String> show = Arrays.asList(attrs);
+	Includer includer = new Includer(show);
+	MyJson json = new MyJson(includer);
+	String data = json.toJson(smsCompanyList, "", pager);
+	MyJson.print(data);
     }
 
    
@@ -162,53 +158,5 @@ public class SmsCompanyAction extends ActionSupport {
 
     public void setIdStr(String idStr) {
         this.idStr = idStr;
-    }
-
-    public Integer getPage() {
-        return page;
-    }
-
-    public void setPage(Integer page) {
-        this.page = page;
-    }
-
-    public Integer getRp() {
-        return rp;
-    }
-
-    public void setRp(Integer rp) {
-        this.rp = rp;
-    }
-
-    public String getSortname() {
-        return sortname;
-    }
-
-    public void setSortname(String sortname) {
-        this.sortname = sortname;
-    }
-
-    public String getSortorder() {
-        return sortorder;
-    }
-
-    public void setSortorder(String sortorder) {
-        this.sortorder = sortorder;
-    }
-
-    public String getQuery() {
-        return query;
-    }
-
-    public void setQuery(String query) {
-        this.query = query;
-    }
-
-    public String getQtype() {
-        return qtype;
-    }
-
-    public void setQtype(String qtype) {
-        this.qtype = qtype;
     }
 }

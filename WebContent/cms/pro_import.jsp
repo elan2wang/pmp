@@ -17,6 +17,7 @@
 <input type="file" id="proFile" id="proFile" size="25" name="proFile" /><input type="button" value="导入" onclick="new_pro_import()">
 <br><img src='../Images/loading.gif' id='loading' style='display:none'><br>
 <div id="msg" style="color:red;font-size:13px;text-aligan:center"></div>
+<div id="download" style="font-size:12px">请先下载<a href="../file/projectinfo.xls">《小区信息模板》</a></div>
 </div>
 </body>
 </html>

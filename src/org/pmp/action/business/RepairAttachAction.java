@@ -64,13 +64,14 @@ public class RepairAttachAction extends ActionSupport {
 	    MyJson.print(data);
 	    return;
 	}
-	MyfileUtil.createDir("repairAttach");
 	String attachUrl;
 	if(raFile!=null){
-	    attachUrl = FileUploadUtil.fileUpload(raFile, raFileFileName, "repairAttach");
+	    attachUrl = FileUploadUtil.fileUpload(raFile, raFileFileName, "../repairAttach");
 	} else {
 	    attachUrl = "";
 	}
+	logger.debug(attachUrl);
+	
 	RepairAttach ra = new RepairAttach();
 	ra.setAttachName(raFileFileName);
 	ra.setAttachUrl(attachUrl);

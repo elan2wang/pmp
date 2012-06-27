@@ -18,6 +18,7 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -182,20 +183,23 @@ public class OwnerAction extends BaseAction{
 	Includer includer = new Includer(show);
 	MyJson json = new MyJson(includer);
 	String data = json.toJson(hoList, "", pager);
-	
-	MyJson.print(data);
+	json.output(data);
 	
     }
     
     public void importOwner() throws Exception{
-	HttpServletRequest request = ServletActionContext.getRequest();
+	Map<String, Object> params = new LinkedHashMap<String,Object>();
+	String data = null;
+	MyJson json = new MyJson();
         String message = null;
 	if(!MyfileUtil.validate(ownerFileFileName,"xls")){
 	    logger.debug("文件格式不对");
 	    String postfix = MyfileUtil.getPostfix(ownerFileFileName);
 	    message = postfix+"类型的文件暂不支持，请选择xls类型文件";
-	    request.setAttribute("message", message);
-	    JsonConvert.output("{\"error\":\"filetype_error\",\"msg\":"+JsonConvert.toJson(message)+"}");
+	    params.put("error", "filetype_error");
+	    params.put("msg", message);
+	    data = json.toJson(params);
+	    MyJson.print(data);
 	    return;
 	}
 	/* create the dir to store error data */
@@ -220,13 +224,19 @@ public class OwnerAction extends BaseAction{
 	/* if there are some mistakes of the file */
 	if (hasError){
 	    message = "记录有错误,正确数据已导入，请下载错误数据<a href=\""+downLoad+"\">下载</a>";
-	    JsonConvert.output("{\"error\":\"record_error\",\"msg\":"+JsonConvert.toJson(message)+"}");
+	    params.put("error", "record_error");
+	    params.put("msg", message);
+	    data = json.toJson(params);
+	    MyJson.print(data);
 	    return;
 	}
 	
 	/* data import success */
 	message = "数据导入成功";
-	JsonConvert.output("{\"error\":\"\",\"msg\":"+JsonConvert.toJson(message)+"}");
+	params.put("error", "");
+	params.put("msg", message);
+	data = json.toJson(params);
+	MyJson.print(data);
 	return;
     }
     

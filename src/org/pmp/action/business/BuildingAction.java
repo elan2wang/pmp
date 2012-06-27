@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,14 +33,13 @@ import org.pmp.vo.Building;
 import org.pmp.vo.Company;
 import org.pmp.vo.Project;
 
-import com.opensymphony.xwork2.ActionSupport;
 
 /**
  * @author Elan
  * @version 1.0
  * @update TODO
  */
-public class BuildingAction extends ActionSupport {
+public class BuildingAction extends BaseAction {
 	
     private static Logger logger = Logger.getLogger(BuildingAction.class.getName());
 
@@ -58,33 +56,12 @@ public class BuildingAction extends ActionSupport {
     private String refFileFileName;
     private String refFileContentType;
 
-    /* =========FlexiGrid post parameters======= */
-    private Integer page=1;
-    private Integer rp=15;
-    private String sortname;
-    private String sortorder;
-    private String query;
-    private String qtype;
-    /* =========FlexiGrid post parameters======= */
-
-    public String saveBuilding(){
+    public String addBuilding(){
         buildingService.addBuilding(building);
         return SUCCESS;
     }
-	
-    public void checkBuildingByBuilNumAndProjectId(){
-        Building building = buildingService.getBuildingByProjectIdAndBuildingNum(projectId,builNum);
-        String data = null;
-        if(building!=null){
-            data="{"+JsonConvert.toJson("result")+":"+JsonConvert.toJson("Failed")+"}";   
-        } else {
-            data="{"+JsonConvert.toJson("result")+":"+JsonConvert.toJson("Success")+"}";
-	}
-        logger.debug(data);
-        JsonConvert.output(data);
-    }
     
-    public String updateBuilding(){
+    public String editBuilding(){
         buildingService.editBuilding(building);
         return SUCCESS;
     }
@@ -97,23 +74,17 @@ public class BuildingAction extends ActionSupport {
         building = buildingService.getBuildingById(buildingId);
         return SUCCESS;
     }
-	
-    public void loadBuildingListBySessionHandler(){
+    
+    public void loadBuildingList(){
         List<?> buildingList = new ArrayList<Building>();
         Object obj = SessionHandler.getUserRefDomain();
         //如果是小区管理员，则只显示本小区内的楼宇
 		
-        Pager pager = new Pager(rp,page);
-        String order = null;
-	Map<String,Object> params = new HashMap<String,Object>();
-	if (!qtype.equals("")&&!query.equals("")){
-	    params.put(qtype, query);
-	}
-	if (!sortname.equals("undefined")&&!sortorder.equals("undefined")){
-	    order= "order by "+sortname+" "+sortorder;
-	} else{
-	    order = "order by project.proId asc, builNum asc";
-	}
+        Pager pager = getPager();
+	/* set query parameter */
+	Map<String,Object> params = getParams();
+	/* set sorter type */
+	String order = getOrder();
 	
         if(projectId==0){
             if(obj instanceof Project){
@@ -136,7 +107,18 @@ public class BuildingAction extends ActionSupport {
         logger.debug(data);
         JsonConvert.output(data);
     }
-	
+
+    public void isExist(){
+        Building building = buildingService.getBuildingByProjectIdAndBuildingNum(projectId,builNum);
+        StringBuilder sb = new StringBuilder();
+        if(building!=null){
+            sb.append("{\"result\":\"Failed\"}");
+        }else{
+            sb.append("{\"result\":\"Success\"}");
+        }
+        MyJson.print(sb.toString());
+    }
+    
     public void uploadFile()throws IOException{
         HttpServletRequest request = ServletActionContext.getRequest();
         String message = null;
@@ -244,51 +226,4 @@ public class BuildingAction extends ActionSupport {
         this.refFileContentType = refFileContentType;
     }
 
-    public Integer getPage() {
-        return page;
-    }
-
-    public void setPage(Integer page) {
-        this.page = page;
-    }
-
-    public Integer getRp() {
-        return rp;
-    }
-
-    public void setRp(Integer rp) {
-        this.rp = rp;
-    }
-
-    public String getSortname() {
-        return sortname;
-    }
-
-    public void setSortname(String sortname) {
-        this.sortname = sortname;
-    }
-
-    public String getSortorder() {
-        return sortorder;
-    }
-
-    public void setSortorder(String sortorder) {
-        this.sortorder = sortorder;
-    }
-
-    public String getQuery() {
-        return query;
-    }
-
-    public void setQuery(String query) {
-        this.query = query;
-    }
-
-    public String getQtype() {
-        return qtype;
-    }
-
-    public void setQtype(String qtype) {
-        this.qtype = qtype;
-    }
 }

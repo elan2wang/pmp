@@ -7,23 +7,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="../Scripts/pages/cms/owner_add.js"></script>
 <title>无标题文档</title>
-<style type="text/css">
-.textbox{
-	width:90px;
-	height:14px;
-}
-.textbox1 {	width:90px;
-	height:14px;
-}
-.pinfen{
-	border:0px;	
-}
-.pinfen td{
-	border:0px;	
-}
-
-</style>
 </head>
 
 <body>
@@ -177,7 +162,7 @@
               <tr>
                 <td height="30" align="center" valign="middle">所在小区：</td>
                 <td align="left" valign="middle">
-                <s:action name="getProjectBySessionHander" namespace="/cms" executeResult="true"/>
+                <s:action name="getProjectBySessionHander" namespace="/cms" executeResult="true"/><span style="color:red">*</span>
                 <input type="hidden" id="projectName" name="projectName" value=""/>
                 </td>
                 <td align="center" valign="middle">楼&nbsp;宇&nbsp;号：</td>
@@ -192,7 +177,7 @@
                 <td height="30" align="center" valign="middle">房&nbsp;&nbsp;&nbsp;&nbsp;号：</td>
                 <td align="left" valign="middle">
                 	<select id="houseId" name="houseId" class="selectbox">
-                		<option selected="selected">选择房号</option>
+                		<option selected="selected" value="null">选择房号</option>
                 	</select><span style="color:red">*</span>
                 	<input type="hidden" name="houseNum" id="houseNum" value=""/>
                 </td>

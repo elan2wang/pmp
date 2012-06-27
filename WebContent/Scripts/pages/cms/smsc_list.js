@@ -24,7 +24,7 @@ $(function(){
                  { display: '信息及下行地址',name:'smsDownUrl', width: Width*0.25,align: 'center' },
                  { display: '应用账号', name:'username',width: Width*0.06, align: 'center' },
                  { display: '扩展码',name:'extendCode', width: Width*0.05, align: 'center' },
-                 { display: '公司名称',name:'company', width: Width*0.13, align: 'center' },
+                 { display: '公司名称',name:'company.comName', width: Width*0.13, align: 'center' },
              ],
              buttons : [
     		     {name: '添加账号', bclass: 'add', onpress : addSMSC},

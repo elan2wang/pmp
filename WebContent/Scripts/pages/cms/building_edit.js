@@ -1,28 +1,14 @@
 ﻿// JavaScript Document
 $(function(){
 	//获取有下拉框的id
-  	var unitTag = document.getElementById("building.unitTag");
   	var builType = document.getElementById("building.builType");
-  //获取隐藏域中的值，即服务器传来的owner的属性值
-  	var unitTagValue = document.getElementById("building.unitTag2").value;
-  	var builTypeValue = document.getElementById("building.builType2").value;
-  	UpdateSelectedItem(unitTag,unitTagValue);
-  	unitTag.onfocus=function()
-  	{
-  		unitTag.blur();
-  	};
+    
+  	//获取隐藏域中的值，即服务器传来的owner的属性值
+  	var builTypeValue = document.getElementById("builType").value;
 	UpdateSelectedItem(builType,builTypeValue);
-    //启用赋值
-	var isornotempty = document.getElementById("building.enabled");
-	if(isornotempty.value==document.getElementById("isenabled").value)
-	{
-		document.getElementById("isenabled").checked = true;
-	}
-	else if(isornotempty.value==document.getElementById("notenabled").value)
-	{
-		document.getElementById("notenabled").checked = true;
-	}
+    
 });
+
 function UpdateSelectedItem(objSelect, objItemValue) {   
     for (var i = 0; i < objSelect.options.length; i++) {
         if (objSelect.options[i].value == objItemValue) {  
@@ -30,10 +16,8 @@ function UpdateSelectedItem(objSelect, objItemValue) {
             break;       
         }       
     } 
-}   
-function strim(str){
-	return str.replace(/(^\s*)|(\s*$)/g,""); 
 }
+
 function editFormCheck(){
 	objfc1=document.getElementById("building.builNum");
 	objfc2=document.getElementById("building.unitTag");
@@ -73,7 +57,4 @@ function editFormCheck(){
 	document.getElementById("form").submit();
 	closeEditBuild();
 	return true;	
-}
-function editClose(){
-	closeEditBuild();
 }
