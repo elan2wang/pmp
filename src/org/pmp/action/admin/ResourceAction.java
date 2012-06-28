@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,8 +24,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
+import org.pmp.action.business.BaseAction;
 import org.pmp.excel.NewCondoFeeImport;
 import org.pmp.excel.ResourceImport;
+import org.pmp.json.Includer;
+import org.pmp.json.MyJson;
 import org.pmp.service.admin.IResourceService;
 import org.pmp.util.JsonConvert;
 import org.pmp.util.MyfileUtil;
@@ -39,7 +43,7 @@ import com.opensymphony.xwork2.ActionSupport;
  * @version 1.0
  * @update TODO
  */
-public class ResourceAction extends ActionSupport {
+public class ResourceAction extends BaseAction{
     //~ Static Fields ==================================================================================================
     static Logger logger = Logger.getLogger(ResourceAction.class.getName());
     //~ Instance Fields ================================================================================================
@@ -53,16 +57,7 @@ public class ResourceAction extends ActionSupport {
     
     /* used when deleteRes */
     private String idStr;
-    
-    /* =========FlexiGrid post parameters======= */
-    private Integer page=1;
-    private Integer rp=15;
-    private String sortname;
-    private String sortorder;
-    private String query;
-    private String qtype;
-    /* =========FlexiGrid post parameters======= */
-    
+   
     //~ Constructor ====================================================================================================
     
     //~ Methods ========================================================================================================
@@ -112,22 +107,21 @@ public class ResourceAction extends ActionSupport {
     }
     
     public void loadResList(){
-	Pager pager = new Pager(rp,page);
-	String order = null;
-	Map<String,Object> params = new HashMap<String,Object>();
-	if (!qtype.equals("")&&!query.equals("")){
-	    params.put(qtype, query);
-	}
-	if (!sortname.equals("undefined")&&!sortorder.equals("undefined")){
-	    order= "order by "+sortname+" "+sortorder;
-	} else{
-	    order = "order by resType asc, resLink asc";
-	}
-	List<?> resList = resourceService.loadResourceList(params, order, pager);
-	
-	String data = JsonConvert.list2FlexJson(pager, resList, "org.pmp.vo.TbResource");
-	logger.debug(data);
-	JsonConvert.output(data);
+	    Pager pager = getPager();
+	    /* set query parameter */
+	    Map<String,Object> params = getParams();
+	    /* set sorter type */
+	    String order = getOrder();
+		
+		List<?> resList = resourceService.loadResourceList(params, order, pager);
+		String[] attrs = {"resId","resName","resType","issys","enabled","resLink","resDesc"};
+		List<String> show = Arrays.asList(attrs);
+		Includer includer = new Includer(show);
+		MyJson json = new MyJson(includer);
+		
+		String data = json.toJson(resList, "", pager);
+		logger.debug(data);
+		json.output(data);
     }
     
     public String getResById(){
@@ -197,54 +191,6 @@ public class ResourceAction extends ActionSupport {
 
     public void setResFileContentType(String resFileContentType) {
         this.resFileContentType = resFileContentType;
-    }
-
-    public Integer getPage() {
-        return page;
-    }
-
-    public void setPage(Integer page) {
-        this.page = page;
-    }
-
-    public Integer getRp() {
-        return rp;
-    }
-
-    public void setRp(Integer rp) {
-        this.rp = rp;
-    }
-
-    public String getSortname() {
-        return sortname;
-    }
-
-    public void setSortname(String sortname) {
-        this.sortname = sortname;
-    }
-
-    public String getSortorder() {
-        return sortorder;
-    }
-
-    public void setSortorder(String sortorder) {
-        this.sortorder = sortorder;
-    }
-
-    public String getQuery() {
-        return query;
-    }
-
-    public void setQuery(String query) {
-        this.query = query;
-    }
-
-    public String getQtype() {
-        return qtype;
-    }
-
-    public void setQtype(String qtype) {
-        this.qtype = qtype;
     }
 
     public String getIdStr() {
