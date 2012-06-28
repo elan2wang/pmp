@@ -28,6 +28,7 @@
     </table>
     <input type="hidden" id="buildingId" name="buildingId" value="" /> 
     <div id="newBuild" class="easyui-window" href="building_add.jsp" title="添加新楼宇" iconCls="icon-save" style="width:330px;height:400px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
+    <div id="importBuild" class="easyui-window" href="building_import.jsp" title="楼宇批量导入" iconCls="icon-save" style="width:330px;height:200px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
     <div id="editBuild" class="easyui-window"  title="编辑楼宇"  iconCls="icon-save" style="width:330px;height:400px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
 </div>
 </body>

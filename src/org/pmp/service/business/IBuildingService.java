@@ -24,10 +24,14 @@ public interface IBuildingService {
     public void addBuilding(Building building);
     public void editBuilding(Building building);
     public void deleteBuilding(Building building);
-    public Building getBuildingById(Integer buildId);
+    
+    public void batchAddBuilding(List<Building> buildingList);
+    
+    public Building getBuildingById(Integer builId);
+    
     public List<Building> loadBuildingList_ByCompany(Integer comId,Map<String,Object>params,String order,Pager pager);
     
     public List<Building> loadBuildingList_ByProject(Integer proId,Map<String,Object>params,String order,Pager pager);
-    public void batchSaveBuilding(List<Building> buildingList);
+    
     public Building getBuildingByProjectIdAndBuildingNum(Integer projectId,Integer buildingNum);
 }

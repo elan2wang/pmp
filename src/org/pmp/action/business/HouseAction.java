@@ -109,7 +109,7 @@ public class HouseAction extends BaseAction {
         Includer includer = new Includer(show);
         MyJson json = new MyJson(includer);
         String data = json.toJson(houseList, "", pager);
-        MyJson.print(data);
+        json.output(data);
     }
 
     //~ getters and setters ===========================================================================================

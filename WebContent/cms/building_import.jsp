@@ -7,7 +7,7 @@
 <link href="../Scripts/component/AjaxFileUploader/ajaxfileupload.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="../Scripts/component/AjaxFileUploader/ajaxfileupload.js"></script>
-<script type="text/javascript" src="../Scripts/pages/cms/buil_import.js"></script>
+<script type="text/javascript" src="../Scripts/pages/cms/building_import.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -17,6 +17,7 @@
 <input type="file" id="refFile" size="25" name="refFile" /><input type="button" value="导入" onclick="new_buil_import()">
 <br><img src='../Images/loading.gif' id='loading' style='display:none'><br>
 <div id="msg" style="color:red;font-size:13px;text-aligan:center"></div>
+<div id="download" style="font-size:12px">请先下载<a href="../file/buildinginfo.xls">《楼宇信息模板》</a></div>
 </div>
 </body>
 </html>

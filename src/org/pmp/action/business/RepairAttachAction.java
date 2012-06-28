@@ -15,7 +15,9 @@ package org.pmp.action.business;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -24,7 +26,6 @@ import org.apache.struts2.ServletActionContext;
 import org.pmp.json.MyJson;
 import org.pmp.service.business.IOwnerRepairService;
 import org.pmp.service.business.IRepairAttachService;
-import org.pmp.util.FileUploadUtil;
 import org.pmp.util.MyfileUtil;
 import org.pmp.util.SessionHandler;
 import org.pmp.vo.RepairAttach;
@@ -56,17 +57,22 @@ public class RepairAttachAction extends ActionSupport {
     //~ Methods ========================================================================================================
     public void addRepairAttach() throws IOException{
         String message = null;
+        MyJson json = new MyJson();
+        String data = null;
+        Map<String, Object> params = new LinkedHashMap<String, Object>();
 	if(!MyfileUtil.validate(raFileFileName)){
 	    logger.debug("文件格式不对");
 	    String postfix = MyfileUtil.getPostfix(raFileFileName);
 	    message = postfix+"类型的文件暂不支持";
-	    String data="{\"result\":\"error\",\"message\":\""+message+"\"}";
-	    MyJson.print(data);
+	    params.put("result", "error");
+	    params.put("message", message);
+	    data = json.toJson(params);
+	    json.output(data);
 	    return;
 	}
 	String attachUrl;
 	if(raFile!=null){
-	    attachUrl = FileUploadUtil.fileUpload(raFile, raFileFileName, "../repairAttach");
+	    attachUrl = MyfileUtil.fileUpload(raFile, raFileFileName, "repairAttach");
 	} else {
 	    attachUrl = "";
 	}
@@ -79,10 +85,12 @@ public class RepairAttachAction extends ActionSupport {
 	ra.setUploadTime(new Date());
 	ra.setOwnerRepair(ownerRepairService.getOwnerRepair_ByID(opId));
 	repairAttachService.addRepairAttach(ra);
+	
 	message="附件上传成功";
-	String data="{\"result\":\"success\",\"message\":\""+message+"\"}";
-	logger.debug(data);
-	MyJson.print(data);
+	params.put("result", "success");
+	params.put("message", message);
+	data = json.toJson(params);
+	json.output(data);
 	return;
     }
     

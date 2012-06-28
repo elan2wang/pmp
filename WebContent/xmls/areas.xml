@@ -2,30 +2,58 @@
 <root>
 	<area>
 		<name>定海区</name>
-		<street>定海街道1</street>
-		<street>定海街道2</street>
-		<street>定海街道3</street>
-		<street>定海街道4</street>
+		<street>金塘镇</street>
+		<street>岑港镇</street>
+        <street>小沙镇</street>
+		<street>双桥镇</street>
+		<street>白泉镇</street>
+		<street>干石览镇</street>
+		<street>马岙镇</street>
+		<street>长白乡</street>
+		<street>册子乡</street>
+		<street>北蝉乡</street>
+		<street>解放街道</street>
+		<street>昌国街道</street>
+		<street>环南街道</street>
+		<street>城东街道</street>
+		<street>盐仓街道</street>
+		<street>临城街道</street>
 	</area>
 	<area>
 		<name>普陀区</name>
-		<street>普陀街道1</street>
-		<street>普陀街道2</street>
-		<street>普陀街道3</street>
-		<street>普陀街道4</street>
+		<street>六横镇</street>
+		<street>普陀山镇</street>
+		<street>东极镇</street>
+		<street>桃花镇</street>
+		<street>虾峙镇</street>
+		<street>蚂蚁乡</street>
+		<street>登步乡</street>
+		<street>佛渡乡</street>
+		<street>白沙乡</street>
+		<street>沈家门街道</street>
+		<street>东港街道</street>
+		<street>勾山街道</street>
+		<street>朱家尖街道</street>
+		<street>展茅街道</street>
 	</area>
 	<area>
 		<name>岱山区</name>
-		<street>岱山区街道1</street>
-		<street>岱山区街道2</street>
-		<street>岱山区街道3</street>
-		<street>岱山区街道4</street>
+		<street>高亭镇</street>
+		<street>岱东镇</street>
+		<street>岱西镇</street>
+		<street>东沙镇</street>
+		<street>衢山镇</street>
+		<street>长涂镇</street>
+		<street>秀山乡</street>
 	</area>
 	<area>
 		<name>嵊泗区</name>
-		<street>嵊泗区街道1</street>
-		<street>嵊泗区街道2</street>
-		<street>嵊泗区街道3</street>
-		<street>嵊泗区街道4</street>
+		<street>菜园镇</street>
+		<street>洋山镇</street>
+		<street>嵊山镇</street>
+		<street>枸杞乡</street>
+		<street>花鸟乡</street>
+		<street>五龙乡</street>
+		<street>黄龙乡</street>
 	</area>
 </root>

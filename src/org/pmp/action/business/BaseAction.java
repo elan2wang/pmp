@@ -17,7 +17,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.pmp.util.Pager;
-import org.pmp.validate.FormatValidate;
+import org.pmp.validate.ValidateUtil;
 
 import com.opensymphony.xwork2.ActionSupport;
 

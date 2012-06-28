@@ -14,10 +14,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
@@ -119,15 +118,19 @@ public class BuildingAction extends BaseAction {
         MyJson.print(sb.toString());
     }
     
-    public void uploadFile()throws IOException{
-        HttpServletRequest request = ServletActionContext.getRequest();
+    public void importBuilding()throws IOException{
+	MyJson json = new MyJson();
+	Map<String, Object> params = new LinkedHashMap<String,Object>();
+	String data = null;
         String message = null;
         if(!MyfileUtil.validate(refFileFileName,"xls")){
             logger.debug("文件格式不对");
             String postfix = MyfileUtil.getPostfix(refFileFileName);
             message = postfix+"类型的文件暂不支持，请选择xls类型文件";
-            request.setAttribute("message", message);
-            JsonConvert.output("{\"error\":\"filetype_error\",\"msg\":"+JsonConvert.toJson(message)+"}");
+            params.put("error", "filetype_error");
+            params.put("msg", message);
+            data = json.toJson(params);
+            json.output(data);
             return;
         }
         /* create the dir to store error data */
@@ -146,18 +149,24 @@ public class BuildingAction extends BaseAction {
         os.close();
 		
         /* call the method batchSetOughtMoney to update the condoFee*/
-        buildingService.batchSaveBuilding(builList);
+        buildingService.batchAddBuilding(builList);
 		
         /* if there are some mistakes of the file */
         if (hasError){
             message = "记录有错误,正确数据已导入，请下载错误数据<a href=\""+downLoad+"\">下载</a>";
-            JsonConvert.output("{\"error\":\"record_error\",\"msg\":"+JsonConvert.toJson(message)+"}");
+            params.put("error", "record_error");
+            params.put("msg", message);
+            data = json.toJson(params);
+            json.output(data);
             return;
         }
 		
         /* data import success */
         message = "数据导入成功";
-        JsonConvert.output("{\"error\":\"\",\"msg\":"+JsonConvert.toJson(message)+"}");
+        params.put("error", "");
+        params.put("msg", message);
+        data = json.toJson(params);
+        json.output(data);
         return;
     }
 

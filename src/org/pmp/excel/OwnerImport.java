@@ -30,7 +30,7 @@ import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 
 import org.apache.log4j.Logger;
-import org.pmp.validate.OwnerValidate2;
+import org.pmp.validate.OwnerValidate;
 import org.pmp.vo.Owner;
 
 /**
@@ -66,7 +66,7 @@ public class OwnerImport {
                     cell = sheet.getCell(i, j);
                     list.add(cell);
                 }
-	        if(!OwnerValidate2.isRight(list)){
+	        if(!OwnerValidate.isRight(list)){
 	            hasError = true;
 	        } else {
 	            /* if current record is right remove it from ws */

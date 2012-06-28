@@ -30,8 +30,8 @@ $(function(){
 			{ name: '缴费审核', bclass:'check', onpress: cfAudit }
 		],
 		searchitems:[
-			{ display: '业主', name: 'cfYear', isdefault:false },
-			{ display: '房号', name: 'cfYear', isdefault:false },
+			{ display: '业主', name: 'owner.ownerName', isdefault:false },
+			{ display: '房号', name: 'house.houseNum', isdefault:false },
 		    { display: '年份', name: 'cfYear', isdefault:false },
 		    { display: '月份', name: 'cfMonth', isdefault:false },
 		    { display: '状态', name: 'state', isdefault:true },

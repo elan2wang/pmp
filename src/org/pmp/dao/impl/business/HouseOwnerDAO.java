@@ -36,6 +36,7 @@ import org.pmp.vo.Owner;
  */
 public class HouseOwnerDAO extends BaseDAO implements IHouseOwnerDAO {
     Logger logger = Logger.getLogger(HouseOwnerDAO.class.getName());
+    
     public void batchSave(final List<Integer> ownerIdList){
         logger.debug("begin to batch add houseOwner with ownerIdList by call procedure add_house_owner");
         Work work = new Work(){

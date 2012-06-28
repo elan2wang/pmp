@@ -21,7 +21,8 @@ $(function(){
          ],
          buttons : [
 	        {name: '添加楼宇', bclass: 'add', onpress : addBuilding},
-		    {separator: true}
+		    {separator: true},
+		    {name: '导入楼宇', bclass: 'add', onpress : importBuilding}
 	     ],
          searchitems:[
             { display: '小区', name: 'project.proName', isdefault:false },
@@ -44,6 +45,10 @@ $(function(){
 
 function addBuilding(){
 	openAddWindow('#newBuild');
+}
+
+function importBuilding(){
+	openAddWindow('#importBuild');
 }
 
 function openEditBuild(obj){

@@ -40,6 +40,7 @@
   
   <bean id="buildingService" class="org.pmp.service.impl.business.BuildingService">
   	<property name="buildingDAO" ref="buildingDAO"></property>
+  	<property name="houseDAO" ref="houseDAO"></property>
   </bean>
   
   <bean id="houseService" class="org.pmp.service.impl.business.HouseService">
@@ -161,10 +162,6 @@
   <bean id="smsCompanyAction" class="org.pmp.action.business.SmsCompanyAction">
     <property name="smsCompanyService" ref="smsCompanyService" />
     <property name="companyService" ref="companyService" />
-  </bean>
-  
-  <bean id="timeParkFeeAction" class="org.pmp.action.business.TimeParkFeeAction">
-    <property name="timeParkFeeService" ref="timeParkFeeService" />
   </bean>
   
   <bean id="treeAction" class="org.pmp.action.business.TreeAction">

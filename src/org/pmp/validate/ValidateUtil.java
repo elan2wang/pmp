@@ -2,7 +2,7 @@ package org.pmp.validate;
 
 import java.util.regex.Pattern;
 
-public class FormatValidate {
+public class ValidateUtil {
 
     public static boolean isValidEmail(String str) {
 	String regex = "^(?:[a-zA-Z])(?:\\w{5,17})@(?:[a-zA-Z0-9]+)\\.(?:(com|cn|net))$";

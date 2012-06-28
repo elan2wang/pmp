@@ -22,6 +22,7 @@
               <div><span >楼&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</span><span><input name="building.builNum" type="text" class="textbox" id="building.builNum" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') " /></span>
               <span style="color:red">*</span></div>
            </div>
+           <!--  取消单元楼标识字段
            <div class="rowStyle">
               <div><span >单元标识：</span><span><select id="building.unitTag" name="building.unitTag" class="selectbox">
               	<option selected="selected" value="">请选择单元标识</option>
@@ -29,7 +30,8 @@
               	<option>字母</option>
               </select>
               </span><span style="color:red">*</span></div>
-           </div>
+           </div>  
+           -->
            <div class="rowStyle">
               <div><span >单&nbsp;&nbsp;元&nbsp;&nbsp;数：</span><span><input name="building.unitCount" type="text" class="textbox" id="building.unitCount" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') " />
               </span><span style="color:red">*</span></div>

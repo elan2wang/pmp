@@ -26,8 +26,8 @@
         <property name="cycleMonth" type="integer">
             <column name="Cycle_Month" />
         </property>
-        <property name="isempty" type="boolean">
-            <column name="ISEMPTY" />
+        <property name="isempty" type="string">
+            <column name="ISEMPTY" length="50" />
         </property>
     </class>
 </hibernate-mapping>

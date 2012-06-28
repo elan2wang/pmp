@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.pmp.constant.HouseState;
 import org.pmp.dao.business.IHouseDAO;
 import org.pmp.dao.business.IHouseOwnerDAO;
 import org.pmp.dao.business.IMemberDAO;
@@ -64,7 +65,7 @@ public class OwnerService implements IOwnerService {
 	/* update house info */
 	House house = houseDAO.getHouseByID(houseId);
 	house.setHouseArea(instance.getHouseArea());
-	house.setIsempty(false);
+	house.setIsempty(HouseState.NONEMPTY);
 	houseDAO.updateHouse(house);
 	
 	/* set houseOwner instance */
@@ -93,13 +94,13 @@ public class OwnerService implements IOwnerService {
 	
 	/* update old house info */
 	House oldHouse = houseOwnerDAO.getHouseOwner_ByOwner(instance.getOwnerId()).getHouse();
-	oldHouse.setIsempty(true);
+	oldHouse.setIsempty(HouseState.EMPTY);
 	houseDAO.updateHouse(oldHouse);
 	
 	/* update new house info */
 	House newHouse = houseDAO.getHouseByID(houseId);
 	newHouse.setHouseArea(instance.getHouseArea());
-	newHouse.setIsempty(false);
+	newHouse.setIsempty(HouseState.NONEMPTY);
 	houseDAO.updateHouse(newHouse);
 	
 	/* set houseOwner instance */

@@ -24,7 +24,7 @@ function new_buil_import(){
 	$.ajaxFileUpload
 	(
 		{
-			url:'new_buil_import', 
+			url:'importBuilding', 
 			secureuri:false,
 			fileElementId:'refFile',
 			dataType: 'json',
@@ -34,11 +34,12 @@ function new_buil_import(){
 				{
 					if(data.error != '')
 					{
-						alert(data.msg);
 						$('#msg').html(data.msg);
 					}else
 					{
-						$('#msg').html(data.msg);
+						alert(data.msg);
+						$('#importBuild').window('close');
+						window.location.href=window.location.href;
 					}
 				}
 			},

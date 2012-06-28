@@ -29,10 +29,10 @@ public class CondoFeeValidate {
     //~ Methods ========================================================================================================
     public static Boolean isRight(List<String> list){
 	if (list.get(0).equals(""))return false;
-	if (!FormatValidate.isValidInteger(list.get(0)))return false;
+	if (!ValidateUtil.isValidInteger(list.get(0)))return false;
 	
 	if (list.get(7).equals(""))return false;
-	if (!FormatValidate.isValidDouble(list.get(7)))return false;
+	if (!ValidateUtil.isValidDouble(list.get(7)))return false;
 
 	return true;
     }

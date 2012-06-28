@@ -19,16 +19,17 @@ import org.pmp.vo.Building;
  * @update TODO
  */
 public interface IBuildingDAO {
-    public void saveBuilding(Building building);
-    public void updateBuilding(Building building);
-    public void deleteBuilding(Building building);
-    public void saveBuildingHouse(List<String> houseNum,Building building);
-    public void batchSaveBuilding(List<Building> buildingList);
+    public void saveBuilding(Building instance);
+    public void updateBuilding(Building instance);
+    public void deleteBuilding(Building instance);
     
-    public Building getBuildingByID(Integer buildingID);
-    public Building getBuildingByBuilNum(Integer bulNum);
+    public List<Integer> batchSaveBuilding(List<Building> buildingList);
+    
+    public Building getBuildingByID(Integer builId);
+   
+    public Building getBuildingByProjectIdAndBuildingNum(Integer projectId,Integer buildingNum);
+    
     public List<Building> loadBuildingList_ByCompany(Integer comId,Map<String,Object>params,String order,Pager pager);
     
     public List<Building> loadBuildingList_ByProject(Integer proId,Map<String,Object>params,String order,Pager pager);
-    public Building getBuildingByProjectIdAndBuildingNum(Integer projectId,Integer buildingNum);
 }

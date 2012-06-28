@@ -33,12 +33,13 @@ function editFormCheck(){
 		alert("楼号不能为空");
 		objfc1.focus();
 		return (false);
-	}
+	} 
+	/*
 	if(strim(objfc2.value)==""){
 		alert("请选择单元标识");
 		objfc2.focus();
 		return (false);
-	}
+	}*/
 	if(strim(objfc3.value)==""){
 		alert("单元数不能为空");
 		objfc3.focus();
@@ -55,6 +56,5 @@ function editFormCheck(){
 		return (false);
 	}
 	document.getElementById("form").submit();
-	closeEditBuild();
 	return true;	
 }

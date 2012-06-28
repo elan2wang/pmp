@@ -7,6 +7,7 @@
  */
 package org.pmp.dao.impl.business;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -62,6 +63,22 @@ public class HouseDAO extends BaseDAO implements IHouseDAO {
 	logger.debug("successfully batch delete house");
     }
 
+    public void generateHouse(final List<Integer> idList){
+	logger.debug("begin to generate House with builIdList by call procedure house_generate");
+        Work work = new Work(){
+            public void execute(Connection connection)throws SQLException{
+                String procedure = "{call house_generate(?) }";
+                CallableStatement cstmt = connection.prepareCall(procedure);
+                for(Integer id : idList){
+                    cstmt.setInt(1, id);
+                    cstmt.executeUpdate();
+                }
+            }
+        };
+	executeWork(work);
+	logger.debug("successfully generate House with builIdList by call procedure house_generate");
+    }
+    
     public House getHouseByID(Integer houseId){
 	String debugMsg = "get house instance by houseId,houseId="+houseId;
 	String hql = "from House where houseId="+houseId;

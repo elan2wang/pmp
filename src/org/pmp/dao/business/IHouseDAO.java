@@ -23,8 +23,11 @@ public interface IHouseDAO {
     public void updateHouse(House house);
     public void batchDelete(List<House> list);
 
+    public void generateHouse(List<Integer> idList);
+    
     public House getHouseByID(Integer houseId);
     public House getHouseByHouseNum(String houseNum);
+    
     public List<House> loadHouseList_ByCompany(Integer comId,Map<String,Object>params,String order,Pager pager);   
     public List<House> loadHouseList_ByProject(Integer proId,Map<String,Object>params,String order,Pager pager);
     public List<House> loadHouseList_ByBuilding(Integer builId,Map<String,Object>params,String order,Pager pager);

@@ -68,6 +68,7 @@
 	<action name="new_pro_import" class="org.pmp.action.business.ProjectAction" method="uploadFile">
 		<result name="success">/cms/project_list.jsp</result>
 	</action>
+	
 	<!-- project related actions =========================================================================================== -->
 	
 	<!-- building related actions ========================================================================================== -->
@@ -87,7 +88,7 @@
 	
 	<action name="loadBuildingList" class="org.pmp.action.business.BuildingAction" method="loadBuildingList" />
 	
-	<action name="buildingImport" class="org.pmp.action.business.BuildingAction" method="uploadFile">
+	<action name="importBuilding" class="org.pmp.action.business.BuildingAction" method="importBuilding">
 		<result name="success">/cms/project_list.jsp</result>
 	</action>
 	

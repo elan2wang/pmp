@@ -7,7 +7,15 @@
  */
 package org.pmp.util;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +32,7 @@ public class MyfileUtil {
 
     //~ Static Fields ==================================================================================================
     static Logger logger = Logger.getLogger(MyfileUtil.class.getName());
+    static final int BUFFER_SIZE = 16 * 1024 ;
     
     //~ Methods ========================================================================================================
     public static boolean validate(String filename,String filetype){
@@ -62,36 +71,62 @@ public class MyfileUtil {
     }
     
     public static String createDir(String path){
-		try {
-		    String dirPath = ServletActionContext.getServletContext().getRealPath(path);
-		    File dirFile = new File(dirPath);
-		    Boolean isExist = dirFile.exists();
-		    if (isExist){
-			logger.debug("this dir already exist");
-		    } else {
-			dirFile.mkdir();
-		    }
-		    return dirPath;
-		} catch (Exception err){
-		    logger.error("create dir failed");
-		    err.printStackTrace();
-		    return null;
-		}
+	try {
+	    String dirPath = ServletActionContext.getServletContext().getRealPath(path);
+	    File dirFile = new File(dirPath);
+	    Boolean isExist = dirFile.exists();
+	    if (isExist){
+		logger.debug("this dir already exist");
+	    } else {
+		dirFile.mkdir();
+	    }
+	    return dirPath;
+	} catch (Exception err){
+	    logger.error("create dir failed");
+	    err.printStackTrace();
+	    return null;
+	}
     }
     
     public static boolean deleteFileOrDirectory(String path){
-		boolean b=false;
+	boolean b=false;
     	try {
-    		if(path!=null){
-    			File f=new File(path);
-    			if(f.exists()){
-    				b=f.delete();
-    			}	
-    		}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return b;
+    	    if(path!=null){
+    		File f=new File(path);
+    		if(f.exists()){
+    		    b=f.delete();
+    		}	
+    	    }
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
+	return b;
     }
     
+    public static String fileUpload(File src,String filename,String dir) throws FileNotFoundException{
+	String newFilename = createFilename()+"."+getPostfix(filename);
+	String realdir = createDir(dir);
+	FileOutputStream dst = new FileOutputStream(realdir+File.separator+newFilename);
+	copy(src,dst);
+	return ServletActionContext.getServletContext().getContextPath()+"/"+dir+"/"+newFilename;
+    }
+    
+    private static void copy(File src,FileOutputStream dst){
+	try {
+	    InputStream in = new BufferedInputStream(new FileInputStream(src),BUFFER_SIZE);
+	    OutputStream out = new BufferedOutputStream(dst,BUFFER_SIZE);
+	    byte[] buffer = new byte[BUFFER_SIZE];
+	    while(in.read(buffer)>0){
+		out.write(buffer);
+	     }
+	    
+	    if(null!=in)in.close();
+	    if(null!=out)out.close();
+	} catch (FileNotFoundException e) {
+	    logger.error("file not found exception");
+	    e.printStackTrace();
+	} catch (IOException e) {
+	    e.printStackTrace();
+	}
+    }
 }

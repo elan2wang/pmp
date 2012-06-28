@@ -29,11 +29,12 @@ function FormCheck(){
 		objfc1.focus();
 		return (false);
 	}
+	/*
 	if(strim(objfc2.value)==""){
 		alert("请选择单元标识");
 		objfc2.focus();
 		return (false);
-	}
+	} */
 	if(strim(objfc3.value)==""){
 		alert("单元数不能为空");
 		objfc3.focus();
@@ -73,7 +74,6 @@ function check_Building(projectId,builNum,objfc1) {
 			}
 			else{
 				document.getElementById("form").submit();
-				closeAddNewBuilding();
 				return true;						
 			}
 		}
