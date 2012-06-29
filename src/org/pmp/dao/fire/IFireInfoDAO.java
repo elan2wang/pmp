@@ -11,4 +11,5 @@ public interface IFireInfoDAO{
      boolean deleteFireInfoByParams(Map<String,Object>params);
      FireInfo getFireInfoByDeviceNum(String deviceNum);
      FireInfo editFireInfo(FireInfo fireInfo);
+     FireInfo delteFireInfo(FireInfo fireInfo);
 }

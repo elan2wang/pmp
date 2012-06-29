@@ -18,6 +18,7 @@
   </bean>
   <bean id="fireInfoService" class="org.pmp.service.impl.fire.FireInfoService">
     <property name="fireInfoDAO" ref="fireInfoDAO" />
+    <property name="fireInfoBakDAO" ref="fireInfoBakDAO" />
   </bean>
   <bean id="fireDeviceService" class="org.pmp.service.impl.fire.FireDeviceService">
     <property name="fireDeviceDAO" ref="fireDeviceDAO" />
@@ -38,6 +39,7 @@
     <property name="fireInfoService" ref="fireInfoService" />
     <property name="fireInfoBakService" ref="fireInfoBakService" />
     <property name="projectService" ref="projectService" />
+    <property name="fireDeviceService" ref="fireDeviceService" />
   </bean>
     
 </beans>

@@ -28,4 +28,9 @@ public class FireDeviceService implements IFireDeviceService {
 	public boolean deleteFireDeviceByParams(Map<String, Object> params) {
 		return this.fireDeviceDAO.deleteFireDeviceByParams(params);
 	}
+
+	@Override
+	public FireDevice getFireDeviceByNumber(String deviceNumber) {
+		return this.fireDeviceDAO.getFireDeviceByNumber(deviceNumber);
+	}
 }
