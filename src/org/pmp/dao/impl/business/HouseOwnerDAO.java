@@ -9,25 +9,17 @@ package org.pmp.dao.impl.business;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.jdbc.Work;
 import org.pmp.dao.admin.BaseDAO;
 import org.pmp.dao.business.IHouseOwnerDAO;
 import org.pmp.util.Pager;
 import org.pmp.util.ParamsToString;
-import org.pmp.vo.Building;
-import org.pmp.vo.CondoFee;
-import org.pmp.vo.House;
 import org.pmp.vo.HouseOwner;
-import org.pmp.vo.Owner;
 
 /**
  * @author Elan
