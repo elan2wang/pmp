@@ -11,16 +11,21 @@ import org.apache.log4j.Logger;
 import org.pmp.json.Includer;
 import org.pmp.json.MyJson;
 import org.pmp.service.business.IProjectService;
+import org.pmp.service.fire.IFireDeviceService;
 import org.pmp.service.fire.IFireInfoBakService;
 import org.pmp.service.fire.IFireInfoService;
+import org.pmp.service.impl.fire.FireDeviceService;
 import org.pmp.util.JsonConvert;
 import org.pmp.util.MyfileUtil;
 import org.pmp.util.Pager;
 import org.pmp.util.SessionHandler;
 import org.pmp.vo.Company;
+import org.pmp.vo.FireDevice;
 import org.pmp.vo.FireInfo;
 import org.pmp.vo.FireInfoBak;
 import org.pmp.vo.Project;
+import org.pmp.vo.TbUser;
+
 import com.opensymphony.xwork2.ActionSupport;
 import com.sun.corba.se.impl.io.FVDCodeBaseImpl;
 
@@ -34,6 +39,8 @@ public class FireInfoAction extends ActionSupport{
 	private IFireInfoBakService fireInfoBakService;
 	
 	private IProjectService projectService;
+	
+	private IFireDeviceService fireDeviceService;
 	
     /* =========FlexiGrid post parameters======= */
     private Integer page=1;
@@ -77,14 +84,19 @@ public class FireInfoAction extends ActionSupport{
 			Iterator<FireInfo> calls = callList.iterator();
 			while(calls.hasNext()){
 				  FireInfo fireInfo = calls.next();
-				  callNodes.add(JsonConvert.toJsonFireInfos(fireInfo.getZone().getZoneId(), fireInfo.getDeviceNumber(), fireInfo.getReceiveTime(), fireInfo.getReceiveInfo()));
+				  
+				  FireDevice device=fireDeviceService.getFireDeviceByNumber(fireInfo.getDeviceNumber());
+				  String deviceType=device.getTypeName();
+				  callNodes.add(JsonConvert.toJsonFireInfos(fireInfo.getZone().getZoneId(),fireInfo.getZone().getZoneName(),fireInfo.getDeviceNumber(),deviceType,fireInfo.getReceiveTime(), fireInfo.getReceiveInfo()));
 			}
 			
 			List<String> warnNodes = new ArrayList<String>();
 			Iterator<FireInfo> warns = warnList.iterator();
 			while(warns.hasNext()){
 				  FireInfo fireInfo = warns.next();
-				  warnNodes.add(JsonConvert.toJsonFireInfos(fireInfo.getZone().getZoneId(), fireInfo.getDeviceNumber(), fireInfo.getReceiveTime(), fireInfo.getReceiveInfo()));
+				  FireDevice device=fireDeviceService.getFireDeviceByNumber(fireInfo.getDeviceNumber());
+				  String deviceType=device.getTypeName();
+				  warnNodes.add(JsonConvert.toJsonFireInfos(fireInfo.getZone().getZoneId(),fireInfo.getZone().getZoneName(),fireInfo.getDeviceNumber(),deviceType,fireInfo.getReceiveTime(), fireInfo.getReceiveInfo()));
 			}
 			
 			String data=JsonConvert.toJsonFireInfoList(callNodes,warnNodes);
@@ -94,7 +106,10 @@ public class FireInfoAction extends ActionSupport{
 
 	public void updateFireInfoState(){
 		    logger.info("########################"+deviceNum+":"+state);
-		    fireInfoService.editFireInfoStateByDeviceNum(deviceNum, state);
+		    
+	      	TbUser tbUser=SessionHandler.getUser();
+            		   	
+		    fireInfoService.editFireInfoStateByDeviceNum(deviceNum, state,tbUser);
 	}
 	
 	/**
@@ -252,6 +267,14 @@ public class FireInfoAction extends ActionSupport{
 
 	public void setIdStr(String idStr) {
 		this.idStr = idStr;
+	}
+
+	public IFireDeviceService getFireDeviceService() {
+		return fireDeviceService;
+	}
+
+	public void setFireDeviceService(IFireDeviceService fireDeviceService) {
+		this.fireDeviceService = fireDeviceService;
 	}
 	
 }

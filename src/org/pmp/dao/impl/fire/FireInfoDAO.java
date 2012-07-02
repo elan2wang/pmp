@@ -106,5 +106,12 @@ public class FireInfoDAO extends BaseDAO implements IFireInfoDAO{
 		String debugMsg="update FireInfo!";
 		updateInstance(fireInfo, debugMsg);
 		return fireInfo;
+	}
+
+	@Override
+	public FireInfo delteFireInfo(FireInfo fireInfo) {
+		String debugMsg="delete FireInfo!"+fireInfo;
+		deleteInstance(fireInfo, debugMsg);
+		return fireInfo;
 	}  
 }

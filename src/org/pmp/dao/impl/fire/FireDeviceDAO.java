@@ -37,4 +37,20 @@ public class FireDeviceDAO extends BaseDAO implements IFireDeviceDAO {
         
 		return true;
 	}
+
+	@Override
+	public FireDevice getFireDeviceByNumber(String deviceNumber) {
+		Object obj=null;
+		try {
+			String debugMsg="getFireDeviceByNumber number"+deviceNumber;
+			StringBuilder hql = new StringBuilder();
+			
+			hql.append("from FireDevice where deviceNumber="+deviceNumber);
+			
+			obj = getInstance(hql.toString(), debugMsg);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return (FireDevice)obj;
+	}
 }

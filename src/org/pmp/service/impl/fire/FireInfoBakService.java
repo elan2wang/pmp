@@ -35,4 +35,9 @@ public class FireInfoBakService implements IFireInfoBakService {
 	public FireInfoBak deleteFireInfoBak(FireInfoBak fireInfoBak) {
 		return fireInfoBakDAO.deleteFireInfoBak(fireInfoBak);
 	}
+
+	@Override
+	public FireInfoBak saveFireInfoBak(FireInfoBak fireInfoBak) {
+        return fireInfoBakDAO.saveFireInfoBak(fireInfoBak);
+	}
 }

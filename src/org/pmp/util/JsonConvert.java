@@ -512,12 +512,14 @@ public class JsonConvert {
 	return sb.toString();
     }
     
-    public static String toJsonFireInfos(int zoneId,String deviceNumber,Date receiveTime,String receiveInfo){
+    public static String toJsonFireInfos(int zoneId,String zoneName,String deviceNumber,String deviceType,Date receiveTime,String receiveInfo){
     	StringBuffer sb = new StringBuffer();
     	sb.append("{");
     	sb.append(toJson("zoneId")+":"+toJson(zoneId)+",");
+    	sb.append(toJson("zoneName")+":"+toJson(zoneName)+",");
     	sb.append(toJson("deviceNumber")+":"+toJson(deviceNumber)+",");
-    	sb.append(toJson("receiveTime")+":"+toJson(receiveTime)+",");
+    	sb.append(toJson("deviceType")+":"+toJson(deviceType)+",");
+    	sb.append(toJson("receiveTime")+":\""+receiveTime.toString()+"\",");
     	sb.append(toJson("receiveInfo")+":"+toJson(receiveInfo)+",");
     	sb.append("}");
     	return sb.toString();

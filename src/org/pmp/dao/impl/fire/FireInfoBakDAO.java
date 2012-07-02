@@ -56,4 +56,12 @@ public class FireInfoBakDAO extends BaseDAO implements IFireInfoBakDAO {
 		this.deleteInstance(fireInfoBak, debugMsg);
 		return fireInfoBak;
 	}
+
+	@Override
+	public FireInfoBak saveFireInfoBak(FireInfoBak fireInfoBak) {
+		String debugMsg="save FireInfoBak="+fireInfoBak;
+		this.saveInstance(fireInfoBak, debugMsg);
+		return fireInfoBak;
+	}
+	
 }
