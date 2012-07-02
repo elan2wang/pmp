@@ -15,7 +15,6 @@ import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.List;
 
-import jxl.Cell;
 import jxl.Workbook;
 import jxl.write.Label;
 import jxl.write.WritableCell;
@@ -24,7 +23,6 @@ import jxl.write.WritableFont;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
-import jxl.write.biff.RowsExceededException;
 
 import org.apache.log4j.Logger;
 
@@ -51,7 +49,7 @@ public class ExportUtil {
 	if (obj instanceof Boolean)
 	    return new jxl.write.Boolean(i, j, (Boolean)obj);
 	if (obj instanceof Date){
-	    jxl.write.DateFormat df = new jxl.write.DateFormat("yyyy/MM/dd");
+	    jxl.write.DateFormat df = new jxl.write.DateFormat("yyyy-MM-dd");
 	    jxl.write.WritableCellFormat wcfDF = new jxl.write.WritableCellFormat(df);
 	    jxl.write.DateTime label = new jxl.write.DateTime(i, j, (Date)obj,wcfDF);
 	    return label;

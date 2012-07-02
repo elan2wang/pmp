@@ -206,10 +206,8 @@ public class CondoFeeAction extends BaseAction{
     }
     
     public void exportNewCondoFee(){
-	Pager pager = new Pager(1000,1);
-	Map<String,Object> params = new HashMap<String,Object>();
 	String order = "order by house asc";
-	List<?> cfList = condoFeeService.loadCondoFeeList_ByCFI(cfiId, params, order, pager);
+	List<?> cfList = condoFeeService.loadCondoFeeList_ByCFI(cfiId, new HashMap<String, Object>(), order, new Pager(100000,1));
 	
 	HttpServletResponse response = ServletActionContext.getResponse();
 	/* set ContentType of MIME response to browser */

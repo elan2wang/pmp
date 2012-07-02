@@ -43,7 +43,7 @@ public class NewCondoFeeExport {
 	    /* set the header of the excel file */
 	    String[] header = {"编号","所在小区","房号","面积","年份","月份","业主","应收物业费"};
 	    ExportUtil.writeHead(ws, header);
-	    
+	    logger.debug("cfList.size="+cfList.size());
 	    /* i begin with 1 not 0 */
 	    for (int i=1;i<=cfList.size();i++){
 		CondoFee cf = (CondoFee)cfList.get(i-1);
