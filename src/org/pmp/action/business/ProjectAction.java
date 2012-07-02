@@ -30,7 +30,6 @@ import org.pmp.excel.ProjectImport;
 import org.pmp.json.Includer;
 import org.pmp.json.MyJson;
 import org.pmp.service.business.IProjectService;
-import org.pmp.util.JsonConvert;
 import org.pmp.util.MyfileUtil;
 import org.pmp.util.Pager;
 import org.pmp.util.SessionHandler;
@@ -160,7 +159,7 @@ public class ProjectAction extends BaseAction {
             params.put("error", "filetype_error");
 	    params.put("msg", message);
 	    data = json.toJson(params);
-	    MyJson.print(data);
+	    json.output(data);
             return;
         }
         /* create the dir to store error data */
@@ -177,17 +176,19 @@ public class ProjectAction extends BaseAction {
         /* close OutputStream */
         os.flush();
         os.close();
-			
+        
+        logger.debug("开始保存");
         /* call the method batchSetOughtMoney to update the condoFee*/
         projectService.batchSaveProject(proList);
-			
+	logger.debug("保存成功");		
+	
         /* if there are some mistakes of the file */
         if (hasError){
             message = "记录有错误,正确数据已导入，请下载错误数据<a href=\""+downLoad+"\">下载</a>";
             params.put("error", "record_error");
 	    params.put("msg", message);
 	    data = json.toJson(params);
-	    MyJson.print(data);
+	    json.output(data);
             return;
         }
 			
@@ -196,7 +197,7 @@ public class ProjectAction extends BaseAction {
         params.put("error", "");
 	params.put("msg", message);
         data = json.toJson(params);
-        MyJson.print(data);
+        json.output(data);
         return;
     }
 

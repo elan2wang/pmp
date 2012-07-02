@@ -66,8 +66,6 @@ public class ExportUtil {
             return new Label(i,j,((org.pmp.vo.Company)obj).getComName());
         if (obj instanceof org.pmp.vo.House)
             return new Label(i,j,((org.pmp.vo.House)obj).getHouseNum());
-	if (obj instanceof org.pmp.vo.FixedParkFeeItem)
-	    return new Label(i,j,((org.pmp.vo.FixedParkFeeItem)obj).getItemName());
 	
 	/* if none of the above is matched,then throw an exception*/
         throw new RuntimeException("Unsupported type: " + obj.getClass().getName());

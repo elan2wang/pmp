@@ -10,7 +10,6 @@
   <bean id="condoFeeItemDAO" class="org.pmp.dao.impl.business.CondoFeeItemDAO" parent="baseDAO"/>
   <bean id="condoFeeDAO" class="org.pmp.dao.impl.business.CondoFeeDAO" parent="baseDAO"/>
   <bean id="smsCompanyDAO" class="org.pmp.dao.impl.business.SmsCompanyDAO" parent="baseDAO"/>
-  <bean id="timeParkFeeDAO" class="org.pmp.dao.impl.business.TimeParkFeeDAO" parent="baseDAO"/>
   <bean id="buildingDAO" class="org.pmp.dao.impl.business.BuildingDAO" parent="baseDAO"/>
   <bean id="houseDAO" class="org.pmp.dao.impl.business.HouseDAO" parent="baseDAO"/>
   <bean id="ownerDAO" class="org.pmp.dao.impl.business.OwnerDAO" parent="baseDAO"/>
@@ -73,10 +72,6 @@
   
   <bean id="smsCompanyService" class="org.pmp.service.impl.business.SmsCompanyService">
     <property name="smsCompanyDAO" ref="smsCompanyDAO" />
-  </bean>
-  
-  <bean id="timeParkFeeService" class="org.pmp.service.impl.business.TimeParkFeeService">
-    <property name="timeParkFeeDAO" ref="timeParkFeeDAO" />
   </bean>
   
   <bean id="smsSendService" class="org.pmp.service.impl.business.SmsSendService">

@@ -244,13 +244,13 @@ public class OwnerDAO extends BaseDAO implements IOwnerDAO {
     		} else {
     		    stmt.setDate(13, null);
     		}
-    		if(owner.getGetTime()!=null){
+    		if(owner.getDecorateTime()!=null){
     		    java.sql.Date date2 = new java.sql.Date(owner.getDecorateTime().getTime());
     		    stmt.setDate(14, date2);
     		} else {
     		    stmt.setDate(14, null);
     		}
-    		if(owner.getGetTime()!=null){
+    		if(owner.getInTime()!=null){
     		    java.sql.Date date3 = new java.sql.Date(owner.getInTime().getTime());
     		    stmt.setDate(15, date3);
     		} else {
@@ -277,7 +277,7 @@ public class OwnerDAO extends BaseDAO implements IOwnerDAO {
 	} catch (RuntimeException e){
 	    tx.rollback();
 	    session.close();
-	    logger.debug(e.getMessage());
+	    e.printStackTrace();
 	    throw e;
 	} catch (SQLException e) {
 	    tx.rollback();

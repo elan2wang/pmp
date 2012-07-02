@@ -142,7 +142,7 @@ public class HouseOwnerDAO extends BaseDAO implements IHouseOwnerDAO {
     public List<HouseOwner> loadHouseOwnerList_ByCom(Integer comId,
 	    Map<String, Object> params, String order, Pager pager) {
 	List<HouseOwner> list = null;
-	String debugMsg = "load HouseOwner list by Company, proId="+comId;
+	String debugMsg = "load HouseOwner list by Company, comId="+comId;
 	StringBuilder hql = new StringBuilder();
 	
 	hql.append("from HouseOwner where house.houseId in (" +

@@ -9,14 +9,12 @@ package org.pmp.action.admin;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +23,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.pmp.action.business.BaseAction;
-import org.pmp.excel.NewCondoFeeImport;
 import org.pmp.excel.ResourceImport;
 import org.pmp.json.Includer;
 import org.pmp.json.MyJson;
@@ -33,10 +30,7 @@ import org.pmp.service.admin.IResourceService;
 import org.pmp.util.JsonConvert;
 import org.pmp.util.MyfileUtil;
 import org.pmp.util.Pager;
-import org.pmp.vo.CondoFee;
 import org.pmp.vo.TbResource;
-
-import com.opensymphony.xwork2.ActionSupport;
 
 /**
  * @author Elan
@@ -62,13 +56,17 @@ public class ResourceAction extends BaseAction{
     
     //~ Methods ========================================================================================================
     public void importRes() throws IOException{
-	HttpServletRequest request = ServletActionContext.getRequest();
+	MyJson json = new MyJson();
+	Map<String, Object> params = new LinkedHashMap<String, Object>();
         String message = null;
+        String data = null;
 	if(!MyfileUtil.validate(resFileFileName,"xls")){
 	    String postfix = MyfileUtil.getPostfix(resFileFileName);
 	    message = postfix+"类型的文件暂不支持，请选择xls类型文件";
-	    request.setAttribute("message", message);
-	    JsonConvert.output("{\"error\":\"filetype_error\",\"msg\":"+JsonConvert.toJson(message)+"}");
+	    params.put("error", "filetype_error");
+	    params.put("msg", message);
+	    data = json.toJson(params);
+	    json.output(data);
 	    return;
 	}
 	/* create the dir to store error data */
@@ -90,13 +88,19 @@ public class ResourceAction extends BaseAction{
 	
 	if (hasError){
 	    message = "记录有错误,正确数据已导入，请下载错误数据<a href=\""+downLoad+"\">下载</a>";
-	    JsonConvert.output("{\"error\":\"record_error\",\"msg\":"+JsonConvert.toJson(message)+"}");
+	    params.put("error", "record_error");
+	    params.put("msg", message);
+	    data = json.toJson(params);
+	    json.output(data);
 	    return;
 	}
 	
 	/* data import success */
 	message = "数据导入成功";
-	JsonConvert.output("{\"error\":\"\",\"msg\":"+JsonConvert.toJson(message)+"}");
+	params.put("error", "");
+	params.put("msg", message);
+	data = json.toJson(params);
+	json.output(data);
 	return;
 	
     }
@@ -107,21 +111,20 @@ public class ResourceAction extends BaseAction{
     }
     
     public void loadResList(){
-	    Pager pager = getPager();
-	    /* set query parameter */
-	    Map<String,Object> params = getParams();
-	    /* set sorter type */
-	    String order = getOrder();
+	Pager pager = getPager();
+	/* set query parameter */
+        Map<String,Object> params = getParams();
+	/* set sorter type */
+	String order = getOrder();	    
 		
-		List<?> resList = resourceService.loadResourceList(params, order, pager);
-		String[] attrs = {"resId","resName","resType","issys","enabled","resLink","resDesc"};
-		List<String> show = Arrays.asList(attrs);
-		Includer includer = new Includer(show);
-		MyJson json = new MyJson(includer);
+	List<?> resList = resourceService.loadResourceList(params, order, pager);
+	String[] attrs = {"resId","resName","resType","issys","enabled","resLink","resDesc"};
+	List<String> show = Arrays.asList(attrs);
+	Includer includer = new Includer(show);
+	MyJson json = new MyJson(includer);
 		
-		String data = json.toJson(resList, "", pager);
-		logger.debug(data);
-		json.output(data);
+	String data = json.toJson(resList, "", pager);
+	json.output(data);
     }
     
     public String getResById(){

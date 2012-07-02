@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jxl.Cell;
+import jxl.DateCell;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.WorkbookSettings;
@@ -83,7 +84,6 @@ public class OwnerImport {
 	            owner.setOwnerDesc(list.get(1).getContents().trim());
 	            
 	            /* set other none required field */
-	            DateFormat format = new SimpleDateFormat("yyyy/MM/dd");
 	            
 	            if(!list.get(7).getContents().trim().equals(""))owner.setHomePhone(list.get(7).getContents().trim());
 	            if(!list.get(8).getContents().trim().equals(""))owner.setOrganization(list.get(8).getContents().trim());
@@ -95,13 +95,17 @@ public class OwnerImport {
 	            if(!list.get(14).getContents().trim().equals(""))owner.setNative_(list.get(14).getContents().trim());
 	            if(!list.get(15).getContents().trim().equals(""))owner.setNationality(list.get(15).getContents().trim());
 	            if(!list.get(16).getContents().trim().equals(""))owner.setGender(list.get(16).getContents().trim());
-	            if(!list.get(17).getContents().trim().equals(""))owner.setIsmarried(Boolean.parseBoolean(list.get(17).getContents().trim()));
-	            if(!list.get(18).getContents().trim().equals(""))owner.setBirthday(format.parse(list.get(18).getContents().trim()));
+	            if(!list.get(17).getContents().trim().equals("")){
+	        	owner.setIsmarried(Boolean.parseBoolean(list.get(17).getContents().trim()));
+	            } else {
+	        	owner.setIsmarried(false);
+	            }
+	            if(!list.get(18).getContents().trim().equals(""))owner.setBirthday(((DateCell)list.get(18)).getDate());
 	            if(!list.get(19).getContents().trim().equals(""))owner.setIdentityType(list.get(19).getContents().trim());
 	            if(!list.get(20).getContents().trim().equals(""))owner.setIdentityCode(list.get(20).getContents().trim());
-	            if(!list.get(21).getContents().trim().equals(""))owner.setGetTime(format.parse(list.get(21).getContents().trim()));
-	            if(!list.get(22).getContents().trim().equals(""))owner.setDecorateTime(format.parse(list.get(22).getContents().trim()));
-	            if(!list.get(23).getContents().trim().equals(""))owner.setInTime(format.parse(list.get(23).getContents().trim()));
+	            if(!list.get(21).getContents().trim().equals(""))owner.setGetTime(((DateCell)list.get(21)).getDate());
+	            if(!list.get(22).getContents().trim().equals(""))owner.setDecorateTime(((DateCell)list.get(22)).getDate());
+	            if(!list.get(23).getContents().trim().equals(""))owner.setInTime(((DateCell)list.get(23)).getDate());
 	            if(!list.get(24).getContents().trim().equals(""))owner.setOtherAddress(list.get(24).getContents().trim());
 	            if(!list.get(25).getContents().trim().equals(""))owner.setOtherPostcode(list.get(25).getContents().trim());
 	            if(!list.get(26).getContents().trim().equals(""))owner.setEmergencyContact(list.get(26).getContents().trim());

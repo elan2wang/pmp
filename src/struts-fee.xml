@@ -104,21 +104,7 @@
       <result name="success">/fee/efc_list.jsp</result>
     </action>
     <!-- ElectricFeeCharge Related actions ============================================================================================ -->
-    
-    
-    <!-- TimeParkFee related actions ================================================================================================ -->
-    <action name="addTimeParkFee" class="org.pmp.action.business.TimeParkFeeAction" method="addTimeParkFee">
-      <result name="success" type="chain">loadTimeParkFeeByProject</result>
-    </action>
-    
-    <action name="tpfImport" class="org.pmp.action.business.TimeParkFeeAction" method="excelImport">
-      <result name="success">tpf_list.jsp</result>
-      <result name="filetype_error">tpf_import.jsp</result>
-    </action>
-    
-    <action name="loadTimeParkFeeByProject" class="org.pmp.action.business.TimeParkFeeAction" method="loadTimeParkFeeByProject" />
-    <!-- TimeParkFee related actions ================================================================================================ -->
-    
+  
   </package>
 </struts>
 

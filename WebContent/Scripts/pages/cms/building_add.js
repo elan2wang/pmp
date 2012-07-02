@@ -74,6 +74,7 @@ function check_Building(projectId,builNum,objfc1) {
 			}
 			else{
 				document.getElementById("form").submit();
+				alert("楼宇创建成功");
 				return true;						
 			}
 		}

@@ -4,7 +4,7 @@
   <constant name="struts.i18n.encoding" value="UTF-8" />
   
   <package name="admin"  extends="struts-default" namespace="/admin">
-    <!-- Resource Related Actions begin -->
+    <!-- Resource Related Actions =============================================================================== -->
     <action name="loadResList" class="org.pmp.action.admin.ResourceAction" method="loadResList" />
 	
 	<action name="import_res" class="org.pmp.action.admin.ResourceAction" method="importRes" />
@@ -22,8 +22,10 @@
 	</action>
 	
 	<action name="deleteRes" class="org.pmp.action.admin.ResourceAction" method="deleteRes" />
-	
-	<!-- authority related actions begin -->
+	<!-- Resource Related Actions =============================================================================== -->
+    
+    
+	<!-- authority related actions ============================================================================== -->
 	<action name="loadAuthList" class="org.pmp.action.admin.AuthorityAction" method="loadAuthList">
 	  <result name="success">/admin/auth_list.jsp</result>
 	</action>
@@ -42,8 +44,10 @@
 	
 	<action name="deleteAuthById" class="org.pmp.action.admin.AuthorityAction" method="deleteAuthById">
 	</action>
+	<!-- authority related actions ============================================================================== -->
 	
-	<!-- AuthorityResource related actions begin -->
+	
+	<!-- AuthorityResource related actions ====================================================================== -->
 	<action name="getAuthRes" class="org.pmp.action.admin.AuthorityResourceAction" method="getAuthRes">
 		<result name="success">/admin/auth_res.jsp</result>
 	</action>
@@ -51,8 +55,10 @@
 	<action name="edit_auth_res" class="org.pmp.action.admin.AuthorityResourceAction" method="editAuthRes">
 	  <result name="success" type="chain">loadAuthList</result>
 	</action>
+	<!-- AuthorityResource related actions ====================================================================== -->
 	
-	<!-- role related actions begin -->
+	
+	<!-- role related actions =================================================================================== -->
 	<action name="loadRoleList" class="org.pmp.action.admin.RoleAction" method="loadRoleList">
 		<result name="success">/admin/role_list.jsp</result>
 	</action>
@@ -71,8 +77,9 @@
 	
 	<action name="deleteRoleById" class="org.pmp.action.admin.RoleAction" method="deleteRoleById">
 	</action>
+	<!-- role related actions =================================================================================== -->
 	
-	<!-- RoleAuthority Related Actions begin -->
+	<!-- RoleAuthority Related Actions ========================================================================== -->
 	<action name="getRoleAuth" class="org.pmp.action.admin.RoleAuthorityAction" method="getRoleAuth">
 	  <result name="success">/admin/role_auth.jsp</result>
 	</action>
@@ -80,8 +87,9 @@
 	<action name="edit_role_auth" class="org.pmp.action.admin.RoleAuthorityAction" method="editRoleAuth">
 	  <result name="success" type="chain">loadRoleList</result>
 	</action>
+	<!-- RoleAuthority Related Actions ========================================================================== -->
 	
-	<!-- Group Related Actions Begin -->
+	<!-- Group Related Actions =================================================================================== -->
 	<action name="loadGroupList" class="org.pmp.action.admin.GroupAction" method="loadGroupList">
 	  <result name="success">/admin/group_list.jsp</result>
 	</action>
@@ -105,8 +113,9 @@
 	
 	<action name="fatherChange" class="org.pmp.action.admin.GroupAction" method="fatherChange">
 	</action>
-	
-	<!-- User Related Actions Begin -->
+	<!-- Group Related Actions =================================================================================== -->
+	 
+	<!-- User Related Actions ==================================================================================== -->
 	<action name="addUser" class="org.pmp.action.admin.UserAction" method="addUser">
 	  <result name="success">/admin/user_list.jsp</result>
 	</action>
@@ -129,8 +138,9 @@
 	<action name="loadUserList" class="org.pmp.action.admin.UserAction" method="loadUserList" />
 	
 	<action name="passwordReset" class="org.pmp.action.admin.UserAction" method="passwordReset" />
+	<!-- User Related Actions ==================================================================================== -->
 	
-	<!-- Module related Actions -->
+	<!-- Module related Actions ================================================================================== -->
 	<action name="addModule" class="org.pmp.action.admin.ModuleAction" method="addModule">
 	  <result name="success" type="chain">loadModuleList</result>
 	</action>
@@ -148,8 +158,9 @@
 	<action name="getModule" class="org.pmp.action.admin.ModuleAction" method="loadModule">
 	  <result name="success">/admin/mod_edit.jsp</result>
 	</action>
+	<!-- Module related Actions ================================================================================== -->
 	
-	<!-- RoleModule related Actions -->
+	<!-- RoleModule related Actions ============================================================================== -->
 	<action name="getRoleModule" class="org.pmp.action.admin.RoleModuleAction" method="getRoleModule">
 	  <result name="success">/admin/role_mod.jsp</result>
 	</action>
@@ -157,6 +168,7 @@
 	<action name="editRoleModule" class="org.pmp.action.admin.RoleModuleAction" method="editRoleModule">
 	  <result name="success" type="chain">loadRoleList</result>
 	</action>
+	<!-- RoleModule related Actions ============================================================================== -->
 	
 	
 	<!-- pager triggered actions -->

@@ -73,16 +73,26 @@ public class ProjectImport {
                 	hasError = true;
                 	continue;
                     }
+                    /* 以下为必填项，在validate类中以判断是否为空 */
                     pro.setCompany(com);
                     pro.setProName(list.get(1).getContents());
                     pro.setProDistrict(list.get(2).getContents());
                     pro.setProStreet(list.get(3).getContents());
                     pro.setProAddress(list.get(4).getContents());
                     pro.setProType(list.get(5).getContents());
-                    pro.setProHouseCount(Integer.parseInt(list.get(6).getContents()));
-                    pro.setDeliveryTime(((DateCell)list.get(7)).getDate());
-                    pro.setProDesc(list.get(8).getContents());
-
+                    /* 非必填项，先判断是否为空 */
+                    if(list.get(6).getContents()!=""){
+                	pro.setProHouseCount(Integer.parseInt(list.get(6).getContents()));
+                    } else {
+                	pro.setProHouseCount(0);
+                    }
+                    if(list.get(7).getContents()!="")pro.setDeliveryTime(((DateCell)list.get(7)).getDate());
+                    if(list.get(8).getContents()!=""){
+                	pro.setProDesc(list.get(8).getContents());
+                    } else {
+                	pro.setProDesc("");
+                    }
+                    
                     proList.add(pro);
                     /* remove the right row */
                     logger.debug("j="+j+"   removedRows="+removedRows);

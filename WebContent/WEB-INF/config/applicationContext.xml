@@ -55,9 +55,6 @@
         <value>org/pmp/vo/HouseOwner.hbm.xml</value>
         <value>org/pmp/vo/SMSCompany.hbm.xml</value>
         <value>org/pmp/vo/SMSSend.hbm.xml</value>
-        <value>org/pmp/vo/TimeParkFee.hbm.xml</value>
-        <value>org/pmp/vo/FixedParkFee.hbm.xml</value>
-        <value>org/pmp/vo/FixedParkFeeItem.hbm.xml</value>
         <value>org/pmp/vo/Zone.hbm.xml</value>
         <value>org/pmp/vo/FireInfo.hbm.xml</value>
         <value>org/pmp/vo/FireDevice.hbm.xml</value>

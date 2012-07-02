@@ -34,11 +34,12 @@ function new_pro_import(){
 				{
 					if(data.error != '')
 					{
-						alert(data.msg);
 						$('#msg').html(data.msg);
 					}else
 					{
-						$('#msg').html(data.msg);
+						alert(data.msg);
+						closeWindow('#importBuild');
+						window.location.href=window.location.href;
 					}
 				}
 			},

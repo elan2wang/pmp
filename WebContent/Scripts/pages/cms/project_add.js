@@ -4,7 +4,7 @@ function FormCheck(){
 	objfc2=document.getElementById("project.proAddress");
 	objfc3=document.getElementById("project.deliveryTime");
 	objfc4=document.getElementById("project.proType");
-	objfc5=document.getElementById("proDistrict");
+	objfc5=document.getElementById("project.proDistrict");
 	objfc6=document.getElementById("project.proStreet");
 	
 	if(strim(objfc1.value)==""){
@@ -39,7 +39,6 @@ function FormCheck(){
 }
 
 function check_Project(proName,objfc1) {
-	alert(proName);
 	$.ajax({
 		type: "POST",
 		url: "isProjectExist?proName="+proName,
@@ -52,6 +51,7 @@ function check_Project(proName,objfc1) {
 				return false;
 			}else {
 				document.getElementById("form").submit();
+				alert("小区创建成功");
 				return true;						
 			}
 		}

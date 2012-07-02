@@ -109,8 +109,6 @@ public class JsonConvert {
             org.pmp.vo.CondoFeeItem obj = (org.pmp.vo.CondoFeeItem)o;
             return string2Json(obj.getProject().getProName());
         }
-	if (o instanceof org.pmp.vo.FixedParkFeeItem)
-	    return string2Json(((org.pmp.vo.FixedParkFeeItem)o).getItemName());
 	if (o instanceof org.pmp.vo.SMSCompany)
 	    return string2Json(((org.pmp.vo.SMSCompany)o).getCompany().getComName());
 	if (o instanceof org.pmp.vo.Zone)

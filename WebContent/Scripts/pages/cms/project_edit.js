@@ -17,7 +17,7 @@ function FormCheck(){
 	objfc2=document.getElementById("project.proAddress");
 	objfc3=document.getElementById("project.deliveryTime");
 	objfc4=document.getElementById("project.proType");
-	objfc5=document.getElementById("proDistrict");
+	objfc5=document.getElementById("project.proDistrict");
 	objfc6=document.getElementById("project.proStreet");
 	
 	if(strim(objfc1.value)==""){
@@ -47,5 +47,6 @@ function FormCheck(){
 	}
 	
 	document.getElementById("form").submit();
+	alert("修改成功");
 	return true;	
 }

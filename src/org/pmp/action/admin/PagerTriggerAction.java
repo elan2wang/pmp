@@ -57,6 +57,10 @@ public class PagerTriggerAction extends ActionSupport {
 	JsonConvert.output(data);
     }
     
+    /**
+     * @Title: loadGroupList_ByRole
+     * @Description: 根据角色的Level和用户的权限，获取用户组列表
+     */
     public void loadGroupList_ByRole(){
 	Integer roleLevel = roleService.getRoleByID(roleId).getRoleLevel();
 	List<?> groupList = null;
@@ -72,6 +76,7 @@ public class PagerTriggerAction extends ActionSupport {
 	logger.debug(data);
 	JsonConvert.output(data);
     }
+    
     //~ Getters and Setters ============================================================================================
 
 

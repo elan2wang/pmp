@@ -8,9 +8,9 @@
 package org.pmp.action.admin;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,13 +18,15 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
+import org.pmp.action.business.BaseAction;
 import org.pmp.jms.JmsPublisher;
+import org.pmp.json.Includer;
+import org.pmp.json.MyJson;
 import org.pmp.service.admin.IGroupService;
 import org.pmp.service.admin.IRoleService;
 import org.pmp.service.admin.IUserGroupRoleService;
 import org.pmp.service.admin.IUserService;
 import org.pmp.service.business.ISmsSendService;
-import org.pmp.util.JsonConvert;
 import org.pmp.util.Pager;
 import org.pmp.util.SessionHandler;
 import org.pmp.vo.Company;
@@ -36,14 +38,12 @@ import org.pmp.vo.TbRole;
 import org.pmp.vo.TbUser;
 import org.pmp.vo.TbUserGroupRole;
 
-import com.opensymphony.xwork2.ActionSupport;
-
 /**
  * @author Elan
  * @version 1.0
  * @update TODO
  */
-public class UserAction extends ActionSupport{
+public class UserAction extends BaseAction{
 
     //~ Static Fields ==================================================================================================
     static Logger logger = Logger.getLogger(UserAction.class.getName());
@@ -60,22 +60,12 @@ public class UserAction extends ActionSupport{
     private Integer userId;
     private String userName;
   
-	/* used when deleteUser */
+    /* used when deleteUser */
     private String idStr;
-    
-    /* =========FlexiGrid post parameters======= */
-    private Integer page=1;
-    private Integer rp=15;
-    private String sortname;
-    private String sortorder;
-    private String query;
-    private String qtype;
-    /* =========FlexiGrid post parameters======= */
+   
 
     //~ Methods ========================================================================================================
     public String addUser(){
-	//the username and realname is the same by default
-	user.setUsername(user.getRealname());
 	//default password is 123456
 	user.setPassword("123456");
 	//user.setPassword(Encoder.md5("123456"));
@@ -98,15 +88,14 @@ public class UserAction extends ActionSupport{
     
     public void checkUser(){
     	TbUser user = userService.getUserByUsername(userName);
-    	String data = null;
+    	Map<String, Object> params = new LinkedHashMap<String, Object>();
     	if(user!=null){
-    	    data="{"+JsonConvert.toJson("result")+":"+JsonConvert.toJson("Failed")+"}";
+    	    params.put("result", "Failed");
+    	} else{
+    	    params.put("result", "Success");
     	}
-    	else{
-    	    data="{"+JsonConvert.toJson("result")+":"+JsonConvert.toJson("Success")+"}";
-    	}
-     	logger.debug(data);
-    	JsonConvert.output(data);
+     	MyJson json = new MyJson();
+     	json.output(json.toJson(params));
     }
     
     public String editUser(){
@@ -173,18 +162,11 @@ public class UserAction extends ActionSupport{
     }
     
     public void loadUserList(){
-	/* set query parameters */
-	Pager pager = new Pager(rp,page);
-	String order = null;
-	Map<String,Object> params = new HashMap<String,Object>();
-	if (!qtype.equals("")&&!query.equals("")){
-	    params.put(qtype, query);
-	}
-	if (!sortname.equals("undefined")&&!sortorder.equals("undefined")){
-	    order= "order by "+sortname+" "+sortorder;
-	} else{
-	    order = "order by tbUser.username asc";
-	}
+	Pager pager = getPager();
+	/* set query parameter */
+        Map<String,Object> params = getParams();
+	/* set sorter type */
+	String order = getOrder();	 
 	
 	List<?> ugrList = null;
 	if (SessionHandler.getUserGroup().getGroupLevel()==1){
@@ -200,30 +182,12 @@ public class UserAction extends ActionSupport{
 	}
 	
     	/* convert ugrList instance to JsonData */
-	StringBuilder sb = new StringBuilder();
-	sb.append("{\n");
-    	sb.append("  "+JsonConvert.toJson("page")+":\""+JsonConvert.toJson(pager.getCurrentPage())+"\",\n");
-    	sb.append("  "+JsonConvert.toJson("total")+":"+JsonConvert.toJson(pager.getRowsCount())+",\n");
-    	sb.append("  "+JsonConvert.toJson("rows")+":[\n");
-	Iterator<?> ite = ugrList.iterator();
-	while(ite.hasNext()){
-	    TbUserGroupRole ugr = (TbUserGroupRole)ite.next();
-	    sb.append("    {"+JsonConvert.toJson("id")+":\""+JsonConvert.toJson(ugr.getTbUser().getUserId())+"\",");
-	    sb.append(JsonConvert.toJson("cell")+":{");
-	    sb.append(JsonConvert.toJson("tbUser.realname")+":"+JsonConvert.toJson(ugr.getTbUser().getRealname())+",");
-	    sb.append(JsonConvert.toJson("tbUser.username")+":"+JsonConvert.toJson(ugr.getTbUser().getUsername())+",");
-	    sb.append(JsonConvert.toJson("tbUser.mobile")+":"+JsonConvert.toJson(ugr.getTbUser().getMobile())+",");
-	    sb.append(JsonConvert.toJson("tbUser.identify")+":"+JsonConvert.toJson(ugr.getTbUser().getIdentify())+",");
-	    sb.append(JsonConvert.toJson("tbUser.position")+":"+JsonConvert.toJson(ugr.getTbUser().getPosition())+",");
-	    sb.append(JsonConvert.toJson("tbUser.enabled")+":"+JsonConvert.toJson(ugr.getTbUser().isEnabled())+",");
-	    sb.append(JsonConvert.toJson("tbUser.issys")+":"+JsonConvert.toJson(ugr.getTbUser().isIssys())+",");
-	    sb.append(JsonConvert.toJson("tbGroup.groupName")+":"+JsonConvert.toJson(ugr.getTbGroup().getGroupName())+",");
-	    sb.append(JsonConvert.toJson("tbRole.roleName")+":"+JsonConvert.toJson(ugr.getTbRole().getRoleName())+"}},\n");
-	}
-	if(ugrList.size()!=0)sb.deleteCharAt(sb.length()-2);
-	sb.append("  ]\n}");
-	logger.debug(sb.toString());
-    	JsonConvert.output(sb.toString());
+	String[] attrs = {"tbUser.userId","tbUser.realname","tbUser.username","tbUser.mobile","tbUser.identify",
+		"tbUser.position","tbUser.enabled","tbGroup.groupName","tbRole.roleName"};
+	List<String> show = Arrays.asList(attrs);
+	Includer includer = new Includer(show);
+	MyJson json = new MyJson(includer);
+	json.output(json.toJson(ugrList, "", pager));
     }
     
     //~ Getters and Setters ============================================================================================
@@ -266,6 +230,14 @@ public class UserAction extends ActionSupport{
         this.ugrService = ugrService;
     }
 
+    public ISmsSendService getSmsSendService() {
+        return smsSendService;
+    }
+
+    public void setSmsSendService(ISmsSendService smsSendService) {
+        this.smsSendService = smsSendService;
+    }
+
     public Integer getRoleId() {
         return roleId;
     }
@@ -291,54 +263,6 @@ public class UserAction extends ActionSupport{
         this.userId = userId;
     }
 
-    public Integer getPage() {
-        return page;
-    }
-
-    public void setPage(Integer page) {
-        this.page = page;
-    }
-
-    public Integer getRp() {
-        return rp;
-    }
-
-    public void setRp(Integer rp) {
-        this.rp = rp;
-    }
-
-    public String getSortname() {
-        return sortname;
-    }
-
-    public void setSortname(String sortname) {
-        this.sortname = sortname;
-    }
-
-    public String getSortorder() {
-        return sortorder;
-    }
-
-    public void setSortorder(String sortorder) {
-        this.sortorder = sortorder;
-    }
-
-    public String getQuery() {
-        return query;
-    }
-
-    public void setQuery(String query) {
-        this.query = query;
-    }
-
-    public String getQtype() {
-        return qtype;
-    }
-
-    public void setQtype(String qtype) {
-        this.qtype = qtype;
-    }
-
     public String getIdStr() {
         return idStr;
     }
@@ -346,26 +270,12 @@ public class UserAction extends ActionSupport{
     public void setIdStr(String idStr) {
         this.idStr = idStr;
     }
-    /**
-	 * @return the userName
-	 */
-	public String getUserName() {
-		return userName;
-	}
 
-	/**
-	 * @param userName the userName to set
-	 */
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    public String getUserName() {
+        return userName;
+    }
 
-	public ISmsSendService getSmsSendService() {
-	    return smsSendService;
-	}
-
-	public void setSmsSendService(ISmsSendService smsSendService) {
-	    this.smsSendService = smsSendService;
-	}
-
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 }
