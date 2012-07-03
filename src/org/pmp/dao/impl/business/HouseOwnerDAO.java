@@ -185,7 +185,7 @@ public class HouseOwnerDAO extends BaseDAO implements IHouseOwnerDAO {
                    "tb_House.Buil_ID = tb_Building.Buil_ID and tb_Building.Pro_ID = tb_Project.Pro_ID and tb_Project.Pro_ID = "+proId);
 	sql.append(ParamsToString.toString(params));
 	if (order==null){
-	    sql.append(" order by tb_House.House_Num asc");
+	    sql.append(" order by tb_House.House_ID asc");
 	} else {
 	    sql.append(" "+order);
 	}
@@ -224,7 +224,7 @@ public class HouseOwnerDAO extends BaseDAO implements IHouseOwnerDAO {
                    "tb_Project.Com_ID = tb_Company.Com_ID and tb_Company.Com_ID = "+comId);
 	sql.append(ParamsToString.toString(params));
 	if (order==null){
-	    sql.append(" order by Pro_Name asc,tb_House.House_Num asc");
+	    sql.append(" order by Pro_Name asc,tb_House.House_ID asc");
 	} else {
 	    sql.append(" "+order);
 	}

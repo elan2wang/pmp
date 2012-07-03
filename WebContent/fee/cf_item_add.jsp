@@ -69,7 +69,7 @@
 	</fieldset>
 	<div style="padding-left:20px;margin-top:10px">
 	<input type="button" id="submitbtn" value="确认创建"  onclick="return FormCheck();" disabled="disabled"/>
-	<input type="reset" value="取消创建" onclick="cancel_item()" /><br/>
+	<input type="button" value="取消创建" onclick="cancel_item()" /><br/>
 	</div>
     </form>
   </div>
