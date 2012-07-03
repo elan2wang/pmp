@@ -1,7 +1,6 @@
 package org.pmp.dao.admin;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -233,9 +232,9 @@ public class BaseDAO {
     }	
    
     protected Object getInstanceById(Class<?> clazz,Serializable id,String debugMsg){
-    logger.debug("begin to get a instance: "+debugMsg);
+        logger.debug("begin to get a instance: "+debugMsg);
     
-    Object obj=null;
+        Object obj=null;
 	Session session = getSession();
         Transaction tx = null;
         try {

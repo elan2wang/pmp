@@ -27,6 +27,9 @@ public interface IHouseOwnerService {
     public HouseOwner getHouseOwner_ByHouse(Integer houseId);
     public HouseOwner getHouseOwner_ByOwner(Integer ownerId);
     
+    public List<Map<String, Object>> loadOwnerList_ByPro(Integer proId,Map<String,Object> params,String order,Pager pager);
+    public List<Map<String, Object>> loadOwnerList_ByCom(Integer proId,Map<String,Object> params,String order,Pager pager);
+    
     public List<HouseOwner> loadHouseOwnerList_ByPro(Integer proId,Map<String,Object> params,String order,Pager pager);
     public List<HouseOwner> loadHouseOwnerList_ByCom(Integer comId,Map<String,Object> params,String order,Pager pager);
 

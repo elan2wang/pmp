@@ -115,7 +115,7 @@
 	
 	
 	<!-- owner related actions ============================================================================================= -->
-	<action name="loadOwnerList_ByPro" class="org.pmp.action.business.OwnerAction" method="loadOwnerList_ByPro" />
+	<action name="loadOwnerList" class="org.pmp.action.business.OwnerAction" method="loadOwnerList" />
     
     <action name="addOwner" class="org.pmp.action.business.OwnerAction" method="addOwner">
       <result name="success" type="redirect">/cms/owner_list.jsp</result>

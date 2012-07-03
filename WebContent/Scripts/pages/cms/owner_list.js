@@ -12,17 +12,17 @@ $(function(){
 	var editWindow = "#ownerEdit";
 	
 	$('#owner_list').flexigrid({
-		url:"loadOwnerList_ByPro",
+		url:"loadOwnerList",
 		dataType:"json",
         colModel:[
-			{ display: '小区', name: 'house.building.project.proName', width: Width*0.1, sortable:true, align: 'center' },
-			{ display: '房号', name: 'house.houseNum', width: Width*0.08, sortable:true, align: 'center' },
-			{ display: '姓名', name: 'owner.ownerName', width: Width*0.08, sortable:true, align: 'center' },
-            { display: '性别', name: 'owner.gender', width: Width*0.05, sortable:true, align: 'center' },
-            { display: '手机号码', name: 'owner.mobile', width: Width*0.1, sortable:true, align: 'center' },
-            { display: '家庭电话', name: 'owner.homePhone', width: Width*0.1, sortable:true, align: 'center' },
-            { display: '房屋面积', name: 'house.houseArea', width: Width*0.08, sortable:true, align: 'center' },
-            { display: '工作单位', name: 'owner.organization', width: Width*0.22, sortable:true, align: 'center' }
+			{ display: '小区', name: 'Pro_Name', width: Width*0.1, sortable:true, align: 'center' },
+			{ display: '房号', name: 'tb_House.House_Num', width: Width*0.08, sortable:true, align: 'center' },
+			{ display: '姓名', name: 'Owner_Name', width: Width*0.08, sortable:true, align: 'center' },
+            { display: '性别', name: 'Gender', width: Width*0.05, sortable:true, align: 'center' },
+            { display: '手机号码', name: 'Mobile', width: Width*0.1, sortable:true, align: 'center' },
+            { display: '家庭电话', name: 'Home_Phone', width: Width*0.1, sortable:true, align: 'center' },
+            { display: '房屋面积', name: 'tb_House.House_Area', width: Width*0.08, sortable:true, align: 'center' },
+            { display: '工作单位', name: 'Organization', width: Width*0.22, sortable:true, align: 'center' }
         ],
         buttons:[
             { name: '添加业主', bclass: 'add', onpress: ownerAdd },
@@ -32,11 +32,11 @@ $(function(){
             { name: '删除业主', bclass:'delete', onpress: ownerDelete }
 		],
 		searchitems:[
-			{ display: '小区', name: 'house.building.project.proName', isDefault:false },
-			{ display: '楼号', name: 'house.building.builNum', isDefault:false },
-			{ display: '房号', name: 'house.houseNum', isDefault:false },
-		    { display: '姓名', name: 'owner.ownerName', isDefault:true },
-		    { display: '手机号码', name: 'owner.mobile', isDefault:false }
+			{ display: '小区', name: 'Pro_Name', isDefault:false },
+			{ display: '楼号', name: 'Buil_Num', isDefault:false },
+			{ display: '房号', name: 'tb_House.House_Num', isDefault:false },
+		    { display: '姓名', name: 'Owner_Name', isDefault:true },
+		    { display: '手机号码', name: 'Mobile', isDefault:false }
 		],
 		searchQueryStrs:[
              {selectName:'qtype1',queryStrName:'query1'},

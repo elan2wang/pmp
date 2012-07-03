@@ -60,6 +60,7 @@ public class CondoFeeAction extends BaseAction{
     
     //~ Static Fields ==================================================================================================
     private static final long serialVersionUID = -7036535552079642151L;
+    private static final Integer INFINITE = 1000000;
     private static Logger logger = Logger.getLogger(CondoFeeAction.class.getName());
     
     //~ Instance Fields ================================================================================================
