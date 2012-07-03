@@ -159,7 +159,7 @@ public class OwnerAction extends BaseAction{
 	return SUCCESS;
     }
     
-    public void loadOwnerList_ByPro(){
+    public void loadOwnerList(){
 	Pager pager = getPager();
 	/* set query parameter */
 	Map<String,Object> params = getParams();
@@ -167,8 +167,11 @@ public class OwnerAction extends BaseAction{
 	String order = getOrder();
 	
 	/* retrieve user's refDomain and set proId */
-	List<HouseOwner> hoList = new ArrayList<HouseOwner>();
+	List<Map<String, Object>> list = null;
 	Object obj = SessionHandler.getUserRefDomain();
+	
+	/* ========  已弃用，查询效率低 ============================================
+	List<HouseOwner> hoList = new ArrayList<HouseOwner>();
 	if (obj instanceof Project){
 	    hoList = houseOwnerService.loadHouseOwnerList_ByPro(((Project)obj).getProId(), params, order, pager);
 	}
@@ -182,6 +185,16 @@ public class OwnerAction extends BaseAction{
 	Includer includer = new Includer(show);
 	MyJson json = new MyJson(includer);
 	String data = json.toJson(hoList, "", pager);
+	========  已弃用，查询效率低 ============================================*/
+	if (obj instanceof Project){
+	    list = houseOwnerService.loadOwnerList_ByPro(((Project)obj).getProId(), params, order, pager);
+	} else if (obj instanceof Company){
+	    list = houseOwnerService.loadOwnerList_ByCom(((Company)obj).getComId(), params, order, pager);
+	}
+	MyJson json = new MyJson();
+	String data = json.toJson(list, pager);
+	
+	logger.debug(data);
 	json.output(data);
 	
     }

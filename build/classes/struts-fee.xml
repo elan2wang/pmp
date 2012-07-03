@@ -16,6 +16,12 @@
     
     <!-- tree related actions -->
     <action name="houseTree" class="org.pmp.action.business.TreeAction" method="houseTree" />
+    
+    <action name="houseTree2" class="org.pmp.action.business.TreeAction" method="houseTree2" />
+    
+    <action name="projectTree" class="org.pmp.action.business.TreeAction" method="projectTree" />
+    
+    <action name="buildingTree" class="org.pmp.action.business.TreeAction" method="buildingTree" />
 
     <action name="cfTimeTree" class="org.pmp.action.business.TreeAction" method="condoFeeTimeTree" />
     

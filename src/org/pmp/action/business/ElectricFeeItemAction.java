@@ -109,32 +109,36 @@ public class ElectricFeeItemAction extends ActionSupport {
 	proMeterItemService.batchAddProMeterItem(pmiList);
 	
 	//创建并保存电梯电表记录对象
-	for(int i=0;i<builId.length;i++){
-	    LiftMeterItem lmi = new LiftMeterItem();
-	    lmi.setBuilding(buildingService.getBuildingById(builId[i]));
-	    beginDegree = Double.parseDouble(lmBeginDegree[i].trim());
-	    endDegree = Double.parseDouble(lmEndDegree[i].trim());
-	    price = Double.parseDouble(lmPrice[i].trim());
-	    lmi.setBeginDegree(beginDegree);
-	    lmi.setEndDegree(endDegree);
-	    lmi.setPrice(price);
-	    lmi.setTotalMoney((endDegree-beginDegree)*price);
-	    lmi.setElectricFeeItem(electricFeeItem);
-	    lmiList.add(lmi);
+	if(builId!=null&&builId.length!=0){
+	    for(int i=0;i<builId.length;i++){
+                LiftMeterItem lmi = new LiftMeterItem();
+                lmi.setBuilding(buildingService.getBuildingById(builId[i]));
+                beginDegree = Double.parseDouble(lmBeginDegree[i].trim());
+                endDegree = Double.parseDouble(lmEndDegree[i].trim());
+                price = Double.parseDouble(lmPrice[i].trim());
+                lmi.setBeginDegree(beginDegree);
+                lmi.setEndDegree(endDegree);
+                lmi.setPrice(price);
+                lmi.setTotalMoney((endDegree-beginDegree)*price);
+                lmi.setElectricFeeItem(electricFeeItem);
+                lmiList.add(lmi);
+            }
+            liftMeterItemService.batchAddLiftMeterItem(lmiList);
 	}
-	liftMeterItemService.batchAddLiftMeterItem(lmiList);
 	
 	//创建并保存楼层段收费倍率对象
-	for(int i=0;i<bfrBuilId.length;i++){
-	   BuilFeeRate bfr = new BuilFeeRate();
-	   bfr.setBeginFloor(beginFloor[i]);
-	   bfr.setEndFloor(endFloor[i]);
-	   bfr.setRate(Double.parseDouble(rate[i].trim()));
-	   bfr.setBuilding(buildingService.getBuildingById(bfrBuilId[i]));
-	   bfr.setElectricFeeItem(electricFeeItem);
-	   bfrList.add(bfr);
+	if(bfrBuilId!=null && bfrBuilId.length!=0){
+	    for(int i=0;i<bfrBuilId.length;i++){
+                BuilFeeRate bfr = new BuilFeeRate();
+                bfr.setBeginFloor(beginFloor[i]);
+                bfr.setEndFloor(endFloor[i]);
+                bfr.setRate(Double.parseDouble(rate[i].trim()));
+                bfr.setBuilding(buildingService.getBuildingById(bfrBuilId[i]));
+                bfr.setElectricFeeItem(electricFeeItem);
+                bfrList.add(bfr);
+	    }
+            builFeeRateService.batchAddBuilFeeRate(bfrList);
 	}
-	builFeeRateService.batchAddBuilFeeRate(bfrList);
 	
 	//生成电费清单
 	electricFeeService.generateElectricFee(electricFeeItem.getEfiId());

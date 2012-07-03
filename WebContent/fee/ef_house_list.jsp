@@ -24,7 +24,7 @@ a{color:black}
 </style>
 <title>电费缴费管理</title>
 </head>
-<body onload="load_data('houseTree','ef_list_by_house.jsp','electricFeeList')">
+<body onload="load_data('projectTree','ef_list_by_house.jsp','electricFeeList')">
 <div class="wrap">
   <div class="content_main">
     <div class="left_main" style="float:left;width:23%">
