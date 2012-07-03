@@ -30,6 +30,22 @@ public interface ICondoFeeDAO {
     public void batchDelete(List<CondoFee> list);
     
     /**
+     * @Title: getAmount_By_Com_State
+     * @Description: 根据公司编号，获取该公司状态为State的记录总数
+     */
+    public Integer getAmount_By_Com_State(Integer comId, String state);
+    
+    /**
+     * @Title: getAmount_By_Pro_State
+     * @Description: 根据小区编号，获取该小区状态为State的记录总数
+     */
+    public Integer getAmount_By_Pro_State(Integer proId, String State);
+    
+    public List<Double> getMoneyInfo_ByCom(Integer comId, Map<String,Object> params);
+    
+    public List<Double> getMoneyInfo_ByPro(Integer proId, Map<String,Object> params);
+    
+    /**
      * @Title: getCondoFee_ById
      * @Description: 根据物业费记录的ID获取该物业费记录的实体对象
      *
@@ -82,9 +98,20 @@ public interface ICondoFeeDAO {
      */
     public List<CondoFee> loadCondoFeeList_ByCFI(Integer cfiId,Map<String,Object>params,String order,Pager pager);
     
-   
+    public List<Map<String, Object>> loadCondoFeeList_ByCom(Integer comId,Map<String,Object>params,String order,Pager pager);
+    
+    public List<Map<String, Object>> loadCondoFeeList_ByPro(Integer proId,Map<String,Object>params,String order,Pager pager);
+    
+    /**
+     * @Title: loadCondoFeeList_ByCompany
+     * @Description: 已弃用，因为查询效率太低
+     */
     public List<CondoFee> loadCondoFeeList_ByCompany(Integer comId,Map<String,Object>params,String order,Pager pager);
     
+    /**
+     * @Title: loadCondoFeeList_ByProject
+     * @Description: 已弃用，因为查询效率太低
+     */
     public List<CondoFee> loadCondoFeeList_ByProject(Integer proId,Map<String,Object>params,String order,Pager pager);
     
 }

@@ -30,7 +30,7 @@ $(function(){
 		],
 		title:true,
 		showSearch:true,
-		height:Height*0.96,
+		height:Height*0.9,
         showcheckbox:true,
         usepager:true,
         useRp:true,

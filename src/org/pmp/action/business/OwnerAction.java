@@ -186,13 +186,14 @@ public class OwnerAction extends BaseAction{
 	MyJson json = new MyJson(includer);
 	String data = json.toJson(hoList, "", pager);
 	========  已弃用，查询效率低 ============================================*/
+	
 	if (obj instanceof Project){
 	    list = houseOwnerService.loadOwnerList_ByPro(((Project)obj).getProId(), params, order, pager);
 	} else if (obj instanceof Company){
 	    list = houseOwnerService.loadOwnerList_ByCom(((Company)obj).getComId(), params, order, pager);
 	}
 	MyJson json = new MyJson();
-	String data = json.toJson(list, pager);
+	String data = json.toJson(list, "",pager);
 	
 	logger.debug(data);
 	json.output(data);

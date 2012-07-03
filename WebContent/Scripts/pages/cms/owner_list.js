@@ -43,7 +43,7 @@ $(function(){
              {selectName:'qtype2',queryStrName:'query2'}
       	],
 		showSearch:true,
-		height:Height*0.88,
+		height:Height*0.8,
         showcheckbox:true,
         nomsg: '没有符合条件的业主记录',
         usepager:true,
