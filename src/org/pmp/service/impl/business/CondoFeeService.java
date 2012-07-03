@@ -97,6 +97,57 @@ public class CondoFeeService implements ICondoFeeService {
 	return condoFeeDAO.loadCondoFeeList_ByProject(proId, params, order, pager);
     }
 
+    /**
+     * @see org.pmp.service.business.ICondoFeeService#loadCondoFeeList_ByCom(java.lang.Integer, java.util.Map, java.lang.String, org.pmp.util.Pager)
+     */
+    @Override
+    public List<Map<String, Object>> loadCondoFeeList_ByCom(Integer comId,
+	    Map<String, Object> params, String order, Pager pager) {
+	return condoFeeDAO.loadCondoFeeList_ByCom(comId, params, order, pager);
+    }
+
+    /**
+     * @see org.pmp.service.business.ICondoFeeService#loadCondoFeeList_ByPro(java.lang.Integer, java.util.Map, java.lang.String, org.pmp.util.Pager)
+     */
+    @Override
+    public List<Map<String, Object>> loadCondoFeeList_ByPro(Integer proId,
+	    Map<String, Object> params, String order, Pager pager) {
+	return condoFeeDAO.loadCondoFeeList_ByPro(proId, params, order, pager);
+    }
+    /**
+     * @see org.pmp.service.business.ICondoFeeService#getAmount_By_Com_State(java.lang.Integer, java.lang.String)
+     */
+    @Override
+    public Integer getAmount_By_Com_State(Integer ComId, String State) {
+	return condoFeeDAO.getAmount_By_Com_State(ComId, State);
+    }
+
+    /**
+     * @see org.pmp.service.business.ICondoFeeService#getAmount_By_Pro_State(java.lang.Integer, java.lang.String)
+     */
+    @Override
+    public Integer getAmount_By_Pro_State(Integer ProId, String State) {
+	return condoFeeDAO.getAmount_By_Pro_State(ProId, State);
+    }
+
+    /**
+     * @see org.pmp.service.business.ICondoFeeService#getMoneyInfo_ByCom(java.lang.Integer, java.util.Map)
+     */
+    @Override
+    public List<Double> getMoneyInfo_ByCom(Integer ComId,
+	    Map<String, Object> params) {
+	return condoFeeDAO.getMoneyInfo_ByCom(ComId, params);
+    }
+
+    /**
+     * @see org.pmp.service.business.ICondoFeeService#getMoneyInfo_ByPro(java.lang.Integer, java.util.Map)
+     */
+    @Override
+    public List<Double> getMoneyInfo_ByPro(Integer ProId,
+	    Map<String, Object> params) {
+	return condoFeeDAO.getMoneyInfo_ByPro(ProId, params);
+    }
+    
     //~ Getters and Setters ============================================================================================
 
     public ICondoFeeDAO getCondoFeeDAO() {
@@ -106,5 +157,5 @@ public class CondoFeeService implements ICondoFeeService {
     public void setCondoFeeDAO(ICondoFeeDAO condoFeeDAO) {
         this.condoFeeDAO = condoFeeDAO;
     }
-
+    
 }
