@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+  <constant name="struts.i18n.encoding" value="UTF-8" />
+  
+  <package name="complaint" extends="struts-default" namespace="/complaint">
+    <!-- page tag triggered actions ======================================================================================= -->
+    <action name="select_project" class="org.pmp.action.business.PageTriggerAction" method="selectProject_ByAuth" >
+      <result name="success">/fee/select_pros.jsp</result>
+    </action>
+    
+    <action name="select_building" class="org.pmp.action.business.PageTriggerAction" method="selectBuilding_ByPro" />
+    
+    <action name="select_house" class="org.pmp.action.business.PageTriggerAction" method="selectHouse_ByBuil" />
+    
+    <action name="get_houseOwner_info" class="org.pmp.action.business.PageTriggerAction" method="getHouseOwnerInfo" />
+    <!-- page tag triggered actions ======================================================================================= -->
+    <action name="complaint_add" class="org.pmp.action.business.ComplaintAction" method="addComplaint">
+    	<result name="success">/complaint/complaint_list.jsp</result>
+    </action>
+    <action name="loadComplaintList" class="org.pmp.action.business.ComplaintAction" method="loadComplaintList"/>
+  	<action name="getComplaintById" class="org.pmp.action.business.ComplaintAction" method="getComplaintById">
+  		<result name="success">/complaint/complaint_edit.jsp</result>
+  	</action>
+  	<action name="complaint_edit" class="org.pmp.action.business.ComplaintAction" method="editComplaint">
+  		<result name="success">/complaint/complaint_list.jsp</result>
+  	</action>
+  	<action name="deleteComplaint" class="org.pmp.action.business.ComplaintAction" method="deleteComplaint"/>
+  	<action name="browseComplaintById" class="org.pmp.action.business.ComplaintAction" method="getComplaintById">
+  		<result name="success">/complaint/complaint_browse.jsp</result>
+  	</action>
+  </package>
+  
+</struts>

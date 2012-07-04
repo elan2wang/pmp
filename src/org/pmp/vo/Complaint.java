@@ -10,7 +10,7 @@ import java.util.Date;
 public class Complaint implements java.io.Serializable {
 
     private Integer compId;
-    private Integer hoId;
+    private HouseOwner houseOwner;
     private String compPerson;
     private String compTel;
     private Date compTime;
@@ -26,7 +26,7 @@ public class Complaint implements java.io.Serializable {
 	    String compTel, Date compTime, String compContent,
 	    String handleResult, String handlePerson, Date handleTime) {
 	this.compId = compId;
-	this.hoId = hoId;
+	this.houseOwner = houseOwner;
 	this.compPerson = compPerson;
 	this.compTel = compTel;
 	this.compTime = compTime;
@@ -44,12 +44,12 @@ public class Complaint implements java.io.Serializable {
 	this.compId = compId;
     }
 
-    public Integer getHoId() {
-	return this.hoId;
+    public HouseOwner getHouseOwner() {
+	return this.houseOwner;
     }
 
-    public void setHoId(Integer hoId) {
-	this.hoId = hoId;
+    public void setHouseOwner(HouseOwner houseOwner) {
+	this.houseOwner = houseOwner;
     }
 
     public String getCompPerson() {

@@ -8,6 +8,7 @@
   <include file="struts-sms.xml" />
   <include file="struts-fire.xml" />
   <include file="struts-fix.xml" />
+  <include file="struts-complaint.xml"/>
   
   <constant name="struts.i18n.encoding" value="UTF-8" />
   

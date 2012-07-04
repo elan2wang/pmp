@@ -6,11 +6,11 @@
     <class name="org.pmp.vo.Complaint" table="tb_Complaint" schema="dbo" catalog="db_pmp2">
         <id name="compId" type="integer">
             <column name="Comp_ID" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
-        <property name="hoId" type="integer">
-            <column name="HO_ID" not-null="true" />
-        </property>
+        <many-to-one name="houseOwner" class="org.pmp.vo.HouseOwner" fetch="select" lazy="false">
+            <column name="HO_ID" />
+        </many-to-one>
         <property name="compPerson" type="string">
             <column name="Comp_Person" length="50" not-null="true" />
         </property>
@@ -21,16 +21,16 @@
             <column name="Comp_Time" length="23" not-null="true" />
         </property>
         <property name="compContent" type="string">
-            <column name="Comp_Content" length="1000" not-null="true" />
+            <column name="Comp_Content" length="1000" not-null="false" />
         </property>
         <property name="handleResult" type="string">
-            <column name="Handle_Result" length="1000" not-null="true" />
+            <column name="Handle_Result" length="1000" not-null="false" />
         </property>
         <property name="handlePerson" type="string">
-            <column name="Handle_Person" length="50" not-null="true" />
+            <column name="Handle_Person" length="50" not-null="false" />
         </property>
         <property name="handleTime" type="timestamp">
-            <column name="Handle_Time" length="23" not-null="true" />
+            <column name="Handle_Time" length="23" not-null="false" />
         </property>
     </class>
 </hibernate-mapping>
