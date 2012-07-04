@@ -37,9 +37,7 @@
 	  <result name="success">/cms/cmpy_list.jsp</result>
 	</action>
 	
-	<action name="deleteCompany" class="org.pmp.action.business.CompanyAction" method="deleteCompany">
-	  <result name="success">/cms/cmpy_list.jsp</result>
-	</action>
+	<action name="deleteCompany" class="org.pmp.action.business.CompanyAction" method="deleteCompany" />
 	
 	<action name="loadCompanyList" class="org.pmp.action.business.CompanyAction" method="loadCompanyList" />
 	
@@ -148,7 +146,9 @@
     	<result name="success">/select_page/project_options.jsp</result>
 	</action>
 	
-    <action name="select_company_list" class="org.pmp.action.business.CompanyAction" method="select_company_list" />
+    <action name="selectCompany" class="org.pmp.action.business.PageTriggerAction" method="getAllCompany">
+        <result name="success">/select_page/company_options.jsp</result>
+    </action>
     
     	
 	<action name="getProjectBySessionHander" class="org.pmp.action.business.ProjectAction" method="getProjectBySessionHander">

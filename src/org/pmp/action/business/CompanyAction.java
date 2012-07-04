@@ -8,7 +8,6 @@
 package org.pmp.action.business;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -37,7 +36,6 @@ public class CompanyAction extends BaseAction {
     
     //~ URL Fields
     private Integer comid;
-    private List<?> companyList;
     private String companyName;
 
     //~ Methods ========================================================================================================
@@ -52,17 +50,8 @@ public class CompanyAction extends BaseAction {
 	return SUCCESS;
     }
     
-    public String deleteCompany(){
+    public void deleteCompany(){
 	companyService.deleteCompany(companyService.getCompanyByID(comid));
-	return SUCCESS;
-    }
-    
-    public String getAllCompany(){
-    	Pager pager2 = new Pager(1000,1);
-    	Map<String,Object> params = new HashMap<String,Object>();
-    	String order = "order by comId asc";
-    	companyList = companyService.loadCompanyList_ByChinaMobile(params, order, pager2);
-    	return SUCCESS;
     }
     
     public void loadCompanyList(){
@@ -128,16 +117,6 @@ public class CompanyAction extends BaseAction {
 
     public void setCompany(Company company) {
         this.company = company;
-    }
-
-
-    
-    public List<?> getCompanyList() {
-        return companyList;
-    }
-
-    public void setCompanyList(List<?> companyList) {
-        this.companyList = companyList;
     }
 
     public Integer getComid() {

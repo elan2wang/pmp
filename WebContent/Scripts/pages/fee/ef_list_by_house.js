@@ -24,7 +24,7 @@ $(function(){
             { name: '缴费历史', bclass: 'add', onpress: efc_list }
 		],
 		title:true,
-		height:Height*0.98,
+		height:Height*0.9,
         showcheckbox:true,
         usepager:true,
         useRp:true,
