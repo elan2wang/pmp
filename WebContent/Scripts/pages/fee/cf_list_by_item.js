@@ -7,16 +7,16 @@ $(function(){
 		url:"loadCondoFeeList_ByCFI?cfiId="+cfiId,
 		dataType:"json",
         colModel:[
-            { display: '房号', name: 'house.houseNum', width: Width*0.06, sortable:true, align: 'center' },
-            { display: '业主', name: 'owner.ownerName', width: Width*0.1, sortable:true, align: 'center' },
-            { display: '年份', name: 'cfYear', width: Width*0.05, sortable:true, align: 'center' },
-            { display: '月份', name: 'cfMonth', width: Width*0.05, sortable:true, align: 'center' },
-            { display: '状态', name: 'state', width: Width*0.08, sortable:true, align: 'center' },
-            { display: '应收金额', name: 'oughtMoney', width: Width*0.06, sortable:true, align: 'center' },
-            { display: '实收金额', name: 'fetchMoney', width: Width*0.06, sortable:true, align: 'center' },
-            { display: '录入时间', name: 'inputTime', width: Width*0.1, sortable:true, align: 'center' },
-            { display: '录入人员', name: 'recordPerson', width: Width*0.1, sortable:true, align: 'center' },
-            { display: '备注', name: 'comment', width: Width*0.15, sortable:true, align: 'center' }
+            { display: '房号', name: 'h.House_Num', width: Width*0.1, sortable:true, align: 'center' },
+            { display: '业主', name: 'Owner_Name', width: Width*0.1, sortable:true, align: 'center' },
+            { display: '年份', name: 'CF_Year', width: Width*0.05, sortable:true, align: 'center' },
+            { display: '月份', name: 'CF_Month', width: Width*0.05, sortable:true, align: 'center' },
+            { display: '状态', name: 'State', width: Width*0.08, sortable:true, align: 'center' },
+            { display: '应收金额', name: 'Ought_Money', width: Width*0.06, sortable:true, align: 'center' },
+            { display: '实收金额', name: 'Fetch_Money', width: Width*0.06, sortable:true, align: 'center' },
+            { display: '录入时间', name: 'Input_Time', width: Width*0.1, sortable:true, align: 'center' },
+            { display: '录入人员', name: 'Record_Person', width: Width*0.1, sortable:true, align: 'center' },
+            { display: '备注', name: 'Comment', width: Width*0.15, sortable:true, align: 'center' }
         ],
         buttons:[
 			{ name: '数据导入', bclass:'import', onpress: cfImport },
@@ -30,13 +30,13 @@ $(function(){
 			{ name: '缴费审核', bclass:'check', onpress: cfAudit }
 		],
 		searchitems:[
-			{ display: '业主', name: 'owner.ownerName', isdefault:false },
-			{ display: '房号', name: 'house.houseNum', isdefault:false },
-		    { display: '年份', name: 'cfYear', isdefault:false },
-		    { display: '月份', name: 'cfMonth', isdefault:false },
-		    { display: '状态', name: 'state', isdefault:true },
-		    { display: '录入时间', name: 'inputTime', isdefault:false },
-		    { display: '录入人员', name: 'recordPerson', isdefault:false }
+			{ display: '业主', name: 'Owner_Name', isdefault:false },
+			{ display: '房号', name: 'h.House_Num', isdefault:false },
+		    { display: '年份', name: 'CF_Year', isdefault:false },
+		    { display: '月份', name: 'Cf_Month', isdefault:false },
+		    { display: '状态', name: 'State', isdefault:true },
+		    { display: '录入时间', name: 'Input_Time', isdefault:false },
+		    { display: '录入人员', name: 'Record_Person', isdefault:false }
 		],
 		searchQueryStrs:[
            {selectName:'qtype1',queryStrName:'query1'},

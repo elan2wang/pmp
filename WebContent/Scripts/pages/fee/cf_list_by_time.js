@@ -17,8 +17,8 @@ $(function(){
 		dataType:"json",
         colModel:[
             { display: '小区', name: 'Pro_Name', width: Width*0.15, sortable:true, align: 'center' },
-            { display: '房号', name: 'tb_House.House_Num', width: Width*0.08, sortable:true, align: 'center' },
-            { display: '业主', name: 'tb_Owner.Owner_Name', width: Width*0.08, sortable:true, align: 'center' },
+            { display: '房号', name: 'h.House_Num', width: Width*0.08, sortable:true, align: 'center' },
+            { display: '业主', name: 'Owner_Name', width: Width*0.08, sortable:true, align: 'center' },
             { display: '月份', name: 'CF_Month', width: Width*0.04, sortable:true, align: 'center' },
             { display: '状态', name: 'State', width: Width*0.07, sortable:true, align: 'center' },
             { display: '应收金额', name: 'Ought_Money', width: Width*0.07, sortable:true, align: 'center' },
@@ -28,8 +28,8 @@ $(function(){
         ],
 		searchitems:[
 		    { display: '小区', name: 'Pro_Name', isdefault:false },
- 		    { display: '房号', name: 'tb_House.House_Num', isdefault:false },
- 		    { display: '业主', name: 'tb_Owner.Owner_Name', isdefault:false },
+ 		    { display: '房号', name: 'h.House_Num', isdefault:false },
+ 		    { display: '业主', name: 'Owner_Name', isdefault:false },
  		    { display: '状态', name: 'State', isdefault:true },
  		    { display: '录入时间', name: 'Input_Time', isDefault:false}
 		],
