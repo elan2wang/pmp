@@ -60,7 +60,6 @@ public class CondoFeeAction extends BaseAction{
     
     //~ Static Fields ==================================================================================================
     private static final long serialVersionUID = -7036535552079642151L;
-    private static final Integer INFINITE = 1000000;
     private static Logger logger = Logger.getLogger(CondoFeeAction.class.getName());
     
     //~ Instance Fields ================================================================================================
@@ -112,20 +111,37 @@ public class CondoFeeAction extends BaseAction{
 	/* set sorter type */
 	String order = getOrder();
 	/* invoke service to get list */
+	
+	/* ======================= 已弃用，查询效率太低 =========================================
 	List<?> cfList = condoFeeService.loadCondoFeeList_ByCFI(cfiId, params, order, pager);
 	
-	/* transfer list to JsonData */
 	String[] attrs = {"cfId","house.houseNum","owner.ownerName","cfYear","cfMonth","state","oughtMoney",
 		          "fetchMoney","recordPerson","inputTime","comment"};
 	List<String> show = Arrays.asList(attrs);
 	Includer includer = new Includer(show);
 	MyJson json = new MyJson(includer);
-	
 	String title = count(cfList);
-	
 	String data = json.toJson(cfList, title, pager);
 	logger.debug(data);
 	json.output(data);
+	==================================================================================== */
+	List<Map<String,Object>> list = condoFeeService.loadCondoFeeList_ByItem(cfiId, params, order, pager);
+	List<Double> moneyInfo = condoFeeService.getMoneyInfo_ByItem(cfiId, params);
+	Integer payedAmount = condoFeeService.getAmount_By_Item_State(cfiId, CondoFeeState.PAYED, params);
+	Integer inputAmount = condoFeeService.getAmount_By_Item_State(cfiId, CondoFeeState.INPUT, params);
+	Integer newAmount = condoFeeService.getAmount_By_Item_State(cfiId, CondoFeeState.NEW, params);
+	Integer deniedAmount = condoFeeService.getAmount_By_Item_State(cfiId, CondoFeeState.DENIED, params);
+	Integer passAmount = condoFeeService.getAmount_By_Item_State(cfiId, CondoFeeState.PASS, params);
+	
+	String title = "应收："+moneyInfo.get(0)+"&nbsp;元,&nbsp;&nbsp;&nbsp;&nbsp;实收："+moneyInfo.get(1)+"&nbsp;元,&nbsp;&nbsp;&nbsp;&nbsp;"+
+	               "待审核："+payedAmount+"&nbsp;项,&nbsp;&nbsp;&nbsp;&nbsp;审核通过："+passAmount+"&nbsp;项,&nbsp;&nbsp;&nbsp;&nbsp;"+
+	               "审核有误："+deniedAmount+"&nbsp;项,&nbsp;&nbsp;&nbsp;&nbsp;待缴费："+inputAmount+"&nbsp;项,&nbsp;&nbsp;&nbsp;&nbsp;"+
+	               "待设定："+newAmount+"&nbsp;项";
+	
+	MyJson json = new MyJson();
+	String data = json.toJson(list, title, pager);
+	json.output(data);
+	
     }
     
     public void loadCondoFeeList_ByHouse(){
@@ -162,13 +178,14 @@ public class CondoFeeAction extends BaseAction{
 	Pager pager = getPager();
 	/* set query parameter */
 	Map<String,Object> params = getParams();
-	if(year!=null)params.put("cfYear", year);
-	if(month!=null)params.put("cfMonth", month);
+	if(year!=null)params.put("CF_Year", year);
+	if(month!=null)params.put("CF_Month", month);
 	/* set sorter type */
 	String order = getOrder();
+	
 	/* invoke service to get list */
+	/* ============ 已弃用，查询效率太低  ===========================================================
 	List<?> cfList = condoFeeService.loadCondoFeeList_ByCompany(comId, params, order, pager);
-	/* get the statistical data */
 	String message = count(cfList);
 	
 	String[] attrs = {"cfId","condoFeeItem.project.proName","house.houseNum","owner.ownerName","cfMonth",
@@ -176,9 +193,25 @@ public class CondoFeeAction extends BaseAction{
 	List<String> show = Arrays.asList(attrs);
 	Includer includer = new Includer(show);
 	MyJson json = new MyJson(includer);
-	
 	String data = json.toJson(cfList, message, pager);
-
+	json.output(data);
+	=============== 已弃用，查询效率太低 ============================================================*/
+	List<Map<String,Object>> list = condoFeeService.loadCondoFeeList_ByCom(comId, params, order, pager);
+	List<Double> moneyInfo = condoFeeService.getMoneyInfo_ByCom(comId, params);
+	Integer payedAmount = condoFeeService.getAmount_By_Com_State(comId, CondoFeeState.PAYED, params);
+	Integer inputAmount = condoFeeService.getAmount_By_Com_State(comId, CondoFeeState.INPUT, params);
+	Integer newAmount = condoFeeService.getAmount_By_Com_State(comId, CondoFeeState.NEW, params);
+	Integer deniedAmount = condoFeeService.getAmount_By_Com_State(comId, CondoFeeState.DENIED, params);
+	Integer passAmount = condoFeeService.getAmount_By_Com_State(comId, CondoFeeState.PASS, params);
+	
+	String title = "应收："+moneyInfo.get(0)+"&nbsp;元,&nbsp;&nbsp;&nbsp;&nbsp;实收："+moneyInfo.get(1)+"&nbsp;元,&nbsp;&nbsp;&nbsp;&nbsp;"+
+	               "待审核："+payedAmount+"&nbsp;项,&nbsp;&nbsp;&nbsp;&nbsp;审核通过："+passAmount+"&nbsp;项,&nbsp;&nbsp;&nbsp;&nbsp;"+
+	               "审核有误："+deniedAmount+"&nbsp;项,&nbsp;&nbsp;&nbsp;&nbsp;待缴费："+inputAmount+"&nbsp;项,&nbsp;&nbsp;&nbsp;&nbsp;"+
+	               "待设定："+newAmount+"&nbsp;项";
+	MyJson json = new MyJson();
+	String data = json.toJson(list, title,pager);
+	
+	logger.debug(data);
 	json.output(data);
     }
     
@@ -186,13 +219,13 @@ public class CondoFeeAction extends BaseAction{
 	Pager pager = getPager();
 	/* set query parameter */
 	Map<String,Object> params = getParams();
-	if(year!=null)params.put("cfYear", year);
-	if(month!=null)params.put("cfMonth", month);
+	if(year!=null)params.put("CF_Year", year);
+	if(month!=null)params.put("CF_Month", month);
 	/* set sorter type */
 	String order = getOrder();
 	/* invoke service to get list */
+	/* ============ 已弃用，查询效率太低  ===========================================================
 	List<?> cfList = condoFeeService.loadCondoFeeList_ByProject(proId, params, order, pager);
-	/* get the statistical data */
 	String message = count(cfList);
 	
 	String[] attrs = {"cfId","condoFeeItem.project.proName","house.houseNum","owner.ownerName",
@@ -200,9 +233,26 @@ public class CondoFeeAction extends BaseAction{
 	List<String> show = Arrays.asList(attrs);
 	Includer includer = new Includer(show);
 	MyJson json = new MyJson(includer);
-	
 	String data = json.toJson(cfList, message, pager);
-
+	json.output(data);
+	=============== 已弃用，查询效率太低 ============================================================*/
+	List<Map<String,Object>> list = condoFeeService.loadCondoFeeList_ByPro(proId, params, order, pager);
+	List<Double> moneyInfo = condoFeeService.getMoneyInfo_ByCom(comId, params);
+	Integer payedAmount = condoFeeService.getAmount_By_Pro_State(comId, CondoFeeState.PAYED, params);
+	Integer inputAmount = condoFeeService.getAmount_By_Pro_State(comId, CondoFeeState.INPUT, params);
+	Integer newAmount = condoFeeService.getAmount_By_Pro_State(comId, CondoFeeState.NEW, params);
+	Integer deniedAmount = condoFeeService.getAmount_By_Pro_State(comId, CondoFeeState.DENIED, params);
+	Integer passAmount = condoFeeService.getAmount_By_Pro_State(comId, CondoFeeState.PASS, params);
+	
+	String title = "应收："+moneyInfo.get(0)+"&nbsp;元,&nbsp;&nbsp;&nbsp;&nbsp;实收："+moneyInfo.get(1)+"&nbsp;元,&nbsp;&nbsp;&nbsp;&nbsp;"+
+	               "待审核："+payedAmount+"&nbsp;项,&nbsp;&nbsp;&nbsp;&nbsp;审核通过："+passAmount+"&nbsp;项,&nbsp;&nbsp;&nbsp;&nbsp;"+
+	               "审核有误："+deniedAmount+"&nbsp;项,&nbsp;&nbsp;&nbsp;&nbsp;待缴费："+inputAmount+"&nbsp;项,&nbsp;&nbsp;&nbsp;&nbsp;"+
+	               "待设定："+newAmount+"&nbsp;项";
+	
+	MyJson json = new MyJson();
+	String data = json.toJson(list, title, pager);
+	
+	logger.debug(data);
 	json.output(data);
     }
     
@@ -427,7 +477,10 @@ public class CondoFeeAction extends BaseAction{
 	
     }
     
-    /* 计算物业费缴费情况，需缴多少、已缴多少 */
+    /**
+     * @Title: count
+     * @Description: 计算物业费缴费情况，需缴多少、已缴多少 (已经弃用，查询效率太低)
+     */
     private String count(List<?> cfList){
 	StringBuilder result = new StringBuilder();
 	Double oughtMoney = 0.0;

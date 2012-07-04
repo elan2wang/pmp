@@ -53,19 +53,7 @@ public class JsonFactory {
 	out.value(pager.getCurrentPage());
 	out.name("total");
 	out.value(pager.getRowsCount());
-	writeObjectArray(out, list);
-	out.endObject();
-	out.flush();
-	out.close();
-    }
-    
-    public void write(JsonWriter out, List<Map<String,Object>> list, Pager pager) throws IOException, IllegalArgumentException, IllegalAccessException{
-	out.beginObject();
-	out.name("page");
-	out.value(pager.getCurrentPage());
-	out.name("total");
-	out.value(pager.getRowsCount());
-	writeMapArray(out, list);
+	writeArray(out, list);
 	out.endObject();
 	out.flush();
 	out.close();
@@ -93,28 +81,6 @@ public class JsonFactory {
 	out.endObject();
     }
 
-    private void writeObjectArray(JsonWriter out, List<?> list)  throws IOException, IllegalArgumentException, IllegalAccessException{
-	if (list == null || list.size() == 0){
-	    out.name("rows").nullValue();
-	} else {
-	    out.name("rows");
-	    out.beginArray();
-	    for (Object obj : list){
-		writeObject(out, obj);
-	    }
-	    out.endArray();
-	}
-    }
-    
-    private void writeObject(JsonWriter out, Map<String,Object> params)throws IOException, IllegalArgumentException, IllegalAccessException{
-	out.beginObject();
-	for (Entry<String,Object> entry : params.entrySet()){
-	    out.name(entry.getKey());
-	    out.value(entry.getValue());
-	}
-	out.endObject();
-    }
-    
     private void writeMapObject(JsonWriter out, Map<String,Object> attrMap) throws IOException, IllegalArgumentException, IllegalAccessException{
 	out.beginObject();
 	int i = 0;
@@ -133,20 +99,35 @@ public class JsonFactory {
 	out.endObject();
 	out.endObject();
     }
-    
-    private void writeMapArray(JsonWriter out, List<Map<String,Object>> list)  throws IOException, IllegalArgumentException, IllegalAccessException{
+
+    private void writeArray(JsonWriter out, List<?> list)  throws IOException, IllegalArgumentException, IllegalAccessException{
 	if (list == null || list.size() == 0){
 	    out.name("rows").nullValue();
 	} else {
 	    out.name("rows");
 	    out.beginArray();
-	    for (Map<String, Object> obj : list){
-		writeMapObject(out, obj);
+	    for (Object obj : list){
+		if (obj instanceof Map){
+		    writeMapObject(out, (Map<String, Object>) obj);
+		} else {
+		    writeObject(out, obj);
+		}
 	    }
 	    out.endArray();
 	}
     }
     
+    private void writeObject(JsonWriter out, Map<String,Object> params)throws IOException, IllegalArgumentException, IllegalAccessException{
+	out.beginObject();
+	for (Entry<String,Object> entry : params.entrySet()){
+	    out.name(entry.getKey());
+	    out.value(entry.getValue());
+	}
+	out.endObject();
+    }
+    
+    /* ========================== private methods ========================================================== */
+    /* ====================================================================================================== */
     public final void toJson(Writer out, Object src) throws IOException, IllegalArgumentException, IllegalAccessException{
 	JsonWriter writer = new JsonWriter(out);
 	write(writer, src);
@@ -157,16 +138,13 @@ public class JsonFactory {
 	write(writer, list, title, pager);
     }
     
-    public final void toJson(Writer out, List<Map<String,Object>> list, Pager pager) throws IOException, IllegalArgumentException, IllegalAccessException{
-	JsonWriter writer = new JsonWriter(out);
-	write(writer, list, pager);
-    }
-    
     public final void toJson(Writer out, Map<String,Object> params) throws IOException, IllegalArgumentException, IllegalAccessException{
 	JsonWriter writer = new JsonWriter(out);
 	writeObject(writer, params);
     }
     
+    /* ================ public methods ========================================================================== */
+    /* ================ return Json String ====================================================================== */
     public final String toJson(Object src) throws IOException, IllegalArgumentException, IllegalAccessException{
 	StringWriter stringWriter = new StringWriter();
 	toJson(stringWriter, src);
@@ -182,12 +160,6 @@ public class JsonFactory {
     public final String toJson(Map<String,Object> params) throws IOException, IllegalArgumentException, IllegalAccessException{
 	StringWriter stringWriter = new StringWriter();
 	toJson(stringWriter, params);
-	return stringWriter.toString();
-    }
-    
-    public final String toJson(List<Map<String,Object>> list, Pager pager) throws IOException, IllegalArgumentException, IllegalAccessException{
-	StringWriter stringWriter = new StringWriter();
-	toJson(stringWriter, list, pager);
 	return stringWriter.toString();
     }
 }

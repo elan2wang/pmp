@@ -37,8 +37,9 @@
   </div>
   <div class="rowStyle">
       <div><span >公司名称:</span>
-      <span><s:action name="companyAction!getAllCompany" namespace="/cms" executeResult="true"/>
-      </span></div>
+      <span><select name="comId" id="comId" class="selectbox">
+      <s:action name="selectCompany" namespace="/cms" executeResult="true"/>
+      </select></span><span style="color:red">*</span></div>
   </div>
   <div class="rowStyle">
       <div style=" margin-left:100px;margin-top:20px">

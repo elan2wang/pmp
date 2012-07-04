@@ -86,7 +86,7 @@ public class ElectricFeeItemAction extends ActionSupport {
 	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 	String beginDate = formatter.format(electricFeeItem.getBeginDate());
 	String endDate = formatter.format(electricFeeItem.getEndDate());
-	electricFeeItem.setItemName(pro.getProName()+beginDate+"-"+endDate+"的公摊电费");
+	electricFeeItem.setItemName(beginDate+"至"+endDate);
 	electricFeeItemService.addElectricFeeItem(electricFeeItem);
 	
 	Double beginDegree = 0.0;

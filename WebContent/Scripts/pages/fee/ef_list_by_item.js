@@ -31,7 +31,7 @@ $(function(){
 		],
 		showSearch:true,
 		title:true,
-		height:Height*0.9,
+		height:Height*0.83,
         showcheckbox:true,
         usepager:true,
         useRp:true,
