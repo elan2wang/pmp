@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="../Scripts/pages/complaint/complaint_add.js"></script>
+<script type="text/javascript" src="../Scripts/pages/comp/comp_add.js"></script>
 <style type="text/css">
 .textbox{
 	width:90px;
@@ -25,10 +25,9 @@
 
 </style>
 </head>
-<body onload="intRO();">
-<form id="form1" name="form1" method="post"  action="complaint_add" onsubmit="return formchk()">
+<body>
+<form id="form1" name="form1" method="post"  action="addComplaint" onsubmit="return formchk()">
   <table width="100%" border="0" cellspacing="0" cellpadding="0">
-    
     <tr>
       <td style="padding-top:5px; padding-bottom:5px; border-bottom:1px #6c92ad solid;">
       <div id="P1">
@@ -66,7 +65,7 @@
         </tr>
         <tr>
         	<td width="80" align="center" valign="middle">投诉原因：</td>
-        	<td width="460" align="left" valign="middle" colspan="5"><textarea name="complaint.compContent" style="height:40px;width:230px;font-size:1l.5px"  class="textbox1" id="complaint.compContent"></textarea></td>
+        	<td width="460" align="left" valign="middle" colspan="5"><textarea name="complaint.compContent" style="height:40px;width:450px;font-size:1l.5px"  class="textbox1" id="complaint.compContent"></textarea></td>
         </tr>
       </table>
       </div>
@@ -75,8 +74,8 @@
     </tr>
     <tr>
       <td  colspan="2" align="center" valign="middle" style="padding-top:5px; padding-bottom:5px; ">
-      <input type="submit" name="button2" id="button2"  value="保 存"  /><span style="display:inline-block;width:20px"></span>
-      <input type="button" name="button3" id="button3" value="取消"  />
+      <input type="submit" name="button2" id="button2"  value="提交"  /><span style="display:inline-block;width:20px"></span>
+      <input type="button" name="button3" id="button3" value="取消" onclick="closeWindow('#addComplaint')" />
       </td>
     </tr>
   </table>

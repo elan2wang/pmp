@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="../Scripts/pages/complaint/complaint_add.js"></script>
 <style type="text/css">
 .textbox{
 	width:90px;
@@ -56,7 +56,7 @@
           <td width="80" align="center" valign="middle">投诉人电话：</td>
           <td width="100" align="left" valign="middle">${complaint.compTel}</td>
           <td width="80" align="center" valign="middle">投诉时间：</td>
-          <td width="100" align="left" valign="middle"><input name="complaint.compTime" type="hidden" class="textbox1" id="fdReportDate" value="<fmt:formatDate value="${complaint.compTime}" type="both" pattern="yyyy-MM-dd"/>"/><fmt:formatDate value="${complaint.compTime}" type="both" pattern="yyyy-MM-dd"/></td>
+          <td width="100" align="left" valign="middle"><fmt:formatDate value="${complaint.compTime}" type="both" pattern="yyyy-MM-dd"/></td>
         </tr>
         <tr>
         	<td width="80" align="center" valign="middle">投诉原因：</td>
@@ -70,7 +70,7 @@
           <td colspan="2" align="left" valign="middle">${complaint.handlePerson}
           </td>
           <td align="center" valign="middle">经办时间：</td>
-          <td colspan="2" align="left" valign="middle">${complaint.handleTime}</td>
+          <td colspan="2" align="left" valign="middle"><fmt:formatDate value="${complaint.handleTime}" type="both" pattern="yyyy-MM-dd"/></td>
         </tr>
         <tr>
         	<td width="80" align="center" valign="middle">处理结果：</td>
@@ -83,8 +83,7 @@
     </tr>
     <tr>
       <td  colspan="2" align="center" valign="middle" style="padding-top:5px; padding-bottom:5px; ">
-      <input type="button" name="button2" id="button2"  value="确定"  /><span style="display:inline-block;width:20px"></span>
-      <input type="button" name="button3" id="button3" value="取消"  />
+      <input type="button" name="button3" id="button3" value="关闭" onclick="closeWindow('#browseComplaint')" />
       </td>
     </tr>
   </table>

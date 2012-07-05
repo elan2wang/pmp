@@ -22,7 +22,7 @@ public class Complaint implements java.io.Serializable {
     public Complaint() {
     }
 
-    public Complaint(Integer compId, Integer hoId, String compPerson,
+    public Complaint(Integer compId, HouseOwner houseOwner, String compPerson,
 	    String compTel, Date compTime, String compContent,
 	    String handleResult, String handlePerson, Date handleTime) {
 	this.compId = compId;

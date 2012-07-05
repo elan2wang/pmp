@@ -61,7 +61,6 @@ function strim(str){
     return str.replace(/(^\s*)|(\s*$)/g,""); 
 }
 function formchk(){
-	
 	obj1=document.getElementById("project");
 	obj2=document.getElementById("builId");
 	obj3=document.getElementById("houseId");

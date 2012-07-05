@@ -19,13 +19,13 @@ import org.pmp.vo.Complaint;
  * @update TODO
  */
 public interface IComplaintDAO {
-	public void saveComplaint(Complaint complaint);
-	public void updateComplaint(Complaint complaint);
+    public void saveComplaint(Complaint complaint);
+    public void updateComplaint(Complaint complaint);
 	
-	public void batchDeleteComplaint(List<Complaint> list);
+    public void batchDeleteComplaint(List<Complaint> list);
 	
-	public Complaint getComplaintById(Integer complaintId);
+    public Complaint getComplaintById(Integer complaintId);
 	
-	public List<Complaint> loadComplaintList_ByCompany(Integer comId,Map<String,Object>params,String order,Pager pager);
-	public List<Complaint> loadComplaintList_ByProject(Integer proId,Map<String,Object>params,String order,Pager pager);
+    public List<Complaint> loadComplaintList_ByCompany(Integer comId,Map<String,Object>params,String order,Pager pager);
+    public List<Complaint> loadComplaintList_ByProject(Integer proId,Map<String,Object>params,String order,Pager pager);
 }

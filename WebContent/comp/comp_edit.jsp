@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="../Scripts/pages/complaint/complaint_add.js"></script>
+<script type="text/javascript" src="../Scripts/pages/complaint/comp_edit.js"></script>
 <style type="text/css">
 .textbox{
 	width:90px;
@@ -26,9 +27,8 @@
 </style>
 </head>
 <body onload="intRO();">
-<form id="form1" name="form1" method="post"  action="complaint_edit" onsubmit="return formchk()">
+<form id="form1" name="form1" method="post"  action="editComplaint" onsubmit="return formchk()">
   <table width="100%" border="0" cellspacing="0" cellpadding="0">
-    
     <tr>
       <td style="padding-top:5px; padding-bottom:5px; border-bottom:1px #6c92ad solid;">
       <div id="P1">
@@ -56,7 +56,7 @@
           <td width="80" align="center" valign="middle">投诉人电话：</td>
           <td width="100" align="left" valign="middle"><input name="complaint.compTel" type="text" class="textbox1" id="compTel"  value="${complaint.compTel}"/></td>
           <td width="80" align="center" valign="middle">投诉时间：</td>
-          <td width="100" align="left" valign="middle"><input name="complaint.compTime" type="hidden" class="textbox1" id="fdReportDate" value="<fmt:formatDate value="${complaint.compTime}" type="both" pattern="yyyy-MM-dd"/>"/><fmt:formatDate value="${complaint.compTime}" type="both" pattern="yyyy-MM-dd"/></td>
+          <td width="100" align="left" valign="middle"><fmt:formatDate value="${complaint.compTime}" type="both" pattern="yyyy-MM-dd"/></td>
         </tr>
         <tr>
         	<td width="80" align="center" valign="middle">投诉原因：</td>
@@ -67,14 +67,14 @@
         </tr>
         <tr>
           <td width="80" height="50" align="center" valign="middle">经办人：</td>
-          <td colspan="2" align="left" valign="middle"><input name="complaint.handlePerson" type="text" class="textbox1" id="complaint.handlePerson" />
+          <td colspan="2" align="left" valign="middle"><input name="complaint.handlePerson" id="complaint.handlePerson" type="text" size="26" style="font-size:12px" value="${complaint.handlePerson}" />
           </td>
           <td align="center" valign="middle">经办时间：</td>
-          <td colspan="2" align="left" valign="middle"><input name="complaint.handleTime" type="text" class="textbox1"  id="complaint.handleTime" readonly="readonly" style="cursor:pointer;" onfocus="WdatePicker()" /></td>
+          <td colspan="2" align="left" valign="middle"><input name="complaint.handleTime" id="complaint.handleTime" type="text" readonly="readonly" value="<fmt:formatDate value="${complaint.handleTime}" type="both" pattern="yyyy-MM-dd"/>" size="26" style="cursor:pointer;font-size:12px" onfocus="WdatePicker()" /></td>
         </tr>
         <tr>
         	<td width="80" align="center" valign="middle">处理结果：</td>
-        	<td width="460" align="left" valign="middle" colspan="5"><textarea name="complaint.handleResult" style="height:40px;width:230px;font-size:1l.5px"  class="textbox1" id="complaint.handleResult"></textarea></td>
+        	<td width="460" align="left" valign="middle" colspan="5"><textarea name="complaint.handleResult" id="complaint.handleResult" style="height:40px;width:450px;font-size:12px">${complaint.handleResult}</textarea></td>
         </tr>
       </table>
       </div>
@@ -84,7 +84,7 @@
     <tr>
       <td  colspan="2" align="center" valign="middle" style="padding-top:5px; padding-bottom:5px; ">
       <input type="submit" name="button2" id="button2"  value="保 存"  /><span style="display:inline-block;width:20px"></span>
-      <input type="button" name="button3" id="button3" value="取消"  />
+      <input type="button" name="button3" id="button3" value="取消" onclick="closeWindow('#editComplaint')"  />
       </td>
     </tr>
   </table>

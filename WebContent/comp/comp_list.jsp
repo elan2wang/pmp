@@ -18,20 +18,30 @@
 <script language="javascript" type="text/javascript" src="../Scripts/component/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
 <script type="text/javascript" src="../Scripts/common/window.js"></script>
-<script type="text/javascript" src="../Scripts/pages/complaint/complaint_list.js"></script>
+<script type="text/javascript" src="../Scripts/pages/comp/comp_list.js"></script>
 
 <title>投诉管理</title>
 </head>
 <body>
 <div class="wrap">
-      <table id="complaintList">
-      </table>
-      <div id="newComplaint" class="easyui-window" href="complaint_add.jsp" title="添加投诉记录" iconCls="icon-save" style="width:600px;height:250px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
-  	  </div>
-  	  <div id="editComplaint" class="easyui-window" href="" title="编辑投诉记录" iconCls="icon-save" style="width:600px;height:400px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
-  	  </div>
-  	  <div id="browseComplaint" class="easyui-window" href="" title="查看投诉记录" iconCls="icon-save" style="width:600px;height:400px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
-  	  </div>
+  <ul class="nav">
+     <li id="tab1" class="active"><a href="javascript:void(0)">投诉记录列表</a></li>
+  </ul> 
+  <div class="content">
+      <div class="innercontent">
+          <div class="content_main" >
+          <table id="complaintList">
+          </table>
+	      <div id="newComplaint" class="easyui-window" href="comp_add.jsp" title="添加投诉记录" iconCls="icon-save" style="width:600px;height:200px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
+	  	  </div>
+	  	  <div id="editComplaint" class="easyui-window" href="" title="编辑投诉记录" iconCls="icon-save" style="width:600px;height:270px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
+	  	  </div>
+	  	  <div id="browseComplaint" class="easyui-window" href="" title="查看投诉记录" iconCls="icon-save" style="width:600px;height:250px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
+	  	  </div>
+	  	  </div>
+	  </div>
+  </div>
 </div>
+<script type="text/javascript" src="../Scripts/common/changeSize.js"></script>
 </body>
 </html>

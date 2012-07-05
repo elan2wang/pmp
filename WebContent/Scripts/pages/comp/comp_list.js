@@ -1,16 +1,17 @@
 // JavaScript Document
 
 $(function(){
+	$(".content .innercontent").eq(0).show();
+	
     $('#complaintList').flexigrid({
     	url:"loadComplaintList",
     	dataType:"json",
     	colModel: [
-    	    { display: '投诉人',name:'compPerson', width: Width*0.035, sortable:true, align: 'center' },
+    	    { display: '所在小区',name:'houseOwner.house.building.project.proName', width: Width*0.1, sortable:true, align: 'center' },
+    	    { display: '投诉人',name:'compPerson', width: Width*0.08, sortable:true, align: 'center' },
     	    { display: '投诉人电话', name:'compTel',width: Width*0.1, sortable:true, align: 'center' },
-    	    { display: '投诉时间', name:'compTime',width: Width*0.05, sortable:true, align: 'center' },
-    	    { display: '投诉原因',name:'compContent', width: Width*0.05, sortable:true, align: 'center' },
-    	    { display: '处理结果',name:'handleResult', width: Width*0.13, sortable:true, align: 'center' },
-    	    { display: '经办人',name:'handlePerson', width: Width*0.08, sortable:true, align: 'center' },
+    	    { display: '投诉时间', name:'compTime',width: Width*0.08, sortable:true, align: 'center' },
+    	    { display: '投诉原因',name:'compContent', width: Width*0.39, sortable:true, align: 'center' },
     	    { display: '处理时间',name:'handleTime', width: Width*0.08, sortable:true, align: 'center' },
     	],
         buttons : [
@@ -19,12 +20,12 @@ $(function(){
             {name: '删除投诉记录', bclass: 'delete', onpress : deleteComplaint}
 	    ],
 	    searchitems:[
-	        { display: '处理结果', name: 'state', isDefault:false }
+	        { display: '所在小区', name: 'houseOwner.house.building.project.proName', isDefault:true },
+	        { display: '投诉人', name: 'compPerson', isDefault:false },
+	        { display: '投诉时间', name:'compTime', isDefault:false },
+	        { display: '处理时间',name:'handleTime', isDefault:false }
 	    ],
-	    searchQueryStrs:[
-            {selectName:'qtype1',queryStrName:'query1'}
-     	],
-        height:Height*0.96,
+        height:Height*0.8,
         showcheckbox:true,
         showSearch:true,
         usepager: true,
@@ -32,7 +33,7 @@ $(function(){
 	    rp: 15,
 	    operation:true,
 	    operationcontent:'<a href="javascript:void(0)" onclick="openEditComplaint($(this).parent().parent().parent())">编辑</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a  href=\"javascript:void(0)\" onclick=\"browseComplaint($(this).parent().parent().parent());\">查看</a>',
-	    operationWidth: Width*0.13
+	    operationWidth: Width*0.1
 	});
 });
 
@@ -52,7 +53,6 @@ function deleteComplaint(){
 		return;
 	}
 	idString=idString.substring(0,idString.length-1);
-	alert(idString);
 	if(!confirm("您将删除该记录,确定删除吗？"))return;
 	$.ajax({
 	  type: "POST",
