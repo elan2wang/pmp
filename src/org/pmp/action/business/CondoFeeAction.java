@@ -14,6 +14,7 @@ package org.pmp.action.business;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -33,6 +34,7 @@ import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.pmp.constant.CondoFeeState;
 import org.pmp.constant.SmsState;
+import org.pmp.excel.CondoFeeExport;
 import org.pmp.excel.NewCondoFeeExport;
 import org.pmp.excel.NewCondoFeeImport;
 import org.pmp.jms.JmsPublisher;
@@ -256,6 +258,45 @@ public class CondoFeeAction extends BaseAction{
 	json.output(data);
     }
     
+    public void exportCondoFeeList_ByCompany() throws IOException{
+	Pager pager = new Pager(1000000,1);
+	/* set query parameter */
+	Map<String,Object> params = getParams();
+	if(year!=null)params.put("CF_Year", year);
+	if(month!=null)params.put("CF_Month", month);
+	/* set sorter type */
+	String order = "order by house asc";
+	List<CondoFee> cfList = condoFeeService.loadCondoFeeList_ByCompany(comId, params, order, pager);
+	
+//	HttpServletResponse response = ServletActionContext.getResponse();
+//	/* set ContentType of MIME response to browser */
+//	response.setContentType("application/vnd.ms-excel;charset=gb2312");
+//	/* set name of the output file */
+//	response.setHeader("Content-Disposition", "attachment;filename=condofeelist.xls");
+	
+//	try {
+//	    CondoFeeExport.execute(response.getOutputStream(), cfList);
+//	} catch (IOException e) {
+//	    logger.error("get response outputStream failed");
+//	    e.printStackTrace();
+//	}
+	/* create the dir to store error data */
+	MyfileUtil.createDir("download");
+	/* create the error data file in this dir */
+	String fileName = MyfileUtil.createFilename();
+	String fullName = ServletActionContext.getServletContext().getRealPath("download")+"\\"+fileName+".xls";
+	String downLoad = ServletActionContext.getServletContext().getContextPath()+"/download/"+fileName+".xls";
+	OutputStream os = new FileOutputStream(fullName);
+	
+	CondoFeeExport.execute(os, cfList);
+	
+	//return json data
+	Map<String, Object> params2 = new LinkedHashMap<String,Object>();
+	params2.put("download_link", downLoad);
+	MyJson json = new MyJson();
+	json.output(json.toJson(params2));
+    }
+    
     public void exportNewCondoFee(){
 	String order = "order by house asc";
 	List<?> cfList = condoFeeService.loadCondoFeeList_ByCFI(cfiId, new HashMap<String, Object>(), order, new Pager(100000,1));
@@ -284,7 +325,7 @@ public class CondoFeeAction extends BaseAction{
 	    message = postfix+"类型的文件暂不支持，请选择xls类型文件";
 	    params.put("error", "fileType_Error");
 	    params.put("msg", message);
-	    MyJson.print(json.toJson(params));
+	    json.output(json.toJson(params));
 	    return;
 	}
 	/* create the dir to store error data */
@@ -309,7 +350,7 @@ public class CondoFeeAction extends BaseAction{
 	    message = "记录有错误,正确数据已导入，请下载错误数据<a href=\""+downLoad+"\">下载</a>";
 	    params.put("error", "record_error");
 	    params.put("msg", message);
-	    MyJson.print(json.toJson(params));
+	    json.output(json.toJson(params));
 	    return;
 	}
 	
@@ -317,7 +358,7 @@ public class CondoFeeAction extends BaseAction{
 	message = "数据导入成功";
 	params.put("error", "");
 	params.put("msg", message);
-	MyJson.print(json.toJson(params));
+	json.output(json.toJson(params));
 	return;
     }
 
@@ -477,39 +518,6 @@ public class CondoFeeAction extends BaseAction{
 	
     }
     
-    /**
-     * @Title: count
-     * @Description: 计算物业费缴费情况，需缴多少、已缴多少 (已经弃用，查询效率太低)
-     */
-    private String count(List<?> cfList){
-	StringBuilder result = new StringBuilder();
-	Double oughtMoney = 0.0;
-	Double fetchMoney = 0.0;
-	Integer fetchItems = 0;
-	Integer noneAuditItems = 0;
-	Integer noneInputItems = 0;
-	Iterator<?> ite = cfList.iterator();
-	while(ite.hasNext()){
-	    CondoFee cf = (CondoFee)ite.next();
-	    if (cf.getOughtMoney()!=null){
-		oughtMoney += cf.getOughtMoney();
-	    }
-	    if (cf.getFetchMoney()!=null){
-		fetchMoney += cf.getFetchMoney();
-		fetchItems += 1;
-	    }
-	    if (cf.getState().equals(CondoFeeState.PAYED)){
-		noneAuditItems += 1;
-	    } else if (cf.getState().equals(CondoFeeState.INPUT)){
-		noneInputItems += 1;
-	    }
-	}
-	result.append("本页："+cfList.size()+"&nbsp;项 &nbsp;&nbsp;&nbsp;&nbsp;已收："+fetchItems+"&nbsp;项, &nbsp;&nbsp;&nbsp;&nbsp;待收："+
-		      noneInputItems+"&nbsp;项 &nbsp;&nbsp;&nbsp;&nbsp;待审核："+noneAuditItems+"&nbsp;项 &nbsp;&nbsp;&nbsp;&nbsp;应收："+
-		      oughtMoney+"&nbsp;元 &nbsp;&nbsp;&nbsp;&nbsp;实收："+fetchMoney+"&nbsp;元");
-	return result.toString();
-    }
-
     //~ Getters and Setters ============================================================================================
 
     public ICondoFeeService getCondoFeeService() {

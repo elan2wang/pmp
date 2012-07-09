@@ -39,7 +39,7 @@ public class ExportUtil {
     //~ Methods ========================================================================================================
     static WritableCell toCell(Object obj,int i,int j){
 	if (obj == null)
-	    return new Label(i,j,"null");
+	    return new Label(i,j,"");
 	if (obj instanceof String)
 	    return new Label(i,j,obj.toString());
 	if (obj instanceof Double)
@@ -55,85 +55,8 @@ public class ExportUtil {
 	    return label;
 	}
 	
-	/* decide whether it is a user-defined type */
-        if (obj instanceof org.pmp.vo.Owner)
-            return new Label(i,j,((org.pmp.vo.Owner)obj).getOwnerName());
-        if (obj instanceof org.pmp.vo.Project)
-            return new Label(i,j,((org.pmp.vo.Project)obj).getProName());
-        if (obj instanceof org.pmp.vo.Company)
-            return new Label(i,j,((org.pmp.vo.Company)obj).getComName());
-        if (obj instanceof org.pmp.vo.House)
-            return new Label(i,j,((org.pmp.vo.House)obj).getHouseNum());
-	
 	/* if none of the above is matched,then throw an exception*/
         throw new RuntimeException("Unsupported type: " + obj.getClass().getName());
-    }
-    
-    static void object2Excel(WritableSheet ws,int row,Object obj,String beanType,List<String> showAttr){
-        String getter = null;
-        String fieldType = null;
-        String fieldName = null;
-	try {
-	    Class<?> cls = Class.forName(beanType);
-	    Field[] fields = cls.getDeclaredFields();
-	    int i = 0;
-	    for(Field field : fields){
-		/* generate the getter method of the field */
-		fieldType = field.getType().toString();
-		fieldName = field.getName();
-		/* if the field is not in show list then continue */
-		if (!showAttr.contains(fieldName))continue;
-		/* if the field is in show list then add to ws */
-		if (fieldType.equals("boolean")){
-		    getter = "is" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
-		} else {
-		    getter = "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
-		}
-		Method getterMethod = cls.getMethod(getter, new Class[] {});
-		Object value = getterMethod.invoke(obj, new Object[] {});
-		/* create a new cell and add to ws */
-		WritableCell cell = toCell(value,i++,row);
-		ws.addCell(cell);
-	    }
-	} catch (ClassNotFoundException e) {
-	    logger.error(beanType+" class not found",e);
-	} catch (NoSuchMethodException e) {
-	    logger.error(getter+" method not found",e);
-	} catch (IllegalArgumentException e) {
-	    logger.error(getter+" IllegalArgumentException",e);
-	} catch (IllegalAccessException e) {
-	    logger.error(getter+" IllegalAccessException",e);
-	} catch (InvocationTargetException e) {
-	    logger.error(getter+" IllegalAccessException",e);
-	} catch (Exception e) {
-	    e.printStackTrace();
-	}
-    }
-    
-    public static void execute(OutputStream os,String[] header,List<?> objList,String beanType,List<String> showAttr){
-        try {
-	    WritableWorkbook wwb = Workbook.createWorkbook(os);
-	    WritableSheet ws = wwb.createSheet("sheet1", 0);
-	    /* set the header of the excel file */
-	    for (int i=0;i<header.length;i++){
-		WritableFont wf = new WritableFont(WritableFont.ARIAL,10,WritableFont.BOLD);
-		WritableCellFormat wcf = new WritableCellFormat(wf);
-		Label label = new Label(i,0,header[i],wcf);
-		ws.addCell(label);
-	    }
-            /* set the data of the excel file */
-	    for(int i=1;i<=objList.size();i++){
-		Object obj = objList.get(i-1);
-		object2Excel(ws,i,obj,beanType,showAttr);
-	    }
-	    /* put the data in cache to file and close cache */
-	    wwb.write();
-	    wwb.close();
-	} catch (IOException e) {
-	    e.printStackTrace();
-	} catch (Exception e) {
-	    e.printStackTrace();
-	}
     }
 
     /**

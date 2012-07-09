@@ -51,6 +51,10 @@
     
     <action name="loadCondoFeeList_ByProject" class="org.pmp.action.business.CondoFeeAction" method="loadCondoFeeList_ByProject" />
     
+    <action name="exportCondoFeeList_ByCompany" class="org.pmp.action.business.CondoFeeAction" method="exportCondoFeeList_ByCompany" />
+    
+    <action name="exportCondoFeeList_ByProject" class="org.pmp.action.business.CondoFeeAction" method="exportCondoFeeList_ByProject" />
+    
     <action name="new_cf_export" class="org.pmp.action.business.CondoFeeAction" method="exportNewCondoFee" />
     
     <action name="new_cf_import" class="org.pmp.action.business.CondoFeeAction" method="importNewCondoFee" />

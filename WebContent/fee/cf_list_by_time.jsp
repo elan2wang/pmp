@@ -20,9 +20,14 @@
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
 <script type="text/javascript" src="../Scripts/common/window.js"></script>
 <script type="text/javascript" src="../Scripts/pages/fee/cf_list_by_time.js"></script>
+<script type="text/javascript" src="../Scripts/component/BlockUI/Jquery-BlockUI-2.3.js" ></script>
 </head>
 <body>
 <table id="cf_list">
 </table>
+
+<input type="hidden" id="url" name="url" />
+<!-- pop up windows -->
+<div id="cfExport" href="cf_export.jsp" class="easyui-window" title="物业费修改" iconCls="icon-save" style="width:280px;height:250px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
 </body>
 </html>

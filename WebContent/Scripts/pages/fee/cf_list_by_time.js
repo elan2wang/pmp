@@ -1,9 +1,9 @@
+var url;
 $(function(){
 	var comId = getQueryString("comId");
 	var proId = getQueryString("proId");
 	var year = getQueryString("year");
 	var month = getQueryString("month");
-	var url;
 	if (comId==null){
 		url="loadCondoFeeList_ByProject?proId="+proId+"&year="+year;
 	} else {
@@ -26,6 +26,10 @@ $(function(){
             { display: '录入时间', name: 'Input_Time', width: Width*0.1, sortable:true, align: 'center' },
             { display: '备注', name: 'Comment', width: Width*0.16, sortable:true, align: 'center' }
         ],
+        buttons:[
+     		{ name: '数据导出', bclass:'import', onpress: cfExport },
+     		{ separator: true },
+	    ],
 		searchitems:[
 		    { display: '小区', name: 'Pro_Name', isdefault:false },
  		    { display: '房号', name: 'h.House_Num', isdefault:false },
@@ -45,3 +49,8 @@ $(function(){
 	});
 });
 
+function cfExport(){
+	var url2 = "export"+url.substring(4, url.length);
+	$('#url').val(url2);
+	openAddWindow('#cfExport');
+}
