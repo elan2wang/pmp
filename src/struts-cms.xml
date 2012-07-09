@@ -159,6 +159,8 @@
 		<result name="success">/cms/projectOnlySelect.jsp</result>
 	</action>
 	
+	<action name="exportOwner" class="org.pmp.action.business.OwnerAction" method="exportOwner"/>
+	
     <!-- pager trigger related actions ===================================================================================== -->
     
   </package>

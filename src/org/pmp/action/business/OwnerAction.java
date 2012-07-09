@@ -15,6 +15,7 @@ package org.pmp.action.business;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,9 +24,11 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
+import org.pmp.excel.OwnerExport;
 import org.pmp.excel.OwnerImport;
 import org.pmp.json.Includer;
 import org.pmp.json.MyJson;
@@ -215,6 +218,7 @@ public class OwnerAction extends BaseAction{
 	    MyJson.print(data);
 	    return;
 	}
+	
 	/* create the dir to store error data */
 	MyfileUtil.createDir("error_data");
 	/* create the error data file in this dir */
@@ -252,6 +256,24 @@ public class OwnerAction extends BaseAction{
 	MyJson.print(data);
 	return;
     }
+    
+    public void exportOwner() throws IOException{
+		Pager pager = new Pager(10000,1);
+		Map<String,Object> params = getParams();
+		String order = null;
+		List<HouseOwner> list = null;
+		Object obj = SessionHandler.getUserRefDomain();
+		if (obj instanceof Project){
+		    list = houseOwnerService.loadHouseOwnerList_ByPro(((Project)obj).getProId(), params, order, pager);
+		} else if (obj instanceof Company){
+		    list = houseOwnerService.loadHouseOwnerList_ByCom(((Company)obj).getComId(), params, order, pager);
+		}
+		HttpServletResponse response = ServletActionContext.getResponse();
+		response.setContentType("application/vnd.ms-excel;charset=gb2312");
+		response.setHeader("Content-Disposition", "attachment;filename=Owner.xls");
+		OutputStream os = response.getOutputStream();
+		OwnerExport.execute(os, list);
+	}
     
     //~ Getters and Setters ============================================================================================
     public IOwnerService getOwnerService() {

@@ -12,12 +12,19 @@
  */
 package org.pmp.action.business;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
+import org.pmp.excel.ElectricFeeExport;
 import org.pmp.service.business.IBuilFeeRateService;
 import org.pmp.service.business.IBuildingService;
 import org.pmp.service.business.IElectricFeeItemService;
@@ -25,8 +32,10 @@ import org.pmp.service.business.IElectricFeeService;
 import org.pmp.service.business.ILiftMeterItemService;
 import org.pmp.service.business.IProMeterItemService;
 import org.pmp.service.business.IProjectService;
+import org.pmp.util.Pager;
 import org.pmp.util.SessionHandler;
 import org.pmp.vo.BuilFeeRate;
+import org.pmp.vo.ElectricFee;
 import org.pmp.vo.ElectricFeeItem;
 import org.pmp.vo.LiftMeterItem;
 import org.pmp.vo.ProMeterItem;
@@ -40,7 +49,7 @@ import com.opensymphony.xwork2.ActionSupport;
  * @version 1.0
  * @update TODO
  */
-public class ElectricFeeItemAction extends ActionSupport {
+public class ElectricFeeItemAction extends BaseAction{
 
     //~ Static Fields ==================================================================================================
     private static Logger logger = Logger.getLogger(ElectricFeeItemAction.class.getName());
@@ -148,6 +157,19 @@ public class ElectricFeeItemAction extends ActionSupport {
     
     public void deleteElectricFeeItem(){
 	electricFeeItemService.deleteElectricFeeItem(electricFeeItemService.getElectricFeeItemByID(efiId));
+    }
+    
+    public void exportElectricFee() throws IOException{
+    	Pager pager = new Pager(10000,1);
+		Map<String,Object> params = getParams();
+		String order = null;
+		List<ElectricFee> list = null;
+		list = electricFeeService.loadElectricFeeList_ByEFI(efiId, params, order, pager);
+		HttpServletResponse response = ServletActionContext.getResponse();
+		response.setContentType("application/vnd.ms-excel;charset=gb2312");
+		response.setHeader("Content-Disposition", "attachment;filename=ElectricFee.xls");
+		OutputStream os = response.getOutputStream();
+		ElectricFeeExport.execute(os, list);
     }
     
     //~ Getters and Setters ============================================================================================

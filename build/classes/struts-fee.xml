@@ -109,6 +109,8 @@
     <action name="loadElectricFeeChargeList_ByHouse" class="org.pmp.action.business.ElectricFeeChargeAction" method="loadElectricFeeChargeList_ByHouse">
       <result name="success">/fee/efc_list.jsp</result>
     </action>
+    
+    <action name="exportElectricFee" class="org.pmp.action.business.ElectricFeeItemAction" method="exportElectricFee"/>
     <!-- ElectricFeeCharge Related actions ============================================================================================ -->
   
   </package>

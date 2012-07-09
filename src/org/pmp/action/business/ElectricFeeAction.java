@@ -188,6 +188,7 @@ public class ElectricFeeAction extends BaseAction {
 	
 	return SUCCESS;
     }
+    
    
     //~ Getters and Setters ============================================================================================
 
