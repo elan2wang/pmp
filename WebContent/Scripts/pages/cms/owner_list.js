@@ -29,6 +29,8 @@ $(function(){
             { separator: true },
             { name: '业主信息导入', bclass:'import', onpress: ownerImport },
             { separator: true },
+            { name: '业主信息导出', bclass:'import', onpress: ownerExport },
+            { separator: true },
             { name: '删除业主', bclass:'delete', onpress: ownerDelete }
 		],
 		searchitems:[
@@ -39,8 +41,8 @@ $(function(){
 		    { display: '手机号码', name: 'Mobile', isDefault:false }
 		],
 		searchQueryStrs:[
-             {selectName:'qtype1',queryStrName:'query1'},
-             {selectName:'qtype2',queryStrName:'query2'}
+            {selectName:'qtype1',queryStrName:'query1'},
+            {selectName:'qtype2',queryStrName:'query2'}
       	],
 		showSearch:true,
 		height:Height*0.8,
@@ -62,6 +64,27 @@ function ownerAdd(){
 
 function ownerImport(){
 	openAddWindow('#ownerImport');
+}
+
+function ownerExport(){
+	var qtype = '';
+	var query = '';
+	var qtype1=$('#qtype1').val();
+	var qtype2=$('#qtype2').val();
+	var query1=$('#query1').val();
+	var query2=$('#query2').val();
+	query += (query1=="")?"null":query1+",";
+	query += (query2=="")?"null":query2;
+	qtype += qtype1+","+qtype2;
+	
+	$.ajax({
+		type: 'POST',
+		url: "exportOwnerList",
+		data: [{name:'qtype',value:qtype},{name:'query',value:query}],
+		success: function(){
+			alert("导出成功");
+		}
+	});
 }
 
 function ownerDelete(){

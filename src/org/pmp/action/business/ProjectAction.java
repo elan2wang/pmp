@@ -47,14 +47,15 @@ public class ProjectAction extends BaseAction {
 	
     private IProjectService projectService;
     private Project project;
-    private Integer projectId;
+    private Integer proId;
     private String proName;
 	
     /* used when uploadFile */
     private File proFile;
     private String proFileFileName;
     private String proFileContentType;
-	    
+    
+    //~ Methods ===========================================================================================================
     public String addProject(){
         //调用该方法的必定是公司管理员
         Object obj = SessionHandler.getUserRefDomain();
@@ -65,7 +66,7 @@ public class ProjectAction extends BaseAction {
     }
 	
     public void deleteProject(){
-        projectService.deleteProject(projectService.getProjectByID(projectId));
+        projectService.deleteProject(projectService.getProjectByID(proId));
     }
 	
     public String editProject(){
@@ -77,7 +78,7 @@ public class ProjectAction extends BaseAction {
 	 
     public String getProjectById(){
         logger.debug("进入方法");
-        project = projectService.getProjectByID(projectId);
+        project = projectService.getProjectByID(proId);
         logger.debug("得到的project为:"+project.toString());
         return SUCCESS;
     }
@@ -124,27 +125,6 @@ public class ProjectAction extends BaseAction {
 	MyJson json = new MyJson(includer);
 	String data = json.toJson(projectList, "", pager);
 	MyJson.print(data);
-    }
-	
-    public String getProjectBySessionHander(){
-        Object obj = SessionHandler.getUserRefDomain();
-        String objName = obj.getClass().getName();
-        List<Project> projectList = new ArrayList<Project>();
-        //如果是小区管理员，则只显示本小区内的业主
-        if(objName.equals("org.pmp.vo.Project")){
-            Project pro = (Project)obj;
-            projectList.add(pro);
-        }else if(objName.equals("org.pmp.vo.Company")){
-            Company com = (Company)obj;
-            Pager pager = new Pager(10000,1);
-            Map<String,Object> params = new HashMap<String,Object>();
-            String order = "order by proId asc";
-            projectList = projectService.loadProjectList_ByCompany(com.getComId(), params, order, pager);
-        }	    
-        
-        HttpServletRequest request = ServletActionContext.getRequest();
-        request.setAttribute("projectList", projectList);
-        return SUCCESS;
     }
     
     public void uploadFile()throws IOException{
@@ -200,7 +180,28 @@ public class ProjectAction extends BaseAction {
         json.output(data);
         return;
     }
-
+    
+    public String getProjectBySessionHander(){
+        Object obj = SessionHandler.getUserRefDomain();
+        String objName = obj.getClass().getName();
+        List<Project> projectList = new ArrayList<Project>();
+        //如果是小区管理员，则只显示本小区内的业主
+        if(objName.equals("org.pmp.vo.Project")){
+            Project pro = (Project)obj;
+            projectList.add(pro);
+        }else if(objName.equals("org.pmp.vo.Company")){
+            Company com = (Company)obj;
+            Pager pager = new Pager(10000,1);
+            Map<String,Object> params = new HashMap<String,Object>();
+            String order = "order by proId asc";
+            projectList = projectService.loadProjectList_ByCompany(com.getComId(), params, order, pager);
+        }	    
+        
+        HttpServletRequest request = ServletActionContext.getRequest();
+        request.setAttribute("projectList", projectList);
+        return SUCCESS;
+    }
+    
     //~ setters and getters ===================================================================================================
     public IProjectService getProjectService() {
         return projectService;
@@ -218,20 +219,20 @@ public class ProjectAction extends BaseAction {
         this.project = project;
     }
 
+    public Integer getProId() {
+        return proId;
+    }
+
+    public void setProId(Integer proId) {
+        this.proId = proId;
+    }
+
     public String getProName() {
         return proName;
     }
 
     public void setProName(String proName) {
         this.proName = proName;
-    }
-
-    public Integer getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(Integer projectId) {
-        this.projectId = projectId;
     }
 
     public File getProFile() {

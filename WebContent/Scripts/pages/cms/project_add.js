@@ -41,7 +41,8 @@ function FormCheck(){
 function check_Project(proName,objfc1) {
 	$.ajax({
 		type: "POST",
-		url: "isProjectExist?proName="+proName,
+		url: "isProjectExist",
+		data: [{name:'proName',value:proName}],
 		dataType:"json",
 		success : function(data){					
 			var result = data["result"];

@@ -89,5 +89,8 @@
         <property name="ownerDesc" type="string">
             <column name="Owner_Desc" length="500" />
         </property>
+        <property name="otherInfo" type="string">
+            <column name="Other_Info" length="200" />
+        </property>
     </class>
 </hibernate-mapping>

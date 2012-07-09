@@ -26,7 +26,7 @@ $(function(){
           	 { display: '所属地区', name: 'proDistrict', isdefault:false },
           	 { display: '所属街道', name: 'proStreet', isdefault:false }
          ],
-         height:Height*0.96,
+         height:Height*0.9,
          showSearch:true,
          showcheckbox:true,
          usepager: true,
@@ -48,7 +48,7 @@ function addProject(){
 
 function openEditProject(obj){
 	var id=parseInt(obj.attr("id").substr(3));
-	var url = 'getProject?projectId='+id;
+	var url = 'getProject?proId='+id;
 	openEditWindow("#editPro",url);
 }
 
@@ -61,7 +61,8 @@ function deleteProject(obj,objid){
 	if(!confirm("您将删除该项目以及关联楼宇、房产、业主、物业费信息,确定删除吗?"))return;
 	$.ajax({
 		type: "POST",
-	    url: 'deleteProject?projectId='+id,
+	    url: "deleteProject",
+	    data: [{name:'proId',value:id}],
 	    dataType: "json",
 	    success : function(data){
 		    obj.hide();

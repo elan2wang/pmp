@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
+import org.pmp.constant.HouseState;
 import org.pmp.json.MyJson;
 import org.pmp.service.business.IBuildingService;
 import org.pmp.service.business.ICompanyService;
@@ -102,7 +103,7 @@ public class PageTriggerAction extends ActionSupport{
     
     public void selectHouse_ByBuil(){
 	Map<String,Object> map = new HashMap<String,Object>();
-	if(isEmpty!=null)map.put("isempty", isEmpty);
+	if(isEmpty!=null)map.put("isempty", HouseState.EMPTY);
         List<?> houseList = houseService.loadHouseList_ByBuilding(builId, map, "order by houseId asc", new Pager(1000,1));
         String[] attrs = {"houseId","houseNum"};
         List<String> show = Arrays.asList(attrs);
