@@ -3,10 +3,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<script type="text/javascript" src="../Scripts/pages/fix/fix_public_edit.js"></script>
 <title>Insert title here</title>
 <style type="text/css">
 .pinfen {border:0px;	
@@ -73,7 +75,7 @@ tr{height:30px;line-hight:30px;padding:2px;}
       </td>
     </tr>
     <tr>
-    <td style="padding-top:20px"><input type="submit" value="完成" onclick="formcheck()"/></td>
+    <td style="padding-top:20px"><input type="submit" value="完成"/></td>
     </tr>
   </table>
 </form>
