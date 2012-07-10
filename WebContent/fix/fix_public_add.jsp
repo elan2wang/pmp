@@ -25,10 +25,7 @@ tr{height:30px;line-hight:30px;padding:2px;}
         <tr>
           <td width="80" height="30" align="center" valign="middle">设备编号</td>
           <td width="180" colspan="2" align="left">
-          <select id="publicRepair.equipNum" name="publicRepair.equipNum" class="selectbox" style="width:165px;">
-	      <s:action name="select_equip" executeResult="true" namespace="/fix">
-	        <s:param name="fbiId" value="4"></s:param>
-	      </s:action>
+          <select id="equipNum" name="publicRepair.equipNum" class="selectbox" style="width:165px;">
 	      </select>
           </td>
         </tr>

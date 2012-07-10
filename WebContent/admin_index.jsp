@@ -35,6 +35,7 @@ a{
            <span style="width:250px;text-align:left;font-size:12px;"><span>[</span>当前用户:${username },${rolename }<span>]</span></span>
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            <span><a href="admin_index.jsp" >首页 </a> </span><span>|</span>
+           <span><a href="#" >帮助 </a> </span><span>|</span>
            <span><a href="j_spring_security_logout">退出</a></span>
        </div>
        <div style="float:left">
@@ -55,10 +56,9 @@ a{
           <div style="border-right:1px #6c92ad solid; height:8px"><img src="Images/blank11.gif" width="8" height="8" /></div>
           <div class="LeftMenuItem" id="mm">
              <c:forEach var="item" items="${moduleList }">
-             <div id="m1" class="LMIitem" onmouseover="button(this,'over')" onmouseout="button(this,'out')" onclick="button(this,'onclick','${item.modUrl}')">${item.modName }</div>
+             <div id="m1" class="LMIitem" onmouseover="button(this,'over')" onmouseout="button(this,'out')" onclick="button(this,'onclick','${item.modUrl}')"><img src="Images/moduleIcons/${item.modId }.png" />&nbsp;&nbsp;&nbsp;&nbsp;${item.modName }</div>
              </c:forEach>
              <div id="blanks" name="blanks" style="border-right:1px #6c92ad solid;">&nbsp;</div>
-             
           </div>
        </div><!-- 结束标签 class="index_main_left"-->
        <div class="index_main_right">
@@ -67,12 +67,10 @@ a{
        </div>
    </div><!-- 结束标签 class="index_main"-->
    <div class="clear"></div>
-   
    <div class="index_footer">
        <div class="index_main_top"><img src="Images/blank11.gif" width="6" height="6" /></div>
-       <div id="userinfo" style="display:inline-block;line-height:30px;text-align:center">版权所有：中国移动公司</div>
+       <div id="userinfo" style="display:inline-block;line-height:30px;text-align:center">版权所有：中国移动舟山分公司</div>
    </div>
-   
 </div>
 <script type="text/javascript">
 initSize();

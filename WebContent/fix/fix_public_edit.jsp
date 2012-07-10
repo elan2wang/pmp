@@ -21,7 +21,7 @@ tr{height:30px;line-hight:30px;padding:2px;}
   <table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>
       <td style="padding-top:5px; padding-bottom:5px; border-bottom:1px #6c92ad solid;">
-      <table width="100%" border="1" align="center" cellpadding="0" cellspacing="0" class="table1">
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="table1">
         <tr>
           <td width="80" height="30" align="center" valign="middle">设备编号
           <input type="hidden" name="publicRepair.fbId" id="publicRepair.fbId" value="${publicRepair.fbId }">

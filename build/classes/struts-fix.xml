@@ -93,9 +93,7 @@
       <result name="success">/select_page/project_options.jsp</result>
     </action>
     
-    <action name="select_equip" class="org.pmp.action.business.PageTriggerAction" method="getEquipList" >
-      <result name="success">/select_page/equip_options.jsp</result>
-    </action>
+    <action name="select_equip" class="org.pmp.action.business.PageTriggerAction" method="getEquipList" />
     
     <!-- page tag triggered actions ================================================================================================ -->
     

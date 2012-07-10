@@ -31,7 +31,7 @@ $(function(){
             {selectName:'qtype1',queryStrName:'query1'},
             {selectName:'qtype2',queryStrName:'query2'}
      	],
-        height:Height*0.96,
+        height:Height*0.9,
         showcheckbox:true,
         showSearch:true,
         usepager: true,

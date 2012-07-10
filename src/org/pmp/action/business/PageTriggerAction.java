@@ -15,6 +15,7 @@ package org.pmp.action.business;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -146,14 +147,19 @@ public class PageTriggerAction extends ActionSupport{
     }
     
     /* 在fix_public_add.jsp页面，由Struts标签触发调用 */
-    public String getEquipList(){
+    public void getEquipList(){
 	PublicRepairItem item = publicRepairItemService.getPublicRepairItemByID(fbiId);
 	String[] equips = item.getEquipList().split(",");
 	List<String> list = Arrays.asList(equips);
 	
-	HttpServletRequest request = ServletActionContext.getRequest();
-	request.setAttribute("equipList", list);
-	return SUCCESS;
+	StringBuilder data = new StringBuilder();
+	data.append("{ \"Rows\":[");
+	for(String num : list){
+	    data.append("{\"equipNum\":\""+num+"\"},");
+	}
+	data.deleteCharAt(data.length()-1);
+	data.append("] }");
+	MyJson.print(data.toString());
     }
     
     //~ Getters and Setters ============================================================================================

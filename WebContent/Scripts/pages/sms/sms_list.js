@@ -19,7 +19,7 @@ $(function(){
  		    { display: '消息内容', name: 'smssContent', isdefault:false }
  		],
  		showSearch:true,
-        height:Height*1.02,
+        height:Height*0.96,
         showcheckbox:true,
         usepager:true,
         useRp:true,
