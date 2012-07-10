@@ -41,6 +41,42 @@
     
     <!--owner repair related actions ====================================================================================== -->
     
+    <!--public repair item related actions ====================================================================================== -->
+    <action name="addPublicRepairItem" class="org.pmp.action.business.PublicRepairItemAction" method="addPublicRepairItem">
+      <result name="success">/fix/fix_public_item_list.jsp</result>
+    </action>
+    
+    <action name="getPublicRepairItemByID" class="org.pmp.action.business.PublicRepairItemAction" method="getPublicRepairItemByID">
+      <result name="success">/fix/fix_public_item_edit.jsp</result>
+    </action>
+    
+    <action name="editPublicRepairItem" class="org.pmp.action.business.PublicRepairItemAction" method="editPublicRepairItem">
+      <result name="success">/fix/fix_public_item_list.jsp</result>
+    </action>
+    
+    <action name="loadPublicRepairItemList" class="org.pmp.action.business.PublicRepairItemAction" method="loadPublicRepairItemList" />
+    
+    <action name="deletePublicRepairItem" class="org.pmp.action.business.PublicRepairItemAction" method="deletePublicRepairItem" />
+    
+    <!--public repair item related actions ====================================================================================== -->
+    
+    <!--public repair related actions ====================================================================================== -->
+    <action name="addPublicRepair" class="org.pmp.action.business.PublicRepairAction" method="addPublicRepair" />
+    
+    <action name="getPublicRepairByID" class="org.pmp.action.business.PublicRepairAction" method="getPublicRepairByID">
+      <result name="success">/fix/fix_public_edit.jsp</result>
+    </action>
+    
+    <action name="editPublicRepair" class="org.pmp.action.business.PublicRepairAction" method="editPublicRepair" />
+    
+    <action name="loadPublicRepairList" class="org.pmp.action.business.PublicRepairAction" method="loadPublicRepairList_ByFBI" />
+    
+    <action name="deletePublicRepair" class="org.pmp.action.business.PublicRepairAction" method="deletePublicRepair" />
+    
+    
+    <!--public repair related actions ====================================================================================== -->
+    
+    
     <!-- owner repair attach related actions ====================================================================================== -->
     <action name="addRepairAttach" class="org.pmp.action.business.RepairAttachAction" method="addRepairAttach" />
     
@@ -50,6 +86,18 @@
       <result name="success">/fix/fix_owner_attach.jsp</result>
     </action>
     <!-- owner repair attach related actions ====================================================================================== -->
+    
+    
+    <!-- page tag triggered actions ======================================================================================= -->
+    <action name="select_project" class="org.pmp.action.business.PageTriggerAction" method="selectProject_ByAuth" >
+      <result name="success">/select_page/project_options.jsp</result>
+    </action>
+    
+    <action name="select_equip" class="org.pmp.action.business.PageTriggerAction" method="getEquipList" >
+      <result name="success">/select_page/equip_options.jsp</result>
+    </action>
+    
+    <!-- page tag triggered actions ================================================================================================ -->
     
   </package>
   

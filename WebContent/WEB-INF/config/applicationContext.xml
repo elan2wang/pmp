@@ -70,6 +70,8 @@
         <value>org/pmp/vo/RepairAttach.hbm.xml</value>
         <value>org/pmp/vo/RepairFee.hbm.xml</value>
         <value>org/pmp/vo/Complaint.hbm.xml</value>
+        <value>org/pmp/vo/PublicRepairItem.hbm.xml</value>
+        <value>org/pmp/vo/PublicRepair.hbm.xml</value>
       </list>
     </property>
   </bean>

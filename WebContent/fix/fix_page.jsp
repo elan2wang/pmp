@@ -19,7 +19,7 @@
 <div class="wrap">
   <ul class="nav">
      <li id="tab1" class="active"><a href="javascript:void(0)">业主报修管理</a></li>
-     <!-- <li id="tab2"><a href="javascript:void(0)">公共维修保养</a></li> -->
+     <li id="tab2"><a href="javascript:void(0)">公共维修保养</a></li>
   </ul>
   <div class="content" style="height:570px;">
     <!-- 业主报修管理  -->

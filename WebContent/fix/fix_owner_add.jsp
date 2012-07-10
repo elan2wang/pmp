@@ -25,7 +25,7 @@
 
 </style>
 </head>
-<body onload="intRO();">
+<body>
 <form id="form1" name="form1" method="post"  action="fix_owner_add" onsubmit="return formchk()">
   <table width="100%" border="0" cellspacing="0" cellpadding="0">
     

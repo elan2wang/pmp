@@ -27,6 +27,8 @@
   <bean id="operateDetailDAO" class="org.pmp.dao.impl.business.OperateDetailDAO" parent="baseDAO"/>
   <bean id="electricFeeChargeDAO" class="org.pmp.dao.impl.business.ElectricFeeChargeDAO" parent="baseDAO"/>
   <bean id="complaintDAO" class="org.pmp.dao.impl.business.ComplaintDAO" parent="baseDAO"></bean>
+  <bean id="publicRepairItemDAO" class="org.pmp.dao.impl.business.PublicRepairItemDAO" parent="baseDAO"/>
+  <bean id="publicRepairDAO" class="org.pmp.dao.impl.business.PublicRepairDAO" parent="baseDAO"/>
   
   <!-- Service Declare ==========================================================================================-->
   <bean id="companyService" class="org.pmp.service.impl.business.CompanyService">
@@ -121,6 +123,14 @@
   
   <bean id="complaintService" class="org.pmp.service.impl.business.ComplaintService">
   	<property name="complaintDAO" ref="complaintDAO"/>
+  </bean>
+  
+  <bean id="publicRepairItemService" class="org.pmp.service.impl.business.PublicRepairItemService">
+  	<property name="publicRepairItemDAO" ref="publicRepairItemDAO"/>
+  </bean>
+  
+  <bean id="publicRepairService" class="org.pmp.service.impl.business.PublicRepairService">
+  	<property name="publicRepairDAO" ref="publicRepairDAO"/>
   </bean>
   
   <!-- Action Declare =====================================================================================-->
@@ -220,6 +230,16 @@
   <bean id="complaintAction" class="org.pmp.action.business.ComplaintAction">
   	<property name="houseOwnerService" ref="houseOwnerService"/>
   	<property name="complaintService" ref="complaintService"/>
+  </bean>
+  
+  <bean id="publicRepairItemAction" class="org.pmp.action.business.PublicRepairItemAction">
+  	<property name="publicRepairItemService" ref="publicRepairItemService"/>
+  	<property name="projectService" ref="projectService"/>
+  </bean>
+  
+  <bean id="publicRepairAction" class="org.pmp.action.business.PublicRepairAction">
+  	<property name="publicRepairItemService" ref="publicRepairItemService"/>
+  	<property name="publicRepairService" ref="publicRepairService"/>
   </bean>
   
 </beans>

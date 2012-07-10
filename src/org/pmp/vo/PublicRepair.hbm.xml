@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-7-10 8:44:53 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.pmp.vo.PublicRepair" table="tb_PublicRepair" schema="dbo" catalog="db_pmp2">
+        <id name="fbId" type="integer">
+            <column name="FB_ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="publicRepairItem" class="org.pmp.vo.PublicRepairItem" fetch="select" lazy="false">
+            <column name="FBI_ID" />
+        </many-to-one>
+        <property name="equipNum" type="string">
+            <column name="Equip_Num" length="50" />
+        </property>
+        <property name="repairDate" type="timestamp">
+            <column name="Repair_Date" length="23" />
+        </property>
+        <property name="beginTime" type="string">
+            <column name="Begin_Time" length="50" />
+        </property>
+        <property name="endTime" type="string">
+            <column name="End_Time" length="50" />
+        </property>
+        <property name="repairDetail" type="string">
+            <column name="Repair_detail" length="200" />
+        </property>
+        <property name="repairType" type="string">
+            <column name="Repair_Type" length="50" />
+        </property>
+        <property name="state" type="string">
+            <column name="State" length="50" />
+        </property>
+        <property name="dutyMan" type="string">
+            <column name="Duty_Man" length="50" />
+        </property>
+    </class>
+</hibernate-mapping>
