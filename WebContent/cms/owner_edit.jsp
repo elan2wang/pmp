@@ -264,6 +264,10 @@
                 <td height="30" align="center" valign="middle">联系电话：</td>
                 <td align="center" valign="middle"><input name="owner.emergencyPhone" type="text" size="25" id="owner.emergencyPhone" value="${owner.emergencyPhone }" /></td>
               </tr>
+              <tr>
+                <td height="30" align="center" valign="middle">其他信息：</td>
+                <td height="30" align="center" valign="middle" colspan="3"><textarea name="owner.otherInfo" id="owner.otherInfo" style="width:450px">${owner.otherInfo }</textarea></td>
+              </tr>
               </table>
             </td>
           </tr>  

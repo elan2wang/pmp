@@ -69,6 +69,7 @@
         <value>org/pmp/vo/ProMeterItem.hbm.xml</value>
         <value>org/pmp/vo/RepairAttach.hbm.xml</value>
         <value>org/pmp/vo/RepairFee.hbm.xml</value>
+        <value>org/pmp/vo/Complaint.hbm.xml</value>
       </list>
     </property>
   </bean>

@@ -43,6 +43,11 @@ import com.opensymphony.xwork2.ActionSupport;
  * @version 1.0
  * @update TODO
  */
+/**
+ * @author Elan
+ * @version 1.0
+ * @update TODO
+ */
 public class TreeAction extends ActionSupport{
 
     //~ Static Fields ==================================================================================================
@@ -58,42 +63,140 @@ public class TreeAction extends ActionSupport{
     private String target;
     private String url;
     
+    private Integer proId;
+    private Integer builId;
+    
     //~ Methods ========================================================================================================
-    public void houseTree(){
-	Object obj = SessionHandler.getUserRefDomain();
+    
+    /**
+     * @Title: projectTree
+     * @Description: 读取用户权限范围内的所有小区信息
+     */
+    public void projectTree(){
 	List<String> nodes = new ArrayList<String>();
-	Pager pager = new Pager(10000,1);
-	List<Project> proList = new ArrayList<Project>();
+	List<Project> proList = getProList();
 	
-	if (obj instanceof Company){
-	    Company com = (Company)obj;
-	    Map<String,Object> params = new HashMap<String,Object>();
-	    String order = "order by proId asc";
-	    proList = projectService.loadProjectList_ByCompany(com.getComId(), params, order, pager);
+	Iterator<Project> ite = proList.iterator();
+	Integer index = 1;
+	while(ite.hasNext()){
+	    Project pro = ite.next();
+	    nodes.add(JsonConvert.toJsonTreeNode(index++, 0, pro.getProName(), "javascript: load_data('buildingTree?proId="+pro.getProId()+"','"+url+"','"+target+"');", 
+		    "", "", "../Images/dtree/pro.jpg", "../Images/dtree/pro.jpg", false));
 	}
-	if (obj instanceof Project){
-	    Project pro = (Project)obj;
-	    proList.add(pro);
+	String data = JsonConvert.toJsonTree(nodes);
+	logger.debug(data);
+	JsonConvert.output(data);
+    }
+    
+    /**
+     * @Title: buildingTree
+     * @Description: 读取用户权限范围的所有小区和指定小区的所有楼宇信息
+     */
+    public void buildingTree(){
+	List<String> nodes = new ArrayList<String>();
+	List<Project> proList = getProList();
+	Pager pager = new Pager(1000,1);
+	Iterator<Project> ite = proList.iterator();
+	Integer index = 1;
+	while(ite.hasNext()){
+	    Project pro = ite.next();
+	    if (proId.equals(pro.getProId())){
+		nodes.add(JsonConvert.toJsonTreeNode(index++, 0, pro.getProName(), "javascript: load_data('buildingTree?proId="+pro.getProId()+"','"+url+"','"+target+"');", 
+			"", "", "../Images/dtree/pro.jpg", "../Images/dtree/pro.jpg", true));
+		List<Building> builList = buildingService.loadBuildingList_ByProject(pro.getProId(), new HashMap<String,Object>(), "order by builId asc", pager);
+		Iterator<Building> ite1 = builList.iterator();
+		Integer pid1 = index-1;
+		while(ite1.hasNext()){
+		    Building buil = ite1.next();
+		    nodes.add(JsonConvert.toJsonTreeNode(index++, pid1, buil.getBuilNum()+"号楼", "javascript:load_data('houseTree2?proId="+proId+"&builId="+buil.getBuilId()+"','"+url+"','"+target+"');", 
+			    buil.getBuilType(), "", "../Images/dtree/buil.jpg", "../Images/dtree/buil.jpg", false));
+		}
+	    } else {
+		nodes.add(JsonConvert.toJsonTreeNode(index++, 0, pro.getProName(), "javascript: load_data('buildingTree?proId="+pro.getProId()+"','"+url+"','"+target+"');",
+			"", "", "../Images/dtree/pro.jpg", "../Images/dtree/pro.jpg", false));
+	    }
 	}
+	String data = JsonConvert.toJsonTree(nodes);
+	logger.debug(data);
+	JsonConvert.output(data);
+    }
+    
+    /**
+     * @Title: houseTree2
+     * @Description: 读取用户权限范围内的所有小区、指定小区的所有楼宇、指定楼宇的所有房屋信息
+     */
+    public void houseTree2(){
+	List<String> nodes = new ArrayList<String>();
+	List<Project> proList = getProList();
+	Pager pager = new Pager(1000,1);
+	Iterator<Project> ite = proList.iterator();
+	Integer index = 1;
+	while(ite.hasNext()){
+	    Project pro = ite.next();
+	    logger.debug(proId);
+	    if (proId.equals(pro.getProId())){
+		nodes.add(JsonConvert.toJsonTreeNode(index++, 0, pro.getProName(), "javascript: load_data('buildingTree?proId="+pro.getProId()+"','"+url+"','"+target+"');", 
+			"", "", "../Images/dtree/pro.jpg", "../Images/dtree/pro.jpg", true));
+		List<Building> builList = buildingService.loadBuildingList_ByProject(pro.getProId(), new HashMap<String,Object>(), "order by builId asc", pager);
+		Iterator<Building> ite1 = builList.iterator();
+		Integer pid1 = index-1;
+		while(ite1.hasNext()){
+		    Building buil = ite1.next();
+		    if (builId.equals(buil.getBuilId())){
+			nodes.add(JsonConvert.toJsonTreeNode(index++, pid1, buil.getBuilNum()+"号楼", "javascript:load_data('houseTree2?proId="+proId+"&builId="+buil.getBuilId()+"','"+url+"','"+target+"');", 
+				buil.getBuilType(), "", "../Images/dtree/buil.jpg", "../Images/dtree/buil.jpg", true));
+			List<House> houseList = houseService.loadHouseList_ByBuilding(buil.getBuilId(), new HashMap<String,Object>(), "order by houseId asc", pager);
+			Iterator<House> ite2 = houseList.iterator();
+			Integer pid2 = index-1;
+			while(ite2.hasNext()){
+			    House house = ite2.next();
+			    logger.debug(target);
+			    nodes.add(JsonConvert.toJsonTreeNode(index++, pid2, house.getHouseNum(), url+"?houseId="+house.getHouseId(),
+				    "", target, "../Images/dtree/house.jpg", "../Images/dtree/house.jpg", false));
+			}
+		    } else {
+			nodes.add(JsonConvert.toJsonTreeNode(index++, pid1, buil.getBuilNum()+"号楼", "javascript:load_data('houseTree2?proId="+proId+"&builId="+buil.getBuilId()+"','"+url+"','"+target+"');", 
+				buil.getBuilType(), "", "../Images/dtree/buil.jpg", "../Images/dtree/buil.jpg", false));
+		    }
+		}
+	    } else {
+		nodes.add(JsonConvert.toJsonTreeNode(index++, 0, pro.getProName(), "javascript: load_data('buildingTree?proId="+pro.getProId()+"','"+url+"','"+target+"');",
+			"", "", "../Images/dtree/pro.jpg", "../Images/dtree/pro.jpg", false));
+	    }
+	}
+	String data = JsonConvert.toJsonTree(nodes);
+	logger.debug(data);
+	JsonConvert.output(data);
+    }
+    
+    
+    /**
+     * @Title: houseTree
+     * @Description: 一次性将该用户权限范围内的所有House信息都读取出来，执行效率低
+     */
+    public void houseTree(){
+	List<String> nodes = new ArrayList<String>();
+	List<Project> proList = getProList();
+	Pager pager = new Pager(1000,1);
+	
 	Iterator<Project> ite = proList.iterator();
 	Integer index = 1;
 	while(ite.hasNext()){
 	    Project pro = ite.next();
 	    nodes.add(JsonConvert.toJsonTreeNode(index++, 0, pro.getProName(), "", 
 		    "", "", "../Images/dtree/pro.jpg", "../Images/dtree/pro.jpg", false));
-	    List<Building> builList = buildingService.loadBuildingList_ByProject(pro.getProId(), new HashMap<String,Object>(), "order by builNum asc", pager);
+	    List<Building> builList = buildingService.loadBuildingList_ByProject(pro.getProId(), new HashMap<String,Object>(), "order by builId asc", pager);
 	    Iterator<Building> ite1 = builList.iterator();
 	    Integer pid1 = index-1;
 	    while(ite1.hasNext()){
 		Building buil = ite1.next();
 		nodes.add(JsonConvert.toJsonTreeNode(index++, pid1, buil.getBuilNum()+"号楼", "", 
 			    buil.getBuilType(), "", "../Images/dtree/buil.jpg", "../Images/dtree/buil.jpg", false));
-		List<House> houseList = houseService.loadHouseList_ByBuilding(buil.getBuilId(), new HashMap<String,Object>(), "order by houseNum asc", pager);
+		List<House> houseList = houseService.loadHouseList_ByBuilding(buil.getBuilId(), new HashMap<String,Object>(), "order by houseId asc", pager);
 		Iterator<House> ite2 = houseList.iterator();
 		Integer pid2 = index-1;
 		while(ite2.hasNext()){
 		    House house = ite2.next();
-		    
 		    nodes.add(JsonConvert.toJsonTreeNode(index++, pid2, house.getHouseNum(), url+"?houseId="+house.getHouseId(),
 			    "", target, "../Images/dtree/house.jpg", "../Images/dtree/house.jpg", false));
 		}
@@ -264,6 +367,24 @@ public class TreeAction extends ActionSupport{
     	JsonConvert.output(data);
     }
     
+    private List<Project> getProList(){
+	Object obj = SessionHandler.getUserRefDomain();
+	Pager pager = new Pager(10000,1);
+	List<Project> proList = new ArrayList<Project>();
+	
+	if (obj instanceof Company){
+	    Company com = (Company)obj;
+	    Map<String,Object> params = new HashMap<String,Object>();
+	    String order = "order by proId asc";
+	    proList = projectService.loadProjectList_ByCompany(com.getComId(), params, order, pager);
+	}
+	if (obj instanceof Project){
+	    Project pro = (Project)obj;
+	    proList.add(pro);
+	}
+	return proList;
+    }
+    
     //~ Getters and Setters ============================================================================================
     public IProjectService getProjectService() {
         return projectService;
@@ -323,6 +444,22 @@ public class TreeAction extends ActionSupport{
 
 	public void setUrl(String url) {
 	    this.url = url;
+	}
+
+	public Integer getProId() {
+	    return proId;
+	}
+
+	public void setProId(Integer proId) {
+	    this.proId = proId;
+	}
+
+	public Integer getBuilId() {
+	    return builId;
+	}
+
+	public void setBuilId(Integer builId) {
+	    this.builId = builId;
 	}
     
 }

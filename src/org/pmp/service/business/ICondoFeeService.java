@@ -23,6 +23,27 @@ public interface ICondoFeeService {
     public void batchInput(List<CondoFee> list);
     public void batchAudit(List<CondoFee> list);
     public void batchDelete(List<CondoFee> list);
+    
+    /**
+     * @Title: getAmount_By_Com_State
+     * @Description: 根据公司编号，获取该公司状态为State的记录总数
+     */
+    public Integer getAmount_By_Com_State(Integer comId, String state, Map<String,Object> params);
+    
+    /**
+     * @Title: getAmount_By_Pro_State
+     * @Description: 根据小区编号，获取该小区状态为State的记录总数
+     */
+    public Integer getAmount_By_Pro_State(Integer proId, String state, Map<String,Object> params);
+    
+    public Integer getAmount_By_Item_State(Integer cfiId, String state, Map<String,Object> params);
+    
+    public List<Double> getMoneyInfo_ByCom(Integer comId, Map<String,Object> params);
+    
+    public List<Double> getMoneyInfo_ByPro(Integer proId, Map<String,Object> params);
+    
+    public List<Double> getMoneyInfo_ByItem(Integer cfiId, Map<String,Object> params);
+    
     /**
      * @Title: getCondoFee_ById
      * @Description: 根据物业费记录的ID获取该物业费记录的实体对象
@@ -60,10 +81,15 @@ public interface ICondoFeeService {
      */
     public List<CondoFee> loadCondoFeeList_ByHouse(Integer houseId,Map<String,Object>params,String order,Pager pager);
     
+    public List<Map<String, Object>> loadCondoFeeList_ByCom(Integer comId,Map<String,Object>params,String order,Pager pager);
+    
+    public List<Map<String, Object>> loadCondoFeeList_ByPro(Integer proId,Map<String,Object>params,String order,Pager pager);
+    
+    public List<Map<String, Object>> loadCondoFeeList_ByItem(Integer cfiId,Map<String,Object>params,String order,Pager pager);
     
     /**
      * @Title: loadCondoFeeList_ByCFI
-     * @Description: 根据物业费创建时的项目编号获取物业费缴费记录
+     * @Description: 根据物业费创建时的项目编号获取物业费缴费记录（已经启用，查询效率太低）
      *
      * @param  cfiId  Integer  物业费项目编号,该参数用户设置检索的主条件
      * @param  params  Map<String,Object>  该参数用户设置检索的条件，
@@ -77,9 +103,16 @@ public interface ICondoFeeService {
      */
     public List<CondoFee> loadCondoFeeList_ByCFI(Integer cfiId,Map<String,Object>params,String order,Pager pager);
     
-    
+    /**
+     * @Title: loadCondoFeeList_ByCompany
+     * @Description: 已弃用，因为查询效率太低
+     */
     public List<CondoFee> loadCondoFeeList_ByCompany(Integer comId,Map<String,Object>params,String order,Pager pager);
     
+    /**
+     * @Title: loadCondoFeeList_ByProject
+     * @Description: 已弃用，因为查询效率太低
+     */
     public List<CondoFee> loadCondoFeeList_ByProject(Integer proId,Map<String,Object>params,String order,Pager pager);
     
 }

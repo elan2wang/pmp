@@ -11,7 +11,7 @@
 		<sql-type jdbc-type="DATE" hibernate-type="date" />
 		<sql-type jdbc-type="TIME" hibernate-type="time" />
 		<sql-type jdbc-type="TIMESTAMP" hibernate-type="timestamp" />
-		<sql-type jdbc-type="BIT" hibernate-type="boolean" />
+		<sql-type jdbc-type="BIT" hibernate-type="Boolean" />
 		<sql-type jdbc-type="TINYINT" hibernate-type="byte" />
 		<sql-type jdbc-type="SMALLINT" hibernate-type="short" />
 		<sql-type jdbc-type="INTEGER" hibernate-type="integer" />
@@ -24,6 +24,7 @@
 			length="1" />
 		<sql-type jdbc-type="VARCHAR" hibernate-type="string" />
 	</type-mapping>
-	
-	
+
+
+	<table catalog="db_pmp2" schema="dbo" name="tb_Complaint" class="Complaint"></table>
 </hibernate-reverse-engineering>

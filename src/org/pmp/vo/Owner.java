@@ -37,6 +37,7 @@ public class Owner implements java.io.Serializable {
     private String emergencyPhone;
     private String houseNum;
     private String ownerDesc;
+    private String otherInfo;
     
     public String toString(){
     	StringBuffer sb=new StringBuffer();
@@ -44,7 +45,7 @@ public class Owner implements java.io.Serializable {
     	sb.append(","+ismarried+","+organization+","+hobby+","+identityType+","+identityCode+","+homePhone);
     	sb.append(","+mobile+","+getTime+","+decorateTime+","+inTime+","+parkNum+","+carNum);
     	sb.append(","+carType+","+storeroom+","+houseArea+","+useStyle+","+otherAddress+","+otherPostcode);
-    	sb.append(","+emergencyContact+","+emergencyPhone+","+houseNum+","+ownerDesc);
+    	sb.append(","+emergencyContact+","+emergencyPhone+","+houseNum+","+ownerDesc+","+otherInfo);
     	sb.append(" ]");
     	return sb.toString();
     }
@@ -64,7 +65,7 @@ public class Owner implements java.io.Serializable {
 	    String parkNum, String carNum, String carType, String storeroom,
 	    Double houseArea, String useStyle, String otherAddress,
 	    String otherPostcode, String emergencyContact,
-	    String emergencyPhone, String houseNum, String ownerDesc) {
+	    String emergencyPhone, String houseNum, String ownerDesc, String otherInfo) {
 	this.ownerId = ownerId;
 	this.ownerName = ownerName;
 	this.gender = gender;
@@ -93,6 +94,7 @@ public class Owner implements java.io.Serializable {
 	this.emergencyPhone = emergencyPhone;
 	this.houseNum = houseNum;
 	this.ownerDesc = ownerDesc;
+	this.otherInfo = otherInfo;
     }
 
     public Integer getOwnerId() {
@@ -317,6 +319,14 @@ public class Owner implements java.io.Serializable {
 
     public void setOwnerDesc(String ownerDesc) {
 	this.ownerDesc = ownerDesc;
+    }
+
+    public String getOtherInfo() {
+        return otherInfo;
+    }
+
+    public void setOtherInfo(String otherInfo) {
+        this.otherInfo = otherInfo;
     }
 
 }

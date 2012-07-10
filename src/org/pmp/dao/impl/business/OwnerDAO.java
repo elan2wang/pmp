@@ -291,6 +291,4 @@ public class OwnerDAO extends BaseDAO implements IOwnerDAO {
 	return idList;
     }
 
-    //~ Getters and Setters ============================================================================================
-
 }

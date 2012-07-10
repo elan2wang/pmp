@@ -22,8 +22,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
+import org.pmp.constant.HouseState;
 import org.pmp.json.MyJson;
 import org.pmp.service.business.IBuildingService;
+import org.pmp.service.business.ICompanyService;
 import org.pmp.service.business.IHouseOwnerService;
 import org.pmp.service.business.IHouseService;
 import org.pmp.service.business.IProjectService;
@@ -52,6 +54,7 @@ public class PageTriggerAction extends ActionSupport{
     private IHouseService houseService;
     private IBuildingService buildingService;
     private IHouseOwnerService houseOwnerService;
+    private ICompanyService companyService;
     
     private Integer proId;
     private Integer builId;
@@ -59,6 +62,21 @@ public class PageTriggerAction extends ActionSupport{
     private Integer isEmpty;
     
     //~ Methods ========================================================================================================
+
+    /**
+     * @Title: getAllCompany
+     * @Description: 在smsc_add.jsp和smsc_edit.jsp页面调用
+     */
+    public String getAllCompany(){
+    	Pager pager2 = new Pager(1000,1);
+    	Map<String,Object> params = new HashMap<String,Object>();
+    	String order = "order by comId asc";
+    	List<Company> companyList = companyService.loadCompanyList_ByChinaMobile(params, order, pager2);
+    	HttpServletRequest request = ServletActionContext.getRequest();
+	request.setAttribute("companyList", companyList);
+    	return SUCCESS;
+    }
+    
     public String selectProject_ByAuth(){
 	List<Project> list = null;
 	Object obj = SessionHandler.getUserRefDomain();
@@ -76,7 +94,7 @@ public class PageTriggerAction extends ActionSupport{
     }
 
     public void selectBuilding_ByPro(){
-	List<?> buildingList = buildingService.loadBuildingList_ByProject(proId, new HashMap<String,Object>(), "order by builNum asc", new Pager(1000,1));
+	List<?> buildingList = buildingService.loadBuildingList_ByProject(proId, new HashMap<String,Object>(), "order by builId asc", new Pager(1000,1));
 	String[] attrs = {"builId","builNum"};
 	List<String> show = Arrays.asList(attrs);
 	String data = JsonConvert.list2Json(buildingList, "org.pmp.vo.Building", show);
@@ -85,8 +103,8 @@ public class PageTriggerAction extends ActionSupport{
     
     public void selectHouse_ByBuil(){
 	Map<String,Object> map = new HashMap<String,Object>();
-	if(isEmpty!=null)map.put("isempty", isEmpty);
-        List<?> houseList = houseService.loadHouseList_ByBuilding(builId, map, "order by houseNum asc", new Pager(1000,1));
+	if(isEmpty!=null)map.put("isempty", HouseState.EMPTY);
+        List<?> houseList = houseService.loadHouseList_ByBuilding(builId, map, "order by houseId asc", new Pager(1000,1));
         String[] attrs = {"houseId","houseNum"};
         List<String> show = Arrays.asList(attrs);
         String data = JsonConvert.list2Json(houseList, "org.pmp.vo.House", show);
@@ -155,6 +173,14 @@ public class PageTriggerAction extends ActionSupport{
 
     public void setHouseOwnerService(IHouseOwnerService houseOwnerService) {
         this.houseOwnerService = houseOwnerService;
+    }
+
+    public ICompanyService getCompanyService() {
+        return companyService;
+    }
+
+    public void setCompanyService(ICompanyService companyService) {
+        this.companyService = companyService;
     }
 
     public Integer getProId() {

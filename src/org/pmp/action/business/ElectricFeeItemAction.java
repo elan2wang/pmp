@@ -12,12 +12,19 @@
  */
 package org.pmp.action.business;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
+import org.pmp.excel.ElectricFeeExport;
 import org.pmp.service.business.IBuilFeeRateService;
 import org.pmp.service.business.IBuildingService;
 import org.pmp.service.business.IElectricFeeItemService;
@@ -25,8 +32,10 @@ import org.pmp.service.business.IElectricFeeService;
 import org.pmp.service.business.ILiftMeterItemService;
 import org.pmp.service.business.IProMeterItemService;
 import org.pmp.service.business.IProjectService;
+import org.pmp.util.Pager;
 import org.pmp.util.SessionHandler;
 import org.pmp.vo.BuilFeeRate;
+import org.pmp.vo.ElectricFee;
 import org.pmp.vo.ElectricFeeItem;
 import org.pmp.vo.LiftMeterItem;
 import org.pmp.vo.ProMeterItem;
@@ -40,7 +49,7 @@ import com.opensymphony.xwork2.ActionSupport;
  * @version 1.0
  * @update TODO
  */
-public class ElectricFeeItemAction extends ActionSupport {
+public class ElectricFeeItemAction extends BaseAction{
 
     //~ Static Fields ==================================================================================================
     private static Logger logger = Logger.getLogger(ElectricFeeItemAction.class.getName());
@@ -86,7 +95,7 @@ public class ElectricFeeItemAction extends ActionSupport {
 	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 	String beginDate = formatter.format(electricFeeItem.getBeginDate());
 	String endDate = formatter.format(electricFeeItem.getEndDate());
-	electricFeeItem.setItemName(pro.getProName()+beginDate+"-"+endDate+"的公摊电费");
+	electricFeeItem.setItemName(beginDate+"至"+endDate);
 	electricFeeItemService.addElectricFeeItem(electricFeeItem);
 	
 	Double beginDegree = 0.0;
@@ -109,32 +118,36 @@ public class ElectricFeeItemAction extends ActionSupport {
 	proMeterItemService.batchAddProMeterItem(pmiList);
 	
 	//创建并保存电梯电表记录对象
-	for(int i=0;i<builId.length;i++){
-	    LiftMeterItem lmi = new LiftMeterItem();
-	    lmi.setBuilding(buildingService.getBuildingById(builId[i]));
-	    beginDegree = Double.parseDouble(lmBeginDegree[i].trim());
-	    endDegree = Double.parseDouble(lmEndDegree[i].trim());
-	    price = Double.parseDouble(lmPrice[i].trim());
-	    lmi.setBeginDegree(beginDegree);
-	    lmi.setEndDegree(endDegree);
-	    lmi.setPrice(price);
-	    lmi.setTotalMoney((endDegree-beginDegree)*price);
-	    lmi.setElectricFeeItem(electricFeeItem);
-	    lmiList.add(lmi);
+	if(builId!=null&&builId.length!=0){
+	    for(int i=0;i<builId.length;i++){
+                LiftMeterItem lmi = new LiftMeterItem();
+                lmi.setBuilding(buildingService.getBuildingById(builId[i]));
+                beginDegree = Double.parseDouble(lmBeginDegree[i].trim());
+                endDegree = Double.parseDouble(lmEndDegree[i].trim());
+                price = Double.parseDouble(lmPrice[i].trim());
+                lmi.setBeginDegree(beginDegree);
+                lmi.setEndDegree(endDegree);
+                lmi.setPrice(price);
+                lmi.setTotalMoney((endDegree-beginDegree)*price);
+                lmi.setElectricFeeItem(electricFeeItem);
+                lmiList.add(lmi);
+            }
+            liftMeterItemService.batchAddLiftMeterItem(lmiList);
 	}
-	liftMeterItemService.batchAddLiftMeterItem(lmiList);
 	
 	//创建并保存楼层段收费倍率对象
-	for(int i=0;i<bfrBuilId.length;i++){
-	   BuilFeeRate bfr = new BuilFeeRate();
-	   bfr.setBeginFloor(beginFloor[i]);
-	   bfr.setEndFloor(endFloor[i]);
-	   bfr.setRate(Double.parseDouble(rate[i].trim()));
-	   bfr.setBuilding(buildingService.getBuildingById(bfrBuilId[i]));
-	   bfr.setElectricFeeItem(electricFeeItem);
-	   bfrList.add(bfr);
+	if(bfrBuilId!=null && bfrBuilId.length!=0){
+	    for(int i=0;i<bfrBuilId.length;i++){
+                BuilFeeRate bfr = new BuilFeeRate();
+                bfr.setBeginFloor(beginFloor[i]);
+                bfr.setEndFloor(endFloor[i]);
+                bfr.setRate(Double.parseDouble(rate[i].trim()));
+                bfr.setBuilding(buildingService.getBuildingById(bfrBuilId[i]));
+                bfr.setElectricFeeItem(electricFeeItem);
+                bfrList.add(bfr);
+	    }
+            builFeeRateService.batchAddBuilFeeRate(bfrList);
 	}
-	builFeeRateService.batchAddBuilFeeRate(bfrList);
 	
 	//生成电费清单
 	electricFeeService.generateElectricFee(electricFeeItem.getEfiId());
@@ -144,6 +157,19 @@ public class ElectricFeeItemAction extends ActionSupport {
     
     public void deleteElectricFeeItem(){
 	electricFeeItemService.deleteElectricFeeItem(electricFeeItemService.getElectricFeeItemByID(efiId));
+    }
+    
+    public void exportElectricFee() throws IOException{
+    	Pager pager = new Pager(10000,1);
+		Map<String,Object> params = getParams();
+		String order = null;
+		List<ElectricFee> list = null;
+		list = electricFeeService.loadElectricFeeList_ByEFI(efiId, params, order, pager);
+		HttpServletResponse response = ServletActionContext.getResponse();
+		response.setContentType("application/vnd.ms-excel;charset=gb2312");
+		response.setHeader("Content-Disposition", "attachment;filename=ElectricFee.xls");
+		OutputStream os = response.getOutputStream();
+		ElectricFeeExport.execute(os, list);
     }
     
     //~ Getters and Setters ============================================================================================

@@ -174,33 +174,60 @@ public class HouseOwnerDAO extends BaseDAO implements IHouseOwnerDAO {
     public List<Map<String, Object>> loadOwnerList_ByPro(final Integer proId,
 	   final Map<String, Object> params, final String order, final Pager pager) {
 	List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-	Session session = getSession();
-	Transaction tx = null;
+	Integer startRow = (pager.getCurrentPage()-1)*pager.getPageSize()+1;
+	Integer endRow = startRow+pager.getPageSize()-1;
 	
-	Connection conn = session.connection();
+	/* =================== sql1用户查询符合条件的记录总数 ========================================================== */
+	StringBuilder sql1 = new StringBuilder();
+	sql1.append("SELECT COUNT(tb_Owner.Owner_ID) FROM tb_HouseOwner,tb_House,tb_Owner,tb_Building,tb_Project " +
+		    "WHERE tb_HouseOwner.Owner_ID = tb_Owner.Owner_ID and tb_HouseOwner.House_ID = tb_House.House_ID and tb_House.Buil_ID = tb_Building.Buil_ID and tb_Building.Pro_ID = tb_Project.Pro_ID and tb_Project.Pro_ID = " + proId);
+	sql1.append(ParamsToString.toString(params));
+	logger.debug(sql1.toString());
+	
+	/* =================== sql用于查询符合条件的记录  ============================================================== */
 	StringBuilder sql = new StringBuilder();
-	sql.append("select tb_Owner.Owner_ID,Pro_Name,Owner_Name,Gender,Mobile,Home_Phone,tb_House.House_Num,tb_House.House_Area,Organization " + 
-                   "from tb_HouseOwner,tb_House,tb_Owner,tb_Building,tb_Project,tb_Company " +
-                   "where tb_HouseOwner.Owner_ID = tb_Owner.Owner_ID and tb_HouseOwner.House_ID = tb_House.House_ID and " +
-                   "tb_House.Buil_ID = tb_Building.Buil_ID and tb_Building.Pro_ID = tb_Project.Pro_ID and tb_Project.Pro_ID = "+proId);
-	sql.append(ParamsToString.toString(params));
+	sql.append("WITH DataList AS (SELECT ROW_NUMBER() OVER (");
 	if (order==null){
-	    sql.append(" order by tb_House.House_Num asc");
+	    sql.append("ORDER BY Pro_Name asc,tb_House.House_ID ASC) ");
 	} else {
-	    sql.append(" "+order);
+	    sql.append(""+order+") ");
 	}
+        sql.append("AS RowNum,tb_Owner.Owner_ID,Pro_Name,Owner_Name,Gender,Mobile,Home_Phone,tb_House.House_Num,tb_House.House_Area,Organization " +
+		   "FROM tb_Owner,tb_House,tb_HouseOwner,tb_Building,tb_Project " +
+		   "WHERE tb_House.House_ID = tb_HouseOwner.House_ID and tb_HouseOwner.Owner_ID = tb_Owner.Owner_ID and tb_House.Buil_ID = tb_Building.Buil_ID and tb_Building.Pro_ID = tb_Project.Pro_ID and tb_Project.Pro_ID = "+proId);
+	sql.append(ParamsToString.toString(params));
+	sql.append(") SELECT * FROM DataList WHERE RowNum BETWEEN "+startRow+" AND "+endRow);
 	logger.debug(sql.toString());
-	PreparedStatement stmt = null;
-	ResultSet rs= null;
+	
+	/* ======================= 开始执行查询 ===================================================================== */
+	Transaction tx = null;
+	Session session = getSession();
+	Connection conn = session.connection();
 	try {
-	    stmt = conn.prepareStatement(sql.toString(),ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
-	    rs = stmt.executeQuery();
-	    list = generateList(rs,pager);
+	    tx = session.beginTransaction();
+	    /*============= 获取记录总数，设置pager ================================================================= */
+	    PreparedStatement stmt1 = conn.prepareStatement(sql1.toString(),ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+	    ResultSet rs1 = stmt1.executeQuery();
+	    rs1.first();
+	    pager.setRowsCount(rs1.getInt(1));
+	    logger.debug(rs1.getInt(1));
+	    
+	    /*============= 获取记录 =============================================================================== */
+	    PreparedStatement stmt = conn.prepareStatement(sql.toString(),ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+	    ResultSet rs = stmt.executeQuery();
+	    list = generateList(rs);
             conn.close();
             stmt.close();
             rs.close();
          } catch (SQLException e) {
+            tx.rollback();
             e.printStackTrace();
+	 } catch (RuntimeException e){
+	     tx.rollback();
+	     throw e;
+	 } finally {
+	     tx.commit();
+	     session.close();
 	 }
          return list;
     }
@@ -212,62 +239,77 @@ public class HouseOwnerDAO extends BaseDAO implements IHouseOwnerDAO {
     public List<Map<String, Object>> loadOwnerList_ByCom(final Integer comId,
 		   final Map<String, Object> params, final String order, final Pager pager) {
 	List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-	Session session = getSession();
-	Transaction tx = null;
+	Integer startRow = (pager.getCurrentPage()-1)*pager.getPageSize()+1;
+	Integer endRow = startRow+pager.getPageSize()-1;
 	
-	Connection conn = session.connection();
+	/* =================== sql1用户查询符合条件的记录总数 ========================================================== */
+	StringBuilder sql1 = new StringBuilder();
+	sql1.append("SELECT COUNT(tb_Owner.Owner_ID) FROM tb_Owner,tb_House,tb_HouseOwner,tb_Building,tb_Project,tb_Company " + 
+		    "WHERE tb_House.House_ID = tb_HouseOwner.House_ID and tb_HouseOwner.Owner_ID = tb_Owner.Owner_ID and tb_House.Buil_ID = tb_Building.Buil_ID and tb_Building.Pro_ID = tb_Project.Pro_ID and tb_Project.Com_ID = tb_Company.Com_ID and tb_Company.Com_ID = "+comId);
+	sql1.append(ParamsToString.toString(params));
+	logger.debug(sql1.toString());
+
+	/* =================== sql用于查询符合条件的记录  ============================================================== */
 	StringBuilder sql = new StringBuilder();
-	sql.append("select tb_Owner.Owner_ID,Pro_Name,Owner_Name,Gender,Mobile,Home_Phone,tb_House.House_Num,tb_House.House_Area,Organization " + 
-                   "from tb_HouseOwner,tb_House,tb_Owner,tb_Building,tb_Project,tb_Company " +
-                   "where tb_HouseOwner.Owner_ID = tb_Owner.Owner_ID and tb_HouseOwner.House_ID = tb_House.House_ID and " +
-                   "tb_House.Buil_ID = tb_Building.Buil_ID and tb_Building.Pro_ID = tb_Project.Pro_ID and " +
-                   "tb_Project.Com_ID = tb_Company.Com_ID and tb_Company.Com_ID = "+comId);
-	sql.append(ParamsToString.toString(params));
+	sql.append("WITH DataList AS (SELECT ROW_NUMBER() OVER (");
 	if (order==null){
-	    sql.append(" order by Pro_Name asc,tb_House.House_Num asc");
+	    sql.append("ORDER BY Pro_Name asc,tb_House.House_ID ASC) ");
 	} else {
-	    sql.append(" "+order);
+	    sql.append(""+order+") ");
 	}
+        sql.append("AS RowNum,tb_Owner.Owner_ID,Pro_Name,Owner_Name,Gender,Mobile,Home_Phone,tb_House.House_Num,tb_House.House_Area,Organization " +
+		   "FROM tb_Owner,tb_House,tb_HouseOwner,tb_Building,tb_Project,tb_Company " +
+		   "WHERE tb_House.House_ID = tb_HouseOwner.House_ID and tb_HouseOwner.Owner_ID = tb_Owner.Owner_ID and tb_House.Buil_ID = tb_Building.Buil_ID and tb_Building.Pro_ID = tb_Project.Pro_ID and tb_Project.Com_ID = tb_Company.Com_ID and tb_Company.Com_ID = "+comId);
+	sql.append(ParamsToString.toString(params));
+	sql.append(") SELECT * FROM DataList WHERE RowNum BETWEEN "+startRow+" AND "+endRow);
 	logger.debug(sql.toString());
-	PreparedStatement stmt = null;
-	ResultSet rs= null;
+
+	/* ======================= 开始执行查询 ===================================================================== */
+	Transaction tx = null;
+	Session session = getSession();
 	try {
-	    stmt = conn.prepareStatement(sql.toString(),ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
-	    rs = stmt.executeQuery();
-	    list = generateList(rs,pager);
+	    tx = session.beginTransaction();
+	    Connection conn = session.connection();
+	    PreparedStatement stmt1 = conn.prepareStatement(sql1.toString(),ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+	    ResultSet rs1 = stmt1.executeQuery();
+	    rs1.first();
+	    pager.setRowsCount(rs1.getInt(1));
+	    
+	    PreparedStatement stmt = conn.prepareStatement(sql.toString(),ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+	    ResultSet rs = stmt.executeQuery();
+	    list = generateList(rs);
             conn.close();
             stmt.close();
             rs.close();
          } catch (SQLException e) {
+            tx.rollback();
             e.printStackTrace();
+	 } catch (RuntimeException e){
+	     tx.rollback();
+	     throw e;
+	 } finally {
+	     tx.commit();
+	     session.close();
 	 }
          return list;
     }
     
-    private List<Map<String, Object>> generateList(ResultSet rs,Pager pager) throws SQLException{
+    private List<Map<String, Object>> generateList(ResultSet rs) throws SQLException{
 	List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-	rs.last();
-        Integer totalRows = rs.getRow();
-        pager.setRowsCount(totalRows);
-        Integer startRow = (pager.getCurrentPage()-1)*pager.getPageSize()+1;
-        if(rs.absolute(startRow)){
-    	    for(int i =0; i<pager.getPageSize();i++){
-    	        Map<String, Object> attrMap = new LinkedHashMap<String, Object>();
-    	        attrMap.put("tb_Owner.Owner_ID", rs.getObject(1));
-    	        attrMap.put("Pro_Name", rs.getObject(2));
-    	        attrMap.put("Owner_Name", rs.getObject(3));
-    	        attrMap.put("Gender", rs.getObject(4));
-    	        attrMap.put("Mobile", rs.getObject(5));
-    	        attrMap.put("Home_Phone", rs.getObject(6));
-    	        attrMap.put("tb_House.House_Num", rs.getObject(7));
-    	        attrMap.put("tb_House.House_Area", rs.getObject(8));
-    	        attrMap.put("Organization", rs.getObject(9));
-    	        list.add(attrMap);
-    	        rs.next();
-    	        if(rs.isLast())break;
-    	    }
+	rs.beforeFirst();
+        while(rs.next()){
+            Map<String, Object> attrMap = new LinkedHashMap<String, Object>();
+	    attrMap.put("tb_Owner.Owner_ID", rs.getObject(2));
+	    attrMap.put("Pro_Name", rs.getObject(3));
+	    attrMap.put("Owner_Name", rs.getObject(4));
+	    attrMap.put("Gender", rs.getObject(5));
+	    attrMap.put("Mobile", rs.getObject(6));
+	    attrMap.put("Home_Phone", rs.getObject(7));
+	    attrMap.put("tb_House.House_Num", rs.getObject(8));
+	    attrMap.put("tb_House.House_Area", rs.getObject(9));
+	    attrMap.put("Organization", rs.getObject(10));
+	    list.add(attrMap);
         }
     	return list;
     }
-    
 }

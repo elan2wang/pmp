@@ -111,6 +111,7 @@ public class OwnerImport {
 	            if(!list.get(26).getContents().trim().equals(""))owner.setEmergencyContact(list.get(26).getContents().trim());
 	            if(!list.get(27).getContents().trim().equals(""))owner.setEmergencyPhone(list.get(27).getContents().trim());
 	            if(!list.get(28).getContents().trim().equals(""))owner.setHobby(list.get(28).getContents().trim());
+	            if(!list.get(29).getContents().trim().equals(""))owner.setOtherInfo(list.get(29).getContents().trim());
 	            /* add the instance into ownerList */
 	            ownerList.add(owner);
 	            

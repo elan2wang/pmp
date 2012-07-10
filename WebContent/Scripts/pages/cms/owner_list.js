@@ -29,6 +29,8 @@ $(function(){
             { separator: true },
             { name: '业主信息导入', bclass:'import', onpress: ownerImport },
             { separator: true },
+            { name: '业主信息导出', bclass:'import', onpress: ownerExport },
+            { separator: true },
             { name: '删除业主', bclass:'delete', onpress: ownerDelete }
 		],
 		searchitems:[
@@ -39,11 +41,11 @@ $(function(){
 		    { display: '手机号码', name: 'Mobile', isDefault:false }
 		],
 		searchQueryStrs:[
-             {selectName:'qtype1',queryStrName:'query1'},
-             {selectName:'qtype2',queryStrName:'query2'}
+            {selectName:'qtype1',queryStrName:'query1'},
+            {selectName:'qtype2',queryStrName:'query2'}
       	],
 		showSearch:true,
-		height:Height*0.88,
+		height:Height*0.8,
         showcheckbox:true,
         nomsg: '没有符合条件的业主记录',
         usepager:true,
@@ -62,6 +64,10 @@ function ownerAdd(){
 
 function ownerImport(){
 	openAddWindow('#ownerImport');
+}
+
+function ownerExport(){
+	openAddWindow('#ownerExport');
 }
 
 function ownerDelete(){

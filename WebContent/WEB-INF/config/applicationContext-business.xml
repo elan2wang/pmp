@@ -26,7 +26,7 @@
   <bean id="repairAttachDAO" class="org.pmp.dao.impl.business.RepairAttachDAO" parent="baseDAO"/>
   <bean id="operateDetailDAO" class="org.pmp.dao.impl.business.OperateDetailDAO" parent="baseDAO"/>
   <bean id="electricFeeChargeDAO" class="org.pmp.dao.impl.business.ElectricFeeChargeDAO" parent="baseDAO"/>
-
+  <bean id="complaintDAO" class="org.pmp.dao.impl.business.ComplaintDAO" parent="baseDAO"></bean>
   
   <!-- Service Declare ==========================================================================================-->
   <bean id="companyService" class="org.pmp.service.impl.business.CompanyService">
@@ -117,6 +117,10 @@
   
   <bean id="electricFeeChargeService" class="org.pmp.service.impl.business.ElectricFeeChargeService">
     <property name="electricFeeChargeDAO" ref="electricFeeChargeDAO" />
+  </bean>
+  
+  <bean id="complaintService" class="org.pmp.service.impl.business.ComplaintService">
+  	<property name="complaintDAO" ref="complaintDAO"/>
   </bean>
   
   <!-- Action Declare =====================================================================================-->
@@ -211,6 +215,11 @@
   <bean id="electricFeeChargeAction" class="org.pmp.action.business.ElectricFeeChargeAction">
     <property name="electricFeeChargeService" ref="electricFeeChargeService" />
     <property name="houseOwnerService" ref="houseOwnerService" />
+  </bean>
+  
+  <bean id="complaintAction" class="org.pmp.action.business.ComplaintAction">
+  	<property name="houseOwnerService" ref="houseOwnerService"/>
+  	<property name="complaintService" ref="complaintService"/>
   </bean>
   
 </beans>

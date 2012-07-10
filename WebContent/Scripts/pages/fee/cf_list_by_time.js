@@ -1,9 +1,9 @@
+var url;
 $(function(){
 	var comId = getQueryString("comId");
 	var proId = getQueryString("proId");
 	var year = getQueryString("year");
 	var month = getQueryString("month");
-	var url;
 	if (comId==null){
 		url="loadCondoFeeList_ByProject?proId="+proId+"&year="+year;
 	} else {
@@ -16,26 +16,30 @@ $(function(){
 		url:url,
 		dataType:"json",
         colModel:[
-            { display: '小区', name: 'condoFeeItem.project.proName', width: Width*0.15, sortable:true, align: 'center' },
-            { display: '房号', name: 'house.houseNum', width: Width*0.08, sortable:true, align: 'center' },
-            { display: '业主', name: 'owner.ownerName', width: Width*0.08, sortable:true, align: 'center' },
-            { display: '月份', name: 'cfMonth', width: Width*0.04, sortable:true, align: 'center' },
-            { display: '状态', name: 'state', width: Width*0.07, sortable:true, align: 'center' },
-            { display: '应收金额', name: 'oughtMoney', width: Width*0.07, sortable:true, align: 'center' },
-            { display: '实收金额', name: 'fetchMoney', width: Width*0.07, sortable:true, align: 'center' },
-            { display: '录入时间', name: 'inputTime', width: Width*0.1, sortable:true, align: 'center' },
-            { display: '备注', name: 'comment', width: Width*0.16, sortable:true, align: 'center' }
+            { display: '小区', name: 'Pro_Name', width: Width*0.15, sortable:true, align: 'center' },
+            { display: '房号', name: 'h.House_Num', width: Width*0.08, sortable:true, align: 'center' },
+            { display: '业主', name: 'Owner_Name', width: Width*0.08, sortable:true, align: 'center' },
+            { display: '月份', name: 'CF_Month', width: Width*0.04, sortable:true, align: 'center' },
+            { display: '状态', name: 'State', width: Width*0.07, sortable:true, align: 'center' },
+            { display: '应收金额', name: 'Ought_Money', width: Width*0.07, sortable:true, align: 'center' },
+            { display: '实收金额', name: 'Fetch_Money', width: Width*0.07, sortable:true, align: 'center' },
+            { display: '录入时间', name: 'Input_Time', width: Width*0.1, sortable:true, align: 'center' },
+            { display: '备注', name: 'Comment', width: Width*0.16, sortable:true, align: 'center' }
         ],
+        buttons:[
+     		{ name: '数据导出', bclass:'import', onpress: cfExport },
+     		{ separator: true },
+	    ],
 		searchitems:[
-		    { display: '小区', name: 'condoFeeItem.project.proName', isdefault:false },
- 		    { display: '房号', name: 'house.houseNum', isdefault:false },
- 		    { display: '业主', name: 'owner.ownerName', isdefault:false },
- 		    { display: '状态', name: 'state', isdefault:true },
- 		    { display: '录入时间', name: 'inputTime', isDefault:false}
+		    { display: '小区', name: 'Pro_Name', isdefault:false },
+ 		    { display: '房号', name: 'h.House_Num', isdefault:false },
+ 		    { display: '业主', name: 'Owner_Name', isdefault:false },
+ 		    { display: '状态', name: 'State', isdefault:true },
+ 		    { display: '录入时间', name: 'Input_Time', isDefault:false}
 		],
 		title:true,
 		showSearch:true,
-        height:Height*0.96,
+        height:Height*0.9,
         showcheckbox:true,
         nomsg: '没有符合条件的物业费记录',
         usepager:true,
@@ -45,3 +49,8 @@ $(function(){
 	});
 });
 
+function cfExport(){
+	var url2 = "export"+url.substring(4, url.length);
+	$('#url').val(url2);
+	openAddWindow('#cfExport');
+}

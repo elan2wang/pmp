@@ -24,7 +24,7 @@
 a{color:black}
 </style>
 </head>
-<body onload="load_data('houseTree','cf_list_by_house.jsp','condoFeeList')">
+<body onload="load_data('projectTree','cf_list_by_house.jsp','condoFeeList')">
 <div class="wrap">
   <div class="content_main">
     <div class="left_main" style="float:left;width:20%">

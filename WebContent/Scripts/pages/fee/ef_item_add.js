@@ -116,7 +116,6 @@ function updateElev(money){
 	document.getElementById("electricFeeItem.totalMoney").value=totalmoney.toFixed(2);
 }
 function appendRowElev(){
-	
 	objtb=document.getElementById("elevatorList");
 	objNum=document.getElementById("builNum");
 	objLast=document.getElementById("elevatorlastDegree");
@@ -142,7 +141,7 @@ function appendRowElev(){
 		return false;
 	}
 	else{
-		table2height+=75;
+		table2height+=81;
 		$("#elevatorHeight").css("height",table2height+"px");
 		//更新隐藏域
 		updateElev(objFee.value);
@@ -160,15 +159,16 @@ function appendRowElev(){
 				newTr.style.verticalAlign="middle";
 				newTr.style.textAlign="center";
 				newTr.id="td"+rowIndex;
-				newTd0.style.height="25px";
-				newTd1.style.height="25px";
+				newTd0.style.height="75px";
+				newTd1.style.height="75px";
 				newTd1.style.borderWidth="0px";
+				newTd1.style.padding="0px";
 				newTd1.colSpan="4";
 				newTd0.innerHTML='<input type="hidden" name="builId" value="'+objNum.value+'"/>'+objNum.options[objNum.selectedIndex].text+'号楼,'+builInfo;
-				newTd1.innerHTML='<div style="height:75px"><table id="buidingTable'+objNum.value+'" width="100%" border="0" align="center" cellpadding="0" cellspacing="0">'+
-				    '<tr><td width="25%" style="height:25px"><input type="hidden" name="lmBeginDegree" value="'+objLast.value+'"/>'+objLast.value+'</td><td width="25%"><input type="hidden" name="lmEndDegree" value="'+objNow.value+'"/>'+objNow.value+'</td><td width="25%"><input type="hidden" name="lmPrice" value="'+objFee.value+'"/>'+objFee.value+'</td><td width="25%"><a href="javascript:void(0)" onclick="javascript:removeRowBuild(this)" style="color:red;text-decoration:none;">删除</a></td></tr>'+
-					'<tr><td style="height:25px">起始楼层</td><td>终止楼层</td><td>比例</td><td></td></tr>'+
-					'<tr style="background-color:#FFC;"><td style="height:25px"><input type="text" style="width:80px"/></td><td><input type="text" style="width:80px" /></td><td><input type="text" style="width:80px"/></td><td><input type="button" value="添加" onclick="appendRowBuild(this)"/></td></tr>'+
+				newTd1.innerHTML='<div style="height:auto"><table id="buidingTable'+objNum.value+'" width="100%" border="0" align="center" cellpadding="0" cellspacing="0">'+
+				    '<tr><td width="25%" style="width:25%;height:25px"><input type="hidden" name="lmBeginDegree" value="'+objLast.value+'"/>'+objLast.value+'</td><td width="25%"  style="width:25%;height:25px"><input type="hidden" name="lmEndDegree" value="'+objNow.value+'"/>'+objNow.value+'</td><td width="25%"  style="width:25%;height:25px"><input type="hidden" name="lmPrice" value="'+objFee.value+'"/>'+objFee.value+'</td><td width="25%"  style="width:25%;height:25px"><a href="javascript:void(0)" onclick="javascript:removeRowBuild(this)" style="color:red;text-decoration:none;">删除</a></td></tr>'+
+					'<tr><td style="height:25px">起始楼层</td><td>终止楼层</td><td>比例</td><td>.</td></tr>'+
+					'<tr style="background-color:#FFC;"><td style="height:25px"><input type="text" style="width:60px;"/></td><td><input type="text" style="width:60px;" /></td><td><input type="text" style="width:60px;"/></td><td><input type="button" value="添加" onclick="appendRowBuild(this)"/></td></tr>'+
 					'</table></div>';
 				rowIndex2++;
 				
@@ -184,6 +184,7 @@ function appendRowElev(){
 function removeRowBuild(the){
 	tableObj=$(the).parent().parent().parent().parent();
 	 var h=tableObj.parent().css("height");
+	 alert(parseInt(h));
 	table2height-=parseInt(h);
 	$("#elevatorHeight").css("height",table2height+"px");
 	$(the).parent().parent().parent().parent().parent().parent().parent().remove();
@@ -219,7 +220,6 @@ function appendRowBuild(the){
 		else{
 		   height=(tableObj.find("tr").length+1)*25;
 		   $("#elevatorHeight").css("height",(table2height+=25)+"px");
-		   tableObj.parent().css("height",height+"px");
 	       var newTr = $(tableObj)[0].insertRow(3);
 	       var bfrBuilId = (tableObj.parent().parent().prev().find("input"))[0].value;
 	       //alert(bfrBuilId);
@@ -243,6 +243,5 @@ function removeRowCommon(the){
 	tableObj=$(the).parent().parent().parent().parent();
     height=(tableObj.find("tr").length-1)*25;
 	$("#elevatorHeight").css("height",(table2height-=25)+"px");
-	tableObj.parent().css("height",height+"px");
 	$(the).parent().parent().remove();
 }

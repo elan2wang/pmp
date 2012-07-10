@@ -107,22 +107,6 @@ public class MyJson {
 	return null;
     }
     
-    public String toJson(List<Map<String, Object>> list, Pager pager){
-	try {
-	    return jsonFactory.toJson(list, pager);
-	} catch (IllegalArgumentException e) {
-	    logger.error("IllegalArgumentException");
-	    e.printStackTrace();
-	} catch (IOException e) {
-	    logger.error("IOException");
-	    e.printStackTrace();
-	} catch (IllegalAccessException e) {
-	    logger.error("IllegalAccessException");
-	    e.printStackTrace();
-	}
-	return null;
-    }
-    
     public void output(String data){
 	try {    
             HttpServletResponse response = ServletActionContext.getResponse();  

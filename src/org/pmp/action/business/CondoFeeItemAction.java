@@ -11,11 +11,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
+import org.pmp.json.MyJson;
 import org.pmp.service.business.IBuildingService;
 import org.pmp.service.business.ICondoFeeItemService;
 import org.pmp.service.business.IHouseService;
@@ -23,7 +26,6 @@ import org.pmp.service.business.IProjectService;
 import org.pmp.util.JsonConvert;
 import org.pmp.util.Pager;
 import org.pmp.util.SessionHandler;
-import org.pmp.vo.Company;
 import org.pmp.vo.CondoFeeItem;
 import org.pmp.vo.Project;
 import org.pmp.vo.Building;
@@ -71,16 +73,18 @@ public class CondoFeeItemAction extends ActionSupport {
 	/* set the response string */
 	sb.append("小区名称："+project.getProName()+"    楼宇数量："+builList.size()+"幢"+"    时间："
 		+itemYear+"年"+months+"月    ");
-	logger.debug(sb.toString());
 	Integer houseCount = 0;
+	Map<String, Object> params = new HashMap<String, Object>();
+	params.put("isempty", "已入住");
 	Iterator<Building> ite = builList.iterator();
 	while(ite.hasNext()){
 	    Building building = (Building)ite.next();
-	    List<House> houseList = houseService.loadHouseList_ByBuilding(building.getBuilId(), new HashMap<String,Object>(), "", pager);
+	    List<House> houseList = houseService.loadHouseList_ByBuilding(building.getBuilId(), params, "", pager);
 	    houseCount += houseList.size();
 	}
-	sb.append("业主数量："+houseCount+"    生成物业费记录数目："+houseCount*months.length());
-	JsonConvert.output("{\"info\":"+JsonConvert.toJson(sb.toString())+"}");
+	Integer monthCount = (months.split(",")).length;
+	sb.append("业主数量："+houseCount+"    生成物业费记录数目："+houseCount*monthCount);
+	MyJson.print("{\"info\":"+JsonConvert.toJson(sb.toString())+"}");
     }
     
     public void check_Month(){  
@@ -106,16 +110,16 @@ public class CondoFeeItemAction extends ActionSupport {
     	    }
     	    else continue;
     	}
-    	String data = null;
+    	MyJson json = new MyJson();
+    	Map<String, Object> params = new HashMap<String,Object>();
     	if(fail){
-    	    data="{"+JsonConvert.toJson("result")+":"+JsonConvert.toJson("Failed")+"}";
+    	    params.put("result", "Failed");
     	}
     	else{
-    	    data="{"+JsonConvert.toJson("result")+":"+JsonConvert.toJson("Success")+"}";
+    	    params.put("result", "Success");
     	}
-     	logger.debug(data);
-    	JsonConvert.output(data);
-  }
+    	json.output(json.toJson(params));
+    }
     
     
     public String addCondoFeeItem(){
