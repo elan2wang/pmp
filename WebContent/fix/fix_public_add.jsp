@@ -73,7 +73,7 @@ tr{height:30px;line-hight:30px;padding:2px;}
       </td>
     </tr>
     <tr>
-    <td style="padding-top:20px"><input type="submit" value="完成" onclick="formcheck()"/></td>
+    <td style="padding-top:20px"><input type="submit" value="完成" /></td>
     </tr>
   </table>
 </form>
