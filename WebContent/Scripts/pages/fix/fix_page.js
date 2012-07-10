@@ -16,8 +16,9 @@ $(function(){
 		$(".content .innercontent").hide().eq(0).show();
 		return false;
 	});
+	
 	$("#tab2").click(function(){
-	    document.getElementById("fix_public").src="fix_public_list.jsp";
+	    document.getElementById("fix_public").src="fix_public_item_list.jsp";
 		$(".nav li").removeClass("active");	
 		$(this).addClass('active');
 		$(".content .innercontent").hide().eq(1).show();

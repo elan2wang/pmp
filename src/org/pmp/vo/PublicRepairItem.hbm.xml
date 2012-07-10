@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-7-10 8:44:53 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.pmp.vo.PublicRepairItem" table="tb_PublicRepairItem" schema="dbo" catalog="db_pmp2">
+        <id name="fbiId" type="integer">
+            <column name="FBI_ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="project" class="org.pmp.vo.Project" fetch="select" lazy="false">
+            <column name="Pro_ID" />
+        </many-to-one>
+        <property name="itemName" type="string">
+            <column name="Item_Name" length="50" />
+        </property>
+        <property name="itemType" type="string">
+            <column name="Item_Type" length="50" />
+        </property>
+        <property name="equipName" type="string">
+            <column name="Equip_Name" length="50" />
+        </property>
+        <property name="equipList" type="string">
+            <column name="Equip_List" length="500" />
+        </property>
+        <property name="comment" type="string">
+            <column name="Comment" length="20" />
+        </property>
+    </class>
+</hibernate-mapping>

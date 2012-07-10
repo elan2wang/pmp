@@ -7,7 +7,7 @@
     
     <!-- page tag triggered actions ======================================================================================= -->
     <action name="select_project" class="org.pmp.action.business.PageTriggerAction" method="selectProject_ByAuth" >
-      <result name="success">/fee/select_pros.jsp</result>
+      <result name="success">/select_page/project_options.jsp</result>
     </action>
     
     <action name="select_building" class="org.pmp.action.business.PageTriggerAction" method="selectBuilding_ByPro" />

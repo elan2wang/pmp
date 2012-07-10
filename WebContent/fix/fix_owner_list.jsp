@@ -32,7 +32,6 @@
   	  </div>
   	  <div id="openAttach" class="easyui-window" href="" title="上传附件" iconCls="icon-save" style="width:500px;height:200px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
   	  </div>
-
 </div>
 </body>
 </html>

@@ -267,20 +267,7 @@ public class CondoFeeAction extends BaseAction{
 	/* set sorter type */
 	String order = "order by house asc";
 	List<CondoFee> cfList = condoFeeService.loadCondoFeeList_ByCompany(comId, params, order, pager);
-	
-//	HttpServletResponse response = ServletActionContext.getResponse();
-//	/* set ContentType of MIME response to browser */
-//	response.setContentType("application/vnd.ms-excel;charset=gb2312");
-//	/* set name of the output file */
-//	response.setHeader("Content-Disposition", "attachment;filename=condofeelist.xls");
-	
-//	try {
-//	    CondoFeeExport.execute(response.getOutputStream(), cfList);
-//	} catch (IOException e) {
-//	    logger.error("get response outputStream failed");
-//	    e.printStackTrace();
-//	}
-	/* create the dir to store error data */
+
 	MyfileUtil.createDir("download");
 	/* create the error data file in this dir */
 	String fileName = MyfileUtil.createFilename();

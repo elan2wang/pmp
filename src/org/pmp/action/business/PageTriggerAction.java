@@ -29,6 +29,7 @@ import org.pmp.service.business.ICompanyService;
 import org.pmp.service.business.IHouseOwnerService;
 import org.pmp.service.business.IHouseService;
 import org.pmp.service.business.IProjectService;
+import org.pmp.service.business.IPublicRepairItemService;
 import org.pmp.util.JsonConvert;
 import org.pmp.util.Pager;
 import org.pmp.util.SessionHandler;
@@ -37,6 +38,7 @@ import org.pmp.vo.Company;
 import org.pmp.vo.HouseOwner;
 import org.pmp.vo.Owner;
 import org.pmp.vo.Project;
+import org.pmp.vo.PublicRepairItem;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -55,11 +57,13 @@ public class PageTriggerAction extends ActionSupport{
     private IBuildingService buildingService;
     private IHouseOwnerService houseOwnerService;
     private ICompanyService companyService;
+    private IPublicRepairItemService publicRepairItemService;
     
     private Integer proId;
     private Integer builId;
     private Integer houseId;
     private Integer isEmpty;
+    private Integer fbiId;
     
     //~ Methods ========================================================================================================
 
@@ -141,6 +145,17 @@ public class PageTriggerAction extends ActionSupport{
 	MyJson.print(data.toString());
     }
     
+    /* 在fix_public_add.jsp页面，由Struts标签触发调用 */
+    public String getEquipList(){
+	PublicRepairItem item = publicRepairItemService.getPublicRepairItemByID(fbiId);
+	String[] equips = item.getEquipList().split(",");
+	List<String> list = Arrays.asList(equips);
+	
+	HttpServletRequest request = ServletActionContext.getRequest();
+	request.setAttribute("equipList", list);
+	return SUCCESS;
+    }
+    
     //~ Getters and Setters ============================================================================================
 
     public IProjectService getProjectService() {
@@ -213,6 +228,23 @@ public class PageTriggerAction extends ActionSupport{
 
     public void setIsEmpty(Integer isEmpty) {
         this.isEmpty = isEmpty;
+    }
+
+    public IPublicRepairItemService getPublicRepairItemService() {
+        return publicRepairItemService;
+    }
+
+    public void setPublicRepairItemService(
+    	IPublicRepairItemService publicRepairItemService) {
+        this.publicRepairItemService = publicRepairItemService;
+    }
+
+    public Integer getFbiId() {
+        return fbiId;
+    }
+
+    public void setFbiId(Integer fbiId) {
+        this.fbiId = fbiId;
     }
 
 }
