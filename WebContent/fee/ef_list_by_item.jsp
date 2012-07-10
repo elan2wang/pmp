@@ -20,6 +20,7 @@
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
 <script type="text/javascript" src="../Scripts/common/window.js"></script>
 <script type="text/javascript" src="../Scripts/pages/fee/ef_list_by_item.js"></script>
+<script type="text/javascript" src="../Scripts/component/BlockUI/Jquery-BlockUI-2.3.js" ></script>
 </head>
 <body>
 <table id="ef_list">
@@ -28,6 +29,6 @@
 
 <!-- pop up windows -->
 <div id="efEdit" class="easyui-window" title="电费修改" iconCls="icon-save" style="width:420px;height:270px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
-
+<div id="export" href="../common/export.jsp" class="easyui-window" title="电费信息导出" iconCls="icon-save" style="width:350px;height:200px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
 </body>
 </html>

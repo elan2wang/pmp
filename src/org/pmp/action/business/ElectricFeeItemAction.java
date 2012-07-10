@@ -12,11 +12,13 @@
  */
 package org.pmp.action.business;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.pmp.excel.ElectricFeeExport;
+import org.pmp.json.MyJson;
 import org.pmp.service.business.IBuilFeeRateService;
 import org.pmp.service.business.IBuildingService;
 import org.pmp.service.business.IElectricFeeItemService;
@@ -32,6 +35,7 @@ import org.pmp.service.business.IElectricFeeService;
 import org.pmp.service.business.ILiftMeterItemService;
 import org.pmp.service.business.IProMeterItemService;
 import org.pmp.service.business.IProjectService;
+import org.pmp.util.MyfileUtil;
 import org.pmp.util.Pager;
 import org.pmp.util.SessionHandler;
 import org.pmp.vo.BuilFeeRate;
@@ -81,8 +85,8 @@ public class ElectricFeeItemAction extends BaseAction{
     private Integer[] endFloor;
     private String[] rate;
     /* ========================= */
-    
-    //~ Methods ========================================================================================================
+
+	//~ Methods ========================================================================================================
     public String addElectricFeeItem(){
 	List<ProMeterItem> pmiList = new ArrayList<ProMeterItem>();
 	List<LiftMeterItem> lmiList = new ArrayList<LiftMeterItem>();
@@ -160,16 +164,21 @@ public class ElectricFeeItemAction extends BaseAction{
     }
     
     public void exportElectricFee() throws IOException{
-    	Pager pager = new Pager(10000,1);
+    	Pager pager = new Pager(100000,1);
 		Map<String,Object> params = getParams();
 		String order = null;
 		List<ElectricFee> list = null;
 		list = electricFeeService.loadElectricFeeList_ByEFI(efiId, params, order, pager);
-		HttpServletResponse response = ServletActionContext.getResponse();
-		response.setContentType("application/vnd.ms-excel;charset=gb2312");
-		response.setHeader("Content-Disposition", "attachment;filename=ElectricFee.xls");
-		OutputStream os = response.getOutputStream();
+		MyfileUtil.createDir("download");
+		String fileName = MyfileUtil.createFilename();
+		String fullName = ServletActionContext.getServletContext().getRealPath("download")+"\\"+fileName+".xls";
+		String downLoad = ServletActionContext.getServletContext().getContextPath()+"/download/"+fileName+".xls";
+		OutputStream os = new FileOutputStream(fullName);
 		ElectricFeeExport.execute(os, list);
+		Map<String, Object> params2 = new LinkedHashMap<String,Object>();
+		params2.put("download_link", downLoad);
+		MyJson json = new MyJson();
+		json.output(json.toJson(params2));
     }
     
     //~ Getters and Setters ============================================================================================
@@ -370,5 +379,5 @@ public class ElectricFeeItemAction extends BaseAction{
     public void setRate(String[] rate) {
         this.rate = rate;
     }
-
+    
 }

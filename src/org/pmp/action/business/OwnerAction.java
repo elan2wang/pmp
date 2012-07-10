@@ -258,7 +258,7 @@ public class OwnerAction extends BaseAction{
     }
     
     public void exportOwner() throws IOException{
-		Pager pager = new Pager(10000,1);
+		Pager pager = new Pager(100000,1);
 		Map<String,Object> params = getParams();
 		String order = null;
 		List<HouseOwner> list = null;
@@ -268,11 +268,19 @@ public class OwnerAction extends BaseAction{
 		} else if (obj instanceof Company){
 		    list = houseOwnerService.loadHouseOwnerList_ByCom(((Company)obj).getComId(), params, order, pager);
 		}
-		HttpServletResponse response = ServletActionContext.getResponse();
-		response.setContentType("application/vnd.ms-excel;charset=gb2312");
-		response.setHeader("Content-Disposition", "attachment;filename=Owner.xls");
-		OutputStream os = response.getOutputStream();
+		MyfileUtil.createDir("download");
+		String fileName = MyfileUtil.createFilename();
+		String fullName = ServletActionContext.getServletContext().getRealPath("download")+"\\"+fileName+".xls";
+		String downLoad = ServletActionContext.getServletContext().getContextPath()+"/download/"+fileName+".xls";
+//		HttpServletResponse response = ServletActionContext.getResponse();
+//		response.setContentType("application/vnd.ms-excel;charset=gb2312");
+//		response.setHeader("Content-Disposition", "attachment;filename=Owner.xls");
+		OutputStream os = new FileOutputStream(fullName);
 		OwnerExport.execute(os, list);
+		Map<String, Object> params2 = new LinkedHashMap<String,Object>();
+		params2.put("download_link", downLoad);
+		MyJson json = new MyJson();
+		json.output(json.toJson(params2));
 	}
     
     //~ Getters and Setters ============================================================================================

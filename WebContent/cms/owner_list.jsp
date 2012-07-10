@@ -25,6 +25,7 @@
 <script type="text/javascript" src="../Scripts/common/window.js"></script>
 <script type="text/javascript" src="../Scripts/pages/cms/owner_list.js"></script>
 <script type="text/javascript" src="../Scripts/pages/cms/owner_add.js"></script>
+<script type="text/javascript" src="../Scripts/component/BlockUI/Jquery-BlockUI-2.3.js" ></script>
 </head>
 <body>
 <div class="wrap">      
@@ -41,6 +42,7 @@
                    <div id="ownerImport" href="owner_import.jsp" class="easyui-window" title="业主信息导入" iconCls="icon-save" style="width:350px;height:200px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
                    <div id="ownerAdd" href="owner_add.jsp" class="easyui-window" title="添加业主" iconCls="icon-save" style="width:600px;height:410px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
               	   <div id="ownerExport" href="owner_export.jsp" class="easyui-window" title="业主信息导出" iconCls="icon-save" style="width:350px;height:200px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
+              	   <div id="export" href="../common/export.jsp" class="easyui-window" title="电费信息导出" iconCls="icon-save" style="width:350px;height:200px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
                </div>
            </div>
        </div>

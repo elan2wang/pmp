@@ -18,7 +18,7 @@ public class Project implements java.io.Serializable {
     private String proStreet;
     private String proAddress;
     private Date deliveryTime;
-    private Integer proHouseCount;
+    private String proHouseCount;
     private String proDesc;
     private String proType;
     private Boolean fireEnabled;
@@ -41,7 +41,7 @@ public class Project implements java.io.Serializable {
 
     public Project(Integer proId, Company company, String proName,
 	    String proDistrict, String proStreet, String proAddress,
-	    Date deliveryTime, Integer proHouseCount, String proDesc,
+	    Date deliveryTime, String proHouseCount, String proDesc,
 	    String proType, boolean fireEnabled, boolean enabled) {
 	this.proId = proId;
 	this.company = company;
@@ -113,11 +113,11 @@ public class Project implements java.io.Serializable {
 	this.deliveryTime = deliveryTime;
     }
 
-    public Integer getProHouseCount() {
+    public String getProHouseCount() {
 	return this.proHouseCount;
     }
 
-    public void setProHouseCount(Integer proHouseCount) {
+    public void setProHouseCount(String proHouseCount) {
 	this.proHouseCount = proHouseCount;
     }
 

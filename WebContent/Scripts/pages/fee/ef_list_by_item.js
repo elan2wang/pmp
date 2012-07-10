@@ -23,7 +23,8 @@ $(function(){
         buttons:[
             { name: '电费修改', bclass: 'add', onpress: ef_edit },
             { name: '删除电费记录', bclass: 'delete', onpress: ef_delete },
-            { name: '删除电费项目', bclass: 'delete', onpress: efi_delete }
+            { name: '删除电费项目', bclass: 'delete', onpress: efi_delete },
+            { name: '导出电费项目', bclass: 'import', onpress: efExport}
 		],
 		searchitems:[
 		    { display: '房号', name: 'houseOwner.house.houseNum'},
@@ -67,6 +68,25 @@ function efi_delete(){
 		success: function(data){
 			alert("电费项目删除成功");
 			window.parent.location.href='ef_item_list.jsp';
+		}
+	});
+}
+function efExport(){
+	var qtype="";
+	var query="";
+	var efiId = $('#efiId').val();
+	$.blockUI({ message: "<h3><img src='../Images/loading4.gif'><br>正在生成文件，请等待...</h3>" });
+	$.ajax({
+		type: "POST",
+		dataType: "json",
+		url: "exportElectricFee?efiId="+efiId,
+		data: [{name:'qtype',value:qtype},{name:'query',value:query}],
+		success: function(data){
+			$.unblockUI();
+			openAddWindow('#export');
+			$('#download').removeAttr('style');
+			$('#downLink').attr('href',data.download_link);
+			$('#export').window('refresh');
 		}
 	});
 }

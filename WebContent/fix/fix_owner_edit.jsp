@@ -91,7 +91,13 @@
           <td align="center" valign="middle">是否派单：</td>
           <td colspan="2" align="left" valign="middle"><select name=ownerRepair.state class="selectbox"  style="width:170px" id="fdState">
             <option value="未派单" <c:if test="${ownerRepair.state=='未派单' }">selected="selected"</c:if>>未派单</option>
-            <option value="已派单" <c:if test="${ownerRepair.state=='已派单' }">selected="selected"</c:if>>已派单</option>
+            <option value="已派单（开发商）" <c:if test="${ownerRepair.state=='已派单（开发商）' }">selected="selected"</c:if>>已派单（开发商）</option>
+            <option value="已完工（开发商）" <c:if test="${ownerRepair.state=='已完工（开发商）' }">selected="selected"</c:if>>已完工（开发商）</option>
+            <option value="已修复（卡发商）" <c:if test="${ownerRepair.state=='已修复（卡发商）' }">selected="selected"</c:if>>已修复（卡发商）</option>
+            <option value="开发商服务中断" <c:if test="${ownerRepair.state=='开发商服务中断' }">selected="selected"</c:if>>开发商服务中断</option>
+            <option value="已派单（物业）" <c:if test="${ownerRepair.state=='已派单（物业）' }">selected="selected"</c:if>>已派单（物业）</option>
+            <option value="已完工（物业）" <c:if test="${ownerRepair.state=='已完工（物业）' }">selected="selected"</c:if>>已完工（物业）</option>
+            <option value="已修复（物业）" <c:if test="${ownerRepair.state=='已修复（物业）' }">selected="selected"</c:if>>已修复（物业）</option>
           </select></td>
         </tr>
         <tr>

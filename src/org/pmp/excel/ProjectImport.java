@@ -82,9 +82,9 @@ public class ProjectImport {
                     pro.setProType(list.get(5).getContents());
                     /* 非必填项，先判断是否为空 */
                     if(list.get(6).getContents()!=""){
-                	pro.setProHouseCount(Integer.parseInt(list.get(6).getContents()));
+                	pro.setProHouseCount(list.get(6).getContents());
                     } else {
-                	pro.setProHouseCount(0);
+                	pro.setProHouseCount("");
                     }
                     if(list.get(7).getContents()!="")pro.setDeliveryTime(((DateCell)list.get(7)).getDate());
                     if(list.get(8).getContents()!=""){

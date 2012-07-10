@@ -20,6 +20,12 @@
             <option>小区</option>
             <option>大厦</option>
             <option>别墅</option>
+            <option>营业场所</option>
+            <option>工业厂房</option>
+            <option>住宅</option>
+            <option>办公楼</option>
+            <option>商业</option>
+            <option>工业厂房</option>
             </select><span style="color:red">*</span>
             </span>
         </div>

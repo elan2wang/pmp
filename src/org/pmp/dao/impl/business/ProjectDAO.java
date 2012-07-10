@@ -100,7 +100,7 @@ public class ProjectDAO extends BaseDAO implements IProjectDAO {
 		    } else {
 			stmt.setDate(6, null);
 		    }
-		    stmt.setInt(7, pro.getProHouseCount());
+		    stmt.setString(7, pro.getProHouseCount());
 		    stmt.setString(8, pro.getProDesc());
 		    stmt.setString(9, pro.getProType());
 		    stmt.setBoolean(10, true);
