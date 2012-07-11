@@ -11,7 +11,7 @@
 <script type="text/javascript" src="../Scripts/jquery-1.7.1.js" ></script>
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
 <script type="text/javascript" src="../Scripts/common/rightMenu.js"></script>
-<script type="text/javascript" src="../Scripts/pages/fireControl/FireObject.js" ></script>
+<script type="text/javascript" src="../Scripts/pages/fire/FireObject.js" ></script>
 
 <style rel="stylesheet" type="text/css">
 img {display:block}

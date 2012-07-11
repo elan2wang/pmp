@@ -15,6 +15,12 @@ public class PublicRepairItem implements java.io.Serializable {
     private String equipList;
     private String comment;
 
+    public String toString(){
+	StringBuffer sb=new StringBuffer();
+    	sb.append("[ "+fbiId+","+project+","+itemName+","+itemType+","+equipName+","+equipList+","+comment+" ]");
+    	return sb.toString();
+    }
+    
     public PublicRepairItem() {
     }
 

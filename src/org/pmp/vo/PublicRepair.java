@@ -20,6 +20,13 @@ public class PublicRepair implements java.io.Serializable {
     private String state;
     private String dutyMan;
 
+    public String toString(){
+	StringBuffer sb=new StringBuffer();
+    	sb.append("[ "+fbId+","+publicRepairItem+","+equipNum+","+repairDate+","+beginTime+","+endTime+","+
+    		repairDetail+","+repairType+","+state+","+dutyMan+"]");
+    	return sb.toString();
+    }
+    
     public PublicRepair() {
     }
 

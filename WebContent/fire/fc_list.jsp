@@ -8,11 +8,11 @@
 <link href="../CSS/common/common.css" rel="stylesheet" type="text/css" />
 <link href="../CSS/common/fee_tab.css" rel="stylesheet" type="text/css" />
 <link href="../CSS/pages/fee/cf_list2.css" rel="stylesheet" type="text/css" />
-<link href="../CSS/pages/fireControl/fc_device_list.css" rel="stylesheet" type="text/css" />
+<link href="../CSS/pages/fire/fc_device_list.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="../Scripts/jquery-1.7.1.js" ></script>
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
-<script type="text/javascript" src="../Scripts/pages/fireControl/FireObject.js" ></script>
-<script type="text/javascript" src="../Scripts/pages/fireControl/fc_list.js"></script>
+<script type="text/javascript" src="../Scripts/pages/fire/FireObject.js" ></script>
+<script type="text/javascript" src="../Scripts/pages/fire/fc_list.js"></script>
 <title>消防控制部署</title>
 <bgsound id="alarm" src="" loop=-1 volume=4>
 </head>

@@ -21,7 +21,7 @@ $(function(){
             { display: '均摊金额合计', name: 'totalMoney', width: Width*0.15, sortable:true, align: 'center' }
         ],
         buttons:[
-            { name: '电费修改', bclass: 'add', onpress: ef_edit },
+            { name: '电费修改', bclass: 'edit', onpress: ef_edit },
             { name: '删除电费记录', bclass: 'delete', onpress: ef_delete },
             { name: '删除电费项目', bclass: 'delete', onpress: efi_delete },
             { name: '导出电费项目', bclass: 'import', onpress: efExport}

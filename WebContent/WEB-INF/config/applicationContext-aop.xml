@@ -17,7 +17,7 @@
     <aop:aspect ref="smsAdvice">  
        <aop:pointcut id="smsInput" expression=
        "execution(* org.pmp.service.business.ICondoFeeService.batchAudit(..))"/>  
-       <aop:after method="inputAdvice" pointcut-ref="smsInput"/>
+       <aop:after method="auditAdvice" pointcut-ref="smsInput"/>
      </aop:aspect>
   </aop:config>
 
@@ -35,6 +35,8 @@
        <aop:pointcut id="batchAddPointcut" expression="execution(* org.pmp.service..*.batchAdd*(..))"/>
        <aop:pointcut id="batchEditPointcut" expression="execution(* org.pmp.service..*.batchEdit*(..))"/>
        <aop:pointcut id="batchDeletePointcut" expression="execution(* org.pmp.service..*.batchDelete*(..))"/>
+       
+       
        <!-- login / logout operations advice -->
        <aop:after method="loginTrack" pointcut-ref="loginPointcut" />
        <!-- add / edit / delete operations advice -->

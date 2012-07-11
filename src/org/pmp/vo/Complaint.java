@@ -19,6 +19,14 @@ public class Complaint implements java.io.Serializable {
     private String handlePerson;
     private Date handleTime;
 
+    public String toString(){
+	StringBuffer sb=new StringBuffer();
+    	sb.append("[ "+compId+","+houseOwner+","+compPerson+","+compTel+","+compTime+","+compContent+","+handleResult+","+
+    		handlePerson+","+handleTime+"]");
+    	return sb.toString();
+    		
+    }
+    
     public Complaint() {
     }
 

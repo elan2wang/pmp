@@ -58,6 +58,7 @@
         }
 
     }
+    
     function todayDate() {
         var charDay = new Array();
         charDay[0] = "日";
