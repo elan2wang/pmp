@@ -24,6 +24,9 @@ import org.pmp.vo.ElectricFeeItem;
  */
 public interface IElectricFeeItemDAO {
     public void saveElectricFeeItem(ElectricFeeItem instance);
+    
+    public void updateElectricFeeItem(ElectricFeeItem instance);
+    
     public void deleteElectricFeeItem(ElectricFeeItem instance);
     
     public ElectricFeeItem getElectricFeeItemByID(Integer efiId);

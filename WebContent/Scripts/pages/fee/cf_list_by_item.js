@@ -73,6 +73,7 @@ function cfEdit(){
 	$.ajax({
 		type: 'POST',
 		url: 'pre_check?action=edit&idStr='+idString,
+		dataType: "json",
 		success: function(data){
 			if(data.result=='success'){
 				openEditWindow('#cfEdit','selectCondoFee?action=edit&idStr='+idString);
@@ -90,11 +91,13 @@ function deleteItem(){
 	$.ajax({
 		type: 'POST',
 		url: 'pre_check?action=deleteItem&cfiId='+cfiId,
+		dataType: "json",
 		success: function(data){
 			if(data.result=='success'){
 				$.ajax({
 					type: 'POST',
 					url: 'cf_item_delete?cfiId='+cfiId,
+					dataType: "json",
 					success: function(data){
 						alert("项目删除成功");
 						window.parent.location.href='cf_item_list.jsp';
@@ -123,6 +126,7 @@ function deleteList(){
 	$.ajax({
 		type: 'POST',
 		url: 'pre_check?action=deleteList&idStr='+idString,
+		dataType: "json",
 		success: function(data){
 			if(data.result=='success'){
 				$.ajax({
@@ -156,6 +160,7 @@ function cfAudit(){
 	$.ajax({
 		type: 'POST',
 		url: 'pre_check?action=audit&idStr='+idString,
+		dataType: "json",
 		success: function(data){
 			if(data.result=='success'){
 				openEditWindow('#cfAudit','selectCondoFee?action=audit&idStr='+idString);

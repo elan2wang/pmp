@@ -65,6 +65,7 @@ function efi_delete(){
 	$.ajax({
 		type: 'POST',
 		url: 'ef_item_delete?efiId='+efiId,
+		dataType: "json",
 		success: function(data){
 			alert("电费项目删除成功");
 			window.parent.location.href='ef_item_list.jsp';

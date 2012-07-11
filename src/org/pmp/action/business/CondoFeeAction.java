@@ -14,7 +14,6 @@ package org.pmp.action.business;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -371,10 +370,12 @@ public class CondoFeeAction extends BaseAction{
     public void cfEdit(){
 	List<CondoFee> cfList = new ArrayList<CondoFee>();
 	for (int i=0;i<ids.length;i++){
-	    CondoFee cf = condoFeeService.getCondoFee_ById(ids[i]);
-	    cf.setOughtMoney(oughtMoney[i]);
-	    cf.setState(CondoFeeState.INPUT);
-	    cfList.add(cf);
+	    if(oughtMoney[i]!=null){
+		CondoFee cf = condoFeeService.getCondoFee_ById(ids[i]);
+		cf.setOughtMoney(oughtMoney[i]);
+		cf.setState(CondoFeeState.INPUT);
+		cfList.add(cf);
+	    }
 	}
 	logger.debug("cfList.size="+cfList.size());
 	condoFeeService.batchSetOughtMoney(cfList);
@@ -384,13 +385,15 @@ public class CondoFeeAction extends BaseAction{
 	List<CondoFee> cfList = new ArrayList<CondoFee>();
 	logger.debug("fetchMoney="+fetchMoney.length);
 	for (int i=0;i<ids.length;i++){
-	    CondoFee cf = condoFeeService.getCondoFee_ById(ids[i]);
-	    cf.setRecordPerson(SessionHandler.getUser().getRealname());
-	    cf.setInputTime(new Date());
-	    cf.setState(CondoFeeState.PAYED);
-	    cf.setFetchMoney(fetchMoney[i]);
-	    cf.setComment(comment[i]);
-	    cfList.add(cf);
+	    if(fetchMoney[i]!=null){
+		CondoFee cf = condoFeeService.getCondoFee_ById(ids[i]);
+		cf.setRecordPerson(SessionHandler.getUser().getRealname());
+		cf.setInputTime(new Date());
+		cf.setState(CondoFeeState.PAYED);
+		cf.setFetchMoney(fetchMoney[i]);
+		cf.setComment(comment[i]);
+		cfList.add(cf);
+	    }
 	}
 	logger.debug("cfList.size="+cfList.size());
 	condoFeeService.batchInput(cfList);
@@ -458,7 +461,7 @@ public class CondoFeeAction extends BaseAction{
 		}
 	    }
 	    if (action.equals("record")){
-		if(!(cf.getState().equals(CondoFeeState.INPUT)||cf.getState().equals(CondoFeeState.DENIED))){
+		if(!(cf.getState().equals(CondoFeeState.INPUT)||cf.getState().equals(CondoFeeState.PAYED)||cf.getState().equals(CondoFeeState.DENIED))){
 		    JsonConvert.output("{\"result\":\"failed\"}");
 		    return;
 		}
@@ -474,6 +477,9 @@ public class CondoFeeAction extends BaseAction{
 	Map<String,Object> params = new HashMap<String,Object>();
 	params.put("state", CondoFeeState.INPUT);
 	List<CondoFee> list = condoFeeService.loadCondoFeeList_ByHouse(houseId, params, "", pager);
+	
+	Map<String, Object> elements = new LinkedHashMap<String,Object>();
+	MyJson json = new MyJson();
 	if (list.size()!=0){
 	    /* create a SMSSend instance and set its properties */
 	    SMSSend smsSend = new SMSSend();
@@ -501,6 +507,14 @@ public class CondoFeeAction extends BaseAction{
 	    
 	    //send message to message queue
 	    JmsPublisher.sendMessgae(smsSend.getSmssId().toString());
+
+	    /* return json data */
+	    elements.put("content", "短信已发送！短信内容为：\n"+sb.toString());
+	    json.output(json.toJson(elements));
+	} else {
+	    /* return json data */
+	    elements.put("content", "短信未发送！没有未缴费记录");
+	    json.output(json.toJson(elements));
 	}
 	
     }

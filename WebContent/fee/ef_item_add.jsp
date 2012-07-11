@@ -96,8 +96,8 @@
 	      </tr>
 	      <tr style="background-color:#FFC;">
 	          <td height="25" align="center" valign="middle">
-	                  <select id="builNum" name="builNum">
-	                  </select>
+	             <select id="builNum" name="builNum">
+	             </select>
 	          </td>
               <td height="25" align="center" valign="middle"><input name="elevatorlastDegree" type="text" class="textbox1" id="elevatorlastDegree" style="width:60px"/></td>
               <td height="25" align="center" valign="middle"><input name="elevatornowDegree" type="text" class="textbox1" id="elevatornowDegree" style="width:60px"/></td>

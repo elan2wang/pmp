@@ -45,7 +45,15 @@ public class ElectricFeeItemService implements IElectricFeeItemService {
 	electricFeeItemDAO.saveElectricFeeItem(instance);
 
     }
-
+    
+    /**
+     * @see org.pmp.service.business.IElectricFeeItemService#editElectricFeeItem(org.pmp.vo.ElectricFeeItem)
+     */
+    @Override
+    public void editElectricFeeItem(ElectricFeeItem instance) {
+	electricFeeItemDAO.updateElectricFeeItem(instance);
+    }
+    
     /**
      * @see org.pmp.service.business.IElectricFeeItemService#deleteElectricFeeItem(org.pmp.vo.ElectricFeeItem)
      */
@@ -99,5 +107,5 @@ public class ElectricFeeItemService implements IElectricFeeItemService {
         this.electricFeeDAO = electricFeeDAO;
     }
 
-    
+   
 }

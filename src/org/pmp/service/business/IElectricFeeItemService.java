@@ -24,6 +24,7 @@ import org.pmp.vo.ElectricFeeItem;
  */
 public interface IElectricFeeItemService {
     public void addElectricFeeItem(ElectricFeeItem instance);
+    public void editElectricFeeItem(ElectricFeeItem instance);
     public void deleteElectricFeeItem(ElectricFeeItem instance);
     
     public ElectricFeeItem getElectricFeeItemByID(Integer efiId);

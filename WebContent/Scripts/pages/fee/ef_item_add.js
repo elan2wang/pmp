@@ -106,15 +106,10 @@ function updateRow(){
 	}
 	document.getElementById("totalDegree").innerHTML=""+totalDegree.toFixed(2);
 	document.getElementById("totalMoney").innerHTML=""+totalMoney.toFixed(2);
-	document.getElementById("electricFeeItem.totalMoney").value=totalMoney.toFixed(2);//
 }
 //--------------------------------------
 //----电梯表增加一行
-function updateElev(money){
-	var temp=document.getElementById("electricFeeItem.totalMoney").value;
-	var totalmoney=parseFloat(temp)+parseFloat(money);
-	document.getElementById("electricFeeItem.totalMoney").value=totalmoney.toFixed(2);
-}
+
 function appendRowElev(){
 	objtb=document.getElementById("elevatorList");
 	objNum=document.getElementById("builNum");
@@ -143,8 +138,7 @@ function appendRowElev(){
 	else{
 		table2height+=81;
 		$("#elevatorHeight").css("height",table2height+"px");
-		//更新隐藏域
-		updateElev(objFee.value);
+		
 		//获取楼宇信息
 		var builInfo='';
 		$.ajax({
@@ -183,8 +177,8 @@ function appendRowElev(){
 
 function removeRowBuild(the){
 	tableObj=$(the).parent().parent().parent().parent();
-	 var h=tableObj.parent().css("height");
-	 alert(parseInt(h));
+	var h=tableObj.parent().css("height");
+	alert(parseInt(h));
 	table2height-=parseInt(h);
 	$("#elevatorHeight").css("height",table2height+"px");
 	$(the).parent().parent().parent().parent().parent().parent().parent().remove();

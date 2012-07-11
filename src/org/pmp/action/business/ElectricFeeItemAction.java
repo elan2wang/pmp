@@ -22,8 +22,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.pmp.excel.ElectricFeeExport;
@@ -102,6 +100,7 @@ public class ElectricFeeItemAction extends BaseAction{
 	electricFeeItem.setItemName(beginDate+"至"+endDate);
 	electricFeeItemService.addElectricFeeItem(electricFeeItem);
 	
+	Double totalMoney = 0.0;
 	Double beginDegree = 0.0;
 	Double endDegree = 0.0;
 	Double price = 0.0;
@@ -118,6 +117,7 @@ public class ElectricFeeItemAction extends BaseAction{
 	    pmi.setElectricFeeItem(electricFeeItem);
 	    pmi.setTotalMoney((endDegree-beginDegree)*price);
 	    pmiList.add(pmi);
+	    totalMoney += pmi.getTotalMoney();
 	}
 	proMeterItemService.batchAddProMeterItem(pmiList);
 	
@@ -135,6 +135,7 @@ public class ElectricFeeItemAction extends BaseAction{
                 lmi.setTotalMoney((endDegree-beginDegree)*price);
                 lmi.setElectricFeeItem(electricFeeItem);
                 lmiList.add(lmi);
+                totalMoney += lmi.getTotalMoney();
             }
             liftMeterItemService.batchAddLiftMeterItem(lmiList);
 	}
@@ -152,6 +153,10 @@ public class ElectricFeeItemAction extends BaseAction{
 	    }
             builFeeRateService.batchAddBuilFeeRate(bfrList);
 	}
+	
+	//更新电费总额
+	electricFeeItem.setTotalMoney(totalMoney);
+	electricFeeItemService.editElectricFeeItem(electricFeeItem);
 	
 	//生成电费清单
 	electricFeeService.generateElectricFee(electricFeeItem.getEfiId());

@@ -49,6 +49,19 @@ public class ElectricFeeItemDAO extends BaseDAO implements IElectricFeeItemDAO {
     }
 
     /**
+     * @see org.pmp.dao.business.IElectricFeeItemDAO#updateElectricFeeItem(org.pmp.vo.ElectricFeeItem)
+     */
+    @Override
+    public void updateElectricFeeItem(ElectricFeeItem instance) {
+	String debugMsg = "update electricFeeItem";
+	try {
+	    updateInstance(instance, debugMsg);
+	} catch (RuntimeException e){
+	    throw e;
+	}
+    }
+
+    /**
      * @see org.pmp.dao.business.IElectricFeeItemDAO#deleteElectricFeeItem(org.pmp.vo.ElectricFeeItem)
      */
     @Override

@@ -21,7 +21,8 @@ $(function(){
             { display: '备注', name: 'comment', width: Width*0.25, sortable:true, align: 'center' }
         ],
         buttons:[
-            { name: '缴费录入', bclass: 'add', onpress: cfInput }
+            { name: '缴费录入', bclass: 'add', onpress: cfInput },
+            { name: '短信催缴', bclass: 'add', onpress: smsInform }
 		],
 		searchitems:[
 		    { display: '年份', name : 'cfYear' },
@@ -55,6 +56,7 @@ function cfInput(){
 	$.ajax({
 		type: 'POST',
 		url: 'pre_check?action=record&idStr='+idString,
+		dataType: "json",
 		success: function(data){
 			if(data.result=='success'){
 				openEditWindow('#cfInput','selectCondoFee?action=record&idStr='+idString);
@@ -68,16 +70,13 @@ function cfInput(){
 
 function smsInform(){
 	var houseId = getQueryString("houseId");
+	if(!confirm("你将发送物业费催缴短信给该业主"))return;
 	$.ajax({
 		type: 'POST',
 		url: 'sms_inform?houseId='+houseId,
+		dataType: "json",
 		success: function(data){
-			if(data.result=='success'){
-				
-			}
-			else{
-				
-			}
+			alert(data.content);
 		}
 	});
 }
