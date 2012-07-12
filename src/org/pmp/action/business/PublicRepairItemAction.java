@@ -14,6 +14,7 @@ package org.pmp.action.business;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -67,6 +68,7 @@ public class PublicRepairItemAction extends BaseAction {
     }
     
     public void deletePublicRepairItem(){
+    	Map<String,String> params = new HashMap<String, String>();
 	List<PublicRepairItem> list = new ArrayList<PublicRepairItem>();
 	String[] checkedID = idStr.split(",");
 	for (int i=0;i<checkedID.length;i++){
@@ -75,6 +77,9 @@ public class PublicRepairItemAction extends BaseAction {
 	}
 	logger.debug("cfList.size="+list.size());
 	publicRepairItemService.batchDeletePublicRepairItem(list);
+	MyJson json = new MyJson();
+	params.put("msg", "公共维修项目删除成功");
+	MyJson.print(json.toJson(params));
     }
     
     public String getPublicRepairItemByID(){

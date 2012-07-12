@@ -18,19 +18,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.pmp.excel.OwnerExport;
 import org.pmp.excel.OwnerImport;
-import org.pmp.json.Includer;
 import org.pmp.json.MyJson;
 import org.pmp.service.business.IHouseOwnerService;
 import org.pmp.service.business.IMemberService;
@@ -131,6 +129,7 @@ public class OwnerAction extends BaseAction{
     }
     
     public void deleteOwner(){
+        Map<String,String> params = new HashMap<String, String>();
 	List<Owner> ownerList = new ArrayList<Owner>();
 	String[] checkedID = idStr.split(",");
 	for (int i=0;i<checkedID.length;i++){
@@ -138,6 +137,9 @@ public class OwnerAction extends BaseAction{
 	    ownerList.add(owner);
 	}
 	ownerService.batchDelete(ownerList);
+	MyJson json = new MyJson();
+	params.put("msg", "业主删除成功");
+	MyJson.print(json.toJson(params));
     }
     
     public String getOwnerInfo(){

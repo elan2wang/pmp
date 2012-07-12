@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,7 +67,11 @@ public class BuildingAction extends BaseAction {
     }
 	
     public void deleteBuilding(){
+    	Map<String,String> params = new HashMap<String, String>();
         buildingService.deleteBuilding(buildingService.getBuildingById(buildingId));
+        MyJson json = new MyJson();
+    	params.put("msg", "楼宇信息删除成功");
+    	MyJson.print(json.toJson(params));
     }
 	
     public String getBuildingById(){

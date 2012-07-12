@@ -166,11 +166,15 @@ public class FireInfoAction extends ActionSupport{
 	}
 	
 	public void deleteFireInfoBak(){
+		Map<String,String> params = new HashMap<String, String>();
 		String[] checkedID = idStr.split(",");
 		for (int i = 0; i < checkedID.length; i++) {
 			FireInfoBak fireInfoBak = fireInfoBakService.getFireInfoBakById(Integer.valueOf(checkedID[i]));
 			fireInfoBakService.deleteFireInfoBak(fireInfoBak);
 		}
+		MyJson json = new MyJson();
+		params.put("msg", "消控信息删除成功");
+		MyJson.print(json.toJson(params));
 	}
 	
 	public IFireInfoService getFireInfoService() {

@@ -18,6 +18,7 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -165,7 +166,11 @@ public class ElectricFeeItemAction extends BaseAction{
     }
     
     public void deleteElectricFeeItem(){
+    	Map<String,String> params = new HashMap<String, String>();
 	electricFeeItemService.deleteElectricFeeItem(electricFeeItemService.getElectricFeeItemByID(efiId));
+	MyJson json = new MyJson();
+	params.put("msg", "电费项目删除成功");
+	MyJson.print(json.toJson(params));
     }
     
     public void exportElectricFee() throws IOException{

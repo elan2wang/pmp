@@ -66,7 +66,7 @@ function deletePublics(){
 	  url: 'deletePublicRepair?idStr='+idString,
 	  dataType: "json",
 	  success : function(data){
-		  alert("选中的维修单删除成功");
+		  alert(data.msg);
 		  window.location.href = window.location.href;
 	  }
 	});

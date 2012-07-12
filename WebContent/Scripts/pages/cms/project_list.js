@@ -65,6 +65,7 @@ function deleteProject(obj,objid){
 	    data: [{name:'proId',value:id}],
 	    dataType: "json",
 	    success : function(data){
+	    	alert(data.msg);
 		    obj.hide();
 	    }
 	});
