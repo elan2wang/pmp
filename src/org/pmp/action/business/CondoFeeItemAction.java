@@ -152,7 +152,11 @@ public class CondoFeeItemAction extends ActionSupport {
     }
     
     public void deleteCondoFeeItem(){
+    	Map<String,String> params = new HashMap<String, String>();
 	condoFeeItemService.deleteCondoFeeItem(condoFeeItemService.getCondoFeeItemByID(cfiId));
+	MyJson json = new MyJson();
+	params.put("msg", "物业费项目删除成功");
+	MyJson.print(json.toJson(params));
     }
     
     //~ Getters and Setters ============================================================================================

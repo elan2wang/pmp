@@ -188,6 +188,7 @@ public class OwnerRepairAction extends BaseAction{
     }
     
     public void deleteOwnerRepair(){
+    	Map<String,String> params = new HashMap<String, String>();
 	List<OwnerRepair> list = new ArrayList<OwnerRepair>();
 	String[] checkedID = idStr.split(",");
 	for (int i=0;i<checkedID.length;i++){
@@ -195,6 +196,9 @@ public class OwnerRepairAction extends BaseAction{
 	    list.add(op);
 	}
 	ownerRepairService.batchDeleteOwnerRepair(list);
+	MyJson json = new MyJson();
+	params.put("msg", "业主维修记录删除成功");
+	MyJson.print(json.toJson(params));
     }
     
     public void deleteRepairFee(){

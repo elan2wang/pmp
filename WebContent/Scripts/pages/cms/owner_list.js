@@ -86,8 +86,9 @@ function ownerDelete(){
 	$.ajax({
 		type: 'POST',
 		url: 'deleteOwner?idStr='+idString,
+		dataType:'json',
 		success: function(data){
-			alert("业主记录删除成功");
+			alert(data.msg);
 			window.location.href=window.location.href;
 		}
 	});

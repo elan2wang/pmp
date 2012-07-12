@@ -10,8 +10,9 @@ function efcDelete(efcId){
 	$.ajax({
 		type:'post',
 		url:'efc_delete?efcId='+efcId,
-		success:function(){
-			alert('删除成功');
+		dataType:"json",
+		success:function(data){
+			alert(data.msg);
 			$('#efcList').window('refresh');
 		}
 	});

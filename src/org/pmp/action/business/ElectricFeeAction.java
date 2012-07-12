@@ -150,6 +150,7 @@ public class ElectricFeeAction extends BaseAction {
     }
     
     public void efDelete(){
+    	Map<String,String> params = new HashMap<String, String>();
 	List<ElectricFee> efList = new ArrayList<ElectricFee>();
 	String[] checkedID = idStr.split(",");
 	for (int i=0;i<checkedID.length;i++){
@@ -157,6 +158,9 @@ public class ElectricFeeAction extends BaseAction {
 	    efList.add(ef);
 	}
 	electricFeeService.batchDeleteElectricFee(efList);
+	MyJson json = new MyJson();
+	params.put("msg", "电费记录删除成功");
+	MyJson.print(json.toJson(params));
     }
     
     public void efEdit(){

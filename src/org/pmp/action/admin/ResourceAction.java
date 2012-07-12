@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -138,6 +139,7 @@ public class ResourceAction extends BaseAction{
     }
     
     public void deleteRes(){
+    Map<String,String> params = new HashMap<String, String>();
 	List<TbResource> resList = new ArrayList<TbResource>();
 	String[] checkedID = idStr.split(",");
 	for (int i=0;i<checkedID.length;i++){
@@ -145,6 +147,9 @@ public class ResourceAction extends BaseAction{
 	    resList.add(res);
 	}
 	resourceService.batchDelete(resList);
+	MyJson json = new MyJson();
+	params.put("msg", "资源删除成功");
+	MyJson.print(json.toJson(params));
     }
     //~ Getters and Setters ============================================================================================
 

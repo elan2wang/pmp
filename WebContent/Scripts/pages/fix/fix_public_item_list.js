@@ -62,7 +62,7 @@ function deletePublicItem(){
 	  url: 'deletePublicRepairItem?idStr='+idString,
 	  dataType: "json",
 	  success : function(data){
-		  alert("选中的维修单删除成功");
+		  alert(data.msg);
 		  window.location.href = "fix_public_item_list.jsp";
 	  }
 	});

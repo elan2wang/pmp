@@ -228,6 +228,7 @@ public class ZoneAction extends ActionSupport{
     }
     
     public void deleteZone(){
+    	Map<String,String> params = new HashMap<String, String>();
     	String dirPath = ServletActionContext.getServletContext().getRealPath("/");
     	try {
 			String[] checkedID = idStr.split(",");
@@ -240,6 +241,9 @@ public class ZoneAction extends ActionSupport{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		MyJson json = new MyJson();
+		params.put("msg", "场地信息删除成功");
+		MyJson.print(json.toJson(params));
     }
     
     public String updateZone() throws IOException{

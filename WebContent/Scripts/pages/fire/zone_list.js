@@ -73,8 +73,9 @@ function ownerDelete(){
 	$.ajax({
 		type: 'POST',
 		url: 'deleteZone?idStr='+idString,
+		dataType:"json",
 		success: function(data){
-			alert("场地记录删除成功");
+			alert(data.msg);
 			window.location.href="zone_list.jsp";
 		}
 	});

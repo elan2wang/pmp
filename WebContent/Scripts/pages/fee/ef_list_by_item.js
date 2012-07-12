@@ -52,8 +52,9 @@ function ef_delete(){
 	$.ajax({
 		type: 'POST',
 		url: 'ef_delete?idStr='+idStr,
+		dataType:"json",
 		success: function(data){
-			alert("记录删除成功");
+			alert(data.msg);
 			window.location.href='ef_list_by_item.jsp?efiId='+getQueryString("efiId");
 		}
 	});
@@ -67,7 +68,7 @@ function efi_delete(){
 		url: 'ef_item_delete?efiId='+efiId,
 		dataType: "json",
 		success: function(data){
-			alert("电费项目删除成功");
+			alert(data.msg);
 			window.parent.location.href='ef_item_list.jsp';
 		}
 	});

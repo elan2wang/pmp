@@ -59,7 +59,7 @@ function deleteComplaint(){
 	  url: 'deleteComplaint?idStr='+idString,
 	  dataType: "json",
 	  success : function(data){
-		  alert("选中的记录删除成功");
+		  alert(data.msg);
 		  window.location.href = window.location.href;
 	  }
 	});

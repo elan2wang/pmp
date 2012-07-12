@@ -9,6 +9,7 @@ package org.pmp.action.business;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -59,12 +60,16 @@ public class HouseAction extends BaseAction {
 	
     public void deleteHouse(){
 	List<House> houseList = new ArrayList<House>();
+	Map<String,String> params = new HashMap<String, String>();
 	String[] checkedID = idStr.split(",");
 	for (int i=0;i<checkedID.length;i++){
 	    House house = houseService.getHouseByID(Integer.parseInt(checkedID[i]));
 	    houseList.add(house);
 	}
 	houseService.batchDelete(houseList);
+	MyJson json = new MyJson();
+	params.put("msg", "房屋信息删除成功");
+	MyJson.print(json.toJson(params));
     }
 	
     public String getHouseById(){

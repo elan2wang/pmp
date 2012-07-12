@@ -10,6 +10,7 @@ package org.pmp.action.admin;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -117,6 +118,7 @@ public class UserAction extends BaseAction{
     }
     
     public void deleteUser(){
+    Map<String,String> params = new HashMap<String, String>();
 	List<TbUser> userList = new ArrayList<TbUser>();
 	String[] checkedID = idStr.split(",");
 	for (int i=0;i<checkedID.length;i++){
@@ -124,6 +126,9 @@ public class UserAction extends BaseAction{
 	    userList.add(user);
 	}
 	userService.batchDelete(userList);
+	MyJson json = new MyJson();
+	params.put("msg", "用户删除成功");
+	MyJson.print(json.toJson(params));
     }
 
     public String getUserDetail(){

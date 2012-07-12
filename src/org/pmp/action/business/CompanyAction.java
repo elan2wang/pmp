@@ -8,6 +8,7 @@
 package org.pmp.action.business;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -51,7 +52,11 @@ public class CompanyAction extends BaseAction {
     }
     
     public void deleteCompany(){
-	companyService.deleteCompany(companyService.getCompanyByID(comid));
+    	Map<String,String> params = new HashMap<String, String>();
+    	companyService.deleteCompany(companyService.getCompanyByID(comid));
+    	MyJson json = new MyJson();
+    	params.put("msg", "物业公司删除成功");
+    	MyJson.print(json.toJson(params));
     }
     
     public void loadCompanyList(){

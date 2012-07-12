@@ -66,6 +66,7 @@ function deleteBuilding(obj,objid){
         url: 'deleteBuilding?buildingId='+id,
         dataType: "json",
         success : function(data){
+        	alert(data.msg);
             obj.hide();
 	    }
     });
