@@ -42,7 +42,13 @@ public class ParamsToString {
 		String key = ite.next();
 		Object value = params.get(key);
 		/* transform value to string */
-		if (value instanceof String){
+		if (key.equals("Buil_Num")){
+		    /* 楼号精确匹配 */
+		    sb.append(key+" = '"+value.toString()+"'");
+		} else if (key.equals("h.House_Num")||key.equals("houseOwner.house.houseNum")){
+		    /* 房号向后模糊匹配 */
+		    sb.append(key+" like '"+value.toString()+"%'");
+		} else {
 		    /* if the value is like 2012-06 or 2012-06-07*/
 		    if (ValidateUtil.isYearMonth(value.toString())||ValidateUtil.isValidDate(value.toString())){
 			sb.append("convert(varchar,"+key+",120) like '%"+value.toString()+"%'");
@@ -50,8 +56,6 @@ public class ParamsToString {
 			sb.append(key+" like '%"+value.toString()+"%'");
 		    }
 		}
-		if (value instanceof Number)
-		    sb.append(key+" like "+value);
 		/* append link between parameters */
 		sb.append(" and ");
 	    }

@@ -10,7 +10,7 @@
 <link href="../CSS/common/iBox.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="../Scripts/component/flexigrid-1.1/css/flexigrid.pack.css" />
 <script type="text/javascript" src="../Scripts/jquery-1.7.1.js" ></script>
-<script type="text/javascript" src="../Scripts/component/flexigrid-1.1/js/flexigrid-2.js"></script>
+<script type="text/javascript" src="../Scripts/component/flexigrid-1.1/js/flexigrid-new.js"></script>
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
 <script type="text/javascript" src="../Scripts/pages/sms/sms_receiver.js"></script>
 </head>

@@ -20,7 +20,7 @@ function flexGrid(url)
 			{ name: '取消', bclass: 'delete', onpress : closeFrame},
 			{ separator: true },      
 	    ],
-		height: Height*0.9,
+		height: Height*0.85,
  		showcheckbox:true,
 	    usepager: true,
 		useRp: true,

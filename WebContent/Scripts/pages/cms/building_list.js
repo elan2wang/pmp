@@ -31,7 +31,7 @@ $(function(){
             { display: '楼层数', name: 'floorCount', isdefault:false },
             { display: '单元层户数', name: 'housesPer', isdefault:false }
          ],
-         height:Height*0.9,
+         height:Height*0.88,
          showcheckbox:true,
          showSearch:true,
          usepager: true,

@@ -43,7 +43,7 @@ $(function(){
      	    { display: '角色', name : 'tbRole.roleName' }
      	],
      	showSearch:true,
-		height:Height*0.88,
+		height:Height*0.75,
         showcheckbox:true,
         nomsg: '没有符合条件的用户',
         usepager:true,

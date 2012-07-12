@@ -21,7 +21,7 @@ $(function(){
         ],
         buttons:[
             { name: '电费预存', bclass: 'add', onpress: efc_Add },
-            { name: '缴费历史', bclass: 'add', onpress: efc_list }
+            { name: '缴费历史', bclass: 'history', onpress: efc_list }
 		],
 		title:true,
 		height:Height*0.9,

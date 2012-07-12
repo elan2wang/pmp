@@ -18,10 +18,10 @@
 <body>
 <div class="wrap">
   <ul class="nav">
-    <sec:authorize access="hasAnyRole('AUTH_CONDOFEE_VIEW')"><li id="tab1" class="active"><a href="#">缴费历史</a></li></sec:authorize>
-    <sec:authorize access="hasAnyRole('AUTH_CONDOFEE_CREATE')"><li id="tab2"><a href="#">创建物业费</a></li></sec:authorize>
-    <sec:authorize access="hasAnyRole('AUTH_CONDOFEE_INPUT')"><li id="tab3"><a href="#">缴费录入</a></li></sec:authorize>
-    <sec:authorize access="hasAnyRole('AUTH_CONDOFEE_AUDIT')"><li id="tab4"><a href="#">财务管理</a></li></sec:authorize>
+    <sec:authorize access="hasAnyRole('AUTH_CONDOFEE_TIME_VIEW')"><li id="tab1" class="active"><a href="#">历史数据</a></li></sec:authorize>
+    <sec:authorize access="hasAnyRole('AUTH_CONDOFEE_ITEM_CREATE')"><li id="tab2"><a href="#">物业费创建</a></li></sec:authorize>
+    <sec:authorize access="hasAnyRole('AUTH_CONDOFEE_HOUSE_VIEW')"><li id="tab3"><a href="#">业主视图</a></li></sec:authorize>
+    <sec:authorize access="hasAnyRole('AUTH_CONDOFEE_ITEM_VIEW')"><li id="tab4"><a href="#">项目视图</a></li></sec:authorize>
   </ul>
   <div class="content" style="height:570px;">
     <!-- 物业费历史记录页面  -->

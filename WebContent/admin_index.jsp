@@ -34,9 +34,9 @@ a{
        <div class="index_top_right">
            <span style="width:250px;text-align:left;font-size:12px;"><span>[</span>当前用户:${username },${rolename }<span>]</span></span>
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-           <span><a href="admin_index.jsp" >首页 </a> </span><span>|</span>
-           <span><a href="#" >帮助 </a> </span><span>|</span>
-           <span><a href="j_spring_security_logout">退出</a></span>
+           <span style="width:100px;"><img src="Images/moduleIcons/index.png" /><a href="admin_index.jsp" >首页 </a>&nbsp;&nbsp;</span>
+           <span style="width:100px"><img src="Images/moduleIcons/help.png" /><a href="file/user_guide.pdf" target="_blank" >帮助 </a>&nbsp;&nbsp;</span>
+           <span style="width:100px"><img src="Images/moduleIcons/exit.png" /><a href="j_spring_security_logout">退出</a>&nbsp;&nbsp;</span>
        </div>
        <div style="float:left">
            <img src="Images/Logo2.gif" width="340" height="60" />
@@ -56,7 +56,13 @@ a{
           <div style="border-right:1px #6c92ad solid; height:8px"><img src="Images/blank11.gif" width="8" height="8" /></div>
           <div class="LeftMenuItem" id="mm">
              <c:forEach var="item" items="${moduleList }">
+             <!-- modId为"千里眼"监控模块 -->
+             <c:if test="${item.modId == 18 }">
+             <div id="m1" class="LMIitem" onmouseover="button(this,'over')" onmouseout="button(this,'out')" onclick="window.open('http://211.140.6.189/','_blank');"><img src="Images/moduleIcons/${item.modId }.png" />&nbsp;&nbsp;&nbsp;&nbsp;${item.modName }</div>
+             </c:if>
+             <c:if test="${item.modId != 18 }">
              <div id="m1" class="LMIitem" onmouseover="button(this,'over')" onmouseout="button(this,'out')" onclick="button(this,'onclick','${item.modUrl}')"><img src="Images/moduleIcons/${item.modId }.png" />&nbsp;&nbsp;&nbsp;&nbsp;${item.modName }</div>
+             </c:if>
              </c:forEach>
              <div id="blanks" name="blanks" style="border-right:1px #6c92ad solid;">&nbsp;</div>
           </div>

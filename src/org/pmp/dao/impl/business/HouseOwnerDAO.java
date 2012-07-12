@@ -179,8 +179,8 @@ public class HouseOwnerDAO extends BaseDAO implements IHouseOwnerDAO {
 	
 	/* =================== sql1用户查询符合条件的记录总数 ========================================================== */
 	StringBuilder sql1 = new StringBuilder();
-	sql1.append("SELECT COUNT(tb_Owner.Owner_ID) FROM tb_HouseOwner,tb_House,tb_Owner,tb_Building,tb_Project " +
-		    "WHERE tb_HouseOwner.Owner_ID = tb_Owner.Owner_ID and tb_HouseOwner.House_ID = tb_House.House_ID and tb_House.Buil_ID = tb_Building.Buil_ID and tb_Building.Pro_ID = tb_Project.Pro_ID and tb_Project.Pro_ID = " + proId);
+	sql1.append("SELECT COUNT(o.Owner_ID) FROM tb_HouseOwner ho,tb_House h,tb_Owner o,tb_Building buil,tb_Project pro " +
+		    "WHERE ho.Owner_ID = o.Owner_ID and ho.House_ID = h.House_ID and h.Buil_ID = buil.Buil_ID and buil.Pro_ID = pro.Pro_ID and pro.Pro_ID = " + proId);
 	sql1.append(ParamsToString.toString(params));
 	logger.debug(sql1.toString());
 	
@@ -188,13 +188,13 @@ public class HouseOwnerDAO extends BaseDAO implements IHouseOwnerDAO {
 	StringBuilder sql = new StringBuilder();
 	sql.append("WITH DataList AS (SELECT ROW_NUMBER() OVER (");
 	if (order==null){
-	    sql.append("ORDER BY Pro_Name asc,tb_House.House_ID ASC) ");
+	    sql.append("ORDER BY Pro_Name asc,h.House_ID ASC) ");
 	} else {
 	    sql.append(""+order+") ");
 	}
-        sql.append("AS RowNum,tb_Owner.Owner_ID,Pro_Name,Owner_Name,Gender,Mobile,Home_Phone,tb_House.House_Num,tb_House.House_Area,Organization " +
-		   "FROM tb_Owner,tb_House,tb_HouseOwner,tb_Building,tb_Project " +
-		   "WHERE tb_House.House_ID = tb_HouseOwner.House_ID and tb_HouseOwner.Owner_ID = tb_Owner.Owner_ID and tb_House.Buil_ID = tb_Building.Buil_ID and tb_Building.Pro_ID = tb_Project.Pro_ID and tb_Project.Pro_ID = "+proId);
+        sql.append("AS RowNum,o.Owner_ID,Pro_Name,Owner_Name,Gender,Mobile,Home_Phone,h.House_Num,h.House_Area,Organization " +
+		   "FROM tb_HouseOwner ho,tb_House h,tb_Owner o,tb_Building buil,tb_Project pro " +
+		   "WHERE ho.Owner_ID = o.Owner_ID and ho.House_ID = h.House_ID and h.Buil_ID = buil.Buil_ID and buil.Pro_ID = pro.Pro_ID and pro.Pro_ID = " + proId);
 	sql.append(ParamsToString.toString(params));
 	sql.append(") SELECT * FROM DataList WHERE RowNum BETWEEN "+startRow+" AND "+endRow);
 	logger.debug(sql.toString());
@@ -244,8 +244,8 @@ public class HouseOwnerDAO extends BaseDAO implements IHouseOwnerDAO {
 	
 	/* =================== sql1用户查询符合条件的记录总数 ========================================================== */
 	StringBuilder sql1 = new StringBuilder();
-	sql1.append("SELECT COUNT(tb_Owner.Owner_ID) FROM tb_Owner,tb_House,tb_HouseOwner,tb_Building,tb_Project,tb_Company " + 
-		    "WHERE tb_House.House_ID = tb_HouseOwner.House_ID and tb_HouseOwner.Owner_ID = tb_Owner.Owner_ID and tb_House.Buil_ID = tb_Building.Buil_ID and tb_Building.Pro_ID = tb_Project.Pro_ID and tb_Project.Com_ID = tb_Company.Com_ID and tb_Company.Com_ID = "+comId);
+	sql1.append("SELECT COUNT(o.Owner_ID) FROM tb_HouseOwner ho,tb_House h,tb_Owner o,tb_Building buil,tb_Project pro,tb_Company com " + 
+		    "WHERE ho.Owner_ID = o.Owner_ID and ho.House_ID = h.House_ID and h.Buil_ID = buil.Buil_ID and buil.Pro_ID = pro.Pro_ID and pro.Com_ID = com.Com_ID and com.Com_ID = "+comId);
 	sql1.append(ParamsToString.toString(params));
 	logger.debug(sql1.toString());
 
@@ -253,13 +253,13 @@ public class HouseOwnerDAO extends BaseDAO implements IHouseOwnerDAO {
 	StringBuilder sql = new StringBuilder();
 	sql.append("WITH DataList AS (SELECT ROW_NUMBER() OVER (");
 	if (order==null){
-	    sql.append("ORDER BY Pro_Name asc,tb_House.House_ID ASC) ");
+	    sql.append("ORDER BY Pro_Name asc,h.House_ID ASC) ");
 	} else {
 	    sql.append(""+order+") ");
 	}
-        sql.append("AS RowNum,tb_Owner.Owner_ID,Pro_Name,Owner_Name,Gender,Mobile,Home_Phone,tb_House.House_Num,tb_House.House_Area,Organization " +
-		   "FROM tb_Owner,tb_House,tb_HouseOwner,tb_Building,tb_Project,tb_Company " +
-		   "WHERE tb_House.House_ID = tb_HouseOwner.House_ID and tb_HouseOwner.Owner_ID = tb_Owner.Owner_ID and tb_House.Buil_ID = tb_Building.Buil_ID and tb_Building.Pro_ID = tb_Project.Pro_ID and tb_Project.Com_ID = tb_Company.Com_ID and tb_Company.Com_ID = "+comId);
+        sql.append("AS RowNum,o.Owner_ID,Pro_Name,Owner_Name,Gender,Mobile,Home_Phone,h.House_Num,h.House_Area,Organization " +
+		   "FROM tb_HouseOwner ho,tb_House h,tb_Owner o,tb_Building buil,tb_Project pro,tb_Company com " +
+		   "WHERE ho.Owner_ID = o.Owner_ID and ho.House_ID = h.House_ID and h.Buil_ID = buil.Buil_ID and buil.Pro_ID = pro.Pro_ID and pro.Com_ID = com.Com_ID and com.Com_ID = "+comId);
 	sql.append(ParamsToString.toString(params));
 	sql.append(") SELECT * FROM DataList WHERE RowNum BETWEEN "+startRow+" AND "+endRow);
 	logger.debug(sql.toString());
@@ -299,14 +299,14 @@ public class HouseOwnerDAO extends BaseDAO implements IHouseOwnerDAO {
 	rs.beforeFirst();
         while(rs.next()){
             Map<String, Object> attrMap = new LinkedHashMap<String, Object>();
-	    attrMap.put("tb_Owner.Owner_ID", rs.getObject(2));
+	    attrMap.put("o.Owner_ID", rs.getObject(2));
 	    attrMap.put("Pro_Name", rs.getObject(3));
 	    attrMap.put("Owner_Name", rs.getObject(4));
 	    attrMap.put("Gender", rs.getObject(5));
 	    attrMap.put("Mobile", rs.getObject(6));
 	    attrMap.put("Home_Phone", rs.getObject(7));
-	    attrMap.put("tb_House.House_Num", rs.getObject(8));
-	    attrMap.put("tb_House.House_Area", rs.getObject(9));
+	    attrMap.put("h.House_Num", rs.getObject(8));
+	    attrMap.put("h.House_Area", rs.getObject(9));
 	    attrMap.put("Organization", rs.getObject(10));
 	    list.add(attrMap);
         }

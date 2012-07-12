@@ -27,9 +27,9 @@
   <div class="content_main" style="border:0px;">
     <div class="left_main" style="float:left;width:48%">
        <table id="publicItemList"></table>
-       <div id="newPublicItem" class="easyui-window" href="fix_public_item_add.jsp" title="添加公共维修/保养项目" iconCls="icon-save" style="width:350px;height:370px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
+       <div id="newPublicItem" class="easyui-window" href="fix_public_item_add.jsp" title="添加公共维修/保养项目" iconCls="icon-save" style="width:350px;height:390px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
   	   </div>
-  	   <div id="editPublicItem" class="easyui-window" href="" title="编辑公共维修/保养项目" iconCls="icon-save" style="width:310px;height:350px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
+  	   <div id="editPublicItem" class="easyui-window" href="" title="编辑公共维修/保养项目" iconCls="icon-save" style="width:310px;height:390px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false">
   	   </div>
     </div>
     <div class="middle"></div>

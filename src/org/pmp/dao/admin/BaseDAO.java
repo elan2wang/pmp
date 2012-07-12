@@ -43,15 +43,14 @@ public class BaseDAO {
 	try {
             tx = session.beginTransaction();          	
             session.doWork(work);
+	    tx.commit();
 	} catch (RuntimeException e){
 	    tx.rollback();
-	  //  session.close();
 	    logger.debug(e.getMessage());
-	    throw e;
-	} finally {
-	    tx.commit();
 	    session.close();
+	    throw e;
 	}
+	session.close();
     }
     
     /**

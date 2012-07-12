@@ -27,7 +27,7 @@ $(function(){
             { display: '备注', name: 'Comment', width: Width*0.16, sortable:true, align: 'center' }
         ],
         buttons:[
-     		{ name: '数据导出', bclass:'import', onpress: cfExport },
+     		{ name: '数据导出', bclass:'export', onpress: cfExport },
      		{ separator: true },
 	    ],
 		searchitems:[
@@ -39,7 +39,7 @@ $(function(){
 		],
 		title:true,
 		showSearch:true,
-        height:Height*0.9,
+        height:Height*0.82,
         showcheckbox:true,
         nomsg: '没有符合条件的物业费记录',
         usepager:true,

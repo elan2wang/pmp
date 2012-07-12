@@ -38,11 +38,11 @@ tr{height:30px;line-hight:30px;padding:2px;}
         </tr>
         <tr>
           <td width="80" height="30" align="center" valign="middle">开始时间</td>
-          <td width="180" colspan="2"><input name="publicRepair.beginTime" type="text" class="textbox" value="${publicRepair.beginTime }" id="publicRepair.beginTime" style="width:160px;" /></td>
+          <td width="180" colspan="2"><input name="publicRepair.beginTime" type="text" class="textbox" value="${publicRepair.beginTime }" id="publicRepair.beginTime" style="width:100px;" /><span>格式12:00</span></td>
         </tr>
         <tr>
           <td width="80" height="30" align="center" valign="middle">完成时间</td>
-          <td width="180" colspan="2"><input name="publicRepair.endTime" type="text" class="textbox" value="${publicRepair.endTime }" id="publicRepair.endTime" style="width:160px;" /></td>
+          <td width="180" colspan="2"><input name="publicRepair.endTime" type="text" class="textbox" value="${publicRepair.endTime }" id="publicRepair.endTime" style="width:100px;" /><span>格式12:00</span></td>
         </tr>
         <tr>
           <td height="55" align="center" valign="middle">维修详情</td>
@@ -59,11 +59,11 @@ tr{height:30px;line-hight:30px;padding:2px;}
           <td width="80" height="30" align="center" valign="middle">目前状态</td>
           <td width="180" colspan="2">
             <select name="publicRepair.state" id="publicRepair.state" class="selectbox" style="width:165px;">
-              <option value="正常" <c:if test="${publicRepair.repairType == '正常' }">selected="selected"</c:if> >正常</option>
-              <option value="故障" <c:if test="${publicRepair.repairType == '故障' }">selected="selected"</c:if>>故障</option>
-              <option value="老化" <c:if test="${publicRepair.repairType == '老化' }">selected="selected"</c:if>>老化</option>
-              <option value="待修" <c:if test="${publicRepair.repairType == '待修' }">selected="selected"</c:if>>待修</option>
-              <option value="待更换" <c:if test="${publicRepair.repairType == '待更换' }">selected="selected"</c:if>>待更换</option>
+              <option value="正常" <c:if test="${publicRepair.state == '正常' }">selected="selected"</c:if> >正常</option>
+              <option value="故障" <c:if test="${publicRepair.state == '故障' }">selected="selected"</c:if>>故障</option>
+              <option value="老化" <c:if test="${publicRepair.state == '老化' }">selected="selected"</c:if>>老化</option>
+              <option value="待修" <c:if test="${publicRepair.state == '待修' }">selected="selected"</c:if>>待修</option>
+              <option value="待更换" <c:if test="${publicRepair.state == '待更换' }">selected="selected"</c:if>>待更换</option>
             </select>
           </td>
         </tr>

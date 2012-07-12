@@ -80,3 +80,9 @@ img{ border:0;}
 .flexigrid div.fbutton .check {
 	background: url(../../Images/buttons/check.png) no-repeat center left;
 }
+.flexigrid div.fbutton .sms {
+	background: url(../../Images/buttons/sms.png) no-repeat center left;
+}
+.flexigrid div.fbutton .history {
+	background: url(../../Images/buttons/history.png) no-repeat center left;
+}

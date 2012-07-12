@@ -22,7 +22,7 @@ $(function(){
         ],
         buttons:[
             { name: '缴费录入', bclass: 'add', onpress: cfInput },
-            { name: '短信催缴', bclass: 'add', onpress: smsInform }
+            { name: '短信催缴', bclass: 'sms', onpress: smsInform }
 		],
 		searchitems:[
 		    { display: '年份', name : 'cfYear' },
@@ -31,7 +31,7 @@ $(function(){
 		],
 		title:true,
 		showSearch:true,
-		height:Height*0.9,
+		height:Height*0.85,
         showcheckbox:true,
         usepager:true,
         useRp:true,

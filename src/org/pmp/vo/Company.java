@@ -123,12 +123,12 @@ public class Company implements java.io.Serializable {
 	this.comDesc = comDesc;
     }
 
-    public boolean isEnabled() {
-	return this.enabled;
+    public Boolean getEnabled() {
+        return enabled;
     }
 
-    public void setEnabled(boolean enabled) {
-	this.enabled = enabled;
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
 }

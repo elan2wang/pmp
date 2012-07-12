@@ -26,7 +26,7 @@ $(function(){
           	 { display: '所属地区', name: 'proDistrict', isdefault:false },
           	 { display: '所属街道', name: 'proStreet', isdefault:false }
          ],
-         height:Height*0.9,
+         height:Height*0.88,
          showSearch:true,
          showcheckbox:true,
          usepager: true,

@@ -16,12 +16,12 @@ $(function(){
 		dataType:"json",
         colModel:[
 			{ display: '小区', name: 'Pro_Name', width: Width*0.1, sortable:true, align: 'center' },
-			{ display: '房号', name: 'tb_House.House_Num', width: Width*0.08, sortable:true, align: 'center' },
+			{ display: '房号', name: 'h.House_Num', width: Width*0.08, sortable:true, align: 'center' },
 			{ display: '姓名', name: 'Owner_Name', width: Width*0.08, sortable:true, align: 'center' },
             { display: '性别', name: 'Gender', width: Width*0.05, sortable:true, align: 'center' },
             { display: '手机号码', name: 'Mobile', width: Width*0.1, sortable:true, align: 'center' },
             { display: '家庭电话', name: 'Home_Phone', width: Width*0.1, sortable:true, align: 'center' },
-            { display: '房屋面积', name: 'tb_House.House_Area', width: Width*0.08, sortable:true, align: 'center' },
+            { display: '房屋面积', name: 'h.House_Area', width: Width*0.08, sortable:true, align: 'center' },
             { display: '工作单位', name: 'Organization', width: Width*0.22, sortable:true, align: 'center' }
         ],
         buttons:[
@@ -29,14 +29,14 @@ $(function(){
             { separator: true },
             { name: '业主信息导入', bclass:'import', onpress: ownerImport },
             { separator: true },
-            { name: '业主信息导出', bclass:'import', onpress: ownerExport },
+            { name: '业主信息导出', bclass:'export', onpress: ownerExport },
             { separator: true },
             { name: '删除业主', bclass:'delete', onpress: ownerDelete }
 		],
 		searchitems:[
 			{ display: '小区', name: 'Pro_Name', isDefault:false },
 			{ display: '楼号', name: 'Buil_Num', isDefault:false },
-			{ display: '房号', name: 'tb_House.House_Num', isDefault:false },
+			{ display: '房号', name: 'h.House_Num', isDefault:false },
 		    { display: '姓名', name: 'Owner_Name', isDefault:true },
 		    { display: '手机号码', name: 'Mobile', isDefault:false }
 		],

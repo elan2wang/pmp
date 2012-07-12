@@ -142,12 +142,12 @@ public class Building implements java.io.Serializable {
 	this.builDesc = builDesc;
     }
 
-    public boolean isEnabled() {
-	return this.enabled;
+    public Boolean getEnabled() {
+        return enabled;
     }
 
-    public void setEnabled(boolean enabled) {
-	this.enabled = enabled;
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
 }

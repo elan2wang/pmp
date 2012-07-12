@@ -24,7 +24,7 @@ $(function(){
             { name: '电费修改', bclass: 'edit', onpress: ef_edit },
             { name: '删除电费记录', bclass: 'delete', onpress: ef_delete },
             { name: '删除电费项目', bclass: 'delete', onpress: efi_delete },
-            { name: '导出电费项目', bclass: 'import', onpress: efExport}
+            { name: '导出电费项目', bclass: 'export', onpress: efExport}
 		],
 		searchitems:[
 		    { display: '房号', name: 'houseOwner.house.houseNum'},
