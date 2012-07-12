@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Session已过期，请重新<a href="http://localhost:8080/pmp/login.jsp">登录</a></h1>
+<div>
+  <img src="../Images/session.png">
+</div>
 </body>
 </html>

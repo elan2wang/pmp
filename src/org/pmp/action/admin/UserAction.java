@@ -118,7 +118,6 @@ public class UserAction extends BaseAction{
     }
     
     public void deleteUser(){
-    Map<String,String> params = new HashMap<String, String>();
 	List<TbUser> userList = new ArrayList<TbUser>();
 	String[] checkedID = idStr.split(",");
 	for (int i=0;i<checkedID.length;i++){
@@ -126,9 +125,11 @@ public class UserAction extends BaseAction{
 	    userList.add(user);
 	}
 	userService.batchDelete(userList);
+
+	Map<String,String> result = new HashMap<String, String>();
 	MyJson json = new MyJson();
-	params.put("msg", "用户删除成功");
-	MyJson.print(json.toJson(params));
+	result.put("msg", "用户删除成功");
+	json.output(json.toJson(result));
     }
 
     public String getUserDetail(){

@@ -28,7 +28,7 @@
     <exception-type>java.lang.Throwable</exception-type>
     <location>/error/500.jsp</location>
   </error-page>
-  
+   
   <!-- set Spring ContextLoaderListener -->
   <listener>
   	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

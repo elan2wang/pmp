@@ -44,8 +44,6 @@ import org.pmp.vo.LiftMeterItem;
 import org.pmp.vo.ProMeterItem;
 import org.pmp.vo.Project;
 
-import com.opensymphony.xwork2.ActionSupport;
-
 
 /**
  * @author Elan

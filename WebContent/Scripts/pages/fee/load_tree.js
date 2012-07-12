@@ -20,6 +20,7 @@ function load_data(action,url,target){
 		dataType: "json",
 		success: function(data){
 			d = new dTree("d");
+			d.clearCookie();
 			d.add(0,-1,"");
 			$.each(data.Nodes,function(commentIndex,comment){
 				d.add(comment['id'], comment['pid'], comment['name'], comment['url'], comment['name'], 

@@ -19,7 +19,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
@@ -28,7 +27,6 @@ import org.pmp.excel.ResourceImport;
 import org.pmp.json.Includer;
 import org.pmp.json.MyJson;
 import org.pmp.service.admin.IResourceService;
-import org.pmp.util.JsonConvert;
 import org.pmp.util.MyfileUtil;
 import org.pmp.util.Pager;
 import org.pmp.vo.TbResource;
@@ -139,7 +137,6 @@ public class ResourceAction extends BaseAction{
     }
     
     public void deleteRes(){
-    Map<String,String> params = new HashMap<String, String>();
 	List<TbResource> resList = new ArrayList<TbResource>();
 	String[] checkedID = idStr.split(",");
 	for (int i=0;i<checkedID.length;i++){
@@ -147,9 +144,11 @@ public class ResourceAction extends BaseAction{
 	    resList.add(res);
 	}
 	resourceService.batchDelete(resList);
+	
+	Map<String,String> result = new HashMap<String, String>();
 	MyJson json = new MyJson();
-	params.put("msg", "资源删除成功");
-	MyJson.print(json.toJson(params));
+	result.put("msg", "资源删除成功");
+	json.output(json.toJson(result));
     }
     //~ Getters and Setters ============================================================================================
 
