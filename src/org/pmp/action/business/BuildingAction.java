@@ -67,11 +67,11 @@ public class BuildingAction extends BaseAction {
     }
 	
     public void deleteBuilding(){
-    	Map<String,String> params = new HashMap<String, String>();
         buildingService.deleteBuilding(buildingService.getBuildingById(buildingId));
+        Map<String,String> result = new HashMap<String, String>();
         MyJson json = new MyJson();
-    	params.put("msg", "楼宇信息删除成功");
-    	MyJson.print(json.toJson(params));
+        result.put("msg", "楼宇信息删除成功");
+    	json.output(json.toJson(result));
     }
 	
     public String getBuildingById(){

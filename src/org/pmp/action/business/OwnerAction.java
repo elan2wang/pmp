@@ -132,7 +132,6 @@ public class OwnerAction extends BaseAction{
     }
     
     public void deleteOwner(){
-    Map<String,String> params = new HashMap<String, String>();
 	List<Owner> ownerList = new ArrayList<Owner>();
 	String[] checkedID = idStr.split(",");
 	for (int i=0;i<checkedID.length;i++){
@@ -140,9 +139,10 @@ public class OwnerAction extends BaseAction{
 	    ownerList.add(owner);
 	}
 	ownerService.batchDelete(ownerList);
+	Map<String,String> result = new HashMap<String, String>();
 	MyJson json = new MyJson();
-	params.put("msg", "业主删除成功");
-	MyJson.print(json.toJson(params));
+	result.put("msg", "业主删除成功");
+	json.output(json.toJson(result));
     }
     
     public String getOwnerInfo(){

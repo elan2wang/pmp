@@ -166,11 +166,11 @@ public class ElectricFeeItemAction extends BaseAction{
     }
     
     public void deleteElectricFeeItem(){
-    	Map<String,String> params = new HashMap<String, String>();
 	electricFeeItemService.deleteElectricFeeItem(electricFeeItemService.getElectricFeeItemByID(efiId));
+	Map<String,String> result = new HashMap<String, String>();
 	MyJson json = new MyJson();
-	params.put("msg", "电费项目删除成功");
-	MyJson.print(json.toJson(params));
+	result.put("msg", "电费项目删除成功");
+	json.output(json.toJson(result));
     }
     
     public void exportElectricFee() throws IOException{

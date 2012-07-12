@@ -52,11 +52,11 @@ public class CompanyAction extends BaseAction {
     }
     
     public void deleteCompany(){
-    	Map<String,String> params = new HashMap<String, String>();
     	companyService.deleteCompany(companyService.getCompanyByID(comid));
+    	Map<String,String> result = new HashMap<String, String>();
     	MyJson json = new MyJson();
-    	params.put("msg", "物业公司删除成功");
-    	MyJson.print(json.toJson(params));
+    	result.put("msg", "物业公司删除成功");
+    	json.output(json.toJson(result));
     }
     
     public void loadCompanyList(){
