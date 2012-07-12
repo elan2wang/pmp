@@ -417,7 +417,6 @@ public class CondoFeeAction extends BaseAction{
     }
     
     public void cfDelete(){
-    	Map<String,String> params = new HashMap<String, String>();
 	List<CondoFee> cfList = new ArrayList<CondoFee>();
 	String[] checkedID = idStr.split(",");
 	for (int i=0;i<checkedID.length;i++){
@@ -426,9 +425,10 @@ public class CondoFeeAction extends BaseAction{
 	}
 	logger.debug("cfList.size="+cfList.size());
 	condoFeeService.batchDelete(cfList);
+	Map<String,String> result = new HashMap<String, String>();
 	MyJson json = new MyJson();
-	params.put("msg", "物业费记录删除成功");
-	MyJson.print(json.toJson(params));
+	result.put("msg", "物业费记录删除成功");
+	json.output(json.toJson(result));
     }
     
     /* 删除、编辑、审核、录入之前判断状态，是否可执行操作 */

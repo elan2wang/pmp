@@ -62,7 +62,6 @@ public class ComplaintAction extends BaseAction {
     }
     
     public void deleteComplaint(){
-    Map<String,String> params = new HashMap<String, String>();
 	List<Complaint> list = new ArrayList<Complaint>();
 	String[] checkedID = idStr.split(",");
 	for(int i=0;i<checkedID.length;i++){
@@ -70,9 +69,10 @@ public class ComplaintAction extends BaseAction {
 	    list.add(comp);
 	}
 	complaintService.batchDeleteComplaint(list);
+	Map<String,String> result = new HashMap<String, String>();
 	MyJson json = new MyJson();
-	params.put("msg", "用户投诉删除成功");
-	MyJson.print(json.toJson(params));
+	result.put("msg", "用户投诉删除成功");
+	json.output(json.toJson(result));
     }
     
     public String getComplaintById(){

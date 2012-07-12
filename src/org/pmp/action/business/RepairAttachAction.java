@@ -96,11 +96,11 @@ public class RepairAttachAction extends ActionSupport {
     }
     
     public void deleteRepairAttach(){
-    	Map<String,String> params = new HashMap<String, String>();
 	repairAttachService.deleteRepairAttach(repairAttachService.getRepairAttach_ByID(raId));
+	Map<String,String> result = new HashMap<String, String>();
 	MyJson json = new MyJson();
-	params.put("msg", "附件删除成功");
-	MyJson.print(json.toJson(params));
+	result.put("msg", "附件删除成功");
+	json.output(json.toJson(result));
     }
     
     public String loadRepairAttachList(){

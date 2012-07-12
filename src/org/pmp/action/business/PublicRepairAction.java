@@ -77,7 +77,6 @@ public class PublicRepairAction extends BaseAction {
     }
 
     public void deletePublicRepair(){
-    	Map<String,String> params = new HashMap<String, String>();
 	List<PublicRepair> list = new ArrayList<PublicRepair>();
 	String[] checkedID = idStr.split(",");
 	for (int i=0;i<checkedID.length;i++){
@@ -86,9 +85,10 @@ public class PublicRepairAction extends BaseAction {
 	}
 	logger.debug("cfList.size="+list.size());
 	publicRepairService.batchDeletePublicRepair(list);
+	Map<String,String> result = new HashMap<String, String>();
 	MyJson json = new MyJson();
-	params.put("msg", "公共维修信息删除成功");
-	MyJson.print(json.toJson(params));
+	result.put("msg", "公共维修信息删除成功");
+	json.output(json.toJson(result));
     }
     
     public void loadPublicRepairList_ByFBI(){

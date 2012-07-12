@@ -58,11 +58,11 @@ public class ElectricFeeChargeAction extends ActionSupport {
     }
     
     public void deleteElectricFeeCharge(){ 
-    	Map<String,String> params = new HashMap<String, String>();
 	electricFeeChargeService.deleteElectricFeeCharge(electricFeeChargeService.getElectricFeeCharge_ByID(efcId));
+	Map<String,String> result = new HashMap<String, String>();
 	MyJson json = new MyJson();
-	params.put("msg", "充值记录删除成功");
-	MyJson.print(json.toJson(params));
+	result.put("msg", "充值记录删除成功");
+	json.output(json.toJson(result));
     }
     
     public String loadElectricFeeChargeList_ByHouse(){
