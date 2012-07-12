@@ -28,6 +28,6 @@
 
 <input type="hidden" id="url" name="url" />
 <!-- pop up windows -->
-<div id="cfExport" href="cf_export.jsp" class="easyui-window" title="物业费修改" iconCls="icon-save" style="width:280px;height:250px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
+<div id="cfExport" href="cf_export.jsp" class="easyui-window" title="物业费导出" iconCls="icon-save" style="width:280px;height:250px;padding:5px;" closed="true" collapsible="false" minimizable="false" maximizable="false"></div>
 </body>
 </html>

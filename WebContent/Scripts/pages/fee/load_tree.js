@@ -28,6 +28,6 @@ function load_data(action,url,target){
 			});
 			document.getElementById("tree").innerHTML=d.toString();
 			controlLength('tree');
-		}
+		} 
 	});
 }

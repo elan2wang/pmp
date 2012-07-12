@@ -85,10 +85,9 @@ function efExport(){
 		data: [{name:'qtype',value:qtype},{name:'query',value:query}],
 		success: function(data){
 			$.unblockUI();
-			openAddWindow('#export');
-			$('#download').removeAttr('style');
-			$('#downLink').attr('href',data.download_link);
-			$('#export').window('refresh');
+			var ifr = document.createElement("IFRAME");  
+			document.body.appendChild(ifr);  
+			ifr.src = data.download_link; 
 		}
 	});
 }

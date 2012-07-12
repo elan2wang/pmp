@@ -14,9 +14,10 @@ function owner_export(){
 		data: [{name:'qtype',value:qtype},{name:'query',value:query}],
 		success: function(data){
 			$.unblockUI();
-			openAddWindow('#export');
-			$('#download').removeAttr('style');
-			$('#downLink').attr('href',data.download_link);
+			var ifr = document.createElement("IFRAME");  
+			document.body.appendChild(ifr);
+			ifr.height = 1;
+			ifr.src = data.download_link; 
 		}
 	});
 }

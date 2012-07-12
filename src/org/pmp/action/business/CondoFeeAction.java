@@ -135,10 +135,10 @@ public class CondoFeeAction extends BaseAction{
 	Integer deniedAmount = condoFeeService.getAmount_By_Item_State(cfiId, CondoFeeState.DENIED, params);
 	Integer passAmount = condoFeeService.getAmount_By_Item_State(cfiId, CondoFeeState.PASS, params);
 	
-	String title = "应收："+df.format(moneyInfo.get(0))+"&nbsp;元,&nbsp;&nbsp;&nbsp;&nbsp;实收："+df.format(moneyInfo.get(1))+"&nbsp;元,&nbsp;&nbsp;&nbsp;&nbsp;"+
+	String title = "<span style='font-size:12px'>应收："+df.format(moneyInfo.get(0))+"&nbsp;元,&nbsp;&nbsp;&nbsp;&nbsp;实收："+df.format(moneyInfo.get(1))+"&nbsp;元,&nbsp;&nbsp;&nbsp;&nbsp;"+
 	               "待审核："+payedAmount+"&nbsp;项,&nbsp;&nbsp;&nbsp;&nbsp;审核通过："+passAmount+"&nbsp;项,&nbsp;&nbsp;&nbsp;&nbsp;"+
 	               "审核有误："+deniedAmount+"&nbsp;项,&nbsp;&nbsp;&nbsp;&nbsp;待缴费："+inputAmount+"&nbsp;项,&nbsp;&nbsp;&nbsp;&nbsp;"+
-	               "待设定："+newAmount+"&nbsp;项";
+	               "待设定："+newAmount+"&nbsp;项</span>";
 	
 	MyJson json = new MyJson();
 	String data = json.toJson(list, title, pager);
@@ -206,10 +206,10 @@ public class CondoFeeAction extends BaseAction{
 	Integer deniedAmount = condoFeeService.getAmount_By_Com_State(comId, CondoFeeState.DENIED, params);
 	Integer passAmount = condoFeeService.getAmount_By_Com_State(comId, CondoFeeState.PASS, params);
 	
-	String title = "应收："+df.format(moneyInfo.get(0))+"&nbsp;元,&nbsp;&nbsp;&nbsp;&nbsp;实收："+df.format(moneyInfo.get(1))+"&nbsp;元,&nbsp;&nbsp;&nbsp;&nbsp;"+
+	String title = "<span style='font-size:12px'>应收："+df.format(moneyInfo.get(0))+"&nbsp;元,&nbsp;&nbsp;&nbsp;&nbsp;实收："+df.format(moneyInfo.get(1))+"&nbsp;元,&nbsp;&nbsp;&nbsp;&nbsp;"+
 	               "待审核："+payedAmount+"&nbsp;项,&nbsp;&nbsp;&nbsp;&nbsp;审核通过："+passAmount+"&nbsp;项,&nbsp;&nbsp;&nbsp;&nbsp;"+
 	               "审核有误："+deniedAmount+"&nbsp;项,&nbsp;&nbsp;&nbsp;&nbsp;待缴费："+inputAmount+"&nbsp;项,&nbsp;&nbsp;&nbsp;&nbsp;"+
-	               "待设定："+newAmount+"&nbsp;项";
+	               "待设定："+newAmount+"&nbsp;项</span>";
 	MyJson json = new MyJson();
 	String data = json.toJson(list, title,pager);
 	
@@ -246,10 +246,10 @@ public class CondoFeeAction extends BaseAction{
 	Integer deniedAmount = condoFeeService.getAmount_By_Pro_State(comId, CondoFeeState.DENIED, params);
 	Integer passAmount = condoFeeService.getAmount_By_Pro_State(comId, CondoFeeState.PASS, params);
 	
-	String title = "应收："+df.format(moneyInfo.get(0))+"&nbsp;元,&nbsp;&nbsp;&nbsp;&nbsp;实收："+df.format(moneyInfo.get(1))+"&nbsp;元,&nbsp;&nbsp;&nbsp;&nbsp;"+
+	String title = "<span style='font-size:12px'>应收："+df.format(moneyInfo.get(0))+"&nbsp;元,&nbsp;&nbsp;&nbsp;&nbsp;实收："+df.format(moneyInfo.get(1))+"&nbsp;元,&nbsp;&nbsp;&nbsp;&nbsp;"+
 	               "待审核："+payedAmount+"&nbsp;项,&nbsp;&nbsp;&nbsp;&nbsp;审核通过："+passAmount+"&nbsp;项,&nbsp;&nbsp;&nbsp;&nbsp;"+
 	               "审核有误："+deniedAmount+"&nbsp;项,&nbsp;&nbsp;&nbsp;&nbsp;待缴费："+inputAmount+"&nbsp;项,&nbsp;&nbsp;&nbsp;&nbsp;"+
-	               "待设定："+newAmount+"&nbsp;项";
+	               "待设定："+newAmount+"&nbsp;项</span>";
 	
 	MyJson json = new MyJson();
 	String data = json.toJson(list, title, pager);

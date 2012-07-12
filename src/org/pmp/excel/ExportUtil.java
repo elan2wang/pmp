@@ -7,21 +7,12 @@
  */
 package org.pmp.excel;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Date;
-import java.util.List;
-
-import jxl.Workbook;
 import jxl.write.Label;
 import jxl.write.WritableCell;
 import jxl.write.WritableCellFormat;
 import jxl.write.WritableFont;
 import jxl.write.WritableSheet;
-import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 
 import org.apache.log4j.Logger;
@@ -49,7 +40,7 @@ public class ExportUtil {
 	if (obj instanceof Boolean)
 	    return new jxl.write.Boolean(i, j, (Boolean)obj);
 	if (obj instanceof Date){
-	    jxl.write.DateFormat df = new jxl.write.DateFormat("yyyy-MM-dd");
+	    jxl.write.DateFormat df = new jxl.write.DateFormat("yyyy/MM/dd");
 	    jxl.write.WritableCellFormat wcfDF = new jxl.write.WritableCellFormat(df);
 	    jxl.write.DateTime label = new jxl.write.DateTime(i, j, (Date)obj,wcfDF);
 	    return label;
