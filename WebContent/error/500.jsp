@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>404 ERROR</title>
+<title>500 ERROR</title>
 </head>
 <body>
-<h1>404,You Know That</h1>
+<img src="../Images/500.png">
 </body>
 </html>

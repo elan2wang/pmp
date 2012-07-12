@@ -6,8 +6,8 @@
  * this script is used by the ef_page.jsp
  */ 
 $(function(){
-	$(".content .innercontent").eq(0).show();
-	document.getElementById("ef_item_add").src="ef_item_add.jsp";
+	$(".content .innercontent").eq(1).show();
+	document.getElementById("ef_house_list").src="ef_house_list.jsp";
 	
 	$("#tab1").click(function(){
 	    document.getElementById("ef_item_add").src="ef_item_add.jsp";

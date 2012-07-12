@@ -133,7 +133,7 @@ function deleteList(){
 					type: 'POST',
 					url: 'cf_delete?idStr='+idString,
 					success: function(data){
-						alert("记录删除成功");
+						alert(data.msg);
 						window.location.href='cf_list_by_item.jsp?cfiId='+getQueryString("cfiId");
 					}
 				});

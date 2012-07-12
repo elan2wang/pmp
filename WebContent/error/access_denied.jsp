@@ -9,8 +9,7 @@
 <body>
 <h2>Access Denied</h2>
 <h2>无权访问</h2>  
-<p>  
-  <span>dear user, you don't have the authority to access this resource! <br>Any question please contact system administrator!</span> 
+<p><span>dear user, you don't have the authority to access this resource! <br>Any question please contact system administrator!</span> 
   <br/>
   <span>尊敬的用户，很抱歉您无权访问该资源！ 如有疑问请联系系统管理员！</span>
 </p>

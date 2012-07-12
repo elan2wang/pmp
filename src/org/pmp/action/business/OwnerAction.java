@@ -215,7 +215,7 @@ public class OwnerAction extends BaseAction{
 	    params.put("error", "filetype_error");
 	    params.put("msg", message);
 	    data = json.toJson(params);
-	    MyJson.print(data);
+	    json.output(data);
 	    return;
 	}
 	
