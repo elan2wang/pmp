@@ -71,8 +71,9 @@ function ownerDelete(){
 	$.ajax({
 		type: 'POST',
 		url: 'deleteFireInfoBak?idStr='+idString,
+		dataType:"json",
 		success: function(data){
-			alert("消控历史记录删除成功");
+			alert(data.msg);
 			window.location.href="fireInfoHistory_list.jsp";
 		}
 	});

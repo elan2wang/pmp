@@ -42,7 +42,7 @@ function deleteAttach(the){
 		url: "deleteRepairAttach?raId="+raId,
 		dataType: "json",
 		success: function(data){
-			alert("删除成功");
+			alert(data.msg);
 			//移除当前<tr></tr>
 			$(the).parent().parent().remove();
 		}

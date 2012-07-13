@@ -67,6 +67,10 @@ public class ProjectAction extends BaseAction {
 	
     public void deleteProject(){
         projectService.deleteProject(projectService.getProjectByID(proId));
+        Map<String,String> result = new HashMap<String, String>();
+        MyJson json = new MyJson();
+        result.put("msg", "物业项目删除成功");
+    	json.output(json.toJson(result));
     }
 	
     public String editProject(){

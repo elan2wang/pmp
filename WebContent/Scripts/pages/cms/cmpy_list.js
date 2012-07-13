@@ -59,7 +59,7 @@ function deleteCmpy(obj,objid){
         url: 'deleteCompany?comid='+id,
         dataType: "json",
         success : function(data){
-        	alert("删除成功");
+        	alert(data.msg);
         	window.location.href = "cmpy_list.jsp";
         }
 	});

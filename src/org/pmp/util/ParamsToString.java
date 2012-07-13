@@ -42,7 +42,8 @@ public class ParamsToString {
 		String key = ite.next();
 		Object value = params.get(key);
 		/* transform value to string */
-		if (key.equals("Buil_Num")){
+		if (key.equals("Buil_Num")||key.equals("cfYear")||key.equals("cfMonth")
+		    ||key.equals("CF_Year")||key.equals("CF_Month")){
 		    /* 楼号精确匹配 */
 		    sb.append(key+" = '"+value.toString()+"'");
 		} else if (key.equals("h.House_Num")||key.equals("houseOwner.house.houseNum")){

@@ -240,6 +240,10 @@ public class ZoneAction extends ActionSupport{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		Map<String,String> result = new HashMap<String, String>();
+		MyJson json = new MyJson();
+		result.put("msg", "场地信息删除成功");
+		json.output(json.toJson(result));
     }
     
     public String updateZone() throws IOException{

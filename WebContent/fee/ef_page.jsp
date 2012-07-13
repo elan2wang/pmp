@@ -18,9 +18,9 @@
 <body>
 <div class="wrap">
   <ul class="nav">
-    <li id="tab1" class="active"><a href="javascript:void(0)">电费创建</a></li>
-    <li id="tab2"><a href="javascript:void(0)">业主视图</a></li>
-    <li id="tab3"><a href="javascript:void(0)">电费项目清单</a></li>
+    <sec:authorize access="hasAnyRole('AUTH_ELECTRIC_ITEM_CREATE')"><li id="tab1"><a href="javascript:void(0)">电费创建</a></li></sec:authorize>
+    <sec:authorize access="hasAnyRole('AUTH_ELECTRIC_HOUSE_VIEW')"><li id="tab2" class="active"><a href="javascript:void(0)">业主视图</a></li></sec:authorize>
+    <sec:authorize access="hasAnyRole('AUTH_ELECTRIC_ITEM_VIEW')"><li id="tab3"><a href="javascript:void(0)">电费项目清单</a></li></sec:authorize>
   </ul>
   <div class="content" style="height:570px;">
     <!-- 电费创建视图  -->

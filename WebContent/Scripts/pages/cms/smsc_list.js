@@ -69,7 +69,7 @@ function deleteSMSCs()
 		url: "batchDeleteSMSCompany?idStr="+idString,
 	    dataType: "json",
 	    success : function(data){
-	    	alert("删除成功");
+	    	alert(data.msg);
 	    	window.location.href = "smsc_list.jsp";
 	    }
     });

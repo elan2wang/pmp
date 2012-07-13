@@ -9,7 +9,9 @@ package org.pmp.action.business;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -74,6 +76,7 @@ public class SmsCompanyAction extends BaseAction {
     }
     
     public void batchDeleteSMSCompany(){
+    	Map<String,String> params = new HashMap<String, String>();
     	List<SMSCompany> smscompany = new ArrayList<SMSCompany>();
     	String []ids = idStr.split(",");
     	for(int i=0;i<ids.length;++i){
@@ -81,6 +84,9 @@ public class SmsCompanyAction extends BaseAction {
     	    smscompany.add(smscom);
     	}
     	smsCompanyService.batchDeleteSMSCompany(smscompany);
+    	MyJson json = new MyJson();
+    	params.put("msg", "短信平台删除成功");
+    	MyJson.print(json.toJson(params));
      }
     
     public String getSMSCompany(){

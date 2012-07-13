@@ -24,8 +24,8 @@
 <body>
 <div class="wrap">      
     <ul class="nav">
-      <sec:authorize access="hasAnyRole('AUTH_PROJECT_VIEW')"><li id="tab1" class="active"><a href="javascript:void(0)">物业项目列表</a></li></sec:authorize>
-      <sec:authorize access="hasAnyRole('AUTH_BUILDING_VIEW')"><li id="tab2"><a href="javascript:void(0)">楼宇信息列表</a></li></sec:authorize>
+      <sec:authorize access="hasAnyRole('AUTH_PROJECT_VIEW')"><li id="tab1"><a href="javascript:void(0)">物业项目列表</a></li></sec:authorize>
+      <sec:authorize access="hasAnyRole('AUTH_BUILDING_VIEW')"><li id="tab2" class="active"><a href="javascript:void(0)">楼宇信息列表</a></li></sec:authorize>
       <sec:authorize access="hasAnyRole('AUTH_HOUSE_VIEW')"><li id="tab3"><a href="javascript:void(0)">房产信息列表</a></li></sec:authorize>
     </ul>
     <input type="hidden" id="frame.pageType" name="frame.pageType" value="all" />

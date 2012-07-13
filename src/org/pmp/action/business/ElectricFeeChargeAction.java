@@ -15,11 +15,13 @@ package org.pmp.action.business;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
+import org.pmp.json.MyJson;
 import org.pmp.service.business.IElectricFeeChargeService;
 import org.pmp.service.business.IHouseOwnerService;
 import org.pmp.util.Pager;
@@ -57,6 +59,10 @@ public class ElectricFeeChargeAction extends ActionSupport {
     
     public void deleteElectricFeeCharge(){ 
 	electricFeeChargeService.deleteElectricFeeCharge(electricFeeChargeService.getElectricFeeCharge_ByID(efcId));
+	Map<String,String> result = new HashMap<String, String>();
+	MyJson json = new MyJson();
+	result.put("msg", "充值记录删除成功");
+	json.output(json.toJson(result));
     }
     
     public String loadElectricFeeChargeList_ByHouse(){

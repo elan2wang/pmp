@@ -52,8 +52,9 @@ function ef_delete(){
 	$.ajax({
 		type: 'POST',
 		url: 'ef_delete?idStr='+idStr,
+		dataType:"json",
 		success: function(data){
-			alert("记录删除成功");
+			alert(data.msg);
 			window.location.href='ef_list_by_item.jsp?efiId='+getQueryString("efiId");
 		}
 	});
@@ -67,7 +68,7 @@ function efi_delete(){
 		url: 'ef_item_delete?efiId='+efiId,
 		dataType: "json",
 		success: function(data){
-			alert("电费项目删除成功");
+			alert(data.msg);
 			window.parent.location.href='ef_item_list.jsp';
 		}
 	});
@@ -84,10 +85,9 @@ function efExport(){
 		data: [{name:'qtype',value:qtype},{name:'query',value:query}],
 		success: function(data){
 			$.unblockUI();
-			openAddWindow('#export');
-			$('#download').removeAttr('style');
-			$('#downLink').attr('href',data.download_link);
-			$('#export').window('refresh');
+			var ifr = document.createElement("IFRAME");  
+			document.body.appendChild(ifr);  
+			ifr.src = data.download_link; 
 		}
 	});
 }

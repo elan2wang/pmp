@@ -12,7 +12,7 @@ $(function(){
     	    { display: '投诉人电话', name:'compTel',width: Width*0.1, sortable:true, align: 'center' },
     	    { display: '投诉时间', name:'compTime',width: Width*0.08, sortable:true, align: 'center' },
     	    { display: '投诉原因',name:'compContent', width: Width*0.39, sortable:true, align: 'center' },
-    	    { display: '处理时间',name:'handleTime', width: Width*0.08, sortable:true, align: 'center' },
+    	    { display: '处理时间',name:'handleTime', width: Width*0.08, sortable:true, align: 'center' }
     	],
         buttons : [
             {name: '添加投诉记录', bclass: 'add', onpress : addComplaint},
@@ -59,7 +59,7 @@ function deleteComplaint(){
 	  url: 'deleteComplaint?idStr='+idString,
 	  dataType: "json",
 	  success : function(data){
-		  alert("选中的记录删除成功");
+		  alert(data.msg);
 		  window.location.href = window.location.href;
 	  }
 	});

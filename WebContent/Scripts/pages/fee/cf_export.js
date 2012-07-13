@@ -15,9 +15,9 @@ function cf_export(){
 		data: [{name:'qtype',value:qtype},{name:'query',value:query}],
 		success: function(data){
 			$.unblockUI();
-			openAddWindow('#cfExport');
-			$('#download').removeAttr('style');
-			$('#link').attr('href',data.download_link);
+			var ifr = document.createElement("IFRAME");  
+			document.body.appendChild(ifr);
+			ifr.src = data.download_link; 
 		}
 	});
 }

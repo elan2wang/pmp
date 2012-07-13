@@ -14,11 +14,11 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
@@ -27,7 +27,6 @@ import org.pmp.excel.ResourceImport;
 import org.pmp.json.Includer;
 import org.pmp.json.MyJson;
 import org.pmp.service.admin.IResourceService;
-import org.pmp.util.JsonConvert;
 import org.pmp.util.MyfileUtil;
 import org.pmp.util.Pager;
 import org.pmp.vo.TbResource;
@@ -145,6 +144,11 @@ public class ResourceAction extends BaseAction{
 	    resList.add(res);
 	}
 	resourceService.batchDelete(resList);
+	
+	Map<String,String> result = new HashMap<String, String>();
+	MyJson json = new MyJson();
+	result.put("msg", "资源删除成功");
+	json.output(json.toJson(result));
     }
     //~ Getters and Setters ============================================================================================
 

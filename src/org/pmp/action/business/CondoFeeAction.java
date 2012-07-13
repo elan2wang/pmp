@@ -62,6 +62,7 @@ public class CondoFeeAction extends BaseAction{
     //~ Static Fields ==================================================================================================
     private static final long serialVersionUID = -7036535552079642151L;
     private static Logger logger = Logger.getLogger(CondoFeeAction.class.getName());
+    private java.text.DecimalFormat df=new java.text.DecimalFormat( "#.## ");
     
     //~ Instance Fields ================================================================================================
     private ICondoFeeService condoFeeService;
@@ -134,10 +135,10 @@ public class CondoFeeAction extends BaseAction{
 	Integer deniedAmount = condoFeeService.getAmount_By_Item_State(cfiId, CondoFeeState.DENIED, params);
 	Integer passAmount = condoFeeService.getAmount_By_Item_State(cfiId, CondoFeeState.PASS, params);
 	
-	String title = "应收："+moneyInfo.get(0)+"&nbsp;元,&nbsp;&nbsp;&nbsp;&nbsp;实收："+moneyInfo.get(1)+"&nbsp;元,&nbsp;&nbsp;&nbsp;&nbsp;"+
+	String title = "<span style='font-size:12px'>应收："+df.format(moneyInfo.get(0))+"&nbsp;元,&nbsp;&nbsp;&nbsp;&nbsp;实收："+df.format(moneyInfo.get(1))+"&nbsp;元,&nbsp;&nbsp;&nbsp;&nbsp;"+
 	               "待审核："+payedAmount+"&nbsp;项,&nbsp;&nbsp;&nbsp;&nbsp;审核通过："+passAmount+"&nbsp;项,&nbsp;&nbsp;&nbsp;&nbsp;"+
 	               "审核有误："+deniedAmount+"&nbsp;项,&nbsp;&nbsp;&nbsp;&nbsp;待缴费："+inputAmount+"&nbsp;项,&nbsp;&nbsp;&nbsp;&nbsp;"+
-	               "待设定："+newAmount+"&nbsp;项";
+	               "待设定："+newAmount+"&nbsp;项</span>";
 	
 	MyJson json = new MyJson();
 	String data = json.toJson(list, title, pager);
@@ -205,10 +206,10 @@ public class CondoFeeAction extends BaseAction{
 	Integer deniedAmount = condoFeeService.getAmount_By_Com_State(comId, CondoFeeState.DENIED, params);
 	Integer passAmount = condoFeeService.getAmount_By_Com_State(comId, CondoFeeState.PASS, params);
 	
-	String title = "应收："+moneyInfo.get(0)+"&nbsp;元,&nbsp;&nbsp;&nbsp;&nbsp;实收："+moneyInfo.get(1)+"&nbsp;元,&nbsp;&nbsp;&nbsp;&nbsp;"+
+	String title = "<span style='font-size:12px'>应收："+df.format(moneyInfo.get(0))+"&nbsp;元,&nbsp;&nbsp;&nbsp;&nbsp;实收："+df.format(moneyInfo.get(1))+"&nbsp;元,&nbsp;&nbsp;&nbsp;&nbsp;"+
 	               "待审核："+payedAmount+"&nbsp;项,&nbsp;&nbsp;&nbsp;&nbsp;审核通过："+passAmount+"&nbsp;项,&nbsp;&nbsp;&nbsp;&nbsp;"+
 	               "审核有误："+deniedAmount+"&nbsp;项,&nbsp;&nbsp;&nbsp;&nbsp;待缴费："+inputAmount+"&nbsp;项,&nbsp;&nbsp;&nbsp;&nbsp;"+
-	               "待设定："+newAmount+"&nbsp;项";
+	               "待设定："+newAmount+"&nbsp;项</span>";
 	MyJson json = new MyJson();
 	String data = json.toJson(list, title,pager);
 	
@@ -245,10 +246,10 @@ public class CondoFeeAction extends BaseAction{
 	Integer deniedAmount = condoFeeService.getAmount_By_Pro_State(comId, CondoFeeState.DENIED, params);
 	Integer passAmount = condoFeeService.getAmount_By_Pro_State(comId, CondoFeeState.PASS, params);
 	
-	String title = "应收："+moneyInfo.get(0)+"&nbsp;元,&nbsp;&nbsp;&nbsp;&nbsp;实收："+moneyInfo.get(1)+"&nbsp;元,&nbsp;&nbsp;&nbsp;&nbsp;"+
+	String title = "<span style='font-size:12px'>应收："+df.format(moneyInfo.get(0))+"&nbsp;元,&nbsp;&nbsp;&nbsp;&nbsp;实收："+df.format(moneyInfo.get(1))+"&nbsp;元,&nbsp;&nbsp;&nbsp;&nbsp;"+
 	               "待审核："+payedAmount+"&nbsp;项,&nbsp;&nbsp;&nbsp;&nbsp;审核通过："+passAmount+"&nbsp;项,&nbsp;&nbsp;&nbsp;&nbsp;"+
 	               "审核有误："+deniedAmount+"&nbsp;项,&nbsp;&nbsp;&nbsp;&nbsp;待缴费："+inputAmount+"&nbsp;项,&nbsp;&nbsp;&nbsp;&nbsp;"+
-	               "待设定："+newAmount+"&nbsp;项";
+	               "待设定："+newAmount+"&nbsp;项</span>";
 	
 	MyJson json = new MyJson();
 	String data = json.toJson(list, title, pager);
@@ -424,6 +425,10 @@ public class CondoFeeAction extends BaseAction{
 	}
 	logger.debug("cfList.size="+cfList.size());
 	condoFeeService.batchDelete(cfList);
+	Map<String,String> result = new HashMap<String, String>();
+	MyJson json = new MyJson();
+	result.put("msg", "物业费记录删除成功");
+	json.output(json.toJson(result));
     }
     
     /* 删除、编辑、审核、录入之前判断状态，是否可执行操作 */

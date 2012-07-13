@@ -68,7 +68,7 @@ a{
           </div>
        </div><!-- 结束标签 class="index_main_left"-->
        <div class="index_main_right">
-          <iframe id="mainFrame" name="mainFrame" frameborder="0" scrolling="no"   style="width:100%; height:100%">
+          <iframe id="mainFrame" name="mainFrame" src="Images/welcome.png" frameborder="0" scrolling="no"   style="width:100%; height:100%">
           </iframe>
        </div>
    </div><!-- 结束标签 class="index_main"-->

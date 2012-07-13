@@ -195,6 +195,10 @@ public class OwnerRepairAction extends BaseAction{
 	    list.add(op);
 	}
 	ownerRepairService.batchDeleteOwnerRepair(list);
+	Map<String,String> result = new HashMap<String, String>();
+	MyJson json = new MyJson();
+	result.put("msg", "业主维修记录删除成功");
+	json.output(json.toJson(result));
     }
     
     public void deleteRepairFee(){

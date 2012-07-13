@@ -10,6 +10,7 @@ package org.pmp.action.admin;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -124,6 +125,11 @@ public class UserAction extends BaseAction{
 	    userList.add(user);
 	}
 	userService.batchDelete(userList);
+
+	Map<String,String> result = new HashMap<String, String>();
+	MyJson json = new MyJson();
+	result.put("msg", "用户删除成功");
+	json.output(json.toJson(result));
     }
 
     public String getUserDetail(){

@@ -18,6 +18,7 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,8 +43,6 @@ import org.pmp.vo.ElectricFeeItem;
 import org.pmp.vo.LiftMeterItem;
 import org.pmp.vo.ProMeterItem;
 import org.pmp.vo.Project;
-
-import com.opensymphony.xwork2.ActionSupport;
 
 
 /**
@@ -166,6 +165,10 @@ public class ElectricFeeItemAction extends BaseAction{
     
     public void deleteElectricFeeItem(){
 	electricFeeItemService.deleteElectricFeeItem(electricFeeItemService.getElectricFeeItemByID(efiId));
+	Map<String,String> result = new HashMap<String, String>();
+	MyJson json = new MyJson();
+	result.put("msg", "电费项目删除成功");
+	json.output(json.toJson(result));
     }
     
     public void exportElectricFee() throws IOException{

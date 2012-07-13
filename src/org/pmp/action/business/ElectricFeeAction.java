@@ -157,6 +157,10 @@ public class ElectricFeeAction extends BaseAction {
 	    efList.add(ef);
 	}
 	electricFeeService.batchDeleteElectricFee(efList);
+	Map<String,String> result = new HashMap<String, String>();
+	MyJson json = new MyJson();
+	result.put("msg", "电费记录删除成功");
+	json.output(json.toJson(result));
     }
     
     public void efEdit(){

@@ -9,6 +9,7 @@ package org.pmp.action.business;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -68,6 +69,10 @@ public class ComplaintAction extends BaseAction {
 	    list.add(comp);
 	}
 	complaintService.batchDeleteComplaint(list);
+	Map<String,String> result = new HashMap<String, String>();
+	MyJson json = new MyJson();
+	result.put("msg", "用户投诉删除成功");
+	json.output(json.toJson(result));
     }
     
     public String getComplaintById(){

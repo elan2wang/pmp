@@ -73,6 +73,15 @@ function userDelete(){
 	}
 	idString=idString.substring(0,idString.length-1);
 	if(!confirm("您确定要删除该用户信息?"))return;
+	$.ajax({
+		type:"post",
+		dataType:"json",
+		url:"deleteUser?idStr="+idString,
+		success: function(data){
+			alert(data.msg);
+			window.location.href = "user_list.jsp";
+		}
+	});
 	jQuery.post('deleteUser?idStr='+idString);
 }
 

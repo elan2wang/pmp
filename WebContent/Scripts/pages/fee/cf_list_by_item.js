@@ -99,7 +99,7 @@ function deleteItem(){
 					url: 'cf_item_delete?cfiId='+cfiId,
 					dataType: "json",
 					success: function(data){
-						alert("项目删除成功");
+						alert(data.msg);
 						window.parent.location.href='cf_item_list.jsp';
 					}
 				});
@@ -118,7 +118,7 @@ function deleteList(){
 		idString+=rowid+",";
 	});
 	if(idString==""){
-		alert("请选择要删除的物业费记录");
+		alert(data.msg);
 		return;
 	}
 	idString=idString.substring(0,idString.length-1);
@@ -133,7 +133,7 @@ function deleteList(){
 					type: 'POST',
 					url: 'cf_delete?idStr='+idString,
 					success: function(data){
-						alert("记录删除成功");
+						alert(data.msg);
 						window.location.href='cf_list_by_item.jsp?cfiId='+getQueryString("cfiId");
 					}
 				});

@@ -194,6 +194,7 @@ function list_divice(xml){
 					type:'POST',
 					url:'fire/updateFireInfoState',
 					data:{'deviceNum':''+deviceNum+'','state':state},
+					dataType:"json",
 					success:function(msg){
 						window.parent.makeRequest();
 					},

@@ -73,7 +73,7 @@ function deleteRes(){
 		url: "deleteRes?idStr="+idString,
 	    dataType: "json",
 	    success : function(data){
-	    	alert("删除成功");
+	    	alert(data.msg);
 	    	window.location.href = "res_list.jsp";
 	    }
     });

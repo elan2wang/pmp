@@ -8,8 +8,9 @@
 <title>Insert title here</title>
 </head>
 <h3>请选择导出条件</h3>
+<span style="font-size:11px" >默认导出所有数据</span>
   <p>
-  <select id="select1" name="select1" class="selectbox">
+  <select id="select1" name="select1" class="selectbox" style="width:80px">
     <option value="house.building.project.proName">小区</option>
     <option value="house.building.builNum">楼号</option>
     <option value="house.houseNum">房号</option>
@@ -19,9 +20,9 @@
   <input id="input1" name="input1" class="textbox" />
   </p>
   <p>
-  <select id="select2" name="select2" class="selectbox">
+  <select id="select2" name="select2" class="selectbox" style="width:80px">
   	<option value="house.building.project.proName">小区</option>
-    <option value="house.building.builNum">楼号</option>
+    <option value="house.building.builNum" selected="selected">楼号</option>
     <option value="house.houseNum">房号</option>
     <option value="owner.ownerName">业主</option>
     <option value="owner.mobile">手机号</option>
@@ -29,10 +30,10 @@
   <input id="input2" name="input2" class="textbox" />
   </p>
   <p>
-  <select id="select3" name="select3" class="selectbox">
+  <select id="select3" name="select3" class="selectbox" style="width:80px">
   	<option value="house.building.project.proName">小区</option>
     <option value="house.building.builNum">楼号</option>
-    <option value="house.houseNum">房号</option>
+    <option value="house.houseNum" selected="selected">房号</option>
     <option value="owner.ownerName">业主</option>
     <option value="owner.mobile">手机号</option>
   </select>

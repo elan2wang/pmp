@@ -15,6 +15,7 @@ package org.pmp.action.business;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -96,6 +97,10 @@ public class RepairAttachAction extends ActionSupport {
     
     public void deleteRepairAttach(){
 	repairAttachService.deleteRepairAttach(repairAttachService.getRepairAttach_ByID(raId));
+	Map<String,String> result = new HashMap<String, String>();
+	MyJson json = new MyJson();
+	result.put("msg", "附件删除成功");
+	json.output(json.toJson(result));
     }
     
     public String loadRepairAttachList(){
