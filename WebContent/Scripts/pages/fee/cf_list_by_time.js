@@ -28,7 +28,7 @@ $(function(){
         ],
         buttons:[
      		{ name: '数据导出', bclass:'export', onpress: cfExport },
-     		{ separator: true },
+     		{ separator: true }
 	    ],
 		searchitems:[
 		    { display: '小区', name: 'Pro_Name', isdefault:false },
