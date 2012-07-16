@@ -1,10 +1,7 @@
 
-
 var zoneImgUrl=parent.zoneImgUrlTmp;
 var zoneConfigUrl=parent.zoneConfigUrlTmp;
 var zoneId=parent.zoneIdTmp;
-
-//alert(zoneImgUrl+":"+zoneConfigUrl);
 
 load_device("../"+zoneConfigUrl);
 

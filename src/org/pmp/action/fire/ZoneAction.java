@@ -87,7 +87,7 @@ public class ZoneAction extends ActionSupport{
     
     public void getAllZones(){
 
-    	 logger.info("###################获取所有信息");
+    	 logger.debug("###################获取所有信息");
       	 Object obj=SessionHandler.getUserRefDomain();
       	 List<Integer> proIdList=new ArrayList();
 		 
@@ -108,21 +108,22 @@ public class ZoneAction extends ActionSupport{
 	   	 
 	   	 List<String> zoneStrs = new ArrayList<String>();
 	   	 Iterator<Zone> zones = zoneList.iterator();
+	   	 
 	   	 while(zones.hasNext()){
 	   		 	Zone z = zones.next();
 	   		    zoneStrs.add(JsonConvert.toJsonZones(z.getZoneId(), z.getZoneName(), z.getZoneImgUrl(), z.getZoneConfigUrl()));
 	   	 }
 		 
 	   	 String data=JsonConvert.toJsonZoneList(zoneStrs);
-
-		 logger.info(data);
+	   	 
+		 logger.debug(data);
 		 
 		 JsonConvert.output(data);
     }
     
     public void loadZoneList(){
     	
-    	 logger.info("###################场地信息管理!");
+    	 logger.debug("###################场地信息管理!");
     	 
     	 Pager pager = new Pager(rp,page);
     	 Object obj=SessionHandler.getUserRefDomain();
@@ -144,7 +145,7 @@ public class ZoneAction extends ActionSupport{
     	 if(obj instanceof Company){
     		     //公司管理员
     		     Company company=(Company)obj;
-    		     logger.info("公司ID:###########"+company.getComId());
+    		     logger.debug("公司ID:###########"+company.getComId());
 				 List<Project> pList=projectService.loadProjectList_ByCompany(company.getComId(), null, null, null);
 				 for (Project pro : pList) {
 					proIdList.add(pro.getProId());
@@ -152,7 +153,7 @@ public class ZoneAction extends ActionSupport{
     	 }else{
 	    		 //项目管理员
 	    		 Project project=(Project)obj;
-	    		 logger.info("项目ID:############"+project.getProId()); //项目ID
+	    		 logger.debug("项目ID:############"+project.getProId()); //项目ID
 	    		 proIdList.add(project.getProId());
     	 }
     	 
@@ -177,7 +178,15 @@ public class ZoneAction extends ActionSupport{
     }
     
     public String addZone() throws IOException{
-    	logger.info("###################添加场地信息!");    	
+    	logger.debug("###################添加场地信息!");    	
+    	
+    	Project project=new Project();
+    	project=projectService.getProjectByID(projectId);
+    	
+    	if(project==null){
+    		logger.debug(">>>>>>>>>>>>>>>>>>>>>>没有选择小区添加场地失败!");
+    		return SUCCESS;
+    	}
     	
     	String zoneImgUrl="";
     	String zoneConfigUrl="";
@@ -190,13 +199,10 @@ public class ZoneAction extends ActionSupport{
 			zoneConfigUrl=FileUploadUtil.fileUpload(zoneConfig, zoneConfigFileName, "fireConfig");
 			zone.setZoneConfigUrl(zoneConfigUrl);
 		}
-		
-    	Project project=new Project();
-    	project=projectService.getProjectByID(projectId);
-    	
+	    
     	zone.setProject(project);
     	
-    	logger.info(zone);
+    	logger.debug(zone);
     	
     	zoneService.saveZone(zone);
     	    	
@@ -222,7 +228,7 @@ public class ZoneAction extends ActionSupport{
     }
 
     public String editZone(){
-    	logger.info("修改场地信息!==ID:"+zoneId);
+    	logger.debug("修改场地信息!==ID:"+zoneId);
         zone=zoneService.getZoneById(zoneId);
     	return SUCCESS;
     }

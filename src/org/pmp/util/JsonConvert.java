@@ -540,9 +540,12 @@ public class JsonConvert {
     	StringBuffer sb = new StringBuffer();
     	sb.append("{\n  "+toJson("zones")+":[\n");
     	for (int i=0;i<nodes.size();i++){
+    		if(i==nodes.size()-1){
+        	    sb.append("    "+nodes.get(i)+"\n");
+        	    break;
+    		}
     	    sb.append("    "+nodes.get(i)+",\n");
     	}
-    	sb.deleteCharAt(sb.length()-2);
     	sb.append("  ]\n}");
     	return sb.toString().replaceAll(",}", "}");
     }

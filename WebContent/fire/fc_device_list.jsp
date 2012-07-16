@@ -7,11 +7,13 @@
 <title>Insert title here</title>
 
 
-<link href="../CSS/pages/fireControl/fc_device_list.css" rel="stylesheet" type="text/css" />
+<link href="../CSS/pages/fire/fc_device_list.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="../Scripts/jquery-1.7.1.js" ></script>
 <script type="text/javascript" src="../Scripts/common/common.js"></script>
 <script type="text/javascript" src="../Scripts/common/rightMenu.js"></script>
 <script type="text/javascript" src="../Scripts/pages/fire/FireObject.js" ></script>
+
+<script type="text/javascript" src="../Scripts/pages/fire/fc_device.js" ></script>
 
 <style rel="stylesheet" type="text/css">
 img {display:block}
@@ -36,6 +38,6 @@ img {display:block}
       </ul>
    </div>
 </div>
-<script type="text/javascript" src="../Scripts/pages/fireControl/fc_device.js" ></script>
+
 </body>
 </html>
