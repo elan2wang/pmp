@@ -16,11 +16,11 @@ public class FireInfoBak implements java.io.Serializable {
     private String receiveInfo;
     private Integer state;
     private Date disposeTime;
-    private TbUser tbUser;
+    private String operator;
 
     public String toString(){
     	StringBuffer sb=new StringBuffer();
-    	sb.append("[ "+fireId+","+zone+","+deviceNumber+","+receiveTime+","+receiveInfo+","+state+","+disposeTime+","+tbUser+" ]");
+    	sb.append("[ "+fireId+","+zone+","+deviceNumber+","+receiveTime+","+receiveInfo+","+state+","+disposeTime+","+operator+" ]");
     	return sb.toString();
     }
     
@@ -32,7 +32,7 @@ public class FireInfoBak implements java.io.Serializable {
     }
 
     public FireInfoBak(Integer fireId, Zone zone, String deviceNumber,
-	    Date receiveTime, String receiveInfo, Integer state,Date disposeTime,TbUser tbUser) {
+	    Date receiveTime, String receiveInfo, Integer state,Date disposeTime,String operator) {
 	this.fireId = fireId;
 	this.zone = zone;
 	this.deviceNumber = deviceNumber;
@@ -40,7 +40,7 @@ public class FireInfoBak implements java.io.Serializable {
 	this.receiveInfo = receiveInfo;
 	this.state = state;
 	this.disposeTime=disposeTime;
-	this.tbUser=tbUser;
+	this.operator=operator;
     }
 
     public Integer getFireId() {
@@ -99,12 +99,12 @@ public class FireInfoBak implements java.io.Serializable {
 		this.disposeTime = disposeTime;
 	}
 
-	public TbUser getTbUser() {
-		return tbUser;
+	public String getOperator() {
+		return operator;
 	}
 
-	public void setTbUser(TbUser tbUser) {
-		this.tbUser = tbUser;
+	public void setOperator(String operator) {
+		this.operator = operator;
 	}
-    
 }
+

@@ -109,7 +109,7 @@ public class FireInfoAction extends ActionSupport{
 		    
 	      	TbUser tbUser=SessionHandler.getUser();
             		   	
-		    fireInfoService.editFireInfoStateByDeviceNum(deviceNum, state,tbUser);
+		    fireInfoService.editFireInfoStateByDeviceNum(deviceNum, state,tbUser.getRealname());
 	}
 	
 	/**
@@ -153,7 +153,7 @@ public class FireInfoAction extends ActionSupport{
 		 
 		 List<FireInfoBak> fireInfoBaks=fireInfoBakService.loadFireInfoBakListByProIdList(proIdList, params, order, pager);
          
-		 String[] attrs = {"fireId","zone.zoneName","deviceNumber","receiveTime","receiveInfo","state","disposeTime","tbUser.realname"};
+		 String[] attrs = {"fireId","zone.zoneName","deviceNumber","receiveTime","receiveInfo","state","disposeTime","operator"};
 		 
 		 List<String> show = Arrays.asList(attrs);
 		 

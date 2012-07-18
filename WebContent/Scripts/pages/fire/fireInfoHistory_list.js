@@ -15,7 +15,7 @@ $(function(){
             { display: '接受数据内容', name: 'receiveInfo', width: Width*0.1, sortable:true, align: 'center' },
             { display: '处理状态', name: 'state', width: Width*0.1, sortable:true, align: 'center' },
             { display: '处理时间', name: 'disposeTime', width: Width*0.2, sortable:true, align: 'center' },
-            { display: '处理人', name: 'tbUser.realname', width: Width*0.1, sortable:true, align: 'center' }
+            { display: '处理人', name: 'operator', width: Width*0.1, sortable:true, align: 'center' }
         ],
         buttons:[
                  { name: '删除历史记录', bclass:'delete', onpress: ownerDelete }
@@ -27,7 +27,7 @@ $(function(){
      		    { display: '接受数据内容', name: 'receiveInfo', isDefault:true },
      		    { display: '处理状态', name: 'state', isDefault:true },
      		    { display: '处理时间', name: 'disposeTime', isDefault:true },
-     		    { display: '处理人', name: 'tbUser.realname', isDefault:true }
+     		    { display: '处理人', name: 'operator', isDefault:true }
      		],
 		showSearch:true,
 		height:Height*0.79,

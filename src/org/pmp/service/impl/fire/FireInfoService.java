@@ -41,7 +41,7 @@ public class FireInfoService implements IFireInfoService {
 	}
 
 	@Override
-	public boolean editFireInfoStateByDeviceNum(String deviceNum, Integer state,TbUser tbUser) {
+	public boolean editFireInfoStateByDeviceNum(String deviceNum, Integer state,String operator) {
 		try {
 			FireInfo fireInfo=this.fireInfoDAO.getFireInfoByDeviceNum(deviceNum);
 			if(fireInfo!=null){
@@ -52,7 +52,7 @@ public class FireInfoService implements IFireInfoService {
 			
 			FireInfoBak fireInfoBak=new FireInfoBak();
 			
-			fireInfoBak.setTbUser(tbUser);
+			fireInfoBak.setOperator(operator);
 			fireInfoBak.setDeviceNumber(deviceNum);
 			fireInfoBak.setDisposeTime(new Date());
 			fireInfoBak.setReceiveInfo(fireInfo.getReceiveInfo());
