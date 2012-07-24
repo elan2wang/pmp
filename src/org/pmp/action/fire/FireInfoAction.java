@@ -58,7 +58,7 @@ public class FireInfoAction extends ActionSupport{
 	
 	public void getFireInfos(){
 
-			logger.info("加载报警数据列表######################");
+			logger.debug("加载报警数据列表######################");
 			
 			Map<String, Object> params=new HashMap<String, Object>();//报警数据
 			params.put("state", 1);
@@ -100,16 +100,16 @@ public class FireInfoAction extends ActionSupport{
 			}
 			
 			String data=JsonConvert.toJsonFireInfoList(callNodes,warnNodes);
-			logger.info(data);
+			logger.debug(data);
 			JsonConvert.output(data);
 	}
 
 	public void updateFireInfoState(){
-		    logger.info("########################"+deviceNum+":"+state);
+		    logger.debug("########################"+deviceNum+":"+state);
 		    
 	      	TbUser tbUser=SessionHandler.getUser();
             		   	
-		    fireInfoService.editFireInfoStateByDeviceNum(deviceNum, state,tbUser);
+		    fireInfoService.editFireInfoStateByDeviceNum(deviceNum, state,tbUser.getRealname());
 	}
 	
 	/**
@@ -117,7 +117,7 @@ public class FireInfoAction extends ActionSupport{
 	 */
 	public void loadFireInfoBakList(){
 		 
-		 logger.info("加载消控历史数据列表######################");
+		 logger.debug("加载消控历史数据列表######################");
 		
 		 Pager pager = new Pager(rp,page);
     	 Object obj=SessionHandler.getUserRefDomain();
@@ -139,7 +139,7 @@ public class FireInfoAction extends ActionSupport{
     	 if(obj instanceof Company){
     		     //公司管理员
     		     Company company=(Company)obj;
-    		     logger.info("公司ID:###########"+company.getComId());
+    		     logger.debug("公司ID:###########"+company.getComId());
 				 List<Project> pList=projectService.loadProjectList_ByCompany(company.getComId(), null, null, null);
 				 for (Project pro : pList) {
 					proIdList.add(pro.getProId());
@@ -147,13 +147,13 @@ public class FireInfoAction extends ActionSupport{
     	 }else{
 	    		 //项目管理员
 	    		 Project project=(Project)obj;
-	    		 logger.info("项目ID:############"+project.getProId()); //项目ID
+	    		 logger.debug("项目ID:############"+project.getProId()); //项目ID
 	    		 proIdList.add(project.getProId());
     	 }
 		 
 		 List<FireInfoBak> fireInfoBaks=fireInfoBakService.loadFireInfoBakListByProIdList(proIdList, params, order, pager);
          
-		 String[] attrs = {"fireId","zone.zoneName","deviceNumber","receiveTime","receiveInfo","state","disposeTime","tbUser.realname"};
+		 String[] attrs = {"fireId","zone.zoneName","deviceNumber","receiveTime","receiveInfo","state","disposeTime","operator"};
 		 
 		 List<String> show = Arrays.asList(attrs);
 		 

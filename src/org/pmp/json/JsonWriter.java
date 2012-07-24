@@ -118,7 +118,7 @@ public class JsonWriter {
 	beforeValue(false);
 	String val ;
 	if (value instanceof Date){
-	    val = value.toString().substring(0, 10);
+	    val = value.toString().substring(0, 19);	    
 	} else if (value instanceof Boolean) {
 	    val = (Boolean)value ? "true" : "false";
 	} else if (value instanceof Double) {

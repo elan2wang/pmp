@@ -21,7 +21,8 @@ var zoneList=new Array();
 
 loadAllZones();
 
-setInterval("makeRequest()",5000);
+setInterval("makeRequest()",10000);
+
 setTimeout("makeRequest()",1000);
 
 //var interval=null;
@@ -94,7 +95,7 @@ function makeRequest(){
 				}
 			},
 			error:function(){
-				alert("error");
+				alert("makeRequest error!");
 			}
 		});
 }
@@ -109,6 +110,7 @@ function linkZone(zoneId){
 			zoneImgUrlTmp=zoneList[i].zoneImgUrl;
 			zoneConfigUrlTmp=zoneList[i].zoneConfigUrl;
 			zoneIdTmp=zoneList[i].zoneId;
+			//alert(zoneImgUrlTmp+":"+zoneConfigUrlTmp+":"+zoneIdTmp);
 			break;
 		}
 	}
@@ -122,6 +124,11 @@ var isInit=false;
 
 function setLinkZone(){
 	var num=zoneList.length;
+	
+	if(num==0){
+		return;
+	}
+	
 	if(num>1){
 		isInit=false;
 	}
@@ -164,7 +171,7 @@ function loadAllZones(){
 				//alert(zoneList.length);
 			},
 			error:function(){
-				alert("error");
+				alert("loadAllZones error!");
 			}
 		});
 }
