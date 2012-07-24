@@ -156,9 +156,9 @@ public class UserAction extends BaseAction{
 	smsSend.setSMSCompany(smsc);
 	smsSend.setSmssPerson(SessionHandler.getUser().getUsername());
 	smsSend.setSmssReceiver(user.getMobile());
-	smsSend.setSmssState("new");
+	smsSend.setSmssState("待发送");
 	smsSend.setSmssTime(new Date());
-	smsSend.setSmssContent("您重置后的密码为："+randomPassword+",登录后请及时更改您的密码！");
+	smsSend.setSmssContent("您重置后的密码为："+randomPassword+",请妥善保管自己的密码信息！");
 	
 	/* 保存该待发送短信记录 */
 	smsSendService.addSmsSend(smsSend);

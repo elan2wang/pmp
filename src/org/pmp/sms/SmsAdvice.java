@@ -114,10 +114,9 @@ public class SmsAdvice {
 	    idStr.append(smss.getSmssId().toString()+",");
 	}
 	/* send a message to the message queue */
-	logger.debug(idStr.substring(0, idStr.length()-2));
-	JmsPublisher.sendMessgae(idStr.substring(0, idStr.length()-2));
+	logger.info(idStr.substring(0, idStr.length()-1));
+	JmsPublisher.sendMessgae(idStr.substring(0, idStr.length()-1));
     }
-    
     
     //~ setters and getters =================================================================================
     public ISmsSendService getSmsSendService() {

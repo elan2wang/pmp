@@ -135,6 +135,11 @@ public class SessionHandler {
 	TbUserGroupRole ugr = ugrService.getUGR_ByUserID(userId);
 	String refDomain = ugr.getTbGroup().getRefDomain();
 	Integer groupLevel = ugr.getTbGroup().getGroupLevel();
+	if(groupLevel == 1){
+	    //如果是系统管理员或移动公司管理员，默认以ID为1的短信账号发短信
+	    //此处以后应根据实际情况进行完善
+	    smsc = smscService.getSMSCompanyByComID(1);
+	}
 	if(groupLevel == 2){
 	    ICompanyService companyService = (ICompanyService)SpringContextUtil.getBean("companyService");
 	    Company com = companyService.getCompanyByName(refDomain);
