@@ -25,8 +25,8 @@ import org.pmp.vo.TbGroup;
 import org.pmp.vo.TbRole;
 import org.pmp.vo.TbUser;
 import org.pmp.vo.TbUserGroupRole;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * @author Elan
@@ -41,18 +41,11 @@ public class SessionHandler {
     //~ Methods ========================================================================================================
     public static void putUserIntoSession(){
 	Map<String,Object> session = ServletActionContext.getContext().getSession();
-	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	String principal = authentication.getPrincipal().toString();
-	String [] aa = principal.split(";");
-	String bb = null;
-	for (int i=0;i<aa.length;i++){
-	    if (aa[i].contains("Username")){
-		bb = aa[i];
-		break;
-	    }
+	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	String username = "";
+	if (principal instanceof UserDetails){
+	    username = ((UserDetails) principal).getUsername();
 	}
-	String [] cc = bb.split(":");
-	String username = cc[2].trim();
 	session.put("username", username);
 	/* get user instance */
 	IUserService userService = (IUserService)SpringContextUtil.getBean("userService");

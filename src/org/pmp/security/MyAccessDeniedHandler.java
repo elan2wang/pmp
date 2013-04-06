@@ -53,7 +53,6 @@ public class MyAccessDeniedHandler implements AccessDeniedHandler {
     	        response.setContentType("text/html;charset=UTF-8");
                 response.setCharacterEncoding("UTF-8");
                 StringBuilder sb = new StringBuilder();
-        	logger.debug("+++++++++++++++++++++++++++++++"+accept);
         	if(accept.contains("application/json")){
         	    Map<String,Object> params = new LinkedHashMap<String,Object>();
         	    params.put("msg", "访问受限！\n尊敬的用户，很抱歉您无权访问该资源或执行该操作！ 如有疑问请联系系统管理员！");
