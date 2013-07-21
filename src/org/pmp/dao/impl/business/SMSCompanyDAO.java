@@ -17,7 +17,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.jdbc.Work;
 import org.pmp.dao.admin.BaseDAO;
-import org.pmp.dao.business.ISmsCompanyDAO;
+import org.pmp.dao.business.ISMSCompanyDAO;
 import org.pmp.util.Pager;
 import org.pmp.vo.SMSCompany;
 
@@ -26,10 +26,10 @@ import org.pmp.vo.SMSCompany;
  * @version 1.0
  * @update TODO
  */
-public class SmsCompanyDAO extends BaseDAO implements ISmsCompanyDAO{
+public class SMSCompanyDAO extends BaseDAO implements ISMSCompanyDAO{
 
     //~ Static Fields ==================================================================================================
-    static Logger logger = Logger.getLogger(SmsCompanyDAO.class.getName());
+    static Logger logger = Logger.getLogger(SMSCompanyDAO.class.getName());
     //~ Instance Fields ================================================================================================
 
     //~ Constructor ====================================================================================================

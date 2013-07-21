@@ -10,8 +10,8 @@ package org.pmp.service.impl.business;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.pmp.dao.business.ISmsCompanyDAO;
-import org.pmp.service.business.ISmsCompanyService;
+import org.pmp.dao.business.ISMSCompanyDAO;
+import org.pmp.service.business.ISMSCompanyService;
 import org.pmp.util.Pager;
 import org.pmp.vo.SMSCompany;
 
@@ -20,12 +20,12 @@ import org.pmp.vo.SMSCompany;
  * @version 1.0
  * @update TODO
  */
-public class SmsCompanyService implements ISmsCompanyService{
+public class SMSCompanyService implements ISMSCompanyService{
 
     //~ Static Fields ==================================================================================================
-    static Logger logger = Logger.getLogger(SmsCompanyService.class.getName());
+    static Logger logger = Logger.getLogger(SMSCompanyService.class.getName());
     //~ Instance Fields ================================================================================================
-    private ISmsCompanyDAO smsCompanyDAO;
+    private ISMSCompanyDAO smsCompanyDAO;
     //~ Constructor ====================================================================================================
     
     //~ Methods ========================================================================================================
@@ -59,10 +59,10 @@ public class SmsCompanyService implements ISmsCompanyService{
     }
     
     //~ Getters and Setters ============================================================================================
-    public ISmsCompanyDAO getSmsCompanyDAO() {
+    public ISMSCompanyDAO getSmsCompanyDAO() {
         return smsCompanyDAO;
     }
-    public void setSmsCompanyDAO(ISmsCompanyDAO smsCompanyDAO) {
+    public void setSMSCompanyDAO(ISMSCompanyDAO smsCompanyDAO) {
         this.smsCompanyDAO = smsCompanyDAO;
     }
 

@@ -17,7 +17,7 @@ import org.pmp.service.admin.IUserGroupRoleService;
 import org.pmp.service.admin.IUserService;
 import org.pmp.service.business.ICompanyService;
 import org.pmp.service.business.IProjectService;
-import org.pmp.service.business.ISmsCompanyService;
+import org.pmp.service.business.ISMSCompanyService;
 import org.pmp.vo.Company;
 import org.pmp.vo.Project;
 import org.pmp.vo.SMSCompany;
@@ -76,7 +76,7 @@ public class SessionHandler {
 	
 	/* get the user's SMSComapny instance */
 	SMSCompany smsc = null;
-	ISmsCompanyService smscService = (ISmsCompanyService)SpringContextUtil.getBean("smsCompanyService");
+	ISMSCompanyService smscService = (ISMSCompanyService)SpringContextUtil.getBean("smsCompanyService");
 	if (obj instanceof Company){
 	    smsc = smscService.getSMSCompanyByComID(((Company)obj).getComId());
 	}
@@ -124,7 +124,7 @@ public class SessionHandler {
     public static SMSCompany getSMSCompany(Integer userId){
 	SMSCompany smsc = null;
 	IUserGroupRoleService ugrService = (IUserGroupRoleService)SpringContextUtil.getBean("ugrService");
-	ISmsCompanyService smscService = (ISmsCompanyService)SpringContextUtil.getBean("smsCompanyService");
+	ISMSCompanyService smscService = (ISMSCompanyService)SpringContextUtil.getBean("smsCompanyService");
 	TbUserGroupRole ugr = ugrService.getUGR_ByUserID(userId);
 	String refDomain = ugr.getTbGroup().getRefDomain();
 	Integer groupLevel = ugr.getTbGroup().getGroupLevel();

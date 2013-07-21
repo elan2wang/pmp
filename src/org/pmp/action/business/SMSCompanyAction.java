@@ -20,7 +20,7 @@ import org.apache.struts2.ServletActionContext;
 import org.pmp.json.Includer;
 import org.pmp.json.MyJson;
 import org.pmp.service.business.ICompanyService;
-import org.pmp.service.business.ISmsCompanyService;
+import org.pmp.service.business.ISMSCompanyService;
 import org.pmp.util.JsonConvert;
 import org.pmp.util.Pager;
 import org.pmp.util.SessionHandler;
@@ -34,13 +34,13 @@ import org.pmp.vo.TbRole;
  * @version 1.0
  * @update TODO
  */
-public class SmsCompanyAction extends BaseAction {
+public class SMSCompanyAction extends BaseAction {
 
     private static final long serialVersionUID = 4641286597063236773L;
     //~ Static Fields ==================================================================================================
-    static Logger logger = Logger.getLogger(SmsCompanyAction.class.getName());
+    static Logger logger = Logger.getLogger(SMSCompanyAction.class.getName());
     //~ Instance Fields ================================================================================================
-    private ISmsCompanyService smsCompanyService;
+    private ISMSCompanyService smsCompanyService;
     private ICompanyService companyService;
     
     private SMSCompany smsCompany;
@@ -118,11 +118,11 @@ public class SmsCompanyAction extends BaseAction {
 
    
     //~ Getters and Setters ============================================================================================
-    public ISmsCompanyService getSmsCompanyService() {
+    public ISMSCompanyService getSmsCompanyService() {
         return smsCompanyService;
     }
 
-    public void setSmsCompanyService(ISmsCompanyService smsCompanyService) {
+    public void setSmsCompanyService(ISMSCompanyService smsCompanyService) {
         this.smsCompanyService = smsCompanyService;
     }
 
