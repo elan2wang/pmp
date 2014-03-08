@@ -6,10 +6,10 @@ layout: index
 ##Technique Details
 PMP is designed for the Property Management Association of Zhoushan city.
 
-**Server**: mysql + jetty/tomcat
+**Server**: SQL Server + tomcat + ActiveMQ
 
-**Backend**: Servlet3.0 + Jersey + Spring3.2.3 + mybatis
+**Backend**: Spring(Core, AOP, Security, JMS) + Struts + Hibernate + OpenMAS
 
-**Frontend**: Bootstrap2.3
+**Frontend**: JSP + jQuery
 
 ##Function Details
